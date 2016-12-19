@@ -1,0 +1,65 @@
+---
+title: "Ch 11: Data Import"
+output: html_notebook
+---
+
+```{r results='hide'}
+library("tidyverse")
+```
+
+## Getting started
+
+**Notes**
+
+- `read_log()` is important for web data, but likely ot be  irrelevant to most political science research
+
+    
+**TODO** fill in the links and add any missing 
+    
+### Exercises
+
+**TODO**
+  
+## Parsing a vector
+
+**Notes:** This is detailed, but these details can make your life hell. Skim now, but be aware that what should be simple, actually is not.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">In data analysis, ��% is data cleaning, ��% is modeling, and the rest is character encoding issues</p>&mdash; Jeffrey B. Arnold (@jrnld) <a href="https://twitter.com/jrnld/status/759608460677832706">July 31, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+This Computerphile video on Unicode is great [Characters, Symbols and the Unicode Miracle - Computerphile](https://www.youtube.com/watch?v=MijmeoH9LT4)
+
+Note that these issues are real. Reusing one of Chris Adolph's csv files from an earlier version of this course gave me problems, resulting in me filing this [bug report](https://github.com/tidyverse/readr/issues/111).
+
+The suggested reading is very useful: http://kunststube.net/encoding/
+
+This becomes especially useful when you take "Text as Data".
+
+### Exercises 
+
+**TODO**
+
+## Other Types of Data
+
+**NOTES** Expand on what's in this section:
+
+- The `rio` package is very useful for loading different types of 
+- Other useful functions and packages not mentioned here:
+
+  - Stata: haven, read_dta. While the **foreign** package in R reads Stata files, it cannot read files created by the most recent version of Stata (> 13).
+  - SPSS: `haven::read_spss`
+  - SAS: `haven::read_sas`
+  - XLS: `readxl::read_excel`
+  - JSON: **jsonlite** pacakge. However, often there are APIs and clients which make this easier, e.g. **pollstR** which returns data from the Huffington Post Pollster API.
+  - XML: xml2
+  - HTML: rvest
+  - Databases: **DBI** and backends
+  - PDF: This is really a different thing as you are extracting data from an unstructured form. It also depends on whether the PDF text is actually an image as from a scan, in which case you need to use OCR to first indentify words.
+  
+    - `tabulizer`: extracts tables from PDF documents
+    - `pdftools`: extracts text from pdf documents
+    - Also see general text analysis packages like `tm`, `quanteda`, etc. which often have functions to assist with getting text from PDFs.
+
+Links to Jenny Bryan's tutorials: [purrr-tutorial worked examples](https://jennybc.github.io/purrr-tutorial/index.html)
+
+

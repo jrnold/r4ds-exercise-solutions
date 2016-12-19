@@ -1,0 +1,52 @@
+---
+title: "Ch 13: Relational Data"
+output: html_notebook
+---
+
+
+## Prerequisites
+
+```{r message=FALSE}
+library(tidyverse)
+library(nycflights13)
+```
+
+## nycflights13
+
+**NOTES**
+
+[nycflights13](https://cran.r-project.org/web/packages/nycflights13/index.html) is an example of a **data-only** R package. R packages can contain both functions and data.
+Since data-sets can get large, often they can be packaged as their own dataset. These sorts of data-only R packages make it convenient for R users to access your data, but it should not be the only way you provide your research data. Not everyone uses R, so the original data should be provided in a program agnostic format (e.g. csv files). This also holds for those using Stata; they should not be distributing data in `.dta` format files specific to Stata (even if as we saw earlier, other programs can read that data.)
+Another example of a data-only R package is [gapminder](https://cran.r-project.org/package=gapminder).
+
+How does Hadley create his diagrams? 
+
+The four tables in the **nycflights13** package:
+```{r}
+airlines
+airports
+planes
+weather
+```
+
+### Exercises
+
+**TODO**
+
+## Keys
+
+```{r}
+planes %>% 
+  count(tailnum) %>%
+  filter(n > 1)
+```
+
+```{r}
+weather %>%
+  count(year, month, day, hour, origin) %>%
+  filter(n > 1)
+```
+
+
+
+### Exercises
