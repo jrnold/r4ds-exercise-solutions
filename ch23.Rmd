@@ -10,7 +10,7 @@ For example, linear regression is a special case of GLM or Gaussian Processes et
 
 ## Prerequisites
 
-```{r}
+```{r, message=FALSE}
 library(tidyverse)
 library(modelr)
 options(na.action = na.warn)
@@ -305,9 +305,134 @@ This is called heteroskedasticity, and results in incorrect standard errors in i
 In prediction, this provides insight into where the model is working well and where it is not.
 What is lost, is that since the absolute values are shown, whether the model is over-predicting or underpredicting, or on average correctly predicting in different regions of x cannot be determined.
 
+## Formulas and Model Families
+
+```{r}
+df <- tribble(
+  ~y, ~x1, ~x2,
+  4, 2, 5,
+  5, 1, 6
+)
+```
+
+```{r}
+model_matrix(df, y ~ x1)
+```
+
+```{r}
+model_matrix(df, y ~ x1 - 1)
+```
+
+### Categorical Variables
+
+```{r}
+df <- tribble(
+  ~ sex, ~ response,
+  "male", 1,
+  "female", 2,
+  "male", 1
+)
+model_matrix(df, response ~ sex)
+```
+
+```{r}
+ggplot(sim2) +
+  geom_point(aes(x, y))
+```
 
 
 ```{r}
-?geom_ref_line
+mod2 <- lm(y ~ x, data = sim2)
+grid <- sim2 %>%
+  data_grid(x) %>%
+  add_predictions(mod2)
+grid
 ```
 
+```{r}
+tibble(x = "e") %>%
+  add_predictions(mod2)
+```
+
+```{r}
+ggplot(sim3, aes(x1, y)) + 
+  geom_point(aes(colour = x2))
+```
+
+```{r}
+mod1 <- lm(y ~ x1 + x2, data = sim3)
+mod2 <- lm(y ~ x1 * x2, data = sim3)
+```
+
+```{r}
+grid <- sim3 %>% 
+  data_grid(x1, x2) %>% 
+  gather_predictions(mod1, mod2)
+grid
+```
+
+```{r}
+ggplot(sim3, aes(x1, y, colour = x2)) + 
+  geom_point() + 
+  geom_line(data = grid, aes(y = pred)) + 
+  facet_wrap(~ model)
+```
+
+```{r}
+sim3 <- sim3 %>% 
+  gather_residuals(mod1, mod2)
+
+ggplot(sim3, aes(x1, resid, colour = x2)) + 
+  geom_point() + 
+  facet_grid(model ~ x2)
+```
+
+```{r}
+mod1 <- lm(y ~ x1 + x2, data = sim4)
+mod2 <- lm(y ~ x1 * x2, data = sim4)
+
+grid <- sim4 %>% 
+  data_grid(
+    x1 = seq_range(x1, 5), 
+    x2 = seq_range(x2, 5) 
+  ) %>% 
+  gather_predictions(mod1, mod2)
+grid
+```
+
+Function `seq_range` is useful.
+
+```{r}
+ggplot(grid, aes(x1, x2)) +
+  geom_tile(aes(fill = pred)) +
+  facet_wrap(~ model)
+```
+
+
+```{r}
+ggplot(grid, aes(x1, pred, colour = x2, group = x2)) +
+  geom_line() +
+  facet_wrap(~ model)
+
+ggplot(grid, aes(x2, pred, colour = x1, group = x1)) + 
+  geom_line() +
+  facet_wrap(~ model)
+```
+
+**TODO** We should visualize interactions with plotly
+
+
+### Exercises
+
+
+## Missing values
+
+**TODO** Need to write a tidyverse compliant na.omit function.
+
+## Other model families
+
+**NOTE** It's worth mentioning these as more general models. Though they don't appear as much in social science work. I should try to explain that. I can think of several reasons
+
+- preference for easy to explain models (though I think that's wrong--most people can't visualize high-dimensional space well, and interpret results marginally even though they are conditional)
+- status-quo bias and path dependence combined with lack of knowledge of work outside the field and median lack of technical ability to understand or use these models.
+- the most principled reason is that those modre complicated models really excel in prediction. If we take an agnostic approach to regression, as in the Angrist and Pischke books, then regression isn't being used to fit $f(y | x)$, its being used to fit $E(f(y | x))$, and more specifically to get some sort of average effect for a change in a specific variable.
