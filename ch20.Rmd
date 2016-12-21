@@ -8,6 +8,7 @@ Functions mentioned
 - `typeof`
 - `dplyr::near`
 - `is.finite`, `is.nan`, `is.na`
+- `attributes`
 
 ## Prerequisites
 
@@ -285,4 +286,101 @@ x["a"]
 x[1]
 x[1, ]
 ```
+
+## Augmented Vectors
+
+### Factors
+
+```{r}
+x <- factor(c("ab", "cd", "ab"), levels = c("ab", "cd", "ef"))
+typeof(x)
+attributes(x)
+```
+
+### Dates and date-times
+
+```{r}
+x <- as.Date("1971-01-01")
+unclass(x)
+typeof(x)
+attributes(x)
+```
+
+```{r}
+x <- lubridate::ymd_hm("1970-01-01 01:00")
+unclass(x)
+typeof(x)
+attributes(x)
+```
+
+```{r}
+y <- as.POSIXlt(x)
+typeof(y)
+attributes(y)
+```
+
+### Tibbles
+
+```{r}
+tb <- tibble::tibble(x = 1:5, y = 5:1)
+typeof(tb)
+attributes(tb)
+```
+
+```{r}
+df <- data.frame(x = 1:5, y = 5:1)
+typeof(df)
+attributes(df)
+```
+
+### Exercises
+
+1. What does `hms::hms(3600)` return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?
+
+
+```{r}
+x <- hms::hms(3600)
+class(x)
+x
+```
+
+`hms::hms` returns an object of class, and prints the time in "%H:%M:%S" format.
+
+The primitive type is a double
+```{r}
+typeof(x)
+```
+
+The atttributes is uses are `"units"` and `"class"`.
+```{r}
+attributes(x)
+```
+
+2. Try and make a tibble that has columns with different lengths. What happens?
+
+If I try to create at tibble with a scalar and column of a different length there are no issues, and the scalar is repeated to the length of the longer vector.
+```{r}
+tibble(x = 1, y = 1:5)
+```
+
+However, if I try to create a tibble with two vectors of different lengths (other than one), the `tibble` function throws an error.
+```{r}
+tibble(x = 1:3, y = 1:4)
+```
+
+
+3. Based on the definition above, is it ok to have a list as a column of a tibble?
+
+If I didn't already know the answer, what I would do is try it out. 
+From the above, the error message was about vectors having different lengths.
+But there is nothing that prevents a tibble from having vectors of different types: doubles, character, integers, logical, factor, date. 
+The later are still atomic, but they have additional attributes.
+So, maybe there won't be an issue with a list vector as long as it is the same length.
+
+```{r}
+tibble(x = 1:3, y = list("a", 1, list(1:3)))
+```
+
+It works! I even used a list with heterogenous types and there wasn't an issue.
+In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
 
