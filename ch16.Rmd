@@ -14,13 +14,24 @@ Notes
   - `year`, `month`, `mday`, `yday`, `wday` and `year<-`
   - `floor_date`, `round_date`, `ceiling_date`
   - `update`
+  - `as.duration`, duration functions (`ddays`, etc)
+  - period functions (`days`, `months`, etc)
+  - interval creation with `%--%`
+  - `with_tz`, `force_tz`
 
 - **hms** package has times
 - Ideas for applications: CDB90 data, COW war start end and duration 
+- Read more on time-zones: https://en.wikipedia.org/wiki/Time_zone
+- Computerphile [The Problem with Time & Timezones - Computerphile](https://www.youtube.com/watch?v=-5wpm-gesOY)
+- The history of the tz database are themselves interesting: https://en.wikipedia.org/wiki/Tz_database
+- [A literary appreciation of the Olson/Zoneinfo/tz database]( https://blog.jonudell.net/2009/10/23/a-literary-appreciation-of-the-olsonzoneinfotz-database/)
+
+I think time-zones are likely a point for social science research in and of themselves. Policy choices. Coordination. Regression discontinuity designs. Just sayin...
+
 
 ## Prerequisite
 
-```{r}
+```{r message=FALSE}
 library(tidyverse)
 library(lubridate)
 library(nycflights13)
@@ -360,5 +371,209 @@ flights_dt %>%
   ggplot(aes(x = minute, y = early)) +
   geom_point()
 ```
+
+
+## Time Spans
+
+- duration: exact number of seconds
+- period: human time periods - e.g. weeks, months
+- interval: start and end points
+
+### Durations
+
+```{r}
+h_age <- today() - ymd(19791014)
+class(h_age)
+h_age
+```
+
+```{r}
+as.duration(h_age)
+```
+
+```{r}
+dseconds(15)
+dminutes(10)
+dhours(c(12, 24))
+ddays(0:5)
+dweeks(3)
+dyears(1)
+```
+
+durations are always in seconds, and larger units are in the standard multiples of seconds.
+
+Arithmetic with durations
+```{r}
+2 * dyears(1)
+dyears(1) + dweeks(12) + dhours(15)
+```
+
+```{r}
+tomorrow <- today() + ddays(1)
+last_year <- today() - dyears(1)
+```
+
+Surprising results because doesn't account for weirdness like timezones
+```{r}
+one_pm <- ymd_hms("2016-03-12 13:00:00", tz = "America/New_York")
+one_pm
+one_pm + ddays(1)
+```
+
+### Periods
+
+Periods are durations for the irregular messy human time periods: months, days. 
+
+```{r}
+one_pm
+one_pm + days(1)
+```
+
+```{r}
+seconds(15)
+minutes(10)
+hours(c(12, 14))
+days(7)
+months(1:6)
+weeks(3)
+years(1)
+```
+
+Add or multiply periods:
+```{r}
+10 * (months(6) + days(1))
+days(50) + hours(25) + minutes(2)
+```
+
+```{r}
+# leap year
+ymd("2016-01-01") + dyears(1)
+ymd("2016-01-01") + years(1)
+# DST
+one_pm + ddays(1)
+one_pm + days(1)
+```
+
+Define overnight when `arr_time < dep_time` (no flights > 24 hours):
+```{r}
+flights_dt <- flights_dt %>% 
+  mutate(
+    overnight = arr_time < dep_time,
+    arr_time = arr_time + days(overnight * 1),
+    sched_arr_time = sched_arr_time + days(overnight * 1)
+  )
+```
+
+```{r}
+flights_dt %>%
+  filter(overnight, arr_time < dep_time)
+```
+
+### Intervals
+
+**NOTE** This section seems less complete than the others.
+
+Interval = duration with starting point.
+
+```{r}
+years(1) / days(1)
+```
+
+```{r}
+next_year <- today() + years(1)
+(today() %--% next_year) / ddays(1)
+```
+
+For number of periods in an intervla, use integer division.
+
+```{r}
+(today() %--% next_year) %/% days(1)
+```
+
+### Exercises
+
+1. Why is there `months()` but no `dmonths()`? 
+
+There is no direct unambigous value of months in seconds: 
+
+- 31 days: Jan, Mar, May, Jul, Aug, Oct,
+- 30 days: Apr, Jun, Sep, Nov, Dec
+- 28 or 29 days: Feb
+
+Though in the past, in the pre-computer era, for arithmetic convenience, bankers adopoted a 360 day year with 30 day months.
+
+2. Explain `days(overnight * 1)` to someone who has just started learning R. How does it work? 
+
+`overnight` is equal to TRUE (1) or FALSE (0). So if it is an overnight flight, this becomes 1 day, and if not, then overnight = 0, and no days are added to the date.
+
+3. Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
+
+A vector of the first day of the month for every month in 2015:
+```{r}
+ymd("2015-01-01") + months(0:11)
+```
+
+To get the vector of the first day of the month for *this* year, we first need to figure out what this year is, and get January 1st of it.
+I can do that by taking `today()` and truncating it to the year using `floor_date`:
+```{r}
+floor_date(today(), unit = "year") + months(0:11)
+```
+
+
+4. Write a function that given your birthday (as a date), returns how old you are in years.
+
+```{r}
+age <- function(bday) {
+  (bday %--% today()) %/% years(1)
+}
+age(ymd("1990-10-12"))
+```
+
+5. Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
+
+It appears to work. Today is a date. Today + 1 year is a valid endpoint for an interval. And months is period that is defined in this period.
+```{r}
+(today() %--% (today() + years(1))) %/% months(1)
+(today() %--% (today() + years(1))) / months(1)
+```
+
+### Time Zones
+
+```{r}
+Sys.timezone()
+```
+
+```{r}
+length(OlsonNames())
+head(OlsonNames())
+```
+
+In R, timezones only control printing.
+```{r}
+(x1 <- ymd_hms("2015-06-01 12:00:00", tz = "America/New_York"))
+(x2 <- ymd_hms("2015-06-01 18:00:00", tz = "Europe/Copenhagen"))
+(x3 <- ymd_hms("2015-06-02 04:00:00", tz = "Pacific/Auckland"))
+```
+```{r}
+x1 - x2
+x1 - x3
+```
+
+Lubridate always uses UTC unless otherwise specified.
+```{r}
+x4 <- c(x1, x2, x3)
+x4
+```
+
+To keep time-zone
+```{r}
+x4a <- with_tz(x4, tzone = "Australia/Lord_Howe")
+x4a
+x4a - x4
+```
+Change underlying instant
+```{r}
+x4b <- force_tz(x4, tzone = "Australia/Lord_Howe")
+x4b - x4
 ```
 
