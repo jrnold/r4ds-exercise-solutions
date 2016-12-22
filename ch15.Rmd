@@ -16,10 +16,16 @@ Functions and packages
 - `readr::parse_factor`
 - `fct_reorder`
 - `fct_relevel`
+- `fct_reorder2`
+- `fct_infreq`
+- `fct_rev`
+- `fct_recode`
+- `fct_lump`
+- `fct_collapse`
 
 ## Introduction
 
-```{r}
+```{r message = FALSE}
 library(tidyverse)
 library(forcats)
 ```
@@ -197,5 +203,219 @@ rincome <- gss_cat %>%
   )
 
 ggplot(rincome, aes(age, fct_reorder(rincome, age))) + geom_point()
+```
+
+```{r}
+ggplot(rincome, aes(age, fct_relevel(rincome, "Not applicable"))) +
+  geom_point()
+```
+
+```{r}
+by_age <- gss_cat %>%
+  filter(!is.na(age)) %>%
+  group_by(age, marital) %>%
+  count() %>%
+  mutate(prop = n / sum(n))
+
+ggplot(by_age, aes(age, prop, colour = marital)) +
+  geom_line(na.rm = TRUE)
+
+ggplot(by_age, aes(age, prop, colour = fct_reorder2(marital, age, prop))) +
+  geom_line() +
+  labs(colour = "marital")
+```
+
+```{r}
+gss_cat %>%
+  mutate(marital = marital %>% fct_infreq() %>% fct_rev()) %>%
+  ggplot(aes(marital)) %>%
+  geom_bar()
+```
+
+### Exercises
+
+1. There are some suspiciously high numbers in `tvhours`. Is the `mean` a good summary?
+
+```{r}
+summary(gss_cat[["tvhours"]])
+```
+
+
+```{r}
+gss_cat %>%
+  filter(!is.na(tvhours)) %>%
+  ggplot(aes(x = tvhours)) +
+  geom_histogram(binwidth = 1)
+```
+
+Whether the mean is the best summary epends on what you are using it for :-), i.e. your objective. 
+But probably the median would be what most people prefer. 
+And the hours of tv doesn't look that surprising to me.
+
+2. For each factor in gss_cat identify whether the order of the levels is arbitrary or principled.
+
+The following piece of code uses functions covered in Ch 21, to print out the names of only the factors.
+```{r}
+keep(gss_cat, is.factor) %>% names()
+```
+
+There are five six categorical variables: `marital`, `race`, `rincome`, `partyid`, `relig`, `denom`.
+
+The ordering of marital is "somewhat principled". There is some sort of logic in that the levels are grouped "never married", married at some point (separated, divorced, widowed), and "married"; though it would seem that "Never Married", "Divorced", "Widowed", "Separated", "Married" might be more natural. 
+I find that the question of ordering can be determined by the level of aggregation in a categorical variable, and there can be more "partially ordered" factors than one would expect.
+
+```{r}
+levels(gss_cat[["marital"]])
+```
+```{r}
+gss_cat %>%
+  ggplot(aes(x = marital)) +
+  geom_bar()
+```
+
+The ordering of race is principled in that the categories are ordered by count of observations in the data.
+```{r}
+levels(gss_cat$race)
+```
+```{r}
+gss_cat %>%
+  ggplot(aes(race)) +
+  geom_bar(drop = FALSE)
+```
+
+The levels of `rincome` are ordered in decreasing order of the income; however the placement of "No answer", "Don't know", and "Refused" before, and "Not applicable" after the income levels is arbitrary. It would be better to place all the missing income level categories either before or after all the known values.
+```{r}
+levels(gss_cat$rincome)
+```
+
+The levels of `relig` is arbitrary: there is no natural ordering, and they don't appear to be ordered by stats within the dataset.
+```{r}
+levels(gss_cat$relig)
+```
+
+```{r}
+gss_cat %>%
+  ggplot(aes(relig)) +
+  geom_bar() +
+  coord_flip()
+
+```
+
+The same goes for `denom`.
+```{r}
+levels(gss_cat$denom)
+```
+
+
+Ignoring "No answer", "Don't know", and "Other party", the levels of `partyid` are ordered from "Strong Republican"" to "Strong Democrat".
+```{r}
+levels(gss_cat$partyid)
+```
+
+
+3. Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
+
+Because that gives the level "Not applicable" an integer value of 1.
+
+## Modifying factor levels
+
+```{r}
+gss_cat %>% count(partyid)
+```
+
+```{r}
+gss_cat %>%
+  mutate(partyid = fct_recode(partyid,
+    "Republican, strong"    = "Strong republican",
+    "Republican, weak"      = "Not str republican",
+    "Independent, near rep" = "Ind,near rep",
+    "Independent, near dem" = "Ind,near dem",
+    "Democrat, weak"        = "Not str democrat",
+    "Democrat, strong"      = "Strong democrat"
+  )) %>%
+  count(partyid)
+```
+
+```{r}
+gss_cat %>%
+  mutate(partyid = fct_recode(partyid,
+    "Republican, strong"    = "Strong republican",
+    "Republican, weak"      = "Not str republican",
+    "Independent, near rep" = "Ind,near rep",
+    "Independent, near dem" = "Ind,near dem",
+    "Democrat, weak"        = "Not str democrat",
+    "Democrat, strong"      = "Strong democrat",
+    "Other"                 = "No answer",
+    "Other"                 = "Don't know",
+    "Other"                 = "Other party"
+  )) %>%
+  count(partyid)
+```
+
+```{r}
+gss_cat %>%
+  mutate(relig = fct_lump(relig)) %>%
+  count(relig)
+```
+
+```{r}
+gss_cat %>%
+  mutate(relig = fct_lump(relig, n = 10)) %>%
+  count(relig, sort = TRUE) %>%
+  print(n = Inf)
+```
+
+### Exercises
+
+1. How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
+
+To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent
+```{r}
+levels(gss_cat$partyid)
+```
+
+
+```{r}
+gss_cat %>% 
+  mutate(partyid = 
+           fct_collapse(partyid,
+                        other = c("No answer", "Don't know", "Other party"),
+                        rep = c("Strong republican", "Not str republican"),
+                        ind = c("Ind,near rep", "Independent", "Ind,near dem"),
+                        dem = c("Not str democrat", "Strong democrat"))) %>%
+  count(year, partyid)  %>%
+  group_by(year) %>%
+  mutate(p = n / sum(n)) %>%
+  ggplot(aes(x = year, y = p,
+             colour = fct_reorder2(partyid, year, p))) +
+  geom_point() +
+  geom_line() +
+  labs(colour = "Party ID.")
+  
+
+                                  
+```
+
+2. How could you collapse rincome into a small set of categories?
+
+Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn't want to use something like `fct_lump`.
+```{r}
+levels(gss_cat$rincome)
+```
+
+```{r}
+library("stringr")
+gss_cat %>%
+  mutate(rincome = 
+           fct_collapse(
+             rincome,
+             `Unknown` = c("No answer", "Don't know", "Refused", "Not applicable"),
+             `Lt $5000` = c("Lt $1000", str_c("$", c("1000", "3000", "4000"),
+                                              " to ", c("2999", "3999", "4999"))),
+             `$5000 to 10000` = str_c("$", c("5000", "6000", "7000", "8000"),
+                                      " to ", c("5999", "6999", "7999", "9999"))
+           )) %>%
+  ggplot(aes(x = rincome)) +
+  geom_bar()
 ```
 
