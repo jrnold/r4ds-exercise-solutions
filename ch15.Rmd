@@ -7,6 +7,16 @@ Some notes
 
 - Maybe ordered categorical factors like democracy?
 
+Functions and packages
+
+- **forcats**
+- `factor`
+- `fct_inorder`
+- `levels`
+- `readr::parse_factor`
+- `fct_reorder`
+- `fct_relevel`
+
 ## Introduction
 
 ```{r}
@@ -41,6 +51,151 @@ y2
 No warnings with factor. Use `readr::parse_factor` for warning.
 
 ```{r}
+y2 <- parse_factor(x2, levels = month_levels)
+```
 
+Change order of levels, e.g. first appearance:
+```{r}
+f1 <- factor(x1, levels = unique(x1))
+f1
+f2 <- x1 %>% factor() %>% fct_inorder()
+f2
+```
+
+```{r}
+levels(f2)
+```
+
+## GSS
+
+```{r}
+gss_cat
+```
+
+```{r}
+gss_cat %>%
+  count(race)
+```
+
+```{r}
+ggplot(gss_cat, aes(race)) +
+  geom_bar()
+```
+
+```{r}
+ggplot(gss_cat, aes(race)) +
+  geom_bar() +
+  scale_x_discrete(drop = FALSE)
+```
+
+Use `drop = FALSE` to not drop valid values.
+
+### Exercise
+
+1. Explore the distribution of `rincome` (reported income). What makes the default bar chart hard to understand? How could you improve the plot?
+
+```{r}
+rincome_plot <-
+  gss_cat %>%
+  ggplot(aes(rincome)) +
+  geom_bar()
+rincome_plot
+```
+
+The default bar chart labels are too squished to read.
+One solution is to change the angle of the labels,
+```{r}
+rincome_plot +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+But that's not natural either, because text is vertical, and we read horizontally.
+So with long labels, it is better to flip it.
+```{r}
+rincome_plot +
+  coord_flip()
+```
+
+This is better, but it unituively goes from low to high. It would help if the
+scale is reversed. Also, if all the missing factors were differentiated.
+
+
+3. What is the most common `relig` in this survey? What’s the most common `partyid`?
+
+The most common `relig` is "Protestant"
+```{r}
+gss_cat %>%
+  count(relig) %>%
+  arrange(-n) %>%
+  head(1)
+```
+
+The most common `partyid` is "Independent"
+```{r}
+gss_cat %>%
+  count(partyid) %>% 
+  arrange(-n) %>%
+  head(1)
+```
+
+
+3. Which `relig` does `denom` (denomination) apply to? How can you find out with a table? How can you find out with a visualisation?
+
+```{r}
+levels(gss_cat$denom)
+```
+
+From the context it is clear that `denom` refers to "Protestant" (and unsurprising given that it is the largest category in `freq`).
+Let's filter out the non-responses, no answers, others, not-applicable, or
+no denomination, to leave only answers to denominations.
+After doing that, the only remaining responses are "Protestant".
+```{r}
+gss_cat %>%
+  filter(!denom %in% c("No answer", "Other", "Don't know", "Not applicable",
+                       "No denomination")) %>%
+  count(relig)
+
+  
+```
+
+This is also clear in a scatter plot of `relig` vs. `denom` where the points are
+proportional to the size of the number of answers (since otherwise there would be overplotting).
+```{r}
+gss_cat %>%
+  count(relig, denom) %>%
+  ggplot(aes(x = relig, y = denom, size = n)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+## Modifying factor order
+
+```{r}
+relig <- gss_cat %>%
+  group_by(relig) %>%
+  summarise(
+    age = mean(age, na.rm = TRUE),
+    tvhours = mean(tvhours, na.rm = TRUE),
+    n = n()
+  )
+ggplot(relig, aes(tvhours, relig)) + geom_point()
+```
+
+```{r}
+ggplot(relig, aes(tvhours, fct_reorder(relig, tvhours))) +
+  geom_point()
+```
+
+Move most data analysis out of the ggplot function call
+```{r}
+rincome <- gss_cat %>%
+  group_by(rincome) %>%
+  summarise(
+    age = mean(age, na.rm = TRUE),
+    tvhours = mean(tvhours, na.rm = TRUE),
+    n = n()
+  )
+
+ggplot(rincome, aes(age, fct_reorder(rincome, age))) + geom_point()
 ```
 
