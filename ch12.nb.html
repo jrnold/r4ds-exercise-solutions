@@ -176,14 +176,24 @@ $(document).ready(function () {
 <h2>Introduction</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r library(tidyverse)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
 <div id="tidy-data" class="section level2">
 <h2>Tidy Data</h2>
+<p>Functions</p>
+<ul>
+<li><code>spread</code></li>
+<li><code>gather</code></li>
+<li><code>separate</code></li>
+<li><code>unite</code></li>
+<li><code>complete</code></li>
+<li><code>fill</code></li>
+</ul>
 <p><strong>NOTES</strong></p>
 <ul>
 <li>Add <a href="http://www.jstatsoft.org/v59/i10/paper">Tidy Data</a> to reading</li>
@@ -208,23 +218,646 @@ $(document).ready(function () {
 <p>The definitions of <strong>variable</strong>, <strong>observation</strong>, and <strong>value</strong> are not always clear. And how you store and arrange the data can depend on how you aim to use it. Generally, aim for storing the data in a tidy format that ensures minimal errors. When you model it, you can transform the data later. See non-tidy data.</p>
 <p>It is easier to work with variables in columns because of <code>mutate</code> and <code>summary</code> functions. It will also work better with <code>tidyverse</code> functions: e.g. using <code>group_by</code> to group and summarize, or <code>facet_*</code> and aesthetics in <strong>ggplot2</strong>.</p>
 <p>The tidy data ideas are adapted from the <a href="https://en.wikipedia.org/wiki/Database_normalization">database normalization</a>, but simplified and adapted to the general uses of practicing data scientists.</p>
+<p>x</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUxXG5gYGAifQ== -->
+<pre class="r"><code>table1</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzVlJzVTdETUJDOTJFbXFHaFdRK0FNa3hOUUl3VllKQ1FvREVpd3dkVFZwMmhpQ0hUbU9vQ3p3RDR3cy9BY2JJd3ZNTE16OFFvY0dPN1VSQkxCMHZydDNUOC8zNUpQOXdTWVpFQUJBZ0RFQ2hIWHBJMzE1NEVQYjVDc0F2R0pRSGNzNlFqdFkyQjJOVThwWm9Tai9Id3I3a2w2ejdNOHUyRXNacHo4YmdFNzlCclJlZEx6K3ptNk9QZ0RJR2NBZEE2K1hBdDVlQmJ3WHVybTNNYjN4ZXYwSHNuUC9Sa2FQVDRmdmF3ZEh4OC9yRFhOQm5OR2lzTVljU0laVTBXZ2s2VVhTcEhPTk9icHZ3VllzU3E3a3hMYitKS0h5UzU0V21tOWxjNUdYR1ZWTThJWnNXNHJMeUVtYjlkR3R2cXFxbXVvMGE1QmJJamNTbW9yTXJ3U041VDNaQUpaS2JxU0gzVGd0K1hsM3kyeFNqK2VuWSt2d1crM1BuOFNWbFFyYzd5Vjh6SGppekdYME5IRmZ1YWd0MUE2aVhES3VuR1dORnBFU2lqb2VpVVhta05vYnpENEJKN29YYllNQ0FBQT0ifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["cases"],"name":[3],"type":["int"],"align":["right"]},{"label":["population"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745","4":"19987071"},{"1":"Afghanistan","2":"2000","3":"2666","4":"20595360"},{"1":"Brazil","2":"1999","3":"37737","4":"172006362"},{"1":"Brazil","2":"2000","3":"80488","4":"174504898"},{"1":"China","2":"1999","3":"212258","4":"1272915272"},{"1":"China","2":"2000","3":"213766","4":"1280428583"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUyXG5gYGAifQ== -->
+<pre class="r"><code>table2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6MTJ9LCJyZGYiOiJINHNJQUFBQUFBQUFBODFTc1U3RE1CQzl4RW1ybWhhUStBTWt4TlFJd1ZZSkNWb0dKRmhnNm1yU3RERUVPM0ljUVZuZ0h4aForQTgyUmhhWVdaalptUmdhN05TdUlBc2dGaXlkZmUvZDA5blB1c09kL2pydVl3QndBU0VYWEtSU3oxV2JBeDQwOUhrT2dKWTBxMkpSUmRNVTVyYUhvNWd3bWtuQy9rclZ1b0pjME9UWHlPL0ZsSkdmQW9CVytYNm9QNXA0TXZFTi91TGJEMGtXWlFiZ2xLZDVRaVRsN0QrWFo4N2RWMmZ0L1ZJVmo1MU85eGJnbXVLdG0yZHdPakVlM3QwRDJsemVlMW5aQmRTcjdSODhyRlpHd1E4VGttWG1PeXlKQjBTU1lDaklhVlNWTThWWnVXZkllc2h6SnNYWVFHOGNFV0Z6T1U2ajJWVmFWbW5ZRVB3c3NFMjFJZmRLYlVWUnZLbGpVaEhYZWFxdEs2bXJwOWV2UE5zUkZXSWhaN3Ixb0IzR09UdHBiMmhyWlhtNldpWnZmc3E5NlpXb01LMThPNk1SRzFFMnM1S1FvOGdPN0x5eVVEb0lVa0dWUWZPSGlzMEN5U1d4T2h6eXhES2xONWg4QU5rN1laMnJBd0FBIn0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["count"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"cases","4":"745"},{"1":"Afghanistan","2":"1999","3":"population","4":"19987071"},{"1":"Afghanistan","2":"2000","3":"cases","4":"2666"},{"1":"Afghanistan","2":"2000","3":"population","4":"20595360"},{"1":"Brazil","2":"1999","3":"cases","4":"37737"},{"1":"Brazil","2":"1999","3":"population","4":"172006362"},{"1":"Brazil","2":"2000","3":"cases","4":"80488"},{"1":"Brazil","2":"2000","3":"population","4":"174504898"},{"1":"China","2":"1999","3":"cases","4":"212258"},{"1":"China","2":"1999","3":"population","4":"1272915272"},{"1":"China","2":"2000","3":"cases","4":"213766"},{"1":"China","2":"2000","3":"population","4":"1280428583"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[12]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUzXG5gYGAifQ== -->
+<pre class="r"><code>table3</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzV1N6VktETUJDQVUxTGFFYTNWOFRsS0lTa2tIUDE1QWsrOVJrcGJSZ3lka0k3V2syK296K09odU5Ca3RLaUgvZnQyMmV3bTNOL05pVGYzRUVJT3d0aEJEZ2EzNzREcW9UNDZhZXdMUXZnS25DWnpBVEl3aWRQcjVXb3RaRjVwSWY5SGd4c2xYdlBpejhpOVhlZFNIQWNJamRvejBQQWQ1T08zUFpyaGpNMmlhWmdrbkFVc05HeEU0amlla2lCS0lob0hCbzRwWTVSTlEwYUNJS1l4c1pnSE04NEJ6eUp3RW03d0pRa0ppWUFUUnBJd0F2MmRvQXk2aHdRK0pEeml0SE5iYmxxSXFqSlRXdWd0aEJiK1VvbW5yRnN1Z2RseWJPQXdMYmRTcTUwSis3dE1LT3Nyb2JzOVRsVDU3TnMremVVNWI2RHF1djRFcys4VUQ4dU56a3NKcFU3enBtNW4wcDdxZ1BGV05xMFhrM1M5bFk4VDJtelRwZzh5TW5id3c4ZUhJM0Z0V3JuMjdUTzV5bVZtTnkvRVEyWi9oSE5Zb2QzQTM2aGNhbnR0UUN0ZmwxcllPaTh0QzB2YTNkRCtDeGdPMTJMQkFnQUEifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["rate"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745/19987071","_rn_":"1"},{"1":"Afghanistan","2":"2000","3":"2666/20595360","_rn_":"2"},{"1":"Brazil","2":"1999","3":"37737/172006362","_rn_":"3"},{"1":"Brazil","2":"2000","3":"80488/174504898","_rn_":"4"},{"1":"China","2":"1999","3":"212258/1272915272","_rn_":"5"},{"1":"China","2":"2000","3":"213766/1280428583","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGU0YVxuYGBgIn0= -->
+<pre class="r"><code>table4a</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVF6VTdETUF4MmszYlRnZ1pJZXdQdXE4bzRGWWtEakNmZ3RHdm91alZRbkNsSnhjK0pkK0FwZVFoV2tqWVJJb2ZZbno4N3RqOC8zRzlXYk1NQWdBQ2xCQWkxTUNYV0pKREN6UGszQUxxd3dHWE9CejhtVG01Mys0YWowSWFqcHlaM2luK0kxa2ZadWhISUxaaVB2OGszd0pjQWVuUHh4N0VuU0s0Ym9PdEpORGFyV3E2MUh4bEl0dVdHNXp2RlgrcTRIQzJub3cybmxlelFxSGNmcHBkbFdRYThLb29pNmpGVDhqVVBmZHgrNU5PYXZ1OS9yRHRHeFZONU1FS2lMU1h1T0ZtMGFhSWk0cXhEMTNxN3JKb09uNWRYVHMyUUh0L2NlL29mdTVHMDk2MnljT1VhOXdMcm9MemxqM1U0K2FtVk1DaklEMHFnQ1dlenJNNk5ORHpVc1VxMmdSbTB3ZkVYT3NvSVNRb0NBQUE9In0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["1999"],"name":[2],"type":["int"],"align":["right"]},{"label":["2000"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"745","3":"2666","_rn_":"1"},{"1":"Brazil","2":"37737","3":"80488","_rn_":"2"},{"1":"China","2":"212258","3":"213766","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGU0YlxuYGBgIn0= -->
+<pre class="r"><code>table4b</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVF2VTdETUJCMjdJU3FSZ1drUGdOaWFoVEtGQ1lvREVobGdhbXJTWlBHSXB3cnh4RS9DN3dIUzkrRGpaRkhZT0U5a0dpd1V4c0pENzc3N3J2ejNYMTNmVDRiMHhsRkNHRkVDRWFZYUJoaWJRSVVvcjd4RHdpUm9RWW1zOWY1VFdMN3RGaVVESGl0R0ZocWF5TFpFNjlzRkoyVkhKZ0dBL01yU0w2ZjZjbnI1L1JyLytLUE81NnNhUEgyZm5uMWNlQ05qYktLMWJVZDZVZzZaNHJGaFdSM3VWOE9tcXU5RFh1WmFFREpSeHVHaDJtYU9qeE9rc1RyMFpmaVBuWjl6SDc0Ulp1MmJYKzBXM3ZGUGJGVVhJQXV4ZVk0a2JkcElEMWl0d0hUZWo3S3lnWnVSMGRHVFpmZXZJSDE1RDgySTBsclcwWHV5amtzT09ST2VjVnVjbmZ5SFMyaFV4QXZKUWZsenFiWk9sWkNNVmRITTFFNXB0T0cxcitKakVPS0NnSUFBQT09In0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["1999"],"name":[2],"type":["int"],"align":["right"]},{"label":["2000"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"19987071","3":"20595360","_rn_":"1"},{"1":"Brazil","2":"172006362","3":"174504898","_rn_":"2"},{"1":"China","2":"1272915272","3":"1280428583","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUxICU+JVxuICBtdXRhdGUocmF0ZSA9IGNhc2VzIC8gcG9wdWxhdGlvbiAqIDEwMDApXG5gYGAifQ== -->
+<pre class="r"><code>table1 %&gt;%
+  mutate(rate = cases / population * 1000)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NSwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERpaXVCaVlHQmdZbUJtWm1KZ1lnWXlXWmlBQkNNREN3TW5pSzVnWUdBV0JqSllnVmdBaU5tZ0V0eU9hZWtaaVhtWnhTV0plYmlGMkp5S0Vxc3ljN0R5V0owek12TVNVVGtNREx4Z094all6d1B4QlV3YUpzLzBrb0dCSzR1QllYSW1BNk5WQmdPenJSSURzek1iVEo3UjRGYzlvNVhUQWk2SDJiZTQwbllmOHI2djZ1RVRlRW9kS01jSGtyZGZMRHBkMXNiSTAvN0F4SzE4RDYvK3N6OGpLdVMyU05iVy9tN0wweXlWZ0hyN294RThudlBVT095UHhrMytZTVI3QmkxUVdKTnpFb3VMb1FFQ0UrUktTU3hKMUVzclNzeE5SVmVlQnhTREtXZUZDckluNTVmbWxSUlZRcmtzbGFtSlJYRGpFNHVCNnFIR0Z1UVhsT1lrbG1UbXc4S1VwU2l4Qk4wS3pxTDhjajJZTmFBZ1lHb0FFdi8vLy84RnBQNmhLV2JQTHdBWkIxVEtoQnl6OENndlFoUGdMODBER1oyaW01eFJtcGV0YXc1eUZWZ2FBbmloYkRZa05pdkVTdWIvYUw1bVM4MUx6OHhMaFhrMEp6RXBGWlljK0lCZUFQdEFyNkFvTTY4RTVuMmdhTEZlU1g1Sklrd2RWM0orRGt3RTdEZUdmd0M2VmVRNnh3SUFBQT09In0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["cases"],"name":[3],"type":["int"],"align":["right"]},{"label":["population"],"name":[4],"type":["int"],"align":["right"]},{"label":["rate"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745","4":"19987071","5":"0.0372741"},{"1":"Afghanistan","2":"2000","3":"2666","4":"20595360","5":"0.1294466"},{"1":"Brazil","2":"1999","3":"37737","4":"172006362","5":"0.2193930"},{"1":"Brazil","2":"2000","3":"80488","4":"174504898","5":"0.4612363"},{"1":"China","2":"1999","3":"212258","4":"1272915272","5":"0.1667495"},{"1":"China","2":"2000","3":"213766","4":"1280428583","5":"0.1669488"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <div id="exercises" class="section level3">
 <h3>Exercises</h3>
-<p><strong>TODO</strong></p>
+<ol style="list-style-type: decimal">
+<li>Using prose, describe how the variables and observations are organised in each of the sample tables.</li>
+</ol>
+<p>In <code>table1</code> each row is a (country, year) with variables <code>cases</code> and <code>population</code>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUxXG5gYGAifQ== -->
+<pre class="r"><code>table1</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzVlJzVTdETUJDOTJFbXFHaFdRK0FNa3hOUUlNYUZLU0ZBWWtHQ0JxYXRKMDhZUTdNaHhCR1dCZjJCazRUL1lHRmxnWm1IbUZ6bzAyS21OSUlDbDg5MjllM3ErSjUvc0R6YkpnQUFBQW93UklLeExIK25MQXgvYUpsOEI0QldENmxqV0VkckJ3dTVvbkZMT0NrWDUvMURZbC9TYVpYOTJ3VjdLT1AzWkFIVHFONkQxb3VQMWQzWno5QUZBemdEdUdIaTlGUEQyS3VDOTBNMjlqZW1OMStzL2tKMzdOeko2ZkRwOFh6czRPbjVlYjVnTDRvd1doVFhtUURLa2lrWWpTUytTSnAxcnpORjlDN1ppVVhJbEo3YjFKd21WWC9LMDBId3JtNHU4ektoaWdqZGsyMUpjUms3YXJJOXU5VlZWMVZTbldZUGNFcm1SMEZSa2ZpVm9MTy9KQnJCVWNpTTk3TVpweWMrN1cyYVRlancvSFZ1SDMycC8vaVN1ckZUZ2ZpL2hZOFlUWnk2anA0bjd5a1Z0b1hZUTVaSng1U3hydElpVVVOVHhTQ3d5aDlUZVlQWUowOEhtWklNQ0FBQT0ifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["cases"],"name":[3],"type":["int"],"align":["right"]},{"label":["population"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745","4":"19987071"},{"1":"Afghanistan","2":"2000","3":"2666","4":"20595360"},{"1":"Brazil","2":"1999","3":"37737","4":"172006362"},{"1":"Brazil","2":"2000","3":"80488","4":"174504898"},{"1":"China","2":"1999","3":"212258","4":"1272915272"},{"1":"China","2":"2000","3":"213766","4":"1280428583"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>In <code>table2</code>, each row is country, year , variable (“cases”, “population”) combination, and there is a <code>count</code> variable with the numeric value of the variable.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUyXG5gYGAifQ== -->
+<pre class="r"><code>table2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6MTJ9LCJyZGYiOiJINHNJQUFBQUFBQUFBODFTc1U3RE1CQzl4RW1ybWhhUStBTWt4TlFJc1ZFSkNWb0dKRmhnNm1yU3RERUVPM0ljUVZuZ0h4aForQTgyUmhhWVdaalptUmdhN05TdUlBc2dGaXlkZmUvZDA5blB1c09kL2pydVl3QndBU0VYWEtSU3oxV2JBeDQwOUhrT2dKWTBxMkpSUmRNVTVyYUhvNWd3bWtuQy9rclZ1b0pjME9UWHlPL0ZsSkdmQW9CVytYNm9QNXA0TXZFTi91TGJEMGtXWlFiZ2xLZDVRaVRsN0QrWFo4N2RWMmZ0L1ZJVmo1MU85eGJnbXVLdG0yZHdPakVlM3QwRDJsemVlMW5aQmRTcjdSODhyRlpHd1E4VGttWG1PeXlKQjBTU1lDaklhVlNWTThWWnVXZkllc2h6SnNYWVFHOGNFV0Z6T1U2ajJWVmFWbW5ZRVB3c3NFMjFJZmRLYlVWUnZLbGpVaEhYZWFxdEs2bXJwOWV2UE5zUkZXSWhaN3Ixb0IzR09UdHBiMmhyWlhtNldpWnZmc3E5NlpXb01LMThPNk1SRzFFMnM1S1FvOGdPN0x5eVVEb0lVa0dWUWZPSGlzMEN5U1d4T2h6eXhES2xONWg4QUE5aXp2ZXJBd0FBIn0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["count"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"cases","4":"745"},{"1":"Afghanistan","2":"1999","3":"population","4":"19987071"},{"1":"Afghanistan","2":"2000","3":"cases","4":"2666"},{"1":"Afghanistan","2":"2000","3":"population","4":"20595360"},{"1":"Brazil","2":"1999","3":"cases","4":"37737"},{"1":"Brazil","2":"1999","3":"population","4":"172006362"},{"1":"Brazil","2":"2000","3":"cases","4":"80488"},{"1":"Brazil","2":"2000","3":"population","4":"174504898"},{"1":"China","2":"1999","3":"cases","4":"212258"},{"1":"China","2":"1999","3":"population","4":"1272915272"},{"1":"China","2":"2000","3":"cases","4":"213766"},{"1":"China","2":"2000","3":"population","4":"1280428583"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[12]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>In <code>table3</code>, each row is a (country, year) combination with the column <code>rate</code> having the rate of cases to population as a character string in the format <code>&quot;cases/rate&quot;</code>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUzXG5gYGAifQ== -->
+<pre class="r"><code>table3</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzV1N6VktETUJDQVUxTGFFYTNWOFRsS1NTZ2tIUDE1QWsrOVJrcGJSZ3lka0k3V2syK296K09odU5Ca3RLaUgvZnQyMmV3bTNOL05xVGYzRUVJT3d0aEJEZ2EzNzREcW9UNDZhZXdMUXZnS25DWnpBVEl3aWRQcjVXb3RaRjVwSWY5SGd4c2xYdlBpejhpOVhlZFNIQWNJamRvejBQQWQ1T08zUFpyaGpNMmlLVWtTemdKR0RCdlJPSTZuTklpU0tJd0RBOGNoWXlHYkVrYURJQTVqYWpFUFpwd0Rua1hnSk56Z1Mwb29qWUJUUmhNU2dmNU9oQXk2RXdvZlVoN3hzSE5iYmxxSXFqSlRXdWd0aEJiK1VvbW5yRnN1Z2RseWJPQXdMYmRTcTUwSis3dE1LT3Nyb2JzOVRsVDU3TnMremVVNWI2RHF1djRFcys4VUQ4dU56a3NKcFU3enBtNW4wcDdxZ1BGV05xMFhrM1M5bFk4VDBtelRwZzh5TW5id3c4ZUhJM0Z0V3JuMjdUTzV5bVZtTnkvRVEyWi9oSE5Zb2QzQTM2aGNhbnR0UUN0ZmwxcllPaTh0QzB2YTNkRCtDMXhLYTZUQkFnQUEifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["rate"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745/19987071","_rn_":"1"},{"1":"Afghanistan","2":"2000","3":"2666/20595360","_rn_":"2"},{"1":"Brazil","2":"1999","3":"37737/172006362","_rn_":"3"},{"1":"Brazil","2":"2000","3":"80488/174504898","_rn_":"4"},{"1":"China","2":"1999","3":"212258/1272915272","_rn_":"5"},{"1":"China","2":"2000","3":"213766/1280428583","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Table 4 is split into two tables, one table for each variable: <code>table4a</code> is the table for cases, while <code>table4b</code> is the table for population. Within each table, each row is a country, each column is a year, and the cells are the value of the variable for the table.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGU0YVxuYGBgIn0= -->
+<pre class="r"><code>table4a</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVF6VTdETUF4MmszYlRnZ1pJdkFIM1ZkMXVSZUlBNHdrNDdacDEzUm9venBTazR1ZkVPL0NVUEFRclNac0lrVVBzejU4ZDI1OGZIellydG1FQVFJQlNBb1JhbUJKckVraGg1dndiQUwyeXdHVXVCejhtenU3Mmg0YWowSWFqcHliM2luK0kxa2ZadWhISUxaaVB2OGszd0pjQWVudjl4N0VuU0c0YW9PdEpORGFyV3E2MUh4bEl0dU9HNTN2RlgrcTRIQzJub3cybmxlelFxSGNmcHN1eUxBTmVGVVVSOVpncCtacUhQbTQvOG1sTjMvYy8xcDJpNHFrOEdpSFJsaEozbkN6YU5GRVJjZEdoYTcxYlZFMkh6NHVsVXpPa3h6ZjNudjdIYmlUdGZhc3NYTG5HZzhBNktHLzV0ZzRuUDdjU0JnWDVVUWswNFd5VzFibVJob2M2VnNrMk1JTTJPUDBDZm82MGp3b0NBQUE9In0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["1999"],"name":[2],"type":["int"],"align":["right"]},{"label":["2000"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"745","3":"2666","_rn_":"1"},{"1":"Brazil","2":"37737","3":"80488","_rn_":"2"},{"1":"China","2":"212258","3":"213766","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGU0YlxuYGBgIn0= -->
+<pre class="r"><code>table4b</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVF2VTdETUJCMjdJU3FSZ1VrbmdFeE5Rclp3Z1NGQVFrV09uVTFhZEpZaEhQbE9PSm5nZmRnNFQzWUdIa0VGdDREcVExMmFpUGh3WGZmZlhlK3UrK201N09VemloQ0NDTkNNTUpFd3hCckU2QVFEWTEvUUlqc2EyQXllNzNmSkxaUHkwWEZnRGVLZ2FXMkpwSTk4ZHBHMFZuRmdXa3dNcitDNU9lWm5yeCtYWDRmWFB4eHg1TTNXcjUvWEYxL0hucGpvN3htVFdOSE9wTE9tV0p4S2RsZDRaZUQ1aHB2dzBFdVdsRHkwWWJoVVpabERxZEprbmc5aGxMY3g2NlAyUSsvYU5OMTNVcTd0VmM4RUV2RkJlaFNiSTRUZVpzRzBpTjJXekN0NStPOGF1RjJuQm8xZlhyelJ0YVQvOWlNSkoxdEZia3JGN0RnVURqbE5ic3AzTWwzdElSZVFieVVISlE3bTJhYldBbkZYQjNOUmUyWVhodGEvd0tycmgzcENnSUFBQT09In0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["1999"],"name":[2],"type":["int"],"align":["right"]},{"label":["2000"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"19987071","3":"20595360","_rn_":"1"},{"1":"Brazil","2":"172006362","3":"174504898","_rn_":"2"},{"1":"China","2":"1272915272","3":"1280428583","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="2" style="list-style-type: decimal">
+<li><p>Compute the <code>rate</code> for <code>table2</code>, and <code>table4a</code> + <code>table4b</code>. You will need to perform four operations:</p></li>
+<li>Extract the number of TB cases per country per year.</li>
+<li>Extract the matching population per country per year.</li>
+<li>Divide cases by population, and multiply by 10000.</li>
+<li><p>Store back in the appropriate place.</p></li>
+</ol>
+<p>Which representation is easiest to work with? Which is hardest? Why?</p>
+<p>Without using the joins covered in Ch 12:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZSh0YWJsZTIpXG5gYGAifQ== -->
+<pre class="r"><code>glimpse(table2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiT2JzZXJ2YXRpb25zOiAxMlxuVmFyaWFibGVzOiA0XG4kIGNvdW50cnkgPGNocj4gXCJBZmdoYW5pc3RhblwiLCBcIkFmZ2hhbmlzdGFuXCIsIFwiQWZnaGFuaXN0YW5cIiwgXCJBZmdoYW5pc3RhblwiLCAuLi5cbiQgeWVhciAgICA8aW50PiAxOTk5LCAxOTk5LCAyMDAwLCAyMDAwLCAxOTk5LCAxOTk5LCAyMDAwLCAyMDAwLCAxOTk5LCAxOTk5LCAuLi5cbiQgdHlwZSAgICA8Y2hyPiBcImNhc2VzXCIsIFwicG9wdWxhdGlvblwiLCBcImNhc2VzXCIsIFwicG9wdWxhdGlvblwiLCBcImNhc2VzXCIsIFwicG9wdS4uLlxuJCBjb3VudCAgIDxpbnQ+IDc0NSwgMTk5ODcwNzEsIDI2NjYsIDIwNTk1MzYwLCAzNzczNywgMTcyMDA2MzYyLCA4MDQ4OCwgMTc0NS4uLlxuIn0= -->
+<pre><code>Observations: 12
+Variables: 4
+$ country &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, ...
+$ year    &lt;int&gt; 1999, 1999, 2000, 2000, 1999, 1999, 2000, 2000, 1999, 1999, ...
+$ type    &lt;chr&gt; &quot;cases&quot;, &quot;population&quot;, &quot;cases&quot;, &quot;population&quot;, &quot;cases&quot;, &quot;popu...
+$ count   &lt;int&gt; 745, 19987071, 2666, 20595360, 37737, 172006362, 80488, 1745...</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGIyX2Nhc2VzIDwtIGZpbHRlcih0YWJsZTIsIHR5cGUgPT0gXCJjYXNlc1wiKVtbXCJjb3VudFwiXV1cbnRiMl9jb3VudHJ5IDwtIGZpbHRlcih0YWJsZTIsIHR5cGUgPT0gXCJjYXNlc1wiKVtbXCJjb3VudHJ5XCJdXVxudGIyX3llYXIgPC0gZmlsdGVyKHRhYmxlMiwgdHlwZSA9PSBcImNhc2VzXCIpW1tcInllYXJcIl1dXG50YjJfcG9wdWxhdGlvbiA8LSBmaWx0ZXIodGFibGUyLCB0eXBlID09IFwicG9wdWxhdGlvblwiKVtbXCJjb3VudFwiXV1cbnRhYmxlMl9jbGVhbiA8LSB0aWJibGUoY291bnRyeSA9IHRiMl9jb3VudHJ5LFxuICAgICAgIHllYXIgPSB0YjJfeWVhcixcbiAgICAgICByYXRlID0gdGIyX2Nhc2VzIC8gdGIyX3BvcHVsYXRpb24pXG50YWJsZTJfY2xlYW5cbmBgYCJ9 -->
+<pre class="r"><code>tb2_cases &lt;- filter(table2, type == &quot;cases&quot;)[[&quot;count&quot;]]
+tb2_country &lt;- filter(table2, type == &quot;cases&quot;)[[&quot;country&quot;]]
+tb2_year &lt;- filter(table2, type == &quot;cases&quot;)[[&quot;year&quot;]]
+tb2_population &lt;- filter(table2, type == &quot;population&quot;)[[&quot;count&quot;]]
+table2_clean &lt;- tibble(country = tb2_country,
+       year = tb2_year,
+       rate = tb2_cases / tb2_population)
+table2_clean</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERpaXVCaVlHQmdZbUJtWm1KZ1lnWXlXWmlBQkNNREN3TW5pSzVnWUdBV0JqSkFNZ0pBekFhVjRIWk1TODlJek1zc0xrbk13eTNFNWxTVVdKV1pnNVhINnB5Um1aZUl5bUZnNEFYYndjQitIb2d2WU5JTWZDQjVlK2F1RzNwQjhzejJDdCticE52Ky83UFhPVGo3blhubWRuczdLNmMvUEhNMDdGVnY2NmN4R1Z2YnF6NjhyMjNxT3cvTlU2ekpPWW5GeFZBUHdRUzVVaEpMRXZYU2loSnpVOUdWNXdIRllNcVpvWUxzeWZtbGVTVkZsVkF1UzJWcVloR01YWlJZZ200R1oxRit1UjdNSEpBZm1ScUF4UC8vLzM4QnFYOW9pdG56QzBveTgvT0FTcGxBUWMrSzVsTEdJalFCL3RJOGtORXB1c2tacFhuWnVvWWczNENsSVlBWHltWkRZak5EckdUK0R6V0tGUlpGcVhucG1YbXBNSi9uSkNhbHd1S0xEK2dGc0EvMENvb3k4MHBnd1FZVUxkWXJ5UzlKaEtualNzN1BnWW1BL2Nid0R3QlJVY0tFYUFJQUFBPT0ifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["rate"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"0.0000372741"},{"1":"Afghanistan","2":"2000","3":"0.0001294466"},{"1":"Brazil","2":"1999","3":"0.0002193930"},{"1":"Brazil","2":"2000","3":"0.0004612363"},{"1":"China","2":"1999","3":"0.0001667495"},{"1":"China","2":"2000","3":"0.0001669488"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Note, that this assumes that all observations are sorted so that each country, year will have the observation for cases followed by population.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZSh0YWJsZTRhKVxuYGBgIn0= -->
+<pre class="r"><code>glimpse(table4a)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiT2JzZXJ2YXRpb25zOiAzXG5WYXJpYWJsZXM6IDNcbiQgY291bnRyeSA8Y2hyPiBcIkFmZ2hhbmlzdGFuXCIsIFwiQnJhemlsXCIsIFwiQ2hpbmFcIlxuJCAxOTk5ICAgIDxpbnQ+IDc0NSwgMzc3MzcsIDIxMjI1OFxuJCAyMDAwICAgIDxpbnQ+IDI2NjYsIDgwNDg4LCAyMTM3NjZcbiJ9 -->
+<pre><code>Observations: 3
+Variables: 3
+$ country &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Brazil&quot;, &quot;China&quot;
+$ 1999    &lt;int&gt; 745, 37737, 212258
+$ 2000    &lt;int&gt; 2666, 80488, 213766</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>or</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKGNvdW50cnkgPSByZXAodGFibGU0YVtbXCJjb3VudHJ5XCJdXSwgMiksXG4gICAgICAgeWVhciA9IHJlcChjKDE5OTksIDIwMDApLCBlYWNoID0gbnJvdyh0YWJsZTRhKSksXG4gICAgICAgYHJhdGVgID0gYyh0YWJsZTRhW1tcIjE5OTlcIl1dIC8gdGFibGU0YltbXCIxOTk5XCJdXSxcbiAgICAgICAgICAgICAgICAgIHRhYmxlNGJbW1wiMjAwMFwiXV0gLyB0YWJsZTRiW1tcIjIwMDBcIl1dKSlcbmBgYCJ9 -->
+<pre class="r"><code>tibble(country = rep(table4a[[&quot;country&quot;]], 2),
+       year = rep(c(1999, 2000), each = nrow(table4a)),
+       `rate` = c(table4a[[&quot;1999&quot;]] / table4b[[&quot;1999&quot;]],
+                  table4b[[&quot;2000&quot;]] / table4b[[&quot;2000&quot;]]))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUE1VlJ1MDdETUJTOXRaTlVEV3BCNGdPWTJHaVF5c0FBVXNyakN6cDF2YVJKWXhHY3luRUVaV0xtRnhqNERHYitBb2wvUU13TURYWmlTOGl3WUNrK3grY2UzK1Rremk3bmszQWVBZ0FCU2drUXFxaEgxTllERHdZYTd3RG9yaUs2c3FPZXdCUzJ6ckpsanB4VkVybVJnbk9COTZ3d0ovOGlaeHovNlFZWTZkTDArUlQwK28zVFA5SGVpK25qV3pUYm8vSEI2OVBITVh1Sjk5OFBNM0owRW45MkpoZWRzSDVTWUZXWm9GWU1GeWd4eWdUZXBLNmRLODNhcVJIN1NWbHpLZGJtNksxVEZKWUxsRzZQZ1Nodkk5dG5xQWZ4b0xhbWFiNFViQnh6djF4SlZuSmxKWG9rdnZPbFBlRUkyelhYclJmakpLLzU5WGlpMDdUbGJnME5EMzV3MnIyU05xYVZiNmVWOGlYanFVMWU0RlZxUnpkU0Vkb0UwVW93THUxdlUyb1Z5VktpOVlWSldWaWx6UWFiYjAxM0EwK0FBZ0FBIn0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["rate"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"0.0000372741"},{"1":"Brazil","2":"1999","3":"0.0002193930"},{"1":"China","2":"1999","3":"0.0001667495"},{"1":"Afghanistan","2":"2000","3":"1.0000000000"},{"1":"Brazil","2":"2000","3":"1.0000000000"},{"1":"China","2":"2000","3":"1.0000000000"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="3" style="list-style-type: decimal">
+<li>Recreate the plot showing change in cases over time using <code>table2</code> instead of <code>table1</code>. What do you need to do first?</li>
+</ol>
+<p>First, I needed to filter the tibble to only include those rows that represented the “cases” variable.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUyICU+JSBcbiAgZmlsdGVyKHR5cGUgPT0gXCJjYXNlc1wiKSAlPiVcbiAgZ2dwbG90KGFlcyh5ZWFyLCBjb3VudCkpICsgXG4gIGdlb21fbGluZShhZXMoZ3JvdXAgPSBjb3VudHJ5KSwgY29sb3VyID0gXCJncmV5NTBcIikgKyBcbiAgZ2VvbV9wb2ludChhZXMoY29sb3VyID0gY291bnRyeSkpXG5gYGAifQ== -->
+<pre class="r"><code>table2 %&gt;% 
+  filter(type == &quot;cases&quot;) %&gt;%
+  ggplot(aes(year, count)) + 
+  geom_line(aes(group = country), colour = &quot;grey50&quot;) + 
+  geom_point(aes(colour = country))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-plot-begin eyJjb25kaXRpb25zIjpbXSwiaGVpZ2h0Ijo0MDEuNzMwNSwic2l6ZV9iZWhhdmlvciI6MCwid2lkdGgiOjY1MH0= -->
+<p><img src="data:image/png;base64,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7373O1efxx57zEaPHm1r1qxxwm3GjBk2dOhQ+/DDD931d9991+6///4GdZcofPTRR925efPm2eTJk50I7d27t40aNcouvfRSJx4VYdCgQdamTRvbaaedbMiQIbZlyxb7wx/+YCeccIK1atXKVq9ebe3bt3dpgqLwnnvusddff91da1B4iA7KQ9QWmgIBCEAAAhCAQAESWLJkiV155ZX2z3/+0w488EDXgl69etm0adOsvr7eCUiJNnkcFX7wgx9Yv3797PLLL99OILoIcf5bsWKFPfvss05g6vLixYvt6aeftkmTJtm4cePs5z//uROoRx99tK1fv97lcMwxxzgPow6qq6vtrLPOcp7OU0891V1Xfc4//3y3H9b/8CiG1bK0CwIQgAAEIFAgBObMmeM8d/Ia+iCRdt999zlvnrqF1V0cDEceeaTrSg6ea2y/oqIiKhIVr0+fPlFBmCjdyJEjo5dat25txx9/vE2ZMsWde+mll0xdz+PHj4/GCeMOHsUwWpU2QQACEIAABAqIwGeffWYSciUlJdvVWt2+CuoWDobu3btHxxjqvDyPwaDu42CorKwMHlppael2aRpEiBx07ty5wSl5EtVtLW+kvIlf//rXrVOnTg3ihO0Aj2LYLEp7IAABCEAAAgVGoH///s5zuGzZsmjN5WU86qijrEuXLtayZUt74oknote08+STT9rw4cPdOY0j9N3FPtKCBQv8bsa2I0aMsMGDB9vf/vY3e+ihh+yUU07JWN75mhFCMV8tQ70gAAEIQAACRULgS1/6kptEorGHmqCyfPlyu+KKK6xr167Wrl07N7NYXb5///vfbdOmTXbHHXeYZjIfe+yxjtCAAQPczGNNLpEnUZNYHn/88ZToyXv4zjvvmMZLNhbkVbzuuuuc9/Owww5rLGooriEUQ2FGGgEBCEAAAhAoXALl5eVukoiWvJHo23333Z1A1AQXBS1Zo2Vx5GGsqqpyE19+85vfRMcHqjtYs6S19I26sH/xi1/YT3/605SAfOMb33Cewv3337/RdCeeeKJpYoy2qnfYQ0mkT79hp37YW5xC+3b0qyKFrNwvjx49etiqVavczKlU0uZjXH059GVct25dPlYv5TrJNlryYOPGjSmnzbcEGnejX+BaRiIMoVu3bs4usd1Khdo2PeR0HwhDUJdgTU1NaNaQC5Nt5B3TGoF+fF8m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haLe96yXi99///32/vvvm96BuPfee7v3IOql2wQIQAACEIAABCAAgXARSFoovvHGG6buZ72hZdiwYbZ8+XJbsmSJHX744TZt2rQGL6oOFyJaAwEIQAACEIBAGAisXbvWHnjggWhTunbtavvuu6/16dMneq4pO8uWLXPvhP7Wt75lM2bMMDnZhg4d2pQsc5426VnPZ555ph1wwAH2ySefuJdkL1682K2j+O6779r/+3//L+cNoQIQgAAEIAABCISXQHXtZvvJO7+w/Wd+zUbMONxmrnol5cbKyXX22WfbnDlznIa57777bPjw4fbkk0+mnFe8BBKKcp4pqAf26aefjhetoM4l5VHUWomzZ882eRV33nln10Ctoq6u5wsvvNAef/xxu/jiiwuq4VQWAhCAAAQgAIHCISCBWFtfa/qnMOGti+y3e1xrB3U6IKVGaG7FLbfcEk2jF4f89re/tcMOO8zWr1/vFuiWM6x3795uXy8bWbBggdXV1dmuu+7q5mZo5ZdVq1ZF89CO1mscNGiQ3XzzzQ3OF/pBUkKxtLTUTWSRYIwNGzZsaLBsTuz12GN5IFu3bm277LJL9NLmzZudEJX4HDFiRINV1FesWGGvvvqqiz9w4MCspYlmzA4EIAABCEAAAnlF4IWVL1lEIjih6Cu2pX6rXffBzSkLRZ/ebzXvYsCAAe7w0ksvNekUvXnuxBNPtDPOOMP0mmKJRg2309tjZs2aZfIc/uAHP3BppJHeeust1+t6ySWX2FlnneU8lj7/Qt8m1fUsYae1EuU1fOWVV5xorK6utunTpzvlPHbs2KQ4SJH/+Mc/tnfeeScaX9BPOeUUe+6552zKlCk2ceLE6OxquYZPPfVUN3lG5707N9NpopVhBwIQgAAEIACBvCOwsXaTtSpttV291m5dv925HZ3QG2DkGezXr597v/RDDz1kkyZNiiaTt1Bd1DfddJM9//zzTreoa1q9qnof9TPPPOM8h7qmP4nLtm3bNvBSRjMLwU5SQlHtvPXWW91Elv3339+6d+9unTp1siOOOML2228/B3FHLB555BG74IILrEOHDg2iTp061UaOHGmXX365/f73v3evBJRaV5g8ebJdddVVdu6559rtt99uf/zjH00GznSaBhXiAAIQgAAEIACBvCIwosPetqVuS4M6tSppaV+q2q/BuWQO1EUs55QXescd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ddZZNmfOHLviiitswYIF7rpePSjhOGvWLKusrLRjjjnGPv74Y+vcubO98sorNmXKFDvyyCMblFdIB3gUC8la1BUCEIAABCBQhASqIyKxZXn9di3fsHmbcNzuYpwTEnsDBw60kpKG6SoqKqxly5bRFEcffbT985//tBdffNFuu+02i/e+6Pnz59v777/vxGC7du3sqaeesnfeecc6dOhgr732mj399NPOY3nvvfdG8y3EHTyKhWg16gwBCEAAAhAoIgK799hqW+sairvysnob1GvbJJRkcHTr1s1WrFixw6iHHHKIizN48GDXrbx27drt0hxxxBFRwdm/f3/XzTx06FCbOHGi80C+/vrr9tJLL5nyKOSAR7GQrUfdIQABCEAAAkVAoGObertw3HrX0spWdVbRss76da21H4zdmFLr9957b9dlrIkpwTB16lQ77rjjoqfkYfQh1vvoz3fq1MnvWmlpqfM6agb12LFjnYA899xznWiMRirQHTyKBWo4qg0BCEAAAhAoJgIDe9Xa5JPX2Lyl5dYq0g09tE9q3kSxkriTgJMofPDBB904Qo1DvOSSS2zy5MlNxikP4pgxY+zCCy90M6qvueYaN9axyRnnMAM8ijmET9EQgAAEIAABCCRPoENlve2365a0RKIv5X//939tjz32sH333dd69+5t3/nOd+wHP/iBHXXUUT5K2tuTTjrJTXA58MAD7YADDnDjIT/44IO088uHhCWRAZrbjw7Nh5rlQR2C0+KbWh25rnv06GGrVq2y6urqpmaX8/Tl5eUm17xfdyrnFWpiBWQbjUHZuDG1bowmFpuV5OoC0cDqNWvWZCX/5s5UY4pkF80qDEOoqqpy94EwtKVLly5WU1MTd3HiQmxfmGyjGbe1tbW2evXqjJlCM3o1USMbQVIkG/csTVDRsypR9/HKlSudlzHTbfr8889dvonKzXR52cwPj2I26ZI3BCAAAQhAoBkJ1NVHFpD++Dbb65lDbI9nD7LfLLqzGUsvvKKC4wwzWXsJ9TCIRDFhjGImPxnkBQEIQAACEMghgbPe+6m9vG5OtAb3LX3ISiP/frjzqdFz7EAgFQJ4FFOhRVwIQAACEIBAnhL4dOPSBiJR1dxcX2NTPnvQqus252mtqVa+E8CjmO8Won4QgAAEIACBAAGN19XYOo2DC/4t2rzEykeW2dYWkZciB8KW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s4XGNN5222125JFHunFAstXkyZNt2bJlpjF1+vOflyIySbSpzW0bfadOPvlk98PN8+/Xr58T8xKQ559/vhsbLJu1bt266NfLfPDBB+3666+3k046yX1+G/veNHa/S/Rdi34QIjuvv/666bvn7aL75T/+8Q87/vjj3T2O780XtBq7vyS692fieZEob743wU9xke9rwW1CfAIffPBB/Xe+8536M888s/6iiy6KRrr99tvrI0ItevzDH/6wPnLzc8eRm1/93Llz3X7k11j9V7/61frIQ7N+3rx59cccc0w0TeRGXX/55ZdHj/1ORFzWR764/tCV/dJLL9VHBibXf/Ob36yP/LJ31yJrZNVfc8010XjFtpPINo1xbqptbr755vo777wzivqKK66of+yxx9xxRIDU33333dFrxbyTC9vI7hGhGBf79773vfqIWHHXIg/j+oi4r4/8yIsbN+wnIx6r+ksuucTdVyJrH7p7k9rc2Pcm0f2usTSJOOpe+N3vfrf+X//6l4vC92YbqUT3l8bu/U19XjSWN9+bbbYp9j3GKDbyQ2Hjxo1uEWb98g2GN954w4YNGxY9pQW0Iw9HW7VqlfMo+QW1NYNWnkV1s8RLoy6b2KBZhPvss0/0tPYjwtN1papMrYyv4M9HIxbZTiq2EedM2EZeZHlgfNCwA/2iV4g8NJ13WG/f0TCFyI3FRyu6bS5sI/7q6n/iiSfskUceMdVBQZ5GecT891UL3qtLWt/JYgzqQtZbVNQjEQyN3Z/iXdP9Lt75ePe0YDmRH1puUXv1hijwvdlGJ9H9RUwT3fub+rxIlDffm212YY91FBv9DOy5555x39Shm5y6TvRl0hibmTNnmsbhVFVVWf/+/e355593+cp1rzEeuvalL33JXn75ZSdY6urq3PggnY8N6n5o37599LT2NR5OcTUu0Qd/3h8X2zaRbRJxzoRtWrZsGR1Xqu4zCZCvfe1rDr0eeBqz2qpVK7v33nst4oEuNpNE25sL22hoiMZZrVu3zm2PO+44993TUAAt3+LHkqqS+h6tXLkyWt9i2tHn86ijjop2N/u2J/re6Hqi+11jaXy+wa1+WD300EN2yimnRE/zvYmisET3l8bu/U19XiTKm+/NNruwZ8Yr/NL4FBx++OHOy6eHkSak7L333u5hpKz0q1CvHIt017i1xYYMGeIeTFqjT/E1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" /></p>
+<!-- rnb-plot-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 </div>
 </div>
 <div id="spreading-and-gathering" class="section level2">
 <h2>Spreading and Gathering</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGlkeTRhIDwtIHRhYmxlNGEgJT4lXG4gIGdhdGhlcihgMTk5OWAsIGAyMDAwYCwga2V5ID0gXCJ5ZWFyXCIsIHZhbHVlID0gXCJjYXNlc1wiKVxudGlkeTRiIDwtIHRhYmxlNGIgJT4lXG4gIGdhdGhlcihgMTk5OWAsIGAyMDAwYCwga2V5ID0gXCJ5ZWFyXCIsIHZhbHVlID0gXCJjYXNlc1wiKVxubGVmdF9qb2luKHRpZHk0YSwgdGlkeTRiKVxuYGBgIn0= -->
+<pre class="r"><code>tidy4a &lt;- table4a %&gt;%
+  gather(`1999`, `2000`, key = &quot;year&quot;, value = &quot;cases&quot;)
+tidy4b &lt;- table4b %&gt;%
+  gather(`1999`, `2000`, key = &quot;year&quot;, value = &quot;cases&quot;)
+left_join(tidy4a, tidy4b)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBjKFwiY291bnRyeVwiLCBcInllYXJcIiwgXCJjYXNlc1wiKVxuIn0= -->
+<pre><code>Joining, by = c(&quot;country&quot;, &quot;year&quot;, &quot;cases&quot;)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUE1VlJRVTdETUJEYzJFbXFCaFdRK0FIM1JpRzNJSEdBOGdKT3ZTNXAyaGpDdW5KY1FUbnhCMTdKRnpnMDJLbU5hQ1NFc0JSN01qc2E3M2p2YnVkNU1rOEFnQUhuREJnM01HUm1DeUNFc1QxZkFQaVpBYlp5YXI3WUZZNnVsNnNhU2JRYXlWSHhqY0pYMGJpL2FGWUx3bitxRCs4SUw0cWkrQXZuV1piOWlnRW12Uit3RDRCM0FmenFIQ0I1Z09DeUJqNkxCMkdqc3NHMmRVMTRNbG1neG5TcDhLa2F5c2x3WHM0ZE9TcmxoclRhK2phMkZhcHZlMnl0L3NCa3JPUno2bzFzcyt6TmJGM1hmWnBqTnhDUDVGb0xTVWJLN0V5aVFhdUJHaEFuRzdMV2kybFpiK2h4bXRzNGZYbS9KZzdIUHpEZlg4azdaeFg1Y1ZXMEVsVDVLQTNlVjM1Mnh5WkNueUJkSzBIYXY1dGgyMVJMalY2WGxMTHhUSjhOZGw4cC8yOWJnUUlBQUE9PSJ9 -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["chr"],"align":["left"]},{"label":["cases"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745"},{"1":"Brazil","2":"1999","3":"37737"},{"1":"China","2":"1999","3":"212258"},{"1":"Afghanistan","2":"2000","3":"2666"},{"1":"Brazil","2":"2000","3":"80488"},{"1":"China","2":"2000","3":"213766"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3ByZWFkKHRhYmxlMiwga2V5ID0gdHlwZSwgdmFsdWUgPSBjb3VudClcbmBgYCJ9 -->
+<pre class="r"><code>spread(table2, key = type, value = count)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzVlJzVTdETUJDOTJFbXFHaFdRK0FNa3hOUUl3VllKQ1FvREVpd3dkVFZwMmhpQ0hUbU9vQ3p3RDR3cy9BY2JJd3ZNTE16OFFvY0dPN1VSQkJqT2QvZnU2Zm1lN21SL3NFa0dCQUFRWUl3QVlWMzZTRDhlK05BMitRb0FyeGhVeDdLTzBBNFdka2ZqbEhKV0tNci9oOEsrcE5jcys3TUw5bExHNmM4R29GUC9BYTBYSGErL3M1dWpEd0J5Qm5ESHdPdWxnTGRYQWUrRmJ1NXRURys4WHYrQjdOeS9rZEhqMCtINzJzSFI4Zk42dzF3UVo3UW9yREVIa2lGVk5CcEplcEUwNlZ4amp1NWJzQldMa2lzNXNhMC9TYWo4a3FlRjVsdlpYT1JsUmhVVHZDSGJsdUl5Y3RKbWZYU3JuNnFxcGpyTkd1U1d5STJFcGlKemxhQ3h2Q2Nid0ZMSmpmU3dHNmNsUCs5dW1VM3E4VHc2Tm9mZmFuLytKYTZzVk9DdWwvQXg0NGt6bDlIVHhKMXlVVnVvSFVTNVpGdzV5eG90SWlVVWRUd1NpOHdodFRlWWZRSXhUUVdYZ3dJQUFBPT0ifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["cases"],"name":[3],"type":["int"],"align":["right"]},{"label":["population"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745","4":"19987071","_rn_":"1"},{"1":"Afghanistan","2":"2000","3":"2666","4":"20595360","_rn_":"2"},{"1":"Brazil","2":"1999","3":"37737","4":"172006362","_rn_":"3"},{"1":"Brazil","2":"2000","3":"80488","4":"174504898","_rn_":"4"},{"1":"China","2":"1999","3":"212258","4":"1272915272","_rn_":"5"},{"1":"China","2":"2000","3":"213766","4":"1280428583","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <div id="exercises-1" class="section level3">
 <h3>Exercises</h3>
-<p><strong>TODO</strong></p>
+<ol style="list-style-type: decimal">
+<li>Why are gather() and spread() not perfectly symmetrical? Carefully consider the following example:</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RvY2tzIDwtIHRpYmJsZShcbiAgeWVhciAgID0gYygyMDE1LCAyMDE1LCAyMDE2LCAyMDE2KSxcbiAgaGFsZiAgPSBjKCAgIDEsICAgIDIsICAgICAxLCAgICAyKSxcbiAgcmV0dXJuID0gYygxLjg4LCAwLjU5LCAwLjkyLCAwLjE3KVxuKVxuc3RvY2tzICU+JSBcbiAgc3ByZWFkKHllYXIsIHJldHVybikgJT4lIFxuICBnYXRoZXIoXCJ5ZWFyXCIsIFwicmV0dXJuXCIsIGAyMDE1YDpgMjAxNmApXG5gYGAifQ== -->
+<pre class="r"><code>stocks &lt;- tibble(
+  year   = c(2015, 2015, 2016, 2016),
+  half  = c(   1,    2,     1,    2),
+  return = c(1.88, 0.59, 0.92, 0.17)
+)
+stocks %&gt;% 
+  spread(year, return) %&gt;% 
+  gather(&quot;year&quot;, &quot;return&quot;, `2015`:`2016`)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6NH0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERpaXVCaVlHQmdZbUJtWm1KZ1lnWXlXWmlBQkNNREN3TW5pSzVnWUdBV0JqSkFNbndnV2ZzUERHRGdBS0VZMFBsQUlBQlNCeldBeGNqQTBCUUgyd3lGRFRQL24walZRL2QxSXZhUFFHVFZRL3UzQll1dmM5a1cyaDg5MUIrajhmVXdtZ05aazNNU2k0dWhsc0lFdVZJU1N4TDEwb29TYzFQUmxlY0J4V0RLbVdIMlp5VG1wTUhZbGFtSlJWQTJXMUZxU1dsUkhwb1JuRVg1NVhvd1kzaEJZZGNBSlA3Ly8vOEhTUDFEVTh5ZVgxQ1NtWjhIVk1vRUNrVldOSWN5RnFFSjhKZm1nWXhPMFUzT0tNM0wxalVCZVFZc0RRRzhVRFlMRXBzWllpWHpmNmhSckREWHArYWxaK2Fsd2p5ZWs1aVVtZ1BsOEFHOUFQYUJYa0ZSWmw0SkxOU0Fvc1Y2SmZrbGlUQjFYTW41T1RBUnNOOFkvZ0VBdHhNNUZ6TUNBQUE9In0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["half"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[2],"type":["chr"],"align":["left"]},{"label":["return"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"2015","3":"1.88"},{"1":"2","2":"2015","3":"0.59"},{"1":"1","2":"2016","3":"0.92"},{"1":"2","2":"2016","3":"0.17"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The functions <code>spread</code> and <code>gather</code> are not perfectly symmetrical because column type information is not transferred between them. In the original table the column <code>year</code> was numeric, but after the spread-gather cyle it is character, because with <code>gather</code>, variable names are always converted to a character vector.</p>
+<p>The <code>convert</code> argument tries to convert character vectors to the appropriate type. In the background this uses the <code>type.convert</code> function.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RvY2tzICU+JSBcbiAgc3ByZWFkKHllYXIsIHJldHVybikgJT4lIFxuICBnYXRoZXIoXCJ5ZWFyXCIsIFwicmV0dXJuXCIsIGAyMDE1YDpgMjAxNmAsIGNvbnZlcnQgPSBUUlVFKVxuYGBgIn0= -->
+<pre class="r"><code>stocks %&gt;% 
+  spread(year, return) %&gt;% 
+  gather(&quot;year&quot;, &quot;return&quot;, `2015`:`2016`, convert = TRUE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6NH0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERpaXVCaVlHQmdZbUJtWm1KZ1lnWXlXWmlBQkNNREN3TW5pSzVnWUdBV0JqSkFNbndnV2ZzUERHRGdBS0VZMFBsQXdBdFN4OERBZmgrS0gwQXdWUDgva2FxSDd1dEU3QitCeUtxSDltOExGbC9uc2kyMFAzcW9QMGJqNjJFMEI3QW01eVFXRndNWkFraUNYQ21KSllsNmFVV0p1YW5veXZPQVlqRGx6RkJCbG96RW5EUVl1ekkxc1FqS1ppdEtMU2t0eWtNemdyTW92MXdQWmd6SUswd05RT0wvLy85L2dOUS9OTVhzK1FVbG1mbDVRS1ZNb0ZCaVJYTW9ZeEdhQUg5cEhzam9GTjNrak5LOGJGMURrR2ZBMG9pUVk0U0VIcHpORExHUytUL1VLRmFZNjFQejBqUHpVbUVlejBsTVNzMkJjdmlBWGdEN1FLK2dLRE92QkJacVFORml2Wkw4a2tTWU9xN2svQnlZQ05odkRQOEEzQTNIQlJNQ0FBQT0ifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["half"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["return"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"2015","3":"1.88"},{"1":"2","2":"2015","3":"0.59"},{"1":"1","2":"2016","3":"0.92"},{"1":"2","2":"2016","3":"0.17"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="2" style="list-style-type: decimal">
+<li>Why does this code fail?</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGU0YSAlPiUgXG4gIGdhdGhlcigxOTk5LCAyMDAwLCBrZXkgPSBcInllYXJcIiwgdmFsdWUgPSBcImNhc2VzXCIpXG5gYGAifQ== -->
+<pre class="r"><code>table4a %&gt;% 
+  gather(1999, 2000, key = &quot;year&quot;, value = &quot;cases&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IFBvc2l0aW9uIG11c3QgYmUgYmV0d2VlbiAwIGFuZCBuXG4ifQ== -->
+<pre><code>Error: Position must be between 0 and n</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The code fails because the column names <code>1999</code> and <code>2000</code> are not standard and thus needs to be quoted. The tidyverse functions will interpret <code>1999</code> and <code>2000</code> without quotes as looking for the 1999th and 2000th column of the data frame. This will work:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGU0YSAlPiUgXG4gIGdhdGhlcihgMTk5OWAsIGAyMDAwYCwga2V5ID0gXCJ5ZWFyXCIsIHZhbHVlID0gXCJjYXNlc1wiKVxuYGBgIn0= -->
+<pre class="r"><code>table4a %&gt;% 
+  gather(`1999`, `2000`, key = &quot;year&quot;, value = &quot;cases&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUE1VlJRVTdETUJEYzJFbXFCaFdRK2dQdWpVSlBCSWtEbEJkdzZuVkowOFlRMXBYakNzcUpQL0JLdnNDaHdVNXRSQ01oaEtYWWs5blJlTWQ3ZHp1Zkp2TUVBQmh3em9CeEEwTm10Z0JDR05yekJZQ1BEYkNWVS9QRnJuQjB2VnhWU0tMUlNJNktieFMraXRyOVJiTktFUDVUZlhoSGVKN24rVjk0bW1YWnJ4aGcxUGtCK3dCNEY4Q3Z6Z0NTQndndUsrQ3p1QmMyS21wc0d0ZUVKNU1GYWt5WENwL0t2cHdNNStYY2tZTkNia2lyclc5alc2TDZ0c2ZHNmc5TWhrbytwOTdJTnN2ZXpOYTI3YWM1ZGozeFFLNjFrR1Nrek00azZyVWFxQjV4c2lGcnZaZ1UxWVllSnhjMlRsZmVyNUhEOFEvTTkxZnkxbGxGZmx3bHJRU1ZQa3FOOTZXZjNiR0owQ1ZJMTBxUTl1OW0yQ2JWVXFQWEpZV3NQZE5sZzkwWC82YkFNWUVDQUFBPSJ9 -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["chr"],"align":["left"]},{"label":["cases"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745"},{"1":"Brazil","2":"1999","3":"37737"},{"1":"China","2":"1999","3":"212258"},{"1":"Afghanistan","2":"2000","3":"2666"},{"1":"Brazil","2":"2000","3":"80488"},{"1":"China","2":"2000","3":"213766"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="3" style="list-style-type: decimal">
+<li>Why does spreading this tibble fail? How could you add a new column to fix the problem?</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGVvcGxlIDwtIHRyaWJibGUoXG4gIH5uYW1lLCAgICAgICAgICAgICB+a2V5LCAgICB+dmFsdWUsXG4gICMtLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLXwtLS0tLS1cbiAgXCJQaGlsbGlwIFdvb2RzXCIsICAgXCJhZ2VcIiwgICAgICAgNDUsXG4gIFwiUGhpbGxpcCBXb29kc1wiLCAgIFwiaGVpZ2h0XCIsICAgMTg2LFxuICBcIlBoaWxsaXAgV29vZHNcIiwgICBcImFnZVwiLCAgICAgICA1MCxcbiAgXCJKZXNzaWNhIENvcmRlcm9cIiwgXCJhZ2VcIiwgICAgICAgMzcsXG4gIFwiSmVzc2ljYSBDb3JkZXJvXCIsIFwiaGVpZ2h0XCIsICAgMTU2XG4pXG5nbGltcHNlKHBlb3BsZSlcbmBgYCJ9 -->
+<pre class="r"><code>people &lt;- tribble(
+  ~name,             ~key,    ~value,
+  #-----------------|--------|------
+  &quot;Phillip Woods&quot;,   &quot;age&quot;,       45,
+  &quot;Phillip Woods&quot;,   &quot;height&quot;,   186,
+  &quot;Phillip Woods&quot;,   &quot;age&quot;,       50,
+  &quot;Jessica Cordero&quot;, &quot;age&quot;,       37,
+  &quot;Jessica Cordero&quot;, &quot;height&quot;,   156
+)
+glimpse(people)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiT2JzZXJ2YXRpb25zOiA1XG5WYXJpYWJsZXM6IDNcbiQgbmFtZSAgPGNocj4gXCJQaGlsbGlwIFdvb2RzXCIsIFwiUGhpbGxpcCBXb29kc1wiLCBcIlBoaWxsaXAgV29vZHNcIiwgXCJKZXNzaWNhIENvLi4uXG4kIGtleSAgIDxjaHI+IFwiYWdlXCIsIFwiaGVpZ2h0XCIsIFwiYWdlXCIsIFwiYWdlXCIsIFwiaGVpZ2h0XCJcbiQgdmFsdWUgPGRibD4gNDUsIDE4NiwgNTAsIDM3LCAxNTZcbiJ9 -->
+<pre><code>Observations: 5
+Variables: 3
+$ name  &lt;chr&gt; &quot;Phillip Woods&quot;, &quot;Phillip Woods&quot;, &quot;Phillip Woods&quot;, &quot;Jessica Co...
+$ key   &lt;chr&gt; &quot;age&quot;, &quot;height&quot;, &quot;age&quot;, &quot;age&quot;, &quot;height&quot;
+$ value &lt;dbl&gt; 45, 186, 50, 37, 156</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3ByZWFkKHBlb3BsZSwga2V5LCB2YWx1ZSlcbmBgYCJ9 -->
+<pre class="r"><code>spread(people, key, value)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IER1cGxpY2F0ZSBpZGVudGlmaWVycyBmb3Igcm93cyAoMSwgMylcbiJ9 -->
+<pre><code>Error: Duplicate identifiers for rows (1, 3)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Spreading the data frame fails because there are two rows with “age” for “Phillip Woods”. We would need to add another column with an indicator for the number observation it is,</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGVvcGxlIDwtIHRyaWJibGUoXG4gIH5uYW1lLCAgICAgICAgICAgICB+a2V5LCAgICB+dmFsdWUsIH5vYnMsXG4gICMtLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLXwtLS0tLS18LS0tLS0tXG4gIFwiUGhpbGxpcCBXb29kc1wiLCAgIFwiYWdlXCIsICAgICAgIDQ1LCAxLFxuICBcIlBoaWxsaXAgV29vZHNcIiwgICBcImhlaWdodFwiLCAgIDE4NiwgMSxcbiAgXCJQaGlsbGlwIFdvb2RzXCIsICAgXCJhZ2VcIiwgICAgICAgNTAsIDIsXG4gIFwiSmVzc2ljYSBDb3JkZXJvXCIsIFwiYWdlXCIsICAgICAgIDM3LCAxLFxuICBcIkplc3NpY2EgQ29yZGVyb1wiLCBcImhlaWdodFwiLCAgIDE1NiwgMVxuKVxuc3ByZWFkKHBlb3BsZSwga2V5LCB2YWx1ZSlcbmBgYCJ9 -->
+<pre class="r"><code>people &lt;- tribble(
+  ~name,             ~key,    ~value, ~obs,
+  #-----------------|--------|------|------
+  &quot;Phillip Woods&quot;,   &quot;age&quot;,       45, 1,
+  &quot;Phillip Woods&quot;,   &quot;height&quot;,   186, 1,
+  &quot;Phillip Woods&quot;,   &quot;age&quot;,       50, 2,
+  &quot;Jessica Cordero&quot;, &quot;age&quot;,       37, 1,
+  &quot;Jessica Cordero&quot;, &quot;height&quot;,   156, 1
+)
+spread(people, key, value)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUEyMlFRVTdETUJCRnAzRkMxVWh0a2JoQUw5QXNXTENsQW9RRUs4U0didDNFSkJiR2pteFhzSU96Y0VJdVFJUHRlQ3BrWVdreWt6ZVRuL2wrdk5tZWw5c1NBRElnSklPTXVETFAzR01DT2N4OGZnY2daNTY2T0hWQlltTjV6NHpoTlYxZEs5MHdyU0tlUDNSY0NONnZucFJxelA4UVlPR0ZMcjhoSE13Yk9KN1EzMXg5anZ3MjVydWtYMGZlamw5K0JKM3BWK0tncUFVMUptNlBzR3lvcGRXenBxOHNIWmVPNFhnZVllNWhySW5hb1M5Q1c2UW5IZU50WnhPeG1WWnZGUXJPL1RYN2xZZGgrSEhwa0F4UFZXKzVrbTQwOHhkZUpDdFBkQUtXZSttbG0zWGQ3ZVhMK3NMYkN1MHg1akdUUDNVKy9wSU1VYXJBN1psc3VVUXZoYUE3SnVMTHdsa0lEcXBlYzJueC9odzFsVldXNGx4Wks0RWtlSVBETHhxNk5EQmVBZ0FBIn0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["obs"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Jessica Cordero","2":"1","3":"37","4":"156","_rn_":"1"},{"1":"Phillip Woods","2":"1","3":"45","4":"186","_rn_":"2"},{"1":"Phillip Woods","2":"2","3":"50","4":"NA","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="4" style="list-style-type: decimal">
+<li>Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJlZyA8LSB0cmliYmxlKFxuICB+cHJlZ25hbnQsIH5tYWxlLCB+ZmVtYWxlLFxuICBcInllc1wiLCAgICAgTkEsICAgIDEwLFxuICBcIm5vXCIsICAgICAgMjAsICAgIDEyXG4pXG5gYGAifQ== -->
+<pre class="r"><code>preg &lt;- tribble(
+  ~pregnant, ~male, ~female,
+  &quot;yes&quot;,     NA,    10,
+  &quot;no&quot;,      20,    12
+)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You need to gather it. The variables are:</p>
+<ul>
+<li>pregnant: logical (“yes”, “no”)</li>
+<li>female: logical</li>
+<li>count: integer</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2F0aGVyKHByZWcsIHNleCwgY291bnQsIG1hbGUsIGZlbWFsZSkgJT4lXG4gIG11dGF0ZShwcmVnbmFudCA9IHByZWduYW50ID09IFwieWVzXCIsXG4gICAgICAgICBmZW1hbGUgPSBzZXggPT0gXCJmZW1hbGVcIikgJT4lXG4gIHNlbGVjdCgtc2V4KVxuYGBgIn0= -->
+<pre class="r"><code>gather(preg, sex, count, male, female) %&gt;%
+  mutate(pregnant = pregnant == &quot;yes&quot;,
+         female = sex == &quot;female&quot;) %&gt;%
+  select(-sex)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6NH0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFRVTdETUJEYzJBbWxsbHBWNGdzY3VEUUN4QU42NEFXY2VqV3BXeUpjTzNJY3dRM2V3Z3Q1QUdwWUo5Nm85VXJ4anNlVHNXZGZucmVQWWlzQWdBSG5EQmhIbUROY01zaGhIdm9uQUw5QkVFNkNNQjhPeDZLK0RQelhiNEN6bjgzVFNHNXVZNzhES3ZxZktodS9pd3VMU3N1MlJiQTZJOFZPZWxudW5UeXFWRzZRSXptUDVIWGoxTUZJNHlkUDIwMmJxNzA2U3AzNnpKMzlLTWxyRVFieWpVdmY5My9ZVG9sNFpodGZXNE5TRmtaVEpLL05YRUtzT2hPc2QrdnFyVFB2NjRmN09BdWEzeUxpL0F6ejhVN2VSNitDbnEvTW9UYUtrbW41cW5UY0xESERFS0ZzWEQzbEZjaTJwYmRla2s1VVZoTXpoSVBUUC96NVQ4SUpBZ0FBIn0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["pregnant"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["count"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["female"],"name":[3],"type":["lgl"],"align":["right"]}],"data":[{"1":"TRUE","2":"NA","3":"FALSE"},{"1":"FALSE","2":"20","3":"FALSE"},{"1":"TRUE","2":"10","3":"TRUE"},{"1":"FALSE","2":"12","3":"TRUE"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Converting <code>pregnant</code> and <code>female</code> from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.</p>
 </div>
 </div>
 <div id="separating-and-uniting" class="section level2">
 <h2>Separating and Uniting</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUzICU+JVxuICBzZXBhcmF0ZShyYXRlLCBpbnRvID0gYyhcImNhc2VzXCIsIFwicG9wdWxhdGlvblwiKSwgc2VwID0gXCIvXCIsIGNvbnZlcnQgPSBUUlVFKSAlPiVcbiAgc2VwYXJhdGUoeWVhciwgaW50byA9IGMoXCJjZW50dXJ5XCIsIFwieWVhclwiKSwgc2VwID0gMilcbmBgYCJ9 -->
+<pre class="r"><code>table3 %&gt;%
+  separate(rate, into = c(&quot;cases&quot;, &quot;population&quot;), sep = &quot;/&quot;, convert = TRUE) %&gt;%
+  separate(year, into = c(&quot;century&quot;, &quot;year&quot;), sep = 2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NSwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUE0MVN2VTdETUJDK09EOVZnd3BJdkFFU1ltb1VLakcwRWhLMERFaXd3TlRWcEdsakNIYmtPSUt5d0Rzd3N2QWViSXc4QWdzenI5Q2h3VW5qcUxWQTZuQyt1Ky9POS9tejd1cDAySEdITGdBZ01FMEV5SlNoaGVSaGdBWE53ajhBbURzeXNLVnRTM09xd3NiSmVCSmhTbEtCNmYrUTArZjRrY1IvWnZZZ0loU3ZKcXNjNktDcm9vNi9OcWJONk5ZMTMxOGJBMmlWTXdEOUFMZzNBQzhFakY0RTV0RXVtQU5IMVExLzltVDArbS91OGV1WE8zNy9PUC9lTzd1NC9OelhQdEVPWXB5bTFjTVU2STZ3d042WTQ3dFFiNmNTVSsxMkJUWUNsbEhCcDNVYVVwSFZxVFVOTWEvWmNDcXZWeXdKUzdJWUM4S294dExrN041VFRJVWE5Q3lQUE05bjBzMjE1Z1pMaWhHeUZTMHZRNzBsWEFPMk1scU1IcldES0tPMzdjUGlKV1Y1WWEzS08wdXh2YUEwYzAyNEU5SUpvYUVTRitQclVHM1FwcFJRS3ZBU1RxaFFraVdhZW9JSnJQcmNnTVVLS2JYQi9CZks2eFNMK2dJQUFBPT0ifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["century"],"name":[2],"type":["chr"],"align":["left"]},{"label":["year"],"name":[3],"type":["chr"],"align":["left"]},{"label":["cases"],"name":[4],"type":["int"],"align":["right"]},{"label":["population"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"19","3":"99","4":"745","5":"19987071","_rn_":"1"},{"1":"Afghanistan","2":"20","3":"00","4":"2666","5":"20595360","_rn_":"2"},{"1":"Brazil","2":"19","3":"99","4":"37737","5":"172006362","_rn_":"3"},{"1":"Brazil","2":"20","3":"00","4":"80488","5":"174504898","_rn_":"4"},{"1":"China","2":"19","3":"99","4":"212258","5":"1272915272","_rn_":"5"},{"1":"China","2":"20","3":"00","4":"213766","5":"1280428583","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGU1ICU+JVxuICB1bml0ZShuZXcsIGNlbnR1cnksIHllYXIsIHNlcCA9IFwiXCIpXG5gYGAifQ== -->
+<pre class="r"><code>table5 %&gt;%
+  unite(new, century, year, sep = &quot;&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUE1V1N6WEtDTUJESEl4RWRhYTN0OURsRUNJYUVZeitlb0NldkthSXlwY0VKY1d4NzZuUDNJQzZZVEN2VEhucElkdlBiNVovc3NrK1BDK0l0UElTUWd6QjJrSVBCN1R1dzlWQWZqUnI3aGhDK0JhZUpYTU1hbU1ERjNXcTlFVEt2dEpCL284RzlFaDk1OGV2SmZkamtVcHdmenUvb2gwbVNXSjhFUWZCdmZxNTN5ZVowQmptY0JTdzBiRXppT0o2UmdDWTBpcTNRSkdJc1lyT1FnVWdjeGNSaUhzdzVCenluNENUYzRCc1NFa0tCRTBhU2tNTCtIWWdZcUljRVBpU2M4cWpUWFRjdFJGV1pWMXJvTFlVVy9rcUoxNnliTG9IWmRHemdNQzEzVXF0M2M4UXkyOXNXS0tHN0VpTlY3bjByTTI1Ky9DZHNkVjEvZ1RsMGtvZmxWdWVsaEZTbkdRRzM4OUNlNm9ESlRqYlN5Mm02MmNtWEtXK0thY09uTlRaMjhNUEhweXR4YmFSY095cVpYT2N5czRVWDRqbXpjM01GSmJRVitGdVZTMjI3QnJUeWRhbUZ6ZlBTc3JDa3JRMGRqbk9KbEd2d0FnQUEifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["new"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rate"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"Afghanistan","2":"1999","3":"745/19987071","_rn_":"1"},{"1":"Afghanistan","2":"2000","3":"2666/20595360","_rn_":"2"},{"1":"Brazil","2":"1999","3":"37737/172006362","_rn_":"3"},{"1":"Brazil","2":"2000","3":"80488/174504898","_rn_":"4"},{"1":"China","2":"1999","3":"212258/1272915272","_rn_":"5"},{"1":"China","2":"2000","3":"213766/1280428583","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <div id="exercises-2" class="section level3">
 <h3>Exercises</h3>
-<p><strong>TODO</strong></p>
+<ol style="list-style-type: decimal">
+<li>What do the extra and fill arguments do in separate()? Experiment with the various options for the following two toy datasets.</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKHggPSBjKFwiYSxiLGNcIiwgXCJkLGUsZixnXCIsIFwiaCxpLGpcIikpICU+JSBcbiAgc2VwYXJhdGUoeCwgYyhcIm9uZVwiLCBcInR3b1wiLCBcInRocmVlXCIpKVxuYGBgIn0= -->
+<pre class="r"><code>tibble(x = c(&quot;a,b,c&quot;, &quot;d,e,f,g&quot;, &quot;h,i,j&quot;)) %&gt;% 
+  separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVG9vIG1hbnkgdmFsdWVzIGF0IDEgbG9jYXRpb25zOiAyXG4ifQ== -->
+<pre><code>Too many values at 1 locations: 2</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVF1dzdDTUF3MENRVlJpWWZFZDdRREd6dGZ3TVFhMmtBTEpVRnBFSXo4T0JTbnhFaDRTSHc1bngyZnQ1dmRLdDJsQUNCQVNnRkNJaHdLdkFZd2hFbUlEd0M1UkJBeWl6N0doQ0pRRXFpNFpFOUFFNmk1cENCd0lIQmlFeVJGbzlvMjFoR1psc3FyL09EVVJYTzVRYTVsMzBocmFBVHA3NWFrdm5LYTEwK2N2ZWZVWXhvMjg4U3I2N29YaGpjVGorM1YxOWFnVklRZEpXektnV1BFL0daQzZ6SXJxcHM1Wit2Z3BFOS96elJHK1kvRGw3S0xyWkxZYXFUTnNmNjVTaHExMTAxOHpOQkM3eUMvdXRwNFdobXliZTZ0VjZSTEM5c1EwM3VEOXdkdnlCOExFUUlBQUE9PSJ9 -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["one"],"name":[1],"type":["chr"],"align":["left"]},{"label":["two"],"name":[2],"type":["chr"],"align":["left"]},{"label":["three"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"a","2":"b","3":"c","_rn_":"1"},{"1":"d","2":"e","3":"f","_rn_":"2"},{"1":"h","2":"i","3":"j","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKHggPSBjKFwiYSxiLGNcIiwgXCJkLGVcIiwgXCJmLGcsaVwiKSkgJT4lIFxuICBzZXBhcmF0ZSh4LCBjKFwib25lXCIsIFwidHdvXCIsIFwidGhyZWVcIikpXG5gYGAifQ== -->
+<pre class="r"><code>tibble(x = c(&quot;a,b,c&quot;, &quot;d,e&quot;, &quot;f,g,i&quot;)) %&gt;% 
+  separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVG9vIGZldyB2YWx1ZXMgYXQgMSBsb2NhdGlvbnM6IDJcbiJ9 -->
+<pre><code>Too few values at 1 locations: 2</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFUUStDTUF5dG0yZ2dRVTM4SFhEdzV0MWY0TW5yaEtsRTNNeVl3YU4vM0k4T1Z4TkxzdmJ4K3RiMWRidlpyYkpkQmdBQ3BCUWdKTUt4d0RDQ01hUWgzd0hrRWtHb0xJWWNDNHBBVGVEQUpYc0Ntc0NSU3lvTTZScy9JaG8yUUZLMXF1dmlOU0t6V25sVkhweTZhQzQzeUhYc0ZXa05UU0I5YjBucVQwN3orNm16ZlVrOThyQ1lCd2FjNzRucHhjUlRlL1dOTlNnVllVVUptM0xrR0RHL21kQzZMcXJUelp5TGRYQXlsTDhuajFuKzQvQ2tmTWRXU1d3MTBlYlkvRndscmRyck52N00wTUxnb0x5NnhuaGFHYkpkNmExWHBNc3EyeEl6ZUlQWEJ6MGZ5bHdRQWdBQSJ9 -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["one"],"name":[1],"type":["chr"],"align":["left"]},{"label":["two"],"name":[2],"type":["chr"],"align":["left"]},{"label":["three"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"a","2":"b","3":"c","_rn_":"1"},{"1":"d","2":"e","3":"NA","_rn_":"2"},{"1":"f","2":"g","3":"i","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuP3NlcGFyYXRlXG5gYGAifQ== -->
+<pre class="r"><code>?separate</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The <code>extra</code> argument tells <code>separate</code> what to do if there are too many pieces, and the <code>fill</code> argument if there aren’t enough.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKHggPSBjKFwiYSxiLGNcIiwgXCJkLGUsZixnXCIsIFwiaCxpLGpcIikpICU+JSBcbiAgc2VwYXJhdGUoeCwgYyhcIm9uZVwiLCBcInR3b1wiLCBcInRocmVlXCIpKVxuYGBgIn0= -->
+<pre class="r"><code>tibble(x = c(&quot;a,b,c&quot;, &quot;d,e,f,g&quot;, &quot;h,i,j&quot;)) %&gt;% 
+  separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVG9vIG1hbnkgdmFsdWVzIGF0IDEgbG9jYXRpb25zOiAyXG4ifQ== -->
+<pre><code>Too many values at 1 locations: 2</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFVUTdDSUF5dDREUmJvakh4SEM3Uk0zZ0N2L3pGRGQxMGdtRXMrdW5GZFpaSlRld0g5UEg2V3ZxNjIrNDMyVDREQUFGU0NoQVM0VmpnTllJeHBDRStBT1FTUWNnc2hoZ1Rpa0JKb09LU0F3Rk5vT2FTZ3NDUndKbE5rQlNOYXR0WVIyUldLcS95bzFOWHplVUd1Wlo5STYyaEVhUy9XNUw2eW1sZW56cDd6Nm5ITEd6bWlWZmY5eThNYnlhZTJwdXZyVUdwQ0R0SzJKUWp4NGhGWjBMcmNsVlVuYm1zMXV0Z1pjaC96eXhHK1kvRG43S1B2WkxZYTZMTnFmN1pTaHAxMEUxOHpOSERZQ0cvdWRwNDJobXliZTZ0VjZUTEN0c1FNNWlEOXdlOUc1L1pFZ0lBQUE9PSJ9 -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["one"],"name":[1],"type":["chr"],"align":["left"]},{"label":["two"],"name":[2],"type":["chr"],"align":["left"]},{"label":["three"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"a","2":"b","3":"c","_rn_":"1"},{"1":"d","2":"e","3":"f","_rn_":"2"},{"1":"h","2":"i","3":"j","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>By default <code>separate</code> drops the extra values with a warning.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKHggPSBjKFwiYSxiLGNcIiwgXCJkLGUsZixnXCIsIFwiaCxpLGpcIikpICU+JSBcbiAgc2VwYXJhdGUoeCwgYyhcIm9uZVwiLCBcInR3b1wiLCBcInRocmVlXCIpLCBleHRyYSA9IFwiZHJvcFwiKVxuYGBgIn0= -->
+<pre class="r"><code>tibble(x = c(&quot;a,b,c&quot;, &quot;d,e,f,g&quot;, &quot;h,i,j&quot;)) %&gt;% 
+  separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), extra = &quot;drop&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFVUTdDSUF5dDREUXUwWmg0RHBmb0dUeUJYL3ZGRGQxMGdtR1krZW5GZFpaSlRld0g5UEg2V3ZxNjMrWGJORThCUUlDVUFvUkVPQlo0aldBTXN4QWZBSEtGSUdTV1E0d0pSYUFrVUhISmdZQW1VSE5KUWVCSTRNd21TSXBHdFcyc0l6SXRsVmZaMGFtcjVuS0RYTXUra2RiUUNOSjNscVMrY3ByWHo1enRNdW94RDV0NTR0WDMvUXZEbTRtbjl1WnJhMUFxd280U051WElNV0o1TjZGMXVTNnF1N21zTjl0Z1pjaC96enhHK1kvRG43S1B2WkxZYTZMTnFmN1pTaHAxMEUxOExORERZQ0c3dWRwNDJobXliZWF0VjZSTEM5c1FNNWlEOXdmYmZYMThFZ0lBQUE9PSJ9 -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["one"],"name":[1],"type":["chr"],"align":["left"]},{"label":["two"],"name":[2],"type":["chr"],"align":["left"]},{"label":["three"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"a","2":"b","3":"c","_rn_":"1"},{"1":"d","2":"e","3":"f","_rn_":"2"},{"1":"h","2":"i","3":"j","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>This produces the same result as above, dropping extra values, but without the warning.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKHggPSBjKFwiYSxiLGNcIiwgXCJkLGUsZixnXCIsIFwiaCxpLGpcIikpICU+JSBcbiAgc2VwYXJhdGUoeCwgYyhcIm9uZVwiLCBcInR3b1wiLCBcInRocmVlXCIpLCBleHRyYSA9IFwibWVyZ2VcIilcbmBgYCJ9 -->
+<pre class="r"><code>tibble(x = c(&quot;a,b,c&quot;, &quot;d,e,f,g&quot;, &quot;h,i,j&quot;)) %&gt;% 
+  separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), extra = &quot;merge&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFRWTdDTUF3ME1XVkZKUkRTZmdNcUFWL2dCWnk0aGpiUVFqZEJhUkFjOStOTGNicnhTdXRENHNsNDdIaTgzeDAyK1NFSEFBV0lDaFFTSEN1NlJqQ0dhWXhQQVB3a0VET0xJYWFFWmxBeHFLWGt5TUF3YUtTa1RBQlB5ek56RnpGRFZyYTY2MUlsazNtbGd5NU9YbjhaS2JmRWRlSWpkSmFId1BCd0xBMjFON0orNnQyajRCNnp1SnR2dXZxKy82SHdFdUlQZHd1TnN5UlZjVXVabUhMa0JiRzQyOWk2V3BYMTNWNVg2MjIwTXVSL3p5eEYvSS9qbjlpblhsbnFOVEgyM1B6WnlscDlORzE2ek1uRFlLRzQrY1lHM2hteFhSRmMwS3pMUzljeU01aUQxeHVnM2U0WUZBSUFBQT09In0= -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["one"],"name":[1],"type":["chr"],"align":["left"]},{"label":["two"],"name":[2],"type":["chr"],"align":["left"]},{"label":["three"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"a","2":"b","3":"c","_rn_":"1"},{"1":"d","2":"e","3":"f,g","_rn_":"2"},{"1":"h","2":"i","3":"j","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>In this, the extra values are not split, so “f,g” appears in column three.</p>
+<p>In this, one of the entries for column, “d,e”, has too few elements. The default for <code>fill</code> is similar to <code>separate</code>; it fills with missing values but emits a warning. In this, row 2 of column “three”, is <code>NA</code>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKHggPSBjKFwiYSxiLGNcIiwgXCJkLGVcIiwgXCJmLGcsaVwiKSkgJT4lIFxuICBzZXBhcmF0ZSh4LCBjKFwib25lXCIsIFwidHdvXCIsIFwidGhyZWVcIikpXG5gYGAifQ== -->
+<pre class="r"><code>tibble(x = c(&quot;a,b,c&quot;, &quot;d,e&quot;, &quot;f,g,i&quot;)) %&gt;% 
+  separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVG9vIGZldyB2YWx1ZXMgYXQgMSBsb2NhdGlvbnM6IDJcbiJ9 -->
+<pre><code>Too few values at 1 locations: 2</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFVUXJDTUF5TjdhWnNvQWlldzRIaUVUeUJYLzdXcmVwd3RxT3I2S2NYZDVyT1JqQ0RKbTh2cjJsZWR0djlPdC9uQUNCQVNnRkNJa3dFaGhFa2tJWDhBSkFMQktFeUgzSXNLQUlWZ1NPWEhBaG9BaWN1S1RGa2IveUlxTmtBYWRtb3JvdlhpTXdyNVZWeGRPcXF1ZHdnMTdGWHBEVTBnZlIzUzFKL2RwcmZ6NXk5RjlSakdoYnp4SUR6dlREMVREeXhyYSt0UWFrSUswclpsQ1BIaVBuTmhOYlZzanpmekdXNTJnUXJRLzE3cGpITGZ4emVsTy9ZSzQyOXh0cWM2cCt0dEZFSDNjU2ZHWG9ZTEJTdHE0Mm5uU0hiRmQ1NlJicTh0QTB4Z3pub1AxbFMrbWtSQWdBQSJ9 -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["one"],"name":[1],"type":["chr"],"align":["left"]},{"label":["two"],"name":[2],"type":["chr"],"align":["left"]},{"label":["three"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"a","2":"b","3":"c","_rn_":"1"},{"1":"d","2":"e","3":"NA","_rn_":"2"},{"1":"f","2":"g","3":"i","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Alternative options for <code>fill</code> are <code>&quot;right&quot;</code>, to fill with missing values from the right, but without a warning</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKHggPSBjKFwiYSxiLGNcIiwgXCJkLGVcIiwgXCJmLGcsaVwiKSkgJT4lIFxuICBzZXBhcmF0ZSh4LCBjKFwib25lXCIsIFwidHdvXCIsIFwidGhyZWVcIiksIGZpbGwgPSBcInJpZ2h0XCIpXG5gYGAifQ== -->
+<pre class="r"><code>tibble(x = c(&quot;a,b,c&quot;, &quot;d,e&quot;, &quot;f,g,i&quot;)) %&gt;% 
+  separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), fill = &quot;right&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFVUXJDTUF5TjdhWnNvQWlldzRHQ04vQUVmdmxidDZyRDJZNnVvcDllM0drNkc4RU1tcnk5dktaNTJXMzM2M3lmQTRBQUtRVUlpVEFSR0VhUVFCYnlBMEF1RUlUS2ZNaXhvQWhVQkk1Y2NpQ2dDWnk0cE1TUXZmRWpvbVlEcEdXanVpNWVJekt2bEZmRjBhbXI1bktEWE1kZWtkYlFCTkxmTFVuOTJXbCtQM1AyWGxDUGFWak1Fd1BPOThMVU0vSEV0cjYyQnFVaXJDaGxVNDRjSStZM0UxcFh5L0o4TTVmbGFoT3NEUFh2bWNZcy8zRjRVNzVqcnpUMkdtdHpxbisyMGtZZGRCTi9adWhoc0ZDMHJqYWVkb1pzVjNqckZlbnkwamJFRE9hZy93QjdjS1FLRVFJQUFBPT0ifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["one"],"name":[1],"type":["chr"],"align":["left"]},{"label":["two"],"name":[2],"type":["chr"],"align":["left"]},{"label":["three"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"a","2":"b","3":"c","_rn_":"1"},{"1":"d","2":"e","3":"NA","_rn_":"2"},{"1":"f","2":"g","3":"i","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The option <code>fill = &quot;left&quot;</code> also fills with missing values without a warning, but this time from the left side. Now, column “one” of row 2 will be missing, and the other values in that row are shifted over.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGliYmxlKHggPSBjKFwiYSxiLGNcIiwgXCJkLGVcIiwgXCJmLGcsaVwiKSkgJT4lIFxuICBzZXBhcmF0ZSh4LCBjKFwib25lXCIsIFwidHdvXCIsIFwidGhyZWVcIiksIGZpbGwgPSBcImxlZnRcIilcbmBgYCJ9 -->
+<pre class="r"><code>tibble(x = c(&quot;a,b,c&quot;, &quot;d,e&quot;, &quot;f,g,i&quot;)) %&gt;% 
+  separate(x, c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), fill = &quot;left&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFVUTdDSUF5dHNHbTJSR1BpT1Z5aUg1N0FFL2psTDI2b2l4TVdodEZQTCs2MFRHcGlTV2dmcjQvQzYyNjdYK2Y3SEFBRVNDbEFTSVNKd0RDQ0JMS1FId0J5Z1NCVTVrT09CWVVoZStNaTRzZ1ZCd0lWZ1JPWGxBUTBnWnA5SUMwYjFYWHhIcEY1cGJ3cWprNWROWmNiNURyMmpMU0cra3QvdHlUMVo2ZjUvY3paZTBFOXBtRXdUd3pvOG9XcForS0piWDF0RFVwRkdGSEtmamx5akpqZlRHaGRMY3Z6elZ5V3EwMndNdFMvZXhxei9NZmhUZm1PdmRMWWE2ek5xZjdaU2h0MTBFMDh6TkREWUtGb1hXMDh6UXpacnZEV0s5TGxwVzJJR2N4Qi93R3FNVnYwRVFJQUFBPT0ifQ== -->
+<div data-pagedtable>
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["one"],"name":[1],"type":["chr"],"align":["left"]},{"label":["two"],"name":[2],"type":["chr"],"align":["left"]},{"label":["three"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"a","2":"b","3":"c","_rn_":"1"},{"1":"NA","2":"d","3":"e","_rn_":"2"},{"1":"f","2":"g","3":"i","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="2" style="list-style-type: decimal">
+<li>Both <code>unite()</code> and <code>separate()</code> have a remove argument. What does it do? Why would you set it to <code>FALSE</code>?</li>
+</ol>
+<p>You would set it to <code>FALSE</code> if you want to create a new variable, but keep the old one.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Compare and contrast <code>separate()</code> and <code>extract()</code>, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?</li>
+</ol>
+<p>The function <code>extract</code> uses a regular expression to find groups and split into columns. In <code>unite</code> it is unambigous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the <code>sep</code>. In <code>separate</code>, it is one to many, and there are multiple ways to split the character string.</p>
 </div>
 </div>
 <div id="missing-values" class="section level2">
@@ -250,7 +883,7 @@ $(document).ready(function () {
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2ggMTI6IFRpZHkgRGF0YSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgojIyBJbnRyb2R1Y3Rpb24KCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgojIyBUaWR5IERhdGEKCioqTk9URVMqKgoKLSBBZGQgW1RpZHkgRGF0YV0oaHR0cDovL3d3dy5qc3RhdHNvZnQub3JnL3Y1OS9pMTAvcGFwZXIpIHRvIHJlYWRpbmcKLSBVc2UgQ09XIHdhciBkYXRhc2V0IGFzIGFuIGV4YW1wbGUgb2Ygbm9uLXRpZHkgZGF0YQotIEFsc28gV0RJIGRhdGEgZm9yIG5vbi10aWR5IGRhdGEKLSBSZXBsaWNhdGlvbiBkYXRhdHNldHMgYXJlIG9mdGVuIG5vbi10aWR5LiBXaHk/Ci0gU2VlIHRoaXMgcG9zdCBieSBbSmVmZiBMZWVrXShodHRwOi8vc2ltcGx5c3RhdGlzdGljcy5vcmcvMjAxNi8wMi8xNy9ub24tdGlkeS1kYXRhLykKClRoZSBSdWxlcwoKMS4gRWFjaCAqKnZhcmlhYmxlKiogaGFzIGl0cyBvd24gKipjb2x1bW4qKgoyLiBFYWNoICoqb2JzZXJ2YXRpb24qKiBtdXVzdCBoYXZlIGl0cyBvd24gKipyb3cqKgozLiBFYWNoICoqdmFsdWUqKiBtdXN0IGhhdmUgaXRzIG93biAqKmNlbGwqKgoKb3IgZXZlbgoKMS4gUHV0IGVhY2ggKipkYXRhc2V0KiogaW4gYSAqKnRpYmJsZSoqCjIuIFB1dCBlYWNoICoqdmFyaWFibGUqKiBpbiBhICoqY29sdW1uKioKClRoZXNlIHNlZW0gb2J2aW91cyBhdCBmaXJzdCwgc28gd2UgbmVlZCB0byBzZWUgZXhhbXBsZXMgb2Ygbm90LWZvbGxvd2luZyB0aWR5IGRhdGEgYW5kIHdoYXQgaGFwcGVucy4KClNvbWUgbnVhbmNlczoKClRoZSBkZWZpbml0aW9ucyBvZiAqKnZhcmlhYmxlKiosICoqb2JzZXJ2YXRpb24qKiwgYW5kICoqdmFsdWUqKiBhcmUgbm90IGFsd2F5cyBjbGVhci4gQW5kIGhvdyB5b3Ugc3RvcmUgYW5kIGFycmFuZ2UgdGhlIGRhdGEgY2FuIGRlcGVuZCBvbiBob3cgeW91IGFpbSB0byB1c2UgaXQuIEdlbmVyYWxseSwgYWltIGZvciBzdG9yaW5nIHRoZSBkYXRhIGluIGEgdGlkeSBmb3JtYXQgdGhhdCBlbnN1cmVzIG1pbmltYWwgZXJyb3JzLiBXaGVuIHlvdSBtb2RlbCBpdCwgeW91IGNhbiB0cmFuc2Zvcm0gdGhlIGRhdGEgbGF0ZXIuClNlZSBub24tdGlkeSBkYXRhLgoKSXQgaXMgZWFzaWVyIHRvIHdvcmsgd2l0aCB2YXJpYWJsZXMgaW4gY29sdW1ucyBiZWNhdXNlIG9mIGBtdXRhdGVgIGFuZCBgc3VtbWFyeWAgZnVuY3Rpb25zLgpJdCB3aWxsIGFsc28gd29yayBiZXR0ZXIgd2l0aCBgdGlkeXZlcnNlYCBmdW5jdGlvbnM6IGUuZy4gdXNpbmcgYGdyb3VwX2J5YCB0byBncm91cCBhbmQgc3VtbWFyaXplLCBvciBgZmFjZXRfKmAgYW5kIGFlc3RoZXRpY3MgaW4gKipnZ3Bsb3QyKiouCgpUaGUgdGlkeSBkYXRhIGlkZWFzIGFyZSBhZGFwdGVkIGZyb20gdGhlIFtkYXRhYmFzZSBub3JtYWxpemF0aW9uXShodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9EYXRhYmFzZV9ub3JtYWxpemF0aW9uKSwgYnV0IHNpbXBsaWZpZWQgYW5kIGFkYXB0ZWQgdG8gdGhlIGdlbmVyYWwgdXNlcyBvZiBwcmFjdGljaW5nIGRhdGEgc2NpZW50aXN0cy4KCgoKIyMjIEV4ZXJjaXNlcwoKKipUT0RPKioKCiMjIFNwcmVhZGluZyBhbmQgR2F0aGVyaW5nCgojIyMgRXhlcmNpc2VzCgoqKlRPRE8qKgoKCiMjIFNlcGFyYXRpbmcgYW5kIFVuaXRpbmcKCgojIyMgRXhlcmNpc2VzCgoqKlRPRE8qKgoKIyMgTWlzc2luZyBWYWx1ZXMKCgojIyMgRXhlcmNpc2VzCgoqKlRPRE8qKgoKCiMjIENhc2UgU3R1ZHkKCiMjIyBFeGVyY2lzZXMKCioqVE9ETyoqIAoKCiMjIE5vbi1UaWR5IERhdGEKCi0gQ29ycHVzIGFuZCB0ZXh0IGRhdGEgaXMgb2Z0ZW4gc3RvcmVkIGluIHNwYXJzZSBNYXRyaWNlcyBodHRwczovL2NyYW4uci1wcm9qZWN0Lm9yZy93ZWIvcGFja2FnZXMvdG0vdG0ucGRmCi0gR3JhcGhpY2FsIGRhdGEgaGFzIGl0cyBvd24gZm9ybWF0OiBodHRwOi8vaWdyYXBoLm9yZy9yL2RvYy8K</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2ggMTI6IFRpZHkgRGF0YSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgojIyBJbnRyb2R1Y3Rpb24KCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKYGBgCgojIyBUaWR5IERhdGEKCkZ1bmN0aW9ucwoKLSBgc3ByZWFkYAotIGBnYXRoZXJgCi0gYHNlcGFyYXRlYAotIGB1bml0ZWAKLSBgY29tcGxldGVgCi0gYGZpbGxgCgoqKk5PVEVTKioKCi0gQWRkIFtUaWR5IERhdGFdKGh0dHA6Ly93d3cuanN0YXRzb2Z0Lm9yZy92NTkvaTEwL3BhcGVyKSB0byByZWFkaW5nCi0gVXNlIENPVyB3YXIgZGF0YXNldCBhcyBhbiBleGFtcGxlIG9mIG5vbi10aWR5IGRhdGEKLSBBbHNvIFdESSBkYXRhIGZvciBub24tdGlkeSBkYXRhCi0gUmVwbGljYXRpb24gZGF0YXRzZXRzIGFyZSBvZnRlbiBub24tdGlkeS4gV2h5PwotIFNlZSB0aGlzIHBvc3QgYnkgW0plZmYgTGVla10oaHR0cDovL3NpbXBseXN0YXRpc3RpY3Mub3JnLzIwMTYvMDIvMTcvbm9uLXRpZHktZGF0YS8pCgpUaGUgUnVsZXMKCjEuIEVhY2ggKip2YXJpYWJsZSoqIGhhcyBpdHMgb3duICoqY29sdW1uKioKMi4gRWFjaCAqKm9ic2VydmF0aW9uKiogbXV1c3QgaGF2ZSBpdHMgb3duICoqcm93KioKMy4gRWFjaCAqKnZhbHVlKiogbXVzdCBoYXZlIGl0cyBvd24gKipjZWxsKioKCm9yIGV2ZW4KCjEuIFB1dCBlYWNoICoqZGF0YXNldCoqIGluIGEgKip0aWJibGUqKgoyLiBQdXQgZWFjaCAqKnZhcmlhYmxlKiogaW4gYSAqKmNvbHVtbioqCgpUaGVzZSBzZWVtIG9idmlvdXMgYXQgZmlyc3QsIHNvIHdlIG5lZWQgdG8gc2VlIGV4YW1wbGVzIG9mIG5vdC1mb2xsb3dpbmcgdGlkeSBkYXRhIGFuZCB3aGF0IGhhcHBlbnMuCgpTb21lIG51YW5jZXM6CgpUaGUgZGVmaW5pdGlvbnMgb2YgKip2YXJpYWJsZSoqLCAqKm9ic2VydmF0aW9uKiosIGFuZCAqKnZhbHVlKiogYXJlIG5vdCBhbHdheXMgY2xlYXIuIEFuZCBob3cgeW91IHN0b3JlIGFuZCBhcnJhbmdlIHRoZSBkYXRhIGNhbiBkZXBlbmQgb24gaG93IHlvdSBhaW0gdG8gdXNlIGl0LiBHZW5lcmFsbHksIGFpbSBmb3Igc3RvcmluZyB0aGUgZGF0YSBpbiBhIHRpZHkgZm9ybWF0IHRoYXQgZW5zdXJlcyBtaW5pbWFsIGVycm9ycy4gV2hlbiB5b3UgbW9kZWwgaXQsIHlvdSBjYW4gdHJhbnNmb3JtIHRoZSBkYXRhIGxhdGVyLgpTZWUgbm9uLXRpZHkgZGF0YS4KCkl0IGlzIGVhc2llciB0byB3b3JrIHdpdGggdmFyaWFibGVzIGluIGNvbHVtbnMgYmVjYXVzZSBvZiBgbXV0YXRlYCBhbmQgYHN1bW1hcnlgIGZ1bmN0aW9ucy4KSXQgd2lsbCBhbHNvIHdvcmsgYmV0dGVyIHdpdGggYHRpZHl2ZXJzZWAgZnVuY3Rpb25zOiBlLmcuIHVzaW5nIGBncm91cF9ieWAgdG8gZ3JvdXAgYW5kIHN1bW1hcml6ZSwgb3IgYGZhY2V0XypgIGFuZCBhZXN0aGV0aWNzIGluICoqZ2dwbG90MioqLgoKVGhlIHRpZHkgZGF0YSBpZGVhcyBhcmUgYWRhcHRlZCBmcm9tIHRoZSBbZGF0YWJhc2Ugbm9ybWFsaXphdGlvbl0oaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvRGF0YWJhc2Vfbm9ybWFsaXphdGlvbiksIGJ1dCBzaW1wbGlmaWVkIGFuZCBhZGFwdGVkIHRvIHRoZSBnZW5lcmFsIHVzZXMgb2YgcHJhY3RpY2luZyBkYXRhIHNjaWVudGlzdHMuCgp4CmBgYHtyfQp0YWJsZTEKdGFibGUyCnRhYmxlMwp0YWJsZTRhCnRhYmxlNGIKYGBgCgpgYGB7cn0KdGFibGUxICU+JQogIG11dGF0ZShyYXRlID0gY2FzZXMgLyBwb3B1bGF0aW9uICogMTAwMCkKYGBgCgoKIyMjIEV4ZXJjaXNlcwoKMS4gVXNpbmcgcHJvc2UsIGRlc2NyaWJlIGhvdyB0aGUgdmFyaWFibGVzIGFuZCBvYnNlcnZhdGlvbnMgYXJlIG9yZ2FuaXNlZCBpbiBlYWNoIG9mIHRoZSBzYW1wbGUgdGFibGVzLgoKSW4gYHRhYmxlMWAgZWFjaCByb3cgaXMgYSAoY291bnRyeSwgeWVhcikgd2l0aCB2YXJpYWJsZXMgYGNhc2VzYCBhbmQgYHBvcHVsYXRpb25gLgpgYGB7cn0KdGFibGUxCmBgYAoKSW4gYHRhYmxlMmAsIGVhY2ggcm93IGlzIGNvdW50cnksIHllYXIgLCB2YXJpYWJsZSAoImNhc2VzIiwgInBvcHVsYXRpb24iKSBjb21iaW5hdGlvbiwgYW5kIHRoZXJlIGlzIGEgYGNvdW50YCB2YXJpYWJsZSB3aXRoIHRoZSBudW1lcmljIHZhbHVlIG9mIHRoZSB2YXJpYWJsZS4KYGBge3J9CnRhYmxlMgpgYGAKCkluIGB0YWJsZTNgLCBlYWNoIHJvdyBpcyBhIChjb3VudHJ5LCB5ZWFyKSBjb21iaW5hdGlvbiB3aXRoIHRoZSBjb2x1bW4gYHJhdGVgIGhhdmluZyB0aGUgcmF0ZSBvZiBjYXNlcyB0byBwb3B1bGF0aW9uIGFzIGEgY2hhcmFjdGVyIHN0cmluZyBpbiB0aGUgZm9ybWF0IGAiY2FzZXMvcmF0ZSJgLgpgYGB7cn0KdGFibGUzCmBgYAoKVGFibGUgNCBpcyBzcGxpdCBpbnRvIHR3byB0YWJsZXMsIG9uZSB0YWJsZSBmb3IgZWFjaCB2YXJpYWJsZTogYHRhYmxlNGFgIGlzIHRoZSB0YWJsZSBmb3IgY2FzZXMsIHdoaWxlIGB0YWJsZTRiYCBpcyB0aGUgdGFibGUgZm9yIHBvcHVsYXRpb24uIFdpdGhpbiBlYWNoIHRhYmxlLCBlYWNoIHJvdyBpcyBhIGNvdW50cnksIGVhY2ggY29sdW1uIGlzIGEgeWVhciwgYW5kIHRoZSBjZWxscyBhcmUgdGhlIHZhbHVlIG9mIHRoZSB2YXJpYWJsZSBmb3IgdGhlIHRhYmxlLgpgYGB7cn0KdGFibGU0YQpgYGAKYGBge3J9CnRhYmxlNGIKYGBgCgoyLiBDb21wdXRlIHRoZSBgcmF0ZWAgZm9yIGB0YWJsZTJgLCBhbmQgYHRhYmxlNGFgICsgYHRhYmxlNGJgLiBZb3Ugd2lsbCBuZWVkIHRvIHBlcmZvcm0gZm91ciBvcGVyYXRpb25zOgoKICAxLiBFeHRyYWN0IHRoZSBudW1iZXIgb2YgVEIgY2FzZXMgcGVyIGNvdW50cnkgcGVyIHllYXIuCiAgMi4gRXh0cmFjdCB0aGUgbWF0Y2hpbmcgcG9wdWxhdGlvbiBwZXIgY291bnRyeSBwZXIgeWVhci4KICAzLiBEaXZpZGUgY2FzZXMgYnkgcG9wdWxhdGlvbiwgYW5kIG11bHRpcGx5IGJ5IDEwMDAwLgogIDQuIFN0b3JlIGJhY2sgaW4gdGhlIGFwcHJvcHJpYXRlIHBsYWNlLgogIApXaGljaCByZXByZXNlbnRhdGlvbiBpcyBlYXNpZXN0IHRvIHdvcmsgd2l0aD8gV2hpY2ggaXMgaGFyZGVzdD8gV2h5PwoKV2l0aG91dCB1c2luZyB0aGUgam9pbnMgY292ZXJlZCBpbiBDaCAxMjoKYGBge3J9CnRiMl9jYXNlcyA8LSBmaWx0ZXIodGFibGUyLCB0eXBlID09ICJjYXNlcyIpW1siY291bnQiXV0KdGIyX2NvdW50cnkgPC0gZmlsdGVyKHRhYmxlMiwgdHlwZSA9PSAiY2FzZXMiKVtbImNvdW50cnkiXV0KdGIyX3llYXIgPC0gZmlsdGVyKHRhYmxlMiwgdHlwZSA9PSAiY2FzZXMiKVtbInllYXIiXV0KdGIyX3BvcHVsYXRpb24gPC0gZmlsdGVyKHRhYmxlMiwgdHlwZSA9PSAicG9wdWxhdGlvbiIpW1siY291bnQiXV0KdGFibGUyX2NsZWFuIDwtIHRpYmJsZShjb3VudHJ5ID0gdGIyX2NvdW50cnksCiAgICAgICB5ZWFyID0gdGIyX3llYXIsCiAgICAgICByYXRlID0gdGIyX2Nhc2VzIC8gdGIyX3BvcHVsYXRpb24pCnRhYmxlMl9jbGVhbgpgYGAKTm90ZSwgdGhhdCB0aGlzIGFzc3VtZXMgdGhhdCBhbGwgb2JzZXJ2YXRpb25zIGFyZSBzb3J0ZWQgc28gdGhhdCBlYWNoIGNvdW50cnksIHllYXIgd2lsbCBoYXZlIHRoZSBvYnNlcnZhdGlvbiBmb3IgY2FzZXMgZm9sbG93ZWQgYnkgcG9wdWxhdGlvbi4KCmBgYHtyfQp0aWJibGUoY291bnRyeSA9IHRhYmxlNGFbWyJjb3VudHJ5Il1dLAogICAgICAgYDE5OTlgID0gdGFibGU0YVtbIjE5OTkiXV0gLyB0YWJsZTRiW1siMTk5OSJdXSwKICAgICAgIGAyMDAwYCA9IHRhYmxlNGJbWyIyMDAwIl1dIC8gdGFibGU0YltbIjIwMDAiXV0pCmBgYApvciAKYGBge3J9CnRpYmJsZShjb3VudHJ5ID0gcmVwKHRhYmxlNGFbWyJjb3VudHJ5Il1dLCAyKSwKICAgICAgIHllYXIgPSByZXAoYygxOTk5LCAyMDAwKSwgZWFjaCA9IG5yb3codGFibGU0YSkpLAogICAgICAgYHJhdGVgID0gYyh0YWJsZTRhW1siMTk5OSJdXSAvIHRhYmxlNGJbWyIxOTk5Il1dLAogICAgICAgICAgICAgICAgICB0YWJsZTRiW1siMjAwMCJdXSAvIHRhYmxlNGJbWyIyMDAwIl1dKSkKYGBgCgoKMy4gUmVjcmVhdGUgdGhlIHBsb3Qgc2hvd2luZyBjaGFuZ2UgaW4gY2FzZXMgb3ZlciB0aW1lIHVzaW5nIGB0YWJsZTJgIGluc3RlYWQgb2YgYHRhYmxlMWAuIFdoYXQgZG8geW91IG5lZWQgdG8gZG8gZmlyc3Q/CgpGaXJzdCwgSSBuZWVkZWQgdG8gZmlsdGVyIHRoZSB0aWJibGUgdG8gb25seSBpbmNsdWRlIHRob3NlIHJvd3MgdGhhdCByZXByZXNlbnRlZCB0aGUgImNhc2VzIiB2YXJpYWJsZS4KYGBge3J9CnRhYmxlMiAlPiUgCiAgZmlsdGVyKHR5cGUgPT0gImNhc2VzIikgJT4lCiAgZ2dwbG90KGFlcyh5ZWFyLCBjb3VudCkpICsgCiAgZ2VvbV9saW5lKGFlcyhncm91cCA9IGNvdW50cnkpLCBjb2xvdXIgPSAiZ3JleTUwIikgKyAKICBnZW9tX3BvaW50KGFlcyhjb2xvdXIgPSBjb3VudHJ5KSkKYGBgCgoKIyMgU3ByZWFkaW5nIGFuZCBHYXRoZXJpbmcKCmBgYHtyfQp0aWR5NGEgPC0gdGFibGU0YSAlPiUKICBnYXRoZXIoYDE5OTlgLCBgMjAwMGAsIGtleSA9ICJ5ZWFyIiwgdmFsdWUgPSAiY2FzZXMiKQp0aWR5NGIgPC0gdGFibGU0YiAlPiUKICBnYXRoZXIoYDE5OTlgLCBgMjAwMGAsIGtleSA9ICJ5ZWFyIiwgdmFsdWUgPSAiY2FzZXMiKQpsZWZ0X2pvaW4odGlkeTRhLCB0aWR5NGIpCmBgYAoKYGBge3J9CnNwcmVhZCh0YWJsZTIsIGtleSA9IHR5cGUsIHZhbHVlID0gY291bnQpCmBgYAoKCiMjIyBFeGVyY2lzZXMKCjEuIFdoeSBhcmUgZ2F0aGVyKCkgYW5kIHNwcmVhZCgpIG5vdCBwZXJmZWN0bHkgc3ltbWV0cmljYWw/CiAgIENhcmVmdWxseSBjb25zaWRlciB0aGUgZm9sbG93aW5nIGV4YW1wbGU6CgoKYGBge3J9CnN0b2NrcyA8LSB0aWJibGUoCiAgeWVhciAgID0gYygyMDE1LCAyMDE1LCAyMDE2LCAyMDE2KSwKICBoYWxmICA9IGMoICAgMSwgICAgMiwgICAgIDEsICAgIDIpLAogIHJldHVybiA9IGMoMS44OCwgMC41OSwgMC45MiwgMC4xNykKKQpzdG9ja3MgJT4lIAogIHNwcmVhZCh5ZWFyLCByZXR1cm4pICU+JSAKICBnYXRoZXIoInllYXIiLCAicmV0dXJuIiwgYDIwMTVgOmAyMDE2YCkKYGBgCgpUaGUgZnVuY3Rpb25zIGBzcHJlYWRgIGFuZCBgZ2F0aGVyYCBhcmUgbm90IHBlcmZlY3RseSBzeW1tZXRyaWNhbCBiZWNhdXNlIGNvbHVtbiB0eXBlIGluZm9ybWF0aW9uIGlzIG5vdCB0cmFuc2ZlcnJlZCBiZXR3ZWVuIHRoZW0uIApJbiB0aGUgb3JpZ2luYWwgdGFibGUgdGhlIGNvbHVtbiBgeWVhcmAgd2FzIG51bWVyaWMsIGJ1dCBhZnRlciB0aGUgc3ByZWFkLWdhdGhlciBjeWxlIGl0IGlzIGNoYXJhY3RlciwgYmVjYXVzZSB3aXRoIGBnYXRoZXJgLCB2YXJpYWJsZSBuYW1lcyBhcmUgYWx3YXlzIGNvbnZlcnRlZCB0byBhIGNoYXJhY3RlciB2ZWN0b3IuCgpUaGUgYGNvbnZlcnRgIGFyZ3VtZW50IHRyaWVzIHRvIGNvbnZlcnQgY2hhcmFjdGVyIHZlY3RvcnMgdG8gdGhlIGFwcHJvcHJpYXRlIHR5cGUuIApJbiB0aGUgYmFja2dyb3VuZCB0aGlzIHVzZXMgdGhlIGB0eXBlLmNvbnZlcnRgIGZ1bmN0aW9uLgpgYGB7cn0Kc3RvY2tzICU+JSAKICBzcHJlYWQoeWVhciwgcmV0dXJuKSAlPiUgCiAgZ2F0aGVyKCJ5ZWFyIiwgInJldHVybiIsIGAyMDE1YDpgMjAxNmAsIGNvbnZlcnQgPSBUUlVFKQpgYGAKCjIuIFdoeSBkb2VzIHRoaXMgY29kZSBmYWlsPwoKYGBge3J9CnRhYmxlNGEgJT4lIAogIGdhdGhlcigxOTk5LCAyMDAwLCBrZXkgPSAieWVhciIsIHZhbHVlID0gImNhc2VzIikKYGBgCgpUaGUgY29kZSBmYWlscyBiZWNhdXNlIHRoZSBjb2x1bW4gbmFtZXMgYDE5OTlgIGFuZCBgMjAwMGAgYXJlIG5vdCBzdGFuZGFyZCBhbmQgdGh1cyBuZWVkcyB0byBiZSBxdW90ZWQuClRoZSB0aWR5dmVyc2UgZnVuY3Rpb25zIHdpbGwgaW50ZXJwcmV0IGAxOTk5YCBhbmQgYDIwMDBgIHdpdGhvdXQgcXVvdGVzIGFzIGxvb2tpbmcgZm9yIHRoZSAxOTk5dGggYW5kIDIwMDB0aCBjb2x1bW4gb2YgdGhlIGRhdGEgZnJhbWUuClRoaXMgd2lsbCB3b3JrOgpgYGB7cn0KdGFibGU0YSAlPiUgCiAgZ2F0aGVyKGAxOTk5YCwgYDIwMDBgLCBrZXkgPSAieWVhciIsIHZhbHVlID0gImNhc2VzIikKYGBgCgozLiBXaHkgZG9lcyBzcHJlYWRpbmcgdGhpcyB0aWJibGUgZmFpbD8gSG93IGNvdWxkIHlvdSBhZGQgYSBuZXcgY29sdW1uIHRvIGZpeCB0aGUgcHJvYmxlbT8KCgpgYGB7cn0KcGVvcGxlIDwtIHRyaWJibGUoCiAgfm5hbWUsICAgICAgICAgICAgIH5rZXksICAgIH52YWx1ZSwKICAjLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS18LS0tLS0tCiAgIlBoaWxsaXAgV29vZHMiLCAgICJhZ2UiLCAgICAgICA0NSwKICAiUGhpbGxpcCBXb29kcyIsICAgImhlaWdodCIsICAgMTg2LAogICJQaGlsbGlwIFdvb2RzIiwgICAiYWdlIiwgICAgICAgNTAsCiAgIkplc3NpY2EgQ29yZGVybyIsICJhZ2UiLCAgICAgICAzNywKICAiSmVzc2ljYSBDb3JkZXJvIiwgImhlaWdodCIsICAgMTU2CikKZ2xpbXBzZShwZW9wbGUpCmBgYAoKYGBge3J9CnNwcmVhZChwZW9wbGUsIGtleSwgdmFsdWUpCmBgYAoKU3ByZWFkaW5nIHRoZSBkYXRhIGZyYW1lIGZhaWxzIGJlY2F1c2UgdGhlcmUgYXJlIHR3byByb3dzIHdpdGggImFnZSIgZm9yICJQaGlsbGlwIFdvb2RzIi4KV2Ugd291bGQgbmVlZCB0byBhZGQgYW5vdGhlciBjb2x1bW4gd2l0aCBhbiBpbmRpY2F0b3IgZm9yIHRoZSBudW1iZXIgb2JzZXJ2YXRpb24gaXQgaXMsCgpgYGB7cn0KcGVvcGxlIDwtIHRyaWJibGUoCiAgfm5hbWUsICAgICAgICAgICAgIH5rZXksICAgIH52YWx1ZSwgfm9icywKICAjLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS18LS0tLS0tfC0tLS0tLQogICJQaGlsbGlwIFdvb2RzIiwgICAiYWdlIiwgICAgICAgNDUsIDEsCiAgIlBoaWxsaXAgV29vZHMiLCAgICJoZWlnaHQiLCAgIDE4NiwgMSwKICAiUGhpbGxpcCBXb29kcyIsICAgImFnZSIsICAgICAgIDUwLCAyLAogICJKZXNzaWNhIENvcmRlcm8iLCAiYWdlIiwgICAgICAgMzcsIDEsCiAgIkplc3NpY2EgQ29yZGVybyIsICJoZWlnaHQiLCAgIDE1NiwgMQopCnNwcmVhZChwZW9wbGUsIGtleSwgdmFsdWUpCmBgYAoKCjQuIFRpZHkgdGhlIHNpbXBsZSB0aWJibGUgYmVsb3cuIERvIHlvdSBuZWVkIHRvIHNwcmVhZCBvciBnYXRoZXIgaXQ/IFdoYXQgYXJlIHRoZSB2YXJpYWJsZXM/CgpgYGB7cn0KcHJlZyA8LSB0cmliYmxlKAogIH5wcmVnbmFudCwgfm1hbGUsIH5mZW1hbGUsCiAgInllcyIsICAgICBOQSwgICAgMTAsCiAgIm5vIiwgICAgICAyMCwgICAgMTIKKQpgYGAKCllvdSBuZWVkIHRvIGdhdGhlciBpdC4gVGhlIHZhcmlhYmxlcyBhcmU6CgotIHByZWduYW50OiBsb2dpY2FsICgieWVzIiwgIm5vIikKLSBmZW1hbGU6IGxvZ2ljYWwKLSBjb3VudDogaW50ZWdlcgoKYGBge3J9CmdhdGhlcihwcmVnLCBzZXgsIGNvdW50LCBtYWxlLCBmZW1hbGUpICU+JQogIG11dGF0ZShwcmVnbmFudCA9IHByZWduYW50ID09ICJ5ZXMiLAogICAgICAgICBmZW1hbGUgPSBzZXggPT0gImZlbWFsZSIpICU+JQogIHNlbGVjdCgtc2V4KQpgYGAKQ29udmVydGluZyBgcHJlZ25hbnRgIGFuZCBgZmVtYWxlYCBmcm9tIGNoYXJhY3RlciB2ZWN0b3JzIHRvIGxvZ2ljYWwgd2FzIG5vdCBuZWNlc3NhcnkgdG8gdGlkeSBpdCwgYnV0IGl0IG1ha2VzIGl0IGVhc2llciB0byB3b3JrIHdpdGguCgojIyBTZXBhcmF0aW5nIGFuZCBVbml0aW5nCgpgYGB7cn0KdGFibGUzICU+JQogIHNlcGFyYXRlKHJhdGUsIGludG8gPSBjKCJjYXNlcyIsICJwb3B1bGF0aW9uIiksIHNlcCA9ICIvIiwgY29udmVydCA9IFRSVUUpICU+JQogIHNlcGFyYXRlKHllYXIsIGludG8gPSBjKCJjZW50dXJ5IiwgInllYXIiKSwgc2VwID0gMikKYGBgCgpgYGB7cn0KdGFibGU1ICU+JQogIHVuaXRlKG5ldywgY2VudHVyeSwgeWVhciwgc2VwID0gIiIpCmBgYAoKCiMjIyBFeGVyY2lzZXMKCjEuIFdoYXQgZG8gdGhlIGV4dHJhIGFuZCBmaWxsIGFyZ3VtZW50cyBkbyBpbiBzZXBhcmF0ZSgpPyBFeHBlcmltZW50IHdpdGggdGhlIHZhcmlvdXMgCm9wdGlvbnMgZm9yIHRoZSBmb2xsb3dpbmcgdHdvIHRveSBkYXRhc2V0cy4KCmBgYHtyfQp0aWJibGUoeCA9IGMoImEsYixjIiwgImQsZSxmLGciLCAiaCxpLGoiKSkgJT4lIAogIHNlcGFyYXRlKHgsIGMoIm9uZSIsICJ0d28iLCAidGhyZWUiKSkKCnRpYmJsZSh4ID0gYygiYSxiLGMiLCAiZCxlIiwgImYsZyxpIikpICU+JSAKICBzZXBhcmF0ZSh4LCBjKCJvbmUiLCAidHdvIiwgInRocmVlIikpCmBgYAoKYGBge3J9Cj9zZXBhcmF0ZQpgYGAKClRoZSBgZXh0cmFgIGFyZ3VtZW50IHRlbGxzIGBzZXBhcmF0ZWAgd2hhdCB0byBkbyBpZiB0aGVyZSBhcmUgdG9vIG1hbnkgcGllY2VzLAphbmQgdGhlIGBmaWxsYCBhcmd1bWVudCBpZiB0aGVyZSBhcmVuJ3QgZW5vdWdoLgoKYGBge3J9CnRpYmJsZSh4ID0gYygiYSxiLGMiLCAiZCxlLGYsZyIsICJoLGksaiIpKSAlPiUgCiAgc2VwYXJhdGUoeCwgYygib25lIiwgInR3byIsICJ0aHJlZSIpKQpgYGAKQnkgZGVmYXVsdCBgc2VwYXJhdGVgIGRyb3BzIHRoZSBleHRyYSB2YWx1ZXMgd2l0aCBhIHdhcm5pbmcuCmBgYHtyfQp0aWJibGUoeCA9IGMoImEsYixjIiwgImQsZSxmLGciLCAiaCxpLGoiKSkgJT4lIAogIHNlcGFyYXRlKHgsIGMoIm9uZSIsICJ0d28iLCAidGhyZWUiKSwgZXh0cmEgPSAiZHJvcCIpCmBgYApUaGlzIHByb2R1Y2VzIHRoZSBzYW1lIHJlc3VsdCBhcyBhYm92ZSwgZHJvcHBpbmcgZXh0cmEgdmFsdWVzLCBidXQgd2l0aG91dCB0aGUgd2FybmluZy4KYGBge3J9CnRpYmJsZSh4ID0gYygiYSxiLGMiLCAiZCxlLGYsZyIsICJoLGksaiIpKSAlPiUgCiAgc2VwYXJhdGUoeCwgYygib25lIiwgInR3byIsICJ0aHJlZSIpLCBleHRyYSA9ICJtZXJnZSIpCmBgYApJbiB0aGlzLCB0aGUgZXh0cmEgdmFsdWVzIGFyZSBub3Qgc3BsaXQsIHNvICJmLGciIGFwcGVhcnMgaW4gY29sdW1uIHRocmVlLgoKSW4gdGhpcywgb25lIG9mIHRoZSBlbnRyaWVzIGZvciBjb2x1bW4sICJkLGUiLCBoYXMgdG9vIGZldyBlbGVtZW50cy4KVGhlIGRlZmF1bHQgZm9yIGBmaWxsYCBpcyBzaW1pbGFyIHRvIGBzZXBhcmF0ZWA7IGl0IGZpbGxzIHdpdGggbWlzc2luZyB2YWx1ZXMgYnV0IGVtaXRzIGEgd2FybmluZy4gSW4gdGhpcywgcm93IDIgb2YgY29sdW1uICJ0aHJlZSIsIGlzIGBOQWAuCmBgYHtyfQp0aWJibGUoeCA9IGMoImEsYixjIiwgImQsZSIsICJmLGcsaSIpKSAlPiUgCiAgc2VwYXJhdGUoeCwgYygib25lIiwgInR3byIsICJ0aHJlZSIpKQpgYGAKCkFsdGVybmF0aXZlIG9wdGlvbnMgZm9yIGBmaWxsYCBhcmUgYCJyaWdodCJgLCB0byBmaWxsIHdpdGggbWlzc2luZyB2YWx1ZXMgZnJvbSB0aGUgcmlnaHQsIGJ1dCB3aXRob3V0IGEgd2FybmluZwpgYGB7cn0KdGliYmxlKHggPSBjKCJhLGIsYyIsICJkLGUiLCAiZixnLGkiKSkgJT4lIAogIHNlcGFyYXRlKHgsIGMoIm9uZSIsICJ0d28iLCAidGhyZWUiKSwgZmlsbCA9ICJyaWdodCIpCmBgYApUaGUgb3B0aW9uIGBmaWxsID0gImxlZnQiYCBhbHNvIGZpbGxzIHdpdGggbWlzc2luZyB2YWx1ZXMgd2l0aG91dCBhIHdhcm5pbmcsIGJ1dCB0aGlzIHRpbWUgZnJvbSB0aGUgbGVmdCBzaWRlLgpOb3csIGNvbHVtbiAib25lIiBvZiByb3cgMiB3aWxsIGJlIG1pc3NpbmcsIGFuZCB0aGUgb3RoZXIgdmFsdWVzIGluIHRoYXQgcm93IGFyZSBzaGlmdGVkIG92ZXIuCmBgYHtyfQp0aWJibGUoeCA9IGMoImEsYixjIiwgImQsZSIsICJmLGcsaSIpKSAlPiUgCiAgc2VwYXJhdGUoeCwgYygib25lIiwgInR3byIsICJ0aHJlZSIpLCBmaWxsID0gImxlZnQiKQpgYGAKCjIuIEJvdGggYHVuaXRlKClgIGFuZCBgc2VwYXJhdGUoKWAgaGF2ZSBhIHJlbW92ZSBhcmd1bWVudC4gV2hhdCBkb2VzIGl0IGRvPyBXaHkgd291bGQgeW91IHNldCBpdCB0byBgRkFMU0VgPwoKWW91IHdvdWxkIHNldCBpdCB0byBgRkFMU0VgIGlmIHlvdSB3YW50IHRvIGNyZWF0ZSBhIG5ldyB2YXJpYWJsZSwgYnV0IGtlZXAgdGhlIG9sZCBvbmUuCgozLiBDb21wYXJlIGFuZCBjb250cmFzdCBgc2VwYXJhdGUoKWAgYW5kIGBleHRyYWN0KClgLCBXaHkgYXJlIHRoZXJlIHRocmVlIHZhcmlhdGlvbnMgb2Ygc2VwYXJhdGlvbiAoYnkgcG9zaXRpb24sIGJ5IHNlcGFyYXRvciwgYW5kIHdpdGggZ3JvdXBzKSwgYnV0IG9ubHkgb25lIHVuaXRlPwoKVGhlIGZ1bmN0aW9uIGBleHRyYWN0YCB1c2VzIGEgcmVndWxhciBleHByZXNzaW9uIHRvIGZpbmQgZ3JvdXBzIGFuZCBzcGxpdCBpbnRvIGNvbHVtbnMuCkluIGB1bml0ZWAgaXQgaXMgdW5hbWJpZ291cyBzaW5jZSBpdCBpcyBtYW55IGNvbHVtbnMgdG8gb25lLCBhbmQgb25jZSB0aGUgY29sdW1ucyBhcmUgc3BlY2lmaWVkLCB0aGVyZSBpcyBvbmx5IG9uZSB3YXkgdG8gZG8gaXQsIHRoZSBvbmx5IGNob2ljZSBpcyB0aGUgYHNlcGAuCkluIGBzZXBhcmF0ZWAsIGl0IGlzIG9uZSB0byBtYW55LCBhbmQgdGhlcmUgYXJlIG11bHRpcGxlIHdheXMgdG8gc3BsaXQgdGhlIGNoYXJhY3RlciBzdHJpbmcuCgoKIyMgTWlzc2luZyBWYWx1ZXMKCgojIyMgRXhlcmNpc2VzCgoqKlRPRE8qKgoKCiMjIENhc2UgU3R1ZHkKCiMjIyBFeGVyY2lzZXMKCioqVE9ETyoqIAoKCiMjIE5vbi1UaWR5IERhdGEKCi0gQ29ycHVzIGFuZCB0ZXh0IGRhdGEgaXMgb2Z0ZW4gc3RvcmVkIGluIHNwYXJzZSBNYXRyaWNlcyBodHRwczovL2NyYW4uci1wcm9qZWN0Lm9yZy93ZWIvcGFja2FnZXMvdG0vdG0ucGRmCi0gR3JhcGhpY2FsIGRhdGEgaGFzIGl0cyBvd24gZm9ybWF0OiBodHRwOi8vaWdyYXBoLm9yZy9yL2RvYy8K</div>
 
 
 
