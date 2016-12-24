@@ -347,14 +347,140 @@ In `separate`, it is one to many, and there are multiple ways to split the chara
 
 ### Exercises
 
-**TODO**
+
+1. Compare and contrast the `fill` arguments to `spread()` and `complete()`.
+
+```{r}
+?spread
+```
+```{r}
+?complete
+```
+
+In `spread`, the fill argument explicitly sets the value to replace `NA`s.
+In `complete`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
+Also, both cases replace both implicit and explicit missing values.
+
+2. What does the direction argument to `fill()` do?
+
+With `fill`, it determines whether `NA` values should be replaced by the previous non-missing value (`"down"`) or the next non-missing value (`"up"`).
+
 
 
 ## Case Study
 
+```{r}
+who
+```
+
+```{r}
+glimpse(who)
+```
+
+
+```{r}
+who1 <- who %>%
+  gather(new_sp_m014:newrel_f65, key = "key", value = "cases", na.rm = TRUE)
+glimpse(who1)
+```
+
+```{r}
+who2 <- who1 %>%
+ mutate(key = stringr::str_replace(key, "newrel", "new_rel"))
+
+```
+
+```{r}
+who3 <- who2 %>%
+  separate(key, c("new", "type", "sexage"), sep = "_")
+who3
+```
+
+```{r}
+who3 %>%
+  count(new)
+```
+
+```{r}
+who4 <- who3 %>%
+  select(-new, -iso2, -iso3)
+```
+
+```{r}
+who5 <- who4 %>%
+  separate(sexage, c("sex", "age"), sep = 1)
+who5
+```
+
+
 ### Exercises
 
-**TODO** 
+1. In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
+
+Perhaps? I would need to know more about the data generation process. 
+There are zero's in the data, which means they may explicitly be indicating no cases.
+```{r}
+who1 %>%
+  filter(cases == 0) %>%
+  nrow()
+```
+
+So it appears that either a country has all its values in a year as non-missing if the WHO collected data for that country, or all its values are non-missing. 
+So it is okay to treat explicitly and implicitly missing values the same, and we don't lose any information by dropping them.
+```{r}
+gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
+  group_by(country, year)  %>%
+  mutate(missing = is.na(cases)) %>%
+  select(country, year, missing) %>%
+  distinct() %>%
+  group_by(country, year) %>%
+  filter(n() > 1)
+
+```
+
+
+
+2. What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+
+`separate` emits the warning "too few values", and if we check the 
+rows for keys beginning with `"newrel_"`, we see that `sexage` is messing, 
+and `type = m014`.
+
+```{r}
+who3a <- who1 %>%
+  separate(key, c("new", "type", "sexage"), sep = "_")
+
+filter(who3a, new == "newrel") %>% head()
+```
+
+
+3. I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
+
+```{r}
+select(who3, country, iso2, iso3) %>%
+  distinct() %>%
+  group_by(country) %>%
+  filter(n() > 1)
+
+```
+
+
+4. For each country, year, and sex compute the total number of cases of TB. Make an informative visualisation of the data.
+
+```{r}
+who5 %>%
+  group_by(country, year, sex) %>%
+  filter(year > 1995) %>%
+  summarise(cases = sum(cases)) %>%
+  unite(country_sex, country, sex, remove = FALSE) %>%
+  ggplot(aes(x = year, y = cases, group = country_sex, colour = sex)) +
+  geom_line()
+
+  
+```
+
+A small multiples plot faceting by country is difficult given the number of countries.
+Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.
 
 
 ## Non-Tidy Data
