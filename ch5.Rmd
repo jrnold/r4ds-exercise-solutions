@@ -13,9 +13,201 @@ library(nycflights13)
 library(tidyverse)
 ```
 
+
 # Filter
 
 ```{r}
+glimpse(flights)
+```
 
+## Exercises
+
+1. Find all flights that
+
+  1. Had an arrival delay of two or more hours
+  2. Flew to Houston (IAH or HOU)
+  3. Were operated by United, American, or Delta
+  4. Departed in summer (July, August, and September)
+  5. Arrived more than two hours late, but didn’t leave late
+  6. Were delayed by at least an hour, but made up over 30 minutes in flight
+  7. Departed between midnight and 6am (inclusive)
+
+*Had an arrival delay of two or more hours* Since delay is in minutes, we are looking
+for flights where `arr_delay > 120`:
+```{r}
+flights %>% 
+  filter(arr_delay > 120)
+```
+
+*Flew to Houston (IAH or HOU)*:
+```{r}
+flights %>%
+  filter(dest %in% c("IAH", "HOU"))
+```
+
+*Were operated by United, American, or Delta* The variable `carrier` has the airline: but it is in two-digit carrier codes. However, we can look it up in the `airlines`
+dataset.
+```{r}
+airlines
+```
+Since there are only 16 rows, its not even worth filtering.
+Delta is `DL`, American is `AA`, and United is `UA`:
+```{r}
+filter(flights, carrier %in% c("AA", "DL", "UA"))
+```
+
+*Departed in summer (July, August, and September)* The variable `month` has the month, and it is numeric.
+```{r}
+filter(flights, between(month, 7, 9))
+```
+
+*Arrived more than two hours late, but didn’t leave late*
+```{r}
+filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
+```
+
+*Were delayed by at least an hour, but made up over 30 minutes in flight*
+```{r}
+filter(flights, !is.na(dep_delay), dep_delay >= 60, arr_delay < 30)
+```
+
+*Departed between midnight and 6am (inclusive)*.
+```{r}
+filter(flights, dep_time >= 0, dep_time <= 600)
+```
+or using `between` (see next question)
+```{r}
+filter(flights, between(dep_time, 0, 600))
+```
+
+
+2. Another useful dplyr filtering helper is `between()`. What does it do? Can you use it to simplify the code needed to answer the previous challenges?
+
+`between(x, left, right)` is equivalent to `x >= left & x <= right`. I already 
+used it in 1.4.
+
+3. How many flights have a missing `dep_time`? What other variables are missing? What might these rows represent?
+
+```{r}
+filter(flights, is.na(dep_time))
+```
+
+Since `arr_time` is also missing, these are cancelled flights.
+
+4. Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
+
+`NA ^ 0 == 1` since for all numeric values $x ^ 0 = 1$. 
+```{r}
+NA ^ 0
+```
+
+`NA | TRUE` is `TRUE` because the it doesn't matter whether the missing value is `TRUE` or `FALSE`, `x \lor T = T` for all values of `x`.
+```{r}
+NA | TRUE
+```
+Likewise, anything and `FALSE` is always `FALSE`.
+```{r}
+NA & FALSE
+```
+Because the value of the missing element matters in `NA | FALSE` and `NA & TRUE`, these are missing:
+```{r}
+NA | FALSE
+NA & TRUE
+```
+
+wut? Since `x * 0 = 0` for all $x$ we might expect `NA * 0 = 0`, but that's not the case.
+```{r}
+NA * 0
+```
+
+# Arrange
+
+missing values always at the end.
+
+## Exercises
+
+1. How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
+
+This sorts by increasing `dep_time`, but with all missing values put first.
+```{r}
+arrange(flights, desc(is.na(dep_time)), dep_time)
+```
+
+2. Sort flights to find the most delayed flights. Find the flights that left earliest.
+
+The most delayed flights are found by sorting by `dep_delay` in descending order.
+```{r}
+arrange(flights, desc(dep_delay))
+```
+If we sort `dep_delay` in ascending order, we get those that left earliest.
+There was a flight that left 43 minutes early.
+```{r}
+arrange(flights, dep_delay)
+```
+
+3. Sort flights to find the fastest flights.
+
+I assume that by by "fastest flights" it means the flights with the minimum air time.
+So I sort by `air_time`. The fastest flights. The fastest flights area couple of flights between EWR and BDL with an air time of 20 minutes.
+```{r}
+arrange(flights, air_time)
+```
+
+
+4. Which flights travelled the longest? Which travelled the shortest?
+
+I'll assume hat travelled the longest or shortest refers to distance, rather than air-time.
+
+The longest flights are the Hawaii Air (HA 51) between JFK and HNL (Honolulu) at 4,983 miles.
+```{r}
+arrange(flights, desc(distance))
+```
+
+Apart from an EWR to LGA flight that was cancelled, the shortest flights are the Envoy Air Flights between EWR and PHL at 80 miles.
+```{r}
+arrange(flights, distance)
+```
+
+1. Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from flights.
+
+A few ways include:
+```{r}
+select(dep_time, dep_delay, arr_time, arr_delay)
+select(starts_with("dep_"), starts_with("arr_"))
+select(matches("^(dep|arr)_(time|delay)$"))
+```
+using `ends_with()` doesn't work well since it would bget `sched_arr_time` and `sched_dep_time`.
+
+2. What happens if you include the name of a variable multiple times in a select() call?
+
+It ignores the duplicates, and that variable is only included once. No error, warning, or message is emited.
+```{r}
+select(flights, year, month, day, year, year)
+```
+
+3. What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
+
+The `one_of` vector allows you to select variables with a character vector rather than as unquoted variable names.
+It's useful because then you can easily pass vectors to `select()`.
+
+```{r}
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+select(flights, one_of(vars))
+```
+
+
+4. Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
+
+```{r}
+select(flights, contains("TIME"))
+```
+
+The default behavior for contains is to ignore case.
+Yes, it surprises me.
+Upon reflection, I realized that this is likely the default behavior because `dplyr` is designed to deal with a variety of data backends, and some database engines don't differentiate case.
+
+To change the behavior add the argument `ignore.case = FALSE`. Now no variables are selected.
+```{r}
+select(flights, contains("TIME", ignore.case = FALSE))
 ```
 
