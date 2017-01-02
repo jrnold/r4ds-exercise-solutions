@@ -1,0 +1,126 @@
+---
+title: "Chapter 21: Iteration"
+output: html_notebook
+---
+
+## Prerequisites
+ 
+ 
+```{r}
+library(tidyverse)
+```
+
+## For Loops
+
+### Exercises
+
+
+Write for loops to:
+
+1. Compute the mean of every column in `mtcars`.
+2. Determine the type of each column in `nycflights13::flights`.
+3. Compute the number of unique values in each column of `iris`.
+4. Generate 10 random normals for each of $\mu = -10$, 0, 10, and 100.
+
+Think about the output, sequence, and body before you start writing the loop.
+
+To compute the mean of every column in `mtcars`.
+```{r}
+output <- vector("double", ncol(mtcars))
+names(output) <- names(mtcars)
+for (i in names(mtcars)) {
+  output[i] <- mean(mtcars[[i]])
+}
+output
+```
+
+Determine the type of each column in `nycflights13::flights`.
+Note that we need to use a `list`, not a character vector, since the class can have multiple values.
+```{r}
+data("flights", package = "nycflights13")
+output <- vector("list", ncol(flights))
+names(output) <- names(flights)
+for (i in names(flights)) {
+  output[[i]] <- class(flights[[i]])
+}
+output
+```
+
+
+```{r}
+data(iris)
+iris_uniq <- vector("double", ncol(iris))
+names(iris_uniq) <- names(iris)
+for (i in names(iris)) {
+  iris_uniq[i] <- length(unique(iris[[i]]))
+}
+iris_uniq
+```
+
+```{r}
+# number to draw
+n <- 10
+# values of the mean
+mu <- c(-10, 0, 10, 100)
+normals <- vector("list", length(mu))
+for (i in seq_along(normals)) {
+  normals[[i]] <- rnorm(n, mean = mu[i])
+}
+normals
+```
+
+However, we don't need a `for` loop for this since `rnorm` recycles means.
+```{r}
+matrix(rnorm(n * length(mu), mean = mu), ncol = n)
+```
+
+2. Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:
+
+```{r}
+out <- ""
+for (x in letters) {
+  out <- stringr::str_c(out, x)
+}
+out
+```
+
+`str_c` already works with vectors, so simply use `str_c` with the `collapse` argument to return a single string.
+```{r}
+stringr::str_c(letters, collapse = "")
+```
+
+For this I'm going to rename the variable `sd` to something different because `sd` is the name of the function we want to use.
+```{r}
+x <- sample(100)
+sd. <- 0
+for (i in seq_along(x)) {
+  sd. <- sd. + (x[i] - mean(x)) ^ 2
+}
+sd. <- sqrt(sd. / (length(x) - 1))
+sd.
+```
+
+We could simply use the `sd` function.
+```{r}
+sd(x)
+```
+Or if there was a need to use the equation (e.g. for pedagogical reasons), then
+the functions `mean` and `sum` already work with vectors:
+```{r}
+sqrt(sum((x - mean(x)) ^ 2) / (length(x) - 1))
+```
+
+
+```{r}
+x <- runif(100)
+out <- vector("numeric", length(x))
+out[1] <- x[1]
+for (i in 2:length(x)) {
+  out[i] <- out[i - 1] + x[i]
+}
+out
+```
+The code above is calculating a cumulative sum. Use the function `cumsum`
+```{r}
+all.equal(cumsum(x),out)
+```
