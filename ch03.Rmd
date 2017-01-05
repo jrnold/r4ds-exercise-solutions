@@ -459,3 +459,140 @@ ggplot(data = diamonds) +
 
 ```
 
+# Position Adjustments
+
+1. What is the problem with this plot? How could you improve it?
+
+There is overplotting because there are multiple observations for each combination of `cty` and `hwy`.
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point()
+```
+I'd fix it by using a jitter positition adjustment.
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(position = "jitter")
+```
+
+2. What parameters to `geom_jitter()` control the amount of jittering?
+
+From the [position_jitter](http://docs.ggplot2.org/current/position_jitter.html) documentation, there are two arguments to jitter: `width` and `height`, which control the amount of vertical and horizontal jitter. 
+
+No horizontal jitter
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(position = position_jitter(width = 0))
+```
+
+Way too much vertical jitter
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(position = position_jitter(width = 0, height = 15))
+```
+
+Only horizontal jitter:
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(position = position_jitter(height = 0))
+```
+
+Way too much horizontal jitter:
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point(position = position_jitter(height = 0, width = 20))
+```
+
+3. Compare and contrast `geom_jitter()` with `geom_count()`.
+
+4. What’s the default position adjustment for `geom_boxplot()`? Create a visualisation of the mpg dataset that demonstrates it.
+
+The default position for `geom_boxplot` is `position_dodge` (see its [docs](http://docs.ggplot2.org/current/geom_boxplot.html)).
+
+When we add `color = class` to the boxplot, the different classes within `drv` are placed side by side, i.e. dodged. If it was `position_identity`, they would be overlapping.
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
+  geom_boxplot()
+```
+
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
+  geom_boxplot(position = "identity")
+```
+
+# Coordinate Systems
+
+## Exercises
+
+1. Turn a stacked bar chart into a pie chart using `coord_polar()`.
+
+This is a stacked bar chart with a single category
+```{r}
+ggplot(mpg, aes(x = factor(1), fill = drv)) +
+  geom_bar()
+```
+
+See the documentation for [coord_polar](http://docs.ggplot2.org/current/coord_polar.html) for an example of making a pie chart. In particular, `theta = "y"`, meaning that the angle of the chart is the `y` variable has to be specified.
+
+```{r}
+ggplot(mpg, aes(x = factor(1), fill = drv)) +
+  geom_bar(width = 1) +
+  coord_polar(theta = "y")
+```
+
+If `theta = "y"` is not specified, then you get a bullseye chart
+```{r}
+ggplot(mpg, aes(x = factor(1), fill = drv)) +
+  geom_bar(width = 1) +
+  coord_polar()
+```
+
+If you had a multiple stacked bar chart, like,
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+```
+
+you end up with a multi-donut chart
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill") +
+  coord_polar(theta = "y")
+```
+
+
+2. What does `labs()` do? Read the documentation.
+
+`labs` is a shortcut function to add labels to different scales.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+  geom_boxplot() +
+  coord_flip() +
+  labs(y = "Highway MPG", x = "")
+```
+
+3. What’s the difference between `coord_quickmap()` and `coord_map()`?
+
+See the [docs](http://docs.ggplot2.org/current/coord_quickmap.html):
+
+- `coord_map` uses a 2D projection: by default the Mercatur project of the sphere to the plot. But this requires transforming all geoms.
+- `coord_quickmap` uses a quick approximation by using the lat/long ratio as an approximation. This is "quick" because the shapes don't need to be transformed.
+
+4. What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important? What does `geom_abline()` do?
+
+The coordinates `coord_fixed` ensures that the abline is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+  geom_abline() +
+  coord_fixed()
+```
+
+If we didn't include geom_point, then the line is no longer at 45 degrees:
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+  geom_abline()
+```
+
