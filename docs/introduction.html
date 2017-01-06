@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Exercise Solutions and Notes for R for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Exercise Solutions and Notes for “R for Data Science”">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Exercise Solutions and Notes for R for Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://r4ds.had.co.nz/" />
+  
+  
+  <meta name="github-repo" content="jrnold/r4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Exercise Solutions and Notes for R for Data Science" />
+  
+  
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="position-adjustments.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Data Science</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#prerequisites"><i class="fa fa-check"></i><b>1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#first-steps"><i class="fa fa-check"></i><b>1.2</b> First Steps</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#exercises"><i class="fa fa-check"></i><b>1.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#aesthetic-mappings"><i class="fa fa-check"></i><b>1.3</b> Aesthetic mappings</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction.html"><a href="introduction.html#exercises-1"><i class="fa fa-check"></i><b>1.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#facets"><i class="fa fa-check"></i><b>1.4</b> Facets</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#exercises-2"><i class="fa fa-check"></i><b>1.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#geometric-objects"><i class="fa fa-check"></i><b>1.5</b> Geometric Objects</a></li>
+<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#statistical-transformations"><i class="fa fa-check"></i><b>1.6</b> Statistical Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="position-adjustments.html"><a href="position-adjustments.html"><i class="fa fa-check"></i><b>2</b> Position Adjustments</a></li>
+<li class="chapter" data-level="3" data-path="coordinate-systems.html"><a href="coordinate-systems.html"><i class="fa fa-check"></i><b>3</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="3.1" data-path="coordinate-systems.html"><a href="coordinate-systems.html#exercises-3"><i class="fa fa-check"></i><b>3.1</b> Exercises</a></li>
+<li class="chapter" data-level="3.2" data-path="coordinate-systems.html"><a href="coordinate-systems.html#practice"><i class="fa fa-check"></i><b>3.2</b> Practice</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="coordinate-systems.html"><a href="coordinate-systems.html#exercises-4"><i class="fa fa-check"></i><b>3.2.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions and Notes for “R for Data Science”</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<div id="prerequisites" class="section level2">
+<h2><span class="header-section-number">1.1</span> Prerequisites</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+</div>
+<div id="first-steps" class="section level2">
+<h2><span class="header-section-number">1.2</span> First Steps</h2>
+<div id="exercises" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Run ggplot(data = mpg) what do you see?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg)</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Nothing. The plot is created, but <code>ggplot</code> is not given any data to plot.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>How many rows are in <code>mtcars</code>? How many columns?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(mtcars)
+<span class="co">#&gt; [1] 32</span>
+<span class="kw">ncol</span>(mtcars)
+<span class="co">#&gt; [1] 11</span></code></pre></div>
+<p>This can also be found by printing the dataset, or looking in the environment pane.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>What does the drv variable describe? Read the help for <code>?mpg</code> to find out.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?mpg</code></pre></div>
+<p>The <code>drv</code> variable takes the following values</p>
+<ul>
+<li>f = front-wheel drive</li>
+<li>r = rear wheel drive</li>
+<li>4 = 4wd</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Make a scatterplot of <code>hwy</code> vs <code>cyl</code></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> hwy, <span class="dt">y =</span> cyl)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li>What happens if you make a scatterplot of <code>class</code> vs <code>drv</code>. Why is the plot not useful?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> class, <span class="dt">y =</span> drv)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>A scatterplot is not a useful way to plot these variables, since both <code>drv</code> and <code>class</code> are factor variables, and the scatterplot cannot show which are overlapping or not.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">count</span>(mpg, drv, class)
+<span class="co">#&gt; Source: local data frame [12 x 3]</span>
+<span class="co">#&gt; Groups: drv [?]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     drv      class     n</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     4    compact    12</span>
+<span class="co">#&gt; 2     4    midsize     3</span>
+<span class="co">#&gt; 3     4     pickup    33</span>
+<span class="co">#&gt; 4     4 subcompact     4</span>
+<span class="co">#&gt; 5     4        suv    51</span>
+<span class="co">#&gt; 6     f    compact    35</span>
+<span class="co">#&gt; # ... with 6 more rows</span></code></pre></div>
+</div>
+</div>
+<div id="aesthetic-mappings" class="section level2">
+<h2><span class="header-section-number">1.3</span> Aesthetic mappings</h2>
+<div id="exercises-1" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>What’s gone wrong with this code? Why are the points not blue?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>))</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Since <code>color = &quot;blue&quot;</code> was included within the <code>mapping</code> argument, it was treated as an aesthetic (a mapping between a variable and a value). It was treated as a variable which has only one value: “blue”.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?mpg</code></pre></div>
+<p>When printing the data frame, this information is given at the top of each column within angled brackets. Categorical variables have a class of “character” (<code>&lt;chr&gt;</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mpg
+<span class="co">#&gt; # A tibble: 234 × 11</span>
+<span class="co">#&gt;   manufacturer model displ  year   cyl      trans   drv   cty   hwy    fl</span>
+<span class="co">#&gt;          &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;      &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1         audi    a4   1.8  1999     4   auto(l5)     f    18    29     p</span>
+<span class="co">#&gt; 2         audi    a4   1.8  1999     4 manual(m5)     f    21    29     p</span>
+<span class="co">#&gt; 3         audi    a4   2.0  2008     4 manual(m6)     f    20    31     p</span>
+<span class="co">#&gt; 4         audi    a4   2.0  2008     4   auto(av)     f    21    30     p</span>
+<span class="co">#&gt; 5         audi    a4   2.8  1999     6   auto(l5)     f    16    26     p</span>
+<span class="co">#&gt; 6         audi    a4   2.8  1999     6 manual(m5)     f    18    26     p</span>
+<span class="co">#&gt; # ... with 228 more rows, and 1 more variables: class &lt;chr&gt;</span></code></pre></div>
+<p>The <code>glimpse</code> command from “mpg” shows this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(mpg)
+<span class="co">#&gt; Observations: 234</span>
+<span class="co">#&gt; Variables: 11</span>
+<span class="co">#&gt; $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;...</span>
+<span class="co">#&gt; $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 qua...</span>
+<span class="co">#&gt; $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0,...</span>
+<span class="co">#&gt; $ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1...</span>
+<span class="co">#&gt; $ cyl          &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6...</span>
+<span class="co">#&gt; $ trans        &lt;chr&gt; &quot;auto(l5)&quot;, &quot;manual(m5)&quot;, &quot;manual(m6)&quot;, &quot;auto(av)...</span>
+<span class="co">#&gt; $ drv          &lt;chr&gt; &quot;f&quot;, &quot;f&quot;, &quot;f&quot;, &quot;f&quot;, &quot;f&quot;, &quot;f&quot;, &quot;f&quot;, &quot;4&quot;, &quot;4&quot;, &quot;4&quot;,...</span>
+<span class="co">#&gt; $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 1...</span>
+<span class="co">#&gt; $ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 2...</span>
+<span class="co">#&gt; $ fl           &lt;chr&gt; &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;,...</span>
+<span class="co">#&gt; $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compact&quot;, &quot;compact&quot;, &quot;comp...</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?</li>
+</ol>
+<p>The variable <code>cty</code>, city highway miles per gallon, is a continuous variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> cty)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Instead of using discrete colors, the continous variable uses a scale that goes from black to bluish.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">size =</span> cty)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>When mapped to size, the sizes of the points vary continuously with respect to the size (although the legend shows a few representative values)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">shape =</span> cty)) +
+<span class="st">  </span><span class="kw">geom_point</span>()
+<span class="co">#&gt; Error: A continuous variable can not be mapped to shape</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>When a continuous value is mapped to shape, it gives an error. Though we could split a continuous variable into discrete categories and use shape, this would conceptually not make sense. A continuous numeric variable is ordered, but shapes have no natural order. It is clear that smaller points correspond to smaller values, or once the color scale is given, which points are larger or smaller. But it is not clear whether a square is greater or less than a circle.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>What happens if you map the same variable to multiple aesthetics?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> hwy, <span class="dt">size =</span> displ)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>In the above plot, <code>hwy</code> is mapped to both location on the y-axis and color, and <code>displ</code> is mapped to both location on the x-axis and size. The code works and produces a plot, even if it is a bad one. Mapping a single variable to multiple aesthetics is redundant. Because it is redundant information, in most cases avoid mapping a single variable to multiple aesthetics.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>What does the stroke aesthetic do? What shapes does it work with? (Hint: use <code>?geom_point</code>)</li>
+</ol>
+<p>The following example is given in <code>?geom_point</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) +
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">stroke =</span> <span class="dv">5</span>)</code></pre></div>
+<p><img src="visualize_files/figure-html/ex.3.3.1.5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Stroke changes the color of the border for shapes (22-24).</p>
+<ol start="6" style="list-style-type: decimal">
+<li>What happens if you map an aesthetic to something other than a variable name, like <code>aes(colour = displ &lt; 5)</code>?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> displ &lt;<span class="st"> </span><span class="dv">5</span>)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="visualize_files/figure-html/ex.3.3.1.6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Aesthetics can also be mapped to expressions (code like <code>displ &lt; 5</code>). It will create a temporary variable which takes values from the result of the expression. In this case, it is logical variable which is <code>TRUE</code> or <code>FALSE</code>. This also explains exercise 1, <code>color = &quot;blue&quot;</code> created a categorical variable that only had one category: “blue”.</p>
+</div>
+</div>
+<div id="facets" class="section level2">
+<h2><span class="header-section-number">1.4</span> Facets</h2>
+<div id="exercises-2" class="section level3">
+<h3><span class="header-section-number">1.4.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>What happens if you facet on a continuous variable?</li>
+</ol>
+<p>Let’s see</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_grid</span>(. ~<span class="st"> </span>cty)</code></pre></div>
+<p><img src="visualize_files/figure-html/ex.3.5.1.1-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>It converts the continuous varible to a factor and creates facets for <strong>all</strong> unique values of it.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>What do the empty cells in plot with <code>facet_grid(drv ~ cyl)</code> mean? How do they relate to this plot?</li>
+</ol>
+<p>They are cells in which there are no values of the combination of <code>drv</code> and <code>cyl</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> drv, <span class="dt">y =</span> cyl))</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The locations in the above plot without points are the same cells in <code>facet_grid(drv ~ cyl)</code> tha have no points.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>What plots does the following code make? What does <code>.</code> do?</li>
+</ol>
+<p>The symbol <code>.</code> ignores that dimension for faceting.</p>
+<p>This plot facets by values of <code>drv</code> on the y-axis:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +
+<span class="st">  </span><span class="kw">facet_grid</span>(drv ~<span class="st"> </span>.)</code></pre></div>
+<p><img src="visualize_files/figure-html/ex.3.5.1.4.a-1.png" width="70%" style="display: block; margin: auto;" /> This plot facets by values of <code>cyl</code> on the x-axis:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +
+<span class="st">  </span><span class="kw">facet_grid</span>(. ~<span class="st"> </span>cyl)</code></pre></div>
+<p><img src="visualize_files/figure-html/ex.3.5.1.4.b-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Read <code>?facet_wrap</code>. What does <code>nrow</code> do? What does <code>ncol</code> do? What other options control the layout of the individual panels? Why doesn’t <code>facet_grid()</code> have <code>nrow</code> and <code>ncol</code> variables?</li>
+</ol>
+<p>The arguments <code>nrow</code> (<code>ncol</code>) determines the number of rows (columns) to use when laying out the facets. It is necessary since <code>facet_wrap</code> only facets on one variable. These arguments are unnecessary for <code>facet_grid</code> since the number of rows and columns are determined by the number of unique values of the variables specified.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>When using <code>facet_grid()</code> you should usually put the variable with more unique levels in the columns. Why?</li>
+</ol>
+<p>You should put the variable with more unique levels in the columns if the plot is laid out landscape. It is easier to compare relative levels of y by scanning horizontally, so it may be easier to visually compare these levels. <em>I’m actually not sure about the correct answer to this</em>.</p>
+</div>
+</div>
+<div id="geometric-objects" class="section level2">
+<h2><span class="header-section-number">1.5</span> Geometric Objects</h2>
+<ol style="list-style-type: decimal">
+<li>What does show.legend = FALSE do? What happens if you remove it? Why do you think I used it earlier in the chapter?</li>
+</ol>
+<p><strong>NOTE</strong> This doesn’t appear earlier in the chapter <a href="https://github.com/hadley/r4ds/issues/510">Issue #510</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>What does the <code>se</code> argument to <code>geom_smooth()</code> do?</li>
+</ol>
+<p>It adds standard error bands to the lines.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> drv)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>By default <code>se = TRUE</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> drv)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>()
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Will these two graphs look different? Why/why not?</li>
+</ol>
+<p>No. Because both <code>geom_point</code> and <code>geom_smooth</code> use the same data and mappings. They will inherit those options from the <code>ggplot</code> object, and thus don’t need to specified again (or twice).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>()
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Recreate the R code necessary to generate the following graphs.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">group =</span> drv), <span class="dt">se =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> drv)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">colour =</span> drv)) +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) +
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> drv)) +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> drv), <span class="dt">se =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">fill =</span> drv)) +
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">shape =</span> <span class="dv">21</span>)</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="statistical-transformations" class="section level2">
+<h2><span class="header-section-number">1.6</span> Statistical Transformations</h2>
+<ol style="list-style-type: decimal">
+<li>What is the default geom associated with <code>stat_summary()</code>? How could you rewrite the previous plot to use that geom function instead of the stat function?</li>
+</ol>
+<p>The default geom for <a href="http://docs.ggplot2.org/current/stat_summary.html">stat_summary</a> is <code>geom_pointrange</code> (see the <code>stat</code>) argument.</p>
+<p>But, the default <code>stat</code> for <a href="http://docs.ggplot2.org/current/geom_linerange.html">geom_pointrange</a> is <code>identity</code>, so use <code>geom_pointrange(stat = &quot;summary&quot;)</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_pointrange</span>(
+    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> depth),
+    <span class="dt">stat =</span> <span class="st">&quot;summary&quot;</span>,
+  )
+<span class="co">#&gt; No summary function supplied, defaulting to `mean_se()</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The default message says that <code>stat_summary</code> uses the <code>mean</code> and <code>sd</code> to calculate the point, and range of the line. So lets use the previous values of <code>fun.ymin</code>, <code>fun.ymax</code>, and <code>fun.y</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_pointrange</span>(
+    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> depth),
+    <span class="dt">stat =</span> <span class="st">&quot;summary&quot;</span>,
+    <span class="dt">fun.ymin =</span> min,
+    <span class="dt">fun.ymax =</span> max,
+    <span class="dt">fun.y =</span> median
+  )</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>What does <code>geom_col()</code> do? How is it different to <code>geom_bar()</code>?</li>
+</ol>
+<p><code>geom_col</code> differs from <code>geom_bar</code> in its default stat. <code>geom_col</code> has uses the <code>identity</code> stat. So it expects that a variable already exists for the height of the bars. <code>geom_bar</code> uses the <code>count</code> stat, and so will count observations in groups in order to generate the variable to use for the height of the bars.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Most geoms and stats come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?</li>
+</ol>
+<p>See the <a href="http://docs.ggplot2.org/current/">ggplot2 documentation</a></p>
+<ol start="4" style="list-style-type: decimal">
+<li>What variables does <code>stat_smooth()</code> compute? What parameters control its behaviour?</li>
+</ol>
+<p><code>stat_smooth</code> calculates</p>
+<ul>
+<li><code>y</code>: predicted value</li>
+<li><code>ymin</code>: lower value of the confidence interval</li>
+<li><code>ymax</code>: upper value of the confidence interval</li>
+<li><code>se</code>: standard error</li>
+</ul>
+<p>There’s parameters such as <code>method</code> which determines which method is used to calculate the predictions and confidence interval, and some other arguments that are passed to that.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>In our proportion bar chart, we need to set <code>group = 1</code> Why? In other words what is the problem with these two graphs?</li>
+</ol>
+<p>If <code>group</code> is not set to 1, then all the bars have <code>prop == 1</code>. The function <code>geom_bar</code> assumes that the groups are equal to the <code>x</code> values, since the stat computes the counts within the group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> ..prop..))</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The problem with these two plots is that the proportions are calculated within the groups.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> ..prop..))
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> color, <span class="dt">y =</span> ..prop..))</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-31-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>This is more likely what was intended:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> ..prop.., <span class="dt">group =</span> <span class="dv">1</span>))
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> color, <span class="dt">y =</span> ..prop.., <span class="dt">group =</span> color))</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-32-2.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="position-adjustments.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/r4ds/edit/master/visualize.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
