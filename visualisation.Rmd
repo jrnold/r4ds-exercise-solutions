@@ -8,15 +8,6 @@ library("tidyverse")
 
 ## First Steps
 
-```{r}
-mpg
-```
-
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy))
-```
-
 ### Exercises
 
 1. Run ggplot(data = mpg) what do you see?
@@ -70,31 +61,6 @@ count(mpg, drv, class)
 
 ## Aesthetic mappings
 
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy, colour = class))
-
-```
-
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy, size = class))
-```
-
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
-```
-
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
-```
-
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
-```
 
 ### Exercises
 
@@ -191,35 +157,6 @@ This also explains exercise 1, `color = "blue"` created a categorical variable t
 
 ## Facets
 
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-  facet_wrap(~ class, nrow = 2)
-```
-
-```{r}
-ggplot(dat = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-  facet_grid(drv ~ cyl)
-```
-
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-  facet_grid(. ~ cyl)
-```
-
-The expression `. ~ cyl` only facets by the variable `cyl` on the x axis.
-Likewise, the expression `cyl ~ .` only factets by `cyl` on the y-axis.
-
-```{r}
-ggplot(data = mpg) +
-  geom_point(mapping
-              = aes(x = displ, y = hwy)) +
-  facet_grid(cyl ~ .)
-```
-
-## Facets
 
 ### Exercises
 
@@ -274,27 +211,6 @@ You should put the variable with more unique levels in the columns if the plot i
 It is easier to compare relative levels of y by scanning horizontally, so it may be easier to visually compare these levels. *I'm actually not sure about the correct answer to this*.
 
 ## Geometric Objects
-
-**geom** The geometrical object that a plot uses to represent data.
-
-1.What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
-
-Look at the ggplot2 documentation [site](http://docs.ggplot2.org/current/):
-
-- line chart: `geom_line`
-- boxplot: `geom_boxplot`
-- histogram: `geom_histogram`
-- area chart: `geom_area`
-
-
-2. Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
-
-```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
-  geom_point() + 
-  geom_smooth(se = FALSE)
-
-```
 
 1. What does show.legend = FALSE do? What happens if you remove it?
 Why do you think I used it earlier in the chapter?
