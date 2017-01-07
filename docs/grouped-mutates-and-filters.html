@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Exercise Solutions and Notes for R for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Exercise Solutions and Notes for “R for Data Science”">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Exercise Solutions and Notes for R for Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://r4ds.had.co.nz/" />
+  
+  
+  <meta name="github-repo" content="jrnold/r4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Exercise Solutions and Notes for R for Data Science" />
+  
+  
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="exercises-3.html">
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Data Science</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="visualize.html"><a href="visualize.html"><i class="fa fa-check"></i><b>1</b> Visualize</a></li>
+<li class="chapter" data-level="2" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>2</b> Workflow Basics</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data Transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#prerequisites"><i class="fa fa-check"></i><b>3.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#filter"><i class="fa fa-check"></i><b>3.2</b> Filter</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#exercises"><i class="fa fa-check"></i><b>3.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="arrange.html"><a href="arrange.html"><i class="fa fa-check"></i><b>4</b> Arrange</a><ul>
+<li class="chapter" data-level="4.1" data-path="arrange.html"><a href="arrange.html#exercises-1"><i class="fa fa-check"></i><b>4.1</b> Exercises</a></li>
+<li class="chapter" data-level="4.2" data-path="arrange.html"><a href="arrange.html#mutate"><i class="fa fa-check"></i><b>4.2</b> Mutate</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="arrange.html"><a href="arrange.html#exercises-2"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>5</b> Exercises</a></li>
+<li class="chapter" data-level="6" data-path="grouped-mutates-and-filters.html"><a href="grouped-mutates-and-filters.html"><i class="fa fa-check"></i><b>6</b> Grouped mutates and filters</a><ul>
+<li class="chapter" data-level="6.1" data-path="grouped-mutates-and-filters.html"><a href="grouped-mutates-and-filters.html#exercises-4"><i class="fa fa-check"></i><b>6.1</b> Exercises</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions and Notes for “R for Data Science”</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="grouped-mutates-and-filters" class="section level1">
+<h1><span class="header-section-number">6</span> Grouped mutates and filters</h1>
+<div id="exercises-4" class="section level2">
+<h2><span class="header-section-number">6.1</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>Refer back to the table of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.</li>
+</ol>
+<p>They operate within each group rather than over the entire data frame. E.g. <code>mean</code> will calculate the mean within each group.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Which plane (tailnum) has the worst on-time record?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(tailnum) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">arr_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) %&gt;%
+<span class="st">  </span><span class="kw">ungroup</span>() %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">rank</span>(<span class="kw">desc</span>(arr_delay)) &lt;=<span class="st"> </span><span class="dv">1</span>)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;   tailnum arr_delay</span>
+<span class="co">#&gt;     &lt;chr&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  N844MH       320</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>What time of day should you fly if you want to avoid delays as much as possible?</li>
+</ol>
+<p>Let’s group by hour. The earlier the better to fly. This is intuitive as delays early in the morning are likely to propogate throughout the day.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(hour) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">arr_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) %&gt;%
+<span class="st">  </span><span class="kw">ungroup</span>() %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(arr_delay)
+<span class="co">#&gt; # A tibble: 20 × 2</span>
+<span class="co">#&gt;    hour arr_delay</span>
+<span class="co">#&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     7    -5.304</span>
+<span class="co">#&gt; 2     5    -4.797</span>
+<span class="co">#&gt; 3     6    -3.384</span>
+<span class="co">#&gt; 4     9    -1.451</span>
+<span class="co">#&gt; 5     8    -1.113</span>
+<span class="co">#&gt; 6    10     0.954</span>
+<span class="co">#&gt; # ... with 14 more rows</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>For each destination, compute the total minutes of delay. For each, flight, compute the proportion of the total delay for its destination.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(arr_delay), arr_delay &gt;<span class="st"> </span><span class="dv">0</span>) %&gt;%<span class="st">  </span>
+<span class="st">  </span><span class="kw">group_by</span>(dest) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_delay =</span> <span class="kw">sum</span>(arr_delay),
+         <span class="dt">prop_delay =</span> arr_delay /<span class="st"> </span><span class="kw">sum</span>(arr_delay))
+<span class="co">#&gt; Source: local data frame [133,004 x 21]</span>
+<span class="co">#&gt; Groups: dest [103]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  2013     1     1      517            515         2      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529         4      850</span>
+<span class="co">#&gt; 3  2013     1     1      542            540         2      923</span>
+<span class="co">#&gt; 4  2013     1     1      554            558        -4      740</span>
+<span class="co">#&gt; 5  2013     1     1      555            600        -5      913</span>
+<span class="co">#&gt; 6  2013     1     1      558            600        -2      753</span>
+<span class="co">#&gt; # ... with 1.33e+05 more rows, and 14 more variables:</span>
+<span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span>
+<span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span>
+<span class="co">#&gt; #   total_delay &lt;dbl&gt;, prop_delay &lt;dbl&gt;</span></code></pre></div>
+<p>Alternatively, consider the delay as relative to the <em>minimum</em> delay for any flight to that destination. Now all non-cancelled flights have a proportion.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(arr_delay), arr_delay &gt;<span class="st"> </span><span class="dv">0</span>) %&gt;%<span class="st">  </span>
+<span class="st">  </span><span class="kw">group_by</span>(dest) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_delay =</span> <span class="kw">sum</span>(arr_delay -<span class="st"> </span><span class="kw">min</span>(arr_delay)),
+         <span class="dt">prop_delay =</span> arr_delay /<span class="st"> </span><span class="kw">sum</span>(arr_delay))
+<span class="co">#&gt; Source: local data frame [133,004 x 21]</span>
+<span class="co">#&gt; Groups: dest [103]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  2013     1     1      517            515         2      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529         4      850</span>
+<span class="co">#&gt; 3  2013     1     1      542            540         2      923</span>
+<span class="co">#&gt; 4  2013     1     1      554            558        -4      740</span>
+<span class="co">#&gt; 5  2013     1     1      555            600        -5      913</span>
+<span class="co">#&gt; 6  2013     1     1      558            600        -2      753</span>
+<span class="co">#&gt; # ... with 1.33e+05 more rows, and 14 more variables:</span>
+<span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span>
+<span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span>
+<span class="co">#&gt; #   total_delay &lt;dbl&gt;, prop_delay &lt;dbl&gt;</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using <code>lag()</code> explore how the delay of a flight is related to the delay of the immediately preceding flight.</li>
+</ol>
+<p>We want to group by day to avoid taking the lag from the previous day. Also, I want to use departure delay, since this mechanism is relevant for departures. Also, I remove missing values both before and after calculating the lag delay. However, it would be interesting to ask the probability or averge delay after a cancellation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(year, month, day) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(dep_delay)) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lag_delay =</span> <span class="kw">lag</span>(dep_delay)) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(lag_delay)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dep_delay, <span class="dt">y =</span> lag_delay)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>()
+<span class="co">#&gt; `geom_smooth()` using method = &#39;gam&#39;</span></code></pre></div>
+<p><img src="transform_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?</li>
+</ol>
+<p>The shorter BOS and PHL flights that are 20 minutes for 30+ minutes flights seem plausible - though maybe entries of +/- a few minutes can easily create large changes. I assume that departure time has a standardized definition, but I’m not sure; if there is some discretion, that could create errors that are small in absolute time, but large in relative time for small flights. The ATL, GSP, an BNA flights looks a little suspicious as it’s almost half the time for longer flights.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(air_time)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(dest) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">med_time =</span> <span class="kw">median</span>(air_time),
+         <span class="dt">fast =</span> (air_time -<span class="st"> </span>med_time) /<span class="st"> </span>med_time) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(fast) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(air_time, med_time, fast, dep_time, sched_dep_time, arr_time, sched_arr_time) %&gt;%
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">15</span>)
+<span class="co">#&gt; Adding missing grouping variables: `dest`</span>
+<span class="co">#&gt; Source: local data frame [15 x 8]</span>
+<span class="co">#&gt; Groups: dest [9]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    dest air_time med_time   fast dep_time sched_dep_time arr_time</span>
+<span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1   BOS       21       38 -0.447     1450           1500     1547</span>
+<span class="co">#&gt; 2   ATL       65      112 -0.420     1709           1700     1923</span>
+<span class="co">#&gt; 3   GSP       55       92 -0.402     2040           2025     2225</span>
+<span class="co">#&gt; 4   BOS       23       38 -0.395     1954           2000     2131</span>
+<span class="co">#&gt; 5   BNA       70      113 -0.381     1914           1910     2045</span>
+<span class="co">#&gt; 6   MSP       93      149 -0.376     1558           1513     1745</span>
+<span class="co">#&gt; # ... with 9 more rows, and 1 more variables: sched_arr_time &lt;int&gt;</span></code></pre></div>
+<p>I could also try a z-score. Though the sd and mean will be affected by large delays.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(air_time)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(dest) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">air_time_mean =</span> <span class="kw">mean</span>(air_time),
+         <span class="dt">air_time_sd =</span> <span class="kw">sd</span>(air_time),
+         <span class="dt">z_score =</span> (air_time -<span class="st"> </span>air_time_mean) /<span class="st"> </span>air_time_sd) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(z_score) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(z_score, air_time_mean, air_time_sd, air_time, dep_time, sched_dep_time, arr_time, sched_arr_time)
+<span class="co">#&gt; Adding missing grouping variables: `dest`</span>
+<span class="co">#&gt; Source: local data frame [327,346 x 9]</span>
+<span class="co">#&gt; Groups: dest [104]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    dest z_score air_time_mean air_time_sd air_time dep_time sched_dep_time</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span>
+<span class="co">#&gt; 1   MSP   -4.90         150.6       11.75       93     1558           1513</span>
+<span class="co">#&gt; 2   ATL   -4.88         112.9        9.81       65     1709           1700</span>
+<span class="co">#&gt; 3   GSP   -4.72          93.4        8.13       55     2040           2025</span>
+<span class="co">#&gt; 4   BNA   -4.05         114.4       10.96       70     1914           1910</span>
+<span class="co">#&gt; 5   CVG   -3.98          96.0        8.52       62     1359           1343</span>
+<span class="co">#&gt; 6   BOS   -3.63          39.0        4.95       21     1450           1500</span>
+<span class="co">#&gt; # ... with 3.273e+05 more rows, and 2 more variables: arr_time &lt;int&gt;,</span>
+<span class="co">#&gt; #   sched_arr_time &lt;int&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(air_time)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(dest) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">air_time_diff =</span> air_time -<span class="st"> </span><span class="kw">min</span>(air_time)) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(air_time_diff)) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(dest, year, month, day, carrier, flight, air_time_diff, air_time, dep_time, arr_time) %&gt;%
+<span class="st">  </span><span class="kw">head</span>()
+<span class="co">#&gt; Source: local data frame [6 x 10]</span>
+<span class="co">#&gt; Groups: dest [5]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    dest  year month   day carrier flight air_time_diff air_time dep_time</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;chr&gt;  &lt;int&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1   SFO  2013     7    28      DL    841           195      490     1727</span>
+<span class="co">#&gt; 2   LAX  2013    11    22      DL    426           165      440     1812</span>
+<span class="co">#&gt; 3   EGE  2013     1    28      AA    575           163      382     1806</span>
+<span class="co">#&gt; 4   DEN  2013     9    10      UA    745           149      331     1513</span>
+<span class="co">#&gt; 5   LAX  2013     7    10      DL     17           147      422     1814</span>
+<span class="co">#&gt; 6   LAS  2013    11    22      UA    587           143      399     2142</span>
+<span class="co">#&gt; # ... with 1 more variables: arr_time &lt;int&gt;</span></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.</li>
+</ol>
+<p>The carrier tha flies to the most locations is ExpressJet Airlines (EV). ExpressJet is a regional airline and partner for major airlines, so its one of those that flies small planes to close airports</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(dest, carrier) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(carrier) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(carrier) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; # A tibble: 16 × 2</span>
+<span class="co">#&gt;   carrier    nn</span>
+<span class="co">#&gt;     &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1      EV    61</span>
+<span class="co">#&gt; 2      9E    49</span>
+<span class="co">#&gt; 3      UA    47</span>
+<span class="co">#&gt; 4      B6    42</span>
+<span class="co">#&gt; 5      DL    40</span>
+<span class="co">#&gt; 6      MQ    20</span>
+<span class="co">#&gt; # ... with 10 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(airlines, carrier ==<span class="st"> &quot;EV&quot;</span>)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;   carrier                     name</span>
+<span class="co">#&gt;     &lt;chr&gt;                    &lt;chr&gt;</span>
+<span class="co">#&gt; 1      EV ExpressJet Airlines Inc.</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exercises-3.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/r4ds/edit/master/transform.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

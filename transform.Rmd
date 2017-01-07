@@ -114,11 +114,11 @@ wut? Since `x * 0 = 0` for all $x$ we might expect `NA * 0 = 0`, but that's not 
 NA * 0
 ```
 
-# Arrange
+## Arrange
 
 missing values always at the end.
 
-## Exercises
+### Exercises
 
 1. How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
 
@@ -166,9 +166,9 @@ arrange(flights, distance)
 
 A few ways include:
 ```{r}
-select(dep_time, dep_delay, arr_time, arr_delay)
-select(starts_with("dep_"), starts_with("arr_"))
-select(matches("^(dep|arr)_(time|delay)$"))
+select(flights, dep_time, dep_delay, arr_time, arr_delay)
+select(flights, starts_with("dep_"), starts_with("arr_"))
+select(flights, matches("^(dep|arr)_(time|delay)$"))
 ```
 using `ends_with()` doesn't work well since it would bget `sched_arr_time` and `sched_dep_time`.
 
@@ -205,9 +205,9 @@ To change the behavior add the argument `ignore.case = FALSE`. Now no variables 
 select(flights, contains("TIME", ignore.case = FALSE))
 ```
 
-# Mutate
+## Mutate
 
-## Exercises
+### Exercises
 
 1. Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
 
@@ -289,8 +289,9 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 
 All the classics: `cos`, `sin`, `tan`, `acos`, `asin`, `atan`, plus a few others that are drive by numerical or computational issues.
 
+## Grouped summaries with `summarise()`
 
-# Exercises
+### Exercises
 
 1. Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
 
@@ -385,9 +386,9 @@ flights %>%
 The sort argument to `count` sorts the results in order of `n`.
 You could use this anytime you would do `count` followed by `arrange`.
 
-# Grouped mutates and filters
+## Grouped mutates and filters
 
-## Exercises
+### Exercises
 
 1. Refer back to the table of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
 

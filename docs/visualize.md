@@ -1,16 +1,18 @@
 
-# Introduction 
+# Visualize
 
-## Prerequisites
+## Introduction 
+
+### Prerequisites
 
 
 ```r
 library("tidyverse")
 ```
 
-## First Steps
+### First Steps
 
-### Exercises
+#### Exercises
 
 1. Run ggplot(data = mpg) what do you see?
 
@@ -87,10 +89,10 @@ count(mpg, drv, class)
 #> # ... with 6 more rows
 ```
 
-## Aesthetic mappings
+### Aesthetic mappings
 
 
-### Exercises
+#### Exercises
 
 1. What’s gone wrong with this code? Why are the points not blue?
 
@@ -231,10 +233,10 @@ In this case, it is logical variable which is `TRUE` or `FALSE`.
 This also explains exercise 1, `color = "blue"` created a categorical variable that only had one category: "blue".
 
 
-## Facets
+### Facets
 
 
-### Exercises
+#### Exercises
 
 1. What happens if you facet on a continuous variable?
 
@@ -298,7 +300,7 @@ These arguments are unnecessary for `facet_grid` since the number of rows and co
 You should put the variable with more unique levels in the columns if the plot is laid out landscape. 
 It is easier to compare relative levels of y by scanning horizontally, so it may be easier to visually compare these levels. *I'm actually not sure about the correct answer to this*.
 
-## Geometric Objects
+### Geometric Objects
 
 1. What does show.legend = FALSE do? What happens if you remove it?
 Why do you think I used it earlier in the chapter?
@@ -419,7 +421,7 @@ ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
 <img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-## Statistical Transformations
+### Statistical Transformations
 
 1. What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
 
@@ -512,7 +514,7 @@ ggplot(data = diamonds) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-32-2.png" width="70%" style="display: block; margin: auto;" />
 
-# Position Adjustments
+## Position Adjustments
 
 1. What is the problem with this plot? How could you improve it?
 
@@ -596,9 +598,9 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" />
 
-# Coordinate Systems
+## Coordinate Systems
 
-## Exercises
+### Exercises
 
 1. Turn a stacked bar chart into a pie chart using `coord_polar()`.
 
