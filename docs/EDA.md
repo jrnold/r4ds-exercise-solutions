@@ -239,6 +239,24 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 
 ### A categorical and continuous variable
 
+1.  Use what you've learned to improve the visualisation of the departure times
+    of cancelled vs. non-cancelled flights.
+ 
+
+```r
+nycflights13::flights %>% 
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time %/% 100,
+    sched_min = sched_dep_time %% 100,
+    sched_dep_time = sched_hour + sched_min / 60
+  ) %>% 
+  ggplot(mapping = aes(sched_dep_time)) + 
+    geom_freqpoly(mapping = aes(colour = cancelled), binwidth = 1/4)
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
 
 ### Two categorical variables
 

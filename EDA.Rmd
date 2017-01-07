@@ -168,9 +168,90 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 
 ### A categorical and continuous variable
 
+For a history of the boxplot see Wikckham [40 years of the boxplot] (http://vita.had.co.nz/papers/boxplots.pdf)
+
+Krywinski, Martin, and Naomi Altman. 2014. "Points of Significance: Visualizing samples with box plots." *Nature Methods* [URL](http://www.nature.com/nmeth/journal/v11/n2/full/nmeth.2813.html)
+
+Where does the 1.5 x IQR come from? It's kind of arbitrary. But in a normal distribution, the IQR is approximatley 2, and 1.5 x IQR is approx 4, so the outliers are approximately within 4 standard deviations of the median (mean).
+
+
+#### Excercises
+
+1.  Use what you've learned to improve the visualisation of the departure times
+    of cancelled vs. non-cancelled flights.
+ 
+Instead of a `freqplot` use a box-plot
+```{r}
+nycflights13::flights %>% 
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time %/% 100,
+    sched_min = sched_dep_time %% 100,
+    sched_dep_time = sched_hour + sched_min / 60
+  ) %>% 
+  ggplot() +
+    geom_boxplot(mapping = aes(y = sched_dep_time, x = cancelled))
+```
+
+2. What variable in the diamonds dataset is most important for predicting
+    the price of a diamond? How is that variable correlated with cut?
+    Why does the combination of those two relationships lead to lower quality
+    diamonds being more expensive?
+
+I'm not exactly sure what this question is asking conditional on using only the tools introduced in the book thus far.
+
+```{r}
+ggplot(aes(x = carat)
+```
+
+
+
+
 
 ### Two categorical variables
 
 
 ### Two continuous variables
+
+
+
+```{r}
+to_dummies_ <- function(.data, col, sep = "_") {
+  # I use 
+  vals <- as.character(distinct_(select_(.data, col))[[1]])
+  dots <- set_names(map(vals, function(i, col) {
+    lazyeval::interp(~ as.integer(col == i), i = i, col = as.name(col))
+  }, col = col), paste(col, vals, sep = sep))
+  .data <- mutate_(.data, .dots = dots)
+  .data
+}
+
+to_dummies <- function(.data, col, sep = "_") {
+  to_dummies_(.data, substitute(col), sep = sep)
+}
+
+from_dummies <- function(.data, col, vars, .default = NA_character_) {
+  if (length(vars) == 0) {
+      vars <- lazyeval::lazy_dots(everything())
+  }
+  vars <- select_vars_(tbl_vars(tbl), vars)
+  assert_that(length(.default) == 1L)
+  .default <- as.character(.default)
+  n <- nrow(.data)
+  replaced <- rep(FALSE, n)
+  out <- rep(.default, n)
+  for (i in vars) {
+    query <- !is.na(.data[[i]]) & as.logical(.data[[i]])
+    out[query & !replaced] <- i
+    replaced <- replaced | query
+    if (all(replaced)) {
+      break
+    }
+  }
+  out
+}
+  
+tibble(a = c(1, 0, 0), b = c(0, 1, 0)) %>% from_dummies("foo", c("a", "b"))
+
+```
 
