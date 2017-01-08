@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Exercise Solutions and Notes for R for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Exercise Solutions and Notes for “R for Data Science”">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Exercise Solutions and Notes for R for Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://r4ds.had.co.nz/" />
+  
+  
+  <meta name="github-repo" content="jrnold/r4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Exercise Solutions and Notes for R for Data Science" />
+  
+  
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="data-import.html">
+<link rel="next" href="relational-data.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Data Science</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="visualize.html"><a href="visualize.html"><i class="fa fa-check"></i><b>1</b> Visualize</a><ul>
+<li class="chapter" data-level="1.1" data-path="visualize.html"><a href="visualize.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="visualize.html"><a href="visualize.html#prerequisites"><i class="fa fa-check"></i><b>1.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.1.2" data-path="visualize.html"><a href="visualize.html#first-steps"><i class="fa fa-check"></i><b>1.1.2</b> First Steps</a></li>
+<li class="chapter" data-level="1.1.3" data-path="visualize.html"><a href="visualize.html#aesthetic-mappings"><i class="fa fa-check"></i><b>1.1.3</b> Aesthetic mappings</a></li>
+<li class="chapter" data-level="1.1.4" data-path="visualize.html"><a href="visualize.html#facets"><i class="fa fa-check"></i><b>1.1.4</b> Facets</a></li>
+<li class="chapter" data-level="1.1.5" data-path="visualize.html"><a href="visualize.html#geometric-objects"><i class="fa fa-check"></i><b>1.1.5</b> Geometric Objects</a></li>
+<li class="chapter" data-level="1.1.6" data-path="visualize.html"><a href="visualize.html#statistical-transformations"><i class="fa fa-check"></i><b>1.1.6</b> Statistical Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="visualize.html"><a href="visualize.html#position-adjustments"><i class="fa fa-check"></i><b>1.2</b> Position Adjustments</a></li>
+<li class="chapter" data-level="1.3" data-path="visualize.html"><a href="visualize.html#coordinate-systems"><i class="fa fa-check"></i><b>1.3</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="visualize.html"><a href="visualize.html#exercises-3"><i class="fa fa-check"></i><b>1.3.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>2</b> Workflow Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="workflow-basics.html"><a href="workflow-basics.html#practice"><i class="fa fa-check"></i><b>2.1</b> Practice</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="workflow-basics.html"><a href="workflow-basics.html#exercises-4"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data Transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#prerequisites-1"><i class="fa fa-check"></i><b>3.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#filter"><i class="fa fa-check"></i><b>3.2</b> Filter</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#exercises-5"><i class="fa fa-check"></i><b>3.3</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#arrange"><i class="fa fa-check"></i><b>3.4</b> Arrange</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-6"><i class="fa fa-check"></i><b>3.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#mutate"><i class="fa fa-check"></i><b>3.5</b> Mutate</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-7"><i class="fa fa-check"></i><b>3.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#grouped-summaries-with-summarise"><i class="fa fa-check"></i><b>3.6</b> Grouped summaries with <code>summarise()</code></a><ul>
+<li class="chapter" data-level="3.6.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-8"><i class="fa fa-check"></i><b>3.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="data-transformation.html"><a href="data-transformation.html#grouped-mutates-and-filters"><i class="fa fa-check"></i><b>3.7</b> Grouped mutates and filters</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-9"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#questions"><i class="fa fa-check"></i><b>4.1.1</b> Questions</a></li>
+<li class="chapter" data-level="4.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#variation"><i class="fa fa-check"></i><b>4.1.2</b> Variation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#missing-values"><i class="fa fa-check"></i><b>4.2</b> Missing Values</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-11"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#covariation"><i class="fa fa-check"></i><b>4.3</b> Covariation</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#a-categorical-and-continuous-variable"><i class="fa fa-check"></i><b>4.3.1</b> A categorical and continuous variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-categorical-variables"><i class="fa fa-check"></i><b>4.3.2</b> Two categorical variables</a></li>
+<li class="chapter" data-level="4.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-continuous-variables"><i class="fa fa-check"></i><b>4.3.3</b> Two continuous variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>5</b> Tibbles</a><ul>
+<li class="chapter" data-level="5.1" data-path="tibbles.html"><a href="tibbles.html#prerquisites"><i class="fa fa-check"></i><b>5.1</b> Prerquisites</a></li>
+<li class="chapter" data-level="5.2" data-path="tibbles.html"><a href="tibbles.html#creating-tibbles"><i class="fa fa-check"></i><b>5.2</b> Creating Tibbles</a></li>
+<li class="chapter" data-level="5.3" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.data.frame"><i class="fa fa-check"></i><b>5.3</b> Tibbles vs. data.frame</a></li>
+<li class="chapter" data-level="5.4" data-path="tibbles.html"><a href="tibbles.html#subsetting"><i class="fa fa-check"></i><b>5.4</b> Subsetting</a></li>
+<li class="chapter" data-level="5.5" data-path="tibbles.html"><a href="tibbles.html#interacting-with-older-code"><i class="fa fa-check"></i><b>5.5</b> Interacting with older code</a></li>
+<li class="chapter" data-level="5.6" data-path="tibbles.html"><a href="tibbles.html#exercises-12"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>6</b> Data Import</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>6.1</b> Getting started</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="data-import.html"><a href="data-import.html#exercises-13"><i class="fa fa-check"></i><b>6.1.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-import.html"><a href="data-import.html#parsing-a-vector"><i class="fa fa-check"></i><b>6.2</b> Parsing a vector</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-import.html"><a href="data-import.html#exercises-14"><i class="fa fa-check"></i><b>6.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>6.3</b> Other Types of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>7</b> Tidy Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-2"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="tidy-data.html"><a href="tidy-data.html#tidy-data-1"><i class="fa fa-check"></i><b>7.2</b> Tidy Data</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-15"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="tidy-data.html"><a href="tidy-data.html#spreading-and-gathering"><i class="fa fa-check"></i><b>7.3</b> Spreading and Gathering</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-16"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="tidy-data.html"><a href="tidy-data.html#separating-and-uniting"><i class="fa fa-check"></i><b>7.4</b> Separating and Uniting</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-17"><i class="fa fa-check"></i><b>7.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="tidy-data.html"><a href="tidy-data.html#missing-values-1"><i class="fa fa-check"></i><b>7.5</b> Missing Values</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-18"><i class="fa fa-check"></i><b>7.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="tidy-data.html"><a href="tidy-data.html#case-study"><i class="fa fa-check"></i><b>7.6</b> Case Study</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-19"><i class="fa fa-check"></i><b>7.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="tidy-data.html"><a href="tidy-data.html#non-tidy-data"><i class="fa fa-check"></i><b>7.7</b> Non-Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>8</b> Relational Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="relational-data.html"><a href="relational-data.html#prerequisites-2"><i class="fa fa-check"></i><b>8.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="8.2" data-path="relational-data.html"><a href="relational-data.html#nycflights13"><i class="fa fa-check"></i><b>8.2</b> nycflights13</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="relational-data.html"><a href="relational-data.html#exercises-20"><i class="fa fa-check"></i><b>8.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="relational-data.html"><a href="relational-data.html#keys"><i class="fa fa-check"></i><b>8.3</b> Keys</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="relational-data.html"><a href="relational-data.html#exercises-21"><i class="fa fa-check"></i><b>8.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="relational-data.html"><a href="relational-data.html#keys-1"><i class="fa fa-check"></i><b>8.4</b> Keys</a></li>
+<li class="chapter" data-level="8.5" data-path="relational-data.html"><a href="relational-data.html#mutating-joins"><i class="fa fa-check"></i><b>8.5</b> Mutating Joins</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="relational-data.html"><a href="relational-data.html#exercises-22"><i class="fa fa-check"></i><b>8.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="relational-data.html"><a href="relational-data.html#filtering-joins"><i class="fa fa-check"></i><b>8.6</b> Filtering Joins</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="relational-data.html"><a href="relational-data.html#exercises-23"><i class="fa fa-check"></i><b>8.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="relational-data.html"><a href="relational-data.html#set-operations"><i class="fa fa-check"></i><b>8.7</b> Set operations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="strings.html"><a href="strings.html"><i class="fa fa-check"></i><b>9</b> Strings</a><ul>
+<li class="chapter" data-level="9.1" data-path="strings.html"><a href="strings.html#notes"><i class="fa fa-check"></i><b>9.1</b> Notes</a></li>
+<li class="chapter" data-level="9.2" data-path="strings.html"><a href="strings.html#prerequisites-3"><i class="fa fa-check"></i><b>9.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.3" data-path="strings.html"><a href="strings.html#string-basics"><i class="fa fa-check"></i><b>9.3</b> String Basics</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="strings.html"><a href="strings.html#exercises-24"><i class="fa fa-check"></i><b>9.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="strings.html"><a href="strings.html#matching-patterns-and-regular-expressions"><i class="fa fa-check"></i><b>9.4</b> Matching Patterns and Regular Expressions</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="strings.html"><a href="strings.html#exercises-25"><i class="fa fa-check"></i><b>9.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="9.4.2" data-path="strings.html"><a href="strings.html#repitition"><i class="fa fa-check"></i><b>9.4.2</b> Repitition</a></li>
+<li class="chapter" data-level="9.4.3" data-path="strings.html"><a href="strings.html#grouping-and-backreferences"><i class="fa fa-check"></i><b>9.4.3</b> Grouping and backreferences</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="strings.html"><a href="strings.html#tools"><i class="fa fa-check"></i><b>9.5</b> Tools</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="strings.html"><a href="strings.html#detect-matches"><i class="fa fa-check"></i><b>9.5.1</b> Detect matches</a></li>
+<li class="chapter" data-level="9.5.2" data-path="strings.html"><a href="strings.html#exercises-30"><i class="fa fa-check"></i><b>9.5.2</b> Exercises</a></li>
+<li class="chapter" data-level="9.5.3" data-path="strings.html"><a href="strings.html#extract-matches"><i class="fa fa-check"></i><b>9.5.3</b> Extract Matches</a></li>
+<li class="chapter" data-level="9.5.4" data-path="strings.html"><a href="strings.html#grouped-matches"><i class="fa fa-check"></i><b>9.5.4</b> Grouped Matches</a></li>
+<li class="chapter" data-level="9.5.5" data-path="strings.html"><a href="strings.html#splitting"><i class="fa fa-check"></i><b>9.5.5</b> Splitting</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="strings.html"><a href="strings.html#other-types-of-patterns"><i class="fa fa-check"></i><b>9.6</b> Other types of patterns</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="strings.html"><a href="strings.html#exercises-34"><i class="fa fa-check"></i><b>9.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="strings.html"><a href="strings.html#stringi"><i class="fa fa-check"></i><b>9.7</b> stringi</a><ul>
+<li class="chapter" data-level="9.7.1" data-path="strings.html"><a href="strings.html#exercises-35"><i class="fa fa-check"></i><b>9.7.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>10</b> Factors</a><ul>
+<li class="chapter" data-level="10.1" data-path="factors.html"><a href="factors.html#introduction-3"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="factors.html"><a href="factors.html#creating-factors"><i class="fa fa-check"></i><b>10.2</b> Creating Factors</a></li>
+<li class="chapter" data-level="10.3" data-path="factors.html"><a href="factors.html#gss"><i class="fa fa-check"></i><b>10.3</b> GSS</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="factors.html"><a href="factors.html#exercise"><i class="fa fa-check"></i><b>10.3.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="factors.html"><a href="factors.html#modifying-factor-order"><i class="fa fa-check"></i><b>10.4</b> Modifying factor order</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="factors.html"><a href="factors.html#exercises-36"><i class="fa fa-check"></i><b>10.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="factors.html"><a href="factors.html#modifying-factor-levels"><i class="fa fa-check"></i><b>10.5</b> Modifying factor levels</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="factors.html"><a href="factors.html#exercises-37"><i class="fa fa-check"></i><b>10.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="factors.html"><a href="factors.html#prerequisite"><i class="fa fa-check"></i><b>10.6</b> Prerequisite</a></li>
+<li class="chapter" data-level="10.7" data-path="factors.html"><a href="factors.html#creating-datetimes"><i class="fa fa-check"></i><b>10.7</b> Creating date/times</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="factors.html"><a href="factors.html#exercises-38"><i class="fa fa-check"></i><b>10.7.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="factors.html"><a href="factors.html#date-time-components"><i class="fa fa-check"></i><b>10.8</b> Date-Time Components</a><ul>
+<li class="chapter" data-level="10.8.1" data-path="factors.html"><a href="factors.html#exercises-39"><i class="fa fa-check"></i><b>10.8.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.9" data-path="factors.html"><a href="factors.html#time-spans"><i class="fa fa-check"></i><b>10.9</b> Time Spans</a><ul>
+<li class="chapter" data-level="10.9.1" data-path="factors.html"><a href="factors.html#durations"><i class="fa fa-check"></i><b>10.9.1</b> Durations</a></li>
+<li class="chapter" data-level="10.9.2" data-path="factors.html"><a href="factors.html#periods"><i class="fa fa-check"></i><b>10.9.2</b> Periods</a></li>
+<li class="chapter" data-level="10.9.3" data-path="factors.html"><a href="factors.html#intervals"><i class="fa fa-check"></i><b>10.9.3</b> Intervals</a></li>
+<li class="chapter" data-level="10.9.4" data-path="factors.html"><a href="factors.html#exercises-40"><i class="fa fa-check"></i><b>10.9.4</b> Exercises</a></li>
+<li class="chapter" data-level="10.9.5" data-path="factors.html"><a href="factors.html#time-zones"><i class="fa fa-check"></i><b>10.9.5</b> Time Zones</a></li>
+</ul></li>
+<li class="chapter" data-level="10.10" data-path="factors.html"><a href="factors.html#prerequisites-4"><i class="fa fa-check"></i><b>10.10</b> Prerequisites</a></li>
+<li class="chapter" data-level="10.11" data-path="factors.html"><a href="factors.html#important-types-of-atomic-vector"><i class="fa fa-check"></i><b>10.11</b> Important types of Atomic Vector</a><ul>
+<li class="chapter" data-level="10.11.1" data-path="factors.html"><a href="factors.html#exercises-41"><i class="fa fa-check"></i><b>10.11.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.12" data-path="factors.html"><a href="factors.html#using-atomic-vectors"><i class="fa fa-check"></i><b>10.12</b> Using atomic vectors</a></li>
+<li class="chapter" data-level="10.13" data-path="factors.html"><a href="factors.html#recursive-vectors-lists"><i class="fa fa-check"></i><b>10.13</b> Recursive Vectors (lists)</a><ul>
+<li class="chapter" data-level="10.13.1" data-path="factors.html"><a href="factors.html#exercises-42"><i class="fa fa-check"></i><b>10.13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.14" data-path="factors.html"><a href="factors.html#augmented-vectors"><i class="fa fa-check"></i><b>10.14</b> Augmented Vectors</a><ul>
+<li class="chapter" data-level="10.14.1" data-path="factors.html"><a href="factors.html#factors-1"><i class="fa fa-check"></i><b>10.14.1</b> Factors</a></li>
+<li class="chapter" data-level="10.14.2" data-path="factors.html"><a href="factors.html#dates-and-date-times"><i class="fa fa-check"></i><b>10.14.2</b> Dates and date-times</a></li>
+<li class="chapter" data-level="10.14.3" data-path="factors.html"><a href="factors.html#tibbles-1"><i class="fa fa-check"></i><b>10.14.3</b> Tibbles</a></li>
+<li class="chapter" data-level="10.14.4" data-path="factors.html"><a href="factors.html#exercises-43"><i class="fa fa-check"></i><b>10.14.4</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>11</b> Iteration</a><ul>
+<li class="chapter" data-level="11.1" data-path="iteration.html"><a href="iteration.html#prerequisites-5"><i class="fa fa-check"></i><b>11.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="11.2" data-path="iteration.html"><a href="iteration.html#for-loops"><i class="fa fa-check"></i><b>11.2</b> For Loops</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="iteration.html"><a href="iteration.html#exercises-44"><i class="fa fa-check"></i><b>11.2.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="model-introduction.html"><a href="model-introduction.html"><i class="fa fa-check"></i><b>12</b> Model Introduction</a></li>
+<li class="chapter" data-level="13" data-path="model-basics.html"><a href="model-basics.html"><i class="fa fa-check"></i><b>13</b> Model Basics</a><ul>
+<li class="chapter" data-level="13.1" data-path="model-basics.html"><a href="model-basics.html#prerequisites-6"><i class="fa fa-check"></i><b>13.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="13.2" data-path="model-basics.html"><a href="model-basics.html#a-simple-model"><i class="fa fa-check"></i><b>13.2</b> A simple model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="model-basics.html"><a href="model-basics.html#exercises-45"><i class="fa fa-check"></i><b>13.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="model-basics.html"><a href="model-basics.html#visualizing-models"><i class="fa fa-check"></i><b>13.3</b> Visualizing Models</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="model-basics.html"><a href="model-basics.html#exercises-46"><i class="fa fa-check"></i><b>13.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="model-basics.html"><a href="model-basics.html#formulas-and-model-families"><i class="fa fa-check"></i><b>13.4</b> Formulas and Model Families</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="model-basics.html"><a href="model-basics.html#categorical-variables"><i class="fa fa-check"></i><b>13.4.1</b> Categorical Variables</a></li>
+<li class="chapter" data-level="13.4.2" data-path="model-basics.html"><a href="model-basics.html#exercises-47"><i class="fa fa-check"></i><b>13.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="model-basics.html"><a href="model-basics.html#missing-values-2"><i class="fa fa-check"></i><b>13.5</b> Missing values</a></li>
+<li class="chapter" data-level="13.6" data-path="model-basics.html"><a href="model-basics.html#other-model-families"><i class="fa fa-check"></i><b>13.6</b> Other model families</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>14</b> R Markdown</a><ul>
+<li class="chapter" data-level="14.1" data-path="r-markdown.html"><a href="r-markdown.html#r-markdown-basics"><i class="fa fa-check"></i><b>14.1</b> R Markdown Basics</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="r-markdown.html"><a href="r-markdown.html#exercise-1"><i class="fa fa-check"></i><b>14.1.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="r-markdown.html"><a href="r-markdown.html#text-formatting-with-r-markdown"><i class="fa fa-check"></i><b>14.2</b> Text formatting with R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="r-markdown-workflow.html"><a href="r-markdown-workflow.html"><i class="fa fa-check"></i><b>15</b> R Markdown Workflow</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions and Notes for “R for Data Science”</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tidy-data" class="section level1">
+<h1><span class="header-section-number">7</span> Tidy Data</h1>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">7.1</span> Introduction</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+</div>
+<div id="tidy-data-1" class="section level2">
+<h2><span class="header-section-number">7.2</span> Tidy Data</h2>
+<p>Functions</p>
+<ul>
+<li><code>spread</code></li>
+<li><code>gather</code></li>
+<li><code>separate</code></li>
+<li><code>unite</code></li>
+<li><code>complete</code></li>
+<li><code>fill</code></li>
+</ul>
+<p><strong>NOTES</strong></p>
+<ul>
+<li>Add <a href="http://www.jstatsoft.org/v59/i10/paper">Tidy Data</a> to reading</li>
+<li>Use COW war dataset as an example of non-tidy data</li>
+<li>Also WDI data for non-tidy data</li>
+<li>Replication datatsets are often non-tidy. Why?</li>
+<li>See this post by <a href="http://simplystatistics.org/2016/02/17/non-tidy-data/">Jeff Leek</a></li>
+</ul>
+<p>The Rules</p>
+<ol style="list-style-type: decimal">
+<li>Each <strong>variable</strong> has its own <strong>column</strong></li>
+<li>Each <strong>observation</strong> muust have its own <strong>row</strong></li>
+<li>Each <strong>value</strong> must have its own <strong>cell</strong></li>
+</ol>
+<p>or even</p>
+<ol style="list-style-type: decimal">
+<li>Put each <strong>dataset</strong> in a <strong>tibble</strong></li>
+<li>Put each <strong>variable</strong> in a <strong>column</strong></li>
+</ol>
+<p>These seem obvious at first, so we need to see examples of not-following tidy data and what happens.</p>
+<p>Some nuances:</p>
+<p>The definitions of <strong>variable</strong>, <strong>observation</strong>, and <strong>value</strong> are not always clear. And how you store and arrange the data can depend on how you aim to use it. Generally, aim for storing the data in a tidy format that ensures minimal errors. When you model it, you can transform the data later. See non-tidy data.</p>
+<p>It is easier to work with variables in columns because of <code>mutate</code> and <code>summary</code> functions. It will also work better with <code>tidyverse</code> functions: e.g. using <code>group_by</code> to group and summarize, or <code>facet_*</code> and aesthetics in <strong>ggplot2</strong>.</p>
+<p>The tidy data ideas are adapted from the <a href="https://en.wikipedia.org/wiki/Database_normalization">database normalization</a>, but simplified and adapted to the general uses of practicing data scientists.</p>
+<p>x</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table1
+<span class="co">#&gt; # A tibble: 6 × 4</span>
+<span class="co">#&gt;       country  year  cases population</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span>
+<span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span>
+<span class="co">#&gt; 3      Brazil  1999  37737  172006362</span>
+<span class="co">#&gt; 4      Brazil  2000  80488  174504898</span>
+<span class="co">#&gt; 5       China  1999 212258 1272915272</span>
+<span class="co">#&gt; 6       China  2000 213766 1280428583</span>
+table2
+<span class="co">#&gt; # A tibble: 12 × 4</span>
+<span class="co">#&gt;       country  year       type     count</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;int&gt;      &lt;chr&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999      cases       745</span>
+<span class="co">#&gt; 2 Afghanistan  1999 population  19987071</span>
+<span class="co">#&gt; 3 Afghanistan  2000      cases      2666</span>
+<span class="co">#&gt; 4 Afghanistan  2000 population  20595360</span>
+<span class="co">#&gt; 5      Brazil  1999      cases     37737</span>
+<span class="co">#&gt; 6      Brazil  1999 population 172006362</span>
+<span class="co">#&gt; # ... with 6 more rows</span>
+table3
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;       country  year              rate</span>
+<span class="co">#&gt; *       &lt;chr&gt; &lt;int&gt;             &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999      745/19987071</span>
+<span class="co">#&gt; 2 Afghanistan  2000     2666/20595360</span>
+<span class="co">#&gt; 3      Brazil  1999   37737/172006362</span>
+<span class="co">#&gt; 4      Brazil  2000   80488/174504898</span>
+<span class="co">#&gt; 5       China  1999 212258/1272915272</span>
+<span class="co">#&gt; 6       China  2000 213766/1280428583</span>
+table4a
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;       country `1999` `2000`</span>
+<span class="co">#&gt; *       &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan    745   2666</span>
+<span class="co">#&gt; 2      Brazil  37737  80488</span>
+<span class="co">#&gt; 3       China 212258 213766</span>
+table4b
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;       country     `1999`     `2000`</span>
+<span class="co">#&gt; *       &lt;chr&gt;      &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan   19987071   20595360</span>
+<span class="co">#&gt; 2      Brazil  172006362  174504898</span>
+<span class="co">#&gt; 3       China 1272915272 1280428583</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table1 %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> cases /<span class="st"> </span>population *<span class="st"> </span><span class="dv">1000</span>)
+<span class="co">#&gt; # A tibble: 6 × 5</span>
+<span class="co">#&gt;       country  year  cases population   rate</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;int&gt;  &lt;int&gt;      &lt;int&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999    745   19987071 0.0373</span>
+<span class="co">#&gt; 2 Afghanistan  2000   2666   20595360 0.1294</span>
+<span class="co">#&gt; 3      Brazil  1999  37737  172006362 0.2194</span>
+<span class="co">#&gt; 4      Brazil  2000  80488  174504898 0.4612</span>
+<span class="co">#&gt; 5       China  1999 212258 1272915272 0.1667</span>
+<span class="co">#&gt; 6       China  2000 213766 1280428583 0.1669</span></code></pre></div>
+<div id="exercises-15" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Using prose, describe how the variables and observations are organised in each of the sample tables.</li>
+</ol>
+<p>In <code>table1</code> each row is a (country, year) with variables <code>cases</code> and <code>population</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table1
+<span class="co">#&gt; # A tibble: 6 × 4</span>
+<span class="co">#&gt;       country  year  cases population</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span>
+<span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span>
+<span class="co">#&gt; 3      Brazil  1999  37737  172006362</span>
+<span class="co">#&gt; 4      Brazil  2000  80488  174504898</span>
+<span class="co">#&gt; 5       China  1999 212258 1272915272</span>
+<span class="co">#&gt; 6       China  2000 213766 1280428583</span></code></pre></div>
+<p>In <code>table2</code>, each row is country, year , variable (“cases”, “population”) combination, and there is a <code>count</code> variable with the numeric value of the variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table2
+<span class="co">#&gt; # A tibble: 12 × 4</span>
+<span class="co">#&gt;       country  year       type     count</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;int&gt;      &lt;chr&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999      cases       745</span>
+<span class="co">#&gt; 2 Afghanistan  1999 population  19987071</span>
+<span class="co">#&gt; 3 Afghanistan  2000      cases      2666</span>
+<span class="co">#&gt; 4 Afghanistan  2000 population  20595360</span>
+<span class="co">#&gt; 5      Brazil  1999      cases     37737</span>
+<span class="co">#&gt; 6      Brazil  1999 population 172006362</span>
+<span class="co">#&gt; # ... with 6 more rows</span></code></pre></div>
+<p>In <code>table3</code>, each row is a (country, year) combination with the column <code>rate</code> having the rate of cases to population as a character string in the format <code>&quot;cases/rate&quot;</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table3
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;       country  year              rate</span>
+<span class="co">#&gt; *       &lt;chr&gt; &lt;int&gt;             &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999      745/19987071</span>
+<span class="co">#&gt; 2 Afghanistan  2000     2666/20595360</span>
+<span class="co">#&gt; 3      Brazil  1999   37737/172006362</span>
+<span class="co">#&gt; 4      Brazil  2000   80488/174504898</span>
+<span class="co">#&gt; 5       China  1999 212258/1272915272</span>
+<span class="co">#&gt; 6       China  2000 213766/1280428583</span></code></pre></div>
+<p>Table 4 is split into two tables, one table for each variable: <code>table4a</code> is the table for cases, while <code>table4b</code> is the table for population. Within each table, each row is a country, each column is a year, and the cells are the value of the variable for the table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;       country `1999` `2000`</span>
+<span class="co">#&gt; *       &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan    745   2666</span>
+<span class="co">#&gt; 2      Brazil  37737  80488</span>
+<span class="co">#&gt; 3       China 212258 213766</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4b
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;       country     `1999`     `2000`</span>
+<span class="co">#&gt; *       &lt;chr&gt;      &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan   19987071   20595360</span>
+<span class="co">#&gt; 2      Brazil  172006362  174504898</span>
+<span class="co">#&gt; 3       China 1272915272 1280428583</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Compute the <code>rate</code> for <code>table2</code>, and <code>table4a</code> + <code>table4b</code>. You will need to perform four operations:</p></li>
+<li>Extract the number of TB cases per country per year.</li>
+<li>Extract the matching population per country per year.</li>
+<li>Divide cases by population, and multiply by 10000.</li>
+<li><p>Store back in the appropriate place.</p></li>
+</ol>
+<p>Which representation is easiest to work with? Which is hardest? Why?</p>
+<p>Without using the joins covered in Ch 12:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tb2_cases &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type ==<span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;count&quot;</span>]]
+tb2_country &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type ==<span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;country&quot;</span>]]
+tb2_year &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type ==<span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;year&quot;</span>]]
+tb2_population &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type ==<span class="st"> &quot;population&quot;</span>)[[<span class="st">&quot;count&quot;</span>]]
+table2_clean &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">country =</span> tb2_country,
+       <span class="dt">year =</span> tb2_year,
+       <span class="dt">rate =</span> tb2_cases /<span class="st"> </span>tb2_population)
+table2_clean
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;       country  year     rate</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999 3.73e-05</span>
+<span class="co">#&gt; 2 Afghanistan  2000 1.29e-04</span>
+<span class="co">#&gt; 3      Brazil  1999 2.19e-04</span>
+<span class="co">#&gt; 4      Brazil  2000 4.61e-04</span>
+<span class="co">#&gt; 5       China  1999 1.67e-04</span>
+<span class="co">#&gt; 6       China  2000 1.67e-04</span></code></pre></div>
+<p>Note, that this assumes that all observations are sorted so that each country, year will have the observation for cases followed by population.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">country =</span> table4a[[<span class="st">&quot;country&quot;</span>]],
+       <span class="st">`</span><span class="dt">1999</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;1999&quot;</span>]] /<span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]],
+       <span class="st">`</span><span class="dt">2000</span><span class="st">`</span> =<span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]] /<span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]])
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;       country   `1999` `2000`</span>
+<span class="co">#&gt;         &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Afghanistan 3.73e-05      1</span>
+<span class="co">#&gt; 2      Brazil 2.19e-04      1</span>
+<span class="co">#&gt; 3       China 1.67e-04      1</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">country =</span> <span class="kw">rep</span>(table4a[[<span class="st">&quot;country&quot;</span>]], <span class="dv">2</span>),
+       <span class="dt">year =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1999</span>, <span class="dv">2000</span>), <span class="dt">each =</span> <span class="kw">nrow</span>(table4a)),
+       <span class="st">`</span><span class="dt">rate</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(table4a[[<span class="st">&quot;1999&quot;</span>]] /<span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]],
+                  table4b[[<span class="st">&quot;2000&quot;</span>]] /<span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]]))
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;       country  year     rate</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999 3.73e-05</span>
+<span class="co">#&gt; 2      Brazil  1999 2.19e-04</span>
+<span class="co">#&gt; 3       China  1999 1.67e-04</span>
+<span class="co">#&gt; 4 Afghanistan  2000 1.00e+00</span>
+<span class="co">#&gt; 5      Brazil  2000 1.00e+00</span>
+<span class="co">#&gt; 6       China  2000 1.00e+00</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Recreate the plot showing change in cases over time using <code>table2</code> instead of <code>table1</code>. What do you need to do first?</li>
+</ol>
+<p>First, I needed to filter the tibble to only include those rows that represented the “cases” variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table2 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(type ==<span class="st"> &quot;cases&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, count)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">colour =</span> <span class="st">&quot;grey50&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> country))</code></pre></div>
+<p><img src="tidy_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="spreading-and-gathering" class="section level2">
+<h2><span class="header-section-number">7.3</span> Spreading and Gathering</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy4a &lt;-<span class="st"> </span>table4a %&gt;%
+<span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)
+tidy4b &lt;-<span class="st"> </span>table4b %&gt;%
+<span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)
+<span class="kw">left_join</span>(tidy4a, tidy4b)
+<span class="co">#&gt; Joining, by = c(&quot;country&quot;, &quot;year&quot;, &quot;cases&quot;)</span>
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;       country  year  cases</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999    745</span>
+<span class="co">#&gt; 2      Brazil  1999  37737</span>
+<span class="co">#&gt; 3       China  1999 212258</span>
+<span class="co">#&gt; 4 Afghanistan  2000   2666</span>
+<span class="co">#&gt; 5      Brazil  2000  80488</span>
+<span class="co">#&gt; 6       China  2000 213766</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spread</span>(table2, <span class="dt">key =</span> type, <span class="dt">value =</span> count)
+<span class="co">#&gt; # A tibble: 6 × 4</span>
+<span class="co">#&gt;       country  year  cases population</span>
+<span class="co">#&gt; *       &lt;chr&gt; &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span>
+<span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span>
+<span class="co">#&gt; 3      Brazil  1999  37737  172006362</span>
+<span class="co">#&gt; 4      Brazil  2000  80488  174504898</span>
+<span class="co">#&gt; 5       China  1999 212258 1272915272</span>
+<span class="co">#&gt; 6       China  2000 213766 1280428583</span></code></pre></div>
+<div id="exercises-16" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Why are gather() and spread() not perfectly symmetrical? Carefully consider the following example:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocks &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">year   =</span> <span class="kw">c</span>(<span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2016</span>, <span class="dv">2016</span>),
+  <span class="dt">half  =</span> <span class="kw">c</span>(   <span class="dv">1</span>,    <span class="dv">2</span>,     <span class="dv">1</span>,    <span class="dv">2</span>),
+  <span class="dt">return =</span> <span class="kw">c</span>(<span class="fl">1.88</span>, <span class="fl">0.59</span>, <span class="fl">0.92</span>, <span class="fl">0.17</span>)
+)
+stocks %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(year, return) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span>:<span class="st">`</span><span class="dt">2016</span><span class="st">`</span>)
+<span class="co">#&gt; # A tibble: 4 × 3</span>
+<span class="co">#&gt;    half  year return</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1  2015   1.88</span>
+<span class="co">#&gt; 2     2  2015   0.59</span>
+<span class="co">#&gt; 3     1  2016   0.92</span>
+<span class="co">#&gt; 4     2  2016   0.17</span></code></pre></div>
+<p>The functions <code>spread</code> and <code>gather</code> are not perfectly symmetrical because column type information is not transferred between them. In the original table the column <code>year</code> was numeric, but after the spread-gather cyle it is character, because with <code>gather</code>, variable names are always converted to a character vector.</p>
+<p>The <code>convert</code> argument tries to convert character vectors to the appropriate type. In the background this uses the <code>type.convert</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocks %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(year, return) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span>:<span class="st">`</span><span class="dt">2016</span><span class="st">`</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; # A tibble: 4 × 3</span>
+<span class="co">#&gt;    half  year return</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1  2015   1.88</span>
+<span class="co">#&gt; 2     2  2015   0.59</span>
+<span class="co">#&gt; 3     1  2016   0.92</span>
+<span class="co">#&gt; 4     2  2016   0.17</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Why does this code fail?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dv">1999</span>, <span class="dv">2000</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)
+<span class="co">#&gt; Error in eval(expr, envir, enclos): Position must be between 0 and n</span></code></pre></div>
+<p>The code fails because the column names <code>1999</code> and <code>2000</code> are not standard and thus needs to be quoted. The tidyverse functions will interpret <code>1999</code> and <code>2000</code> without quotes as looking for the 1999th and 2000th column of the data frame. This will work:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;       country  year  cases</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999    745</span>
+<span class="co">#&gt; 2      Brazil  1999  37737</span>
+<span class="co">#&gt; 3       China  1999 212258</span>
+<span class="co">#&gt; 4 Afghanistan  2000   2666</span>
+<span class="co">#&gt; 5      Brazil  2000  80488</span>
+<span class="co">#&gt; 6       China  2000 213766</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Why does spreading this tibble fail? How could you add a new column to fix the problem?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  ~name,             ~key,    ~value,
+  <span class="co">#-----------------|--------|------</span>
+  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">45</span>,
+  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;height&quot;</span>,   <span class="dv">186</span>,
+  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">50</span>,
+  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;age&quot;</span>,       <span class="dv">37</span>,
+  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;height&quot;</span>,   <span class="dv">156</span>
+)
+<span class="kw">glimpse</span>(people)
+<span class="co">#&gt; Observations: 5</span>
+<span class="co">#&gt; Variables: 3</span>
+<span class="co">#&gt; $ name  &lt;chr&gt; &quot;Phillip Woods&quot;, &quot;Phillip Woods&quot;, &quot;Phillip Woods&quot;, &quot;Jess...</span>
+<span class="co">#&gt; $ key   &lt;chr&gt; &quot;age&quot;, &quot;height&quot;, &quot;age&quot;, &quot;age&quot;, &quot;height&quot;</span>
+<span class="co">#&gt; $ value &lt;dbl&gt; 45, 186, 50, 37, 156</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spread</span>(people, key, value)
+<span class="co">#&gt; Error: Duplicate identifiers for rows (1, 3)</span></code></pre></div>
+<p>Spreading the data frame fails because there are two rows with “age” for “Phillip Woods”. We would need to add another column with an indicator for the number observation it is,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  ~name,             ~key,    ~value, ~obs,
+  <span class="co">#-----------------|--------|------|------</span>
+  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">45</span>, <span class="dv">1</span>,
+  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;height&quot;</span>,   <span class="dv">186</span>, <span class="dv">1</span>,
+  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">50</span>, <span class="dv">2</span>,
+  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;age&quot;</span>,       <span class="dv">37</span>, <span class="dv">1</span>,
+  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;height&quot;</span>,   <span class="dv">156</span>, <span class="dv">1</span>
+)
+<span class="kw">spread</span>(people, key, value)
+<span class="co">#&gt; # A tibble: 3 × 4</span>
+<span class="co">#&gt;              name   obs   age height</span>
+<span class="co">#&gt; *           &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Jessica Cordero     1    37    156</span>
+<span class="co">#&gt; 2   Phillip Woods     1    45    186</span>
+<span class="co">#&gt; 3   Phillip Woods     2    50     NA</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preg &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  ~pregnant, ~male, ~female,
+  <span class="st">&quot;yes&quot;</span>,     <span class="ot">NA</span>,    <span class="dv">10</span>,
+  <span class="st">&quot;no&quot;</span>,      <span class="dv">20</span>,    <span class="dv">12</span>
+)</code></pre></div>
+<p>You need to gather it. The variables are:</p>
+<ul>
+<li>pregnant: logical (“yes”, “no”)</li>
+<li>female: logical</li>
+<li>count: integer</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gather</span>(preg, sex, count, male, female) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pregnant =</span> pregnant ==<span class="st"> &quot;yes&quot;</span>,
+         <span class="dt">female =</span> sex ==<span class="st"> &quot;female&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(-sex)
+<span class="co">#&gt; # A tibble: 4 × 3</span>
+<span class="co">#&gt;   pregnant count female</span>
+<span class="co">#&gt;      &lt;lgl&gt; &lt;dbl&gt;  &lt;lgl&gt;</span>
+<span class="co">#&gt; 1     TRUE    NA  FALSE</span>
+<span class="co">#&gt; 2    FALSE    20  FALSE</span>
+<span class="co">#&gt; 3     TRUE    10   TRUE</span>
+<span class="co">#&gt; 4    FALSE    12   TRUE</span></code></pre></div>
+<p>Converting <code>pregnant</code> and <code>female</code> from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.</p>
+</div>
+</div>
+<div id="separating-and-uniting" class="section level2">
+<h2><span class="header-section-number">7.4</span> Separating and Uniting</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table3 %&gt;%
+<span class="st">  </span><span class="kw">separate</span>(rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="st">  </span><span class="kw">separate</span>(year, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;century&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="dt">sep =</span> <span class="dv">2</span>)
+<span class="co">#&gt; # A tibble: 6 × 5</span>
+<span class="co">#&gt;       country century  year  cases population</span>
+<span class="co">#&gt; *       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan      19    99    745   19987071</span>
+<span class="co">#&gt; 2 Afghanistan      20    00   2666   20595360</span>
+<span class="co">#&gt; 3      Brazil      19    99  37737  172006362</span>
+<span class="co">#&gt; 4      Brazil      20    00  80488  174504898</span>
+<span class="co">#&gt; 5       China      19    99 212258 1272915272</span>
+<span class="co">#&gt; 6       China      20    00 213766 1280428583</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table5 %&gt;%
+<span class="st">  </span><span class="kw">unite</span>(new, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;       country   new              rate</span>
+<span class="co">#&gt; *       &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1999      745/19987071</span>
+<span class="co">#&gt; 2 Afghanistan  2000     2666/20595360</span>
+<span class="co">#&gt; 3      Brazil  1999   37737/172006362</span>
+<span class="co">#&gt; 4      Brazil  2000   80488/174504898</span>
+<span class="co">#&gt; 5       China  1999 212258/1272915272</span>
+<span class="co">#&gt; 6       China  2000 213766/1280428583</span></code></pre></div>
+<div id="exercises-17" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>What do the extra and fill arguments do in separate()? Experiment with the various options for the following two toy datasets.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
+<span class="co">#&gt; Warning: Too many values at 1 locations: 2</span>
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;     one   two three</span>
+<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     a     b     c</span>
+<span class="co">#&gt; 2     d     e     f</span>
+<span class="co">#&gt; 3     h     i     j</span>
+
+<span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
+<span class="co">#&gt; Warning: Too few values at 1 locations: 2</span>
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;     one   two three</span>
+<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     a     b     c</span>
+<span class="co">#&gt; 2     d     e  &lt;NA&gt;</span>
+<span class="co">#&gt; 3     f     g     i</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?separate</code></pre></div>
+<p>The <code>extra</code> argument tells <code>separate</code> what to do if there are too many pieces, and the <code>fill</code> argument if there aren’t enough.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
+<span class="co">#&gt; Warning: Too many values at 1 locations: 2</span>
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;     one   two three</span>
+<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     a     b     c</span>
+<span class="co">#&gt; 2     d     e     f</span>
+<span class="co">#&gt; 3     h     i     j</span></code></pre></div>
+<p>By default <code>separate</code> drops the extra values with a warning.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;drop&quot;</span>)
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;     one   two three</span>
+<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     a     b     c</span>
+<span class="co">#&gt; 2     d     e     f</span>
+<span class="co">#&gt; 3     h     i     j</span></code></pre></div>
+<p>This produces the same result as above, dropping extra values, but without the warning.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span>)
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;     one   two three</span>
+<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     a     b     c</span>
+<span class="co">#&gt; 2     d     e   f,g</span>
+<span class="co">#&gt; 3     h     i     j</span></code></pre></div>
+<p>In this, the extra values are not split, so “f,g” appears in column three.</p>
+<p>In this, one of the entries for column, “d,e”, has too few elements. The default for <code>fill</code> is similar to <code>separate</code>; it fills with missing values but emits a warning. In this, row 2 of column “three”, is <code>NA</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
+<span class="co">#&gt; Warning: Too few values at 1 locations: 2</span>
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;     one   two three</span>
+<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     a     b     c</span>
+<span class="co">#&gt; 2     d     e  &lt;NA&gt;</span>
+<span class="co">#&gt; 3     f     g     i</span></code></pre></div>
+<p>Alternative options for <code>fill</code> are <code>&quot;right&quot;</code>, to fill with missing values from the right, but without a warning</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;right&quot;</span>)
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;     one   two three</span>
+<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     a     b     c</span>
+<span class="co">#&gt; 2     d     e  &lt;NA&gt;</span>
+<span class="co">#&gt; 3     f     g     i</span></code></pre></div>
+<p>The option <code>fill = &quot;left&quot;</code> also fills with missing values without a warning, but this time from the left side. Now, column “one” of row 2 will be missing, and the other values in that row are shifted over.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;left&quot;</span>)
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;     one   two three</span>
+<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     a     b     c</span>
+<span class="co">#&gt; 2  &lt;NA&gt;     d     e</span>
+<span class="co">#&gt; 3     f     g     i</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Both <code>unite()</code> and <code>separate()</code> have a remove argument. What does it do? Why would you set it to <code>FALSE</code>?</li>
+</ol>
+<p>You would set it to <code>FALSE</code> if you want to create a new variable, but keep the old one.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Compare and contrast <code>separate()</code> and <code>extract()</code>, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?</li>
+</ol>
+<p>The function <code>extract</code> uses a regular expression to find groups and split into columns. In <code>unite</code> it is unambigous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the <code>sep</code>. In <code>separate</code>, it is one to many, and there are multiple ways to split the character string.</p>
+</div>
+</div>
+<div id="missing-values-1" class="section level2">
+<h2><span class="header-section-number">7.5</span> Missing Values</h2>
+<div id="exercises-18" class="section level3">
+<h3><span class="header-section-number">7.5.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Compare and contrast the <code>fill</code> arguments to <code>spread()</code> and <code>complete()</code>.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?spread</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?complete</code></pre></div>
+<p>In <code>spread</code>, the fill argument explicitly sets the value to replace <code>NA</code>s. In <code>complete</code>, the fill argument also sets a value to replace <code>NA</code>s but it is named list, allowing for different values for different variables. Also, both cases replace both implicit and explicit missing values.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>What does the direction argument to <code>fill()</code> do?</li>
+</ol>
+<p>With <code>fill</code>, it determines whether <code>NA</code> values should be replaced by the previous non-missing value (<code>&quot;down&quot;</code>) or the next non-missing value (<code>&quot;up&quot;</code>).</p>
+</div>
+</div>
+<div id="case-study" class="section level2">
+<h2><span class="header-section-number">7.6</span> Case Study</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who
+<span class="co">#&gt; # A tibble: 7,240 × 60</span>
+<span class="co">#&gt;       country  iso2  iso3  year new_sp_m014 new_sp_m1524 new_sp_m2534</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan    AF   AFG  1980          NA           NA           NA</span>
+<span class="co">#&gt; 2 Afghanistan    AF   AFG  1981          NA           NA           NA</span>
+<span class="co">#&gt; 3 Afghanistan    AF   AFG  1982          NA           NA           NA</span>
+<span class="co">#&gt; 4 Afghanistan    AF   AFG  1983          NA           NA           NA</span>
+<span class="co">#&gt; 5 Afghanistan    AF   AFG  1984          NA           NA           NA</span>
+<span class="co">#&gt; 6 Afghanistan    AF   AFG  1985          NA           NA           NA</span>
+<span class="co">#&gt; # ... with 7,234 more rows, and 53 more variables: new_sp_m3544 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_sp_m4554 &lt;int&gt;, new_sp_m5564 &lt;int&gt;, new_sp_m65 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_sp_f014 &lt;int&gt;, new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_sp_f3544 &lt;int&gt;, new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_sp_f65 &lt;int&gt;, new_sn_m014 &lt;int&gt;, new_sn_m1524 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_sn_m2534 &lt;int&gt;, new_sn_m3544 &lt;int&gt;, new_sn_m4554 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_sn_m5564 &lt;int&gt;, new_sn_m65 &lt;int&gt;, new_sn_f014 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_sn_f1524 &lt;int&gt;, new_sn_f2534 &lt;int&gt;, new_sn_f3544 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_sn_f4554 &lt;int&gt;, new_sn_f5564 &lt;int&gt;, new_sn_f65 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_ep_m014 &lt;int&gt;, new_ep_m1524 &lt;int&gt;, new_ep_m2534 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_ep_m3544 &lt;int&gt;, new_ep_m4554 &lt;int&gt;, new_ep_m5564 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_ep_m65 &lt;int&gt;, new_ep_f014 &lt;int&gt;, new_ep_f1524 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_ep_f2534 &lt;int&gt;, new_ep_f3544 &lt;int&gt;, new_ep_f4554 &lt;int&gt;,</span>
+<span class="co">#&gt; #   new_ep_f5564 &lt;int&gt;, new_ep_f65 &lt;int&gt;, newrel_m014 &lt;int&gt;,</span>
+<span class="co">#&gt; #   newrel_m1524 &lt;int&gt;, newrel_m2534 &lt;int&gt;, newrel_m3544 &lt;int&gt;,</span>
+<span class="co">#&gt; #   newrel_m4554 &lt;int&gt;, newrel_m5564 &lt;int&gt;, newrel_m65 &lt;int&gt;,</span>
+<span class="co">#&gt; #   newrel_f014 &lt;int&gt;, newrel_f1524 &lt;int&gt;, newrel_f2534 &lt;int&gt;,</span>
+<span class="co">#&gt; #   newrel_f3544 &lt;int&gt;, newrel_f4554 &lt;int&gt;, newrel_f5564 &lt;int&gt;,</span>
+<span class="co">#&gt; #   newrel_f65 &lt;int&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(who)
+<span class="co">#&gt; Observations: 7,240</span>
+<span class="co">#&gt; Variables: 60</span>
+<span class="co">#&gt; $ country      &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afg...</span>
+<span class="co">#&gt; $ iso2         &lt;chr&gt; &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;...</span>
+<span class="co">#&gt; $ iso3         &lt;chr&gt; &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, ...</span>
+<span class="co">#&gt; $ year         &lt;int&gt; 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1...</span>
+<span class="co">#&gt; $ new_sp_m014  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_m1524 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_m2534 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_m3544 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_m4554 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_m5564 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_m65   &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_f014  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_f1524 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_f2534 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_f3544 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_f4554 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_f5564 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sp_f65   &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_m014  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_m1524 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_m2534 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_m3544 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_m4554 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_m5564 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_m65   &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_f014  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_f1524 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_f2534 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_f3544 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_f4554 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_f5564 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_sn_f65   &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_m014  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_m1524 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_m2534 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_m3544 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_m4554 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_m5564 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_m65   &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_f014  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_f1524 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_f2534 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_f3544 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_f4554 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_f5564 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ new_ep_f65   &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_m014  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_m1524 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_m2534 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_m3544 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_m4554 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_m5564 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_m65   &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_f014  &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_f1524 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_f2534 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_f3544 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_f4554 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_f5564 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span>
+<span class="co">#&gt; $ newrel_f65   &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who1 &lt;-<span class="st"> </span>who %&gt;%
+<span class="st">  </span><span class="kw">gather</span>(new_sp_m014:newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<span class="kw">glimpse</span>(who1)
+<span class="co">#&gt; Observations: 76,046</span>
+<span class="co">#&gt; Variables: 6</span>
+<span class="co">#&gt; $ country &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanis...</span>
+<span class="co">#&gt; $ iso2    &lt;chr&gt; &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, ...</span>
+<span class="co">#&gt; $ iso3    &lt;chr&gt; &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;...</span>
+<span class="co">#&gt; $ year    &lt;int&gt; 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, ...</span>
+<span class="co">#&gt; $ key     &lt;chr&gt; &quot;new_sp_m014&quot;, &quot;new_sp_m014&quot;, &quot;new_sp_m014&quot;, &quot;new_sp_m...</span>
+<span class="co">#&gt; $ cases   &lt;int&gt; 0, 30, 8, 52, 129, 90, 127, 139, 151, 193, 186, 187, 2...</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who2 &lt;-<span class="st"> </span>who1 %&gt;%
+<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">key =</span> stringr::<span class="kw">str_replace</span>(key, <span class="st">&quot;newrel&quot;</span>, <span class="st">&quot;new_rel&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3 &lt;-<span class="st"> </span>who2 %&gt;%
+<span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)
+who3
+<span class="co">#&gt; # A tibble: 76,046 × 8</span>
+<span class="co">#&gt;       country  iso2  iso3  year   new  type sexage cases</span>
+<span class="co">#&gt; *       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan    AF   AFG  1997   new    sp   m014     0</span>
+<span class="co">#&gt; 2 Afghanistan    AF   AFG  1998   new    sp   m014    30</span>
+<span class="co">#&gt; 3 Afghanistan    AF   AFG  1999   new    sp   m014     8</span>
+<span class="co">#&gt; 4 Afghanistan    AF   AFG  2000   new    sp   m014    52</span>
+<span class="co">#&gt; 5 Afghanistan    AF   AFG  2001   new    sp   m014   129</span>
+<span class="co">#&gt; 6 Afghanistan    AF   AFG  2002   new    sp   m014    90</span>
+<span class="co">#&gt; # ... with 7.604e+04 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3 %&gt;%
+<span class="st">  </span><span class="kw">count</span>(new)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;     new     n</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1   new 76046</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who4 &lt;-<span class="st"> </span>who3 %&gt;%
+<span class="st">  </span><span class="kw">select</span>(-new, -iso2, -iso3)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who5 &lt;-<span class="st"> </span>who4 %&gt;%
+<span class="st">  </span><span class="kw">separate</span>(sexage, <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>)
+who5
+<span class="co">#&gt; # A tibble: 76,046 × 6</span>
+<span class="co">#&gt;       country  year  type   sex   age cases</span>
+<span class="co">#&gt; *       &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan  1997    sp     m   014     0</span>
+<span class="co">#&gt; 2 Afghanistan  1998    sp     m   014    30</span>
+<span class="co">#&gt; 3 Afghanistan  1999    sp     m   014     8</span>
+<span class="co">#&gt; 4 Afghanistan  2000    sp     m   014    52</span>
+<span class="co">#&gt; 5 Afghanistan  2001    sp     m   014   129</span>
+<span class="co">#&gt; 6 Afghanistan  2002    sp     m   014    90</span>
+<span class="co">#&gt; # ... with 7.604e+04 more rows</span></code></pre></div>
+<div id="exercises-19" class="section level3">
+<h3><span class="header-section-number">7.6.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>In this case study I set <code>na.rm = TRUE</code> just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an <code>NA</code> and zero?</li>
+</ol>
+<p>Perhaps? I would need to know more about the data generation process. There are zero’s in the data, which means they may explicitly be indicating no cases.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who1 %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(cases ==<span class="st"> </span><span class="dv">0</span>) %&gt;%
+<span class="st">  </span><span class="kw">nrow</span>()
+<span class="co">#&gt; [1] 11080</span></code></pre></div>
+<p>So it appears that either a country has all its values in a year as non-missing if the WHO collected data for that country, or all its values are non-missing. So it is okay to treat explicitly and implicitly missing values the same, and we don’t lose any information by dropping them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gather</span>(who, new_sp_m014:newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(country, year)  %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">missing =</span> <span class="kw">is.na</span>(cases)) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(country, year, missing) %&gt;%
+<span class="st">  </span><span class="kw">distinct</span>() %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(country, year) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() &gt;<span class="st"> </span><span class="dv">1</span>)
+<span class="co">#&gt; Source: local data frame [0 x 2]</span>
+<span class="co">#&gt; Groups: country, year [0]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; # ... with 2 variables: country &lt;chr&gt;, year &lt;int&gt;</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>What happens if you neglect the <code>mutate()</code> step? (<code>mutate(key = stringr::str_replace(key, &quot;newrel&quot;, &quot;new_rel&quot;)</code>)</li>
+</ol>
+<p><code>separate</code> emits the warning “too few values”, and if we check the rows for keys beginning with <code>&quot;newrel_&quot;</code>, we see that <code>sexage</code> is messing, and <code>type = m014</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3a &lt;-<span class="st"> </span>who1 %&gt;%
+<span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)
+<span class="co">#&gt; Warning: Too few values at 2580 locations: 73467, 73468, 73469, 73470,</span>
+<span class="co">#&gt; 73471, 73472, 73473, 73474, 73475, 73476, 73477, 73478, 73479, 73480,</span>
+<span class="co">#&gt; 73481, 73482, 73483, 73484, 73485, 73486, ...</span>
+
+<span class="kw">filter</span>(who3a, new ==<span class="st"> &quot;newrel&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">head</span>()
+<span class="co">#&gt; # A tibble: 6 × 8</span>
+<span class="co">#&gt;       country  iso2  iso3  year    new  type sexage cases</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 Afghanistan    AF   AFG  2013 newrel  m014   &lt;NA&gt;  1705</span>
+<span class="co">#&gt; 2     Albania    AL   ALB  2013 newrel  m014   &lt;NA&gt;    14</span>
+<span class="co">#&gt; 3     Algeria    DZ   DZA  2013 newrel  m014   &lt;NA&gt;    25</span>
+<span class="co">#&gt; 4     Andorra    AD   AND  2013 newrel  m014   &lt;NA&gt;     0</span>
+<span class="co">#&gt; 5      Angola    AO   AGO  2013 newrel  m014   &lt;NA&gt;   486</span>
+<span class="co">#&gt; 6    Anguilla    AI   AIA  2013 newrel  m014   &lt;NA&gt;     0</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>I claimed that <code>iso2</code> and <code>iso3</code> were redundant with country. Confirm this claim.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(who3, country, iso2, iso3) %&gt;%
+<span class="st">  </span><span class="kw">distinct</span>() %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(country) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() &gt;<span class="st"> </span><span class="dv">1</span>)
+<span class="co">#&gt; Source: local data frame [0 x 3]</span>
+<span class="co">#&gt; Groups: country [0]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; # ... with 3 variables: country &lt;chr&gt;, iso2 &lt;chr&gt;, iso3 &lt;chr&gt;</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>For each country, year, and sex compute the total number of cases of TB. Make an informative visualisation of the data.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who5 %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(country, year, sex) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(year &gt;<span class="st"> </span><span class="dv">1995</span>) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases)) %&gt;%
+<span class="st">  </span><span class="kw">unite</span>(country_sex, country, sex, <span class="dt">remove =</span> <span class="ot">FALSE</span>) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> cases, <span class="dt">group =</span> country_sex, <span class="dt">colour =</span> sex)) +
+<span class="st">  </span><span class="kw">geom_line</span>()
+
+  </code></pre></div>
+<p><img src="tidy_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>A small multiples plot faceting by country is difficult given the number of countries. Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.</p>
+</div>
+</div>
+<div id="non-tidy-data" class="section level2">
+<h2><span class="header-section-number">7.7</span> Non-Tidy Data</h2>
+<ul>
+<li>Corpus and text data is often stored in sparse Matrices <a href="https://cran.r-project.org/web/packages/tm/tm.pdf" class="uri">https://cran.r-project.org/web/packages/tm/tm.pdf</a></li>
+<li>Graphical data has its own format: <a href="http://igraph.org/r/doc/" class="uri">http://igraph.org/r/doc/</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-import.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="relational-data.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/r4ds/edit/master/tidy.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

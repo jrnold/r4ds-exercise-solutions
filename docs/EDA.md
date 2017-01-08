@@ -274,9 +274,197 @@ nycflights13::flights %>%
 
 I'm not exactly sure what this question is asking conditional on using only the tools introduced in the book thus far.
 
+3. Install the **ggstance** package, and create a horizontal boxplot.
+   How does this compare to using `coord_flip()`?
+   
+Earlier we created a horizontal boxplot of the distribution `hwy` by `class`, using `geom_boxplot` and `coord_flip`:   
+
+```r
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = reorder(class, hwy, FUN = median), y = hwy)) +
+  coord_flip()
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+In this case the output looks the same, but in the aesthetics the `x` and `y` are flipped from the previous case.
+
+```r
+library("ggstance")
+#> 
+#> Attaching package: 'ggstance'
+#> The following objects are masked from 'package:ggplot2':
+#> 
+#>     geom_errorbarh, GeomErrorbarh
+
+ggplot(data = mpg) +
+  geom_boxploth(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+4. One problem with boxplots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of “outlying values”. One approach to remedy this problem is the letter value plot. Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut. What do you learn? How do you interpret the plots?
+
+The boxes of the letter-value plot correspond to many more quantiles.
+They are useful for larger datasets because
+
+1. larger datasets can give precise estiamtes of quantiles beyond the quartiles
+2. in expectation, larger datasets should have many more outliers
+
+The letter-value plot is described in:
+
+>  Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. "Letter-value plots: Boxplots for large data" http://vita.had.co.nz/papers/letter-value-plot.pdf
+
+
+```r
+library("lvplot")
+ggplot(diamonds, aes(x = cut, y = price)) +
+  geom_lv()
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+
+5. Compare and contrast `geom_violin()` with a facetted `geom_histogram()`,
+   or a coloured `geom_freqpoly()`. What are the pros and cons of each 
+   method?
+
+I produce plots for these three methods below. The `geom_freqpoly` is better for look-up: meaning that given a price, it is easy to tell which `cut` has the highest density. However, the overlapping lines makes it difficult to distinguish how the overall distributions relate to each other.
+The `geom_violin` and facetted `geom_histogram` have similar strengths and weaknesses.
+It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
+However, since we can't easily compare the vertical values of the distribution, its difficult to look up which category has the highest density for a given price.
+All of these methods depend on tuning parameters to determine the level of smoothness of the distribution.
+
+
+
+```r
+ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) + 
+  geom_freqpoly(mapping = aes(colour = cut), binwidth = 500)
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+```r
+ggplot(data = diamonds, mapping = aes(x = price)) +
+  geom_histogram() +
+  facet_wrap(~ cut, ncol = 1, scales = "free_y")
+#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+
+```r
+ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
+  geom_violin() +
+  coord_flip()
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+
+The violin plot was first described in 
+
+> Hintze JL, Nelson RD (1998). "Violin Plots: A Box Plot-Density Trace Synergism." The American Statistician, 52(2), 181–184
+
+
+6.  If you have a small dataset, it's sometimes useful to use `geom_jitter()`
+    to see the relationship between a continuous and categorical variable.
+    The **ggbeeswarm** package provides a number of methods similar to 
+    `geom_jitter()`. List them and briefly describe what each one does.
+
+There are two methods:
+
+- `geom_quasirandom` that produces plots that resemble something between jitter and violin. There are several different methods that determine exactly how the random location of the points is generated.
+- `geom_beeswarm` creates a shape similar to a violin plot, but by offsetting the points.
+    
+I'll use the `mpg`  boxplot example since these methods display individual points, they are better suited for smaller datasets.
+
+
+```r
+library("ggbeeswarm")
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy))
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+```r
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy),
+                   method = "tukey")
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+```r
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy),
+                   method = "tukeyDense")
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+```r
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy),
+                   method = "frowney")
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+```r
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy),
+                   method = "smiley")
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+
+```r
+ggplot(data = mpg) +
+  geom_beeswarm(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy))
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ### Two categorical variables
+
+1. 
+
+2. 
+
+3. Why is it slightly better to use `aes(x = color, y = cut)` rather than `aes(x = cut, y = color)` in the example above?
+
+
+It's usually better to use the categorical variable with a larger number of categories or the longer labels on the y axis. 
+If at all possible, labels should be horizontal because that is easier to read. 
+
+However, switching the order doesn't result in overlapping labels.
+
+```r
+diamonds %>% 
+  count(color, cut) %>%  
+  ggplot(mapping = aes(y = color, x = cut)) +
+    geom_tile(mapping = aes(fill = n))
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+
+Another justification, for switching the order is that the larger numbers are at the top when `x = color` and `y = cut`, and that lowers the cognitive burden of interpreting the plot.
 
 
 ### Two continuous variables

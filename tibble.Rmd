@@ -1,21 +1,20 @@
----
-title: "Ch 10: Tibbles"
-output: html_notebook
----
+# Tibbles
 
+## Prerquisites
 
-Notes
+```{r message=FALSE}
+library("tidyverse")
+```
 
-Functions and packages
+Functions and packages covered in this chapter:
 
 - package **tibble**
 - `as_tibble`, `tibble`
-- **TODO** inverse of `tibble::enframe`
-
 
 ## Creating Tibbles
 
-Why might we want to create non-syntactic variable names? Since variable names are often used as in plots (e.g. axis-titles) or headers in tables, where having spaces or other characters that are invalid R variable names is useful.
+Why might you want to create non-syntactic variable names? 
+Since variable names are often used as in plots (e.g. axis-titles) or headers in tables, where having spaces or other characters that are invalid R variable names is useful.
 Those functions will have ways to use text other than the column.
 
 ## Tibbles vs. data.frame
@@ -28,22 +27,20 @@ In general, discuss how this "dialect" of R relates to base R and other R that t
 
 Also, need to discuss types of variables.
 
-
 ```{r}
 nycflights13::flights %>% 
   print(n = 10, width = Inf)
 ```
 
-If this were printed in the console it would be much worse
-
+If this were printed in the console it would be much worse. Just try it, I dare you.
 ```{r eval=FALSE}
 as.data.frame(nycflights13::flights) 
 ```
 
 
-### Subsetting
+## Subsetting
 
-- **Note** Warnings about partial matching! What is it and why is it dangerous.
+**Note** Warnings about partial matching! What is it and why is it dangerous.
 
 ```{r}
 df <- tibble(x = runif(5), y = rnorm(5))
@@ -56,17 +53,17 @@ df %>% .[["x"]]
 
 ## Interacting with older code
 
-**Note** Not all older functions work with tibbles (an example is Amelia); usually because they rely on quirks in `data.frame` behavior that `tibbles` "fix". Use `as.data.frame()` to turn a tibble back into a `data.frame`. This is usually because of `[` and the way it inconsistenly returns a vector or a data frame.
+**Note** Not all older functions work with tibbles (an example includes giAmelia); usually because they rely on quirks in `data.frame` behavior that `tibbles` "fix". Use `as.data.frame()` to turn a tibble back into a `data.frame`. 
+This is usually because of `[` and the way it inconsistenly returns a vector or a data frame.
 With tibbles `[` always returns a data frame
 
-### Exercises\
+## Exercises
 
 1. How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
 
 ```{r}
 mtcars
 ```
-
 
 ```{r}
 class(mtcars)
@@ -135,7 +132,6 @@ ggplot(annoying, aes(x = `1`, y = `2`)) +
 
 A new column `3` with is `2` divided by `1`:
 ```{r}
-
 annoying[["3"]] = annoying$`2` / annoying$`1`
 ```
 
@@ -148,7 +144,7 @@ glimpse(annoying)
 5. What does `tibble::enframe()` do? When might you use it?
 
 It converts named vectors to a data frame with names and values
-```{r}
+```{r eval=FALSE}
 ?tibble::enframe
 ```
 
@@ -156,7 +152,7 @@ It converts named vectors to a data frame with names and values
 6. What option controls how many additional column names are printed at the footer of a tibble?
 
 The print function for tibbles is in `print.tbl_df`:
-```{r}
+```{r eval=FALSE}
 ?print.tbl_df
 ```
 The option `n_extra` determines the number of extra columns to print information for.

@@ -1,7 +1,18 @@
+
 # Data Import
 
-```{r results='hide'}
+
+```r
 library("tidyverse")
+#> Loading tidyverse: ggplot2
+#> Loading tidyverse: tibble
+#> Loading tidyverse: tidyr
+#> Loading tidyverse: readr
+#> Loading tidyverse: purrr
+#> Loading tidyverse: dplyr
+#> Conflicts with tidy packages ----------------------------------------------
+#> filter(): dplyr, stats
+#> lag():    dplyr, stats
 ```
 
 Functions and packages used:
@@ -28,7 +39,8 @@ Functions and packages used:
 “|”?
 
 I'd use `read_delim` with `delim="|"`:
-```{r eval=FALSE}
+
+```r
 read_delim(file, delim = "|")
 ```
 
@@ -36,8 +48,12 @@ read_delim(file, delim = "|")
 2. Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
 
 They have the following arguments in common:
-```{r}
+
+```r
 union(names(formals(read_csv)), names(formals(read_tsv)))
+#>  [1] "file"      "col_names" "col_types" "locale"    "na"       
+#>  [6] "quoted_na" "comment"   "trim_ws"   "skip"      "n_max"    
+#> [11] "guess_max" "progress"
 ```
 
 - `col_names` and `col_types` are used to specify the column names and how to parse the columns
@@ -58,49 +74,99 @@ The most important argument to `read_fwf` which reads "fixed-width formats", is 
 "x,y\n1,'a,b'"
 ```
 
-```{r}
+
+```r
 x <- "x,y\n1,'a,b'"
 read_delim(x, ",", quote = "'")
+#> # A tibble: 1 × 2
+#>       x     y
+#>   <int> <chr>
+#> 1     1   a,b
 ```
 
 
 
 6. Identify what is wrong with each of the following inline CSV files. What happens when you run the code?
 
-```{r}
+
+```r
 read_csv("a,b\n1,2,3\n4,5,6")
+#> Warning: 2 parsing failures.
+#> row col  expected    actual
+#>   1  -- 2 columns 3 columns
+#>   2  -- 2 columns 3 columns
+#> # A tibble: 2 × 2
+#>       a     b
+#>   <int> <int>
+#> 1     1     2
+#> 2     4     5
 ```
 
 Only two columns are specified in the header "a" and "b", but the rows have three columns, so the last column in dropped.
 
-```{r}
+
+```r
 read_csv("a,b,c\n1,2\n1,2,3,4")
+#> Warning: 2 parsing failures.
+#> row col  expected    actual
+#>   1  -- 3 columns 2 columns
+#>   2  -- 3 columns 4 columns
+#> # A tibble: 2 × 3
+#>       a     b     c
+#>   <int> <int> <int>
+#> 1     1     2    NA
+#> 2     1     2     3
 ```
 
 The numbers of columns in the data do not match the number of columns in the header (three).
 In row one, there are only two values, so column `c` is set to missing.
 In row two, there is an extra value, and that value is dropped.
 
-```{r}
+
+```r
 read_csv("a,b\n\"1")
+#> Warning: 2 parsing failures.
+#> row col                     expected    actual
+#>   1  a  closing quote at end of file          
+#>   1  -- 2 columns                    1 columns
+#> # A tibble: 1 × 2
+#>       a     b
+#>   <int> <chr>
+#> 1     1  <NA>
 ```
 It's not clear what the intent was here.
 The opening quote `\\"1` is dropped because it is not closed, and `a` is treated as an integer.
 
-```{r}
+
+```r
 read_csv("a,b\n1,2\na,b")
+#> # A tibble: 2 × 2
+#>       a     b
+#>   <chr> <chr>
+#> 1     1     2
+#> 2     a     b
 ```
 Both "a" and "b" are treated as character vectors since they contain non-numeric strings. 
 This may have been intentional, or the author may have intended the values of the columns to be "1,2" and "a,b".
 
 
-```{r}
+
+```r
 read_csv("a;b\n1;3")
+#> # A tibble: 1 × 1
+#>   `a;b`
+#>   <chr>
+#> 1   1;3
 ```
 
 The values are separated by ";" rather than ",". Use `read_csv2` instead:
-```{r}
+
+```r
 read_csv2("a;b\n1;3")
+#> # A tibble: 1 × 2
+#>       a     b
+#>   <int> <int>
+#> 1     1     3
 ```
 
 
@@ -120,9 +186,12 @@ The suggested reading is very useful: http://kunststube.net/encoding/
 
 This becomes especially useful when you take "Text as Data".
 
-```{r}
+
+```r
 charToRaw("Jeff")
+#> [1] 4a 65 66 66
 class(charToRaw("Jeff"))
+#> [1] "raw"
 ```
 
 
@@ -142,17 +211,45 @@ The locale broadly controls the following:
   What happens to the default value of `grouping_mark` when you set `decimal_mark` to “,”? What happens to the default value of `decimal_mark` when you set the `grouping_mark` to “.”?
 
 If the decimal and grouping marks are set to the same character, `locale` throws an error:
-```{r error=TRUE}
+
+```r
 locale(decimal_mark = ".", grouping_mark = ".")
+#> Error: `decimal_mark` and `grouping_mark` must be different
 ```
 If the `decimal_mark` is set to the comma "`,"`, then the grouping mark is set to the period `"."`:
-```{r}
+
+```r
 locale(decimal_mark = ",")
+#> <locale>
+#> Numbers:  123.456,78
+#> Formats:  %AD / %AT
+#> Timezone: UTC
+#> Encoding: UTF-8
+#> <date_names>
+#> Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),
+#>         Thursday (Thu), Friday (Fri), Saturday (Sat)
+#> Months: January (Jan), February (Feb), March (Mar), April (Apr), May
+#>         (May), June (Jun), July (Jul), August (Aug), September
+#>         (Sep), October (Oct), November (Nov), December (Dec)
+#> AM/PM:  AM/PM
 ```
 
 If the grouping mark is set to a period, then the decimal mark is set to a comma
-```{r}
+
+```r
 locale(grouping_mark = ",")
+#> <locale>
+#> Numbers:  123,456.78
+#> Formats:  %AD / %AT
+#> Timezone: UTC
+#> Encoding: UTF-8
+#> <date_names>
+#> Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),
+#>         Thursday (Thu), Friday (Fri), Saturday (Sat)
+#> Months: January (Jan), February (Feb), March (Mar), April (Apr), May
+#>         (May), June (Jun), July (Jul), August (Aug), September
+#>         (Sep), October (Oct), November (Nov), December (Dec)
+#> AM/PM:  AM/PM
 ```
 
 
@@ -161,14 +258,30 @@ locale(grouping_mark = ",")
 
 They provide default date and time formats. 
 The [readr vignette](https://cran.r-project.org/web/packages/readr/vignettes/locales.html) discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM
-```{r}
+
+```r
 locale()
+#> <locale>
+#> Numbers:  123,456.78
+#> Formats:  %AD / %AT
+#> Timezone: UTC
+#> Encoding: UTF-8
+#> <date_names>
+#> Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),
+#>         Thursday (Thu), Friday (Fri), Saturday (Sat)
+#> Months: January (Jan), February (Feb), March (Mar), April (Apr), May
+#>         (May), June (Jun), July (Jul), August (Aug), September
+#>         (Sep), October (Oct), November (Nov), December (Dec)
+#> AM/PM:  AM/PM
 ```
 
 Examples from the readr vignette of parsing French dates
-```{r}
+
+```r
 parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
+#> [1] "2015-01-01"
 parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
+#> [1] "1979-10-14"
 ```
 Apparently the time format is not used for anything, but the date format is used for guessing column types.
 
@@ -176,7 +289,8 @@ Apparently the time format is not used for anything, but the date format is used
 
 4. If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
 
-```{r}
+
+```r
 ?locale
 ```
 

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="visualize.html">
-<link rel="next" href="data-transformation.html">
+<link rel="prev" href="factors.html">
+<link rel="next" href="model-introduction.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -323,24 +323,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="workflow-basics" class="section level1">
-<h1><span class="header-section-number">2</span> Workflow Basics</h1>
-<div id="practice" class="section level2">
-<h2><span class="header-section-number">2.1</span> Practice</h2>
-<div id="exercises-4" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> Exercises</h3>
-<ol style="list-style-type: decimal">
-<li>Why does this code not work?</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">10</span>
-my_varıable
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object &#39;my_varıable&#39; not found</span></code></pre></div>
-<p>The variable being printed is <code>my_varıable</code>, not <code>my_variable</code>: the seventh character is “ı” (LATIN SMALL LETTER DOTLESS I) not “i”.</p>
-<p>While it wouldn’t have helped much in this case, the importance of distinguishing characters in code is reasons why fonts which clearly distinguish similar characters are preferred in programming: especially important are distinguishing between zero (0), Latin small letter O (o), and Latin capital letter O (O); and the numeral one (1), Latin small letter I (i), Latin capital letter I (i), and Latin small letter L (l). In these fonts, zero and the Latin letter O are often distinguished by using a glyph for zero that uses either a dot in the interior or a slash through it.</p>
-<p>Also note that the error messages of the form “object ‘…’ not found”, mean just what they say, the object can’t be found by R. This is usually because you either (1) forgot to define the function (or had an error that prevented it from being defined earlier), (2) didn’t load a package with the object, or (3) made a typo in the object’s name (either when using it or when you originally defined it).</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Tweak each of the following R commands so that they run correctly:</li>
-</ol>
+<div id="iteration" class="section level1">
+<h1><span class="header-section-number">11</span> Iteration</h1>
+<div id="prerequisites-5" class="section level2">
+<h2><span class="header-section-number">11.1</span> Prerequisites</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="co">#&gt; Loading tidyverse: ggplot2</span>
 <span class="co">#&gt; Loading tidyverse: tibble</span>
@@ -350,53 +336,184 @@ my_varıable
 <span class="co">#&gt; Loading tidyverse: dplyr</span>
 <span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
 <span class="co">#&gt; filter(): dplyr, stats</span>
-<span class="co">#&gt; lag():    dplyr, stats</span>
-
-<span class="kw">ggplot</span>(<span class="dt">dota =</span> mpg) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))
-<span class="co">#&gt; Error in structure(list(data = data, layers = list(), scales = scales_list(), : argument &quot;data&quot; is missing, with no default</span></code></pre></div>
-<p>The error message is <code>argument &quot;data&quot; is missing, with no default</code>.</p>
-<p>It looks like a typo, <code>dota</code> instead of <code>data</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))</code></pre></div>
-<p><img src="workflow-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fliter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
-<span class="co">#&gt; Error in eval(expr, envir, enclos): could not find function &quot;fliter&quot;</span></code></pre></div>
-<p>R could not find the function <code>fliter</code> because we made a typo: <code>fliter</code> instead of <code>filter</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
-<span class="co">#&gt; Error: filter() takes unnamed arguments. Do you need `==`?</span></code></pre></div>
-<p>We aren’t done yet. But the error message gives a suggestion. Let’s follow it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, cyl ==<span class="st"> </span><span class="dv">8</span>)
-<span class="co">#&gt; # A tibble: 70 × 11</span>
-<span class="co">#&gt;   manufacturer              model displ  year   cyl    trans   drv   cty</span>
-<span class="co">#&gt;          &lt;chr&gt;              &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1         audi         a6 quattro   4.2  2008     8 auto(s6)     4    16</span>
-<span class="co">#&gt; 2    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14</span>
-<span class="co">#&gt; 3    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    11</span>
-<span class="co">#&gt; 4    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14</span>
-<span class="co">#&gt; 5    chevrolet c1500 suburban 2wd   5.7  1999     8 auto(l4)     r    13</span>
-<span class="co">#&gt; 6    chevrolet c1500 suburban 2wd   6.0  2008     8 auto(l4)     r    12</span>
-<span class="co">#&gt; # ... with 64 more rows, and 3 more variables: hwy &lt;int&gt;, fl &lt;chr&gt;,</span>
-<span class="co">#&gt; #   class &lt;chr&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamond, carat &gt;<span class="st"> </span><span class="dv">3</span>)
-<span class="co">#&gt; Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;diamond&#39; not found</span></code></pre></div>
-<p>R says it can’t find the object <code>diamond</code>. This is a typo; the data frame is named <code>diamonds</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamonds, carat &gt;<span class="st"> </span><span class="dv">3</span>)
-<span class="co">#&gt; # A tibble: 32 × 10</span>
-<span class="co">#&gt;   carat     cut color clarity depth table price     x     y     z</span>
-<span class="co">#&gt;   &lt;dbl&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  3.01 Premium     I      I1  62.7    58  8040  9.10  8.97  5.67</span>
-<span class="co">#&gt; 2  3.11    Fair     J      I1  65.9    57  9823  9.15  9.02  5.98</span>
-<span class="co">#&gt; 3  3.01 Premium     F      I1  62.2    56  9925  9.24  9.13  5.73</span>
-<span class="co">#&gt; 4  3.05 Premium     E      I1  60.9    58 10453  9.26  9.25  5.66</span>
-<span class="co">#&gt; 5  3.02    Fair     I      I1  65.2    56 10577  9.11  9.02  5.91</span>
-<span class="co">#&gt; 6  3.01    Fair     H      I1  56.1    62 10761  9.54  9.38  5.31</span>
-<span class="co">#&gt; # ... with 26 more rows</span></code></pre></div>
-<p>How did I know? I started typing in <code>diamond</code> and RStudio autocorrected it to <code>diamonds</code>. Since <code>diamonds</code> includes the variable <code>carat</code> and the code works, that appears to have been the problem.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>Press Alt + Shift + K. What happens? How can you get to the same place using the menus?</li>
+<span class="co">#&gt; lag():    dplyr, stats</span></code></pre></div>
+</div>
+<div id="for-loops" class="section level2">
+<h2><span class="header-section-number">11.2</span> For Loops</h2>
+<div id="exercises-44" class="section level3">
+<h3><span class="header-section-number">11.2.1</span> Exercises</h3>
+<p>Write for loops to:</p>
+<ol style="list-style-type: decimal">
+<li>Compute the mean of every column in <code>mtcars</code>.</li>
+<li>Determine the type of each column in <code>nycflights13::flights</code>.</li>
+<li>Compute the number of unique values in each column of <code>iris</code>.</li>
+<li>Generate 10 random normals for each of <span class="math inline">\(\mu = -10\)</span>, 0, 10, and 100.</li>
 </ol>
-<p>This gives a menu with keyboard shortcuts. This can be found in the menu under <code>Tools -&gt; Keyboard Shortcuts Help</code>.</p>
+<p>Think about the output, sequence, and body before you start writing the loop.</p>
+<p>To compute the mean of every column in <code>mtcars</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="kw">ncol</span>(mtcars))
+<span class="kw">names</span>(output) &lt;-<span class="st"> </span><span class="kw">names</span>(mtcars)
+for (i in <span class="kw">names</span>(mtcars)) {
+  output[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(mtcars[[i]])
+}
+output
+<span class="co">#&gt;     mpg     cyl    disp      hp    drat      wt    qsec      vs      am </span>
+<span class="co">#&gt;  20.091   6.188 230.722 146.688   3.597   3.217  17.849   0.438   0.406 </span>
+<span class="co">#&gt;    gear    carb </span>
+<span class="co">#&gt;   3.688   2.812</span></code></pre></div>
+<p>Determine the type of each column in <code>nycflights13::flights</code>. Note that we need to use a <code>list</code>, not a character vector, since the class can have multiple values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;flights&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;nycflights13&quot;</span>)
+output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="kw">ncol</span>(flights))
+<span class="kw">names</span>(output) &lt;-<span class="st"> </span><span class="kw">names</span>(flights)
+for (i in <span class="kw">names</span>(flights)) {
+  output[[i]] &lt;-<span class="st"> </span><span class="kw">class</span>(flights[[i]])
+}
+output
+<span class="co">#&gt; $year</span>
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $month</span>
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $day</span>
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dep_time</span>
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $sched_dep_time</span>
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dep_delay</span>
+<span class="co">#&gt; [1] &quot;numeric&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $arr_time</span>
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $sched_arr_time</span>
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $arr_delay</span>
+<span class="co">#&gt; [1] &quot;numeric&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $carrier</span>
+<span class="co">#&gt; [1] &quot;character&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $flight</span>
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $tailnum</span>
+<span class="co">#&gt; [1] &quot;character&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $origin</span>
+<span class="co">#&gt; [1] &quot;character&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dest</span>
+<span class="co">#&gt; [1] &quot;character&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $air_time</span>
+<span class="co">#&gt; [1] &quot;numeric&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $distance</span>
+<span class="co">#&gt; [1] &quot;numeric&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $hour</span>
+<span class="co">#&gt; [1] &quot;numeric&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $minute</span>
+<span class="co">#&gt; [1] &quot;numeric&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $time_hour</span>
+<span class="co">#&gt; [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(iris)
+iris_uniq &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="kw">ncol</span>(iris))
+<span class="kw">names</span>(iris_uniq) &lt;-<span class="st"> </span><span class="kw">names</span>(iris)
+for (i in <span class="kw">names</span>(iris)) {
+  iris_uniq[i] &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(iris[[i]]))
+}
+iris_uniq
+<span class="co">#&gt; Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species </span>
+<span class="co">#&gt;           35           23           43           22            3</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number to draw</span>
+n &lt;-<span class="st"> </span><span class="dv">10</span>
+<span class="co"># values of the mean</span>
+mu &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)
+normals &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="kw">length</span>(mu))
+for (i in <span class="kw">seq_along</span>(normals)) {
+  normals[[i]] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> mu[i])
+}
+normals
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt;  [1] -11.40  -9.74 -12.44 -10.01  -9.38  -8.85 -11.82 -10.25 -10.24 -10.28</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt;  [1] -0.5537  0.6290  2.0650 -1.6310  0.5124 -1.8630 -0.5220 -0.0526</span>
+<span class="co">#&gt;  [9]  0.5430 -0.9141</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt;  [1] 10.47 10.36  8.70 10.74 11.89  9.90  9.06  9.98  9.17  8.49</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt;  [1] 100.9 100.2 100.2 101.6 100.1  99.9  98.1  99.7  99.7 101.1</span></code></pre></div>
+<p>However, we don’t need a <code>for</code> loop for this since <code>rnorm</code> recycles means.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n *<span class="st"> </span><span class="kw">length</span>(mu), <span class="dt">mean =</span> mu), <span class="dt">ncol =</span> n)
+<span class="co">#&gt;        [,1]   [,2]  [,3]     [,4]   [,5]   [,6]    [,7]   [,8]    [,9]</span>
+<span class="co">#&gt; [1,] -9.930  -9.56 -9.88 -10.2061 -12.27 -8.926 -11.178  -9.51  -8.663</span>
+<span class="co">#&gt; [2,] -0.639   2.76 -1.91   0.0192   2.68 -0.665  -0.976  -1.70   0.237</span>
+<span class="co">#&gt; [3,]  9.950  10.05 10.86  10.0296   9.64 11.114  11.065   8.53  11.318</span>
+<span class="co">#&gt; [4,] 99.749 100.58 99.76 100.5498 100.21 99.754 100.132 100.28 100.524</span>
+<span class="co">#&gt;      [,10]</span>
+<span class="co">#&gt; [1,] -9.39</span>
+<span class="co">#&gt; [2,] -0.11</span>
+<span class="co">#&gt; [3,] 10.17</span>
+<span class="co">#&gt; [4,] 99.91</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> &quot;&quot;</span>
+for (x in letters) {
+  out &lt;-<span class="st"> </span>stringr::<span class="kw">str_c</span>(out, x)
+}
+out
+<span class="co">#&gt; [1] &quot;abcdefghijklmnopqrstuvwxyz&quot;</span></code></pre></div>
+<p><code>str_c</code> already works with vectors, so simply use <code>str_c</code> with the <code>collapse</code> argument to return a single string.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)
+<span class="co">#&gt; [1] &quot;abcdefghijklmnopqrstuvwxyz&quot;</span></code></pre></div>
+<p>For this I’m going to rename the variable <code>sd</code> to something different because <code>sd</code> is the name of the function we want to use.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">100</span>)
+sd. &lt;-<span class="st"> </span><span class="dv">0</span>
+for (i in <span class="kw">seq_along</span>(x)) {
+  sd. &lt;-<span class="st"> </span>sd. +<span class="st"> </span>(x[i] -<span class="st"> </span><span class="kw">mean</span>(x)) ^<span class="st"> </span><span class="dv">2</span>
+}
+sd. &lt;-<span class="st"> </span><span class="kw">sqrt</span>(sd. /<span class="st"> </span>(<span class="kw">length</span>(x) -<span class="st"> </span><span class="dv">1</span>))
+sd.
+<span class="co">#&gt; [1] 29</span></code></pre></div>
+<p>We could simply use the <code>sd</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(x)
+<span class="co">#&gt; [1] 29</span></code></pre></div>
+<p>Or if there was a need to use the equation (e.g. for pedagogical reasons), then the functions <code>mean</code> and <code>sum</code> already work with vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">sum</span>((x -<span class="st"> </span><span class="kw">mean</span>(x)) ^<span class="st"> </span><span class="dv">2</span>) /<span class="st"> </span>(<span class="kw">length</span>(x) -<span class="st"> </span><span class="dv">1</span>))
+<span class="co">#&gt; [1] 29</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">100</span>)
+out &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="kw">length</span>(x))
+out[<span class="dv">1</span>] &lt;-<span class="st"> </span>x[<span class="dv">1</span>]
+for (i in <span class="dv">2</span>:<span class="kw">length</span>(x)) {
+  out[i] &lt;-<span class="st"> </span>out[i -<span class="st"> </span><span class="dv">1</span>] +<span class="st"> </span>x[i]
+}
+out
+<span class="co">#&gt;   [1]  0.126  1.064  1.865  2.623  3.156  3.703  3.799  4.187  4.359  5.050</span>
+<span class="co">#&gt;  [11]  5.725  6.672  6.868  7.836  8.224  8.874  9.688  9.759 10.286 11.050</span>
+<span class="co">#&gt;  [21] 11.485 12.038 12.242 12.273 13.242 13.421 14.199 15.085 15.921 16.527</span>
+<span class="co">#&gt;  [31] 17.434 17.470 17.601 17.695 18.392 18.797 18.863 18.989 19.927 20.143</span>
+<span class="co">#&gt;  [41] 20.809 21.013 21.562 22.389 22.517 22.778 23.066 23.081 23.935 24.349</span>
+<span class="co">#&gt;  [51] 25.100 25.819 26.334 27.309 27.670 27.840 28.623 28.654 29.444 29.610</span>
+<span class="co">#&gt;  [61] 29.639 30.425 31.250 32.216 32.594 32.769 33.372 34.178 34.215 34.947</span>
+<span class="co">#&gt;  [71] 35.163 35.179 35.307 35.993 36.635 36.963 37.350 38.058 38.755 39.681</span>
+<span class="co">#&gt;  [81] 40.140 40.736 40.901 41.468 42.366 42.960 43.792 44.386 45.165 45.562</span>
+<span class="co">#&gt;  [91] 46.412 47.154 47.472 47.583 47.685 48.485 48.865 48.917 49.904 50.508</span></code></pre></div>
+<p>The code above is calculating a cumulative sum. Use the function <code>cumsum</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="kw">cumsum</span>(x),out)
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
 
 </div>
 </div>
@@ -406,8 +523,8 @@ my_varıable
           </div>
         </div>
       </div>
-<a href="visualize.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="factors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="model-introduction.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -426,7 +543,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/r4ds/edit/master/workflow-basics.Rmd",
+"link": "https://github.com/jrnold/r4ds/edit/master/iteration.Rmd",
 "text": "Edit"
 },
 "download": null,

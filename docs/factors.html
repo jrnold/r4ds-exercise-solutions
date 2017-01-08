@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Exercise Solutions and Notes for R for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Exercise Solutions and Notes for “R for Data Science”">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Exercise Solutions and Notes for R for Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://r4ds.had.co.nz/" />
+  
+  
+  <meta name="github-repo" content="jrnold/r4ds" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Exercise Solutions and Notes for R for Data Science" />
+  
+  
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="strings.html">
+<link rel="next" href="iteration.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Data Science</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="visualize.html"><a href="visualize.html"><i class="fa fa-check"></i><b>1</b> Visualize</a><ul>
+<li class="chapter" data-level="1.1" data-path="visualize.html"><a href="visualize.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="visualize.html"><a href="visualize.html#prerequisites"><i class="fa fa-check"></i><b>1.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.1.2" data-path="visualize.html"><a href="visualize.html#first-steps"><i class="fa fa-check"></i><b>1.1.2</b> First Steps</a></li>
+<li class="chapter" data-level="1.1.3" data-path="visualize.html"><a href="visualize.html#aesthetic-mappings"><i class="fa fa-check"></i><b>1.1.3</b> Aesthetic mappings</a></li>
+<li class="chapter" data-level="1.1.4" data-path="visualize.html"><a href="visualize.html#facets"><i class="fa fa-check"></i><b>1.1.4</b> Facets</a></li>
+<li class="chapter" data-level="1.1.5" data-path="visualize.html"><a href="visualize.html#geometric-objects"><i class="fa fa-check"></i><b>1.1.5</b> Geometric Objects</a></li>
+<li class="chapter" data-level="1.1.6" data-path="visualize.html"><a href="visualize.html#statistical-transformations"><i class="fa fa-check"></i><b>1.1.6</b> Statistical Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="visualize.html"><a href="visualize.html#position-adjustments"><i class="fa fa-check"></i><b>1.2</b> Position Adjustments</a></li>
+<li class="chapter" data-level="1.3" data-path="visualize.html"><a href="visualize.html#coordinate-systems"><i class="fa fa-check"></i><b>1.3</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="visualize.html"><a href="visualize.html#exercises-3"><i class="fa fa-check"></i><b>1.3.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>2</b> Workflow Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="workflow-basics.html"><a href="workflow-basics.html#practice"><i class="fa fa-check"></i><b>2.1</b> Practice</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="workflow-basics.html"><a href="workflow-basics.html#exercises-4"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data Transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#prerequisites-1"><i class="fa fa-check"></i><b>3.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#filter"><i class="fa fa-check"></i><b>3.2</b> Filter</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#exercises-5"><i class="fa fa-check"></i><b>3.3</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#arrange"><i class="fa fa-check"></i><b>3.4</b> Arrange</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-6"><i class="fa fa-check"></i><b>3.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#mutate"><i class="fa fa-check"></i><b>3.5</b> Mutate</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-7"><i class="fa fa-check"></i><b>3.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#grouped-summaries-with-summarise"><i class="fa fa-check"></i><b>3.6</b> Grouped summaries with <code>summarise()</code></a><ul>
+<li class="chapter" data-level="3.6.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-8"><i class="fa fa-check"></i><b>3.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="data-transformation.html"><a href="data-transformation.html#grouped-mutates-and-filters"><i class="fa fa-check"></i><b>3.7</b> Grouped mutates and filters</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-9"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#questions"><i class="fa fa-check"></i><b>4.1.1</b> Questions</a></li>
+<li class="chapter" data-level="4.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#variation"><i class="fa fa-check"></i><b>4.1.2</b> Variation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#missing-values"><i class="fa fa-check"></i><b>4.2</b> Missing Values</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-11"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#covariation"><i class="fa fa-check"></i><b>4.3</b> Covariation</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#a-categorical-and-continuous-variable"><i class="fa fa-check"></i><b>4.3.1</b> A categorical and continuous variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-categorical-variables"><i class="fa fa-check"></i><b>4.3.2</b> Two categorical variables</a></li>
+<li class="chapter" data-level="4.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-continuous-variables"><i class="fa fa-check"></i><b>4.3.3</b> Two continuous variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>5</b> Tibbles</a><ul>
+<li class="chapter" data-level="5.1" data-path="tibbles.html"><a href="tibbles.html#prerquisites"><i class="fa fa-check"></i><b>5.1</b> Prerquisites</a></li>
+<li class="chapter" data-level="5.2" data-path="tibbles.html"><a href="tibbles.html#creating-tibbles"><i class="fa fa-check"></i><b>5.2</b> Creating Tibbles</a></li>
+<li class="chapter" data-level="5.3" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.data.frame"><i class="fa fa-check"></i><b>5.3</b> Tibbles vs. data.frame</a></li>
+<li class="chapter" data-level="5.4" data-path="tibbles.html"><a href="tibbles.html#subsetting"><i class="fa fa-check"></i><b>5.4</b> Subsetting</a></li>
+<li class="chapter" data-level="5.5" data-path="tibbles.html"><a href="tibbles.html#interacting-with-older-code"><i class="fa fa-check"></i><b>5.5</b> Interacting with older code</a></li>
+<li class="chapter" data-level="5.6" data-path="tibbles.html"><a href="tibbles.html#exercises-12"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>6</b> Data Import</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>6.1</b> Getting started</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="data-import.html"><a href="data-import.html#exercises-13"><i class="fa fa-check"></i><b>6.1.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="data-import.html"><a href="data-import.html#parsing-a-vector"><i class="fa fa-check"></i><b>6.2</b> Parsing a vector</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-import.html"><a href="data-import.html#exercises-14"><i class="fa fa-check"></i><b>6.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>6.3</b> Other Types of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>7</b> Tidy Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-2"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="tidy-data.html"><a href="tidy-data.html#tidy-data-1"><i class="fa fa-check"></i><b>7.2</b> Tidy Data</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-15"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="tidy-data.html"><a href="tidy-data.html#spreading-and-gathering"><i class="fa fa-check"></i><b>7.3</b> Spreading and Gathering</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-16"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="tidy-data.html"><a href="tidy-data.html#separating-and-uniting"><i class="fa fa-check"></i><b>7.4</b> Separating and Uniting</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-17"><i class="fa fa-check"></i><b>7.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="tidy-data.html"><a href="tidy-data.html#missing-values-1"><i class="fa fa-check"></i><b>7.5</b> Missing Values</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-18"><i class="fa fa-check"></i><b>7.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="tidy-data.html"><a href="tidy-data.html#case-study"><i class="fa fa-check"></i><b>7.6</b> Case Study</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-19"><i class="fa fa-check"></i><b>7.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="tidy-data.html"><a href="tidy-data.html#non-tidy-data"><i class="fa fa-check"></i><b>7.7</b> Non-Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>8</b> Relational Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="relational-data.html"><a href="relational-data.html#prerequisites-2"><i class="fa fa-check"></i><b>8.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="8.2" data-path="relational-data.html"><a href="relational-data.html#nycflights13"><i class="fa fa-check"></i><b>8.2</b> nycflights13</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="relational-data.html"><a href="relational-data.html#exercises-20"><i class="fa fa-check"></i><b>8.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="relational-data.html"><a href="relational-data.html#keys"><i class="fa fa-check"></i><b>8.3</b> Keys</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="relational-data.html"><a href="relational-data.html#exercises-21"><i class="fa fa-check"></i><b>8.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="relational-data.html"><a href="relational-data.html#keys-1"><i class="fa fa-check"></i><b>8.4</b> Keys</a></li>
+<li class="chapter" data-level="8.5" data-path="relational-data.html"><a href="relational-data.html#mutating-joins"><i class="fa fa-check"></i><b>8.5</b> Mutating Joins</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="relational-data.html"><a href="relational-data.html#exercises-22"><i class="fa fa-check"></i><b>8.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="relational-data.html"><a href="relational-data.html#filtering-joins"><i class="fa fa-check"></i><b>8.6</b> Filtering Joins</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="relational-data.html"><a href="relational-data.html#exercises-23"><i class="fa fa-check"></i><b>8.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="relational-data.html"><a href="relational-data.html#set-operations"><i class="fa fa-check"></i><b>8.7</b> Set operations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="strings.html"><a href="strings.html"><i class="fa fa-check"></i><b>9</b> Strings</a><ul>
+<li class="chapter" data-level="9.1" data-path="strings.html"><a href="strings.html#notes"><i class="fa fa-check"></i><b>9.1</b> Notes</a></li>
+<li class="chapter" data-level="9.2" data-path="strings.html"><a href="strings.html#prerequisites-3"><i class="fa fa-check"></i><b>9.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.3" data-path="strings.html"><a href="strings.html#string-basics"><i class="fa fa-check"></i><b>9.3</b> String Basics</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="strings.html"><a href="strings.html#exercises-24"><i class="fa fa-check"></i><b>9.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="strings.html"><a href="strings.html#matching-patterns-and-regular-expressions"><i class="fa fa-check"></i><b>9.4</b> Matching Patterns and Regular Expressions</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="strings.html"><a href="strings.html#exercises-25"><i class="fa fa-check"></i><b>9.4.1</b> Exercises</a></li>
+<li class="chapter" data-level="9.4.2" data-path="strings.html"><a href="strings.html#repitition"><i class="fa fa-check"></i><b>9.4.2</b> Repitition</a></li>
+<li class="chapter" data-level="9.4.3" data-path="strings.html"><a href="strings.html#grouping-and-backreferences"><i class="fa fa-check"></i><b>9.4.3</b> Grouping and backreferences</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="strings.html"><a href="strings.html#tools"><i class="fa fa-check"></i><b>9.5</b> Tools</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="strings.html"><a href="strings.html#detect-matches"><i class="fa fa-check"></i><b>9.5.1</b> Detect matches</a></li>
+<li class="chapter" data-level="9.5.2" data-path="strings.html"><a href="strings.html#exercises-30"><i class="fa fa-check"></i><b>9.5.2</b> Exercises</a></li>
+<li class="chapter" data-level="9.5.3" data-path="strings.html"><a href="strings.html#extract-matches"><i class="fa fa-check"></i><b>9.5.3</b> Extract Matches</a></li>
+<li class="chapter" data-level="9.5.4" data-path="strings.html"><a href="strings.html#grouped-matches"><i class="fa fa-check"></i><b>9.5.4</b> Grouped Matches</a></li>
+<li class="chapter" data-level="9.5.5" data-path="strings.html"><a href="strings.html#splitting"><i class="fa fa-check"></i><b>9.5.5</b> Splitting</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="strings.html"><a href="strings.html#other-types-of-patterns"><i class="fa fa-check"></i><b>9.6</b> Other types of patterns</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="strings.html"><a href="strings.html#exercises-34"><i class="fa fa-check"></i><b>9.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="strings.html"><a href="strings.html#stringi"><i class="fa fa-check"></i><b>9.7</b> stringi</a><ul>
+<li class="chapter" data-level="9.7.1" data-path="strings.html"><a href="strings.html#exercises-35"><i class="fa fa-check"></i><b>9.7.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>10</b> Factors</a><ul>
+<li class="chapter" data-level="10.1" data-path="factors.html"><a href="factors.html#introduction-3"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="factors.html"><a href="factors.html#creating-factors"><i class="fa fa-check"></i><b>10.2</b> Creating Factors</a></li>
+<li class="chapter" data-level="10.3" data-path="factors.html"><a href="factors.html#gss"><i class="fa fa-check"></i><b>10.3</b> GSS</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="factors.html"><a href="factors.html#exercise"><i class="fa fa-check"></i><b>10.3.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="factors.html"><a href="factors.html#modifying-factor-order"><i class="fa fa-check"></i><b>10.4</b> Modifying factor order</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="factors.html"><a href="factors.html#exercises-36"><i class="fa fa-check"></i><b>10.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="factors.html"><a href="factors.html#modifying-factor-levels"><i class="fa fa-check"></i><b>10.5</b> Modifying factor levels</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="factors.html"><a href="factors.html#exercises-37"><i class="fa fa-check"></i><b>10.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="factors.html"><a href="factors.html#prerequisite"><i class="fa fa-check"></i><b>10.6</b> Prerequisite</a></li>
+<li class="chapter" data-level="10.7" data-path="factors.html"><a href="factors.html#creating-datetimes"><i class="fa fa-check"></i><b>10.7</b> Creating date/times</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="factors.html"><a href="factors.html#exercises-38"><i class="fa fa-check"></i><b>10.7.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="factors.html"><a href="factors.html#date-time-components"><i class="fa fa-check"></i><b>10.8</b> Date-Time Components</a><ul>
+<li class="chapter" data-level="10.8.1" data-path="factors.html"><a href="factors.html#exercises-39"><i class="fa fa-check"></i><b>10.8.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.9" data-path="factors.html"><a href="factors.html#time-spans"><i class="fa fa-check"></i><b>10.9</b> Time Spans</a><ul>
+<li class="chapter" data-level="10.9.1" data-path="factors.html"><a href="factors.html#durations"><i class="fa fa-check"></i><b>10.9.1</b> Durations</a></li>
+<li class="chapter" data-level="10.9.2" data-path="factors.html"><a href="factors.html#periods"><i class="fa fa-check"></i><b>10.9.2</b> Periods</a></li>
+<li class="chapter" data-level="10.9.3" data-path="factors.html"><a href="factors.html#intervals"><i class="fa fa-check"></i><b>10.9.3</b> Intervals</a></li>
+<li class="chapter" data-level="10.9.4" data-path="factors.html"><a href="factors.html#exercises-40"><i class="fa fa-check"></i><b>10.9.4</b> Exercises</a></li>
+<li class="chapter" data-level="10.9.5" data-path="factors.html"><a href="factors.html#time-zones"><i class="fa fa-check"></i><b>10.9.5</b> Time Zones</a></li>
+</ul></li>
+<li class="chapter" data-level="10.10" data-path="factors.html"><a href="factors.html#prerequisites-4"><i class="fa fa-check"></i><b>10.10</b> Prerequisites</a></li>
+<li class="chapter" data-level="10.11" data-path="factors.html"><a href="factors.html#important-types-of-atomic-vector"><i class="fa fa-check"></i><b>10.11</b> Important types of Atomic Vector</a><ul>
+<li class="chapter" data-level="10.11.1" data-path="factors.html"><a href="factors.html#exercises-41"><i class="fa fa-check"></i><b>10.11.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.12" data-path="factors.html"><a href="factors.html#using-atomic-vectors"><i class="fa fa-check"></i><b>10.12</b> Using atomic vectors</a></li>
+<li class="chapter" data-level="10.13" data-path="factors.html"><a href="factors.html#recursive-vectors-lists"><i class="fa fa-check"></i><b>10.13</b> Recursive Vectors (lists)</a><ul>
+<li class="chapter" data-level="10.13.1" data-path="factors.html"><a href="factors.html#exercises-42"><i class="fa fa-check"></i><b>10.13.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.14" data-path="factors.html"><a href="factors.html#augmented-vectors"><i class="fa fa-check"></i><b>10.14</b> Augmented Vectors</a><ul>
+<li class="chapter" data-level="10.14.1" data-path="factors.html"><a href="factors.html#factors-1"><i class="fa fa-check"></i><b>10.14.1</b> Factors</a></li>
+<li class="chapter" data-level="10.14.2" data-path="factors.html"><a href="factors.html#dates-and-date-times"><i class="fa fa-check"></i><b>10.14.2</b> Dates and date-times</a></li>
+<li class="chapter" data-level="10.14.3" data-path="factors.html"><a href="factors.html#tibbles-1"><i class="fa fa-check"></i><b>10.14.3</b> Tibbles</a></li>
+<li class="chapter" data-level="10.14.4" data-path="factors.html"><a href="factors.html#exercises-43"><i class="fa fa-check"></i><b>10.14.4</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>11</b> Iteration</a><ul>
+<li class="chapter" data-level="11.1" data-path="iteration.html"><a href="iteration.html#prerequisites-5"><i class="fa fa-check"></i><b>11.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="11.2" data-path="iteration.html"><a href="iteration.html#for-loops"><i class="fa fa-check"></i><b>11.2</b> For Loops</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="iteration.html"><a href="iteration.html#exercises-44"><i class="fa fa-check"></i><b>11.2.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="model-introduction.html"><a href="model-introduction.html"><i class="fa fa-check"></i><b>12</b> Model Introduction</a></li>
+<li class="chapter" data-level="13" data-path="model-basics.html"><a href="model-basics.html"><i class="fa fa-check"></i><b>13</b> Model Basics</a><ul>
+<li class="chapter" data-level="13.1" data-path="model-basics.html"><a href="model-basics.html#prerequisites-6"><i class="fa fa-check"></i><b>13.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="13.2" data-path="model-basics.html"><a href="model-basics.html#a-simple-model"><i class="fa fa-check"></i><b>13.2</b> A simple model</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="model-basics.html"><a href="model-basics.html#exercises-45"><i class="fa fa-check"></i><b>13.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="model-basics.html"><a href="model-basics.html#visualizing-models"><i class="fa fa-check"></i><b>13.3</b> Visualizing Models</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="model-basics.html"><a href="model-basics.html#exercises-46"><i class="fa fa-check"></i><b>13.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="model-basics.html"><a href="model-basics.html#formulas-and-model-families"><i class="fa fa-check"></i><b>13.4</b> Formulas and Model Families</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="model-basics.html"><a href="model-basics.html#categorical-variables"><i class="fa fa-check"></i><b>13.4.1</b> Categorical Variables</a></li>
+<li class="chapter" data-level="13.4.2" data-path="model-basics.html"><a href="model-basics.html#exercises-47"><i class="fa fa-check"></i><b>13.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="model-basics.html"><a href="model-basics.html#missing-values-2"><i class="fa fa-check"></i><b>13.5</b> Missing values</a></li>
+<li class="chapter" data-level="13.6" data-path="model-basics.html"><a href="model-basics.html#other-model-families"><i class="fa fa-check"></i><b>13.6</b> Other model families</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>14</b> R Markdown</a><ul>
+<li class="chapter" data-level="14.1" data-path="r-markdown.html"><a href="r-markdown.html#r-markdown-basics"><i class="fa fa-check"></i><b>14.1</b> R Markdown Basics</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="r-markdown.html"><a href="r-markdown.html#exercise-1"><i class="fa fa-check"></i><b>14.1.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="r-markdown.html"><a href="r-markdown.html#text-formatting-with-r-markdown"><i class="fa fa-check"></i><b>14.2</b> Text formatting with R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="r-markdown-workflow.html"><a href="r-markdown-workflow.html"><i class="fa fa-check"></i><b>15</b> R Markdown Workflow</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions and Notes for “R for Data Science”</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="factors" class="section level1">
+<h1><span class="header-section-number">10</span> Factors</h1>
+<p>Functions and packages:</p>
+<ul>
+<li><strong>forcats</strong></li>
+<li><code>factor</code></li>
+<li><code>fct_inorder</code></li>
+<li><code>levels</code></li>
+<li><code>readr::parse_factor</code></li>
+<li><code>fct_reorder</code></li>
+<li><code>fct_relevel</code></li>
+<li><code>fct_reorder2</code></li>
+<li><code>fct_infreq</code></li>
+<li><code>fct_rev</code></li>
+<li><code>fct_recode</code></li>
+<li><code>fct_lump</code></li>
+<li><code>fct_collapse</code></li>
+</ul>
+<div id="introduction-3" class="section level2">
+<h2><span class="header-section-number">10.1</span> Introduction</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(forcats)</code></pre></div>
+</div>
+<div id="creating-factors" class="section level2">
+<h2><span class="header-section-number">10.2</span> Creating Factors</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dec&quot;</span>, <span class="st">&quot;Apr&quot;</span>, <span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Mar&quot;</span>)
+month_levels &lt;-<span class="st"> </span><span class="kw">c</span>(
+  <span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Feb&quot;</span>, <span class="st">&quot;Mar&quot;</span>, <span class="st">&quot;Apr&quot;</span>, <span class="st">&quot;May&quot;</span>, <span class="st">&quot;Jun&quot;</span>, 
+  <span class="st">&quot;Jul&quot;</span>, <span class="st">&quot;Aug&quot;</span>, <span class="st">&quot;Sep&quot;</span>, <span class="st">&quot;Oct&quot;</span>, <span class="st">&quot;Nov&quot;</span>, <span class="st">&quot;Dec&quot;</span>
+)
+y1 &lt;-<span class="st"> </span><span class="kw">factor</span>(x1, <span class="dt">levels =</span> month_levels)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y1 &lt;-<span class="st"> </span><span class="kw">factor</span>(x1, <span class="dt">levels =</span> month_levels)
+y1
+<span class="co">#&gt; [1] Dec Apr Jan Mar</span>
+<span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span>
+<span class="kw">sort</span>(y1)
+<span class="co">#&gt; [1] Jan Mar Apr Dec</span>
+<span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dec&quot;</span>, <span class="st">&quot;Apr&quot;</span>, <span class="st">&quot;Jam&quot;</span>, <span class="st">&quot;Mar&quot;</span>)
+y2 &lt;-<span class="st"> </span><span class="kw">factor</span>(x2, <span class="dt">levels =</span> month_levels)
+y2
+<span class="co">#&gt; [1] Dec  Apr  &lt;NA&gt; Mar </span>
+<span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></code></pre></div>
+<p>No warnings with factor. Use <code>readr::parse_factor</code> for warning.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y2 &lt;-<span class="st"> </span><span class="kw">parse_factor</span>(x2, <span class="dt">levels =</span> month_levels)
+<span class="co">#&gt; Warning: 1 parsing failure.</span>
+<span class="co">#&gt; row col           expected actual</span>
+<span class="co">#&gt;   3  -- value in level set    Jam</span></code></pre></div>
+<p>Change order of levels, e.g. first appearance:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="kw">factor</span>(x1, <span class="dt">levels =</span> <span class="kw">unique</span>(x1))
+f1
+<span class="co">#&gt; [1] Dec Apr Jan Mar</span>
+<span class="co">#&gt; Levels: Dec Apr Jan Mar</span>
+f2 &lt;-<span class="st"> </span>x1 %&gt;%<span class="st"> </span><span class="kw">factor</span>() %&gt;%<span class="st"> </span><span class="kw">fct_inorder</span>()
+f2
+<span class="co">#&gt; [1] Dec Apr Jan Mar</span>
+<span class="co">#&gt; Levels: Dec Apr Jan Mar</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(f2)
+<span class="co">#&gt; [1] &quot;Dec&quot; &quot;Apr&quot; &quot;Jan&quot; &quot;Mar&quot;</span></code></pre></div>
+</div>
+<div id="gss" class="section level2">
+<h2><span class="header-section-number">10.3</span> GSS</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat
+<span class="co">#&gt; # A tibble: 21,483 × 9</span>
+<span class="co">#&gt;    year       marital   age   race        rincome            partyid</span>
+<span class="co">#&gt;   &lt;int&gt;        &lt;fctr&gt; &lt;int&gt; &lt;fctr&gt;         &lt;fctr&gt;             &lt;fctr&gt;</span>
+<span class="co">#&gt; 1  2000 Never married    26  White  $8000 to 9999       Ind,near rep</span>
+<span class="co">#&gt; 2  2000      Divorced    48  White  $8000 to 9999 Not str republican</span>
+<span class="co">#&gt; 3  2000       Widowed    67  White Not applicable        Independent</span>
+<span class="co">#&gt; 4  2000 Never married    39  White Not applicable       Ind,near rep</span>
+<span class="co">#&gt; 5  2000      Divorced    25  White Not applicable   Not str democrat</span>
+<span class="co">#&gt; 6  2000       Married    25  White $20000 - 24999    Strong democrat</span>
+<span class="co">#&gt; # ... with 2.148e+04 more rows, and 3 more variables: relig &lt;fctr&gt;,</span>
+<span class="co">#&gt; #   denom &lt;fctr&gt;, tvhours &lt;int&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">count</span>(race)
+<span class="co">#&gt; # A tibble: 3 × 2</span>
+<span class="co">#&gt;     race     n</span>
+<span class="co">#&gt;   &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1  Other  1959</span>
+<span class="co">#&gt; 2  Black  3129</span>
+<span class="co">#&gt; 3  White 16395</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gss_cat, <span class="kw">aes</span>(race)) +
+<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gss_cat, <span class="kw">aes</span>(race)) +
+<span class="st">  </span><span class="kw">geom_bar</span>() +
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">drop =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Use <code>drop = FALSE</code> to not drop valid values.</p>
+<div id="exercise" class="section level3">
+<h3><span class="header-section-number">10.3.1</span> Exercise</h3>
+<ol style="list-style-type: decimal">
+<li>Explore the distribution of <code>rincome</code> (reported income). What makes the default bar chart hard to understand? How could you improve the plot?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rincome_plot &lt;-
+<span class="st">  </span>gss_cat %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(rincome)) +
+<span class="st">  </span><span class="kw">geom_bar</span>()
+rincome_plot</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The default bar chart labels are too squished to read. One solution is to change the angle of the labels,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rincome_plot +
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>But that’s not natural either, because text is vertical, and we read horizontally. So with long labels, it is better to flip it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rincome_plot +
+<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>This is better, but it unituively goes from low to high. It would help if the scale is reversed. Also, if all the missing factors were differentiated.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>What is the most common <code>relig</code> in this survey? What’s the most common <code>partyid</code>?</li>
+</ol>
+<p>The most common <code>relig</code> is “Protestant”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">count</span>(relig) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(-n) %&gt;%
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">1</span>)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;        relig     n</span>
+<span class="co">#&gt;       &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 Protestant 10846</span></code></pre></div>
+<p>The most common <code>partyid</code> is “Independent”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">count</span>(partyid) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(-n) %&gt;%
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">1</span>)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;       partyid     n</span>
+<span class="co">#&gt;        &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 Independent  4119</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Which <code>relig</code> does <code>denom</code> (denomination) apply to? How can you find out with a table? How can you find out with a visualisation?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$denom)
+<span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span>
+<span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span>
+<span class="co">#&gt;  [7] &quot;Presbyterian, merged&quot; &quot;Other presbyterian&quot;   &quot;United pres ch in us&quot;</span>
+<span class="co">#&gt; [10] &quot;Presbyterian c in us&quot; &quot;Lutheran-dk which&quot;    &quot;Evangelical luth&quot;    </span>
+<span class="co">#&gt; [13] &quot;Other lutheran&quot;       &quot;Wi evan luth synod&quot;   &quot;Lutheran-mo synod&quot;   </span>
+<span class="co">#&gt; [16] &quot;Luth ch in america&quot;   &quot;Am lutheran&quot;          &quot;Methodist-dk which&quot;  </span>
+<span class="co">#&gt; [19] &quot;Other methodist&quot;      &quot;United methodist&quot;     &quot;Afr meth ep zion&quot;    </span>
+<span class="co">#&gt; [22] &quot;Afr meth episcopal&quot;   &quot;Baptist-dk which&quot;     &quot;Other baptists&quot;      </span>
+<span class="co">#&gt; [25] &quot;Southern baptist&quot;     &quot;Nat bapt conv usa&quot;    &quot;Nat bapt conv of am&quot; </span>
+<span class="co">#&gt; [28] &quot;Am bapt ch in usa&quot;    &quot;Am baptist asso&quot;      &quot;Not applicable&quot;</span></code></pre></div>
+<p>From the context it is clear that <code>denom</code> refers to “Protestant” (and unsurprising given that it is the largest category in <code>freq</code>). Let’s filter out the non-responses, no answers, others, not-applicable, or no denomination, to leave only answers to denominations. After doing that, the only remaining responses are “Protestant”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!denom %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Other&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Not applicable&quot;</span>,
+                       <span class="st">&quot;No denomination&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(relig)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;        relig     n</span>
+<span class="co">#&gt;       &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 Protestant  7025</span></code></pre></div>
+<p>This is also clear in a scatter plot of <code>relig</code> vs. <code>denom</code> where the points are proportional to the size of the number of answers (since otherwise there would be overplotting).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">count</span>(relig, denom) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> relig, <span class="dt">y =</span> denom, <span class="dt">size =</span> n)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="modifying-factor-order" class="section level2">
+<h2><span class="header-section-number">10.4</span> Modifying factor order</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">relig &lt;-<span class="st"> </span>gss_cat %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(relig) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">age =</span> <span class="kw">mean</span>(age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">tvhours =</span> <span class="kw">mean</span>(tvhours, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>()
+  )
+<span class="kw">ggplot</span>(relig, <span class="kw">aes</span>(tvhours, relig)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(relig, <span class="kw">aes</span>(tvhours, <span class="kw">fct_reorder</span>(relig, tvhours))) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Move most data analysis out of the ggplot function call</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rincome &lt;-<span class="st"> </span>gss_cat %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(rincome) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">age =</span> <span class="kw">mean</span>(age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">tvhours =</span> <span class="kw">mean</span>(tvhours, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>()
+  )
+
+<span class="kw">ggplot</span>(rincome, <span class="kw">aes</span>(age, <span class="kw">fct_reorder</span>(rincome, age))) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(rincome, <span class="kw">aes</span>(age, <span class="kw">fct_relevel</span>(rincome, <span class="st">&quot;Not applicable&quot;</span>))) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_age &lt;-<span class="st"> </span>gss_cat %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(age)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(age, marital) %&gt;%
+<span class="st">  </span><span class="kw">count</span>() %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n /<span class="st"> </span><span class="kw">sum</span>(n))
+
+<span class="kw">ggplot</span>(by_age, <span class="kw">aes</span>(age, prop, <span class="dt">colour =</span> marital)) +
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+
+<span class="kw">ggplot</span>(by_age, <span class="kw">aes</span>(age, prop, <span class="dt">colour =</span> <span class="kw">fct_reorder2</span>(marital, age, prop))) +
+<span class="st">  </span><span class="kw">geom_line</span>() +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">colour =</span> <span class="st">&quot;marital&quot;</span>)</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /><img src="factors_files/figure-html/unnamed-chunk-25-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">marital =</span> marital %&gt;%<span class="st"> </span><span class="kw">fct_infreq</span>() %&gt;%<span class="st"> </span><span class="kw">fct_rev</span>()) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(marital)) +
+<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div id="exercises-36" class="section level3">
+<h3><span class="header-section-number">10.4.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>There are some suspiciously high numbers in <code>tvhours</code>. Is the <code>mean</code> a good summary?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(gss_cat[[<span class="st">&quot;tvhours&quot;</span>]])
+<span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s </span>
+<span class="co">#&gt;       0       1       2       3       4      24   10146</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(tvhours)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> tvhours)) +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Whether the mean is the best summary epends on what you are using it for :-), i.e. your objective. But probably the median would be what most people prefer. And the hours of tv doesn’t look that surprising to me.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>For each factor in gss_cat identify whether the order of the levels is arbitrary or principled.</li>
+</ol>
+<p>The following piece of code uses functions covered in Ch 21, to print out the names of only the factors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">keep</span>(gss_cat, is.factor) %&gt;%<span class="st"> </span><span class="kw">names</span>()
+<span class="co">#&gt; [1] &quot;marital&quot; &quot;race&quot;    &quot;rincome&quot; &quot;partyid&quot; &quot;relig&quot;   &quot;denom&quot;</span></code></pre></div>
+<p>There are five six categorical variables: <code>marital</code>, <code>race</code>, <code>rincome</code>, <code>partyid</code>, <code>relig</code>, <code>denom</code>.</p>
+<p>The ordering of marital is “somewhat principled”. There is some sort of logic in that the levels are grouped “never married”, married at some point (separated, divorced, widowed), and “married”; though it would seem that “Never Married”, “Divorced”, “Widowed”, “Separated”, “Married” might be more natural. I find that the question of ordering can be determined by the level of aggregation in a categorical variable, and there can be more “partially ordered” factors than one would expect.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat[[<span class="st">&quot;marital&quot;</span>]])
+<span class="co">#&gt; [1] &quot;No answer&quot;     &quot;Never married&quot; &quot;Separated&quot;     &quot;Divorced&quot;     </span>
+<span class="co">#&gt; [5] &quot;Widowed&quot;       &quot;Married&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> marital)) +
+<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The ordering of race is principled in that the categories are ordered by count of observations in the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$race)
+<span class="co">#&gt; [1] &quot;Other&quot;          &quot;Black&quot;          &quot;White&quot;          &quot;Not applicable&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(race)) +
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">drop =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; Warning: Ignoring unknown parameters: drop</span></code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The levels of <code>rincome</code> are ordered in decreasing order of the income; however the placement of “No answer”, “Don’t know”, and “Refused” before, and “Not applicable” after the income levels is arbitrary. It would be better to place all the missing income level categories either before or after all the known values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$rincome)
+<span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span>
+<span class="co">#&gt;  [5] &quot;$20000 - 24999&quot; &quot;$15000 - 19999&quot; &quot;$10000 - 14999&quot; &quot;$8000 to 9999&quot; </span>
+<span class="co">#&gt;  [9] &quot;$7000 to 7999&quot;  &quot;$6000 to 6999&quot;  &quot;$5000 to 5999&quot;  &quot;$4000 to 4999&quot; </span>
+<span class="co">#&gt; [13] &quot;$3000 to 3999&quot;  &quot;$1000 to 2999&quot;  &quot;Lt $1000&quot;       &quot;Not applicable&quot;</span></code></pre></div>
+<p>The levels of <code>relig</code> is arbitrary: there is no natural ordering, and they don’t appear to be ordered by stats within the dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$relig)
+<span class="co">#&gt;  [1] &quot;No answer&quot;               &quot;Don&#39;t know&quot;             </span>
+<span class="co">#&gt;  [3] &quot;Inter-nondenominational&quot; &quot;Native american&quot;        </span>
+<span class="co">#&gt;  [5] &quot;Christian&quot;               &quot;Orthodox-christian&quot;     </span>
+<span class="co">#&gt;  [7] &quot;Moslem/islam&quot;            &quot;Other eastern&quot;          </span>
+<span class="co">#&gt;  [9] &quot;Hinduism&quot;                &quot;Buddhism&quot;               </span>
+<span class="co">#&gt; [11] &quot;Other&quot;                   &quot;None&quot;                   </span>
+<span class="co">#&gt; [13] &quot;Jewish&quot;                  &quot;Catholic&quot;               </span>
+<span class="co">#&gt; [15] &quot;Protestant&quot;              &quot;Not applicable&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(relig)) +
+<span class="st">  </span><span class="kw">geom_bar</span>() +
+<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The same goes for <code>denom</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$denom)
+<span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span>
+<span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span>
+<span class="co">#&gt;  [7] &quot;Presbyterian, merged&quot; &quot;Other presbyterian&quot;   &quot;United pres ch in us&quot;</span>
+<span class="co">#&gt; [10] &quot;Presbyterian c in us&quot; &quot;Lutheran-dk which&quot;    &quot;Evangelical luth&quot;    </span>
+<span class="co">#&gt; [13] &quot;Other lutheran&quot;       &quot;Wi evan luth synod&quot;   &quot;Lutheran-mo synod&quot;   </span>
+<span class="co">#&gt; [16] &quot;Luth ch in america&quot;   &quot;Am lutheran&quot;          &quot;Methodist-dk which&quot;  </span>
+<span class="co">#&gt; [19] &quot;Other methodist&quot;      &quot;United methodist&quot;     &quot;Afr meth ep zion&quot;    </span>
+<span class="co">#&gt; [22] &quot;Afr meth episcopal&quot;   &quot;Baptist-dk which&quot;     &quot;Other baptists&quot;      </span>
+<span class="co">#&gt; [25] &quot;Southern baptist&quot;     &quot;Nat bapt conv usa&quot;    &quot;Nat bapt conv of am&quot; </span>
+<span class="co">#&gt; [28] &quot;Am bapt ch in usa&quot;    &quot;Am baptist asso&quot;      &quot;Not applicable&quot;</span></code></pre></div>
+<p>Ignoring “No answer”, “Don’t know”, and “Other party”, the levels of <code>partyid</code> are ordered from “Strong Republican”&quot; to “Strong Democrat”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$partyid)
+<span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span>
+<span class="co">#&gt;  [4] &quot;Strong republican&quot;  &quot;Not str republican&quot; &quot;Ind,near rep&quot;      </span>
+<span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span>
+<span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?</li>
+</ol>
+<p>Because that gives the level “Not applicable” an integer value of 1.</p>
+</div>
+</div>
+<div id="modifying-factor-levels" class="section level2">
+<h2><span class="header-section-number">10.5</span> Modifying factor levels</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%<span class="st"> </span><span class="kw">count</span>(partyid)
+<span class="co">#&gt; # A tibble: 10 × 2</span>
+<span class="co">#&gt;              partyid     n</span>
+<span class="co">#&gt;               &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1          No answer   154</span>
+<span class="co">#&gt; 2         Don&#39;t know     1</span>
+<span class="co">#&gt; 3        Other party   393</span>
+<span class="co">#&gt; 4  Strong republican  2314</span>
+<span class="co">#&gt; 5 Not str republican  3032</span>
+<span class="co">#&gt; 6       Ind,near rep  1791</span>
+<span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">partyid =</span> <span class="kw">fct_recode</span>(partyid,
+    <span class="st">&quot;Republican, strong&quot;</span>    =<span class="st"> &quot;Strong republican&quot;</span>,
+    <span class="st">&quot;Republican, weak&quot;</span>      =<span class="st"> &quot;Not str republican&quot;</span>,
+    <span class="st">&quot;Independent, near rep&quot;</span> =<span class="st"> &quot;Ind,near rep&quot;</span>,
+    <span class="st">&quot;Independent, near dem&quot;</span> =<span class="st"> &quot;Ind,near dem&quot;</span>,
+    <span class="st">&quot;Democrat, weak&quot;</span>        =<span class="st"> &quot;Not str democrat&quot;</span>,
+    <span class="st">&quot;Democrat, strong&quot;</span>      =<span class="st"> &quot;Strong democrat&quot;</span>
+  )) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(partyid)
+<span class="co">#&gt; # A tibble: 10 × 2</span>
+<span class="co">#&gt;                 partyid     n</span>
+<span class="co">#&gt;                  &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1             No answer   154</span>
+<span class="co">#&gt; 2            Don&#39;t know     1</span>
+<span class="co">#&gt; 3           Other party   393</span>
+<span class="co">#&gt; 4    Republican, strong  2314</span>
+<span class="co">#&gt; 5      Republican, weak  3032</span>
+<span class="co">#&gt; 6 Independent, near rep  1791</span>
+<span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">partyid =</span> <span class="kw">fct_recode</span>(partyid,
+    <span class="st">&quot;Republican, strong&quot;</span>    =<span class="st"> &quot;Strong republican&quot;</span>,
+    <span class="st">&quot;Republican, weak&quot;</span>      =<span class="st"> &quot;Not str republican&quot;</span>,
+    <span class="st">&quot;Independent, near rep&quot;</span> =<span class="st"> &quot;Ind,near rep&quot;</span>,
+    <span class="st">&quot;Independent, near dem&quot;</span> =<span class="st"> &quot;Ind,near dem&quot;</span>,
+    <span class="st">&quot;Democrat, weak&quot;</span>        =<span class="st"> &quot;Not str democrat&quot;</span>,
+    <span class="st">&quot;Democrat, strong&quot;</span>      =<span class="st"> &quot;Strong democrat&quot;</span>,
+    <span class="st">&quot;Other&quot;</span>                 =<span class="st"> &quot;No answer&quot;</span>,
+    <span class="st">&quot;Other&quot;</span>                 =<span class="st"> &quot;Don&#39;t know&quot;</span>,
+    <span class="st">&quot;Other&quot;</span>                 =<span class="st"> &quot;Other party&quot;</span>
+  )) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(partyid)
+<span class="co">#&gt; # A tibble: 8 × 2</span>
+<span class="co">#&gt;                 partyid     n</span>
+<span class="co">#&gt;                  &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1                 Other   548</span>
+<span class="co">#&gt; 2    Republican, strong  2314</span>
+<span class="co">#&gt; 3      Republican, weak  3032</span>
+<span class="co">#&gt; 4 Independent, near rep  1791</span>
+<span class="co">#&gt; 5           Independent  4119</span>
+<span class="co">#&gt; 6 Independent, near dem  2499</span>
+<span class="co">#&gt; # ... with 2 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">relig =</span> <span class="kw">fct_lump</span>(relig)) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(relig)
+<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt;        relig     n</span>
+<span class="co">#&gt;       &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 Protestant 10846</span>
+<span class="co">#&gt; 2      Other 10637</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">relig =</span> <span class="kw">fct_lump</span>(relig, <span class="dt">n =</span> <span class="dv">10</span>)) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(relig, <span class="dt">sort =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="ot">Inf</span>)
+<span class="co">#&gt; # A tibble: 10 × 2</span>
+<span class="co">#&gt;                      relig     n</span>
+<span class="co">#&gt;                     &lt;fctr&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1               Protestant 10846</span>
+<span class="co">#&gt; 2                 Catholic  5124</span>
+<span class="co">#&gt; 3                     None  3523</span>
+<span class="co">#&gt; 4                Christian   689</span>
+<span class="co">#&gt; 5                    Other   458</span>
+<span class="co">#&gt; 6                   Jewish   388</span>
+<span class="co">#&gt; 7                 Buddhism   147</span>
+<span class="co">#&gt; 8  Inter-nondenominational   109</span>
+<span class="co">#&gt; 9             Moslem/islam   104</span>
+<span class="co">#&gt; 10      Orthodox-christian    95</span></code></pre></div>
+<div id="exercises-37" class="section level3">
+<h3><span class="header-section-number">10.5.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?</li>
+</ol>
+<p>To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$partyid)
+<span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span>
+<span class="co">#&gt;  [4] &quot;Strong republican&quot;  &quot;Not str republican&quot; &quot;Ind,near rep&quot;      </span>
+<span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span>
+<span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">partyid =</span> 
+           <span class="kw">fct_collapse</span>(partyid,
+                        <span class="dt">other =</span> <span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Other party&quot;</span>),
+                        <span class="dt">rep =</span> <span class="kw">c</span>(<span class="st">&quot;Strong republican&quot;</span>, <span class="st">&quot;Not str republican&quot;</span>),
+                        <span class="dt">ind =</span> <span class="kw">c</span>(<span class="st">&quot;Ind,near rep&quot;</span>, <span class="st">&quot;Independent&quot;</span>, <span class="st">&quot;Ind,near dem&quot;</span>),
+                        <span class="dt">dem =</span> <span class="kw">c</span>(<span class="st">&quot;Not str democrat&quot;</span>, <span class="st">&quot;Strong democrat&quot;</span>))) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(year, partyid)  %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(year) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> n /<span class="st"> </span><span class="kw">sum</span>(n)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> p,
+             <span class="dt">colour =</span> <span class="kw">fct_reorder2</span>(partyid, year, p))) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_line</span>() +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">colour =</span> <span class="st">&quot;Party ID.&quot;</span>)
+  
+
+                                  </code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>How could you collapse rincome into a small set of categories?</li>
+</ol>
+<p>Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn’t want to use something like <code>fct_lump</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$rincome)
+<span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span>
+<span class="co">#&gt;  [5] &quot;$20000 - 24999&quot; &quot;$15000 - 19999&quot; &quot;$10000 - 14999&quot; &quot;$8000 to 9999&quot; </span>
+<span class="co">#&gt;  [9] &quot;$7000 to 7999&quot;  &quot;$6000 to 6999&quot;  &quot;$5000 to 5999&quot;  &quot;$4000 to 4999&quot; </span>
+<span class="co">#&gt; [13] &quot;$3000 to 3999&quot;  &quot;$1000 to 2999&quot;  &quot;Lt $1000&quot;       &quot;Not applicable&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
+gss_cat %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rincome =</span> 
+           <span class="kw">fct_collapse</span>(
+             rincome,
+             <span class="st">`</span><span class="dt">Unknown</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Refused&quot;</span>, <span class="st">&quot;Not applicable&quot;</span>),
+             <span class="st">`</span><span class="dt">Lt $5000</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lt $1000&quot;</span>, <span class="kw">str_c</span>(<span class="st">&quot;$&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;1000&quot;</span>, <span class="st">&quot;3000&quot;</span>, <span class="st">&quot;4000&quot;</span>),
+                                              <span class="st">&quot; to &quot;</span>, <span class="kw">c</span>(<span class="st">&quot;2999&quot;</span>, <span class="st">&quot;3999&quot;</span>, <span class="st">&quot;4999&quot;</span>))),
+             <span class="st">`</span><span class="dt">$5000 to 10000</span><span class="st">`</span> =<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;$&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;5000&quot;</span>, <span class="st">&quot;6000&quot;</span>, <span class="st">&quot;7000&quot;</span>, <span class="st">&quot;8000&quot;</span>),
+                                      <span class="st">&quot; to &quot;</span>, <span class="kw">c</span>(<span class="st">&quot;5999&quot;</span>, <span class="st">&quot;6999&quot;</span>, <span class="st">&quot;7999&quot;</span>, <span class="st">&quot;9999&quot;</span>))
+           )) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> rincome)) +
+<span class="st">  </span><span class="kw">geom_bar</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" /></p>
+
+<p>Notes</p>
+<ul>
+<li><p><strong>lubridate</strong></p></li>
+<li><code>today</code>, <code>now</code></li>
+<li><code>ymd</code> etc., <code>ymd_hms</code> etc.</li>
+<li><code>make_datetime</code>, <code>make_date</code></li>
+<li><code>as_datetime</code>, <code>as_date</code></li>
+<li><code>year</code>, <code>month</code>, <code>mday</code>, <code>yday</code>, <code>wday</code> and <code>year&lt;-</code></li>
+<li><code>floor_date</code>, <code>round_date</code>, <code>ceiling_date</code></li>
+<li><code>update</code></li>
+<li><code>as.duration</code>, duration functions (<code>ddays</code>, etc)</li>
+<li>period functions (<code>days</code>, <code>months</code>, etc)</li>
+<li>interval creation with <code>%--%</code></li>
+<li><p><code>with_tz</code>, <code>force_tz</code></p></li>
+<li><strong>hms</strong> package has times</li>
+<li>Ideas for applications: CDB90 data, COW war start end and duration</li>
+<li>Read more on time-zones: <a href="https://en.wikipedia.org/wiki/Time_zone" class="uri">https://en.wikipedia.org/wiki/Time_zone</a></li>
+<li>Computerphile <a href="https://www.youtube.com/watch?v=-5wpm-gesOY">The Problem with Time &amp; Timezones - Computerphile</a></li>
+<li>The history of the tz database are themselves interesting: <a href="https://en.wikipedia.org/wiki/Tz_database" class="uri">https://en.wikipedia.org/wiki/Tz_database</a></li>
+<li><p><a href="https://blog.jonudell.net/2009/10/23/a-literary-appreciation-of-the-olsonzoneinfotz-database/">A literary appreciation of the Olson/Zoneinfo/tz database</a></p></li>
+</ul>
+<p>I think time-zones are likely a point for social science research in and of themselves. Policy choices. Coordination. Regression discontinuity designs. Just sayin…</p>
+</div>
+</div>
+<div id="prerequisite" class="section level2">
+<h2><span class="header-section-number">10.6</span> Prerequisite</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(lubridate)
+<span class="kw">library</span>(nycflights13)</code></pre></div>
+</div>
+<div id="creating-datetimes" class="section level2">
+<h2><span class="header-section-number">10.7</span> Creating date/times</h2>
+<p><code>today</code> and <code>now</code> are both lubridate functions</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">today</span>()
+<span class="co">#&gt; [1] &quot;2017-01-08&quot;</span>
+<span class="kw">now</span>()
+<span class="co">#&gt; [1] &quot;2017-01-08 13:29:10 PST&quot;</span></code></pre></div>
+<p>From strings</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ymd</span>(<span class="st">&quot;2017-01-31&quot;</span>)
+<span class="co">#&gt; [1] &quot;2017-01-31&quot;</span>
+<span class="kw">mdy</span>(<span class="st">&quot;January 31st, 2017&quot;</span>)
+<span class="co">#&gt; [1] &quot;2017-01-31&quot;</span>
+<span class="kw">dmy</span>(<span class="st">&quot;31-Jan-2017&quot;</span>)
+<span class="co">#&gt; [1] &quot;2017-01-31&quot;</span></code></pre></div>
+<p>They allow for unquoted numbers</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ymd</span>(<span class="dv">20170131</span>)
+<span class="co">#&gt; [1] &quot;2017-01-31&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ymd_hms</span>(<span class="st">&quot;2017-01-31 20:11:59&quot;</span>)
+<span class="co">#&gt; [1] &quot;2017-01-31 20:11:59 UTC&quot;</span>
+<span class="kw">mdy_hm</span>(<span class="st">&quot;01/31/2017 08:01&quot;</span>)
+<span class="co">#&gt; [1] &quot;2017-01-31 08:01:00 UTC&quot;</span>
+<span class="kw">ymd</span>(<span class="dv">20170131</span>, <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>)
+<span class="co">#&gt; [1] &quot;2017-01-31 UTC&quot;</span></code></pre></div>
+<p>From individual components</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%
+<span class="st">  </span><span class="kw">select</span>(year, month, day, hour, minute) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">departure =</span> <span class="kw">make_datetime</span>(year, month, day, hour, minute))
+<span class="co">#&gt; # A tibble: 336,776 × 6</span>
+<span class="co">#&gt;    year month   day  hour minute           departure</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;              &lt;dttm&gt;</span>
+<span class="co">#&gt; 1  2013     1     1     5     15 2013-01-01 05:15:00</span>
+<span class="co">#&gt; 2  2013     1     1     5     29 2013-01-01 05:29:00</span>
+<span class="co">#&gt; 3  2013     1     1     5     40 2013-01-01 05:40:00</span>
+<span class="co">#&gt; 4  2013     1     1     5     45 2013-01-01 05:45:00</span>
+<span class="co">#&gt; 5  2013     1     1     6      0 2013-01-01 06:00:00</span>
+<span class="co">#&gt; 6  2013     1     1     5     58 2013-01-01 05:58:00</span>
+<span class="co">#&gt; # ... with 3.368e+05 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span><span class="kw">select</span>(dep_time) %&gt;%<span class="st"> </span><span class="kw">head</span>()
+<span class="co">#&gt; # A tibble: 6 × 1</span>
+<span class="co">#&gt;   dep_time</span>
+<span class="co">#&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1      517</span>
+<span class="co">#&gt; 2      533</span>
+<span class="co">#&gt; 3      542</span>
+<span class="co">#&gt; 4      544</span>
+<span class="co">#&gt; 5      554</span>
+<span class="co">#&gt; 6      554</span></code></pre></div>
+<p><strong>NOTE</strong> %/% is integer division, divide and throw away the remainder. %% calculates the modulus (remainder of division). For example to test for an even number: <code>x %% 2 == 0</code>, or odd <code>x %% 2 == 1</code>. To get the thousands value of a number <code>x %/% 1000</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_datetime_100 &lt;-<span class="st"> </span>function(year, month, day, time) {
+  <span class="kw">make_datetime</span>(year, month, day, time %/%<span class="st"> </span><span class="dv">100</span>, time %%<span class="st"> </span><span class="dv">100</span>)
+}
+
+flights_dt &lt;-<span class="st"> </span>flights %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(dep_time), !<span class="kw">is.na</span>(arr_time)) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">dep_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, dep_time),
+    <span class="dt">arr_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, arr_time),
+    <span class="dt">sched_dep_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, sched_dep_time),
+    <span class="dt">sched_arr_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, sched_arr_time)
+  ) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(origin, dest, <span class="kw">ends_with</span>(<span class="st">&quot;delay&quot;</span>), <span class="kw">ends_with</span>(<span class="st">&quot;time&quot;</span>))
+flights_dt %&gt;%<span class="st"> </span>head
+<span class="co">#&gt; # A tibble: 6 × 9</span>
+<span class="co">#&gt;   origin  dest dep_delay arr_delay            dep_time      sched_dep_time</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;              &lt;dttm&gt;              &lt;dttm&gt;</span>
+<span class="co">#&gt; 1    EWR   IAH         2        11 2013-01-01 05:17:00 2013-01-01 05:15:00</span>
+<span class="co">#&gt; 2    LGA   IAH         4        20 2013-01-01 05:33:00 2013-01-01 05:29:00</span>
+<span class="co">#&gt; 3    JFK   MIA         2        33 2013-01-01 05:42:00 2013-01-01 05:40:00</span>
+<span class="co">#&gt; 4    JFK   BQN        -1       -18 2013-01-01 05:44:00 2013-01-01 05:45:00</span>
+<span class="co">#&gt; 5    LGA   ATL        -6       -25 2013-01-01 05:54:00 2013-01-01 06:00:00</span>
+<span class="co">#&gt; 6    EWR   ORD        -4        12 2013-01-01 05:54:00 2013-01-01 05:58:00</span>
+<span class="co">#&gt; # ... with 3 more variables: arr_time &lt;dttm&gt;, sched_arr_time &lt;dttm&gt;,</span>
+<span class="co">#&gt; #   air_time &lt;dbl&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dep_time)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">86400</span>) <span class="co"># 86400 seconds = 1 day</span></code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(dep_time &lt;<span class="st"> </span><span class="kw">ymd</span>(<span class="dv">20130102</span>)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dep_time)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">600</span>) <span class="co"># 600 s = 10 minutes</span></code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_datetime</span>(<span class="kw">today</span>())
+<span class="co">#&gt; [1] &quot;2017-01-08 UTC&quot;</span>
+<span class="kw">as_date</span>(<span class="kw">now</span>())
+<span class="co">#&gt; [1] &quot;2017-01-08&quot;</span></code></pre></div>
+<p><strong>Note</strong> Say something about Unix epochs.</p>
+<p>Calculate dates and datetimes from number of seconds (<code>as_datetime</code>) or days (<code>as_date</code>) from Unix epoch.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_datetime</span>(<span class="dv">60</span> *<span class="st"> </span><span class="dv">60</span> *<span class="st"> </span><span class="dv">10</span>)
+<span class="co">#&gt; [1] &quot;1970-01-01 10:00:00 UTC&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_date</span>(<span class="dv">365</span> *<span class="st"> </span><span class="dv">10</span> +<span class="st"> </span><span class="dv">2</span>)
+<span class="co">#&gt; [1] &quot;1980-01-01&quot;</span></code></pre></div>
+<div id="exercises-38" class="section level3">
+<h3><span class="header-section-number">10.7.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>What happens if you parse a string that contains invalid dates?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="kw">c</span>(<span class="st">&quot;2010-10-10&quot;</span>, <span class="st">&quot;bananas&quot;</span>))
+<span class="co">#&gt; Warning: 1 failed to parse.</span>
+<span class="kw">print</span>(<span class="kw">class</span>(ret))
+<span class="co">#&gt; [1] &quot;Date&quot;</span>
+ret
+<span class="co">#&gt; [1] &quot;2010-10-10&quot; NA</span></code></pre></div>
+<p>It produces an <code>NA</code> and an warning message.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>What does the tzone argument to <code>today()</code> do? Why is it important?</li>
+</ol>
+<p>It determines the time-zone of the date. Since different time-zones can have different dates, the value of <code>today()</code> can vary depending on the time-zone specified.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the appropriate lubridate function to parse each of the following dates:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d1 &lt;-<span class="st"> &quot;January 1, 2010&quot;</span>
+<span class="kw">mdy</span>(d1)
+<span class="co">#&gt; [1] &quot;2010-01-01&quot;</span>
+d2 &lt;-<span class="st"> &quot;2015-Mar-07&quot;</span>
+<span class="kw">ymd</span>(d2)
+<span class="co">#&gt; [1] &quot;2015-03-07&quot;</span>
+d3 &lt;-<span class="st"> &quot;06-Jun-2017&quot;</span>
+<span class="kw">dmy</span>(d3)
+<span class="co">#&gt; [1] &quot;2017-06-06&quot;</span>
+d4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;August 19 (2015)&quot;</span>, <span class="st">&quot;July 1 (2015)&quot;</span>)
+<span class="kw">mdy</span>(d4)
+<span class="co">#&gt; [1] &quot;2015-08-19&quot; &quot;2015-07-01&quot;</span>
+d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30, 2014</span>
+<span class="kw">mdy</span>(d5)
+<span class="co">#&gt; [1] &quot;2014-12-30&quot;</span></code></pre></div>
+</div>
+</div>
+<div id="date-time-components" class="section level2">
+<h2><span class="header-section-number">10.8</span> Date-Time Components</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datetime &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2016-07-08 12:34:56&quot;</span>)
+<span class="kw">year</span>(datetime)
+<span class="co">#&gt; [1] 2016</span>
+<span class="kw">month</span>(datetime)
+<span class="co">#&gt; [1] 7</span>
+<span class="kw">mday</span>(datetime)
+<span class="co">#&gt; [1] 8</span>
+<span class="kw">yday</span>(datetime)
+<span class="co">#&gt; [1] 190</span>
+<span class="kw">wday</span>(datetime)
+<span class="co">#&gt; [1] 6</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">month</span>(datetime, <span class="dt">label =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] Jul</span>
+<span class="co">#&gt; 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</span>
+<span class="kw">wday</span>(datetime, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">abbr =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; [1] Friday</span>
+<span class="co">#&gt; 7 Levels: Sunday &lt; Monday &lt; Tuesday &lt; Wednesday &lt; Thursday &lt; ... &lt; Saturday</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday =</span> <span class="kw">wday</span>(dep_time, <span class="dt">label =</span> <span class="ot">TRUE</span>)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> wday)) +<span class="st"> </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">minute =</span> <span class="kw">minute</span>(dep_time)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(minute) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">avg_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>()) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(minute, avg_delay)) +
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sched_dep &lt;-<span class="st"> </span>flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(minute) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">avg_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+    <span class="dt">n =</span> <span class="kw">n</span>())
+
+<span class="kw">ggplot</span>(sched_dep, <span class="kw">aes</span>(minute, avg_delay)) +
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sched_dep, <span class="kw">aes</span>(minute, n)) +
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">count</span>(<span class="dt">week =</span> <span class="kw">floor_date</span>(dep_time, <span class="st">&quot;week&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(week, n)) +
+<span class="st">  </span><span class="kw">geom_line</span>()
+  </code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Note</strong> difference between rounded and unrounded date can give the within period time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(datetime &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2016-07-08 12:34:56&quot;</span>))
+<span class="co">#&gt; [1] &quot;2016-07-08 12:34:56 UTC&quot;</span>
+<span class="kw">year</span>(datetime) &lt;-<span class="st"> </span><span class="dv">2020</span>
+datetime
+<span class="co">#&gt; [1] &quot;2020-07-08 12:34:56 UTC&quot;</span>
+<span class="kw">month</span>(datetime) &lt;-<span class="st"> </span><span class="dv">01</span>
+datetime
+<span class="co">#&gt; [1] &quot;2020-01-08 12:34:56 UTC&quot;</span>
+<span class="kw">hour</span>(datetime) &lt;-<span class="st"> </span><span class="kw">hour</span>(datetime) +<span class="st"> </span><span class="dv">1</span>
+datetime
+<span class="co">#&gt; [1] &quot;2020-01-08 13:34:56 UTC&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update</span>(datetime, <span class="dt">year =</span> <span class="dv">2020</span>, <span class="dt">month =</span> <span class="dv">2</span>, <span class="dt">mday =</span> <span class="dv">2</span>, <span class="dt">hour =</span> <span class="dv">2</span>)
+<span class="co">#&gt; [1] &quot;2020-02-02 02:34:56 UTC&quot;</span></code></pre></div>
+<p>roll-over for large values</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ymd</span>(<span class="st">&quot;2015-02-01&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">update</span>(<span class="dt">mday =</span> <span class="dv">30</span>)
+<span class="co">#&gt; [1] &quot;2015-03-02&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ymd</span>(<span class="st">&quot;2015-02-01&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">update</span>(<span class="dt">hour =</span> <span class="dv">400</span>)
+<span class="co">#&gt; [1] &quot;2015-02-17 16:00:00 UTC&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dep_hour =</span> <span class="kw">update</span>(dep_time, <span class="dt">yday =</span> <span class="dv">1</span>)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(dep_hour)) +
+<span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">300</span>)</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div id="exercises-39" class="section level3">
+<h3><span class="header-section-number">10.8.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>How does the distribution of flight times within a day change over the course of the year?</li>
+</ol>
+<p>Let’s try plotting this by month?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">hour</span>(dep_time) *<span class="st"> </span><span class="dv">100</span> +<span class="st"> </span><span class="kw">minute</span>(dep_time),
+         <span class="dt">mon =</span> <span class="kw">as.factor</span>(month
+                         (dep_time))) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">group =</span> mon, <span class="dt">color =</span> mon)) +
+<span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>This will look better if everything is normalized within groups. The reason that February is lower is that there are fewer days and thus fewer flights.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">hour</span>(dep_time) *<span class="st"> </span><span class="dv">100</span> +<span class="st"> </span><span class="kw">minute</span>(dep_time),
+         <span class="dt">mon =</span> <span class="kw">as.factor</span>(month
+                         (dep_time))) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> ..density.., <span class="dt">group =</span> mon, <span class="dt">color =</span> mon)) +
+<span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>At least to me there doesn’t appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Compare <code>dep_time</code>, <code>sched_dep_time</code> and <code>dep_delay</code>. Are they consistent? Explain your findings.</li>
+</ol>
+<p>If they are consistent, then <code>dep_time = sched_dep_time + dep_delay</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dep_time_ =</span> sched_dep_time +<span class="st"> </span>dep_delay *<span class="st"> </span><span class="dv">60</span>) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(dep_time_ !=<span class="st"> </span>dep_time) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(dep_time_, dep_time, sched_dep_time, dep_delay)
+<span class="co">#&gt; # A tibble: 1,205 × 4</span>
+<span class="co">#&gt;             dep_time_            dep_time      sched_dep_time dep_delay</span>
+<span class="co">#&gt;                &lt;dttm&gt;              &lt;dttm&gt;              &lt;dttm&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 2013-01-02 08:48:00 2013-01-01 08:48:00 2013-01-01 18:35:00       853</span>
+<span class="co">#&gt; 2 2013-01-03 00:42:00 2013-01-02 00:42:00 2013-01-02 23:59:00        43</span>
+<span class="co">#&gt; 3 2013-01-03 01:26:00 2013-01-02 01:26:00 2013-01-02 22:50:00       156</span>
+<span class="co">#&gt; 4 2013-01-04 00:32:00 2013-01-03 00:32:00 2013-01-03 23:59:00        33</span>
+<span class="co">#&gt; 5 2013-01-04 00:50:00 2013-01-03 00:50:00 2013-01-03 21:45:00       185</span>
+<span class="co">#&gt; 6 2013-01-04 02:35:00 2013-01-03 02:35:00 2013-01-03 23:59:00       156</span>
+<span class="co">#&gt; # ... with 1,199 more rows</span></code></pre></div>
+<p>There exist discrepencies. It looks like there are mistakes in the dates. These are flights in which the actual departure time is on the <em>next</em> day relative to the scheduled departure time. We forgot to account for this when creating the date-times. The code would have had to check if the departure time is less than the scheduled departure time. Alternatively, simply adding the delay time is more robust because it will automatically account for crossing into the next day.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Compare <code>air_time</code> with the duration between the departure and arrival. Explain your findings.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">flight_duration =</span> <span class="kw">as.numeric</span>(arr_time -<span class="st"> </span>dep_time),
+         <span class="dt">air_time_mins =</span> air_time,
+         <span class="dt">diff =</span> flight_duration -<span class="st"> </span>air_time_mins) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(origin, dest, flight_duration, air_time_mins, diff)
+<span class="co">#&gt; # A tibble: 328,063 × 5</span>
+<span class="co">#&gt;   origin  dest flight_duration air_time_mins  diff</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1    EWR   IAH             193           227   -34</span>
+<span class="co">#&gt; 2    LGA   IAH             197           227   -30</span>
+<span class="co">#&gt; 3    JFK   MIA             221           160    61</span>
+<span class="co">#&gt; 4    JFK   BQN             260           183    77</span>
+<span class="co">#&gt; 5    LGA   ATL             138           116    22</span>
+<span class="co">#&gt; 6    EWR   ORD             106           150   -44</span>
+<span class="co">#&gt; # ... with 3.281e+05 more rows</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>How does the average delay time change over the course of a day? Should you use <code>dep_time</code> or <code>sched_dep_time</code>? Why?</li>
+</ol>
+<p>Use <code>sched_dep_time</code> because that is the relevant metric for someone scheduling a flight. Also, using <code>dep_time</code> will always bias delays to later in the day since delays will push flights later.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sched_dep_hour =</span> <span class="kw">hour</span>(sched_dep_time)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(sched_dep_hour) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dep_delay, <span class="dt">x =</span> sched_dep_hour)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>()
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li>On what day of the week should you leave if you want to minimise the chance of a delay?</li>
+</ol>
+<p>Sunday has the lowest average departure delay time and the lowest average arrival delay time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dow =</span> <span class="kw">wday</span>(sched_dep_time)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(dow) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay),
+            <span class="dt">arr_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+<span class="co">#&gt; # A tibble: 7 × 3</span>
+<span class="co">#&gt;     dow dep_delay arr_delay</span>
+<span class="co">#&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1      11.5      4.82</span>
+<span class="co">#&gt; 2     2      14.7      9.65</span>
+<span class="co">#&gt; 3     3      10.6      5.39</span>
+<span class="co">#&gt; 4     4      11.7      7.05</span>
+<span class="co">#&gt; 5     5      16.1     11.74</span>
+<span class="co">#&gt; 6     6      14.7      9.07</span>
+<span class="co">#&gt; # ... with 1 more rows</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>What makes the distribution of <code>diamonds$carat</code> and <code>flights$sched_dep_time</code> similar?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>In both <code>carat</code> and <code>sched_dep_time</code> there are abnormally large numbers of values are at nice “human” numbers. In <code>sched_dep_time</code> it is at 00 and 30 minutes. In carats, it is at 0, 1/3, 1/2, 2/3,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat %%<span class="st"> </span><span class="dv">1</span> *<span class="st"> </span><span class="dv">100</span>)) +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>In scheduled departure times it is 00 and 30 minutes, and minutes ending in 0 and 5.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(flights_dt, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">minute</span>(sched_dep_time))) +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Confirm my hypothesis that the early departures of flights in minutes 20-30 and 50-60 are caused by scheduled flights that leave early. Hint: create a binary variable that tells you whether or not a flight was delayed.</li>
+</ol>
+<p>At the minute level, there doesn’t appear to be anything:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">early =</span> dep_delay &lt;<span class="st"> </span><span class="dv">0</span>,
+         <span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(minute) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">early =</span> <span class="kw">mean</span>(early)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> minute, <span class="dt">y =</span> early)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>But if grouped in 10 minute intervals, there is a higher proportion of early flights during those minutes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">early =</span> dep_delay &lt;<span class="st"> </span><span class="dv">0</span>,
+         <span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time) %%<span class="st"> </span><span class="dv">10</span>) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(minute) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">early =</span> <span class="kw">mean</span>(early)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> minute, <span class="dt">y =</span> early)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="datetimes_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="time-spans" class="section level2">
+<h2><span class="header-section-number">10.9</span> Time Spans</h2>
+<ul>
+<li>duration: exact number of seconds</li>
+<li>period: human time periods - e.g. weeks, months</li>
+<li>interval: start and end points</li>
+</ul>
+<div id="durations" class="section level3">
+<h3><span class="header-section-number">10.9.1</span> Durations</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">h_age &lt;-<span class="st"> </span><span class="kw">today</span>() -<span class="st"> </span><span class="kw">ymd</span>(<span class="dv">19791014</span>)
+<span class="kw">class</span>(h_age)
+<span class="co">#&gt; [1] &quot;difftime&quot;</span>
+h_age
+<span class="co">#&gt; Time difference of 13601 days</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.duration</span>(h_age)
+<span class="co">#&gt; [1] &quot;1175126400s (~37.24 years)&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dseconds</span>(<span class="dv">15</span>)
+<span class="co">#&gt; [1] &quot;15s&quot;</span>
+<span class="kw">dminutes</span>(<span class="dv">10</span>)
+<span class="co">#&gt; [1] &quot;600s (~10 minutes)&quot;</span>
+<span class="kw">dhours</span>(<span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">24</span>))
+<span class="co">#&gt; [1] &quot;43200s (~12 hours)&quot; &quot;86400s (~1 days)&quot;</span>
+<span class="kw">ddays</span>(<span class="dv">0</span>:<span class="dv">5</span>)
+<span class="co">#&gt; [1] &quot;0s&quot;                &quot;86400s (~1 days)&quot;  &quot;172800s (~2 days)&quot;</span>
+<span class="co">#&gt; [4] &quot;259200s (~3 days)&quot; &quot;345600s (~4 days)&quot; &quot;432000s (~5 days)&quot;</span>
+<span class="kw">dweeks</span>(<span class="dv">3</span>)
+<span class="co">#&gt; [1] &quot;1814400s (~3 weeks)&quot;</span>
+<span class="kw">dyears</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;31536000s (~52.14 weeks)&quot;</span></code></pre></div>
+<p>durations are always in seconds, and larger units are in the standard multiples of seconds.</p>
+<p>Arithmetic with durations</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> *<span class="st"> </span><span class="kw">dyears</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;63072000s (~2 years)&quot;</span>
+<span class="kw">dyears</span>(<span class="dv">1</span>) +<span class="st"> </span><span class="kw">dweeks</span>(<span class="dv">12</span>) +<span class="st"> </span><span class="kw">dhours</span>(<span class="dv">15</span>)
+<span class="co">#&gt; [1] &quot;38847600s (~1.23 years)&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tomorrow &lt;-<span class="st"> </span><span class="kw">today</span>() +<span class="st"> </span><span class="kw">ddays</span>(<span class="dv">1</span>)
+last_year &lt;-<span class="st"> </span><span class="kw">today</span>() -<span class="st"> </span><span class="kw">dyears</span>(<span class="dv">1</span>)</code></pre></div>
+<p>Surprising results because doesn’t account for weirdness like timezones</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">one_pm &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2016-03-12 13:00:00&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>)
+one_pm
+<span class="co">#&gt; [1] &quot;2016-03-12 13:00:00 EST&quot;</span>
+one_pm +<span class="st"> </span><span class="kw">ddays</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;2016-03-13 14:00:00 EDT&quot;</span></code></pre></div>
+</div>
+<div id="periods" class="section level3">
+<h3><span class="header-section-number">10.9.2</span> Periods</h3>
+<p>Periods are durations for the irregular messy human time periods: months, days.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">one_pm
+<span class="co">#&gt; [1] &quot;2016-03-12 13:00:00 EST&quot;</span>
+one_pm +<span class="st"> </span><span class="kw">days</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;2016-03-13 13:00:00 EDT&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seconds</span>(<span class="dv">15</span>)
+<span class="co">#&gt; [1] &quot;15S&quot;</span>
+<span class="kw">minutes</span>(<span class="dv">10</span>)
+<span class="co">#&gt; [1] &quot;10M 0S&quot;</span>
+<span class="kw">hours</span>(<span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">14</span>))
+<span class="co">#&gt; [1] &quot;12H 0M 0S&quot; &quot;14H 0M 0S&quot;</span>
+<span class="kw">days</span>(<span class="dv">7</span>)
+<span class="co">#&gt; [1] &quot;7d 0H 0M 0S&quot;</span>
+<span class="kw">months</span>(<span class="dv">1</span>:<span class="dv">6</span>)
+<span class="co">#&gt; [1] &quot;1m 0d 0H 0M 0S&quot; &quot;2m 0d 0H 0M 0S&quot; &quot;3m 0d 0H 0M 0S&quot; &quot;4m 0d 0H 0M 0S&quot;</span>
+<span class="co">#&gt; [5] &quot;5m 0d 0H 0M 0S&quot; &quot;6m 0d 0H 0M 0S&quot;</span>
+<span class="kw">weeks</span>(<span class="dv">3</span>)
+<span class="co">#&gt; [1] &quot;21d 0H 0M 0S&quot;</span>
+<span class="kw">years</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;1y 0m 0d 0H 0M 0S&quot;</span></code></pre></div>
+<p>Add or multiply periods:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> *<span class="st"> </span>(<span class="kw">months</span>(<span class="dv">6</span>) +<span class="st"> </span><span class="kw">days</span>(<span class="dv">1</span>))
+<span class="co">#&gt; [1] &quot;60m 10d 0H 0M 0S&quot;</span>
+<span class="kw">days</span>(<span class="dv">50</span>) +<span class="st"> </span><span class="kw">hours</span>(<span class="dv">25</span>) +<span class="st"> </span><span class="kw">minutes</span>(<span class="dv">2</span>)
+<span class="co">#&gt; [1] &quot;50d 25H 2M 0S&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># leap year</span>
+<span class="kw">ymd</span>(<span class="st">&quot;2016-01-01&quot;</span>) +<span class="st"> </span><span class="kw">dyears</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;2016-12-31&quot;</span>
+<span class="kw">ymd</span>(<span class="st">&quot;2016-01-01&quot;</span>) +<span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;2017-01-01&quot;</span>
+<span class="co"># DST</span>
+one_pm +<span class="st"> </span><span class="kw">ddays</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;2016-03-13 14:00:00 EDT&quot;</span>
+one_pm +<span class="st"> </span><span class="kw">days</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] &quot;2016-03-13 13:00:00 EDT&quot;</span></code></pre></div>
+<p>Define overnight when <code>arr_time &lt; dep_time</code> (no flights &gt; 24 hours):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt &lt;-<span class="st"> </span>flights_dt %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">overnight =</span> arr_time &lt;<span class="st"> </span>dep_time,
+    <span class="dt">arr_time =</span> arr_time +<span class="st"> </span><span class="kw">days</span>(overnight *<span class="st"> </span><span class="dv">1</span>),
+    <span class="dt">sched_arr_time =</span> sched_arr_time +<span class="st"> </span><span class="kw">days</span>(overnight *<span class="st"> </span><span class="dv">1</span>)
+  )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(overnight, arr_time &lt;<span class="st"> </span>dep_time)
+<span class="co">#&gt; # A tibble: 0 × 10</span>
+<span class="co">#&gt; # ... with 10 variables: origin &lt;chr&gt;, dest &lt;chr&gt;, dep_delay &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   arr_delay &lt;dbl&gt;, dep_time &lt;dttm&gt;, sched_dep_time &lt;dttm&gt;,</span>
+<span class="co">#&gt; #   arr_time &lt;dttm&gt;, sched_arr_time &lt;dttm&gt;, air_time &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   overnight &lt;lgl&gt;</span></code></pre></div>
+</div>
+<div id="intervals" class="section level3">
+<h3><span class="header-section-number">10.9.3</span> Intervals</h3>
+<p><strong>NOTE</strong> This section seems less complete than the others.</p>
+<p>Interval = duration with starting point.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">years</span>(<span class="dv">1</span>) /<span class="st"> </span><span class="kw">days</span>(<span class="dv">1</span>)
+<span class="co">#&gt; estimate only: convert to intervals for accuracy</span>
+<span class="co">#&gt; [1] 365</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">next_year &lt;-<span class="st"> </span><span class="kw">today</span>() +<span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)
+(<span class="kw">today</span>() %--%<span class="st"> </span>next_year) /<span class="st"> </span><span class="kw">ddays</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] 365</span></code></pre></div>
+<p>For number of periods in an intervla, use integer division.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">today</span>() %--%<span class="st"> </span>next_year) %/%<span class="st"> </span><span class="kw">days</span>(<span class="dv">1</span>)
+<span class="co">#&gt; Note: method with signature &#39;Timespan#Timespan&#39; chosen for function &#39;%/%&#39;,</span>
+<span class="co">#&gt;  target signature &#39;Interval#Period&#39;.</span>
+<span class="co">#&gt;  &quot;Interval#ANY&quot;, &quot;ANY#Period&quot; would also be valid</span>
+<span class="co">#&gt; [1] 365</span></code></pre></div>
+</div>
+<div id="exercises-40" class="section level3">
+<h3><span class="header-section-number">10.9.4</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Why is there <code>months()</code> but no <code>dmonths()</code>?</li>
+</ol>
+<p>There is no direct unambigous value of months in seconds:</p>
+<ul>
+<li>31 days: Jan, Mar, May, Jul, Aug, Oct,</li>
+<li>30 days: Apr, Jun, Sep, Nov, Dec</li>
+<li>28 or 29 days: Feb</li>
+</ul>
+<p>Though in the past, in the pre-computer era, for arithmetic convenience, bankers adopoted a 360 day year with 30 day months.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Explain <code>days(overnight * 1)</code> to someone who has just started learning R. How does it work?</li>
+</ol>
+<p><code>overnight</code> is equal to TRUE (1) or FALSE (0). So if it is an overnight flight, this becomes 1 day, and if not, then overnight = 0, and no days are added to the date.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.</li>
+</ol>
+<p>A vector of the first day of the month for every month in 2015:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ymd</span>(<span class="st">&quot;2015-01-01&quot;</span>) +<span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span>:<span class="dv">11</span>)
+<span class="co">#&gt;  [1] &quot;2015-01-01&quot; &quot;2015-02-01&quot; &quot;2015-03-01&quot; &quot;2015-04-01&quot; &quot;2015-05-01&quot;</span>
+<span class="co">#&gt;  [6] &quot;2015-06-01&quot; &quot;2015-07-01&quot; &quot;2015-08-01&quot; &quot;2015-09-01&quot; &quot;2015-10-01&quot;</span>
+<span class="co">#&gt; [11] &quot;2015-11-01&quot; &quot;2015-12-01&quot;</span></code></pre></div>
+<p>To get the vector of the first day of the month for <em>this</em> year, we first need to figure out what this year is, and get January 1st of it. I can do that by taking <code>today()</code> and truncating it to the year using <code>floor_date</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">floor_date</span>(<span class="kw">today</span>(), <span class="dt">unit =</span> <span class="st">&quot;year&quot;</span>) +<span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span>:<span class="dv">11</span>)
+<span class="co">#&gt;  [1] &quot;2017-01-01&quot; &quot;2017-02-01&quot; &quot;2017-03-01&quot; &quot;2017-04-01&quot; &quot;2017-05-01&quot;</span>
+<span class="co">#&gt;  [6] &quot;2017-06-01&quot; &quot;2017-07-01&quot; &quot;2017-08-01&quot; &quot;2017-09-01&quot; &quot;2017-10-01&quot;</span>
+<span class="co">#&gt; [11] &quot;2017-11-01&quot; &quot;2017-12-01&quot;</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Write a function that given your birthday (as a date), returns how old you are in years.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age &lt;-<span class="st"> </span>function(bday) {
+  (bday %--%<span class="st"> </span><span class="kw">today</span>()) %/%<span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)
+}
+<span class="kw">age</span>(<span class="kw">ymd</span>(<span class="st">&quot;1990-10-12&quot;</span>))
+<span class="co">#&gt; [1] 26</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Why can’t <code>(today() %--% (today() + years(1)) / months(1)</code> work?</li>
+</ol>
+<p>It appears to work. Today is a date. Today + 1 year is a valid endpoint for an interval. And months is period that is defined in this period.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">today</span>() %--%<span class="st"> </span>(<span class="kw">today</span>() +<span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>))) %/%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] 12</span>
+(<span class="kw">today</span>() %--%<span class="st"> </span>(<span class="kw">today</span>() +<span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>))) /<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] 12</span></code></pre></div>
+</div>
+<div id="time-zones" class="section level3">
+<h3><span class="header-section-number">10.9.5</span> Time Zones</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.timezone</span>()
+<span class="co">#&gt; [1] &quot;America/Los_Angeles&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">OlsonNames</span>())
+<span class="co">#&gt; [1] 589</span>
+<span class="kw">head</span>(<span class="kw">OlsonNames</span>())
+<span class="co">#&gt; [1] &quot;Africa/Abidjan&quot;     &quot;Africa/Accra&quot;       &quot;Africa/Addis_Ababa&quot;</span>
+<span class="co">#&gt; [4] &quot;Africa/Algiers&quot;     &quot;Africa/Asmara&quot;      &quot;Africa/Asmera&quot;</span></code></pre></div>
+<p>In R, timezones only control printing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(x1 &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2015-06-01 12:00:00&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>))
+<span class="co">#&gt; [1] &quot;2015-06-01 12:00:00 EDT&quot;</span>
+(x2 &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2015-06-01 18:00:00&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Europe/Copenhagen&quot;</span>))
+<span class="co">#&gt; [1] &quot;2015-06-01 18:00:00 CEST&quot;</span>
+(x3 &lt;-<span class="st"> </span><span class="kw">ymd_hms</span>(<span class="st">&quot;2015-06-02 04:00:00&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Pacific/Auckland&quot;</span>))
+<span class="co">#&gt; [1] &quot;2015-06-02 04:00:00 NZST&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x1 -<span class="st"> </span>x2
+<span class="co">#&gt; Time difference of 0 secs</span>
+x1 -<span class="st"> </span>x3
+<span class="co">#&gt; Time difference of 0 secs</span></code></pre></div>
+<p>Lubridate always uses UTC unless otherwise specified.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x4 &lt;-<span class="st"> </span><span class="kw">c</span>(x1, x2, x3)
+x4
+<span class="co">#&gt; [1] &quot;2015-06-01 09:00:00 PDT&quot; &quot;2015-06-01 09:00:00 PDT&quot;</span>
+<span class="co">#&gt; [3] &quot;2015-06-01 09:00:00 PDT&quot;</span></code></pre></div>
+<p>To keep time-zone</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x4a &lt;-<span class="st"> </span><span class="kw">with_tz</span>(x4, <span class="dt">tzone =</span> <span class="st">&quot;Australia/Lord_Howe&quot;</span>)
+x4a
+<span class="co">#&gt; [1] &quot;2015-06-02 02:30:00 LHST&quot; &quot;2015-06-02 02:30:00 LHST&quot;</span>
+<span class="co">#&gt; [3] &quot;2015-06-02 02:30:00 LHST&quot;</span>
+x4a -<span class="st"> </span>x4
+<span class="co">#&gt; Time differences in secs</span>
+<span class="co">#&gt; [1] 0 0 0</span></code></pre></div>
+<p>Change underlying instant</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x4b &lt;-<span class="st"> </span><span class="kw">force_tz</span>(x4, <span class="dt">tzone =</span> <span class="st">&quot;Australia/Lord_Howe&quot;</span>)
+x4b -<span class="st"> </span>x4
+<span class="co">#&gt; Time differences in hours</span>
+<span class="co">#&gt; [1] -17.5 -17.5 -17.5</span></code></pre></div>
+
+<p>Functions mentioned</p>
+<ul>
+<li><code>typeof</code></li>
+<li><code>dplyr::near</code></li>
+<li><code>is.finite</code>, <code>is.nan</code>, <code>is.na</code></li>
+<li><code>attributes</code></li>
+</ul>
+</div>
+</div>
+<div id="prerequisites-4" class="section level2">
+<h2><span class="header-section-number">10.10</span> Prerequisites</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="co">#&gt; Loading tidyverse: ggplot2</span>
+<span class="co">#&gt; Loading tidyverse: tibble</span>
+<span class="co">#&gt; Loading tidyverse: tidyr</span>
+<span class="co">#&gt; Loading tidyverse: readr</span>
+<span class="co">#&gt; Loading tidyverse: purrr</span>
+<span class="co">#&gt; Loading tidyverse: dplyr</span>
+<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
+<span class="co">#&gt; filter(): dplyr, stats</span>
+<span class="co">#&gt; lag():    dplyr, stats</span></code></pre></div>
+</div>
+<div id="important-types-of-atomic-vector" class="section level2">
+<h2><span class="header-section-number">10.11</span> Important types of Atomic Vector</h2>
+<div id="exercises-41" class="section level3">
+<h3><span class="header-section-number">10.11.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Describe the difference between <code>is.finite(x)</code> and <code>!is.infinite(x)</code>.</li>
+</ol>
+<p>To find out, try the functions on a numeric vector that includes a number and the five special values (<code>NA</code>, <code>NaN</code>, <code>Inf</code>, <code>-Inf</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>)
+<span class="kw">is.finite</span>(x)
+<span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE FALSE</span>
+!<span class="kw">is.infinite</span>(x)
+<span class="co">#&gt; [1]  TRUE  TRUE  TRUE FALSE FALSE</span></code></pre></div>
+<p><code>is.finite</code> considers only a number to be finite, and considers missing (<code>NA</code>), not a number (<code>NaN</code>), and positive and negative infinity to be not finite. However, since <code>is.infinite</code> only considers <code>Inf</code> and <code>-Inf</code> to be inifinite, <code>!is.infinite</code> considers <code>0</code> as well as missing and not-a-number to be not infinite.</p>
+<p>So <code>NA</code> and <code>NaN</code> are neither finite or infinite. Mind blown.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Read the source code for <code>dplyr::near()</code> (Hint: to see the source code, drop the ()). How does it work?</li>
+</ol>
+<p>The source for <code>dplyr::near</code> is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr::near
+<span class="co">#&gt; function (x, y, tol = .Machine$double.eps^0.5) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     abs(x - y) &lt; tol</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; &lt;environment: namespace:dplyr&gt;</span></code></pre></div>
+<p>Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, <code>tol</code>. By default the tolerance is set to the square root of <code>.Machine$double.eps</code>, which is the smallest floating point number that the computer can represent.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use google to do some research.</li>
+</ol>
+<p>The help for <code>.Machine</code> describes some of this:</p>
+<p>As all current implementations of R use 32-bit integers and usne IEC 60559 floating-point (double precision) arithmetic,</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">IEC 60559</a> or IEEE 754 format uses a 64 bit vector, but</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.</li>
+</ol>
+<p>Broadly, could convert a double to an integer by truncating or rounding to the nearest integer. For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determing which integer value to go to.</p>
+<p>methods 0.5 -0.5 1.5 -1.5 ============================== ==== ===== ==== ==== towards zero: 0 0 1 1 away from zero 1 -1 2 -2 largest towards <span class="math inline">\(+\infty\)</span>) 1 0 2 -1 smallest (towards <span class="math inline">\(-\infty\)</span>) 0 -1 1 -2 even 0 0 2 -2 odd 1 -1 1 -1 =====================================================</p>
+<p>See the Wikipedia article <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE floating point</a> for rounding rules.</p>
+<p>For rounding, R and many programming languages use the IEEE standard. This is “round to nearest, ties to even”. This is not the same as what you See the value of looking at the value of <code>.Machine$double.rounding</code> and its documentation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(-<span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.5</span>)
+
+round2 &lt;-<span class="st"> </span>function(x, <span class="dt">to_even =</span> <span class="ot">TRUE</span>) {
+  q &lt;-<span class="st"> </span>x %/%<span class="st"> </span><span class="dv">1</span>
+  r &lt;-<span class="st"> </span>x %%<span class="st"> </span><span class="dv">1</span>
+  q +<span class="st"> </span>(r &gt;=<span class="st"> </span><span class="fl">0.5</span>)
+}
+x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5</span>, -<span class="fl">11.5</span>, <span class="fl">11.5</span>, <span class="fl">12.5</span>)
+<span class="kw">round</span>(x)
+<span class="co">#&gt; [1] -12 -12  12  12</span>
+<span class="kw">round2</span>(x, <span class="dt">to_even =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; [1] -12 -11  12  13</span></code></pre></div>
+<p>The problem with the always rounding 0.5 up rule is that it is biased upwards. Rounding to nearest with ties towards even is not. Consider the sequence <span class="math inline">\(-100.5, -99.5, \dots, 0, \dots, 99.5, 100.5\)</span>. Its sum is 0. It would be nice if rounding preserved that sum. Using the “ties towards even”, the sum is still zero. Hoever, the “ties towards <span class="math inline">\(+\infty\)</span>” produces a non-zero number.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(-<span class="fl">100.5</span>, <span class="fl">100.5</span>, <span class="dt">by =</span> <span class="dv">1</span>)
+<span class="kw">sum</span>(x)
+<span class="co">#&gt; [1] 0</span>
+<span class="kw">sum</span>(<span class="kw">round</span>(x))
+<span class="co">#&gt; [1] 0</span>
+<span class="kw">sum</span>(<span class="kw">round2</span>(x))
+<span class="co">#&gt; [1] 101</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>What functions from the <strong>readr</strong> package allow you to turn a string into logical, integer, and double vector?</li>
+</ol>
+<p>The functions <code>parse_logical</code>, <code>parse_integer</code>, and <code>parse_number</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_logical</span>(<span class="kw">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;true&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;NA&quot;</span>))
+<span class="co">#&gt; [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE    NA</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_integer</span>(<span class="kw">c</span>(<span class="st">&quot;1235&quot;</span>, <span class="st">&quot;0134&quot;</span>, <span class="st">&quot;NA&quot;</span>))
+<span class="co">#&gt; [1] 1235  134   NA</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_number</span>(<span class="kw">c</span>(<span class="st">&quot;1.0&quot;</span>, <span class="st">&quot;3.5&quot;</span>, <span class="st">&quot;1,000&quot;</span>, <span class="st">&quot;NA&quot;</span>))
+<span class="co">#&gt; [1]    1.0    3.5 1000.0     NA</span></code></pre></div>
+<p>Read the documentation of <code>read_number</code>. In order to ignore things like currency symbols and comma seperators in number strings it ignores them using a heuristic.</p>
+</div>
+</div>
+<div id="using-atomic-vectors" class="section level2">
+<h2><span class="header-section-number">10.12</span> Using atomic vectors</h2>
+<ol style="list-style-type: decimal">
+<li>What does <code>mean(is.na(x))</code> tell you about a vector <code>x</code>? What about <code>sum(!is.finite(x))</code>?</li>
+</ol>
+<p>The expression <code>mean(is.na(x))</code> calculates the proportion of missing values in a vector</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>)
+<span class="kw">mean</span>(<span class="kw">is.na</span>(x))
+<span class="co">#&gt; [1] 0.143</span></code></pre></div>
+<p>The expression <code>mean(!is.finite(x))</code> calcualtes the proportion of values that are <code>NA</code>, <code>NaN</code>, or infinite.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(!<span class="kw">is.finite</span>(x))
+<span class="co">#&gt; [1] 0.286</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Carefully read the documentation of <code>is.vector()</code>. What does it actually test for? Why does <code>is.atomic()</code> not agree with the definition of atomic vectors above?</li>
+</ol>
+<p>The function <code>is.vector</code> only checks whether the object has no attributes other than names. Thus a <code>list</code> is a vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.vector</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>))
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>But any object that has an attribute (other than names) is not:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+<span class="kw">attr</span>(x, <span class="st">&quot;something&quot;</span>) &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+<span class="kw">is.vector</span>(x)
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>The idea behind this is that object oriented classes will include attributes, including, but not limited to <code>&quot;class&quot;</code>.</p>
+<p>The function <code>is.atomic</code> explicitly checks whether an object is one of the atomic types (“logical”, “integer”, “numeric”, “complex”, “character”, and “raw”) or NULL.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.atomic</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="co">#&gt; [1] TRUE</span>
+<span class="kw">is.atomic</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>))
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>The function <code>is.atomic</code> will consider objects to be atomic even if they have extra attributes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.atomic</span>(x)
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Compare and contrast <code>setNames()</code> with <code>purrr::set_names()</code>.</li>
+</ol>
+<p>These are simple functions, so we can simply print out their source code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">setNames
+<span class="co">#&gt; function (object = nm, nm) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     names(object) &lt;- nm</span>
+<span class="co">#&gt;     object</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; &lt;bytecode: 0x7fb54902f638&gt;</span>
+<span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr::set_names
+<span class="co">#&gt; function (x, nm = x) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     if (!is_vector(x)) {</span>
+<span class="co">#&gt;         stop(&quot;`x` must be a vector&quot;, call. = FALSE)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     if (length(x) != length(nm)) {</span>
+<span class="co">#&gt;         stop(&quot;`x` and `nm` must be the same length&quot;, call. = FALSE)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     names(x) &lt;- nm</span>
+<span class="co">#&gt;     x</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; &lt;environment: namespace:purrr&gt;</span></code></pre></div>
+<p>From the code we can see that <code>set_names</code> adds a few sanity checks: <code>x</code> has to be a vector, and the lengths of the object and the names have to be the same.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Create functions that take a vector as input and returns:</p></li>
+<li>The last value. Should you use [ or [[? 2 The elements at even numbered positions.</li>
+<li>Every element except the last value.</li>
+<li><p>Only even numbers (and no missing values).</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_value &lt;-<span class="st"> </span>function(x) {
+  <span class="co"># check for case with no length</span>
+  if (<span class="kw">length</span>(x)) {
+    <span class="co"># Use [[ as suggested because it returns one element</span>
+    x[[<span class="kw">length</span>(x)]]  
+  } else {
+    x
+  }
+}
+<span class="kw">last_value</span>(<span class="kw">numeric</span>())
+<span class="co">#&gt; numeric(0)</span>
+<span class="kw">last_value</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] 1</span>
+<span class="kw">last_value</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="co">#&gt; [1] 10</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">even_indices &lt;-<span class="st"> </span>function(x) {
+  if (<span class="kw">length</span>(x)) {
+    x[<span class="kw">seq_along</span>(x) %%<span class="st"> </span><span class="dv">2</span> ==<span class="st"> </span><span class="dv">0</span>]
+  } else {
+    x
+  }  
+}
+<span class="kw">even_indices</span>(<span class="kw">numeric</span>())
+<span class="co">#&gt; numeric(0)</span>
+<span class="kw">even_indices</span>(<span class="dv">1</span>)
+<span class="co">#&gt; numeric(0)</span>
+<span class="kw">even_indices</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="co">#&gt; [1]  2  4  6  8 10</span>
+<span class="co"># test using case to ensure that values not indices</span>
+<span class="co"># are being returned</span>
+<span class="kw">even_indices</span>(letters)
+<span class="co">#&gt;  [1] &quot;b&quot; &quot;d&quot; &quot;f&quot; &quot;h&quot; &quot;j&quot; &quot;l&quot; &quot;n&quot; &quot;p&quot; &quot;r&quot; &quot;t&quot; &quot;v&quot; &quot;x&quot; &quot;z&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_last &lt;-<span class="st"> </span>function(x) {
+  if (<span class="kw">length</span>(x)) {
+    x[-<span class="kw">length</span>(x)]
+  } else {
+    x
+  }
+}
+<span class="kw">not_last</span>(<span class="dv">1</span>:<span class="dv">5</span>)
+<span class="co">#&gt; [1] 1 2 3 4</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">even_numbers &lt;-<span class="st"> </span>function(x) {
+  x[!<span class="kw">is.na</span>(x) &amp;<span class="st"> </span>(x %%<span class="st"> </span><span class="dv">2</span> ==<span class="st"> </span><span class="dv">0</span>)]
+}
+<span class="kw">even_numbers</span>(-<span class="dv">10</span>:<span class="dv">10</span>)
+<span class="co">#&gt;  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Why is <code>x[-which(x &gt; 0)]</code> not the same as <code>x[x &lt;= 0]</code>?</li>
+</ol>
+<p>They will treat missing values differently.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="dv">5</span>:<span class="dv">5</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>, <span class="ot">NaN</span>, <span class="ot">NA</span>)
+x[-<span class="kw">which</span>(x &gt;<span class="st"> </span><span class="dv">0</span>)]
+<span class="co">#&gt; [1]   -5   -4   -3   -2   -1    0 -Inf  NaN   NA</span>
+-<span class="kw">which</span>(x &gt;<span class="st"> </span><span class="dv">0</span>)
+<span class="co">#&gt; [1]  -7  -8  -9 -10 -11 -12</span>
+x[x &lt;=<span class="st"> </span><span class="dv">0</span>]
+<span class="co">#&gt; [1]   -5   -4   -3   -2   -1    0 -Inf   NA   NA</span>
+x &lt;=<span class="st"> </span><span class="dv">0</span>
+<span class="co">#&gt;  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</span>
+<span class="co">#&gt; [12] FALSE  TRUE    NA    NA</span></code></pre></div>
+<p><code>-which(x &gt; 0)</code> which calculates the indexes for any value that is <code>TRUE</code> and ignores <code>NA</code>. Thus is keeps <code>NA</code> and <code>NaN</code> because the comparison is not <code>TRUE</code>. <code>x &lt;= 0</code> works slightly differently. If <code>x &lt;= 0</code> returns <code>TRUE</code> or <code>FALSE</code> it works the same way. Hoewver, if the comparison generates a <code>NA</code>, then it will always keep that entry, but set it to <code>NA</code>. This is why the last two values of <code>x[x &lt;= 0]</code> are <code>NA</code> rather than <code>c(NaN, NA)</code>.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?</li>
+</ol>
+<p>When you subset with positive integers that are larger than the length of the vector, <code>NA</code> values are returned for those integers larger than the length of the vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span>:<span class="dv">10</span>)[<span class="dv">11</span>:<span class="dv">12</span>]
+<span class="co">#&gt; [1] NA NA</span></code></pre></div>
+<p>When a vector is subset with a name that doesn’t exist, an error is generated.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dv">2</span>)[[<span class="st">&quot;b&quot;</span>]]
+<span class="co">#&gt; Error in c(a = 1, 2)[[&quot;b&quot;]]: subscript out of bounds</span></code></pre></div>
+</div>
+<div id="recursive-vectors-lists" class="section level2">
+<h2><span class="header-section-number">10.13</span> Recursive Vectors (lists)</h2>
+<div id="exercises-42" class="section level3">
+<h3><span class="header-section-number">10.13.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>Draw the following lists as nested sets:</p></li>
+<li><code>list(a, b, list(c, d), list(e, f))</code></li>
+<li><p><code>list(list(list(list(list(list(a))))))</code></p></li>
+<li><p>What happens if you subset a <code>tibble</code> as if you’re subsetting a list? What are the key differences between a list and a <code>tibble</code>?</p></li>
+</ol>
+<p>Subsetting a <code>tibble</code> works the same way as a list; a data frame can be thought of as a list of columns. The key different between a list and a <code>tibble</code> is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">3</span>:<span class="dv">4</span>)
+x[[<span class="st">&quot;a&quot;</span>]]
+<span class="co">#&gt; [1] 1 2</span>
+x[<span class="st">&quot;a&quot;</span>]
+<span class="co">#&gt; # A tibble: 2 × 1</span>
+<span class="co">#&gt;       a</span>
+<span class="co">#&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1     1</span>
+<span class="co">#&gt; 2     2</span>
+x[<span class="dv">1</span>]
+<span class="co">#&gt; # A tibble: 2 × 1</span>
+<span class="co">#&gt;       a</span>
+<span class="co">#&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1     1</span>
+<span class="co">#&gt; 2     2</span>
+x[<span class="dv">1</span>, ]
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     1     3</span></code></pre></div>
+</div>
+</div>
+<div id="augmented-vectors" class="section level2">
+<h2><span class="header-section-number">10.14</span> Augmented Vectors</h2>
+<div id="factors-1" class="section level3">
+<h3><span class="header-section-number">10.14.1</span> Factors</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;ab&quot;</span>, <span class="st">&quot;cd&quot;</span>, <span class="st">&quot;ab&quot;</span>), <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;ab&quot;</span>, <span class="st">&quot;cd&quot;</span>, <span class="st">&quot;ef&quot;</span>))
+<span class="kw">typeof</span>(x)
+<span class="co">#&gt; [1] &quot;integer&quot;</span>
+<span class="kw">attributes</span>(x)
+<span class="co">#&gt; $levels</span>
+<span class="co">#&gt; [1] &quot;ab&quot; &quot;cd&quot; &quot;ef&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;factor&quot;</span></code></pre></div>
+</div>
+<div id="dates-and-date-times" class="section level3">
+<h3><span class="header-section-number">10.14.2</span> Dates and date-times</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1971-01-01&quot;</span>)
+<span class="kw">unclass</span>(x)
+<span class="co">#&gt; [1] 365</span>
+<span class="kw">typeof</span>(x)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+<span class="kw">attributes</span>(x)
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;Date&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>lubridate::<span class="kw">ymd_hm</span>(<span class="st">&quot;1970-01-01 01:00&quot;</span>)
+<span class="kw">unclass</span>(x)
+<span class="co">#&gt; [1] 3600</span>
+<span class="co">#&gt; attr(,&quot;tzone&quot;)</span>
+<span class="co">#&gt; [1] &quot;UTC&quot;</span>
+<span class="kw">typeof</span>(x)
+<span class="co">#&gt; [1] &quot;double&quot;</span>
+<span class="kw">attributes</span>(x)
+<span class="co">#&gt; $tzone</span>
+<span class="co">#&gt; [1] &quot;UTC&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">as.POSIXlt</span>(x)
+<span class="kw">typeof</span>(y)
+<span class="co">#&gt; [1] &quot;list&quot;</span>
+<span class="kw">attributes</span>(y)
+<span class="co">#&gt; $names</span>
+<span class="co">#&gt; [1] &quot;sec&quot;   &quot;min&quot;   &quot;hour&quot;  &quot;mday&quot;  &quot;mon&quot;   &quot;year&quot;  &quot;wday&quot;  &quot;yday&quot;  &quot;isdst&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;POSIXlt&quot; &quot;POSIXt&quot; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $tzone</span>
+<span class="co">#&gt; [1] &quot;UTC&quot;</span></code></pre></div>
+</div>
+<div id="tibbles-1" class="section level3">
+<h3><span class="header-section-number">10.14.3</span> Tibbles</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tb &lt;-<span class="st"> </span>tibble::<span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">5</span>:<span class="dv">1</span>)
+<span class="kw">typeof</span>(tb)
+<span class="co">#&gt; [1] &quot;list&quot;</span>
+<span class="kw">attributes</span>(tb)
+<span class="co">#&gt; $names</span>
+<span class="co">#&gt; [1] &quot;x&quot; &quot;y&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $row.names</span>
+<span class="co">#&gt; [1] 1 2 3 4 5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">5</span>:<span class="dv">1</span>)
+<span class="kw">typeof</span>(df)
+<span class="co">#&gt; [1] &quot;list&quot;</span>
+<span class="kw">attributes</span>(df)
+<span class="co">#&gt; $names</span>
+<span class="co">#&gt; [1] &quot;x&quot; &quot;y&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $row.names</span>
+<span class="co">#&gt; [1] 1 2 3 4 5</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
+</div>
+<div id="exercises-43" class="section level3">
+<h3><span class="header-section-number">10.14.4</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>What does <code>hms::hms(3600)</code> return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>hms::<span class="kw">hms</span>(<span class="dv">3600</span>)
+<span class="kw">class</span>(x)
+<span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span>
+x
+<span class="co">#&gt; 01:00:00</span></code></pre></div>
+<p><code>hms::hms</code> returns an object of class, and prints the time in “%H:%M:%S” format.</p>
+<p>The primitive type is a double</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(x)
+<span class="co">#&gt; [1] &quot;double&quot;</span></code></pre></div>
+<p>The atttributes is uses are <code>&quot;units&quot;</code> and <code>&quot;class&quot;</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(x)
+<span class="co">#&gt; $units</span>
+<span class="co">#&gt; [1] &quot;secs&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Try and make a tibble that has columns with different lengths. What happens?</li>
+</ol>
+<p>If I try to create at tibble with a scalar and column of a different length there are no issues, and the scalar is repeated to the length of the longer vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">1</span>:<span class="dv">5</span>)
+<span class="co">#&gt; # A tibble: 5 × 2</span>
+<span class="co">#&gt;       x     y</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     1     1</span>
+<span class="co">#&gt; 2     1     2</span>
+<span class="co">#&gt; 3     1     3</span>
+<span class="co">#&gt; 4     1     4</span>
+<span class="co">#&gt; 5     1     5</span></code></pre></div>
+<p>However, if I try to create a tibble with two vectors of different lengths (other than one), the <code>tibble</code> function throws an error.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">3</span>, <span class="dt">y =</span> <span class="dv">1</span>:<span class="dv">4</span>)
+<span class="co">#&gt; Error: Variables must be length 1 or 4.</span>
+<span class="co">#&gt; Problem variables: &#39;x&#39;</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Based on the definition above, is it ok to have a list as a column of a tibble?</li>
+</ol>
+<p>If I didn’t already know the answer, what I would do is try it out. From the above, the error message was about vectors having different lengths. But there is nothing that prevents a tibble from having vectors of different types: doubles, character, integers, logical, factor, date. The later are still atomic, but they have additional attributes. So, maybe there won’t be an issue with a list vector as long as it is the same length.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">1</span>, <span class="kw">list</span>(<span class="dv">1</span>:<span class="dv">3</span>)))
+<span class="co">#&gt; # A tibble: 3 × 2</span>
+<span class="co">#&gt;       x          y</span>
+<span class="co">#&gt;   &lt;int&gt;     &lt;list&gt;</span>
+<span class="co">#&gt; 1     1  &lt;chr [1]&gt;</span>
+<span class="co">#&gt; 2     2  &lt;dbl [1]&gt;</span>
+<span class="co">#&gt; 3     3 &lt;list [1]&gt;</span></code></pre></div>
+<p>It works! I even used a list with heterogenous types and there wasn’t an issue. In following chapters we’ll see that list vectors can be very useful: for example, when processing many different models.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="strings.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="iteration.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/r4ds/edit/master/factors.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

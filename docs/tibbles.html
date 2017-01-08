@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="visualize.html">
-<link rel="next" href="data-transformation.html">
+<link rel="prev" href="exploratory-data-analysis.html">
+<link rel="next" href="data-import.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -323,82 +323,209 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="workflow-basics" class="section level1">
-<h1><span class="header-section-number">2</span> Workflow Basics</h1>
-<div id="practice" class="section level2">
-<h2><span class="header-section-number">2.1</span> Practice</h2>
-<div id="exercises-4" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> Exercises</h3>
-<ol style="list-style-type: decimal">
-<li>Why does this code not work?</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">10</span>
-my_varıable
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object &#39;my_varıable&#39; not found</span></code></pre></div>
-<p>The variable being printed is <code>my_varıable</code>, not <code>my_variable</code>: the seventh character is “ı” (LATIN SMALL LETTER DOTLESS I) not “i”.</p>
-<p>While it wouldn’t have helped much in this case, the importance of distinguishing characters in code is reasons why fonts which clearly distinguish similar characters are preferred in programming: especially important are distinguishing between zero (0), Latin small letter O (o), and Latin capital letter O (O); and the numeral one (1), Latin small letter I (i), Latin capital letter I (i), and Latin small letter L (l). In these fonts, zero and the Latin letter O are often distinguished by using a glyph for zero that uses either a dot in the interior or a slash through it.</p>
-<p>Also note that the error messages of the form “object ‘…’ not found”, mean just what they say, the object can’t be found by R. This is usually because you either (1) forgot to define the function (or had an error that prevented it from being defined earlier), (2) didn’t load a package with the object, or (3) made a typo in the object’s name (either when using it or when you originally defined it).</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Tweak each of the following R commands so that they run correctly:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="co">#&gt; Loading tidyverse: ggplot2</span>
-<span class="co">#&gt; Loading tidyverse: tibble</span>
-<span class="co">#&gt; Loading tidyverse: tidyr</span>
-<span class="co">#&gt; Loading tidyverse: readr</span>
-<span class="co">#&gt; Loading tidyverse: purrr</span>
-<span class="co">#&gt; Loading tidyverse: dplyr</span>
-<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
-<span class="co">#&gt; filter(): dplyr, stats</span>
-<span class="co">#&gt; lag():    dplyr, stats</span>
-
-<span class="kw">ggplot</span>(<span class="dt">dota =</span> mpg) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))
-<span class="co">#&gt; Error in structure(list(data = data, layers = list(), scales = scales_list(), : argument &quot;data&quot; is missing, with no default</span></code></pre></div>
-<p>The error message is <code>argument &quot;data&quot; is missing, with no default</code>.</p>
-<p>It looks like a typo, <code>dota</code> instead of <code>data</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))</code></pre></div>
-<p><img src="workflow-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fliter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
-<span class="co">#&gt; Error in eval(expr, envir, enclos): could not find function &quot;fliter&quot;</span></code></pre></div>
-<p>R could not find the function <code>fliter</code> because we made a typo: <code>fliter</code> instead of <code>filter</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
-<span class="co">#&gt; Error: filter() takes unnamed arguments. Do you need `==`?</span></code></pre></div>
-<p>We aren’t done yet. But the error message gives a suggestion. Let’s follow it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, cyl ==<span class="st"> </span><span class="dv">8</span>)
-<span class="co">#&gt; # A tibble: 70 × 11</span>
-<span class="co">#&gt;   manufacturer              model displ  year   cyl    trans   drv   cty</span>
-<span class="co">#&gt;          &lt;chr&gt;              &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1         audi         a6 quattro   4.2  2008     8 auto(s6)     4    16</span>
-<span class="co">#&gt; 2    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14</span>
-<span class="co">#&gt; 3    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    11</span>
-<span class="co">#&gt; 4    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14</span>
-<span class="co">#&gt; 5    chevrolet c1500 suburban 2wd   5.7  1999     8 auto(l4)     r    13</span>
-<span class="co">#&gt; 6    chevrolet c1500 suburban 2wd   6.0  2008     8 auto(l4)     r    12</span>
-<span class="co">#&gt; # ... with 64 more rows, and 3 more variables: hwy &lt;int&gt;, fl &lt;chr&gt;,</span>
-<span class="co">#&gt; #   class &lt;chr&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamond, carat &gt;<span class="st"> </span><span class="dv">3</span>)
-<span class="co">#&gt; Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;diamond&#39; not found</span></code></pre></div>
-<p>R says it can’t find the object <code>diamond</code>. This is a typo; the data frame is named <code>diamonds</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamonds, carat &gt;<span class="st"> </span><span class="dv">3</span>)
-<span class="co">#&gt; # A tibble: 32 × 10</span>
-<span class="co">#&gt;   carat     cut color clarity depth table price     x     y     z</span>
-<span class="co">#&gt;   &lt;dbl&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  3.01 Premium     I      I1  62.7    58  8040  9.10  8.97  5.67</span>
-<span class="co">#&gt; 2  3.11    Fair     J      I1  65.9    57  9823  9.15  9.02  5.98</span>
-<span class="co">#&gt; 3  3.01 Premium     F      I1  62.2    56  9925  9.24  9.13  5.73</span>
-<span class="co">#&gt; 4  3.05 Premium     E      I1  60.9    58 10453  9.26  9.25  5.66</span>
-<span class="co">#&gt; 5  3.02    Fair     I      I1  65.2    56 10577  9.11  9.02  5.91</span>
-<span class="co">#&gt; 6  3.01    Fair     H      I1  56.1    62 10761  9.54  9.38  5.31</span>
-<span class="co">#&gt; # ... with 26 more rows</span></code></pre></div>
-<p>How did I know? I started typing in <code>diamond</code> and RStudio autocorrected it to <code>diamonds</code>. Since <code>diamonds</code> includes the variable <code>carat</code> and the code works, that appears to have been the problem.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>Press Alt + Shift + K. What happens? How can you get to the same place using the menus?</li>
-</ol>
-<p>This gives a menu with keyboard shortcuts. This can be found in the menu under <code>Tools -&gt; Keyboard Shortcuts Help</code>.</p>
-
+<div id="tibbles" class="section level1">
+<h1><span class="header-section-number">5</span> Tibbles</h1>
+<div id="prerquisites" class="section level2">
+<h2><span class="header-section-number">5.1</span> Prerquisites</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+<p>Functions and packages covered in this chapter:</p>
+<ul>
+<li>package <strong>tibble</strong></li>
+<li><code>as_tibble</code>, <code>tibble</code></li>
+</ul>
 </div>
+<div id="creating-tibbles" class="section level2">
+<h2><span class="header-section-number">5.2</span> Creating Tibbles</h2>
+<p>Why might you want to create non-syntactic variable names? Since variable names are often used as in plots (e.g. axis-titles) or headers in tables, where having spaces or other characters that are invalid R variable names is useful. Those functions will have ways to use text other than the column.</p>
+</div>
+<div id="tibbles-vs.data.frame" class="section level2">
+<h2><span class="header-section-number">5.3</span> Tibbles vs. data.frame</h2>
+<p>Discuss the definition of a data frame.</p>
+<p>What is the traditional R <code>data.frame</code>?</p>
+<p>In general, discuss how this “dialect” of R relates to base R and other R that they will see.</p>
+<p>Also, need to discuss types of variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nycflights13::flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">width =</span> <span class="ot">Inf</span>)
+<span class="co">#&gt; # A tibble: 336,776 × 19</span>
+<span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1   2013     1     1      517            515         2      830</span>
+<span class="co">#&gt; 2   2013     1     1      533            529         4      850</span>
+<span class="co">#&gt; 3   2013     1     1      542            540         2      923</span>
+<span class="co">#&gt; 4   2013     1     1      544            545        -1     1004</span>
+<span class="co">#&gt; 5   2013     1     1      554            600        -6      812</span>
+<span class="co">#&gt; 6   2013     1     1      554            558        -4      740</span>
+<span class="co">#&gt; 7   2013     1     1      555            600        -5      913</span>
+<span class="co">#&gt; 8   2013     1     1      557            600        -3      709</span>
+<span class="co">#&gt; 9   2013     1     1      557            600        -3      838</span>
+<span class="co">#&gt; 10  2013     1     1      558            600        -2      753</span>
+<span class="co">#&gt;    sched_arr_time arr_delay carrier flight tailnum origin  dest air_time</span>
+<span class="co">#&gt;             &lt;int&gt;     &lt;dbl&gt;   &lt;chr&gt;  &lt;int&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1             819        11      UA   1545  N14228    EWR   IAH      227</span>
+<span class="co">#&gt; 2             830        20      UA   1714  N24211    LGA   IAH      227</span>
+<span class="co">#&gt; 3             850        33      AA   1141  N619AA    JFK   MIA      160</span>
+<span class="co">#&gt; 4            1022       -18      B6    725  N804JB    JFK   BQN      183</span>
+<span class="co">#&gt; 5             837       -25      DL    461  N668DN    LGA   ATL      116</span>
+<span class="co">#&gt; 6             728        12      UA   1696  N39463    EWR   ORD      150</span>
+<span class="co">#&gt; 7             854        19      B6    507  N516JB    EWR   FLL      158</span>
+<span class="co">#&gt; 8             723       -14      EV   5708  N829AS    LGA   IAD       53</span>
+<span class="co">#&gt; 9             846        -8      B6     79  N593JB    JFK   MCO      140</span>
+<span class="co">#&gt; 10            745         8      AA    301  N3ALAA    LGA   ORD      138</span>
+<span class="co">#&gt;    distance  hour minute           time_hour</span>
+<span class="co">#&gt;       &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;              &lt;dttm&gt;</span>
+<span class="co">#&gt; 1      1400     5     15 2013-01-01 05:00:00</span>
+<span class="co">#&gt; 2      1416     5     29 2013-01-01 05:00:00</span>
+<span class="co">#&gt; 3      1089     5     40 2013-01-01 05:00:00</span>
+<span class="co">#&gt; 4      1576     5     45 2013-01-01 05:00:00</span>
+<span class="co">#&gt; 5       762     6      0 2013-01-01 06:00:00</span>
+<span class="co">#&gt; 6       719     5     58 2013-01-01 05:00:00</span>
+<span class="co">#&gt; 7      1065     6      0 2013-01-01 06:00:00</span>
+<span class="co">#&gt; 8       229     6      0 2013-01-01 06:00:00</span>
+<span class="co">#&gt; 9       944     6      0 2013-01-01 06:00:00</span>
+<span class="co">#&gt; 10      733     6      0 2013-01-01 06:00:00</span>
+<span class="co">#&gt; # ... with 3.368e+05 more rows</span></code></pre></div>
+<p>If this were printed in the console it would be much worse. Just try it, I dare you.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(nycflights13::flights) </code></pre></div>
+</div>
+<div id="subsetting" class="section level2">
+<h2><span class="header-section-number">5.4</span> Subsetting</h2>
+<p><strong>Note</strong> Warnings about partial matching! What is it and why is it dangerous.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">runif</span>(<span class="dv">5</span>), <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">5</span>))
+df$x
+<span class="co">#&gt; [1] 0.0808 0.8343 0.6008 0.1572 0.0074</span>
+df[[<span class="st">&quot;x&quot;</span>]]
+<span class="co">#&gt; [1] 0.0808 0.8343 0.6008 0.1572 0.0074</span>
+df[[<span class="dv">1</span>]]
+<span class="co">#&gt; [1] 0.0808 0.8343 0.6008 0.1572 0.0074</span>
+df %&gt;%<span class="st"> </span>.$x
+<span class="co">#&gt; [1] 0.0808 0.8343 0.6008 0.1572 0.0074</span>
+df %&gt;%<span class="st"> </span>.[[<span class="st">&quot;x&quot;</span>]]
+<span class="co">#&gt; [1] 0.0808 0.8343 0.6008 0.1572 0.0074</span></code></pre></div>
+</div>
+<div id="interacting-with-older-code" class="section level2">
+<h2><span class="header-section-number">5.5</span> Interacting with older code</h2>
+<p><strong>Note</strong> Not all older functions work with tibbles (an example includes giAmelia); usually because they rely on quirks in <code>data.frame</code> behavior that <code>tibbles</code> “fix”. Use <code>as.data.frame()</code> to turn a tibble back into a <code>data.frame</code>. This is usually because of <code>[</code> and the way it inconsistenly returns a vector or a data frame. With tibbles <code>[</code> always returns a data frame</p>
+</div>
+<div id="exercises-12" class="section level2">
+<h2><span class="header-section-number">5.6</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>How can you tell if an object is a tibble? (Hint: try printing <code>mtcars</code>, which is a regular data frame).</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars
+<span class="co">#&gt;                      mpg cyl  disp  hp drat   wt qsec vs am gear carb</span>
+<span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.62 16.5  0  1    4    4</span>
+<span class="co">#&gt; Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.88 17.0  0  1    4    4</span>
+<span class="co">#&gt; Datsun 710          22.8   4 108.0  93 3.85 2.32 18.6  1  1    4    1</span>
+<span class="co">#&gt; Hornet 4 Drive      21.4   6 258.0 110 3.08 3.21 19.4  1  0    3    1</span>
+<span class="co">#&gt; Hornet Sportabout   18.7   8 360.0 175 3.15 3.44 17.0  0  0    3    2</span>
+<span class="co">#&gt; Valiant             18.1   6 225.0 105 2.76 3.46 20.2  1  0    3    1</span>
+<span class="co">#&gt; Duster 360          14.3   8 360.0 245 3.21 3.57 15.8  0  0    3    4</span>
+<span class="co">#&gt; Merc 240D           24.4   4 146.7  62 3.69 3.19 20.0  1  0    4    2</span>
+<span class="co">#&gt; Merc 230            22.8   4 140.8  95 3.92 3.15 22.9  1  0    4    2</span>
+<span class="co">#&gt; Merc 280            19.2   6 167.6 123 3.92 3.44 18.3  1  0    4    4</span>
+<span class="co">#&gt; Merc 280C           17.8   6 167.6 123 3.92 3.44 18.9  1  0    4    4</span>
+<span class="co">#&gt; Merc 450SE          16.4   8 275.8 180 3.07 4.07 17.4  0  0    3    3</span>
+<span class="co">#&gt; Merc 450SL          17.3   8 275.8 180 3.07 3.73 17.6  0  0    3    3</span>
+<span class="co">#&gt; Merc 450SLC         15.2   8 275.8 180 3.07 3.78 18.0  0  0    3    3</span>
+<span class="co">#&gt; Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.25 18.0  0  0    3    4</span>
+<span class="co">#&gt; Lincoln Continental 10.4   8 460.0 215 3.00 5.42 17.8  0  0    3    4</span>
+<span class="co">#&gt; Chrysler Imperial   14.7   8 440.0 230 3.23 5.34 17.4  0  0    3    4</span>
+<span class="co">#&gt; Fiat 128            32.4   4  78.7  66 4.08 2.20 19.5  1  1    4    1</span>
+<span class="co">#&gt; Honda Civic         30.4   4  75.7  52 4.93 1.61 18.5  1  1    4    2</span>
+<span class="co">#&gt; Toyota Corolla      33.9   4  71.1  65 4.22 1.83 19.9  1  1    4    1</span>
+<span class="co">#&gt; Toyota Corona       21.5   4 120.1  97 3.70 2.46 20.0  1  0    3    1</span>
+<span class="co">#&gt; Dodge Challenger    15.5   8 318.0 150 2.76 3.52 16.9  0  0    3    2</span>
+<span class="co">#&gt; AMC Javelin         15.2   8 304.0 150 3.15 3.44 17.3  0  0    3    2</span>
+<span class="co">#&gt; Camaro Z28          13.3   8 350.0 245 3.73 3.84 15.4  0  0    3    4</span>
+<span class="co">#&gt; Pontiac Firebird    19.2   8 400.0 175 3.08 3.85 17.1  0  0    3    2</span>
+<span class="co">#&gt; Fiat X1-9           27.3   4  79.0  66 4.08 1.94 18.9  1  1    4    1</span>
+<span class="co">#&gt; Porsche 914-2       26.0   4 120.3  91 4.43 2.14 16.7  0  1    5    2</span>
+<span class="co">#&gt; Lotus Europa        30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2</span>
+<span class="co">#&gt; Ford Pantera L      15.8   8 351.0 264 4.22 3.17 14.5  0  1    5    4</span>
+<span class="co">#&gt; Ferrari Dino        19.7   6 145.0 175 3.62 2.77 15.5  0  1    5    6</span>
+<span class="co">#&gt; Maserati Bora       15.0   8 301.0 335 3.54 3.57 14.6  0  1    5    8</span>
+<span class="co">#&gt; Volvo 142E          21.4   4 121.0 109 4.11 2.78 18.6  1  1    4    2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(mtcars)
+<span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="kw">as_tibble</span>(mtcars))
+<span class="co">#&gt; [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</span></code></pre></div>
+<p>Tibbles will only print out a limited number of rows and show the class on top of each column. Addtionally, tibbles have class <code>&quot;tbl_df&quot;</code> and <code>&quot;tbl_&quot;</code> in addition to <code>&quot;data.frame&quot;</code>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Compare and contrast the following operations on a <code>data.frame</code> and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">abc =</span> <span class="dv">1</span>, <span class="dt">xyz =</span> <span class="st">&quot;a&quot;</span>)
+df$x
+<span class="co">#&gt; [1] a</span>
+<span class="co">#&gt; Levels: a</span>
+df[, <span class="st">&quot;xyz&quot;</span>]
+<span class="co">#&gt; [1] a</span>
+<span class="co">#&gt; Levels: a</span>
+df[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;xyz&quot;</span>)]
+<span class="co">#&gt;   abc xyz</span>
+<span class="co">#&gt; 1   1   a</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(df)
+tbl$x
+<span class="co">#&gt; Warning: Unknown column &#39;x&#39;</span>
+<span class="co">#&gt; NULL</span>
+tbl[, <span class="st">&quot;xyz&quot;</span>]
+<span class="co">#&gt; # A tibble: 1 × 1</span>
+<span class="co">#&gt;      xyz</span>
+<span class="co">#&gt;   &lt;fctr&gt;</span>
+<span class="co">#&gt; 1      a</span>
+tbl[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;xyz&quot;</span>)]
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;     abc    xyz</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;fctr&gt;</span>
+<span class="co">#&gt; 1     1      a</span></code></pre></div>
+<p>Using <code>$</code> a data.frame will partially complete the column. So even though we wrote <code>df$x</code> it returned <code>df$xyz</code>. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.</p>
+<p>With data.frames, with <code>[</code> the type of object that is returned differs on the number of columns. If it is one column, it won’t return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did <code>df[ , vars]</code> where <code>vars</code> was a variable. Then you what that code does depends on <code>length(vars)</code> and you’d have to write code to account for those situations or risk bugs.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>If you have the name of a variable stored in an object, e.g. <code>var &lt;- &quot;mpg&quot;</code>, how can you extract the reference variable from a tibble?</li>
+</ol>
+<p>You can use the double bracket, like <code>df[[var]]</code>. You cannot use the dollar sign, becuase <code>df$var</code> would look for a column named <code>var</code>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Practice referring to non-syntactic names in the following data frame by:</p></li>
+<li>Extracting the variable called 1.</li>
+<li>Plotting a scatterplot of 1 vs 2.</li>
+<li>Creating a new column called 3 which is 2 divided by 1.</li>
+<li><p>Renaming the columns to one, two and three.</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="st">`</span><span class="dt">1</span><span class="st">`</span> =<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>,
+  <span class="st">`</span><span class="dt">2</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">1</span><span class="st">`</span> *<span class="st"> </span><span class="dv">2</span> +<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>))
+)</code></pre></div>
+<p>Extract the variable called 1:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;1&quot;</span>]]
+<span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying$<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
+<span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
+<p>A scatterplot of <code>1</code> vs. <code>2</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(annoying, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="tibble_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>A new column <code>3</code> with is <code>2</code> divided by <code>1</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;3&quot;</span>]] =<span class="st"> </span>annoying$<span class="st">`</span><span class="dt">2</span><span class="st">`</span> /<span class="st"> </span>annoying$<span class="st">`</span><span class="dt">1</span><span class="st">`</span></code></pre></div>
+<p>Renaming the columns to <code>one</code>, <code>two</code>, and <code>three</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying &lt;-<span class="st"> </span><span class="kw">rename</span>(annoying, <span class="dt">one =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">two =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>, <span class="dt">three =</span> <span class="st">`</span><span class="dt">3</span><span class="st">`</span>)
+<span class="kw">glimpse</span>(annoying)
+<span class="co">#&gt; Observations: 10</span>
+<span class="co">#&gt; Variables: 3</span>
+<span class="co">#&gt; $ one   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+<span class="co">#&gt; $ two   &lt;dbl&gt; 1.14, 2.48, 7.97, 8.46, 9.14, 12.65, 14.08, 16.49, 17.25...</span>
+<span class="co">#&gt; $ three &lt;dbl&gt; 1.14, 1.24, 2.66, 2.12, 1.83, 2.11, 2.01, 2.06, 1.92, 2.03</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>What does <code>tibble::enframe()</code> do? When might you use it?</li>
+</ol>
+<p>It converts named vectors to a data frame with names and values</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?tibble::enframe</code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>What option controls how many additional column names are printed at the footer of a tibble?</li>
+</ol>
+<p>The print function for tibbles is in <code>print.tbl_df</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?print.tbl_df</code></pre></div>
+<p>The option <code>n_extra</code> determines the number of extra columns to print information for.</p>
+
 </div>
 </div>
             </section>
@@ -406,8 +533,8 @@ my_varıable
           </div>
         </div>
       </div>
-<a href="visualize.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="exploratory-data-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-import.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -426,7 +553,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/r4ds/edit/master/workflow-basics.Rmd",
+"link": "https://github.com/jrnold/r4ds/edit/master/tibble.Rmd",
 "text": "Edit"
 },
 "download": null,

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="visualize.html">
-<link rel="next" href="data-transformation.html">
+<link rel="prev" href="iteration.html">
+<link rel="next" href="model-basics.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -323,91 +323,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="workflow-basics" class="section level1">
-<h1><span class="header-section-number">2</span> Workflow Basics</h1>
-<div id="practice" class="section level2">
-<h2><span class="header-section-number">2.1</span> Practice</h2>
-<div id="exercises-4" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> Exercises</h3>
-<ol style="list-style-type: decimal">
-<li>Why does this code not work?</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">10</span>
-my_varıable
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object &#39;my_varıable&#39; not found</span></code></pre></div>
-<p>The variable being printed is <code>my_varıable</code>, not <code>my_variable</code>: the seventh character is “ı” (LATIN SMALL LETTER DOTLESS I) not “i”.</p>
-<p>While it wouldn’t have helped much in this case, the importance of distinguishing characters in code is reasons why fonts which clearly distinguish similar characters are preferred in programming: especially important are distinguishing between zero (0), Latin small letter O (o), and Latin capital letter O (O); and the numeral one (1), Latin small letter I (i), Latin capital letter I (i), and Latin small letter L (l). In these fonts, zero and the Latin letter O are often distinguished by using a glyph for zero that uses either a dot in the interior or a slash through it.</p>
-<p>Also note that the error messages of the form “object ‘…’ not found”, mean just what they say, the object can’t be found by R. This is usually because you either (1) forgot to define the function (or had an error that prevented it from being defined earlier), (2) didn’t load a package with the object, or (3) made a typo in the object’s name (either when using it or when you originally defined it).</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Tweak each of the following R commands so that they run correctly:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="co">#&gt; Loading tidyverse: ggplot2</span>
-<span class="co">#&gt; Loading tidyverse: tibble</span>
-<span class="co">#&gt; Loading tidyverse: tidyr</span>
-<span class="co">#&gt; Loading tidyverse: readr</span>
-<span class="co">#&gt; Loading tidyverse: purrr</span>
-<span class="co">#&gt; Loading tidyverse: dplyr</span>
-<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
-<span class="co">#&gt; filter(): dplyr, stats</span>
-<span class="co">#&gt; lag():    dplyr, stats</span>
+<div id="model-introduction" class="section level1">
+<h1><span class="header-section-number">12</span> Model Introduction</h1>
+<p>Some of the discussion of models is slightly different, and has a different emphasis than in most social science research. This is largely because this book is speaking to data scientists, where the primary goal is prediction rather than theory testing (that I don’t view these as too different is a different story).</p>
+<p>The discussion about hypothesis generation vs. confirmation is interesting. Too little emphasis is placed on hypothesis generation in social science. The importance of out of sample testing also receives too little emphasis in political science.</p>
+<p>And from this discussion it should be clear that many papers in social science are hypothesis generation masquerading as hypothesis confirmation.</p>
 
-<span class="kw">ggplot</span>(<span class="dt">dota =</span> mpg) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))
-<span class="co">#&gt; Error in structure(list(data = data, layers = list(), scales = scales_list(), : argument &quot;data&quot; is missing, with no default</span></code></pre></div>
-<p>The error message is <code>argument &quot;data&quot; is missing, with no default</code>.</p>
-<p>It looks like a typo, <code>dota</code> instead of <code>data</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))</code></pre></div>
-<p><img src="workflow-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fliter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
-<span class="co">#&gt; Error in eval(expr, envir, enclos): could not find function &quot;fliter&quot;</span></code></pre></div>
-<p>R could not find the function <code>fliter</code> because we made a typo: <code>fliter</code> instead of <code>filter</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
-<span class="co">#&gt; Error: filter() takes unnamed arguments. Do you need `==`?</span></code></pre></div>
-<p>We aren’t done yet. But the error message gives a suggestion. Let’s follow it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, cyl ==<span class="st"> </span><span class="dv">8</span>)
-<span class="co">#&gt; # A tibble: 70 × 11</span>
-<span class="co">#&gt;   manufacturer              model displ  year   cyl    trans   drv   cty</span>
-<span class="co">#&gt;          &lt;chr&gt;              &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1         audi         a6 quattro   4.2  2008     8 auto(s6)     4    16</span>
-<span class="co">#&gt; 2    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14</span>
-<span class="co">#&gt; 3    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    11</span>
-<span class="co">#&gt; 4    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14</span>
-<span class="co">#&gt; 5    chevrolet c1500 suburban 2wd   5.7  1999     8 auto(l4)     r    13</span>
-<span class="co">#&gt; 6    chevrolet c1500 suburban 2wd   6.0  2008     8 auto(l4)     r    12</span>
-<span class="co">#&gt; # ... with 64 more rows, and 3 more variables: hwy &lt;int&gt;, fl &lt;chr&gt;,</span>
-<span class="co">#&gt; #   class &lt;chr&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamond, carat &gt;<span class="st"> </span><span class="dv">3</span>)
-<span class="co">#&gt; Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;diamond&#39; not found</span></code></pre></div>
-<p>R says it can’t find the object <code>diamond</code>. This is a typo; the data frame is named <code>diamonds</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamonds, carat &gt;<span class="st"> </span><span class="dv">3</span>)
-<span class="co">#&gt; # A tibble: 32 × 10</span>
-<span class="co">#&gt;   carat     cut color clarity depth table price     x     y     z</span>
-<span class="co">#&gt;   &lt;dbl&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  3.01 Premium     I      I1  62.7    58  8040  9.10  8.97  5.67</span>
-<span class="co">#&gt; 2  3.11    Fair     J      I1  65.9    57  9823  9.15  9.02  5.98</span>
-<span class="co">#&gt; 3  3.01 Premium     F      I1  62.2    56  9925  9.24  9.13  5.73</span>
-<span class="co">#&gt; 4  3.05 Premium     E      I1  60.9    58 10453  9.26  9.25  5.66</span>
-<span class="co">#&gt; 5  3.02    Fair     I      I1  65.2    56 10577  9.11  9.02  5.91</span>
-<span class="co">#&gt; 6  3.01    Fair     H      I1  56.1    62 10761  9.54  9.38  5.31</span>
-<span class="co">#&gt; # ... with 26 more rows</span></code></pre></div>
-<p>How did I know? I started typing in <code>diamond</code> and RStudio autocorrected it to <code>diamonds</code>. Since <code>diamonds</code> includes the variable <code>carat</code> and the code works, that appears to have been the problem.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>Press Alt + Shift + K. What happens? How can you get to the same place using the menus?</li>
-</ol>
-<p>This gives a menu with keyboard shortcuts. This can be found in the menu under <code>Tools -&gt; Keyboard Shortcuts Help</code>.</p>
-
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="visualize.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="iteration.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="model-basics.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -426,7 +355,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/r4ds/edit/master/workflow-basics.Rmd",
+"link": "https://github.com/jrnold/r4ds/edit/master/model.Rmd",
 "text": "Edit"
 },
 "download": null,

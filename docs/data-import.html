@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="visualize.html">
-<link rel="next" href="data-transformation.html">
+<link rel="prev" href="tibbles.html">
+<link rel="next" href="tidy-data.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -323,25 +323,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="workflow-basics" class="section level1">
-<h1><span class="header-section-number">2</span> Workflow Basics</h1>
-<div id="practice" class="section level2">
-<h2><span class="header-section-number">2.1</span> Practice</h2>
-<div id="exercises-4" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> Exercises</h3>
-<ol style="list-style-type: decimal">
-<li>Why does this code not work?</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">10</span>
-my_varıable
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object &#39;my_varıable&#39; not found</span></code></pre></div>
-<p>The variable being printed is <code>my_varıable</code>, not <code>my_variable</code>: the seventh character is “ı” (LATIN SMALL LETTER DOTLESS I) not “i”.</p>
-<p>While it wouldn’t have helped much in this case, the importance of distinguishing characters in code is reasons why fonts which clearly distinguish similar characters are preferred in programming: especially important are distinguishing between zero (0), Latin small letter O (o), and Latin capital letter O (O); and the numeral one (1), Latin small letter I (i), Latin capital letter I (i), and Latin small letter L (l). In these fonts, zero and the Latin letter O are often distinguished by using a glyph for zero that uses either a dot in the interior or a slash through it.</p>
-<p>Also note that the error messages of the form “object ‘…’ not found”, mean just what they say, the object can’t be found by R. This is usually because you either (1) forgot to define the function (or had an error that prevented it from being defined earlier), (2) didn’t load a package with the object, or (3) made a typo in the object’s name (either when using it or when you originally defined it).</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Tweak each of the following R commands so that they run correctly:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<div id="data-import" class="section level1">
+<h1><span class="header-section-number">6</span> Data Import</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
 <span class="co">#&gt; Loading tidyverse: ggplot2</span>
 <span class="co">#&gt; Loading tidyverse: tibble</span>
 <span class="co">#&gt; Loading tidyverse: tidyr</span>
@@ -350,55 +334,277 @@ my_varıable
 <span class="co">#&gt; Loading tidyverse: dplyr</span>
 <span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
 <span class="co">#&gt; filter(): dplyr, stats</span>
-<span class="co">#&gt; lag():    dplyr, stats</span>
-
-<span class="kw">ggplot</span>(<span class="dt">dota =</span> mpg) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))
-<span class="co">#&gt; Error in structure(list(data = data, layers = list(), scales = scales_list(), : argument &quot;data&quot; is missing, with no default</span></code></pre></div>
-<p>The error message is <code>argument &quot;data&quot; is missing, with no default</code>.</p>
-<p>It looks like a typo, <code>dota</code> instead of <code>data</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))</code></pre></div>
-<p><img src="workflow-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fliter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
-<span class="co">#&gt; Error in eval(expr, envir, enclos): could not find function &quot;fliter&quot;</span></code></pre></div>
-<p>R could not find the function <code>fliter</code> because we made a typo: <code>fliter</code> instead of <code>filter</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
-<span class="co">#&gt; Error: filter() takes unnamed arguments. Do you need `==`?</span></code></pre></div>
-<p>We aren’t done yet. But the error message gives a suggestion. Let’s follow it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, cyl ==<span class="st"> </span><span class="dv">8</span>)
-<span class="co">#&gt; # A tibble: 70 × 11</span>
-<span class="co">#&gt;   manufacturer              model displ  year   cyl    trans   drv   cty</span>
-<span class="co">#&gt;          &lt;chr&gt;              &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1         audi         a6 quattro   4.2  2008     8 auto(s6)     4    16</span>
-<span class="co">#&gt; 2    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14</span>
-<span class="co">#&gt; 3    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    11</span>
-<span class="co">#&gt; 4    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14</span>
-<span class="co">#&gt; 5    chevrolet c1500 suburban 2wd   5.7  1999     8 auto(l4)     r    13</span>
-<span class="co">#&gt; 6    chevrolet c1500 suburban 2wd   6.0  2008     8 auto(l4)     r    12</span>
-<span class="co">#&gt; # ... with 64 more rows, and 3 more variables: hwy &lt;int&gt;, fl &lt;chr&gt;,</span>
-<span class="co">#&gt; #   class &lt;chr&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamond, carat &gt;<span class="st"> </span><span class="dv">3</span>)
-<span class="co">#&gt; Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;diamond&#39; not found</span></code></pre></div>
-<p>R says it can’t find the object <code>diamond</code>. This is a typo; the data frame is named <code>diamonds</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamonds, carat &gt;<span class="st"> </span><span class="dv">3</span>)
-<span class="co">#&gt; # A tibble: 32 × 10</span>
-<span class="co">#&gt;   carat     cut color clarity depth table price     x     y     z</span>
-<span class="co">#&gt;   &lt;dbl&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  3.01 Premium     I      I1  62.7    58  8040  9.10  8.97  5.67</span>
-<span class="co">#&gt; 2  3.11    Fair     J      I1  65.9    57  9823  9.15  9.02  5.98</span>
-<span class="co">#&gt; 3  3.01 Premium     F      I1  62.2    56  9925  9.24  9.13  5.73</span>
-<span class="co">#&gt; 4  3.05 Premium     E      I1  60.9    58 10453  9.26  9.25  5.66</span>
-<span class="co">#&gt; 5  3.02    Fair     I      I1  65.2    56 10577  9.11  9.02  5.91</span>
-<span class="co">#&gt; 6  3.01    Fair     H      I1  56.1    62 10761  9.54  9.38  5.31</span>
-<span class="co">#&gt; # ... with 26 more rows</span></code></pre></div>
-<p>How did I know? I started typing in <code>diamond</code> and RStudio autocorrected it to <code>diamonds</code>. Since <code>diamonds</code> includes the variable <code>carat</code> and the code works, that appears to have been the problem.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>Press Alt + Shift + K. What happens? How can you get to the same place using the menus?</li>
+<span class="co">#&gt; lag():    dplyr, stats</span></code></pre></div>
+<p>Functions and packages used:</p>
+<ul>
+<li><strong>readr</strong>, <strong>feather</strong>, <strong>haven</strong>, <strong>rio</strong></li>
+<li><code>read_csv</code></li>
+<li><code>parse_*</code></li>
+<li><code>type_convert</code></li>
+<li><code>save</code>, <code>load</code></li>
+<li><code>readRDS</code>, <code>writeRDS</code></li>
+<li><code>write_csv</code>, <code>write_tsv</code>, <code>write_feather</code></li>
+<li><code>read_lines</code>, <code>read_file</code></li>
+</ul>
+<div id="getting-started" class="section level2">
+<h2><span class="header-section-number">6.1</span> Getting started</h2>
+<p><strong>Note:</strong> <code>read_log()</code> is important for web data, but likely to be irrelevant to most political science research</p>
+<p><strong>TODO</strong> fill in the links and add any missing</p>
+<div id="exercises-13" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>What function would you use to read a file where fields were separated with “|”?</li>
 </ol>
-<p>This gives a menu with keyboard shortcuts. This can be found in the menu under <code>Tools -&gt; Keyboard Shortcuts Help</code>.</p>
-
+<p>I’d use <code>read_delim</code> with <code>delim=&quot;|&quot;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_delim</span>(file, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)</code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Apart from <code>file</code>, <code>skip</code>, and <code>comment</code>, what other arguments do <code>read_csv()</code> and <code>read_tsv()</code> have in common?</li>
+</ol>
+<p>They have the following arguments in common:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">union</span>(<span class="kw">names</span>(<span class="kw">formals</span>(read_csv)), <span class="kw">names</span>(<span class="kw">formals</span>(read_tsv)))
+<span class="co">#&gt;  [1] &quot;file&quot;      &quot;col_names&quot; &quot;col_types&quot; &quot;locale&quot;    &quot;na&quot;       </span>
+<span class="co">#&gt;  [6] &quot;quoted_na&quot; &quot;comment&quot;   &quot;trim_ws&quot;   &quot;skip&quot;      &quot;n_max&quot;    </span>
+<span class="co">#&gt; [11] &quot;guess_max&quot; &quot;progress&quot;</span></code></pre></div>
+<ul>
+<li><code>col_names</code> and <code>col_types</code> are used to specify the column names and how to parse the columns</li>
+<li><code>locale</code> is important for determining things like the enecoding and whether “.” or “,” is used as a decimal mark.</li>
+<li><code>na</code> and <code>quoted_na</code> control which strings are treated as missing values when parsing vectors</li>
+<li><code>trim_ws</code> trims whitespace before and after cells before parsing</li>
+<li><code>n_max</code> sets how many rows to read</li>
+<li><code>guess_max</code> sets how many rows to use when guessing the column type</li>
+<li><code>progress</code> determines whether a progress bar is shown.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>What are the most important arguments to <code>read_fwf()</code>?</li>
+</ol>
+<p>The most important argument to <code>read_fwf</code> which reads “fixed-width formats”, is <code>col_positions</code> which tells the function where data columns begin and end.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Sometimes strings in a CSV file contain commas. To prevent them from causing problems they need to be surrounded by a quoting character, like <code>&quot;</code> or <code>'</code>. By convention, <code>read_csv()</code> assumes that the quoting character will be <code>&quot;</code>, and if you want to change it you’ll need to use <code>read_delim()</code> instead. What arguments do you need to specify to read the following text into a data frame?</li>
+</ol>
+<pre><code>&quot;x,y\n1,&#39;a,b&#39;&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;x,y</span><span class="ch">\n</span><span class="st">1,&#39;a,b&#39;&quot;</span>
+<span class="kw">read_delim</span>(x, <span class="st">&quot;,&quot;</span>, <span class="dt">quote =</span> <span class="st">&quot;&#39;&quot;</span>)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;       x     y</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     1   a,b</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Identify what is wrong with each of the following inline CSV files. What happens when you run the code?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,6&quot;</span>)
+<span class="co">#&gt; Warning: 2 parsing failures.</span>
+<span class="co">#&gt; row col  expected    actual</span>
+<span class="co">#&gt;   1  -- 2 columns 3 columns</span>
+<span class="co">#&gt;   2  -- 2 columns 3 columns</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     1     2</span>
+<span class="co">#&gt; 2     4     5</span></code></pre></div>
+<p>Only two columns are specified in the header “a” and “b”, but the rows have three columns, so the last column in dropped.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">1,2,3,4&quot;</span>)
+<span class="co">#&gt; Warning: 2 parsing failures.</span>
+<span class="co">#&gt; row col  expected    actual</span>
+<span class="co">#&gt;   1  -- 3 columns 2 columns</span>
+<span class="co">#&gt;   2  -- 3 columns 4 columns</span>
+<span class="co">#&gt; # A tibble: 2 × 3</span>
+<span class="co">#&gt;       a     b     c</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     1     2    NA</span>
+<span class="co">#&gt; 2     1     2     3</span></code></pre></div>
+<p>The numbers of columns in the data do not match the number of columns in the header (three). In row one, there are only two values, so column <code>c</code> is set to missing. In row two, there is an extra value, and that value is dropped.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n\&quot;</span><span class="st">1&quot;</span>)
+<span class="co">#&gt; Warning: 2 parsing failures.</span>
+<span class="co">#&gt; row col                     expected    actual</span>
+<span class="co">#&gt;   1  a  closing quote at end of file          </span>
+<span class="co">#&gt;   1  -- 2 columns                    1 columns</span>
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     1  &lt;NA&gt;</span></code></pre></div>
+<p>It’s not clear what the intent was here. The opening quote <code>\\&quot;1</code> is dropped because it is not closed, and <code>a</code> is treated as an integer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">a,b&quot;</span>)
+<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1     1     2</span>
+<span class="co">#&gt; 2     a     b</span></code></pre></div>
+<p>Both “a” and “b” are treated as character vectors since they contain non-numeric strings. This may have been intentional, or the author may have intended the values of the columns to be “1,2” and “a,b”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;a;b</span><span class="ch">\n</span><span class="st">1;3&quot;</span>)
+<span class="co">#&gt; # A tibble: 1 × 1</span>
+<span class="co">#&gt;   `a;b`</span>
+<span class="co">#&gt;   &lt;chr&gt;</span>
+<span class="co">#&gt; 1   1;3</span></code></pre></div>
+<p>The values are separated by “;” rather than “,”. Use <code>read_csv2</code> instead:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv2</span>(<span class="st">&quot;a;b</span><span class="ch">\n</span><span class="st">1;3&quot;</span>)
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     1     3</span></code></pre></div>
 </div>
+</div>
+<div id="parsing-a-vector" class="section level2">
+<h2><span class="header-section-number">6.2</span> Parsing a vector</h2>
+<p>**<a href="Notes:**" class="uri">Notes:**</a> This is detailed, but these details can make your life hell. Skim now, but be aware that what should be simple, actually is not.</p>
+<blockquote class="twitter-tweet" data-lang="en">
+<p lang="en" dir="ltr">
+In data analysis, ��% is data cleaning, ��% is modeling, and the rest is character encoding issues
+</p>
+— Jeffrey B. Arnold (<span class="citation">@jrnld</span>) <a href="https://twitter.com/jrnld/status/759608460677832706">July 31, 2016</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>This Computerphile video on Unicode is great <a href="https://www.youtube.com/watch?v=MijmeoH9LT4">Characters, Symbols and the Unicode Miracle - Computerphile</a></p>
+<p>Note that these issues are real. Reusing one of Chris Adolph’s csv files from an earlier version of this course gave me problems, resulting in me filing this <a href="https://github.com/tidyverse/readr/issues/111">bug report</a>.</p>
+<p>The suggested reading is very useful: <a href="http://kunststube.net/encoding/" class="uri">http://kunststube.net/encoding/</a></p>
+<p>This becomes especially useful when you take “Text as Data”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">charToRaw</span>(<span class="st">&quot;Jeff&quot;</span>)
+<span class="co">#&gt; [1] 4a 65 66 66</span>
+<span class="kw">class</span>(<span class="kw">charToRaw</span>(<span class="st">&quot;Jeff&quot;</span>))
+<span class="co">#&gt; [1] &quot;raw&quot;</span></code></pre></div>
+<div id="exercises-14" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>What are the most important arguments to <code>locale()</code>?</li>
+</ol>
+<p>The locale broadly controls the following:</p>
+<ul>
+<li>date and time formats: <code>date_names</code>, <code>date_format</code>, and <code>time_format</code></li>
+<li>time_zone: <code>tz</code></li>
+<li>numbers: <code>decimal_mark</code>, <code>grouping_mark</code></li>
+<li>encoding: <code>encoding</code></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>What happens if you try and set <code>decimal_mark</code> and <code>grouping_mark</code> to the same character? What happens to the default value of <code>grouping_mark</code> when you set <code>decimal_mark</code> to “,”? What happens to the default value of <code>decimal_mark</code> when you set the <code>grouping_mark</code> to “.”?</li>
+</ol>
+<p>If the decimal and grouping marks are set to the same character, <code>locale</code> throws an error:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;.&quot;</span>, <span class="dt">grouping_mark =</span> <span class="st">&quot;.&quot;</span>)
+<span class="co">#&gt; Error: `decimal_mark` and `grouping_mark` must be different</span></code></pre></div>
+<p>If the <code>decimal_mark</code> is set to the comma “<code>,&quot;</code>, then the grouping mark is set to the period <code>&quot;.&quot;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;,&quot;</span>)
+<span class="co">#&gt; &lt;locale&gt;</span>
+<span class="co">#&gt; Numbers:  123.456,78</span>
+<span class="co">#&gt; Formats:  %AD / %AT</span>
+<span class="co">#&gt; Timezone: UTC</span>
+<span class="co">#&gt; Encoding: UTF-8</span>
+<span class="co">#&gt; &lt;date_names&gt;</span>
+<span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span>
+<span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span>
+<span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span>
+<span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span>
+<span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span>
+<span class="co">#&gt; AM/PM:  AM/PM</span></code></pre></div>
+<p>If the grouping mark is set to a period, then the decimal mark is set to a comma</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locale</span>(<span class="dt">grouping_mark =</span> <span class="st">&quot;,&quot;</span>)
+<span class="co">#&gt; &lt;locale&gt;</span>
+<span class="co">#&gt; Numbers:  123,456.78</span>
+<span class="co">#&gt; Formats:  %AD / %AT</span>
+<span class="co">#&gt; Timezone: UTC</span>
+<span class="co">#&gt; Encoding: UTF-8</span>
+<span class="co">#&gt; &lt;date_names&gt;</span>
+<span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span>
+<span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span>
+<span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span>
+<span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span>
+<span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span>
+<span class="co">#&gt; AM/PM:  AM/PM</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>I didn’t discuss the <code>date_format</code> and <code>time_format</code> options to <code>locale()</code>. What do they do? Construct an example that shows when they might be useful.</li>
+</ol>
+<p>They provide default date and time formats. The <a href="https://cran.r-project.org/web/packages/readr/vignettes/locales.html">readr vignette</a> discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locale</span>()
+<span class="co">#&gt; &lt;locale&gt;</span>
+<span class="co">#&gt; Numbers:  123,456.78</span>
+<span class="co">#&gt; Formats:  %AD / %AT</span>
+<span class="co">#&gt; Timezone: UTC</span>
+<span class="co">#&gt; Encoding: UTF-8</span>
+<span class="co">#&gt; &lt;date_names&gt;</span>
+<span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span>
+<span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span>
+<span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span>
+<span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span>
+<span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span>
+<span class="co">#&gt; AM/PM:  AM/PM</span></code></pre></div>
+<p>Examples from the readr vignette of parsing French dates</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_date</span>(<span class="st">&quot;1 janvier 2015&quot;</span>, <span class="st">&quot;%d %B %Y&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="st">&quot;fr&quot;</span>))
+<span class="co">#&gt; [1] &quot;2015-01-01&quot;</span>
+<span class="kw">parse_date</span>(<span class="st">&quot;14 oct. 1979&quot;</span>, <span class="st">&quot;%d %b %Y&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="st">&quot;fr&quot;</span>))
+<span class="co">#&gt; [1] &quot;1979-10-14&quot;</span></code></pre></div>
+<p>Apparently the time format is not used for anything, but the date format is used for guessing column types.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?locale</code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>What’s the difference between <code>read_csv()</code> and <code>read_csv2()</code>?</li>
+</ol>
+<p>The delimiter. The function <code>read_csv</code> uses a comma, while <code>read_csv2</code> uses a semi-colon (<code>;</code>). Using a semi-colon is useful when commas are used as the decimal point (as in Europe).</p>
+<ol start="6" style="list-style-type: decimal">
+<li>What are the most common encodings used in Europe? What are the most common encodings used in Asia? Do some googling to find out.</li>
+</ol>
+<p>UTF-8 is standard now, and ASCII has been around forever.</p>
+<p>For the European languages, there are separate encodings for Romance languages and Eastern European languages using Latin script, Cyrillic, Greek, Hebrew, Turkish: usually with separate ISO and Windows encoding standards. There is also Mac OS Roman.</p>
+<p>For Asian languages Arabic and Vietnamese have ISO and Windows standards. The other major Asian scripts have their own:</p>
+<ul>
+<li>Japanese: JIS X 0208, Shift JIS, ISO-2022-JP</li>
+<li>Chinese: GB 2312, GBK, GB 18030</li>
+<li>Korean: KS X 1001, EUC-KR, ISO-2022-KR</li>
+</ul>
+<p>The list in the documentation for <code>stringi::stri_enc_detect</code> is pretty good since it supports the most common encodings:</p>
+<ul>
+<li>Western European Latin script languages: ISO-8859-1, Windows-1250 (also CP-1250 for code-point)</li>
+<li>Eastern European Latin script languages: ISO-8859-2, Windows-1252</li>
+<li>Greek: ISO-8859-7</li>
+<li>Turkish: ISO-8859-9, Windows-1254</li>
+<li>Hebrew: ISO-8859-8, IBM424, Windows 1255</li>
+<li>Russian: Windows 1251</li>
+<li>Japanese: Shift JIS, ISO-2022-JP, EUC-JP</li>
+<li>Korean: ISO-2022-KR, EUC-KR</li>
+<li>Chinese: GB18030, ISO-2022-CN (Simplified), Big5 (Traditional)</li>
+<li>Arabic: ISO-8859-6, IBM420, Windows 1256</li>
+</ul>
+<p>For more information:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Character_encoding" class="uri">https://en.wikipedia.org/wiki/Character_encoding</a> has a good list</li>
+<li><a href="http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language" class="uri">http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language</a></li>
+<li><a href="http://kunststube.net/encoding/" class="uri">http://kunststube.net/encoding/</a></li>
+</ul>
+<p>Some of the more useful programs for this</p>
+<ul>
+<li>In R see <code>readr::guess_encoding</code> and the <strong>stringi</strong> package with <code>str_enc_detect</code></li>
+<li>iconv: <a href="https://en.wikipedia.org/wiki/Iconv" class="uri">https://en.wikipedia.org/wiki/Iconv</a></li>
+<li>chardet: <a href="https://github.com/chardet/chardet" class="uri">https://github.com/chardet/chardet</a> (Python)</li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li>Generate the correct format string to parse each of the following dates and times:</li>
+</ol>
+</div>
+</div>
+<div id="other-types-of-data" class="section level2">
+<h2><span class="header-section-number">6.3</span> Other Types of Data</h2>
+<p><strong>NOTES</strong> Expand on what’s in this section:</p>
+<ul>
+<li>The <code>rio</code> package is very useful for loading different types of</li>
+<li><p>Other useful functions and packages not mentioned here:</p></li>
+<li>Stata: haven, read_dta. While the <strong>foreign</strong> package in R reads Stata files, it cannot read files created by the most recent version of Stata (&gt; 13).</li>
+<li>SPSS: <code>haven::read_spss</code></li>
+<li>SAS: <code>haven::read_sas</code></li>
+<li>XLS: <code>readxl::read_excel</code></li>
+<li>JSON: <strong>jsonlite</strong> pacakge. However, often there are APIs and clients which make this easier, e.g. <strong>pollstR</strong> which returns data from the Huffington Post Pollster API.</li>
+<li>XML: xml2</li>
+<li>HTML: rvest</li>
+<li>Databases: <strong>DBI</strong> and backends</li>
+<li><p>PDF: This is really a different thing as you are extracting data from an unstructured form. It also depends on whether the PDF text is actually an image as from a scan, in which case you need to use OCR to first indentify words.</p>
+<ul>
+<li><code>tabulizer</code>: extracts tables from PDF documents</li>
+<li><code>pdftools</code>: extracts text from pdf documents</li>
+<li>Also see general text analysis packages like <code>tm</code>, <code>quanteda</code>, etc. which often have functions to assist with getting text from PDFs.</li>
+</ul></li>
+</ul>
+<p>Links to Jenny Bryan’s tutorials: <a href="https://jennybc.github.io/purrr-tutorial/index.html">purrr-tutorial worked examples</a></p>
+<ul>
+<li>Discussing <code>csvy</code> as an example of a csv with metadata</li>
+</ul>
+
 </div>
 </div>
             </section>
@@ -406,8 +612,8 @@ my_varıable
           </div>
         </div>
       </div>
-<a href="visualize.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="tibbles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tidy-data.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -426,7 +632,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/r4ds/edit/master/workflow-basics.Rmd",
+"link": "https://github.com/jrnold/r4ds/edit/master/import.Rmd",
 "text": "Edit"
 },
 "download": null,

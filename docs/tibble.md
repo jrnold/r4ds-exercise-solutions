@@ -1,0 +1,280 @@
+
+# Tibbles
+
+## Prerquisites
+
+
+```r
+library("tidyverse")
+```
+
+Functions and packages covered in this chapter:
+
+- package **tibble**
+- `as_tibble`, `tibble`
+
+## Creating Tibbles
+
+Why might you want to create non-syntactic variable names? 
+Since variable names are often used as in plots (e.g. axis-titles) or headers in tables, where having spaces or other characters that are invalid R variable names is useful.
+Those functions will have ways to use text other than the column.
+
+## Tibbles vs. data.frame
+
+Discuss the definition of a data frame.
+
+What is the traditional R `data.frame`?
+
+In general, discuss how this "dialect" of R relates to base R and other R that they will see.
+
+Also, need to discuss types of variables.
+
+
+```r
+nycflights13::flights %>% 
+  print(n = 10, width = Inf)
+#> # A tibble: 336,776 × 19
+#>     year month   day dep_time sched_dep_time dep_delay arr_time
+#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>
+#> 1   2013     1     1      517            515         2      830
+#> 2   2013     1     1      533            529         4      850
+#> 3   2013     1     1      542            540         2      923
+#> 4   2013     1     1      544            545        -1     1004
+#> 5   2013     1     1      554            600        -6      812
+#> 6   2013     1     1      554            558        -4      740
+#> 7   2013     1     1      555            600        -5      913
+#> 8   2013     1     1      557            600        -3      709
+#> 9   2013     1     1      557            600        -3      838
+#> 10  2013     1     1      558            600        -2      753
+#>    sched_arr_time arr_delay carrier flight tailnum origin  dest air_time
+#>             <int>     <dbl>   <chr>  <int>   <chr>  <chr> <chr>    <dbl>
+#> 1             819        11      UA   1545  N14228    EWR   IAH      227
+#> 2             830        20      UA   1714  N24211    LGA   IAH      227
+#> 3             850        33      AA   1141  N619AA    JFK   MIA      160
+#> 4            1022       -18      B6    725  N804JB    JFK   BQN      183
+#> 5             837       -25      DL    461  N668DN    LGA   ATL      116
+#> 6             728        12      UA   1696  N39463    EWR   ORD      150
+#> 7             854        19      B6    507  N516JB    EWR   FLL      158
+#> 8             723       -14      EV   5708  N829AS    LGA   IAD       53
+#> 9             846        -8      B6     79  N593JB    JFK   MCO      140
+#> 10            745         8      AA    301  N3ALAA    LGA   ORD      138
+#>    distance  hour minute           time_hour
+#>       <dbl> <dbl>  <dbl>              <dttm>
+#> 1      1400     5     15 2013-01-01 05:00:00
+#> 2      1416     5     29 2013-01-01 05:00:00
+#> 3      1089     5     40 2013-01-01 05:00:00
+#> 4      1576     5     45 2013-01-01 05:00:00
+#> 5       762     6      0 2013-01-01 06:00:00
+#> 6       719     5     58 2013-01-01 05:00:00
+#> 7      1065     6      0 2013-01-01 06:00:00
+#> 8       229     6      0 2013-01-01 06:00:00
+#> 9       944     6      0 2013-01-01 06:00:00
+#> 10      733     6      0 2013-01-01 06:00:00
+#> # ... with 3.368e+05 more rows
+```
+
+If this were printed in the console it would be much worse. Just try it, I dare you.
+
+```r
+as.data.frame(nycflights13::flights) 
+```
+
+
+## Subsetting
+
+**Note** Warnings about partial matching! What is it and why is it dangerous.
+
+
+```r
+df <- tibble(x = runif(5), y = rnorm(5))
+df$x
+#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
+df[["x"]]
+#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
+df[[1]]
+#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
+df %>% .$x
+#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
+df %>% .[["x"]]
+#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
+```
+
+## Interacting with older code
+
+**Note** Not all older functions work with tibbles (an example includes giAmelia); usually because they rely on quirks in `data.frame` behavior that `tibbles` "fix". Use `as.data.frame()` to turn a tibble back into a `data.frame`. 
+This is usually because of `[` and the way it inconsistenly returns a vector or a data frame.
+With tibbles `[` always returns a data frame
+
+## Exercises
+
+1. How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
+
+
+```r
+mtcars
+#>                      mpg cyl  disp  hp drat   wt qsec vs am gear carb
+#> Mazda RX4           21.0   6 160.0 110 3.90 2.62 16.5  0  1    4    4
+#> Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.88 17.0  0  1    4    4
+#> Datsun 710          22.8   4 108.0  93 3.85 2.32 18.6  1  1    4    1
+#> Hornet 4 Drive      21.4   6 258.0 110 3.08 3.21 19.4  1  0    3    1
+#> Hornet Sportabout   18.7   8 360.0 175 3.15 3.44 17.0  0  0    3    2
+#> Valiant             18.1   6 225.0 105 2.76 3.46 20.2  1  0    3    1
+#> Duster 360          14.3   8 360.0 245 3.21 3.57 15.8  0  0    3    4
+#> Merc 240D           24.4   4 146.7  62 3.69 3.19 20.0  1  0    4    2
+#> Merc 230            22.8   4 140.8  95 3.92 3.15 22.9  1  0    4    2
+#> Merc 280            19.2   6 167.6 123 3.92 3.44 18.3  1  0    4    4
+#> Merc 280C           17.8   6 167.6 123 3.92 3.44 18.9  1  0    4    4
+#> Merc 450SE          16.4   8 275.8 180 3.07 4.07 17.4  0  0    3    3
+#> Merc 450SL          17.3   8 275.8 180 3.07 3.73 17.6  0  0    3    3
+#> Merc 450SLC         15.2   8 275.8 180 3.07 3.78 18.0  0  0    3    3
+#> Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.25 18.0  0  0    3    4
+#> Lincoln Continental 10.4   8 460.0 215 3.00 5.42 17.8  0  0    3    4
+#> Chrysler Imperial   14.7   8 440.0 230 3.23 5.34 17.4  0  0    3    4
+#> Fiat 128            32.4   4  78.7  66 4.08 2.20 19.5  1  1    4    1
+#> Honda Civic         30.4   4  75.7  52 4.93 1.61 18.5  1  1    4    2
+#> Toyota Corolla      33.9   4  71.1  65 4.22 1.83 19.9  1  1    4    1
+#> Toyota Corona       21.5   4 120.1  97 3.70 2.46 20.0  1  0    3    1
+#> Dodge Challenger    15.5   8 318.0 150 2.76 3.52 16.9  0  0    3    2
+#> AMC Javelin         15.2   8 304.0 150 3.15 3.44 17.3  0  0    3    2
+#> Camaro Z28          13.3   8 350.0 245 3.73 3.84 15.4  0  0    3    4
+#> Pontiac Firebird    19.2   8 400.0 175 3.08 3.85 17.1  0  0    3    2
+#> Fiat X1-9           27.3   4  79.0  66 4.08 1.94 18.9  1  1    4    1
+#> Porsche 914-2       26.0   4 120.3  91 4.43 2.14 16.7  0  1    5    2
+#> Lotus Europa        30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2
+#> Ford Pantera L      15.8   8 351.0 264 4.22 3.17 14.5  0  1    5    4
+#> Ferrari Dino        19.7   6 145.0 175 3.62 2.77 15.5  0  1    5    6
+#> Maserati Bora       15.0   8 301.0 335 3.54 3.57 14.6  0  1    5    8
+#> Volvo 142E          21.4   4 121.0 109 4.11 2.78 18.6  1  1    4    2
+```
+
+
+```r
+class(mtcars)
+#> [1] "data.frame"
+```
+
+
+```r
+class(as_tibble(mtcars))
+#> [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+Tibbles will only print out a limited number of rows and show the class on top of each column. Addtionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
+
+2. Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?
+
+
+```r
+df <- data.frame(abc = 1, xyz = "a")
+df$x
+#> [1] a
+#> Levels: a
+df[, "xyz"]
+#> [1] a
+#> Levels: a
+df[, c("abc", "xyz")]
+#>   abc xyz
+#> 1   1   a
+```
+
+
+```r
+tbl <- as_tibble(df)
+tbl$x
+#> Warning: Unknown column 'x'
+#> NULL
+tbl[, "xyz"]
+#> # A tibble: 1 × 1
+#>      xyz
+#>   <fctr>
+#> 1      a
+tbl[, c("abc", "xyz")]
+#> # A tibble: 1 × 2
+#>     abc    xyz
+#>   <dbl> <fctr>
+#> 1     1      a
+```
+
+Using `$` a data.frame will partially complete the column. So even though we wrote `df$x` it returned `df$xyz`. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.
+
+With data.frames, with `[` the type of object that is returned differs on the number of columns. If it is one column, it won't return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did `df[ , vars]` where `vars` was a variable. Then you what that code does depends on `length(vars)` and you'd have to write code to account for those situations or risk bugs.
+
+3. If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
+
+You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign,
+becuase `df$var` would look for a column named `var`. 
+
+4. Practice referring to non-syntactic names in the following data frame by:
+
+  1. Extracting the variable called 1.
+  2. Plotting a scatterplot of 1 vs 2.
+  3. Creating a new column called 3 which is 2 divided by 1.
+  4. Renaming the columns to one, two and three.
+
+
+
+```r
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+```
+
+Extract the variable called 1:
+
+```r
+annoying[["1"]]
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+or
+
+```r
+annoying$`1`
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+A scatterplot of `1` vs. `2`:
+
+```r
+ggplot(annoying, aes(x = `1`, y = `2`)) +
+  geom_point()
+```
+
+<img src="tibble_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+A new column `3` with is `2` divided by `1`:
+
+```r
+annoying[["3"]] = annoying$`2` / annoying$`1`
+```
+
+Renaming the columns to `one`, `two`, and `three`:
+
+```r
+annoying <- rename(annoying, one = `1`, two = `2`, three = `3`)
+glimpse(annoying)
+#> Observations: 10
+#> Variables: 3
+#> $ one   <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+#> $ two   <dbl> 1.14, 2.48, 7.97, 8.46, 9.14, 12.65, 14.08, 16.49, 17.25...
+#> $ three <dbl> 1.14, 1.24, 2.66, 2.12, 1.83, 2.11, 2.01, 2.06, 1.92, 2.03
+```
+
+5. What does `tibble::enframe()` do? When might you use it?
+
+It converts named vectors to a data frame with names and values
+
+```r
+?tibble::enframe
+```
+
+
+6. What option controls how many additional column names are printed at the footer of a tibble?
+
+The print function for tibbles is in `print.tbl_df`:
+
+```r
+?print.tbl_df
+```
+The option `n_extra` determines the number of extra columns to print information for.
+
