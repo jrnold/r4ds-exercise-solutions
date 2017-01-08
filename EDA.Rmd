@@ -5,6 +5,11 @@
 ```{r message=FALSE}
 library("tidyverse")
 ```
+This will also use data from **nycflights13**,
+```{r}
+library("nycflights13")
+```
+
 
 ### Questions
 
@@ -330,12 +335,75 @@ ggplot(data = mpg) +
 
 ### Two categorical variables
 
-1. 
+1. How could you rescale the count dataset above to more clearly show the distribution of cut within colour, or colour within cut?
 
-2. 
+TO clearly show the distribution of `cut` within `color`, calculate a new variable `prop` which is the proportion of each cut within a `color`.
+This is done using a grouped mutate.
+```{r}
+diamonds %>% 
+  count(color, cut) %>%
+  group_by(color) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(mapping = aes(x = color, y = cut)) +
+  geom_tile(mapping = aes(fill = prop)) +
+  scale_fill_viridis(limits = c(0, 1))
+```
+
+Similarly, to scale by the distribution of `color` within `cut`,
+```{r}
+diamonds %>% 
+  count(color, cut) %>%
+  group_by(cut) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(mapping = aes(x = color, y = cut)) +
+  geom_tile(mapping = aes(fill = prop)) +
+  scale_fill_viridis(limits = c(0, 1))
+```
+
+I add `limit = c(0, 1)` to put the color scale between (0, 1). 
+These are the logical boundaries of proportions.
+This makes it possible to compare each cell to its actual value, and would improve comparisons across multiple plots.
+However, it ends up limiting the colors and makes it harder to compare within the dataset. 
+However, using the default limits of the minimum and maximum values makes it easier to compare within the dataset the emphasizing relative differences, but harder to compare across datasets.
+
+2. Use `geom_tile()` together with **dplyr** to explore how average flight delays vary by destination and month of year. What makes the plot difficult to read? How could you improve it?
+
+```{r}
+flights %>%
+  group_by(month, dest) %>%
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
+  geom_tile() +
+  labs(x = "Month", y = "Destination", fill = "Departure Delay")
+```
+
+There are several things that could be done to improve it,
+
+- sort destinations by a meaningful quanity (distance, number of flights, average delay)
+- remove missing values
+- better color scheme (viridis)
+
+How to treat missing values is difficult.
+In this case, missing values correspond to airports which don't have regular flights (at least one flight each month) from NYC. 
+These are likely smaller airports (with higher variance in their average due to fewer observations).
+
+```{r}
+library("viridis")
+flights %>%
+  group_by(month, dest) %>%
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  group_by(dest) %>%
+  filter(n() == 12) %>%
+  ungroup() %>%
+  mutate(dest = fct_reorder(dest, dep_delay)) %>%
+  ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
+  geom_tile() +
+  scale_fill_viridis() +
+  labs(x = "Month", y = "Destination", fill = "Departure Delay")
+```
+
 
 3. Why is it slightly better to use `aes(x = color, y = cut)` rather than `aes(x = cut, y = color)` in the example above?
-
 
 It's usually better to use the categorical variable with a larger number of categories or the longer labels on the y axis. 
 If at all possible, labels should be horizontal because that is easier to read. 
