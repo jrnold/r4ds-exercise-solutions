@@ -239,9 +239,19 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 
 ### A categorical and continuous variable
 
+For a history of the boxplot see Wikckham [40 years of the boxplot] (http://vita.had.co.nz/papers/boxplots.pdf)
+
+Krywinski, Martin, and Naomi Altman. 2014. "Points of Significance: Visualizing samples with box plots." *Nature Methods* [URL](http://www.nature.com/nmeth/journal/v11/n2/full/nmeth.2813.html)
+
+Where does the 1.5 x IQR come from? It's kind of arbitrary. But in a normal distribution, the IQR is approximatley 2, and 1.5 x IQR is approx 4, so the outliers are approximately within 4 standard deviations of the median (mean).
+
+
+#### Excercises
+
 1.  Use what you've learned to improve the visualisation of the departure times
     of cancelled vs. non-cancelled flights.
  
+Instead of a `freqplot` use a box-plot
 
 ```r
 nycflights13::flights %>% 
@@ -251,11 +261,19 @@ nycflights13::flights %>%
     sched_min = sched_dep_time %% 100,
     sched_dep_time = sched_hour + sched_min / 60
   ) %>% 
-  ggplot(mapping = aes(sched_dep_time)) + 
-    geom_freqpoly(mapping = aes(colour = cancelled), binwidth = 1/4)
+  ggplot() +
+    geom_boxplot(mapping = aes(y = sched_dep_time, x = cancelled))
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+2. What variable in the diamonds dataset is most important for predicting
+    the price of a diamond? How is that variable correlated with cut?
+    Why does the combination of those two relationships lead to lower quality
+    diamonds being more expensive?
+
+I'm not exactly sure what this question is asking conditional on using only the tools introduced in the book thus far.
+
 
 
 ### Two categorical variables

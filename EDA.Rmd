@@ -200,58 +200,10 @@ nycflights13::flights %>%
 
 I'm not exactly sure what this question is asking conditional on using only the tools introduced in the book thus far.
 
-```{r}
-ggplot(aes(x = carat)
-```
-
-
-
 
 
 ### Two categorical variables
 
 
 ### Two continuous variables
-
-
-
-```{r}
-to_dummies_ <- function(.data, col, sep = "_") {
-  # I use 
-  vals <- as.character(distinct_(select_(.data, col))[[1]])
-  dots <- set_names(map(vals, function(i, col) {
-    lazyeval::interp(~ as.integer(col == i), i = i, col = as.name(col))
-  }, col = col), paste(col, vals, sep = sep))
-  .data <- mutate_(.data, .dots = dots)
-  .data
-}
-
-to_dummies <- function(.data, col, sep = "_") {
-  to_dummies_(.data, substitute(col), sep = sep)
-}
-
-from_dummies <- function(.data, col, vars, .default = NA_character_) {
-  if (length(vars) == 0) {
-      vars <- lazyeval::lazy_dots(everything())
-  }
-  vars <- select_vars_(tbl_vars(tbl), vars)
-  assert_that(length(.default) == 1L)
-  .default <- as.character(.default)
-  n <- nrow(.data)
-  replaced <- rep(FALSE, n)
-  out <- rep(.default, n)
-  for (i in vars) {
-    query <- !is.na(.data[[i]]) & as.logical(.data[[i]])
-    out[query & !replaced] <- i
-    replaced <- replaced | query
-    if (all(replaced)) {
-      break
-    }
-  }
-  out
-}
-  
-tibble(a = c(1, 0, 0), b = c(0, 1, 0)) %>% from_dummies("foo", c("a", "b"))
-
-```
 
