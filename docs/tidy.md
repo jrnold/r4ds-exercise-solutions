@@ -4,14 +4,7 @@
 
 ## Introduction
 
-
-```r
-library(tidyverse)
-```
-
-## Tidy Data
-
-Functions
+Functions used in this chapter
 
 - `spread`
 - `gather`
@@ -19,6 +12,13 @@ Functions
 - `unite`
 - `complete`
 - `fill`
+
+
+```r
+library(tidyverse)
+```
+
+## Tidy Data
 
 **NOTES**
 
@@ -50,71 +50,6 @@ It is easier to work with variables in columns because of `mutate` and `summary`
 It will also work better with `tidyverse` functions: e.g. using `group_by` to group and summarize, or `facet_*` and aesthetics in **ggplot2**.
 
 The tidy data ideas are adapted from the [database normalization](https://en.wikipedia.org/wiki/Database_normalization), but simplified and adapted to the general uses of practicing data scientists.
-
-x
-
-```r
-table1
-#> # A tibble: 6 × 4
-#>       country  year  cases population
-#>         <chr> <int>  <int>      <int>
-#> 1 Afghanistan  1999    745   19987071
-#> 2 Afghanistan  2000   2666   20595360
-#> 3      Brazil  1999  37737  172006362
-#> 4      Brazil  2000  80488  174504898
-#> 5       China  1999 212258 1272915272
-#> 6       China  2000 213766 1280428583
-table2
-#> # A tibble: 12 × 4
-#>       country  year       type     count
-#>         <chr> <int>      <chr>     <int>
-#> 1 Afghanistan  1999      cases       745
-#> 2 Afghanistan  1999 population  19987071
-#> 3 Afghanistan  2000      cases      2666
-#> 4 Afghanistan  2000 population  20595360
-#> 5      Brazil  1999      cases     37737
-#> 6      Brazil  1999 population 172006362
-#> # ... with 6 more rows
-table3
-#> # A tibble: 6 × 3
-#>       country  year              rate
-#> *       <chr> <int>             <chr>
-#> 1 Afghanistan  1999      745/19987071
-#> 2 Afghanistan  2000     2666/20595360
-#> 3      Brazil  1999   37737/172006362
-#> 4      Brazil  2000   80488/174504898
-#> 5       China  1999 212258/1272915272
-#> 6       China  2000 213766/1280428583
-table4a
-#> # A tibble: 3 × 3
-#>       country `1999` `2000`
-#> *       <chr>  <int>  <int>
-#> 1 Afghanistan    745   2666
-#> 2      Brazil  37737  80488
-#> 3       China 212258 213766
-table4b
-#> # A tibble: 3 × 3
-#>       country     `1999`     `2000`
-#> *       <chr>      <int>      <int>
-#> 1 Afghanistan   19987071   20595360
-#> 2      Brazil  172006362  174504898
-#> 3       China 1272915272 1280428583
-```
-
-
-```r
-table1 %>%
-  mutate(rate = cases / population * 1000)
-#> # A tibble: 6 × 5
-#>       country  year  cases population   rate
-#>         <chr> <int>  <int>      <int>  <dbl>
-#> 1 Afghanistan  1999    745   19987071 0.0373
-#> 2 Afghanistan  2000   2666   20595360 0.1294
-#> 3      Brazil  1999  37737  172006362 0.2194
-#> 4      Brazil  2000  80488  174504898 0.4612
-#> 5       China  1999 212258 1272915272 0.1667
-#> 6       China  2000 213766 1280428583 0.1669
-```
 
 
 ### Exercises
@@ -264,7 +199,7 @@ table2 %>%
   geom_point(aes(colour = country))
 ```
 
-<img src="tidy_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="tidy_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Spreading and Gathering
@@ -649,106 +584,6 @@ With `fill`, it determines whether `NA` values should be replaced by the previou
 ## Case Study
 
 
-```r
-who
-#> # A tibble: 7,240 × 60
-#>       country  iso2  iso3  year new_sp_m014 new_sp_m1524 new_sp_m2534
-#>         <chr> <chr> <chr> <int>       <int>        <int>        <int>
-#> 1 Afghanistan    AF   AFG  1980          NA           NA           NA
-#> 2 Afghanistan    AF   AFG  1981          NA           NA           NA
-#> 3 Afghanistan    AF   AFG  1982          NA           NA           NA
-#> 4 Afghanistan    AF   AFG  1983          NA           NA           NA
-#> 5 Afghanistan    AF   AFG  1984          NA           NA           NA
-#> 6 Afghanistan    AF   AFG  1985          NA           NA           NA
-#> # ... with 7,234 more rows, and 53 more variables: new_sp_m3544 <int>,
-#> #   new_sp_m4554 <int>, new_sp_m5564 <int>, new_sp_m65 <int>,
-#> #   new_sp_f014 <int>, new_sp_f1524 <int>, new_sp_f2534 <int>,
-#> #   new_sp_f3544 <int>, new_sp_f4554 <int>, new_sp_f5564 <int>,
-#> #   new_sp_f65 <int>, new_sn_m014 <int>, new_sn_m1524 <int>,
-#> #   new_sn_m2534 <int>, new_sn_m3544 <int>, new_sn_m4554 <int>,
-#> #   new_sn_m5564 <int>, new_sn_m65 <int>, new_sn_f014 <int>,
-#> #   new_sn_f1524 <int>, new_sn_f2534 <int>, new_sn_f3544 <int>,
-#> #   new_sn_f4554 <int>, new_sn_f5564 <int>, new_sn_f65 <int>,
-#> #   new_ep_m014 <int>, new_ep_m1524 <int>, new_ep_m2534 <int>,
-#> #   new_ep_m3544 <int>, new_ep_m4554 <int>, new_ep_m5564 <int>,
-#> #   new_ep_m65 <int>, new_ep_f014 <int>, new_ep_f1524 <int>,
-#> #   new_ep_f2534 <int>, new_ep_f3544 <int>, new_ep_f4554 <int>,
-#> #   new_ep_f5564 <int>, new_ep_f65 <int>, newrel_m014 <int>,
-#> #   newrel_m1524 <int>, newrel_m2534 <int>, newrel_m3544 <int>,
-#> #   newrel_m4554 <int>, newrel_m5564 <int>, newrel_m65 <int>,
-#> #   newrel_f014 <int>, newrel_f1524 <int>, newrel_f2534 <int>,
-#> #   newrel_f3544 <int>, newrel_f4554 <int>, newrel_f5564 <int>,
-#> #   newrel_f65 <int>
-```
-
-
-```r
-glimpse(who)
-#> Observations: 7,240
-#> Variables: 60
-#> $ country      <chr> "Afghanistan", "Afghanistan", "Afghanistan", "Afg...
-#> $ iso2         <chr> "AF", "AF", "AF", "AF", "AF", "AF", "AF", "AF", "...
-#> $ iso3         <chr> "AFG", "AFG", "AFG", "AFG", "AFG", "AFG", "AFG", ...
-#> $ year         <int> 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1...
-#> $ new_sp_m014  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_m1524 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_m2534 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_m3544 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_m4554 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_m5564 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_m65   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_f014  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_f1524 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_f2534 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_f3544 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_f4554 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_f5564 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sp_f65   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_m014  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_m1524 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_m2534 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_m3544 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_m4554 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_m5564 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_m65   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_f014  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_f1524 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_f2534 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_f3544 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_f4554 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_f5564 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_sn_f65   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_m014  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_m1524 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_m2534 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_m3544 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_m4554 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_m5564 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_m65   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_f014  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_f1524 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_f2534 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_f3544 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_f4554 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_f5564 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ new_ep_f65   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_m014  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_m1524 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_m2534 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_m3544 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_m4554 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_m5564 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_m65   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_f014  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_f1524 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_f2534 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_f3544 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_f4554 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_f5564 <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-#> $ newrel_f65   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
-```
-
-
 
 ```r
 who1 <- who %>%
@@ -911,7 +746,7 @@ who5 %>%
   
 ```
 
-<img src="tidy_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="tidy_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
 
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.

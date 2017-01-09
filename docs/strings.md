@@ -1,7 +1,7 @@
 
 # Strings
 
-## Notes
+## Introduction
 
 Functions and packages coverered
 
@@ -32,13 +32,12 @@ Ideas
 - Discuss fuzzy joining and string distance, approximate matching.
 
 
-## Prerequisites
-
 
 ```r
 library(tidyverse)
 library(stringr)
 ```
+
 
 ## String Basics
 
@@ -871,9 +870,9 @@ str_extract_all(sentences, boundary("word")) %>%
 
 1. Find the stringi functions that:
 
-  1. Count the number of words. `stri_count_words`
-  2. Find duplicated strings. `stri_duplicated`
-  2. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
+    1. Count the number of words. `stri_count_words`
+    2. Find duplicated strings. `stri_duplicated`
+    2. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
 
 2. How do you control the language that `stri_sort()` uses for sorting?
 

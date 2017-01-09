@@ -1,19 +1,7 @@
 
 # Data Import
 
-
-```r
-library("tidyverse")
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
-```
+## Introduction 
 
 Functions and packages used:
 
@@ -25,6 +13,11 @@ Functions and packages used:
 - `readRDS`, `writeRDS`
 - `write_csv`, `write_tsv`, `write_feather`
 - `read_lines`, `read_file`
+
+
+```r
+library("tidyverse")
+```
 
 
 ## Getting started
@@ -173,7 +166,7 @@ read_csv2("a;b\n1;3")
   
 ## Parsing a vector
 
-**Notes:** This is detailed, but these details can make your life hell. Skim now, but be aware that what should be simple, actually is not.
+*Notes* This is detailed, but these details can make your life hell. Skim now, but be aware that what should be simple, actually is not.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">In data analysis, ��% is data cleaning, ��% is modeling, and the rest is character encoding issues</p>&mdash; Jeffrey B. Arnold (@jrnld) <a href="https://twitter.com/jrnld/status/759608460677832706">July 31, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>

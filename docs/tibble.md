@@ -29,51 +29,7 @@ In general, discuss how this "dialect" of R relates to base R and other R that t
 
 Also, need to discuss types of variables.
 
-
-```r
-nycflights13::flights %>% 
-  print(n = 10, width = Inf)
-#> # A tibble: 336,776 × 19
-#>     year month   day dep_time sched_dep_time dep_delay arr_time
-#>    <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1   2013     1     1      517            515         2      830
-#> 2   2013     1     1      533            529         4      850
-#> 3   2013     1     1      542            540         2      923
-#> 4   2013     1     1      544            545        -1     1004
-#> 5   2013     1     1      554            600        -6      812
-#> 6   2013     1     1      554            558        -4      740
-#> 7   2013     1     1      555            600        -5      913
-#> 8   2013     1     1      557            600        -3      709
-#> 9   2013     1     1      557            600        -3      838
-#> 10  2013     1     1      558            600        -2      753
-#>    sched_arr_time arr_delay carrier flight tailnum origin  dest air_time
-#>             <int>     <dbl>   <chr>  <int>   <chr>  <chr> <chr>    <dbl>
-#> 1             819        11      UA   1545  N14228    EWR   IAH      227
-#> 2             830        20      UA   1714  N24211    LGA   IAH      227
-#> 3             850        33      AA   1141  N619AA    JFK   MIA      160
-#> 4            1022       -18      B6    725  N804JB    JFK   BQN      183
-#> 5             837       -25      DL    461  N668DN    LGA   ATL      116
-#> 6             728        12      UA   1696  N39463    EWR   ORD      150
-#> 7             854        19      B6    507  N516JB    EWR   FLL      158
-#> 8             723       -14      EV   5708  N829AS    LGA   IAD       53
-#> 9             846        -8      B6     79  N593JB    JFK   MCO      140
-#> 10            745         8      AA    301  N3ALAA    LGA   ORD      138
-#>    distance  hour minute           time_hour
-#>       <dbl> <dbl>  <dbl>              <dttm>
-#> 1      1400     5     15 2013-01-01 05:00:00
-#> 2      1416     5     29 2013-01-01 05:00:00
-#> 3      1089     5     40 2013-01-01 05:00:00
-#> 4      1576     5     45 2013-01-01 05:00:00
-#> 5       762     6      0 2013-01-01 06:00:00
-#> 6       719     5     58 2013-01-01 05:00:00
-#> 7      1065     6      0 2013-01-01 06:00:00
-#> 8       229     6      0 2013-01-01 06:00:00
-#> 9       944     6      0 2013-01-01 06:00:00
-#> 10      733     6      0 2013-01-01 06:00:00
-#> # ... with 3.368e+05 more rows
-```
-
-If this were printed in the console it would be much worse. Just try it, I dare you.
+If `nycflights::flights` were printed in the console it would be much worse. Just try it, I dare you.
 
 ```r
 as.data.frame(nycflights13::flights) 
@@ -85,19 +41,6 @@ as.data.frame(nycflights13::flights)
 **Note** Warnings about partial matching! What is it and why is it dangerous.
 
 
-```r
-df <- tibble(x = runif(5), y = rnorm(5))
-df$x
-#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
-df[["x"]]
-#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
-df[[1]]
-#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
-df %>% .$x
-#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
-df %>% .[["x"]]
-#> [1] 0.0808 0.8343 0.6008 0.1572 0.0074
-```
 
 ## Interacting with older code
 
@@ -206,10 +149,10 @@ becuase `df$var` would look for a column named `var`.
 
 4. Practice referring to non-syntactic names in the following data frame by:
 
-  1. Extracting the variable called 1.
-  2. Plotting a scatterplot of 1 vs 2.
-  3. Creating a new column called 3 which is 2 divided by 1.
-  4. Renaming the columns to one, two and three.
+    1. Extracting the variable called 1.
+    2. Plotting a scatterplot of 1 vs 2.
+    3. Creating a new column called 3 which is 2 divided by 1.
+    4. Renaming the columns to one, two and three.
 
 
 
@@ -240,13 +183,19 @@ ggplot(annoying, aes(x = `1`, y = `2`)) +
   geom_point()
 ```
 
-<img src="tibble_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="tibble_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 A new column `3` with is `2` divided by `1`:
 
 ```r
-annoying[["3"]] = annoying$`2` / annoying$`1`
+annoying[["3"]] <- annoying$`2` / annoying$`1`
 ```
+or
+
+```r
+annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
+```
+
 
 Renaming the columns to `one`, `two`, and `three`:
 
@@ -256,8 +205,8 @@ glimpse(annoying)
 #> Observations: 10
 #> Variables: 3
 #> $ one   <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-#> $ two   <dbl> 1.14, 2.48, 7.97, 8.46, 9.14, 12.65, 14.08, 16.49, 17.25...
-#> $ three <dbl> 1.14, 1.24, 2.66, 2.12, 1.83, 2.11, 2.01, 2.06, 1.92, 2.03
+#> $ two   <dbl> 0.60, 4.26, 3.56, 7.99, 10.62, 13.15, 12.18, 15.75, 17.7...
+#> $ three <dbl> 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97
 ```
 
 5. What does `tibble::enframe()` do? When might you use it?
@@ -266,6 +215,17 @@ It converts named vectors to a data frame with names and values
 
 ```r
 ?tibble::enframe
+```
+
+
+```r
+enframe(c(a = 1, b = 2, c = 3))
+#> # A tibble: 3 × 2
+#>    name value
+#>   <chr> <dbl>
+#> 1     a     1
+#> 2     b     2
+#> 3     c     3
 ```
 
 

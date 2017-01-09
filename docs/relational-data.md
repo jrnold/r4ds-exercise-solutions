@@ -5,11 +5,11 @@
 
 
 ```r
-library(tidyverse)
-library(nycflights13)
+library("tidyverse")
+library("nycflights13")
 ```
 
-ideas
+Topics, functions
 
 - keys: primary key, foreign key, 
 - mutating joins: `left_join`, `right_join`, `inner_join`, `full_join`
@@ -80,34 +80,6 @@ weather
 #> # ... with 2.612e+04 more rows, and 5 more variables: wind_gust <dbl>,
 #> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
 ```
-
-### Exercises
-
-**TODO**
-
-## Keys
-
-
-```r
-planes %>% 
-  count(tailnum) %>%
-  filter(n > 1)
-#> # A tibble: 0 × 2
-#> # ... with 2 variables: tailnum <chr>, n <int>
-```
-
-
-```r
-weather %>%
-  count(year, month, day, hour, origin) %>%
-  filter(n > 1)
-#> Source: local data frame [0 x 6]
-#> Groups: year, month, day, hour [0]
-#> 
-#> # ... with 6 variables: year <dbl>, month <dbl>, day <int>, hour <int>,
-#> #   origin <chr>, n <int>
-```
-
 
 
 ### Exercises
@@ -293,14 +265,9 @@ airports %>%
     borders("state") +
     geom_point() +
     coord_quickmap()
-#> 
-#> Attaching package: 'maps'
-#> The following object is masked from 'package:purrr':
-#> 
-#>     map
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 (Don’t worry if you don’t understand what `semi_join()` does — you’ll learn about it next.)
 
@@ -320,7 +287,7 @@ avg_dest_delays %>%
     coord_quickmap()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 You might want to use the size or colour of the points to display the average delay for each airport.
@@ -373,7 +340,7 @@ flights %>%
 #> Warning: Removed 1 rows containing missing values (geom_path).
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 4. What weather conditions make it more likely to see a delay?
@@ -396,7 +363,7 @@ flight_weather %>%
     geom_line() + geom_point()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -421,7 +388,7 @@ flights %>%
 #> Warning: Removed 3 rows containing missing values (geom_point).
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Filtering Joins
@@ -564,49 +531,6 @@ flights %>%
 ```
 
 
-
 ## Set operations
 
-
-```r
-df1 <- tribble(
-  ~x, ~y,
-   1,  1,
-   2,  1
-)
-df2 <- tribble(
-  ~x, ~y,
-   1,  1,
-   1,  2
-)
-```
-
-
-```r
-intersect(df1, df2)
-#> # A tibble: 1 × 2
-#>       x     y
-#>   <dbl> <dbl>
-#> 1     1     1
-```
-
-
-```r
-union(df1, df2)
-#> # A tibble: 3 × 2
-#>       x     y
-#>   <dbl> <dbl>
-#> 1     1     2
-#> 2     2     1
-#> 3     1     1
-```
-
-
-```r
-setdiff(df1, df2)
-#> # A tibble: 1 × 2
-#>       x     y
-#>   <dbl> <dbl>
-#> 1     2     1
-```
-
+No exercises

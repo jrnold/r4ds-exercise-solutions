@@ -1,8 +1,7 @@
 
----
-title: "Ch 20: Vectors"
-output: html_notebook
----
+# Vectors
+
+## Introduction
 
 Functions mentioned
 
@@ -11,7 +10,6 @@ Functions mentioned
 - `is.finite`, `is.nan`, `is.na`
 - `attributes`
 
-## Prerequisites
 
 
 ```r
@@ -28,6 +26,13 @@ library("tidyverse")
 ```
 
 ## Important types of Atomic Vector
+
+Why does this matter? 99% of the time in the work you do, it won't.
+Someone else has written the numerical methods and (hopefully) accounted for these issues.
+And the types of problems you encounter in social science generally are not dealing with these issues.
+However, if you aren't even aware that "floating point numbers" are a "thing", if something goes wrong, it will seem like magic.
+Also, at least being aware of these problems will help you understand error messages from optimization routines that complaing of "numerical precision".
+
 
 ### Exercises
 
@@ -129,6 +134,12 @@ sum(round(x))
 sum(round2(x))
 #> [1] 101
 ```
+
+Here's a real-world non-engineering example of rounding going terribly wrong.
+In 1983, the Vancouver stock exchange adjusted its index from 524.811 to 1098.892 to correct for accumulated error due to rounding to three decimal points (see [Vancouver Stock Exchange](https://en.wikipedia.org/wiki/Vancouver_Stock_Exchange])).
+
+Here's a [list](https://www.ma.utexas.edu/users/arbogast/misc/disasters.html) of a few more.
+
 
 
 5. What functions from the **readr** package allow you to turn a string into logical, integer, and double vector?
@@ -394,101 +405,6 @@ x[1, ]
 
 ## Augmented Vectors
 
-### Factors
-
-
-```r
-x <- factor(c("ab", "cd", "ab"), levels = c("ab", "cd", "ef"))
-typeof(x)
-#> [1] "integer"
-attributes(x)
-#> $levels
-#> [1] "ab" "cd" "ef"
-#> 
-#> $class
-#> [1] "factor"
-```
-
-### Dates and date-times
-
-
-```r
-x <- as.Date("1971-01-01")
-unclass(x)
-#> [1] 365
-typeof(x)
-#> [1] "double"
-attributes(x)
-#> $class
-#> [1] "Date"
-```
-
-
-```r
-x <- lubridate::ymd_hm("1970-01-01 01:00")
-unclass(x)
-#> [1] 3600
-#> attr(,"tzone")
-#> [1] "UTC"
-typeof(x)
-#> [1] "double"
-attributes(x)
-#> $tzone
-#> [1] "UTC"
-#> 
-#> $class
-#> [1] "POSIXct" "POSIXt"
-```
-
-
-```r
-y <- as.POSIXlt(x)
-typeof(y)
-#> [1] "list"
-attributes(y)
-#> $names
-#> [1] "sec"   "min"   "hour"  "mday"  "mon"   "year"  "wday"  "yday"  "isdst"
-#> 
-#> $class
-#> [1] "POSIXlt" "POSIXt" 
-#> 
-#> $tzone
-#> [1] "UTC"
-```
-
-### Tibbles
-
-
-```r
-tb <- tibble::tibble(x = 1:5, y = 5:1)
-typeof(tb)
-#> [1] "list"
-attributes(tb)
-#> $names
-#> [1] "x" "y"
-#> 
-#> $class
-#> [1] "tbl_df"     "tbl"        "data.frame"
-#> 
-#> $row.names
-#> [1] 1 2 3 4 5
-```
-
-
-```r
-df <- data.frame(x = 1:5, y = 5:1)
-typeof(df)
-#> [1] "list"
-attributes(df)
-#> $names
-#> [1] "x" "y"
-#> 
-#> $row.names
-#> [1] 1 2 3 4 5
-#> 
-#> $class
-#> [1] "data.frame"
-```
 
 ### Exercises
 

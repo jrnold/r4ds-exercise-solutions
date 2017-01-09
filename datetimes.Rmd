@@ -1,9 +1,4 @@
----
-title: "Ch 16: Dates and Times"
-output: html_notebook
----
-
-Notes
+# Dates and Times
 
 - **lubridate**
 
@@ -39,43 +34,6 @@ library(nycflights13)
 
 ## Creating date/times
 
-`today` and `now` are both lubridate functions
-```{r}
-today()
-now()
-```
-
-From strings
-```{r}
-ymd("2017-01-31")
-mdy("January 31st, 2017")
-dmy("31-Jan-2017")
-```
-
-They allow for unquoted numbers
-```{r}
-ymd(20170131)
-```
-
-```{r}
-ymd_hms("2017-01-31 20:11:59")
-mdy_hm("01/31/2017 08:01")
-ymd(20170131, tz = "UTC")
-```
-
-From individual components
-
-```{r}
-flights %>%
-  select(year, month, day, hour, minute) %>%
-  mutate(departure = make_datetime(year, month, day, hour, minute))
-```
-
-
-```{r}
-flights %>% select(dep_time) %>% head()
-```
-
 **NOTE** %/% is integer division, divide and throw away the remainder. %% calculates the modulus (remainder of division). For example to test for an even number: `x %% 2 == 0`, or odd `x %% 2 == 1`. To get the thousands value of a number `x %/% 1000`.
 
 ```{r}
@@ -95,26 +53,10 @@ flights_dt <- flights %>%
 flights_dt %>% head
 ```
 
-```{r}
-flights_dt %>% 
-  ggplot(aes(dep_time)) + 
-  geom_freqpoly(binwidth = 86400) # 86400 seconds = 1 day
-```
 
-
-```{r}
-flights_dt %>% 
-  filter(dep_time < ymd(20130102)) %>% 
-  ggplot(aes(dep_time)) + 
-  geom_freqpoly(binwidth = 600) # 600 s = 10 minutes
-```
-
-```{r}
-as_datetime(today())
-as_date(now())
-```
-
-**Note** Say something about Unix epochs.
+Times are often stored as integers since a reference time, called an epoch.
+The most epoch is the [UNIX](https://en.wikipedia.org/wiki/Unix_time) (or POSIX) Epoch of January 1st, 1970 00:00:00.
+So, interally, times are stored as the number of days, seconds, or milliseconds, etc. since the 1970-01-01 00:00:00.000.
 
 Calculate dates and datetimes from number of seconds (`as_datetime`) or days (`as_date`) from Unix epoch.
 ```{r}
@@ -124,6 +66,7 @@ as_datetime(60 * 60 * 10)
 ```{r}
 as_date(365 * 10 + 2)
 ```
+
 
 ### Exercises 
 
@@ -156,39 +99,9 @@ d5 <- "12/30/14" # Dec 30, 2014
 mdy(d5)
 ```
 
+
 ## Date-Time Components
 
-```{r}
-datetime <- ymd_hms("2016-07-08 12:34:56")
-year(datetime)
-month(datetime)
-mday(datetime)
-yday(datetime)
-wday(datetime)
-```
-
- 
-```{r}
-month(datetime, label = TRUE)
-wday(datetime, label = TRUE, abbr = FALSE)
-```
-
-```{r}
-flights_dt %>%
-  mutate(wday = wday(dep_time, label = TRUE)) %>%
-  ggplot(aes(x = wday)) + geom_bar()
-```
-
-```{r}
-flights_dt %>%
-  mutate(minute = minute(dep_time)) %>%
-  group_by(minute) %>%
-  summarise(
-    avg_delay = mean(arr_delay, na.rm = TRUE),
-    n = n()) %>%
-  ggplot(aes(minute, avg_delay)) +
-  geom_line()
-```
 
 ```{r}
 sched_dep <- flights_dt %>%
@@ -197,25 +110,10 @@ sched_dep <- flights_dt %>%
   summarise(
     avg_delay = mean(arr_delay, na.rm = TRUE),
     n = n())
-
-ggplot(sched_dep, aes(minute, avg_delay)) +
-  geom_line()
 ```
 
-```{r}
-ggplot(sched_dep, aes(minute, n)) +
-  geom_line()
-```
 
-```{r}
-flights_dt %>%
-  count(week = floor_date(dep_time, "week")) %>%
-  ggplot(aes(week, n)) +
-  geom_line()
-  
-```
-
-**Note** difference between rounded and unrounded date can give the within period time.
+**Note** The difference between rounded and unrounded dates provides the within period time.
 
 ```{r}
 (datetime <- ymd_hms("2016-07-08 12:34:56"))
@@ -227,31 +125,12 @@ hour(datetime) <- hour(datetime) + 1
 datetime
 ```
 
-```{r}
-update(datetime, year = 2020, month = 2, mday = 2, hour = 2)
-```
-
-roll-over for large values
-```{r}
-ymd("2015-02-01") %>% update(mday = 30)
-```
-```{r}
-ymd("2015-02-01") %>%
-  update(hour = 400)
-```
-
-```{r}
-flights_dt %>%
-  mutate(dep_hour = update(dep_time, yday = 1)) %>%
-  ggplot(aes(dep_hour)) +
-  geom_freqpoly(binwidth = 300)
-```
 
 ### Exercises
 
 1. How does the distribution of flight times within a day change over the course of the year?
 
-Let's try plotting this by month? 
+Let's try plotting this by month:
 ```{r}
 flights_dt %>%
   mutate(time = hour(dep_time) * 100 + minute(dep_time),
@@ -381,78 +260,9 @@ flights_dt %>%
 
 ### Durations
 
-```{r}
-h_age <- today() - ymd(19791014)
-class(h_age)
-h_age
-```
-
-```{r}
-as.duration(h_age)
-```
-
-```{r}
-dseconds(15)
-dminutes(10)
-dhours(c(12, 24))
-ddays(0:5)
-dweeks(3)
-dyears(1)
-```
-
-durations are always in seconds, and larger units are in the standard multiples of seconds.
-
-Arithmetic with durations
-```{r}
-2 * dyears(1)
-dyears(1) + dweeks(12) + dhours(15)
-```
-
-```{r}
-tomorrow <- today() + ddays(1)
-last_year <- today() - dyears(1)
-```
-
-Surprising results because doesn't account for weirdness like timezones
-```{r}
-one_pm <- ymd_hms("2016-03-12 13:00:00", tz = "America/New_York")
-one_pm
-one_pm + ddays(1)
-```
+No exercises
 
 ### Periods
-
-Periods are durations for the irregular messy human time periods: months, days. 
-
-```{r}
-one_pm
-one_pm + days(1)
-```
-
-```{r}
-seconds(15)
-minutes(10)
-hours(c(12, 14))
-days(7)
-months(1:6)
-weeks(3)
-years(1)
-```
-
-Add or multiply periods:
-```{r}
-10 * (months(6) + days(1))
-days(50) + hours(25) + minutes(2)
-```
-
-```{r}
-# leap year
-ymd("2016-01-01") + dyears(1)
-ymd("2016-01-01") + years(1)
-# DST
-one_pm + ddays(1)
-one_pm + days(1)
-```
 
 Define overnight when `arr_time < dep_time` (no flights > 24 hours):
 ```{r}
@@ -464,31 +274,12 @@ flights_dt <- flights_dt %>%
   )
 ```
 
-```{r}
-flights_dt %>%
-  filter(overnight, arr_time < dep_time)
-```
 
 ### Intervals
 
-**NOTE** This section seems less complete than the others.
+**NOTE** This section seems less complete than the others. 
+Refer to the [lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html) vignette for more information.
 
-Interval = duration with starting point.
-
-```{r}
-years(1) / days(1)
-```
-
-```{r}
-next_year <- today() + years(1)
-(today() %--% next_year) / ddays(1)
-```
-
-For number of periods in an intervla, use integer division.
-
-```{r}
-(today() %--% next_year) %/% days(1)
-```
 
 ### Exercises
 
@@ -537,43 +328,7 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 (today() %--% (today() + years(1))) / months(1)
 ```
 
+
 ### Time Zones
 
-```{r}
-Sys.timezone()
-```
-
-```{r}
-length(OlsonNames())
-head(OlsonNames())
-```
-
-In R, timezones only control printing.
-```{r}
-(x1 <- ymd_hms("2015-06-01 12:00:00", tz = "America/New_York"))
-(x2 <- ymd_hms("2015-06-01 18:00:00", tz = "Europe/Copenhagen"))
-(x3 <- ymd_hms("2015-06-02 04:00:00", tz = "Pacific/Auckland"))
-```
-```{r}
-x1 - x2
-x1 - x3
-```
-
-Lubridate always uses UTC unless otherwise specified.
-```{r}
-x4 <- c(x1, x2, x3)
-x4
-```
-
-To keep time-zone
-```{r}
-x4a <- with_tz(x4, tzone = "Australia/Lord_Howe")
-x4a
-x4a - x4
-```
-Change underlying instant
-```{r}
-x4b <- force_tz(x4, tzone = "Australia/Lord_Howe")
-x4b - x4
-```
-
+No exercises. But time-zones are hell. Be happy you aren't dealing with financial data.

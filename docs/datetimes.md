@@ -1,10 +1,5 @@
 
----
-title: "Ch 16: Dates and Times"
-output: html_notebook
----
-
-Notes
+# Dates and Times
 
 - **lubridate**
 
@@ -41,77 +36,6 @@ library(nycflights13)
 
 ## Creating date/times
 
-`today` and `now` are both lubridate functions
-
-```r
-today()
-#> [1] "2017-01-08"
-now()
-#> [1] "2017-01-08 13:29:10 PST"
-```
-
-From strings
-
-```r
-ymd("2017-01-31")
-#> [1] "2017-01-31"
-mdy("January 31st, 2017")
-#> [1] "2017-01-31"
-dmy("31-Jan-2017")
-#> [1] "2017-01-31"
-```
-
-They allow for unquoted numbers
-
-```r
-ymd(20170131)
-#> [1] "2017-01-31"
-```
-
-
-```r
-ymd_hms("2017-01-31 20:11:59")
-#> [1] "2017-01-31 20:11:59 UTC"
-mdy_hm("01/31/2017 08:01")
-#> [1] "2017-01-31 08:01:00 UTC"
-ymd(20170131, tz = "UTC")
-#> [1] "2017-01-31 UTC"
-```
-
-From individual components
-
-
-```r
-flights %>%
-  select(year, month, day, hour, minute) %>%
-  mutate(departure = make_datetime(year, month, day, hour, minute))
-#> # A tibble: 336,776 × 6
-#>    year month   day  hour minute           departure
-#>   <int> <int> <int> <dbl>  <dbl>              <dttm>
-#> 1  2013     1     1     5     15 2013-01-01 05:15:00
-#> 2  2013     1     1     5     29 2013-01-01 05:29:00
-#> 3  2013     1     1     5     40 2013-01-01 05:40:00
-#> 4  2013     1     1     5     45 2013-01-01 05:45:00
-#> 5  2013     1     1     6      0 2013-01-01 06:00:00
-#> 6  2013     1     1     5     58 2013-01-01 05:58:00
-#> # ... with 3.368e+05 more rows
-```
-
-
-
-```r
-flights %>% select(dep_time) %>% head()
-#> # A tibble: 6 × 1
-#>   dep_time
-#>      <int>
-#> 1      517
-#> 2      533
-#> 3      542
-#> 4      544
-#> 5      554
-#> 6      554
-```
-
 **NOTE** %/% is integer division, divide and throw away the remainder. %% calculates the modulus (remainder of division). For example to test for an even number: `x %% 2 == 0`, or odd `x %% 2 == 1`. To get the thousands value of a number `x %/% 1000`.
 
 
@@ -144,34 +68,9 @@ flights_dt %>% head
 ```
 
 
-```r
-flights_dt %>% 
-  ggplot(aes(dep_time)) + 
-  geom_freqpoly(binwidth = 86400) # 86400 seconds = 1 day
-```
-
-<img src="datetimes_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
-
-
-
-```r
-flights_dt %>% 
-  filter(dep_time < ymd(20130102)) %>% 
-  ggplot(aes(dep_time)) + 
-  geom_freqpoly(binwidth = 600) # 600 s = 10 minutes
-```
-
-<img src="datetimes_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
-
-
-```r
-as_datetime(today())
-#> [1] "2017-01-08 UTC"
-as_date(now())
-#> [1] "2017-01-08"
-```
-
-**Note** Say something about Unix epochs.
+Times are often stored as integers since a reference time, called an epoch.
+The most epoch is the [UNIX](https://en.wikipedia.org/wiki/Unix_time) (or POSIX) Epoch of January 1st, 1970 00:00:00.
+So, interally, times are stored as the number of days, seconds, or milliseconds, etc. since the 1970-01-01 00:00:00.000.
 
 Calculate dates and datetimes from number of seconds (`as_datetime`) or days (`as_date`) from Unix epoch.
 
@@ -185,6 +84,7 @@ as_datetime(60 * 60 * 10)
 as_date(365 * 10 + 2)
 #> [1] "1980-01-01"
 ```
+
 
 ### Exercises 
 
@@ -227,56 +127,9 @@ mdy(d5)
 #> [1] "2014-12-30"
 ```
 
+
 ## Date-Time Components
 
-
-```r
-datetime <- ymd_hms("2016-07-08 12:34:56")
-year(datetime)
-#> [1] 2016
-month(datetime)
-#> [1] 7
-mday(datetime)
-#> [1] 8
-yday(datetime)
-#> [1] 190
-wday(datetime)
-#> [1] 6
-```
-
- 
-
-```r
-month(datetime, label = TRUE)
-#> [1] Jul
-#> 12 Levels: Jan < Feb < Mar < Apr < May < Jun < Jul < Aug < Sep < ... < Dec
-wday(datetime, label = TRUE, abbr = FALSE)
-#> [1] Friday
-#> 7 Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < ... < Saturday
-```
-
-
-```r
-flights_dt %>%
-  mutate(wday = wday(dep_time, label = TRUE)) %>%
-  ggplot(aes(x = wday)) + geom_bar()
-```
-
-<img src="datetimes_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
-
-
-```r
-flights_dt %>%
-  mutate(minute = minute(dep_time)) %>%
-  group_by(minute) %>%
-  summarise(
-    avg_delay = mean(arr_delay, na.rm = TRUE),
-    n = n()) %>%
-  ggplot(aes(minute, avg_delay)) +
-  geom_line()
-```
-
-<img src="datetimes_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -286,33 +139,10 @@ sched_dep <- flights_dt %>%
   summarise(
     avg_delay = mean(arr_delay, na.rm = TRUE),
     n = n())
-
-ggplot(sched_dep, aes(minute, avg_delay)) +
-  geom_line()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
 
-
-```r
-ggplot(sched_dep, aes(minute, n)) +
-  geom_line()
-```
-
-<img src="datetimes_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
-
-
-```r
-flights_dt %>%
-  count(week = floor_date(dep_time, "week")) %>%
-  ggplot(aes(week, n)) +
-  geom_line()
-  
-```
-
-<img src="datetimes_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
-
-**Note** difference between rounded and unrounded date can give the within period time.
+**Note** The difference between rounded and unrounded dates provides the within period time.
 
 
 ```r
@@ -330,39 +160,11 @@ datetime
 ```
 
 
-```r
-update(datetime, year = 2020, month = 2, mday = 2, hour = 2)
-#> [1] "2020-02-02 02:34:56 UTC"
-```
-
-roll-over for large values
-
-```r
-ymd("2015-02-01") %>% update(mday = 30)
-#> [1] "2015-03-02"
-```
-
-```r
-ymd("2015-02-01") %>%
-  update(hour = 400)
-#> [1] "2015-02-17 16:00:00 UTC"
-```
-
-
-```r
-flights_dt %>%
-  mutate(dep_hour = update(dep_time, yday = 1)) %>%
-  ggplot(aes(dep_hour)) +
-  geom_freqpoly(binwidth = 300)
-```
-
-<img src="datetimes_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
-
 ### Exercises
 
 1. How does the distribution of flight times within a day change over the course of the year?
 
-Let's try plotting this by month? 
+Let's try plotting this by month:
 
 ```r
 flights_dt %>%
@@ -373,7 +175,7 @@ flights_dt %>%
   geom_freqpoly(binwidth = 100)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
 This will look better if everything is normalized within groups. The reason
 that February is lower is that there are fewer days and thus fewer flights.
@@ -387,7 +189,7 @@ flights_dt %>%
   geom_freqpoly(binwidth = 100)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 At least to me there doesn't appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.
 
@@ -453,7 +255,7 @@ flights_dt %>%
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 5. On what day of the week should you leave if you want to minimise the chance of a delay?
 
@@ -486,7 +288,7 @@ ggplot(diamonds, aes(x = carat)) +
   geom_density()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 In both `carat` and `sched_dep_time` there are abnormally large numbers of values are at nice "human" numbers. In `sched_dep_time` it is at 00 and 30 minutes. In carats, it is at 0, 1/3, 1/2, 2/3, 
 
@@ -496,7 +298,7 @@ ggplot(diamonds, aes(x = carat %% 1 * 100)) +
   geom_histogram(binwidth = 1)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
 In scheduled departure times it is 00 and 30 minutes, and minutes
 ending in 0 and 5.
@@ -507,7 +309,7 @@ ggplot(flights_dt, aes(x = minute(sched_dep_time))) +
   geom_histogram(binwidth = 1)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 7. Confirm my hypothesis that the early departures of flights in minutes 20-30 and 50-60 are caused by scheduled flights that leave early. Hint: create a binary variable that tells you whether or not a flight was delayed.
 
@@ -523,7 +325,7 @@ flights_dt %>%
   geom_point()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 But if grouped in 10 minute intervals, there is a higher proportion of early flights during those minutes.
@@ -539,7 +341,7 @@ flights_dt %>%
   geom_point()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Time Spans
@@ -550,118 +352,9 @@ flights_dt %>%
 
 ### Durations
 
-
-```r
-h_age <- today() - ymd(19791014)
-class(h_age)
-#> [1] "difftime"
-h_age
-#> Time difference of 13601 days
-```
-
-
-```r
-as.duration(h_age)
-#> [1] "1175126400s (~37.24 years)"
-```
-
-
-```r
-dseconds(15)
-#> [1] "15s"
-dminutes(10)
-#> [1] "600s (~10 minutes)"
-dhours(c(12, 24))
-#> [1] "43200s (~12 hours)" "86400s (~1 days)"
-ddays(0:5)
-#> [1] "0s"                "86400s (~1 days)"  "172800s (~2 days)"
-#> [4] "259200s (~3 days)" "345600s (~4 days)" "432000s (~5 days)"
-dweeks(3)
-#> [1] "1814400s (~3 weeks)"
-dyears(1)
-#> [1] "31536000s (~52.14 weeks)"
-```
-
-durations are always in seconds, and larger units are in the standard multiples of seconds.
-
-Arithmetic with durations
-
-```r
-2 * dyears(1)
-#> [1] "63072000s (~2 years)"
-dyears(1) + dweeks(12) + dhours(15)
-#> [1] "38847600s (~1.23 years)"
-```
-
-
-```r
-tomorrow <- today() + ddays(1)
-last_year <- today() - dyears(1)
-```
-
-Surprising results because doesn't account for weirdness like timezones
-
-```r
-one_pm <- ymd_hms("2016-03-12 13:00:00", tz = "America/New_York")
-one_pm
-#> [1] "2016-03-12 13:00:00 EST"
-one_pm + ddays(1)
-#> [1] "2016-03-13 14:00:00 EDT"
-```
+No exercises
 
 ### Periods
-
-Periods are durations for the irregular messy human time periods: months, days. 
-
-
-```r
-one_pm
-#> [1] "2016-03-12 13:00:00 EST"
-one_pm + days(1)
-#> [1] "2016-03-13 13:00:00 EDT"
-```
-
-
-```r
-seconds(15)
-#> [1] "15S"
-minutes(10)
-#> [1] "10M 0S"
-hours(c(12, 14))
-#> [1] "12H 0M 0S" "14H 0M 0S"
-days(7)
-#> [1] "7d 0H 0M 0S"
-months(1:6)
-#> [1] "1m 0d 0H 0M 0S" "2m 0d 0H 0M 0S" "3m 0d 0H 0M 0S" "4m 0d 0H 0M 0S"
-#> [5] "5m 0d 0H 0M 0S" "6m 0d 0H 0M 0S"
-weeks(3)
-#> [1] "21d 0H 0M 0S"
-years(1)
-#> [1] "1y 0m 0d 0H 0M 0S"
-```
-
-Add or multiply periods:
-
-```r
-10 * (months(6) + days(1))
-#> [1] "60m 10d 0H 0M 0S"
-days(50) + hours(25) + minutes(2)
-#> [1] "50d 25H 2M 0S"
-```
-
-
-```r
-# leap year
-ymd("2016-01-01") + dyears(1)
-#> [1] "2016-12-31"
-ymd("2016-01-01") + years(1)
-#> [1] "2017-01-01"
-# DST
-one_pm + ddays(1)
-#> [1] "2016-03-13 14:00:00 EDT"
-one_pm + days(1)
-#> [1] "2016-03-13 13:00:00 EDT"
-```
 
 Define overnight when `arr_time < dep_time` (no flights > 24 hours):
 
@@ -675,46 +368,11 @@ flights_dt <- flights_dt %>%
 ```
 
 
-```r
-flights_dt %>%
-  filter(overnight, arr_time < dep_time)
-#> # A tibble: 0 × 10
-#> # ... with 10 variables: origin <chr>, dest <chr>, dep_delay <dbl>,
-#> #   arr_delay <dbl>, dep_time <dttm>, sched_dep_time <dttm>,
-#> #   arr_time <dttm>, sched_arr_time <dttm>, air_time <dbl>,
-#> #   overnight <lgl>
-```
-
 ### Intervals
 
-**NOTE** This section seems less complete than the others.
+**NOTE** This section seems less complete than the others. 
+Refer to the [lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html) vignette for more information.
 
-Interval = duration with starting point.
-
-
-```r
-years(1) / days(1)
-#> estimate only: convert to intervals for accuracy
-#> [1] 365
-```
-
-
-```r
-next_year <- today() + years(1)
-(today() %--% next_year) / ddays(1)
-#> [1] 365
-```
-
-For number of periods in an intervla, use integer division.
-
-
-```r
-(today() %--% next_year) %/% days(1)
-#> Note: method with signature 'Timespan#Timespan' chosen for function '%/%',
-#>  target signature 'Interval#Period'.
-#>  "Interval#ANY", "ANY#Period" would also be valid
-#> [1] 365
-```
 
 ### Exercises
 
@@ -762,6 +420,9 @@ age <- function(bday) {
   (bday %--% today()) %/% years(1)
 }
 age(ymd("1990-10-12"))
+#> Note: method with signature 'Timespan#Timespan' chosen for function '%/%',
+#>  target signature 'Interval#Period'.
+#>  "Interval#ANY", "ANY#Period" would also be valid
 #> [1] 26
 ```
 
@@ -776,67 +437,7 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 #> [1] 12
 ```
 
+
 ### Time Zones
 
-
-```r
-Sys.timezone()
-#> [1] "America/Los_Angeles"
-```
-
-
-```r
-length(OlsonNames())
-#> [1] 589
-head(OlsonNames())
-#> [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"
-#> [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"
-```
-
-In R, timezones only control printing.
-
-```r
-(x1 <- ymd_hms("2015-06-01 12:00:00", tz = "America/New_York"))
-#> [1] "2015-06-01 12:00:00 EDT"
-(x2 <- ymd_hms("2015-06-01 18:00:00", tz = "Europe/Copenhagen"))
-#> [1] "2015-06-01 18:00:00 CEST"
-(x3 <- ymd_hms("2015-06-02 04:00:00", tz = "Pacific/Auckland"))
-#> [1] "2015-06-02 04:00:00 NZST"
-```
-
-```r
-x1 - x2
-#> Time difference of 0 secs
-x1 - x3
-#> Time difference of 0 secs
-```
-
-Lubridate always uses UTC unless otherwise specified.
-
-```r
-x4 <- c(x1, x2, x3)
-x4
-#> [1] "2015-06-01 09:00:00 PDT" "2015-06-01 09:00:00 PDT"
-#> [3] "2015-06-01 09:00:00 PDT"
-```
-
-To keep time-zone
-
-```r
-x4a <- with_tz(x4, tzone = "Australia/Lord_Howe")
-x4a
-#> [1] "2015-06-02 02:30:00 LHST" "2015-06-02 02:30:00 LHST"
-#> [3] "2015-06-02 02:30:00 LHST"
-x4a - x4
-#> Time differences in secs
-#> [1] 0 0 0
-```
-Change underlying instant
-
-```r
-x4b <- force_tz(x4, tzone = "Australia/Lord_Howe")
-x4b - x4
-#> Time differences in hours
-#> [1] -17.5 -17.5 -17.5
-```
-
+No exercises. But time-zones are hell. Be happy you aren't dealing with financial data.

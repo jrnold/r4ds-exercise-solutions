@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Exercise Solutions and Notes for R for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Exercise Solutions and Notes for “R for Data Science”">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Exercise Solutions and Notes for R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="jrnold/e4qf" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Exercise Solutions and Notes for R for Data Science" />
+  
+  
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="dates-and-times.html">
+<link rel="next" href="iteration.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Data Science</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="visualize.html"><a href="visualize.html"><i class="fa fa-check"></i><b>1</b> Visualize</a><ul>
+<li class="chapter" data-level="1.1" data-path="visualize.html"><a href="visualize.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="visualize.html"><a href="visualize.html#prerequisites"><i class="fa fa-check"></i><b>1.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.1.2" data-path="visualize.html"><a href="visualize.html#first-steps"><i class="fa fa-check"></i><b>1.1.2</b> First Steps</a></li>
+<li class="chapter" data-level="1.1.3" data-path="visualize.html"><a href="visualize.html#aesthetic-mappings"><i class="fa fa-check"></i><b>1.1.3</b> Aesthetic mappings</a></li>
+<li class="chapter" data-level="1.1.4" data-path="visualize.html"><a href="visualize.html#facets"><i class="fa fa-check"></i><b>1.1.4</b> Facets</a></li>
+<li class="chapter" data-level="1.1.5" data-path="visualize.html"><a href="visualize.html#geometric-objects"><i class="fa fa-check"></i><b>1.1.5</b> Geometric Objects</a></li>
+<li class="chapter" data-level="1.1.6" data-path="visualize.html"><a href="visualize.html#statistical-transformations"><i class="fa fa-check"></i><b>1.1.6</b> Statistical Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="visualize.html"><a href="visualize.html#position-adjustments"><i class="fa fa-check"></i><b>1.2</b> Position Adjustments</a></li>
+<li class="chapter" data-level="1.3" data-path="visualize.html"><a href="visualize.html#coordinate-systems"><i class="fa fa-check"></i><b>1.3</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="visualize.html"><a href="visualize.html#exercises-3"><i class="fa fa-check"></i><b>1.3.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>2</b> Workflow Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="workflow-basics.html"><a href="workflow-basics.html#practice"><i class="fa fa-check"></i><b>2.1</b> Practice</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="workflow-basics.html"><a href="workflow-basics.html#exercises-4"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data Transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#prerequisites-1"><i class="fa fa-check"></i><b>3.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#filter"><i class="fa fa-check"></i><b>3.2</b> Filter</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#exercises-5"><i class="fa fa-check"></i><b>3.3</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#arrange"><i class="fa fa-check"></i><b>3.4</b> Arrange</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-6"><i class="fa fa-check"></i><b>3.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#mutate"><i class="fa fa-check"></i><b>3.5</b> Mutate</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-7"><i class="fa fa-check"></i><b>3.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#grouped-summaries-with-summarise"><i class="fa fa-check"></i><b>3.6</b> Grouped summaries with <code>summarise()</code></a><ul>
+<li class="chapter" data-level="3.6.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-8"><i class="fa fa-check"></i><b>3.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="data-transformation.html"><a href="data-transformation.html#grouped-mutates-and-filters"><i class="fa fa-check"></i><b>3.7</b> Grouped mutates and filters</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-9"><i class="fa fa-check"></i><b>3.7.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#questions"><i class="fa fa-check"></i><b>4.1.1</b> Questions</a></li>
+<li class="chapter" data-level="4.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#variation"><i class="fa fa-check"></i><b>4.1.2</b> Variation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#missing-values"><i class="fa fa-check"></i><b>4.2</b> Missing Values</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-11"><i class="fa fa-check"></i><b>4.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#covariation"><i class="fa fa-check"></i><b>4.3</b> Covariation</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#a-categorical-and-continuous-variable"><i class="fa fa-check"></i><b>4.3.1</b> A categorical and continuous variable</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-categorical-variables"><i class="fa fa-check"></i><b>4.3.2</b> Two categorical variables</a></li>
+<li class="chapter" data-level="4.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-continuous-variables"><i class="fa fa-check"></i><b>4.3.3</b> Two continuous variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>5</b> Tibbles</a><ul>
+<li class="chapter" data-level="5.1" data-path="tibbles.html"><a href="tibbles.html#prerquisites"><i class="fa fa-check"></i><b>5.1</b> Prerquisites</a></li>
+<li class="chapter" data-level="5.2" data-path="tibbles.html"><a href="tibbles.html#creating-tibbles"><i class="fa fa-check"></i><b>5.2</b> Creating Tibbles</a></li>
+<li class="chapter" data-level="5.3" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.data.frame"><i class="fa fa-check"></i><b>5.3</b> Tibbles vs. data.frame</a></li>
+<li class="chapter" data-level="5.4" data-path="tibbles.html"><a href="tibbles.html#subsetting"><i class="fa fa-check"></i><b>5.4</b> Subsetting</a></li>
+<li class="chapter" data-level="5.5" data-path="tibbles.html"><a href="tibbles.html#interacting-with-older-code"><i class="fa fa-check"></i><b>5.5</b> Interacting with older code</a></li>
+<li class="chapter" data-level="5.6" data-path="tibbles.html"><a href="tibbles.html#exercises-12"><i class="fa fa-check"></i><b>5.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>6</b> Data Import</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-import.html"><a href="data-import.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>6.2</b> Getting started</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="data-import.html"><a href="data-import.html#exercises-13"><i class="fa fa-check"></i><b>6.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-import.html"><a href="data-import.html#parsing-a-vector"><i class="fa fa-check"></i><b>6.3</b> Parsing a vector</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="data-import.html"><a href="data-import.html#exercises-14"><i class="fa fa-check"></i><b>6.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>6.4</b> Other Types of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>7</b> Tidy Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-3"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="tidy-data.html"><a href="tidy-data.html#tidy-data-1"><i class="fa fa-check"></i><b>7.2</b> Tidy Data</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-15"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="tidy-data.html"><a href="tidy-data.html#spreading-and-gathering"><i class="fa fa-check"></i><b>7.3</b> Spreading and Gathering</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-16"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="tidy-data.html"><a href="tidy-data.html#separating-and-uniting"><i class="fa fa-check"></i><b>7.4</b> Separating and Uniting</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-17"><i class="fa fa-check"></i><b>7.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="tidy-data.html"><a href="tidy-data.html#missing-values-1"><i class="fa fa-check"></i><b>7.5</b> Missing Values</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-18"><i class="fa fa-check"></i><b>7.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="tidy-data.html"><a href="tidy-data.html#case-study"><i class="fa fa-check"></i><b>7.6</b> Case Study</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-19"><i class="fa fa-check"></i><b>7.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="tidy-data.html"><a href="tidy-data.html#non-tidy-data"><i class="fa fa-check"></i><b>7.7</b> Non-Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>8</b> Relational Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="relational-data.html"><a href="relational-data.html#prerequisites-2"><i class="fa fa-check"></i><b>8.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="8.2" data-path="relational-data.html"><a href="relational-data.html#nycflights13"><i class="fa fa-check"></i><b>8.2</b> nycflights13</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="relational-data.html"><a href="relational-data.html#exercises-20"><i class="fa fa-check"></i><b>8.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="relational-data.html"><a href="relational-data.html#keys"><i class="fa fa-check"></i><b>8.3</b> Keys</a></li>
+<li class="chapter" data-level="8.4" data-path="relational-data.html"><a href="relational-data.html#mutating-joins"><i class="fa fa-check"></i><b>8.4</b> Mutating Joins</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="relational-data.html"><a href="relational-data.html#exercises-21"><i class="fa fa-check"></i><b>8.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="relational-data.html"><a href="relational-data.html#filtering-joins"><i class="fa fa-check"></i><b>8.5</b> Filtering Joins</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="relational-data.html"><a href="relational-data.html#exercises-22"><i class="fa fa-check"></i><b>8.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="relational-data.html"><a href="relational-data.html#set-operations"><i class="fa fa-check"></i><b>8.6</b> Set operations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="strings.html"><a href="strings.html"><i class="fa fa-check"></i><b>9</b> Strings</a><ul>
+<li class="chapter" data-level="9.1" data-path="strings.html"><a href="strings.html#introduction-4"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="strings.html"><a href="strings.html#string-basics"><i class="fa fa-check"></i><b>9.2</b> String Basics</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="strings.html"><a href="strings.html#exercises-23"><i class="fa fa-check"></i><b>9.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="strings.html"><a href="strings.html#matching-patterns-and-regular-expressions"><i class="fa fa-check"></i><b>9.3</b> Matching Patterns and Regular Expressions</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="strings.html"><a href="strings.html#exercises-24"><i class="fa fa-check"></i><b>9.3.1</b> Exercises</a></li>
+<li class="chapter" data-level="9.3.2" data-path="strings.html"><a href="strings.html#repitition"><i class="fa fa-check"></i><b>9.3.2</b> Repitition</a></li>
+<li class="chapter" data-level="9.3.3" data-path="strings.html"><a href="strings.html#grouping-and-backreferences"><i class="fa fa-check"></i><b>9.3.3</b> Grouping and backreferences</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="strings.html"><a href="strings.html#tools"><i class="fa fa-check"></i><b>9.4</b> Tools</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="strings.html"><a href="strings.html#detect-matches"><i class="fa fa-check"></i><b>9.4.1</b> Detect matches</a></li>
+<li class="chapter" data-level="9.4.2" data-path="strings.html"><a href="strings.html#exercises-29"><i class="fa fa-check"></i><b>9.4.2</b> Exercises</a></li>
+<li class="chapter" data-level="9.4.3" data-path="strings.html"><a href="strings.html#extract-matches"><i class="fa fa-check"></i><b>9.4.3</b> Extract Matches</a></li>
+<li class="chapter" data-level="9.4.4" data-path="strings.html"><a href="strings.html#grouped-matches"><i class="fa fa-check"></i><b>9.4.4</b> Grouped Matches</a></li>
+<li class="chapter" data-level="9.4.5" data-path="strings.html"><a href="strings.html#splitting"><i class="fa fa-check"></i><b>9.4.5</b> Splitting</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="strings.html"><a href="strings.html#other-types-of-patterns"><i class="fa fa-check"></i><b>9.5</b> Other types of patterns</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="strings.html"><a href="strings.html#exercises-33"><i class="fa fa-check"></i><b>9.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="strings.html"><a href="strings.html#stringi"><i class="fa fa-check"></i><b>9.6</b> stringi</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="strings.html"><a href="strings.html#exercises-34"><i class="fa fa-check"></i><b>9.6.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>10</b> Factors</a><ul>
+<li class="chapter" data-level="10.1" data-path="factors.html"><a href="factors.html#introduction-5"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="factors.html"><a href="factors.html#creating-factors"><i class="fa fa-check"></i><b>10.2</b> Creating Factors</a></li>
+<li class="chapter" data-level="10.3" data-path="factors.html"><a href="factors.html#general-social-survey"><i class="fa fa-check"></i><b>10.3</b> General Social Survey</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="factors.html"><a href="factors.html#exercises-35"><i class="fa fa-check"></i><b>10.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="factors.html"><a href="factors.html#modifying-factor-order"><i class="fa fa-check"></i><b>10.4</b> Modifying factor order</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="factors.html"><a href="factors.html#exercises-36"><i class="fa fa-check"></i><b>10.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="factors.html"><a href="factors.html#modifying-factor-levels"><i class="fa fa-check"></i><b>10.5</b> Modifying factor levels</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="factors.html"><a href="factors.html#exercises-37"><i class="fa fa-check"></i><b>10.5.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>11</b> Dates and Times</a><ul>
+<li class="chapter" data-level="11.1" data-path="dates-and-times.html"><a href="dates-and-times.html#prerequisite"><i class="fa fa-check"></i><b>11.1</b> Prerequisite</a></li>
+<li class="chapter" data-level="11.2" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-datetimes"><i class="fa fa-check"></i><b>11.2</b> Creating date/times</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-38"><i class="fa fa-check"></i><b>11.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="dates-and-times.html"><a href="dates-and-times.html#date-time-components"><i class="fa fa-check"></i><b>11.3</b> Date-Time Components</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-39"><i class="fa fa-check"></i><b>11.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="dates-and-times.html"><a href="dates-and-times.html#time-spans"><i class="fa fa-check"></i><b>11.4</b> Time Spans</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="dates-and-times.html"><a href="dates-and-times.html#durations"><i class="fa fa-check"></i><b>11.4.1</b> Durations</a></li>
+<li class="chapter" data-level="11.4.2" data-path="dates-and-times.html"><a href="dates-and-times.html#periods"><i class="fa fa-check"></i><b>11.4.2</b> Periods</a></li>
+<li class="chapter" data-level="11.4.3" data-path="dates-and-times.html"><a href="dates-and-times.html#intervals"><i class="fa fa-check"></i><b>11.4.3</b> Intervals</a></li>
+<li class="chapter" data-level="11.4.4" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-40"><i class="fa fa-check"></i><b>11.4.4</b> Exercises</a></li>
+<li class="chapter" data-level="11.4.5" data-path="dates-and-times.html"><a href="dates-and-times.html#time-zones"><i class="fa fa-check"></i><b>11.4.5</b> Time Zones</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="vectors.html"><a href="vectors.html"><i class="fa fa-check"></i><b>12</b> Vectors</a><ul>
+<li class="chapter" data-level="12.1" data-path="vectors.html"><a href="vectors.html#introduction-6"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="vectors.html"><a href="vectors.html#important-types-of-atomic-vector"><i class="fa fa-check"></i><b>12.2</b> Important types of Atomic Vector</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="vectors.html"><a href="vectors.html#exercises-41"><i class="fa fa-check"></i><b>12.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="vectors.html"><a href="vectors.html#using-atomic-vectors"><i class="fa fa-check"></i><b>12.3</b> Using atomic vectors</a></li>
+<li class="chapter" data-level="12.4" data-path="vectors.html"><a href="vectors.html#recursive-vectors-lists"><i class="fa fa-check"></i><b>12.4</b> Recursive Vectors (lists)</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="vectors.html"><a href="vectors.html#exercises-42"><i class="fa fa-check"></i><b>12.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="vectors.html"><a href="vectors.html#augmented-vectors"><i class="fa fa-check"></i><b>12.5</b> Augmented Vectors</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="vectors.html"><a href="vectors.html#exercises-43"><i class="fa fa-check"></i><b>12.5.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>13</b> Iteration</a><ul>
+<li class="chapter" data-level="13.1" data-path="iteration.html"><a href="iteration.html#introduction-7"><i class="fa fa-check"></i><b>13.1</b> Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="iteration.html"><a href="iteration.html#for-loops"><i class="fa fa-check"></i><b>13.2</b> For Loops</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="iteration.html"><a href="iteration.html#exercises-44"><i class="fa fa-check"></i><b>13.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="iteration.html"><a href="iteration.html#for-loop-variations"><i class="fa fa-check"></i><b>13.3</b> For loop variations</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="iteration.html"><a href="iteration.html#section"><i class="fa fa-check"></i><b>13.3.1</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="iteration.html"><a href="iteration.html#for-loops-vs.functionals"><i class="fa fa-check"></i><b>13.4</b> For loops vs. functionals</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="iteration.html"><a href="iteration.html#exercises-45"><i class="fa fa-check"></i><b>13.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="iteration.html"><a href="iteration.html#the-map-functions"><i class="fa fa-check"></i><b>13.5</b> The map functions</a><ul>
+<li class="chapter" data-level="13.5.1" data-path="iteration.html"><a href="iteration.html#shortcuts"><i class="fa fa-check"></i><b>13.5.1</b> Shortcuts</a></li>
+<li class="chapter" data-level="13.5.2" data-path="iteration.html"><a href="iteration.html#exercises-46"><i class="fa fa-check"></i><b>13.5.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="iteration.html"><a href="iteration.html#dealing-with-failure"><i class="fa fa-check"></i><b>13.6</b> Dealing with Failure</a></li>
+<li class="chapter" data-level="13.7" data-path="iteration.html"><a href="iteration.html#mapping-over-multiple-arguments"><i class="fa fa-check"></i><b>13.7</b> Mapping over multiple arguments</a></li>
+<li class="chapter" data-level="13.8" data-path="iteration.html"><a href="iteration.html#walk"><i class="fa fa-check"></i><b>13.8</b> Walk</a></li>
+<li class="chapter" data-level="13.9" data-path="iteration.html"><a href="iteration.html#other-patterns-of-for-loops"><i class="fa fa-check"></i><b>13.9</b> Other patterns of for loops</a><ul>
+<li class="chapter" data-level="13.9.1" data-path="iteration.html"><a href="iteration.html#exercises-47"><i class="fa fa-check"></i><b>13.9.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="model-introduction.html"><a href="model-introduction.html"><i class="fa fa-check"></i><b>14</b> Model Introduction</a></li>
+<li class="chapter" data-level="15" data-path="model-basics.html"><a href="model-basics.html"><i class="fa fa-check"></i><b>15</b> Model Basics</a><ul>
+<li class="chapter" data-level="15.1" data-path="model-basics.html"><a href="model-basics.html#prerequisites-3"><i class="fa fa-check"></i><b>15.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="15.2" data-path="model-basics.html"><a href="model-basics.html#a-simple-model"><i class="fa fa-check"></i><b>15.2</b> A simple model</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="model-basics.html"><a href="model-basics.html#exercises-48"><i class="fa fa-check"></i><b>15.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="model-basics.html"><a href="model-basics.html#visualizing-models"><i class="fa fa-check"></i><b>15.3</b> Visualizing Models</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="model-basics.html"><a href="model-basics.html#exercises-49"><i class="fa fa-check"></i><b>15.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="model-basics.html"><a href="model-basics.html#formulas-and-model-families"><i class="fa fa-check"></i><b>15.4</b> Formulas and Model Families</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="model-basics.html"><a href="model-basics.html#categorical-variables"><i class="fa fa-check"></i><b>15.4.1</b> Categorical Variables</a></li>
+<li class="chapter" data-level="15.4.2" data-path="model-basics.html"><a href="model-basics.html#exercises-50"><i class="fa fa-check"></i><b>15.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="model-basics.html"><a href="model-basics.html#missing-values-2"><i class="fa fa-check"></i><b>15.5</b> Missing values</a></li>
+<li class="chapter" data-level="15.6" data-path="model-basics.html"><a href="model-basics.html#other-model-families"><i class="fa fa-check"></i><b>15.6</b> Other model families</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>16</b> R Markdown</a><ul>
+<li class="chapter" data-level="16.1" data-path="r-markdown.html"><a href="r-markdown.html#r-markdown-basics"><i class="fa fa-check"></i><b>16.1</b> R Markdown Basics</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="r-markdown.html"><a href="r-markdown.html#exercise"><i class="fa fa-check"></i><b>16.1.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="r-markdown.html"><a href="r-markdown.html#text-formatting-with-r-markdown"><i class="fa fa-check"></i><b>16.2</b> Text formatting with R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="r-markdown-workflow.html"><a href="r-markdown-workflow.html"><i class="fa fa-check"></i><b>17</b> R Markdown Workflow</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions and Notes for “R for Data Science”</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="vectors" class="section level1">
+<h1><span class="header-section-number">12</span> Vectors</h1>
+<div id="introduction-6" class="section level2">
+<h2><span class="header-section-number">12.1</span> Introduction</h2>
+<p>Functions mentioned</p>
+<ul>
+<li><code>typeof</code></li>
+<li><code>dplyr::near</code></li>
+<li><code>is.finite</code>, <code>is.nan</code>, <code>is.na</code></li>
+<li><code>attributes</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="co">#&gt; Loading tidyverse: ggplot2</span>
+<span class="co">#&gt; Loading tidyverse: tibble</span>
+<span class="co">#&gt; Loading tidyverse: tidyr</span>
+<span class="co">#&gt; Loading tidyverse: readr</span>
+<span class="co">#&gt; Loading tidyverse: purrr</span>
+<span class="co">#&gt; Loading tidyverse: dplyr</span>
+<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
+<span class="co">#&gt; filter(): dplyr, stats</span>
+<span class="co">#&gt; lag():    dplyr, stats</span></code></pre></div>
+</div>
+<div id="important-types-of-atomic-vector" class="section level2">
+<h2><span class="header-section-number">12.2</span> Important types of Atomic Vector</h2>
+<p>Why does this matter? 99% of the time in the work you do, it won’t. Someone else has written the numerical methods and (hopefully) accounted for these issues. And the types of problems you encounter in social science generally are not dealing with these issues. However, if you aren’t even aware that “floating point numbers” are a “thing”, if something goes wrong, it will seem like magic. Also, at least being aware of these problems will help you understand error messages from optimization routines that complaing of “numerical precision”.</p>
+<div id="exercises-41" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Describe the difference between <code>is.finite(x)</code> and <code>!is.infinite(x)</code>.</li>
+</ol>
+<p>To find out, try the functions on a numeric vector that includes a number and the five special values (<code>NA</code>, <code>NaN</code>, <code>Inf</code>, <code>-Inf</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>)
+<span class="kw">is.finite</span>(x)
+<span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE FALSE</span>
+!<span class="kw">is.infinite</span>(x)
+<span class="co">#&gt; [1]  TRUE  TRUE  TRUE FALSE FALSE</span></code></pre></div>
+<p><code>is.finite</code> considers only a number to be finite, and considers missing (<code>NA</code>), not a number (<code>NaN</code>), and positive and negative infinity to be not finite. However, since <code>is.infinite</code> only considers <code>Inf</code> and <code>-Inf</code> to be inifinite, <code>!is.infinite</code> considers <code>0</code> as well as missing and not-a-number to be not infinite.</p>
+<p>So <code>NA</code> and <code>NaN</code> are neither finite or infinite. Mind blown.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Read the source code for <code>dplyr::near()</code> (Hint: to see the source code, drop the ()). How does it work?</li>
+</ol>
+<p>The source for <code>dplyr::near</code> is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr::near
+<span class="co">#&gt; function (x, y, tol = .Machine$double.eps^0.5) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     abs(x - y) &lt; tol</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; &lt;environment: namespace:dplyr&gt;</span></code></pre></div>
+<p>Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, <code>tol</code>. By default the tolerance is set to the square root of <code>.Machine$double.eps</code>, which is the smallest floating point number that the computer can represent.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use google to do some research.</li>
+</ol>
+<p>The help for <code>.Machine</code> describes some of this:</p>
+<p>As all current implementations of R use 32-bit integers and usne IEC 60559 floating-point (double precision) arithmetic,</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">IEC 60559</a> or IEEE 754 format uses a 64 bit vector, but</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.</li>
+</ol>
+<p>Broadly, could convert a double to an integer by truncating or rounding to the nearest integer. For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determing which integer value to go to.</p>
+<p>methods 0.5 -0.5 1.5 -1.5 ============================== ==== ===== ==== ==== towards zero: 0 0 1 1 away from zero 1 -1 2 -2 largest towards <span class="math inline">\(+\infty\)</span>) 1 0 2 -1 smallest (towards <span class="math inline">\(-\infty\)</span>) 0 -1 1 -2 even 0 0 2 -2 odd 1 -1 1 -1 =====================================================</p>
+<p>See the Wikipedia article <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE floating point</a> for rounding rules.</p>
+<p>For rounding, R and many programming languages use the IEEE standard. This is “round to nearest, ties to even”. This is not the same as what you See the value of looking at the value of <code>.Machine$double.rounding</code> and its documentation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(-<span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.5</span>)
+
+round2 &lt;-<span class="st"> </span>function(x, <span class="dt">to_even =</span> <span class="ot">TRUE</span>) {
+  q &lt;-<span class="st"> </span>x %/%<span class="st"> </span><span class="dv">1</span>
+  r &lt;-<span class="st"> </span>x %%<span class="st"> </span><span class="dv">1</span>
+  q +<span class="st"> </span>(r &gt;=<span class="st"> </span><span class="fl">0.5</span>)
+}
+x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5</span>, -<span class="fl">11.5</span>, <span class="fl">11.5</span>, <span class="fl">12.5</span>)
+<span class="kw">round</span>(x)
+<span class="co">#&gt; [1] -12 -12  12  12</span>
+<span class="kw">round2</span>(x, <span class="dt">to_even =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; [1] -12 -11  12  13</span></code></pre></div>
+<p>The problem with the always rounding 0.5 up rule is that it is biased upwards. Rounding to nearest with ties towards even is not. Consider the sequence <span class="math inline">\(-100.5, -99.5, \dots, 0, \dots, 99.5, 100.5\)</span>. Its sum is 0. It would be nice if rounding preserved that sum. Using the “ties towards even”, the sum is still zero. Hoever, the “ties towards <span class="math inline">\(+\infty\)</span>” produces a non-zero number.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(-<span class="fl">100.5</span>, <span class="fl">100.5</span>, <span class="dt">by =</span> <span class="dv">1</span>)
+<span class="kw">sum</span>(x)
+<span class="co">#&gt; [1] 0</span>
+<span class="kw">sum</span>(<span class="kw">round</span>(x))
+<span class="co">#&gt; [1] 0</span>
+<span class="kw">sum</span>(<span class="kw">round2</span>(x))
+<span class="co">#&gt; [1] 101</span></code></pre></div>
+<p>Here’s a real-world non-engineering example of rounding going terribly wrong. In 1983, the Vancouver stock exchange adjusted its index from 524.811 to 1098.892 to correct for accumulated error due to rounding to three decimal points (see <a href="https://en.wikipedia.org/wiki/Vancouver_Stock_Exchange%5D">Vancouver Stock Exchange</a>).</p>
+<p>Here’s a <a href="https://www.ma.utexas.edu/users/arbogast/misc/disasters.html">list</a> of a few more.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>What functions from the <strong>readr</strong> package allow you to turn a string into logical, integer, and double vector?</li>
+</ol>
+<p>The functions <code>parse_logical</code>, <code>parse_integer</code>, and <code>parse_number</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_logical</span>(<span class="kw">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;true&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;NA&quot;</span>))
+<span class="co">#&gt; [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE    NA</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_integer</span>(<span class="kw">c</span>(<span class="st">&quot;1235&quot;</span>, <span class="st">&quot;0134&quot;</span>, <span class="st">&quot;NA&quot;</span>))
+<span class="co">#&gt; [1] 1235  134   NA</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_number</span>(<span class="kw">c</span>(<span class="st">&quot;1.0&quot;</span>, <span class="st">&quot;3.5&quot;</span>, <span class="st">&quot;1,000&quot;</span>, <span class="st">&quot;NA&quot;</span>))
+<span class="co">#&gt; [1]    1.0    3.5 1000.0     NA</span></code></pre></div>
+<p>Read the documentation of <code>read_number</code>. In order to ignore things like currency symbols and comma seperators in number strings it ignores them using a heuristic.</p>
+</div>
+</div>
+<div id="using-atomic-vectors" class="section level2">
+<h2><span class="header-section-number">12.3</span> Using atomic vectors</h2>
+<ol style="list-style-type: decimal">
+<li>What does <code>mean(is.na(x))</code> tell you about a vector <code>x</code>? What about <code>sum(!is.finite(x))</code>?</li>
+</ol>
+<p>The expression <code>mean(is.na(x))</code> calculates the proportion of missing values in a vector</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>)
+<span class="kw">mean</span>(<span class="kw">is.na</span>(x))
+<span class="co">#&gt; [1] 0.143</span></code></pre></div>
+<p>The expression <code>mean(!is.finite(x))</code> calcualtes the proportion of values that are <code>NA</code>, <code>NaN</code>, or infinite.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(!<span class="kw">is.finite</span>(x))
+<span class="co">#&gt; [1] 0.286</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Carefully read the documentation of <code>is.vector()</code>. What does it actually test for? Why does <code>is.atomic()</code> not agree with the definition of atomic vectors above?</li>
+</ol>
+<p>The function <code>is.vector</code> only checks whether the object has no attributes other than names. Thus a <code>list</code> is a vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.vector</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>))
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>But any object that has an attribute (other than names) is not:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+<span class="kw">attr</span>(x, <span class="st">&quot;something&quot;</span>) &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+<span class="kw">is.vector</span>(x)
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>The idea behind this is that object oriented classes will include attributes, including, but not limited to <code>&quot;class&quot;</code>.</p>
+<p>The function <code>is.atomic</code> explicitly checks whether an object is one of the atomic types (“logical”, “integer”, “numeric”, “complex”, “character”, and “raw”) or NULL.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.atomic</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="co">#&gt; [1] TRUE</span>
+<span class="kw">is.atomic</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>))
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>The function <code>is.atomic</code> will consider objects to be atomic even if they have extra attributes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.atomic</span>(x)
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Compare and contrast <code>setNames()</code> with <code>purrr::set_names()</code>.</li>
+</ol>
+<p>These are simple functions, so we can simply print out their source code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">setNames
+<span class="co">#&gt; function (object = nm, nm) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     names(object) &lt;- nm</span>
+<span class="co">#&gt;     object</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; &lt;bytecode: 0x7fb54902f638&gt;</span>
+<span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr::set_names
+<span class="co">#&gt; function (x, nm = x) </span>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     if (!is_vector(x)) {</span>
+<span class="co">#&gt;         stop(&quot;`x` must be a vector&quot;, call. = FALSE)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     if (length(x) != length(nm)) {</span>
+<span class="co">#&gt;         stop(&quot;`x` and `nm` must be the same length&quot;, call. = FALSE)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     names(x) &lt;- nm</span>
+<span class="co">#&gt;     x</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; &lt;environment: namespace:purrr&gt;</span></code></pre></div>
+<p>From the code we can see that <code>set_names</code> adds a few sanity checks: <code>x</code> has to be a vector, and the lengths of the object and the names have to be the same.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Create functions that take a vector as input and returns:</p></li>
+<li>The last value. Should you use [ or [[? 2 The elements at even numbered positions.</li>
+<li>Every element except the last value.</li>
+<li><p>Only even numbers (and no missing values).</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_value &lt;-<span class="st"> </span>function(x) {
+  <span class="co"># check for case with no length</span>
+  if (<span class="kw">length</span>(x)) {
+    <span class="co"># Use [[ as suggested because it returns one element</span>
+    x[[<span class="kw">length</span>(x)]]  
+  } else {
+    x
+  }
+}
+<span class="kw">last_value</span>(<span class="kw">numeric</span>())
+<span class="co">#&gt; numeric(0)</span>
+<span class="kw">last_value</span>(<span class="dv">1</span>)
+<span class="co">#&gt; [1] 1</span>
+<span class="kw">last_value</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="co">#&gt; [1] 10</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">even_indices &lt;-<span class="st"> </span>function(x) {
+  if (<span class="kw">length</span>(x)) {
+    x[<span class="kw">seq_along</span>(x) %%<span class="st"> </span><span class="dv">2</span> ==<span class="st"> </span><span class="dv">0</span>]
+  } else {
+    x
+  }  
+}
+<span class="kw">even_indices</span>(<span class="kw">numeric</span>())
+<span class="co">#&gt; numeric(0)</span>
+<span class="kw">even_indices</span>(<span class="dv">1</span>)
+<span class="co">#&gt; numeric(0)</span>
+<span class="kw">even_indices</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="co">#&gt; [1]  2  4  6  8 10</span>
+<span class="co"># test using case to ensure that values not indices</span>
+<span class="co"># are being returned</span>
+<span class="kw">even_indices</span>(letters)
+<span class="co">#&gt;  [1] &quot;b&quot; &quot;d&quot; &quot;f&quot; &quot;h&quot; &quot;j&quot; &quot;l&quot; &quot;n&quot; &quot;p&quot; &quot;r&quot; &quot;t&quot; &quot;v&quot; &quot;x&quot; &quot;z&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_last &lt;-<span class="st"> </span>function(x) {
+  if (<span class="kw">length</span>(x)) {
+    x[-<span class="kw">length</span>(x)]
+  } else {
+    x
+  }
+}
+<span class="kw">not_last</span>(<span class="dv">1</span>:<span class="dv">5</span>)
+<span class="co">#&gt; [1] 1 2 3 4</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">even_numbers &lt;-<span class="st"> </span>function(x) {
+  x[!<span class="kw">is.na</span>(x) &amp;<span class="st"> </span>(x %%<span class="st"> </span><span class="dv">2</span> ==<span class="st"> </span><span class="dv">0</span>)]
+}
+<span class="kw">even_numbers</span>(-<span class="dv">10</span>:<span class="dv">10</span>)
+<span class="co">#&gt;  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Why is <code>x[-which(x &gt; 0)]</code> not the same as <code>x[x &lt;= 0]</code>?</li>
+</ol>
+<p>They will treat missing values differently.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="dv">5</span>:<span class="dv">5</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>, <span class="ot">NaN</span>, <span class="ot">NA</span>)
+x[-<span class="kw">which</span>(x &gt;<span class="st"> </span><span class="dv">0</span>)]
+<span class="co">#&gt; [1]   -5   -4   -3   -2   -1    0 -Inf  NaN   NA</span>
+-<span class="kw">which</span>(x &gt;<span class="st"> </span><span class="dv">0</span>)
+<span class="co">#&gt; [1]  -7  -8  -9 -10 -11 -12</span>
+x[x &lt;=<span class="st"> </span><span class="dv">0</span>]
+<span class="co">#&gt; [1]   -5   -4   -3   -2   -1    0 -Inf   NA   NA</span>
+x &lt;=<span class="st"> </span><span class="dv">0</span>
+<span class="co">#&gt;  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</span>
+<span class="co">#&gt; [12] FALSE  TRUE    NA    NA</span></code></pre></div>
+<p><code>-which(x &gt; 0)</code> which calculates the indexes for any value that is <code>TRUE</code> and ignores <code>NA</code>. Thus is keeps <code>NA</code> and <code>NaN</code> because the comparison is not <code>TRUE</code>. <code>x &lt;= 0</code> works slightly differently. If <code>x &lt;= 0</code> returns <code>TRUE</code> or <code>FALSE</code> it works the same way. Hoewver, if the comparison generates a <code>NA</code>, then it will always keep that entry, but set it to <code>NA</code>. This is why the last two values of <code>x[x &lt;= 0]</code> are <code>NA</code> rather than <code>c(NaN, NA)</code>.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?</li>
+</ol>
+<p>When you subset with positive integers that are larger than the length of the vector, <code>NA</code> values are returned for those integers larger than the length of the vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span>:<span class="dv">10</span>)[<span class="dv">11</span>:<span class="dv">12</span>]
+<span class="co">#&gt; [1] NA NA</span></code></pre></div>
+<p>When a vector is subset with a name that doesn’t exist, an error is generated.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dv">2</span>)[[<span class="st">&quot;b&quot;</span>]]
+<span class="co">#&gt; Error in c(a = 1, 2)[[&quot;b&quot;]]: subscript out of bounds</span></code></pre></div>
+</div>
+<div id="recursive-vectors-lists" class="section level2">
+<h2><span class="header-section-number">12.4</span> Recursive Vectors (lists)</h2>
+<div id="exercises-42" class="section level3">
+<h3><span class="header-section-number">12.4.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>Draw the following lists as nested sets:</p></li>
+<li><code>list(a, b, list(c, d), list(e, f))</code></li>
+<li><p><code>list(list(list(list(list(list(a))))))</code></p></li>
+<li><p>What happens if you subset a <code>tibble</code> as if you’re subsetting a list? What are the key differences between a list and a <code>tibble</code>?</p></li>
+</ol>
+<p>Subsetting a <code>tibble</code> works the same way as a list; a data frame can be thought of as a list of columns. The key different between a list and a <code>tibble</code> is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">3</span>:<span class="dv">4</span>)
+x[[<span class="st">&quot;a&quot;</span>]]
+<span class="co">#&gt; [1] 1 2</span>
+x[<span class="st">&quot;a&quot;</span>]
+<span class="co">#&gt; # A tibble: 2 × 1</span>
+<span class="co">#&gt;       a</span>
+<span class="co">#&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1     1</span>
+<span class="co">#&gt; 2     2</span>
+x[<span class="dv">1</span>]
+<span class="co">#&gt; # A tibble: 2 × 1</span>
+<span class="co">#&gt;       a</span>
+<span class="co">#&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1     1</span>
+<span class="co">#&gt; 2     2</span>
+x[<span class="dv">1</span>, ]
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     1     3</span></code></pre></div>
+</div>
+</div>
+<div id="augmented-vectors" class="section level2">
+<h2><span class="header-section-number">12.5</span> Augmented Vectors</h2>
+<div id="exercises-43" class="section level3">
+<h3><span class="header-section-number">12.5.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>What does <code>hms::hms(3600)</code> return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>hms::<span class="kw">hms</span>(<span class="dv">3600</span>)
+<span class="kw">class</span>(x)
+<span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span>
+x
+<span class="co">#&gt; 01:00:00</span></code></pre></div>
+<p><code>hms::hms</code> returns an object of class, and prints the time in “%H:%M:%S” format.</p>
+<p>The primitive type is a double</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(x)
+<span class="co">#&gt; [1] &quot;double&quot;</span></code></pre></div>
+<p>The atttributes is uses are <code>&quot;units&quot;</code> and <code>&quot;class&quot;</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(x)
+<span class="co">#&gt; $units</span>
+<span class="co">#&gt; [1] &quot;secs&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Try and make a tibble that has columns with different lengths. What happens?</li>
+</ol>
+<p>If I try to create at tibble with a scalar and column of a different length there are no issues, and the scalar is repeated to the length of the longer vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">1</span>:<span class="dv">5</span>)
+<span class="co">#&gt; # A tibble: 5 × 2</span>
+<span class="co">#&gt;       x     y</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1     1     1</span>
+<span class="co">#&gt; 2     1     2</span>
+<span class="co">#&gt; 3     1     3</span>
+<span class="co">#&gt; 4     1     4</span>
+<span class="co">#&gt; 5     1     5</span></code></pre></div>
+<p>However, if I try to create a tibble with two vectors of different lengths (other than one), the <code>tibble</code> function throws an error.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">3</span>, <span class="dt">y =</span> <span class="dv">1</span>:<span class="dv">4</span>)
+<span class="co">#&gt; Error: Variables must be length 1 or 4.</span>
+<span class="co">#&gt; Problem variables: &#39;x&#39;</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Based on the definition above, is it ok to have a list as a column of a tibble?</li>
+</ol>
+<p>If I didn’t already know the answer, what I would do is try it out. From the above, the error message was about vectors having different lengths. But there is nothing that prevents a tibble from having vectors of different types: doubles, character, integers, logical, factor, date. The later are still atomic, but they have additional attributes. So, maybe there won’t be an issue with a list vector as long as it is the same length.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">1</span>, <span class="kw">list</span>(<span class="dv">1</span>:<span class="dv">3</span>)))
+<span class="co">#&gt; # A tibble: 3 × 2</span>
+<span class="co">#&gt;       x          y</span>
+<span class="co">#&gt;   &lt;int&gt;     &lt;list&gt;</span>
+<span class="co">#&gt; 1     1  &lt;chr [1]&gt;</span>
+<span class="co">#&gt; 2     2  &lt;dbl [1]&gt;</span>
+<span class="co">#&gt; 3     3 &lt;list [1]&gt;</span></code></pre></div>
+<p>It works! I even used a list with heterogenous types and there wasn’t an issue. In following chapters we’ll see that list vectors can be very useful: for example, when processing many different models.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dates-and-times.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="iteration.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/r4ds/edit/master/vectors.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

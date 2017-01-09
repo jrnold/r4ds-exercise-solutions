@@ -3,11 +3,11 @@
 ## Prerequisites
 
 ```{r message=FALSE}
-library(tidyverse)
-library(nycflights13)
+library("tidyverse")
+library("nycflights13")
 ```
 
-ideas
+Topics, functions
 
 - keys: primary key, foreign key, 
 - mutating joins: `left_join`, `right_join`, `inner_join`, `full_join`
@@ -35,25 +35,6 @@ airports
 planes
 weather
 ```
-
-### Exercises
-
-**TODO**
-
-## Keys
-
-```{r}
-planes %>% 
-  count(tailnum) %>%
-  filter(n > 1)
-```
-
-```{r}
-weather %>%
-  count(year, month, day, hour, origin) %>%
-  filter(n > 1)
-```
-
 
 
 ### Exercises
@@ -108,8 +89,6 @@ Lahman::Batting %>%
   group_by(playerID, yearID, stint) %>%
   filter(n() > 1) %>%
   nrow()
-  
-
 ```
 
 The primary key for `babynames::babynames` is `year`, `sex`, `name`. It is no simply `year`, `name` since names can appear for both sexes with different counts.
@@ -118,7 +97,6 @@ babynames::babynames %>%
   group_by(year, sex, name) %>%
   filter(n() > 1) %>%
   nrow()
-
 ```
 
 The primary key for `nasaweather::atmos` is the location and time of the measurement: `lat`, `long`, `year`, `month`.
@@ -365,31 +343,6 @@ flights %>%
 ```
 
 
-
 ## Set operations
 
-```{r}
-df1 <- tribble(
-  ~x, ~y,
-   1,  1,
-   2,  1
-)
-df2 <- tribble(
-  ~x, ~y,
-   1,  1,
-   1,  2
-)
-```
-
-```{r}
-intersect(df1, df2)
-```
-
-```{r}
-union(df1, df2)
-```
-
-```{r}
-setdiff(df1, df2)
-```
-
+No exercises

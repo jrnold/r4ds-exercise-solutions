@@ -1,26 +1,34 @@
 
 # Iteration
 
-## Prerequisites
+## Introduction
+
+- **purrr** package
+- `for` loop
+- `while`
+- `seq_len`, `seq_along`
+- `unlist`
+- `bind_rows`, `bind_cols`, `purrr::flatten_dbl`
+- Map functions in **purrr**: `map` and type-specific variants `map_lgl`, `map_chr`, `map_int`, `map_dbl`.
+- `col_summary`
+- apply function in base R: `lapply`, `sapply`, `vapply`
+- `safely`, `quietly`, `possibly`
+- `walk` and variants
+- `keep`, `discard`, 
+- `some`, `every`, 
+- `head_while`, `tail_while`, 
+- `detect`, `detect_index`
+- `reduce`
  
 
 ```r
-library(tidyverse)
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
+library("tidyverse")
+library("stringr")
 ```
 
 ## For Loops
 
 ### Exercises
-
 
 Write for loops to:
 
@@ -243,3 +251,789 @@ The code above is calculating a cumulative sum. Use the function `cumsum`
 all.equal(cumsum(x),out)
 #> [1] TRUE
 ```
+
+**Ex. 21.2.1.3**  Combine your function writing and for loop skills:
+
+    1. Write a for loop that `prints()` the lyrics to the children's song 
+       "Alice the camel".
+
+    1. Convert the nursery rhyme "ten in the bed" to a function. Generalise 
+       it to any number of people in any sleeping structure.
+
+    1. Convert the song "99 bottles of beer on the wall" to a function.
+       Generalise to any number of any vessel containing any liquid on 
+       any surface.
+    
+I don't know what the deal is with Hadley and nursery rhymes.
+Here's the lyrics for [Alice the Camel](http://www.kididdles.com/lyrics/a012.html)
+
+We'll look from five to no humps, and print out a different last line if there are no humps. This uses `cat` instead of `print`, so it looks nicer.
+
+```r
+humps <- c("five", "four", "three", "two", "one", "no")
+for (i in humps) {
+  cat(str_c("Alice the camel has ", rep(i, 3), " humps.",
+             collapse = "\n"), "\n")
+  if (i == "no") {
+    cat("Now Alice is a horse.\n")
+  } else {
+    cat("So go, Alice, go.\n")
+  }
+  cat("\n")
+}
+#> Alice the camel has five humps.
+#> Alice the camel has five humps.
+#> Alice the camel has five humps. 
+#> So go, Alice, go.
+#> 
+#> Alice the camel has four humps.
+#> Alice the camel has four humps.
+#> Alice the camel has four humps. 
+#> So go, Alice, go.
+#> 
+#> Alice the camel has three humps.
+#> Alice the camel has three humps.
+#> Alice the camel has three humps. 
+#> So go, Alice, go.
+#> 
+#> Alice the camel has two humps.
+#> Alice the camel has two humps.
+#> Alice the camel has two humps. 
+#> So go, Alice, go.
+#> 
+#> Alice the camel has one humps.
+#> Alice the camel has one humps.
+#> Alice the camel has one humps. 
+#> So go, Alice, go.
+#> 
+#> Alice the camel has no humps.
+#> Alice the camel has no humps.
+#> Alice the camel has no humps. 
+#> Now Alice is a horse.
+```
+
+The lyrics for [Ten in the Bed](http://supersimplelearning.com/songs/original-series/one/ten-in-the-bed/):
+
+```r
+numbers <- c("ten", "nine", "eight", "seven", "six", "five",
+             "four", "three", "two", "one")
+for (i in numbers) {
+  cat(str_c("There were ", i, " in the bed\n"))
+  cat("and the little one said\n")
+  if (i == "one") {
+    cat("I'm lonely...")
+  } else {
+    cat("Roll over, roll over\n")
+    cat("So they all rolled over and one fell out.\n")
+  }
+  cat("\n")
+}
+#> There were ten in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were nine in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were eight in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were seven in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were six in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were five in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were four in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were three in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were two in the bed
+#> and the little one said
+#> Roll over, roll over
+#> So they all rolled over and one fell out.
+#> 
+#> There were one in the bed
+#> and the little one said
+#> I'm lonely...
+```
+
+For the bottles of beer, I define a helper function to correctly print the number of bottles.
+
+```r
+bottles <- function(i) {
+  if (i > 2) {
+   bottles <- str_c(i - 1, " bottles")
+  } else if (i == 2) {
+   bottles <- "1 bottle"
+  } else {
+   bottles <- "no more bottles"
+  }
+  bottles
+}
+
+beer_bottles <- function(n) {
+  # should test whether n >= 1.
+  for (i in seq(n, 1)) {
+     cat(str_c(bottles(i), " of beer on the wall, ", bottles(i), " of beer.\n"))
+     cat(str_c("Take one down and pass it around, ", bottles(i - 1),
+                " of beer on the wall.\n\n"))
+  }
+  cat("No more bottles of beer on the wall, no more bottles of beer.\n")
+  cat(str_c("Go to the store and buy some more, ", bottles(n), " of beer on the wall.\n"))
+}
+beer_bottles(3)
+#> 2 bottles of beer on the wall, 2 bottles of beer.
+#> Take one down and pass it around, 1 bottle of beer on the wall.
+#> 
+#> 1 bottle of beer on the wall, 1 bottle of beer.
+#> Take one down and pass it around, no more bottles of beer on the wall.
+#> 
+#> no more bottles of beer on the wall, no more bottles of beer.
+#> Take one down and pass it around, no more bottles of beer on the wall.
+#> 
+#> No more bottles of beer on the wall, no more bottles of beer.
+#> Go to the store and buy some more, 2 bottles of beer on the wall.
+```
+
+
+**Ex 21.2.1.4**  It's common to see for loops that don't preallocate the output and instead increase the length of a vector at each step:
+    
+
+```r
+output <- vector("integer", 0)
+for (i in seq_along(x)) {
+  output <- c(output, lengths(x[[i]]))
+}
+output
+```
+
+I'll use the package **microbenchmark** to time this.
+Microbenchmark will run an R expression a number of times and time it.
+
+Define a function that appends to an integer vector.
+
+```r
+library("microbenchmark")
+add_to_vector <- function(n) {
+  output <- vector("integer", 0)
+  for (i in seq_len(n)) {
+    output <- c(output, i)
+  }
+  output  
+}
+microbenchmark(add_to_vector(10000), times = 3)
+#> Unit: milliseconds
+#>                  expr min  lq mean median  uq max neval
+#>  add_to_vector(10000) 156 158  172    159 180 201     3
+```
+
+And one that pre-allocates it.
+
+```r
+add_to_vector_2 <- function(n) {
+  output <- vector("integer", n)
+  for (i in seq_len(n)) {
+    output[[i]] <- i
+  }
+  output
+}
+microbenchmark(add_to_vector_2(10000), times = 3)
+#> Unit: milliseconds
+#>                    expr min   lq mean median   uq  max neval
+#>  add_to_vector_2(10000) 7.1 7.25 7.33   7.39 7.44 7.49     3
+```
+
+The pre-allocated vector is about **100** times faster!
+YMMV, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.
+
+
+## For loop variations
+
+
+### 
+
+**Ex** Imagine you have a directory full of CSV files that you want to read in.
+You have their paths in a vector, 
+`files <- dir("data/", pattern = "\\.csv$", full.names = TRUE)`, and now
+want to read each one with `read_csv()`. Write the for loop that will 
+load them into a single data frame. 
+
+I pre-allocate a list, read each file as data frame into an element in that list.
+This creates a list of data frames.
+I then use `bind_rows` to create a single data frame from the list of data frames.
+
+```r
+df <- vector("list", lenght(files))
+for (fname in seq_along(files)) {
+  df[[i]] <- read_csv(files[[i]])
+}
+df <- bind_rows(df)
+```
+
+
+**Ex** What happens if you use `for (nm in names(x))` and `x` has no names?
+What if only some of the elements are named? What if the names are
+not unique?
+
+Let's try it out and see what happens.
+
+When there are no names for the vector, it does not run the code in the loop (it runs zero iterations of the loop):
+
+```r
+x <- 1:3
+print(names(x))
+#> NULL
+for (nm in names(x)) {
+  print(nm)
+  print(x[[nm]])
+}
+```
+Note that the length of `NULL` is zero:
+
+```r
+length(NULL)
+#> [1] 0
+```
+
+If there only some names, then we get an error if we try to access an element without a name. 
+However, oddly, `nm == ""` when there is no name.
+
+```r
+x <- c(a = 1, 2, c = 3)
+names(x)
+#> [1] "a" ""  "c"
+```
+
+```r
+for (nm in names(x)) {
+  print(nm)
+  print(x[[nm]])
+}
+#> [1] "a"
+#> [1] 1
+#> [1] ""
+#> Error in x[[nm]]: subscript out of bounds
+```
+
+Finally, if there are duplicate names, then `x[[nm]]` will give the *first* element with that name.
+There is no way to access duplicately named elements by name.
+
+```r
+x <- c(a = 1, a = 2, c = 3)
+names(x)
+#> [1] "a" "a" "c"
+```
+
+```r
+for (nm in names(x)) {
+  print(nm)
+  print(x[[nm]])
+}
+#> [1] "a"
+#> [1] 1
+#> [1] "a"
+#> [1] 1
+#> [1] "c"
+#> [1] 3
+```
+
+
+**Ex**  Write a function that prints the mean of each numeric column in a data 
+frame, along with its name. For example, `show_mean(iris)` would print:
+    
+
+```r
+show_mean(iris)
+#> Sepal.Length: 5.84
+#> Sepal.Width:  3.06
+#> Petal.Length: 3.76
+#> Petal.Width:  1.20
+```
+    
+(Extra challenge: what function did I use to make sure that the numbers
+lined up nicely, even though the variable names had different lengths?)
+
+There may be other functions to do this, but I'll use `str_pad`, and `str_length` to ensure that the space given to the variable names is the same.
+I messed around with the options to `format` until I got two digits .
+
+```r
+show_mean <- function(df, digits = 2) {
+  # Get max length of any variable in the dataset
+  maxstr <- max(str_length(names(df)))
+  for (nm in names(df)) {
+    if (is.numeric(df[[nm]])) {
+      cat(str_c(str_pad(str_c(nm, ":"), maxstr + 1L, side = "right"),
+                format(mean(df[[nm]]), digits = digits, nsmall = digits),
+                sep = " "),
+          "\n")
+    }
+  }
+}
+show_mean(iris)
+#> Sepal.Length: 5.84 
+#> Sepal.Width:  3.06 
+#> Petal.Length: 3.76 
+#> Petal.Width:  1.20
+```
+
+**Ex** What does this code do? How does it work?
+
+
+```r
+trans <- list( 
+  disp = function(x) x * 0.0163871,
+  am = function(x) {
+    factor(x, labels = c("auto", "manual"))
+  }
+)
+for (var in names(trans)) {
+  mtcars[[var]] <- trans[[var]](mtcars[[var]])
+}
+```
+
+This code mutates the `disp` and `am` columns:
+
+- `disp` is  multiplied by 0.0163871
+- `am` is replaced by a factor variable.
+
+The code works by looping over a named list of functions.
+It calls the named function in the list on the column of `mtcars` with the same name, and replaces the values of that column.
+
+E.g. this is a function:
+
+```r
+trans[["disp"]]
+#> function(x) x * 0.0163871
+```
+This applies the function to the column of `mtcars` with the same name
+
+```r
+trans[["disp"]](mtcars[["disp"]])
+#>  [1] 0.0430 0.0430 0.0290 0.0693 0.0967 0.0604 0.0967 0.0394 0.0378 0.0450
+#> [11] 0.0450 0.0741 0.0741 0.0741 0.1267 0.1235 0.1182 0.0211 0.0203 0.0191
+#> [21] 0.0323 0.0854 0.0816 0.0940 0.1074 0.0212 0.0323 0.0255 0.0943 0.0389
+#> [31] 0.0808 0.0325
+```
+
+
+
+
+## For loops vs. functionals
+
+
+```r
+col_summary <- function(df, fun) {
+  out <- vector("double", length(df))
+  for (i in seq_along(df)) {
+    out[i] <- fun(df[[i]])
+  }
+  out
+}
+```
+
+### Exercises
+
+**Ex. 21.4.1.1** Read the documentation for `apply()`. In the 2d case, what two for loops does it generalise.
+
+It generalises looping over the rows or columns of a matrix or data-frame. 
+
+**Ex. 21.4.1.2** Adapt `col_summary()` so that it only applies to numeric columns You might want to start with an `is_numeric()` function that returns a logical vector that has a `TRUE` corresponding to each numeric column.
+
+
+```r
+col_summary2 <- function(df, fun) {
+  # test whether each colum is numeric
+  numeric_cols <- vector("logical", length(df))
+  for (i in seq_along(df)) {
+    numeric_cols[[i]] <- is.numeric(df[[i]])
+  }
+  # indexes of numeric columns
+  idxs <- seq_along(df)[numeric_cols]
+  # number of numeric columns
+  n <- sum(numeric_cols)
+  out <- vector("double", n)
+  for (i in idxs) {
+    out[i] <- fun(df[[i]])
+  }
+  out
+}
+```
+
+Let's test that it works,
+
+```r
+df <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = letters[1:10],
+  d = rnorm(10)
+)
+col_summary2(df, mean)
+#> [1]  0.859  0.555  0.000 -0.451
+```
+
+
+## The map functions
+
+### Shortcuts
+
+**Notes** The `lm()` function runs a linear regression. It is covered in the [Model Basics](http://r4ds.had.co.nz/model-basics.html) chapter.
+
+
+### Exercises
+
+**Ex** Write code that uses one of the map functions to:
+
+    1. Compute the mean of every column in `mtcars`.
+    1. Determine the type of each column in `nycflights13::flights`.
+    1. Compute the number of unique values in each column of `iris`.
+    1. Generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$.
+    
+The mean of every column in `mtcars`:
+
+```r
+map_dbl(mtcars, mean)
+#> Warning in mean.default(.x[[i]], ...): argument is not numeric or logical:
+#> returning NA
+#>     mpg     cyl    disp      hp    drat      wt    qsec      vs      am 
+#>  20.091   6.188   3.781 146.688   3.597   3.217  17.849   0.438      NA 
+#>    gear    carb 
+#>   3.688   2.812
+```
+
+The type of every column in `nycflights13::flights`. 
+
+```r
+map(nycflights13::flights, class)
+#> $year
+#> [1] "integer"
+#> 
+#> $month
+#> [1] "integer"
+#> 
+#> $day
+#> [1] "integer"
+#> 
+#> $dep_time
+#> [1] "integer"
+#> 
+#> $sched_dep_time
+#> [1] "integer"
+#> 
+#> $dep_delay
+#> [1] "numeric"
+#> 
+#> $arr_time
+#> [1] "integer"
+#> 
+#> $sched_arr_time
+#> [1] "integer"
+#> 
+#> $arr_delay
+#> [1] "numeric"
+#> 
+#> $carrier
+#> [1] "character"
+#> 
+#> $flight
+#> [1] "integer"
+#> 
+#> $tailnum
+#> [1] "character"
+#> 
+#> $origin
+#> [1] "character"
+#> 
+#> $dest
+#> [1] "character"
+#> 
+#> $air_time
+#> [1] "numeric"
+#> 
+#> $distance
+#> [1] "numeric"
+#> 
+#> $hour
+#> [1] "numeric"
+#> 
+#> $minute
+#> [1] "numeric"
+#> 
+#> $time_hour
+#> [1] "POSIXct" "POSIXt"
+```
+I had to use `map` rather than `map_chr` since the class
+Though if by type, `typeof` is meant:
+
+```r
+map_chr(nycflights13::flights, typeof)
+#>           year          month            day       dep_time sched_dep_time 
+#>      "integer"      "integer"      "integer"      "integer"      "integer" 
+#>      dep_delay       arr_time sched_arr_time      arr_delay        carrier 
+#>       "double"      "integer"      "integer"       "double"    "character" 
+#>         flight        tailnum         origin           dest       air_time 
+#>      "integer"    "character"    "character"    "character"       "double" 
+#>       distance           hour         minute      time_hour 
+#>       "double"       "double"       "double"       "double"
+```
+
+The number of unique values in each column of `iris`:
+
+```r
+map_int(iris, ~ length(unique(.)))
+#> Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species 
+#>           35           23           43           22            3
+```
+
+Generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$:
+
+```r
+map(c(-10, 0, 10, 100), rnorm, n = 10)
+#> [[1]]
+#>  [1] -11.27  -9.46  -9.92  -9.44  -9.58 -11.45  -9.06 -10.34 -10.08  -9.96
+#> 
+#> [[2]]
+#>  [1]  0.124 -0.998  1.233  0.340 -0.473  0.709 -1.529  0.237 -1.313  0.747
+#> 
+#> [[3]]
+#>  [1]  8.44 10.07  9.36  9.15 10.68 11.15  8.31  9.10 11.32 11.10
+#> 
+#> [[4]]
+#>  [1] 101.2  98.6 101.4 100.0  99.9 100.4 100.1  99.2  99.5  98.8
+```
+
+
+
+**Ex**  How can you create a single vector that for each column in a data frame
+indicates whether or not it's a factor?
+
+Use `map_lgl` with the function `is.factor`,
+
+```r
+map_lgl(mtcars, is.factor)
+#>   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb 
+#> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+```
+
+
+**Ex** What happens when you use the map functions on vectors that aren't lists? What does `map(1:5, runif)` do? Why?
+
+The function `map` applies the function to each element of the vector.
+
+```r
+map(1:5, runif)
+#> [[1]]
+#> [1] 0.226
+#> 
+#> [[2]]
+#> [1] 0.133 0.927
+#> 
+#> [[3]]
+#> [1] 0.894 0.204 0.257
+#> 
+#> [[4]]
+#> [1] 0.614 0.441 0.316 0.101
+#> 
+#> [[5]]
+#> [1] 0.2726 0.6537 0.9279 0.0266 0.5595
+```
+
+    
+**Ex** What does `map(-2:2, rnorm, n = 5)` do? Why? What does `map_dbl(-2:2, rnorm, n = 5)` do? Why?
+
+This takes samples of `n = 5` from normal distributions of means -2, -1, 0, 1, and 2, and returns a list with each element a numeric vectors of length 5.
+
+```r
+map(-2:2, rnorm, n = 5)
+#> [[1]]
+#> [1] -0.945 -2.821 -2.638 -2.153 -3.416
+#> 
+#> [[2]]
+#> [1] -0.393 -0.912 -2.570 -0.687 -0.347
+#> 
+#> [[3]]
+#> [1] -0.00796  1.72703  2.08647 -0.35835 -1.44212
+#> 
+#> [[4]]
+#> [1] 1.38 1.09 1.16 1.36 0.64
+#> 
+#> [[5]]
+#> [1] 1.8914 3.8278 0.0381 2.9460 2.5490
+```
+
+However, if we use `map_dbl` it throws an error. `map_dbl` expects the function 
+to return a numeric vector of length one.
+
+```r
+map_dbl(-2:2, rnorm, n = 5)
+#> Error: Result 1 is not a length 1 atomic vector
+```
+
+If we wanted a numeric vector, we could use `map` followed by `flatten_dbl`,
+
+```r
+flatten_dbl(map(-2:2, rnorm, n = 5))
+#>  [1] -1.402 -1.872 -3.717 -1.964 -0.993 -0.287 -2.110 -0.851 -1.386 -1.230
+#> [11]  0.392  0.470  0.989 -0.714  1.270  1.709  2.047 -0.210  1.380  0.933
+#> [21]  2.280  2.330  2.285  2.429  1.879
+```
+
+
+**Ex** Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function. 
+
+
+```r
+map(list(mtcars), ~ lm(mpg ~ wt, data = .))
+#> [[1]]
+#> 
+#> Call:
+#> lm(formula = mpg ~ wt, data = .)
+#> 
+#> Coefficients:
+#> (Intercept)           wt  
+#>       37.29        -5.34
+```
+
+
+
+## Dealing with Failure
+
+## Mapping over multiple arguments
+
+## Walk
+
+## Other patterns of for loops
+
+### Exercises
+
+**Ex** Implement your own version of `every()` using a for loop. Compare it with
+`purrr::every()`. What does purrr's version do that your version doesn't?
+
+
+
+```r
+# Use ... to pass arguments to the function
+every2 <- function(.x, .p, ...) {
+  for (i in .x) {
+    if (!.p(i, ...)) {
+      # If any is FALSE we know not all of then were TRUE
+      return(FALSE)
+    }
+  }
+  # if nothing was FALSE, then it is TRUE
+  TRUE  
+}
+
+every2(1:3, function(x) {x > 1})
+#> [1] FALSE
+every2(1:3, function(x) {x > 0})
+#> [1] TRUE
+```
+
+The function `purrr::every` does fancy things with `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.
+
+**Ex** Create an enhanced `col_sum()` that applies a summary function to every
+numeric column in a data frame.
+
+**Note** this question has a typo. It is referring to `col_summary`. 
+
+I will use `map` to apply the function to all the columns, and `keep` to only select numeric columns.
+
+```r
+col_sum2 <- function(df, f, ...) {
+  map(keep(df, is.numeric), f, ...)
+}
+```
+
+
+```r
+col_sum2(iris, mean)
+#> $Sepal.Length
+#> [1] 5.84
+#> 
+#> $Sepal.Width
+#> [1] 3.06
+#> 
+#> $Petal.Length
+#> [1] 3.76
+#> 
+#> $Petal.Width
+#> [1] 1.2
+```
+
+
+
+**Ex**  A possible base R equivalent of `col_sum()` is:
+
+
+```r
+col_sum3 <- function(df, f) {
+  is_num <- sapply(df, is.numeric)
+  df_num <- df[, is_num]
+  sapply(df_num, f)
+}
+```
+
+But it has a number of bugs as illustrated with the following inputs:
+
+
+```r
+df <- tibble(
+  x = 1:3, 
+  y = 3:1,
+  z = c("a", "b", "c")
+)
+# OK
+col_sum3(df, mean)
+# Has problems: don't always return numeric vector
+col_sum3(df[1:2], mean)
+col_sum3(df[1], mean)
+col_sum3(df[0], mean)
+```
+
+What causes the bugs?
+
+The problem is that `sapply` doesn't always return numeric vectors.
+If no columns are selected, instead of gracefully exiting, it returns an empty list. 
+This causes an error since we can't use a list with `[`.
+
+```r
+sapply(df[0], is.numeric)
+#> named list()
+```
+
+```r
+sapply(df[1], is.numeric)
+#>    a 
+#> TRUE
+```
+
+```r
+sapply(df[1:2], is.numeric)
+#>    a    b 
+#> TRUE TRUE
+```
+
+
+

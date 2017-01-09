@@ -27,12 +27,7 @@ In general, discuss how this "dialect" of R relates to base R and other R that t
 
 Also, need to discuss types of variables.
 
-```{r}
-nycflights13::flights %>% 
-  print(n = 10, width = Inf)
-```
-
-If this were printed in the console it would be much worse. Just try it, I dare you.
+If `nycflights::flights` were printed in the console it would be much worse. Just try it, I dare you.
 ```{r eval=FALSE}
 as.data.frame(nycflights13::flights) 
 ```
@@ -42,14 +37,7 @@ as.data.frame(nycflights13::flights)
 
 **Note** Warnings about partial matching! What is it and why is it dangerous.
 
-```{r}
-df <- tibble(x = runif(5), y = rnorm(5))
-df$x
-df[["x"]]
-df[[1]]
-df %>% .$x
-df %>% .[["x"]]
-```
+
 
 ## Interacting with older code
 
@@ -102,10 +90,10 @@ becuase `df$var` would look for a column named `var`.
 
 4. Practice referring to non-syntactic names in the following data frame by:
 
-  1. Extracting the variable called 1.
-  2. Plotting a scatterplot of 1 vs 2.
-  3. Creating a new column called 3 which is 2 divided by 1.
-  4. Renaming the columns to one, two and three.
+    1. Extracting the variable called 1.
+    2. Plotting a scatterplot of 1 vs 2.
+    3. Creating a new column called 3 which is 2 divided by 1.
+    4. Renaming the columns to one, two and three.
 
 
 ```{r}
@@ -132,8 +120,13 @@ ggplot(annoying, aes(x = `1`, y = `2`)) +
 
 A new column `3` with is `2` divided by `1`:
 ```{r}
-annoying[["3"]] = annoying$`2` / annoying$`1`
+annoying[["3"]] <- annoying$`2` / annoying$`1`
 ```
+or
+```{r}
+annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
+```
+
 
 Renaming the columns to `one`, `two`, and `three`:
 ```{r}
@@ -146,6 +139,10 @@ glimpse(annoying)
 It converts named vectors to a data frame with names and values
 ```{r eval=FALSE}
 ?tibble::enframe
+```
+
+```{r}
+enframe(c(a = 1, b = 2, c = 3))
 ```
 
 
