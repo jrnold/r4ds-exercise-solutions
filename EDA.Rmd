@@ -421,3 +421,84 @@ Another justification, for switching the order is that the larger numbers are at
 
 ### Two continuous variables
 
+1.  Instead of summarising the conditional distribution with a boxplot, you
+could use a frequency polygon. What do you need to consider when using
+`cut_width()` vs `cut_number()`? How does that impact a visualisation of
+the 2d distribution of `carat` and `price`?
+
+When using `cut_width` the number in each bin may be unequal.
+The distribution of `carat` is right skewed so there are few diamonds in those bins.
+```{r}
+ggplot(data = diamonds, 
+       mapping = aes(x = price,
+                     colour = cut_width(carat, 0.3))) +
+  geom_freqpoly()
+```
+Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
+```{r}
+ggplot(data = diamonds, 
+       mapping = aes(x = price,
+                     y = ..density.., 
+                     colour = cut_width(carat, 0.3))) +
+  geom_freqpoly()
+```
+Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
+```{r}
+ggplot(data = diamonds, 
+       mapping = aes(x = price,
+                     colour = cut_number(carat, 10))) +
+  geom_freqpoly()
+```
+Since there are equal numbers in each bin, the plot looks the same if density is used for the y aesthetic (although the values are on a different scale).
+```{r}
+ggplot(data = diamonds, 
+       mapping = aes(x = price,
+                     y = ..density..,
+                     colour = cut_number(carat, 10))) +
+  geom_freqpoly()
+```
+
+2.  Visualise the distribution of `carat`, partitioned by `price`.
+
+With a boxplot, partitionining into an 10 bins with the same number of observations:
+```{r}
+ggplot(diamonds, aes(x = cut_number(price, 10), y = carat)) +
+  geom_boxplot() +
+  coord_flip() +
+  xlab("Price")
+```
+With a boxplot, partitionining into an bins of \$2,000 with the width of the box determined by the number of observations. I use `boundary = 0` to ensure the first bin goes from \$0--\$2,000.
+```{r}
+ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
+  geom_boxplot(varwidth = TRUE) +
+  coord_flip() +
+  xlab("Price")
+```
+
+3. How does the price distribution of very large diamonds compare to small 
+diamonds. Is it as you expect, or does it surprise you?
+
+The distribution of very large diamonds is more variable. 
+I'm not surprised, since I had a very weak prior about diamond prices.
+Ex post, I would reason that above a certain size other factors such as cut, clarity, color play more of a role in the price.
+
+4.  Combine two of the techniques you've learned to visualise the combined distribution of cut, carat, and price.
+
+There's lots of options to try: Here's a couple. What else did you try? What's the best way? 
+
+```{r}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_hex() +
+  facet_wrap(~ cut, ncol = 1) +
+  scale_fill_viridis()
+```
+
+```{r}
+ggplot(diamonds, aes(x = cut_number(carat, 5), y = price, color = cut)) +
+  geom_boxplot()
+```
+
+```{r}
+ggplot(diamonds, aes(color = cut_number(carat, 5), y = price, x = cut)) +
+  geom_boxplot()
+```
