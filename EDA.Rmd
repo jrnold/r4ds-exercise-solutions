@@ -4,7 +4,14 @@
 
 ```{r message=FALSE}
 library("tidyverse")
+library("viridis")
+library("forcats")
 ```
+This will also use data from **nycflights13**,
+```{r}
+library("nycflights13")
+```
+
 
 ### Questions
 
@@ -200,10 +207,300 @@ nycflights13::flights %>%
 
 I'm not exactly sure what this question is asking conditional on using only the tools introduced in the book thus far.
 
+3. Install the **ggstance** package, and create a horizontal boxplot.
+   How does this compare to using `coord_flip()`?
+   
+Earlier we created a horizontal boxplot of the distribution `hwy` by `class`, using `geom_boxplot` and `coord_flip`:   
+```{r}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = reorder(class, hwy, FUN = median), y = hwy)) +
+  coord_flip()
+```
+
+In this case the output looks the same, but in the aesthetics the `x` and `y` are flipped from the previous case.
+```{r}
+library("ggstance")
+
+ggplot(data = mpg) +
+  geom_boxploth(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
+
+```
+
+4. One problem with boxplots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of “outlying values”. One approach to remedy this problem is the letter value plot. Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut. What do you learn? How do you interpret the plots?
+
+The boxes of the letter-value plot correspond to many more quantiles.
+They are useful for larger datasets because
+
+1. larger datasets can give precise estiamtes of quantiles beyond the quartiles
+2. in expectation, larger datasets should have many more outliers
+
+The letter-value plot is described in:
+
+>  Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. "Letter-value plots: Boxplots for large data" http://vita.had.co.nz/papers/letter-value-plot.pdf
+
+```{r}
+library("lvplot")
+ggplot(diamonds, aes(x = cut, y = price)) +
+  geom_lv()
+```
+
+5. Compare and contrast `geom_violin()` with a facetted `geom_histogram()`,
+   or a coloured `geom_freqpoly()`. What are the pros and cons of each 
+   method?
+
+I produce plots for these three methods below. The `geom_freqpoly` is better for look-up: meaning that given a price, it is easy to tell which `cut` has the highest density. However, the overlapping lines makes it difficult to distinguish how the overall distributions relate to each other.
+The `geom_violin` and facetted `geom_histogram` have similar strengths and weaknesses.
+It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
+However, since we can't easily compare the vertical values of the distribution, its difficult to look up which category has the highest density for a given price.
+All of these methods depend on tuning parameters to determine the level of smoothness of the distribution.
+
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) + 
+  geom_freqpoly(mapping = aes(colour = cut), binwidth = 500)
+```
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = price)) +
+  geom_histogram() +
+  facet_wrap(~ cut, ncol = 1, scales = "free_y")
+```
+
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
+  geom_violin() +
+  coord_flip()
+```
+
+The violin plot was first described in 
+
+> Hintze JL, Nelson RD (1998). "Violin Plots: A Box Plot-Density Trace Synergism." The American Statistician, 52(2), 181–184
+
+
+6.  If you have a small dataset, it's sometimes useful to use `geom_jitter()`
+    to see the relationship between a continuous and categorical variable.
+    The **ggbeeswarm** package provides a number of methods similar to 
+    `geom_jitter()`. List them and briefly describe what each one does.
+
+There are two methods:
+
+- `geom_quasirandom` that produces plots that resemble something between jitter and violin. There are several different methods that determine exactly how the random location of the points is generated.
+- `geom_beeswarm` creates a shape similar to a violin plot, but by offsetting the points.
+    
+I'll use the `mpg`  boxplot example since these methods display individual points, they are better suited for smaller datasets.
+
+```{r}
+library("ggbeeswarm")
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy))
+
+```
+
+```{r}
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy),
+                   method = "tukey")
+```
+
+```{r}
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy),
+                   method = "tukeyDense")
+```
+
+```{r}
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy),
+                   method = "frowney")
+```
+
+```{r}
+ggplot(data = mpg) +
+  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy),
+                   method = "smiley")
+```
+
+
+```{r}
+ggplot(data = mpg) +
+  geom_beeswarm(mapping = aes(x = reorder(class, hwy, FUN = median),
+                                 y = hwy))
+
+```
 
 
 ### Two categorical variables
 
+1. How could you rescale the count dataset above to more clearly show the distribution of cut within colour, or colour within cut?
+
+TO clearly show the distribution of `cut` within `color`, calculate a new variable `prop` which is the proportion of each cut within a `color`.
+This is done using a grouped mutate.
+```{r}
+diamonds %>% 
+  count(color, cut) %>%
+  group_by(color) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(mapping = aes(x = color, y = cut)) +
+  geom_tile(mapping = aes(fill = prop)) +
+  scale_fill_viridis(limits = c(0, 1))
+```
+
+Similarly, to scale by the distribution of `color` within `cut`,
+```{r}
+diamonds %>% 
+  count(color, cut) %>%
+  group_by(cut) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(mapping = aes(x = color, y = cut)) +
+  geom_tile(mapping = aes(fill = prop)) +
+  scale_fill_viridis(limits = c(0, 1))
+```
+
+I add `limit = c(0, 1)` to put the color scale between (0, 1). 
+These are the logical boundaries of proportions.
+This makes it possible to compare each cell to its actual value, and would improve comparisons across multiple plots.
+However, it ends up limiting the colors and makes it harder to compare within the dataset. 
+However, using the default limits of the minimum and maximum values makes it easier to compare within the dataset the emphasizing relative differences, but harder to compare across datasets.
+
+2. Use `geom_tile()` together with **dplyr** to explore how average flight delays vary by destination and month of year. What makes the plot difficult to read? How could you improve it?
+
+```{r}
+flights %>%
+  group_by(month, dest) %>%
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
+  geom_tile() +
+  labs(x = "Month", y = "Destination", fill = "Departure Delay")
+```
+
+There are several things that could be done to improve it,
+
+- sort destinations by a meaningful quanity (distance, number of flights, average delay)
+- remove missing values
+- better color scheme (viridis)
+
+How to treat missing values is difficult.
+In this case, missing values correspond to airports which don't have regular flights (at least one flight each month) from NYC. 
+These are likely smaller airports (with higher variance in their average due to fewer observations).
+
+```{r}
+library("viridis")
+flights %>%
+  group_by(month, dest) %>%
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  group_by(dest) %>%
+  filter(n() == 12) %>%
+  ungroup() %>%
+  mutate(dest = fct_reorder(dest, dep_delay)) %>%
+  ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
+  geom_tile() +
+  scale_fill_viridis() +
+  labs(x = "Month", y = "Destination", fill = "Departure Delay")
+```
+
+
+3. Why is it slightly better to use `aes(x = color, y = cut)` rather than `aes(x = cut, y = color)` in the example above?
+
+It's usually better to use the categorical variable with a larger number of categories or the longer labels on the y axis. 
+If at all possible, labels should be horizontal because that is easier to read. 
+
+However, switching the order doesn't result in overlapping labels.
+```{r}
+diamonds %>% 
+  count(color, cut) %>%  
+  ggplot(mapping = aes(y = color, x = cut)) +
+    geom_tile(mapping = aes(fill = n))
+```
+
+Another justification, for switching the order is that the larger numbers are at the top when `x = color` and `y = cut`, and that lowers the cognitive burden of interpreting the plot.
+
 
 ### Two continuous variables
 
+1.  Instead of summarising the conditional distribution with a boxplot, you
+could use a frequency polygon. What do you need to consider when using
+`cut_width()` vs `cut_number()`? How does that impact a visualisation of
+the 2d distribution of `carat` and `price`?
+
+When using `cut_width` the number in each bin may be unequal.
+The distribution of `carat` is right skewed so there are few diamonds in those bins.
+```{r}
+ggplot(data = diamonds, 
+       mapping = aes(x = price,
+                     colour = cut_width(carat, 0.3))) +
+  geom_freqpoly()
+```
+Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
+```{r}
+ggplot(data = diamonds, 
+       mapping = aes(x = price,
+                     y = ..density.., 
+                     colour = cut_width(carat, 0.3))) +
+  geom_freqpoly()
+```
+Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
+```{r}
+ggplot(data = diamonds, 
+       mapping = aes(x = price,
+                     colour = cut_number(carat, 10))) +
+  geom_freqpoly()
+```
+Since there are equal numbers in each bin, the plot looks the same if density is used for the y aesthetic (although the values are on a different scale).
+```{r}
+ggplot(data = diamonds, 
+       mapping = aes(x = price,
+                     y = ..density..,
+                     colour = cut_number(carat, 10))) +
+  geom_freqpoly()
+```
+
+2.  Visualise the distribution of `carat`, partitioned by `price`.
+
+With a boxplot, partitionining into an 10 bins with the same number of observations:
+```{r}
+ggplot(diamonds, aes(x = cut_number(price, 10), y = carat)) +
+  geom_boxplot() +
+  coord_flip() +
+  xlab("Price")
+```
+With a boxplot, partitionining into an bins of \$2,000 with the width of the box determined by the number of observations. I use `boundary = 0` to ensure the first bin goes from \$0--\$2,000.
+```{r}
+ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
+  geom_boxplot(varwidth = TRUE) +
+  coord_flip() +
+  xlab("Price")
+```
+
+3. How does the price distribution of very large diamonds compare to small 
+diamonds. Is it as you expect, or does it surprise you?
+
+The distribution of very large diamonds is more variable. 
+I'm not surprised, since I had a very weak prior about diamond prices.
+Ex post, I would reason that above a certain size other factors such as cut, clarity, color play more of a role in the price.
+
+4.  Combine two of the techniques you've learned to visualise the combined distribution of cut, carat, and price.
+
+There's lots of options to try: Here's a couple. What else did you try? What's the best way? 
+
+```{r}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_hex() +
+  facet_wrap(~ cut, ncol = 1) +
+  scale_fill_viridis()
+```
+
+```{r}
+ggplot(diamonds, aes(x = cut_number(carat, 5), y = price, color = cut)) +
+  geom_boxplot()
+```
+
+```{r}
+ggplot(diamonds, aes(color = cut_number(carat, 5), y = price, x = cut)) +
+  geom_boxplot()
+```

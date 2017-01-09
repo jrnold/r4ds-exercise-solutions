@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Exercise Solutions and Notes for R for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Exercise Solutions and Notes for “R for Data Science”">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Exercise Solutions and Notes for R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="jrnold/e4qf" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Exercise Solutions and Notes for R for Data Science" />
+  
+  
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="exploratory-data-analysis.html">
+<link rel="next" href="data-import.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Data Science</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="part"><span><b>I Explore</b></span></li>
+<li class="chapter" data-level="1" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="visualize.html"><a href="visualize.html"><i class="fa fa-check"></i><b>2</b> Visualize</a><ul>
+<li class="chapter" data-level="2.1" data-path="visualize.html"><a href="visualize.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="visualize.html"><a href="visualize.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="visualize.html"><a href="visualize.html#first-steps"><i class="fa fa-check"></i><b>2.1.2</b> First Steps</a></li>
+<li class="chapter" data-level="2.1.3" data-path="visualize.html"><a href="visualize.html#aesthetic-mappings"><i class="fa fa-check"></i><b>2.1.3</b> Aesthetic mappings</a></li>
+<li class="chapter" data-level="2.1.4" data-path="visualize.html"><a href="visualize.html#facets"><i class="fa fa-check"></i><b>2.1.4</b> Facets</a></li>
+<li class="chapter" data-level="2.1.5" data-path="visualize.html"><a href="visualize.html#geometric-objects"><i class="fa fa-check"></i><b>2.1.5</b> Geometric Objects</a></li>
+<li class="chapter" data-level="2.1.6" data-path="visualize.html"><a href="visualize.html#statistical-transformations"><i class="fa fa-check"></i><b>2.1.6</b> Statistical Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="visualize.html"><a href="visualize.html#position-adjustments"><i class="fa fa-check"></i><b>2.2</b> Position Adjustments</a></li>
+<li class="chapter" data-level="2.3" data-path="visualize.html"><a href="visualize.html#coordinate-systems"><i class="fa fa-check"></i><b>2.3</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="visualize.html"><a href="visualize.html#exercises-3"><i class="fa fa-check"></i><b>2.3.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>3</b> Workflow Basics</a><ul>
+<li class="chapter" data-level="3.1" data-path="workflow-basics.html"><a href="workflow-basics.html#practice"><i class="fa fa-check"></i><b>3.1</b> Practice</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="workflow-basics.html"><a href="workflow-basics.html#exercises-4"><i class="fa fa-check"></i><b>3.1.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4</b> Data Transformation</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-transformation.html"><a href="data-transformation.html#prerequisites-1"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.2" data-path="data-transformation.html"><a href="data-transformation.html#filter"><i class="fa fa-check"></i><b>4.2</b> Filter</a></li>
+<li class="chapter" data-level="4.3" data-path="data-transformation.html"><a href="data-transformation.html#exercises-5"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
+<li class="chapter" data-level="4.4" data-path="data-transformation.html"><a href="data-transformation.html#arrange"><i class="fa fa-check"></i><b>4.4</b> Arrange</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-6"><i class="fa fa-check"></i><b>4.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="data-transformation.html"><a href="data-transformation.html#mutate"><i class="fa fa-check"></i><b>4.5</b> Mutate</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-7"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="data-transformation.html"><a href="data-transformation.html#grouped-summaries-with-summarise"><i class="fa fa-check"></i><b>4.6</b> Grouped summaries with <code>summarise()</code></a><ul>
+<li class="chapter" data-level="4.6.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-8"><i class="fa fa-check"></i><b>4.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="data-transformation.html"><a href="data-transformation.html#grouped-mutates-and-filters"><i class="fa fa-check"></i><b>4.7</b> Grouped mutates and filters</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-9"><i class="fa fa-check"></i><b>4.7.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#questions"><i class="fa fa-check"></i><b>5.1.1</b> Questions</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#variation"><i class="fa fa-check"></i><b>5.1.2</b> Variation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#missing-values"><i class="fa fa-check"></i><b>5.2</b> Missing Values</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-11"><i class="fa fa-check"></i><b>5.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#covariation"><i class="fa fa-check"></i><b>5.3</b> Covariation</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#a-categorical-and-continuous-variable"><i class="fa fa-check"></i><b>5.3.1</b> A categorical and continuous variable</a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-categorical-variables"><i class="fa fa-check"></i><b>5.3.2</b> Two categorical variables</a></li>
+<li class="chapter" data-level="5.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-continuous-variables"><i class="fa fa-check"></i><b>5.3.3</b> Two continuous variables</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Wrangle</b></span></li>
+<li class="chapter" data-level="6" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>6</b> Tibbles</a><ul>
+<li class="chapter" data-level="6.1" data-path="tibbles.html"><a href="tibbles.html#prerquisites"><i class="fa fa-check"></i><b>6.1</b> Prerquisites</a></li>
+<li class="chapter" data-level="6.2" data-path="tibbles.html"><a href="tibbles.html#creating-tibbles"><i class="fa fa-check"></i><b>6.2</b> Creating Tibbles</a></li>
+<li class="chapter" data-level="6.3" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.data.frame"><i class="fa fa-check"></i><b>6.3</b> Tibbles vs. data.frame</a></li>
+<li class="chapter" data-level="6.4" data-path="tibbles.html"><a href="tibbles.html#subsetting"><i class="fa fa-check"></i><b>6.4</b> Subsetting</a></li>
+<li class="chapter" data-level="6.5" data-path="tibbles.html"><a href="tibbles.html#interacting-with-older-code"><i class="fa fa-check"></i><b>6.5</b> Interacting with older code</a></li>
+<li class="chapter" data-level="6.6" data-path="tibbles.html"><a href="tibbles.html#exercises-12"><i class="fa fa-check"></i><b>6.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>7</b> Data Import</a><ul>
+<li class="chapter" data-level="7.1" data-path="data-import.html"><a href="data-import.html#introduction-2"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>7.2</b> Getting started</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="data-import.html"><a href="data-import.html#exercises-13"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-import.html"><a href="data-import.html#parsing-a-vector"><i class="fa fa-check"></i><b>7.3</b> Parsing a vector</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="data-import.html"><a href="data-import.html#exercises-14"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>7.4</b> Other Types of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>8</b> Tidy Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-3"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tidy-data.html"><a href="tidy-data.html#tidy-data-1"><i class="fa fa-check"></i><b>8.2</b> Tidy Data</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-15"><i class="fa fa-check"></i><b>8.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="tidy-data.html"><a href="tidy-data.html#spreading-and-gathering"><i class="fa fa-check"></i><b>8.3</b> Spreading and Gathering</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-16"><i class="fa fa-check"></i><b>8.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="tidy-data.html"><a href="tidy-data.html#separating-and-uniting"><i class="fa fa-check"></i><b>8.4</b> Separating and Uniting</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-17"><i class="fa fa-check"></i><b>8.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="tidy-data.html"><a href="tidy-data.html#missing-values-1"><i class="fa fa-check"></i><b>8.5</b> Missing Values</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-18"><i class="fa fa-check"></i><b>8.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="tidy-data.html"><a href="tidy-data.html#case-study"><i class="fa fa-check"></i><b>8.6</b> Case Study</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-19"><i class="fa fa-check"></i><b>8.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="tidy-data.html"><a href="tidy-data.html#non-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Non-Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>9</b> Relational Data</a><ul>
+<li class="chapter" data-level="9.1" data-path="relational-data.html"><a href="relational-data.html#prerequisites-2"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.2" data-path="relational-data.html"><a href="relational-data.html#nycflights13"><i class="fa fa-check"></i><b>9.2</b> nycflights13</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="relational-data.html"><a href="relational-data.html#exercises-20"><i class="fa fa-check"></i><b>9.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="relational-data.html"><a href="relational-data.html#keys"><i class="fa fa-check"></i><b>9.3</b> Keys</a></li>
+<li class="chapter" data-level="9.4" data-path="relational-data.html"><a href="relational-data.html#mutating-joins"><i class="fa fa-check"></i><b>9.4</b> Mutating Joins</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="relational-data.html"><a href="relational-data.html#exercises-21"><i class="fa fa-check"></i><b>9.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="relational-data.html"><a href="relational-data.html#filtering-joins"><i class="fa fa-check"></i><b>9.5</b> Filtering Joins</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="relational-data.html"><a href="relational-data.html#exercises-22"><i class="fa fa-check"></i><b>9.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="relational-data.html"><a href="relational-data.html#set-operations"><i class="fa fa-check"></i><b>9.6</b> Set operations</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="strings.html"><a href="strings.html"><i class="fa fa-check"></i><b>10</b> Strings</a><ul>
+<li class="chapter" data-level="10.1" data-path="strings.html"><a href="strings.html#introduction-4"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="strings.html"><a href="strings.html#string-basics"><i class="fa fa-check"></i><b>10.2</b> String Basics</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="strings.html"><a href="strings.html#exercises-23"><i class="fa fa-check"></i><b>10.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="strings.html"><a href="strings.html#matching-patterns-and-regular-expressions"><i class="fa fa-check"></i><b>10.3</b> Matching Patterns and Regular Expressions</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="strings.html"><a href="strings.html#exercises-24"><i class="fa fa-check"></i><b>10.3.1</b> Exercises</a></li>
+<li class="chapter" data-level="10.3.2" data-path="strings.html"><a href="strings.html#repitition"><i class="fa fa-check"></i><b>10.3.2</b> Repitition</a></li>
+<li class="chapter" data-level="10.3.3" data-path="strings.html"><a href="strings.html#grouping-and-backreferences"><i class="fa fa-check"></i><b>10.3.3</b> Grouping and backreferences</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="strings.html"><a href="strings.html#tools"><i class="fa fa-check"></i><b>10.4</b> Tools</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="strings.html"><a href="strings.html#detect-matches"><i class="fa fa-check"></i><b>10.4.1</b> Detect matches</a></li>
+<li class="chapter" data-level="10.4.2" data-path="strings.html"><a href="strings.html#exercises-29"><i class="fa fa-check"></i><b>10.4.2</b> Exercises</a></li>
+<li class="chapter" data-level="10.4.3" data-path="strings.html"><a href="strings.html#extract-matches"><i class="fa fa-check"></i><b>10.4.3</b> Extract Matches</a></li>
+<li class="chapter" data-level="10.4.4" data-path="strings.html"><a href="strings.html#grouped-matches"><i class="fa fa-check"></i><b>10.4.4</b> Grouped Matches</a></li>
+<li class="chapter" data-level="10.4.5" data-path="strings.html"><a href="strings.html#splitting"><i class="fa fa-check"></i><b>10.4.5</b> Splitting</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="strings.html"><a href="strings.html#other-types-of-patterns"><i class="fa fa-check"></i><b>10.5</b> Other types of patterns</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="strings.html"><a href="strings.html#exercises-33"><i class="fa fa-check"></i><b>10.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="strings.html"><a href="strings.html#stringi"><i class="fa fa-check"></i><b>10.6</b> stringi</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="strings.html"><a href="strings.html#exercises-34"><i class="fa fa-check"></i><b>10.6.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>11</b> Factors</a><ul>
+<li class="chapter" data-level="11.1" data-path="factors.html"><a href="factors.html#introduction-5"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="factors.html"><a href="factors.html#creating-factors"><i class="fa fa-check"></i><b>11.2</b> Creating Factors</a></li>
+<li class="chapter" data-level="11.3" data-path="factors.html"><a href="factors.html#general-social-survey"><i class="fa fa-check"></i><b>11.3</b> General Social Survey</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="factors.html"><a href="factors.html#exercises-35"><i class="fa fa-check"></i><b>11.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="factors.html"><a href="factors.html#modifying-factor-order"><i class="fa fa-check"></i><b>11.4</b> Modifying factor order</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="factors.html"><a href="factors.html#exercises-36"><i class="fa fa-check"></i><b>11.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="factors.html"><a href="factors.html#modifying-factor-levels"><i class="fa fa-check"></i><b>11.5</b> Modifying factor levels</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="factors.html"><a href="factors.html#exercises-37"><i class="fa fa-check"></i><b>11.5.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#prerequisite"><i class="fa fa-check"></i><b>12.1</b> Prerequisite</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-datetimes"><i class="fa fa-check"></i><b>12.2</b> Creating date/times</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-38"><i class="fa fa-check"></i><b>12.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#date-time-components"><i class="fa fa-check"></i><b>12.3</b> Date-Time Components</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-39"><i class="fa fa-check"></i><b>12.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#time-spans"><i class="fa fa-check"></i><b>12.4</b> Time Spans</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="dates-and-times.html"><a href="dates-and-times.html#durations"><i class="fa fa-check"></i><b>12.4.1</b> Durations</a></li>
+<li class="chapter" data-level="12.4.2" data-path="dates-and-times.html"><a href="dates-and-times.html#periods"><i class="fa fa-check"></i><b>12.4.2</b> Periods</a></li>
+<li class="chapter" data-level="12.4.3" data-path="dates-and-times.html"><a href="dates-and-times.html#intervals"><i class="fa fa-check"></i><b>12.4.3</b> Intervals</a></li>
+<li class="chapter" data-level="12.4.4" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-40"><i class="fa fa-check"></i><b>12.4.4</b> Exercises</a></li>
+<li class="chapter" data-level="12.4.5" data-path="dates-and-times.html"><a href="dates-and-times.html#time-zones"><i class="fa fa-check"></i><b>12.4.5</b> Time Zones</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Program</b></span></li>
+<li class="chapter" data-level="13" data-path="program-intro.html"><a href="program-intro.html"><i class="fa fa-check"></i><b>13</b> Introduction</a></li>
+<li class="chapter" data-level="14" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>14</b> Pipes</a></li>
+<li class="chapter" data-level="15" data-path="vectors.html"><a href="vectors.html"><i class="fa fa-check"></i><b>15</b> Vectors</a><ul>
+<li class="chapter" data-level="15.1" data-path="vectors.html"><a href="vectors.html#introduction-6"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="vectors.html"><a href="vectors.html#important-types-of-atomic-vector"><i class="fa fa-check"></i><b>15.2</b> Important types of Atomic Vector</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="vectors.html"><a href="vectors.html#exercises-41"><i class="fa fa-check"></i><b>15.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="vectors.html"><a href="vectors.html#using-atomic-vectors"><i class="fa fa-check"></i><b>15.3</b> Using atomic vectors</a></li>
+<li class="chapter" data-level="15.4" data-path="vectors.html"><a href="vectors.html#recursive-vectors-lists"><i class="fa fa-check"></i><b>15.4</b> Recursive Vectors (lists)</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="vectors.html"><a href="vectors.html#exercises-42"><i class="fa fa-check"></i><b>15.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="vectors.html"><a href="vectors.html#augmented-vectors"><i class="fa fa-check"></i><b>15.5</b> Augmented Vectors</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="vectors.html"><a href="vectors.html#exercises-43"><i class="fa fa-check"></i><b>15.5.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>16</b> Iteration</a><ul>
+<li class="chapter" data-level="16.1" data-path="iteration.html"><a href="iteration.html#introduction-7"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="iteration.html"><a href="iteration.html#for-loops"><i class="fa fa-check"></i><b>16.2</b> For Loops</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="iteration.html"><a href="iteration.html#exercises-44"><i class="fa fa-check"></i><b>16.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="iteration.html"><a href="iteration.html#for-loop-variations"><i class="fa fa-check"></i><b>16.3</b> For loop variations</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="iteration.html"><a href="iteration.html#section"><i class="fa fa-check"></i><b>16.3.1</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="iteration.html"><a href="iteration.html#for-loops-vs.functionals"><i class="fa fa-check"></i><b>16.4</b> For loops vs. functionals</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="iteration.html"><a href="iteration.html#exercises-45"><i class="fa fa-check"></i><b>16.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="iteration.html"><a href="iteration.html#the-map-functions"><i class="fa fa-check"></i><b>16.5</b> The map functions</a><ul>
+<li class="chapter" data-level="16.5.1" data-path="iteration.html"><a href="iteration.html#shortcuts"><i class="fa fa-check"></i><b>16.5.1</b> Shortcuts</a></li>
+<li class="chapter" data-level="16.5.2" data-path="iteration.html"><a href="iteration.html#exercises-46"><i class="fa fa-check"></i><b>16.5.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="iteration.html"><a href="iteration.html#dealing-with-failure"><i class="fa fa-check"></i><b>16.6</b> Dealing with Failure</a></li>
+<li class="chapter" data-level="16.7" data-path="iteration.html"><a href="iteration.html#mapping-over-multiple-arguments"><i class="fa fa-check"></i><b>16.7</b> Mapping over multiple arguments</a></li>
+<li class="chapter" data-level="16.8" data-path="iteration.html"><a href="iteration.html#walk"><i class="fa fa-check"></i><b>16.8</b> Walk</a></li>
+<li class="chapter" data-level="16.9" data-path="iteration.html"><a href="iteration.html#other-patterns-of-for-loops"><i class="fa fa-check"></i><b>16.9</b> Other patterns of for loops</a><ul>
+<li class="chapter" data-level="16.9.1" data-path="iteration.html"><a href="iteration.html#exercises-47"><i class="fa fa-check"></i><b>16.9.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Model</b></span></li>
+<li class="chapter" data-level="17" data-path="model-intro.html"><a href="model-intro.html"><i class="fa fa-check"></i><b>17</b> Introduction</a></li>
+<li class="chapter" data-level="18" data-path="model-basics.html"><a href="model-basics.html"><i class="fa fa-check"></i><b>18</b> Model Basics</a><ul>
+<li class="chapter" data-level="18.1" data-path="model-basics.html"><a href="model-basics.html#prerequisites-3"><i class="fa fa-check"></i><b>18.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="18.2" data-path="model-basics.html"><a href="model-basics.html#a-simple-model"><i class="fa fa-check"></i><b>18.2</b> A simple model</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="model-basics.html"><a href="model-basics.html#exercises-48"><i class="fa fa-check"></i><b>18.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="model-basics.html"><a href="model-basics.html#visualizing-models"><i class="fa fa-check"></i><b>18.3</b> Visualizing Models</a><ul>
+<li class="chapter" data-level="18.3.1" data-path="model-basics.html"><a href="model-basics.html#exercises-49"><i class="fa fa-check"></i><b>18.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="model-basics.html"><a href="model-basics.html#formulas-and-model-families"><i class="fa fa-check"></i><b>18.4</b> Formulas and Model Families</a><ul>
+<li class="chapter" data-level="18.4.1" data-path="model-basics.html"><a href="model-basics.html#categorical-variables"><i class="fa fa-check"></i><b>18.4.1</b> Categorical Variables</a></li>
+<li class="chapter" data-level="18.4.2" data-path="model-basics.html"><a href="model-basics.html#exercises-50"><i class="fa fa-check"></i><b>18.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="18.5" data-path="model-basics.html"><a href="model-basics.html#missing-values-2"><i class="fa fa-check"></i><b>18.5</b> Missing values</a></li>
+<li class="chapter" data-level="18.6" data-path="model-basics.html"><a href="model-basics.html#other-model-families"><i class="fa fa-check"></i><b>18.6</b> Other model families</a></li>
+</ul></li>
+<li class="part"><span><b>V Communicate</b></span></li>
+<li class="chapter" data-level="19" data-path="communicate-intro.html"><a href="communicate-intro.html"><i class="fa fa-check"></i><b>19</b> Introduction</a></li>
+<li class="chapter" data-level="20" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>20</b> R Markdown</a><ul>
+<li class="chapter" data-level="20.1" data-path="r-markdown.html"><a href="r-markdown.html#r-markdown-basics"><i class="fa fa-check"></i><b>20.1</b> R Markdown Basics</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="r-markdown.html"><a href="r-markdown.html#exercise"><i class="fa fa-check"></i><b>20.1.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="r-markdown.html"><a href="r-markdown.html#text-formatting-with-r-markdown"><i class="fa fa-check"></i><b>20.2</b> Text formatting with R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="r-markdown-formats.html"><a href="r-markdown-formats.html"><i class="fa fa-check"></i><b>21</b> R Markdown Formats</a></li>
+<li class="chapter" data-level="22" data-path="r-markdown-workflow.html"><a href="r-markdown-workflow.html"><i class="fa fa-check"></i><b>22</b> R Markdown Workflow</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions and Notes for “R for Data Science”</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tibbles" class="section level1">
+<h1><span class="header-section-number">6</span> Tibbles</h1>
+<div id="prerquisites" class="section level2">
+<h2><span class="header-section-number">6.1</span> Prerquisites</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+<p>Functions and packages covered in this chapter:</p>
+<ul>
+<li>package <strong>tibble</strong></li>
+<li><code>as_tibble</code>, <code>tibble</code></li>
+</ul>
+</div>
+<div id="creating-tibbles" class="section level2">
+<h2><span class="header-section-number">6.2</span> Creating Tibbles</h2>
+<p>Why might you want to create non-syntactic variable names? Since variable names are often used as in plots (e.g. axis-titles) or headers in tables, where having spaces or other characters that are invalid R variable names is useful. Those functions will have ways to use text other than the column.</p>
+</div>
+<div id="tibbles-vs.data.frame" class="section level2">
+<h2><span class="header-section-number">6.3</span> Tibbles vs. data.frame</h2>
+<p>Discuss the definition of a data frame.</p>
+<p>What is the traditional R <code>data.frame</code>?</p>
+<p>In general, discuss how this “dialect” of R relates to base R and other R that they will see.</p>
+<p>Also, need to discuss types of variables.</p>
+<p>If <code>nycflights::flights</code> were printed in the console it would be much worse. Just try it, I dare you.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(nycflights13::flights) </code></pre></div>
+</div>
+<div id="subsetting" class="section level2">
+<h2><span class="header-section-number">6.4</span> Subsetting</h2>
+<p><strong>Note</strong> Warnings about partial matching! What is it and why is it dangerous.</p>
+</div>
+<div id="interacting-with-older-code" class="section level2">
+<h2><span class="header-section-number">6.5</span> Interacting with older code</h2>
+<p><strong>Note</strong> Not all older functions work with tibbles (an example includes giAmelia); usually because they rely on quirks in <code>data.frame</code> behavior that <code>tibbles</code> “fix”. Use <code>as.data.frame()</code> to turn a tibble back into a <code>data.frame</code>. This is usually because of <code>[</code> and the way it inconsistenly returns a vector or a data frame. With tibbles <code>[</code> always returns a data frame</p>
+</div>
+<div id="exercises-12" class="section level2">
+<h2><span class="header-section-number">6.6</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>How can you tell if an object is a tibble? (Hint: try printing <code>mtcars</code>, which is a regular data frame).</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars
+<span class="co">#&gt;                      mpg cyl  disp  hp drat   wt qsec vs am gear carb</span>
+<span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.62 16.5  0  1    4    4</span>
+<span class="co">#&gt; Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.88 17.0  0  1    4    4</span>
+<span class="co">#&gt; Datsun 710          22.8   4 108.0  93 3.85 2.32 18.6  1  1    4    1</span>
+<span class="co">#&gt; Hornet 4 Drive      21.4   6 258.0 110 3.08 3.21 19.4  1  0    3    1</span>
+<span class="co">#&gt; Hornet Sportabout   18.7   8 360.0 175 3.15 3.44 17.0  0  0    3    2</span>
+<span class="co">#&gt; Valiant             18.1   6 225.0 105 2.76 3.46 20.2  1  0    3    1</span>
+<span class="co">#&gt; Duster 360          14.3   8 360.0 245 3.21 3.57 15.8  0  0    3    4</span>
+<span class="co">#&gt; Merc 240D           24.4   4 146.7  62 3.69 3.19 20.0  1  0    4    2</span>
+<span class="co">#&gt; Merc 230            22.8   4 140.8  95 3.92 3.15 22.9  1  0    4    2</span>
+<span class="co">#&gt; Merc 280            19.2   6 167.6 123 3.92 3.44 18.3  1  0    4    4</span>
+<span class="co">#&gt; Merc 280C           17.8   6 167.6 123 3.92 3.44 18.9  1  0    4    4</span>
+<span class="co">#&gt; Merc 450SE          16.4   8 275.8 180 3.07 4.07 17.4  0  0    3    3</span>
+<span class="co">#&gt; Merc 450SL          17.3   8 275.8 180 3.07 3.73 17.6  0  0    3    3</span>
+<span class="co">#&gt; Merc 450SLC         15.2   8 275.8 180 3.07 3.78 18.0  0  0    3    3</span>
+<span class="co">#&gt; Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.25 18.0  0  0    3    4</span>
+<span class="co">#&gt; Lincoln Continental 10.4   8 460.0 215 3.00 5.42 17.8  0  0    3    4</span>
+<span class="co">#&gt; Chrysler Imperial   14.7   8 440.0 230 3.23 5.34 17.4  0  0    3    4</span>
+<span class="co">#&gt; Fiat 128            32.4   4  78.7  66 4.08 2.20 19.5  1  1    4    1</span>
+<span class="co">#&gt; Honda Civic         30.4   4  75.7  52 4.93 1.61 18.5  1  1    4    2</span>
+<span class="co">#&gt; Toyota Corolla      33.9   4  71.1  65 4.22 1.83 19.9  1  1    4    1</span>
+<span class="co">#&gt; Toyota Corona       21.5   4 120.1  97 3.70 2.46 20.0  1  0    3    1</span>
+<span class="co">#&gt; Dodge Challenger    15.5   8 318.0 150 2.76 3.52 16.9  0  0    3    2</span>
+<span class="co">#&gt; AMC Javelin         15.2   8 304.0 150 3.15 3.44 17.3  0  0    3    2</span>
+<span class="co">#&gt; Camaro Z28          13.3   8 350.0 245 3.73 3.84 15.4  0  0    3    4</span>
+<span class="co">#&gt; Pontiac Firebird    19.2   8 400.0 175 3.08 3.85 17.1  0  0    3    2</span>
+<span class="co">#&gt; Fiat X1-9           27.3   4  79.0  66 4.08 1.94 18.9  1  1    4    1</span>
+<span class="co">#&gt; Porsche 914-2       26.0   4 120.3  91 4.43 2.14 16.7  0  1    5    2</span>
+<span class="co">#&gt; Lotus Europa        30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2</span>
+<span class="co">#&gt; Ford Pantera L      15.8   8 351.0 264 4.22 3.17 14.5  0  1    5    4</span>
+<span class="co">#&gt; Ferrari Dino        19.7   6 145.0 175 3.62 2.77 15.5  0  1    5    6</span>
+<span class="co">#&gt; Maserati Bora       15.0   8 301.0 335 3.54 3.57 14.6  0  1    5    8</span>
+<span class="co">#&gt; Volvo 142E          21.4   4 121.0 109 4.11 2.78 18.6  1  1    4    2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(mtcars)
+<span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="kw">as_tibble</span>(mtcars))
+<span class="co">#&gt; [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</span></code></pre></div>
+<p>Tibbles will only print out a limited number of rows and show the class on top of each column. Addtionally, tibbles have class <code>&quot;tbl_df&quot;</code> and <code>&quot;tbl_&quot;</code> in addition to <code>&quot;data.frame&quot;</code>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Compare and contrast the following operations on a <code>data.frame</code> and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">abc =</span> <span class="dv">1</span>, <span class="dt">xyz =</span> <span class="st">&quot;a&quot;</span>)
+df$x
+<span class="co">#&gt; [1] a</span>
+<span class="co">#&gt; Levels: a</span>
+df[, <span class="st">&quot;xyz&quot;</span>]
+<span class="co">#&gt; [1] a</span>
+<span class="co">#&gt; Levels: a</span>
+df[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;xyz&quot;</span>)]
+<span class="co">#&gt;   abc xyz</span>
+<span class="co">#&gt; 1   1   a</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(df)
+tbl$x
+<span class="co">#&gt; Warning: Unknown column &#39;x&#39;</span>
+<span class="co">#&gt; NULL</span>
+tbl[, <span class="st">&quot;xyz&quot;</span>]
+<span class="co">#&gt; # A tibble: 1 × 1</span>
+<span class="co">#&gt;      xyz</span>
+<span class="co">#&gt;   &lt;fctr&gt;</span>
+<span class="co">#&gt; 1      a</span>
+tbl[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;xyz&quot;</span>)]
+<span class="co">#&gt; # A tibble: 1 × 2</span>
+<span class="co">#&gt;     abc    xyz</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;fctr&gt;</span>
+<span class="co">#&gt; 1     1      a</span></code></pre></div>
+<p>Using <code>$</code> a data.frame will partially complete the column. So even though we wrote <code>df$x</code> it returned <code>df$xyz</code>. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.</p>
+<p>With data.frames, with <code>[</code> the type of object that is returned differs on the number of columns. If it is one column, it won’t return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did <code>df[ , vars]</code> where <code>vars</code> was a variable. Then you what that code does depends on <code>length(vars)</code> and you’d have to write code to account for those situations or risk bugs.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>If you have the name of a variable stored in an object, e.g. <code>var &lt;- &quot;mpg&quot;</code>, how can you extract the reference variable from a tibble?</li>
+</ol>
+<p>You can use the double bracket, like <code>df[[var]]</code>. You cannot use the dollar sign, becuase <code>df$var</code> would look for a column named <code>var</code>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Practice referring to non-syntactic names in the following data frame by:</p>
+<ol style="list-style-type: decimal">
+<li>Extracting the variable called 1.</li>
+<li>Plotting a scatterplot of 1 vs 2.</li>
+<li>Creating a new column called 3 which is 2 divided by 1.</li>
+<li>Renaming the columns to one, two and three.</li>
+</ol></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="st">`</span><span class="dt">1</span><span class="st">`</span> =<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>,
+  <span class="st">`</span><span class="dt">2</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">1</span><span class="st">`</span> *<span class="st"> </span><span class="dv">2</span> +<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>))
+)</code></pre></div>
+<p>Extract the variable called 1:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;1&quot;</span>]]
+<span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying$<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
+<span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
+<p>A scatterplot of <code>1</code> vs. <code>2</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(annoying, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="tibble_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>A new column <code>3</code> with is <code>2</code> divided by <code>1</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;3&quot;</span>]] &lt;-<span class="st"> </span>annoying$<span class="st">`</span><span class="dt">2</span><span class="st">`</span> /<span class="st"> </span>annoying$<span class="st">`</span><span class="dt">1</span><span class="st">`</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;3&quot;</span>]] &lt;-<span class="st"> </span>annoying[[<span class="st">&quot;2&quot;</span>]] /<span class="st"> </span>annoying[[<span class="st">&quot;1&quot;</span>]]</code></pre></div>
+<p>Renaming the columns to <code>one</code>, <code>two</code>, and <code>three</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying &lt;-<span class="st"> </span><span class="kw">rename</span>(annoying, <span class="dt">one =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">two =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>, <span class="dt">three =</span> <span class="st">`</span><span class="dt">3</span><span class="st">`</span>)
+<span class="kw">glimpse</span>(annoying)
+<span class="co">#&gt; Observations: 10</span>
+<span class="co">#&gt; Variables: 3</span>
+<span class="co">#&gt; $ one   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+<span class="co">#&gt; $ two   &lt;dbl&gt; 0.60, 4.26, 3.56, 7.99, 10.62, 13.15, 12.18, 15.75, 17.7...</span>
+<span class="co">#&gt; $ three &lt;dbl&gt; 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>What does <code>tibble::enframe()</code> do? When might you use it?</li>
+</ol>
+<p>It converts named vectors to a data frame with names and values</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?tibble::enframe</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">enframe</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>))
+<span class="co">#&gt; # A tibble: 3 × 2</span>
+<span class="co">#&gt;    name value</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     a     1</span>
+<span class="co">#&gt; 2     b     2</span>
+<span class="co">#&gt; 3     c     3</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>What option controls how many additional column names are printed at the footer of a tibble?</li>
+</ol>
+<p>The print function for tibbles is in <code>print.tbl_df</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?print.tbl_df</code></pre></div>
+<p>The option <code>n_extra</code> determines the number of extra columns to print information for.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploratory-data-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-import.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/r4ds/edit/master/tibble.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

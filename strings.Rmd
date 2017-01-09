@@ -1,10 +1,10 @@
----
-title: "Ch 14: Strings"
-output: html_notebook
----
+# Strings
 
-## Notes
+## Introduction
 
+Functions and packages coverered
+
+- **stringr** package
 - `str_length`
 - `str_c`
 - `str_replace_na`
@@ -31,12 +31,11 @@ Ideas
 - Discuss fuzzy joining and string distance, approximate matching.
 
 
-## Prerequisites
-
 ```{r message=FALSE}
 library(tidyverse)
 library(stringr)
 ```
+
 
 ## String Basics
 
@@ -127,17 +126,6 @@ str_commasep(c("a", "b", "c"))
 
 ## Matching Patterns and Regular Expressions
 
-```{r}
-x <- c("apple", "banana", "pear")
-str_view(x, "an")
-str_view(x, ".a.")
-```
-
-```{r}
-dot <- "\\."
-writeLines(dot)
-str_view(c("abc", "a.c", "bef"), "a\\.c")
-```
 
 
 ### Exercises
@@ -150,7 +138,7 @@ str_view(c("abc", "a.c", "bef"), "a\\.c")
 
 2. How would you match the sequence `"'\` ?
 
-```{r}
+```{r, include=FALSE}
 str_view("\"'\\", "\"'\\\\")
 ```
 
@@ -158,25 +146,25 @@ str_view("\"'\\", "\"'\\\\")
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
-```{r}
+```{r, include=FALSE}
 str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
 ```
 
-```{r}
+```{r, include=FALSE}
 x < c("apple", "banana", "pear")
 str_view(x, "^a")
 ```
 
-```{r}
+```{r, include=FALSE}
 str_view(x, "a$")
 ```
 
-```{r}
+```{r, include=FALSE}
 x <- c("apple pie", "apple", "apple cake")
 str_view(x, "apple")
 ```
 
-```{r}
+```{r, include=FALSE}
 str_view(x, "^apple$")
 ```
 
@@ -201,32 +189,30 @@ Since this list is long, you might want to use the match argument to `str_view()
 head(stringr::words)
 ```
 
-```{r}
+```{r, include=FALSE}
 str_view(stringr::words, "^y", match =TRUE)
 ```
 
-```{r}
+```{r, include=FALSE}
 str_view(stringr::words, "x$", match = TRUE)
 ```
 
-```{r}
+```{r, include=FALSE}
 str_view(stringr::words, "^...$", match = TRUE)
 ```
 
 A simpler way, shown later is 
-```{r, eval=FALSE}
+```{r, include=FALSE}
 str_view(stringr::words, "^.{3}$", match = TRUE)
 ```
 
-```{r}
+```{r, include=FALSE}
 str_view(stringr::words, ".......", match = TRUE)
 ```
 
 #### Character classes and alternatives
 
-```{r}
-str_view(c("grey", "gray"), "gr(e|a)y")
-```
+
 
 ##### Exercises
 
@@ -239,33 +225,33 @@ str_view(c("grey", "gray"), "gr(e|a)y")
    4. End with `ing` or `ise`.
 
 Words starting with vowels
-```{r}
+```{r results='hide'}
 str_view(stringr::words, "^[aeiou]")
 ```
 
 Words that contain only consonants
-```{r}
+```{r results='hide'}
 str_view(stringr::words, "^[^aeiou]+$", match=TRUE)
 ```
 This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
 
 Words that end with `ed` but not with `eed`. This handles the special case of "ed", as well as words with length > 2.
-```{r}
+```{r results='hide'}
 str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
 ```
 
 Words ending in ing or ise:
-```{r}
+```{r results='hide'}
 str_view(stringr::words, "i(ng|se)$", match = TRUE)
 ```
 
 2. Empirically verify the rule “i before e except after c”.
 
 Using only what has been introduced thus far: 
-```{r}
+```{r results='hide'}
 str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 ```
-```{r}
+```{r results='hide'}
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
 
@@ -278,7 +264,7 @@ sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 3. Is “q” always followed by a “u”?
 
 In the `stringr::words` dataset, yes. In the full English language, no.
-```{r}
+```{r results='hide'}
 str_view(stringr::words, "q[^u]", match = TRUE)
 ```
 
@@ -299,49 +285,18 @@ And even then, a good algorithm would be statistical, inferring the probability 
 
 5. Create a regular expression that will match telephone numbers as commonly written in your country.
 
-Using what has been covered in R4ds thus far,
-```{r}
+Using what has been covered in *R4DS* thus far,
+```{r results='hide'}
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
 Using stuff covered in the next section,
-```{r}
+```{r results='hide'}
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 Note that this pattern doesn't account for phone numbers that are invalid because of unassigned area code, or special numbers like 911, or for extensions. See https://en.wikipedia.org/wiki/North_American_Numbering_Plan for the complexities of US phone numbers, and http://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation for one discussion of using a regex for phone number validation.
 
 ### Repitition
-
-```{r}
-x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
-str_view(x, "CC?")
-```
-
-```{r}
-str_view(x, "CC+")
-```
-
-
-
-```{r}
-str_view(x, "C[LX]+")
-```
-
-```{r}
-str_view(x, "C{2,}")
-```
-
-```{r}
-str_view(x, "C{2,3}")
-```
-
-```{r}
-str_view(x, "C{2,3}?")
-```
-
-```{r}
-str_view(x, "C[LX]+?")
-```
 
 #### Exercises
 
@@ -366,28 +321,28 @@ There is no direct equivalent of `*` in `{m,n}` form since there are no bounds o
   3. Have two or more vowel-consonant pairs in a row.
   
 A regex to find all words starting with three consonants
-```{r}
+```{r results='hide'}
 str_view(words, "^[^aeiou]{3}", match = TRUE)
 ```
 
 A regex to find three or more vowels in a row:
-```{r}
+```{r results='hide'}
 str_view(words, "[aeiou]{3,}", match = TRUE)
 ```
 
 Two or more vowel-consonant pairs in a row.
-```{r}
+```{r results='hide'}
 str_view(words, "([aeiou][^aeiou]){2,}", match = TRUE)
 ```
 
   
 4. Solve the beginner regexp crosswords at https://regexcrossword.com/challenges/beginner
 
-*NOTE:* I don't like cross-words.
+*Nope*
 
 ### Grouping and backreferences
 
-```{r}
+```{r results='hide'}
 str_view(fruit, "(..)\\1", match = TRUE)
 ```
 
@@ -405,17 +360,17 @@ str_view(fruit, "(..)\\1", match = TRUE)
 
   1. Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
   
-```{r}
+```{r results='hide'}
 str_view(words, "^(.).*\\1$", match = TRUE)
 ```
 
   2 Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.). 
   
-```{r}
+```{r results='hide'}
 # any two characters repeated
 str_view(words, "(..).*\\1", match = TRUE)
 ```
-```{r}
+```{r results='hide'}
 # more stringent, letters only, but also allowing for differences in capitalization
 str_view(str_to_lower(words), "([a-z][a-z]).*\\1", match = TRUE)
 ```
@@ -603,7 +558,7 @@ colour_match2 <- str_c("\\b(", str_c(colours, collapse = "|"), ")\\b")
 colour_match2
 ```
 
-```{r}
+```{r results='hide'}
 more2 <- sentences[str_count(sentences, colour_match) > 1]
 str_view_all(more2, colour_match2, match = TRUE)
 ```
@@ -617,19 +572,21 @@ str_view_all(more2, colour_match2, match = TRUE)
 
 The first word in each sentence requires defining what a word is. I'll consider a word any contiguous 
 ```{r}
-str_extract(sentences, "[a-zA-X]+")
+str_extract(sentences, "[a-zA-X]+") %>% head()
 ```
 
 All words ending in `ing`:
 ```{r}
 pattern <- "\\b[A-Za-z]+ing\\b"
 sentences_with_ing <- str_detect(sentences, pattern)
-unique(unlist(str_extract_all(sentences[sentences_with_ing], pattern)))
+unique(unlist(str_extract_all(sentences[sentences_with_ing], pattern))) %>%
+  head()
 ```
 
 All plurals. To do this correct requires linguistic information. But if we just want to say any word ending in an "s" is plural (and with more than 3 characters to remove as, is, gas, etc.)
 ```{r}
-unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b")))
+unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b"))) %>%
+  head()
 ```
 
 ### Grouped Matches
@@ -680,38 +637,6 @@ sentences %>%
 
 ### Splitting
 
-```{r}
-sentences %>%
-  head(5) %>%
-  str_split(" ")
-```
-
-```{r}
-"a|b|c|d" %>%
-  str_split("\\|") %>%
-  .[[1]]
-```
-
-```{r}
-sentences %>%
-  head(5) %>%
-  str_split(" ", simplify = TRUE)
-```
-
-```{r}
-fields <- c("Name: Hadley", "Country: NZ", "Age: 35")
-fields %>% str_split(": ", n = 2, simplify = TRUE)
-```
-
-```{r}
-x <- "This is a sentence. This is another sentence."
-str_view_all(x, boundary("word"))
-```
-
-```{r}
-str_split(x, " ")
-str_split(x, boundary("word"))[[1]]
-```
 
 #### Exercises
 
@@ -736,7 +661,7 @@ str_split("ab. cd|agt", "")[[1]]
 It splits the string into individual characters.
 
 
-## Other types of pattern
+## Other types of patterns
 
 ### Exercises
 
@@ -766,9 +691,9 @@ str_extract_all(sentences, boundary("word")) %>%
 
 1. Find the stringi functions that:
 
-  1. Count the number of words. `stri_count_words`
-  2. Find duplicated strings. `stri_duplicated`
-  2. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
+    1. Count the number of words. `stri_count_words`
+    2. Find duplicated strings. `stri_duplicated`
+    2. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
 
 2. How do you control the language that `stri_sort()` uses for sorting?
 

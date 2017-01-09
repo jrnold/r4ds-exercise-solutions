@@ -1,15 +1,8 @@
----
-title: "Ch 11: Data Import"
-output: html_notebook
----
+# Data Import
 
-```{r results='hide'}
-library("tidyverse")
-```
+## Introduction 
 
-## Getting started
-
-Functions and packages
+Functions and packages used:
 
 - **readr**, **feather**, **haven**, **rio**
 - `read_csv`
@@ -20,11 +13,15 @@ Functions and packages
 - `write_csv`, `write_tsv`, `write_feather`
 - `read_lines`, `read_file`
 
-**Notes**
+```{r results='hide',message=FALSE}
+library("tidyverse")
+```
 
-- `read_log()` is important for web data, but likely to be irrelevant to most political science research
 
-    
+## Getting started
+
+**Note:** `read_log()` is important for web data, but likely to be irrelevant to most political science research
+
 **TODO** fill in the links and add any missing 
     
 ### Exercises
@@ -112,7 +109,7 @@ read_csv2("a;b\n1;3")
   
 ## Parsing a vector
 
-**Notes:** This is detailed, but these details can make your life hell. Skim now, but be aware that what should be simple, actually is not.
+*Notes* This is detailed, but these details can make your life hell. Skim now, but be aware that what should be simple, actually is not.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">In data analysis, ��% is data cleaning, ��% is modeling, and the rest is character encoding issues</p>&mdash; Jeffrey B. Arnold (@jrnld) <a href="https://twitter.com/jrnld/status/759608460677832706">July 31, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -147,7 +144,7 @@ The locale broadly controls the following:
   What happens to the default value of `grouping_mark` when you set `decimal_mark` to “,”? What happens to the default value of `decimal_mark` when you set the `grouping_mark` to “.”?
 
 If the decimal and grouping marks are set to the same character, `locale` throws an error:
-```{r}
+```{r error=TRUE}
 locale(decimal_mark = ".", grouping_mark = ".")
 ```
 If the `decimal_mark` is set to the comma "`,"`, then the grouping mark is set to the period `"."`:
@@ -255,9 +252,3 @@ Some of the more useful programs for this
 Links to Jenny Bryan's tutorials: [purrr-tutorial worked examples](https://jennybc.github.io/purrr-tutorial/index.html)
 
 - Discussing `csvy` as an example of a csv with metadata
-
-
-```{r}
-?guess_encoding
-```
-
