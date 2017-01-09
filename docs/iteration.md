@@ -25,6 +25,12 @@
 library("tidyverse")
 library("stringr")
 ```
+The package **microbenchmark** is used for timing code
+
+```r
+library("microbenchmark")
+```
+
 
 ## For Loops
 
@@ -434,7 +440,6 @@ Microbenchmark will run an R expression a number of times and time it.
 Define a function that appends to an integer vector.
 
 ```r
-library("microbenchmark")
 add_to_vector <- function(n) {
   output <- vector("integer", 0)
   for (i in seq_len(n)) {
@@ -445,7 +450,7 @@ add_to_vector <- function(n) {
 microbenchmark(add_to_vector(10000), times = 3)
 #> Unit: milliseconds
 #>                  expr min  lq mean median  uq max neval
-#>  add_to_vector(10000) 156 158  172    159 180 201     3
+#>  add_to_vector(10000) 185 196  201    206 209 211     3
 ```
 
 And one that pre-allocates it.
@@ -460,8 +465,8 @@ add_to_vector_2 <- function(n) {
 }
 microbenchmark(add_to_vector_2(10000), times = 3)
 #> Unit: milliseconds
-#>                    expr min   lq mean median   uq  max neval
-#>  add_to_vector_2(10000) 7.1 7.25 7.33   7.39 7.44 7.49     3
+#>                    expr  min   lq mean median  uq  max neval
+#>  add_to_vector_2(10000) 7.05 7.14 8.02   7.23 8.5 9.77     3
 ```
 
 The pre-allocated vector is about **100** times faster!
@@ -484,7 +489,7 @@ This creates a list of data frames.
 I then use `bind_rows` to create a single data frame from the list of data frames.
 
 ```r
-df <- vector("list", lenght(files))
+df <- vector("list", length(files))
 for (fname in seq_along(files)) {
   df[[i]] <- read_csv(files[[i]])
 }
@@ -607,6 +612,9 @@ trans <- list(
     factor(x, labels = c("auto", "manual"))
   }
 )
+```
+
+```r
 for (var in names(trans)) {
   mtcars[[var]] <- trans[[var]](mtcars[[var]])
 }
@@ -624,18 +632,12 @@ E.g. this is a function:
 
 ```r
 trans[["disp"]]
-#> function(x) x * 0.0163871
 ```
 This applies the function to the column of `mtcars` with the same name
 
 ```r
 trans[["disp"]](mtcars[["disp"]])
-#>  [1] 0.0430 0.0430 0.0290 0.0693 0.0967 0.0604 0.0967 0.0394 0.0378 0.0450
-#> [11] 0.0450 0.0741 0.0741 0.0741 0.1267 0.1235 0.1182 0.0211 0.0203 0.0191
-#> [21] 0.0323 0.0854 0.0816 0.0940 0.1074 0.0212 0.0323 0.0255 0.0943 0.0389
-#> [31] 0.0808 0.0325
 ```
-
 
 
 
@@ -714,10 +716,8 @@ The mean of every column in `mtcars`:
 
 ```r
 map_dbl(mtcars, mean)
-#> Warning in mean.default(.x[[i]], ...): argument is not numeric or logical:
-#> returning NA
 #>     mpg     cyl    disp      hp    drat      wt    qsec      vs      am 
-#>  20.091   6.188   3.781 146.688   3.597   3.217  17.849   0.438      NA 
+#>  20.091   6.188 230.722 146.688   3.597   3.217  17.849   0.438   0.406 
 #>    gear    carb 
 #>   3.688   2.812
 ```
@@ -833,7 +833,7 @@ Use `map_lgl` with the function `is.factor`,
 ```r
 map_lgl(mtcars, is.factor)
 #>   mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb 
-#> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+#> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ```
 
 

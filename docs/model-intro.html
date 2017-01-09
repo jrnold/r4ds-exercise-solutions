@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="strings.html">
-<link rel="next" href="dates-and-times.html">
+<link rel="prev" href="iteration.html">
+<link rel="next" href="model-basics.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -347,259 +347,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="factors" class="section level1">
-<h1><span class="header-section-number">11</span> Factors</h1>
-<div id="introduction-5" class="section level2">
-<h2><span class="header-section-number">11.1</span> Introduction</h2>
-<p>Functions and packages:</p>
-<ul>
-<li><strong>forcats</strong></li>
-<li><code>factor</code></li>
-<li><code>fct_inorder</code></li>
-<li><code>levels</code></li>
-<li><code>readr::parse_factor</code></li>
-<li><code>fct_reorder</code></li>
-<li><code>fct_relevel</code></li>
-<li><code>fct_reorder2</code></li>
-<li><code>fct_infreq</code></li>
-<li><code>fct_rev</code></li>
-<li><code>fct_recode</code></li>
-<li><code>fct_lump</code></li>
-<li><code>fct_collapse</code></li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;forcats&quot;</span>)</code></pre></div>
-</div>
-<div id="creating-factors" class="section level2">
-<h2><span class="header-section-number">11.2</span> Creating Factors</h2>
-<p>No exercises</p>
-</div>
-<div id="general-social-survey" class="section level2">
-<h2><span class="header-section-number">11.3</span> General Social Survey</h2>
-<div id="exercises-35" class="section level3">
-<h3><span class="header-section-number">11.3.1</span> Exercises</h3>
-<ol style="list-style-type: decimal">
-<li>Explore the distribution of <code>rincome</code> (reported income). What makes the default bar chart hard to understand? How could you improve the plot?</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rincome_plot &lt;-
-<span class="st">  </span>gss_cat %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(rincome)) +
-<span class="st">  </span><span class="kw">geom_bar</span>()
-rincome_plot</code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>The default bar chart labels are too squished to read. One solution is to change the angle of the labels,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rincome_plot +
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>But that’s not natural either, because text is vertical, and we read horizontally. So with long labels, it is better to flip it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rincome_plot +
-<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>This is better, but it unituively goes from low to high. It would help if the scale is reversed. Also, if all the missing factors were differentiated.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>What is the most common <code>relig</code> in this survey? What’s the most common <code>partyid</code>?</li>
-</ol>
-<p>The most common <code>relig</code> is “Protestant”</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
-<span class="st">  </span><span class="kw">count</span>(relig) %&gt;%
-<span class="st">  </span><span class="kw">arrange</span>(-n) %&gt;%
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">1</span>)
-<span class="co">#&gt; # A tibble: 1 × 2</span>
-<span class="co">#&gt;        relig     n</span>
-<span class="co">#&gt;       &lt;fctr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 Protestant 10846</span></code></pre></div>
-<p>The most common <code>partyid</code> is “Independent”</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
-<span class="st">  </span><span class="kw">count</span>(partyid) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(-n) %&gt;%
-<span class="st">  </span><span class="kw">head</span>(<span class="dv">1</span>)
-<span class="co">#&gt; # A tibble: 1 × 2</span>
-<span class="co">#&gt;       partyid     n</span>
-<span class="co">#&gt;        &lt;fctr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 Independent  4119</span></code></pre></div>
-<ol start="4" style="list-style-type: decimal">
-<li>Which <code>relig</code> does <code>denom</code> (denomination) apply to? How can you find out with a table? How can you find out with a visualisation?</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$denom)
-<span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span>
-<span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span>
-<span class="co">#&gt;  [7] &quot;Presbyterian, merged&quot; &quot;Other presbyterian&quot;   &quot;United pres ch in us&quot;</span>
-<span class="co">#&gt; [10] &quot;Presbyterian c in us&quot; &quot;Lutheran-dk which&quot;    &quot;Evangelical luth&quot;    </span>
-<span class="co">#&gt; [13] &quot;Other lutheran&quot;       &quot;Wi evan luth synod&quot;   &quot;Lutheran-mo synod&quot;   </span>
-<span class="co">#&gt; [16] &quot;Luth ch in america&quot;   &quot;Am lutheran&quot;          &quot;Methodist-dk which&quot;  </span>
-<span class="co">#&gt; [19] &quot;Other methodist&quot;      &quot;United methodist&quot;     &quot;Afr meth ep zion&quot;    </span>
-<span class="co">#&gt; [22] &quot;Afr meth episcopal&quot;   &quot;Baptist-dk which&quot;     &quot;Other baptists&quot;      </span>
-<span class="co">#&gt; [25] &quot;Southern baptist&quot;     &quot;Nat bapt conv usa&quot;    &quot;Nat bapt conv of am&quot; </span>
-<span class="co">#&gt; [28] &quot;Am bapt ch in usa&quot;    &quot;Am baptist asso&quot;      &quot;Not applicable&quot;</span></code></pre></div>
-<p>From the context it is clear that <code>denom</code> refers to “Protestant” (and unsurprising given that it is the largest category in <code>freq</code>). Let’s filter out the non-responses, no answers, others, not-applicable, or no denomination, to leave only answers to denominations. After doing that, the only remaining responses are “Protestant”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(!denom %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Other&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Not applicable&quot;</span>,
-                       <span class="st">&quot;No denomination&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">count</span>(relig)
-<span class="co">#&gt; # A tibble: 1 × 2</span>
-<span class="co">#&gt;        relig     n</span>
-<span class="co">#&gt;       &lt;fctr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 Protestant  7025</span></code></pre></div>
-<p>This is also clear in a scatter plot of <code>relig</code> vs. <code>denom</code> where the points are proportional to the size of the number of answers (since otherwise there would be overplotting).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
-<span class="st">  </span><span class="kw">count</span>(relig, denom) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> relig, <span class="dt">y =</span> denom, <span class="dt">size =</span> n)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="modifying-factor-order" class="section level2">
-<h2><span class="header-section-number">11.4</span> Modifying factor order</h2>
-<div id="exercises-36" class="section level3">
-<h3><span class="header-section-number">11.4.1</span> Exercises</h3>
-<ol style="list-style-type: decimal">
-<li>There are some suspiciously high numbers in <code>tvhours</code>. Is the <code>mean</code> a good summary?</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(gss_cat[[<span class="st">&quot;tvhours&quot;</span>]])
-<span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s </span>
-<span class="co">#&gt;       0       1       2       3       4      24   10146</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(!<span class="kw">is.na</span>(tvhours)) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> tvhours)) +
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Whether the mean is the best summary epends on what you are using it for :-), i.e. your objective. But probably the median would be what most people prefer. And the hours of tv doesn’t look that surprising to me.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>For each factor in gss_cat identify whether the order of the levels is arbitrary or principled.</li>
-</ol>
-<p>The following piece of code uses functions covered in Ch 21, to print out the names of only the factors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">keep</span>(gss_cat, is.factor) %&gt;%<span class="st"> </span><span class="kw">names</span>()
-<span class="co">#&gt; [1] &quot;marital&quot; &quot;race&quot;    &quot;rincome&quot; &quot;partyid&quot; &quot;relig&quot;   &quot;denom&quot;</span></code></pre></div>
-<p>There are five six categorical variables: <code>marital</code>, <code>race</code>, <code>rincome</code>, <code>partyid</code>, <code>relig</code>, <code>denom</code>.</p>
-<p>The ordering of marital is “somewhat principled”. There is some sort of logic in that the levels are grouped “never married”, married at some point (separated, divorced, widowed), and “married”; though it would seem that “Never Married”, “Divorced”, “Widowed”, “Separated”, “Married” might be more natural. I find that the question of ordering can be determined by the level of aggregation in a categorical variable, and there can be more “partially ordered” factors than one would expect.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat[[<span class="st">&quot;marital&quot;</span>]])
-<span class="co">#&gt; [1] &quot;No answer&quot;     &quot;Never married&quot; &quot;Separated&quot;     &quot;Divorced&quot;     </span>
-<span class="co">#&gt; [5] &quot;Widowed&quot;       &quot;Married&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> marital)) +
-<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>The ordering of race is principled in that the categories are ordered by count of observations in the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$race)
-<span class="co">#&gt; [1] &quot;Other&quot;          &quot;Black&quot;          &quot;White&quot;          &quot;Not applicable&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(race)) +
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">drop =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt; Warning: Ignoring unknown parameters: drop</span></code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>The levels of <code>rincome</code> are ordered in decreasing order of the income; however the placement of “No answer”, “Don’t know”, and “Refused” before, and “Not applicable” after the income levels is arbitrary. It would be better to place all the missing income level categories either before or after all the known values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$rincome)
-<span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span>
-<span class="co">#&gt;  [5] &quot;$20000 - 24999&quot; &quot;$15000 - 19999&quot; &quot;$10000 - 14999&quot; &quot;$8000 to 9999&quot; </span>
-<span class="co">#&gt;  [9] &quot;$7000 to 7999&quot;  &quot;$6000 to 6999&quot;  &quot;$5000 to 5999&quot;  &quot;$4000 to 4999&quot; </span>
-<span class="co">#&gt; [13] &quot;$3000 to 3999&quot;  &quot;$1000 to 2999&quot;  &quot;Lt $1000&quot;       &quot;Not applicable&quot;</span></code></pre></div>
-<p>The levels of <code>relig</code> is arbitrary: there is no natural ordering, and they don’t appear to be ordered by stats within the dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$relig)
-<span class="co">#&gt;  [1] &quot;No answer&quot;               &quot;Don&#39;t know&quot;             </span>
-<span class="co">#&gt;  [3] &quot;Inter-nondenominational&quot; &quot;Native american&quot;        </span>
-<span class="co">#&gt;  [5] &quot;Christian&quot;               &quot;Orthodox-christian&quot;     </span>
-<span class="co">#&gt;  [7] &quot;Moslem/islam&quot;            &quot;Other eastern&quot;          </span>
-<span class="co">#&gt;  [9] &quot;Hinduism&quot;                &quot;Buddhism&quot;               </span>
-<span class="co">#&gt; [11] &quot;Other&quot;                   &quot;None&quot;                   </span>
-<span class="co">#&gt; [13] &quot;Jewish&quot;                  &quot;Catholic&quot;               </span>
-<span class="co">#&gt; [15] &quot;Protestant&quot;              &quot;Not applicable&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(relig)) +
-<span class="st">  </span><span class="kw">geom_bar</span>() +
-<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>The same goes for <code>denom</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$denom)
-<span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span>
-<span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span>
-<span class="co">#&gt;  [7] &quot;Presbyterian, merged&quot; &quot;Other presbyterian&quot;   &quot;United pres ch in us&quot;</span>
-<span class="co">#&gt; [10] &quot;Presbyterian c in us&quot; &quot;Lutheran-dk which&quot;    &quot;Evangelical luth&quot;    </span>
-<span class="co">#&gt; [13] &quot;Other lutheran&quot;       &quot;Wi evan luth synod&quot;   &quot;Lutheran-mo synod&quot;   </span>
-<span class="co">#&gt; [16] &quot;Luth ch in america&quot;   &quot;Am lutheran&quot;          &quot;Methodist-dk which&quot;  </span>
-<span class="co">#&gt; [19] &quot;Other methodist&quot;      &quot;United methodist&quot;     &quot;Afr meth ep zion&quot;    </span>
-<span class="co">#&gt; [22] &quot;Afr meth episcopal&quot;   &quot;Baptist-dk which&quot;     &quot;Other baptists&quot;      </span>
-<span class="co">#&gt; [25] &quot;Southern baptist&quot;     &quot;Nat bapt conv usa&quot;    &quot;Nat bapt conv of am&quot; </span>
-<span class="co">#&gt; [28] &quot;Am bapt ch in usa&quot;    &quot;Am baptist asso&quot;      &quot;Not applicable&quot;</span></code></pre></div>
-<p>Ignoring “No answer”, “Don’t know”, and “Other party”, the levels of <code>partyid</code> are ordered from “Strong Republican”&quot; to “Strong Democrat”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$partyid)
-<span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span>
-<span class="co">#&gt;  [4] &quot;Strong republican&quot;  &quot;Not str republican&quot; &quot;Ind,near rep&quot;      </span>
-<span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span>
-<span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?</li>
-</ol>
-<p>Because that gives the level “Not applicable” an integer value of 1.</p>
-</div>
-</div>
-<div id="modifying-factor-levels" class="section level2">
-<h2><span class="header-section-number">11.5</span> Modifying factor levels</h2>
-<div id="exercises-37" class="section level3">
-<h3><span class="header-section-number">11.5.1</span> Exercises</h3>
-<ol style="list-style-type: decimal">
-<li>How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?</li>
-</ol>
-<p>To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$partyid)
-<span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span>
-<span class="co">#&gt;  [4] &quot;Strong republican&quot;  &quot;Not str republican&quot; &quot;Ind,near rep&quot;      </span>
-<span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span>
-<span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gss_cat %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">partyid =</span> 
-           <span class="kw">fct_collapse</span>(partyid,
-                        <span class="dt">other =</span> <span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Other party&quot;</span>),
-                        <span class="dt">rep =</span> <span class="kw">c</span>(<span class="st">&quot;Strong republican&quot;</span>, <span class="st">&quot;Not str republican&quot;</span>),
-                        <span class="dt">ind =</span> <span class="kw">c</span>(<span class="st">&quot;Ind,near rep&quot;</span>, <span class="st">&quot;Independent&quot;</span>, <span class="st">&quot;Ind,near dem&quot;</span>),
-                        <span class="dt">dem =</span> <span class="kw">c</span>(<span class="st">&quot;Not str democrat&quot;</span>, <span class="st">&quot;Strong democrat&quot;</span>))) %&gt;%
-<span class="st">  </span><span class="kw">count</span>(year, partyid)  %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(year) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> n /<span class="st"> </span><span class="kw">sum</span>(n)) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> p,
-             <span class="dt">colour =</span> <span class="kw">fct_reorder2</span>(partyid, year, p))) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">geom_line</span>() +
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">colour =</span> <span class="st">&quot;Party ID.&quot;</span>)
-  
+<div id="model-intro" class="section level1">
+<h1><span class="header-section-number">17</span> Introduction</h1>
+<p>Some of the discussion of models is slightly different, and has a different emphasis than in most social science research. This is largely because this book is speaking to data scientists, where the primary goal is prediction rather than theory testing (that I don’t view these as too different is a different story).</p>
+<p>The discussion about hypothesis generation vs. confirmation is interesting. Too little emphasis is placed on hypothesis generation in social science. The importance of out of sample testing also receives too little emphasis in political science.</p>
+<p>And from this discussion it should be clear that many papers in social science are hypothesis generation masquerading as hypothesis confirmation.</p>
 
-                                  </code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<ol start="2" style="list-style-type: decimal">
-<li>How could you collapse <code>rincome</code> into a small set of categories?</li>
-</ol>
-<p>Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn’t want to use something like <code>fct_lump</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(gss_cat$rincome)
-<span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span>
-<span class="co">#&gt;  [5] &quot;$20000 - 24999&quot; &quot;$15000 - 19999&quot; &quot;$10000 - 14999&quot; &quot;$8000 to 9999&quot; </span>
-<span class="co">#&gt;  [9] &quot;$7000 to 7999&quot;  &quot;$6000 to 6999&quot;  &quot;$5000 to 5999&quot;  &quot;$4000 to 4999&quot; </span>
-<span class="co">#&gt; [13] &quot;$3000 to 3999&quot;  &quot;$1000 to 2999&quot;  &quot;Lt $1000&quot;       &quot;Not applicable&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)
-gss_cat %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rincome =</span> 
-           <span class="kw">fct_collapse</span>(
-             rincome,
-             <span class="st">`</span><span class="dt">Unknown</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Refused&quot;</span>, <span class="st">&quot;Not applicable&quot;</span>),
-             <span class="st">`</span><span class="dt">Lt $5000</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lt $1000&quot;</span>, <span class="kw">str_c</span>(<span class="st">&quot;$&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;1000&quot;</span>, <span class="st">&quot;3000&quot;</span>, <span class="st">&quot;4000&quot;</span>),
-                                              <span class="st">&quot; to &quot;</span>, <span class="kw">c</span>(<span class="st">&quot;2999&quot;</span>, <span class="st">&quot;3999&quot;</span>, <span class="st">&quot;4999&quot;</span>))),
-             <span class="st">`</span><span class="dt">$5000 to 10000</span><span class="st">`</span> =<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;$&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;5000&quot;</span>, <span class="st">&quot;6000&quot;</span>, <span class="st">&quot;7000&quot;</span>, <span class="st">&quot;8000&quot;</span>),
-                                      <span class="st">&quot; to &quot;</span>, <span class="kw">c</span>(<span class="st">&quot;5999&quot;</span>, <span class="st">&quot;6999&quot;</span>, <span class="st">&quot;7999&quot;</span>, <span class="st">&quot;9999&quot;</span>))
-           )) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> rincome)) +
-<span class="st">  </span><span class="kw">geom_bar</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
-
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="strings.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="dates-and-times.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="iteration.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="model-basics.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -618,7 +379,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/r4ds/edit/master/factors.Rmd",
+"link": "https://github.com/jrnold/r4ds/edit/master/model.Rmd",
 "text": "Edit"
 },
 "download": null,

@@ -1,5 +1,7 @@
 
-# Model Introduction
+# (PART) Model {-}
+
+# Introduction {#model-intro}
 
 Some of the discussion of models is slightly different, and has a different emphasis than in most social science research.
 This is largely because this book is speaking to data scientists, where the primary goal is prediction rather than theory testing (that I don't view these as too different is a different story).

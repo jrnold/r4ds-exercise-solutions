@@ -23,6 +23,11 @@
 library("tidyverse")
 library("stringr")
 ```
+The package **microbenchmark** is used for timing code
+```{r}
+library("microbenchmark")
+```
+
 
 ## For Loops
 
@@ -227,7 +232,6 @@ Microbenchmark will run an R expression a number of times and time it.
 
 Define a function that appends to an integer vector.
 ```{r}
-library("microbenchmark")
 add_to_vector <- function(n) {
   output <- vector("integer", 0)
   for (i in seq_len(n)) {
@@ -269,7 +273,7 @@ I pre-allocate a list, read each file as data frame into an element in that list
 This creates a list of data frames.
 I then use `bind_rows` to create a single data frame from the list of data frames.
 ```{r eval = FALSE}
-df <- vector("list", lenght(files))
+df <- vector("list", length(files))
 for (fname in seq_along(files)) {
   df[[i]] <- read_csv(files[[i]])
 }
@@ -365,6 +369,8 @@ trans <- list(
     factor(x, labels = c("auto", "manual"))
   }
 )
+```
+```{r eval=FALSE}
 for (var in names(trans)) {
   mtcars[[var]] <- trans[[var]](mtcars[[var]])
 }
@@ -379,18 +385,14 @@ The code works by looping over a named list of functions.
 It calls the named function in the list on the column of `mtcars` with the same name, and replaces the values of that column.
 
 E.g. this is a function:
-```{r}
+```{r eval=FALSE}
 trans[["disp"]]
 ```
 This applies the function to the column of `mtcars` with the same name
-```{r}
+```{r eval=FALSE}
 trans[["disp"]](mtcars[["disp"]])
 ```
 
-```{r include="FALSE"}
-# restor original mtcars
-data("mtcars", package = "ggplot2")
-```
 
 
 ## For loops vs. functionals
