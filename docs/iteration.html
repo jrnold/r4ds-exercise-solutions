@@ -8,7 +8,7 @@
   <title>Exercise Solutions and Notes for R for Data Science</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Exercise Solutions and Notes for “R for Data Science”">
-  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Exercise Solutions and Notes for R for Data Science" />
   <meta property="og:type" content="book" />
@@ -95,7 +95,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
-
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -716,7 +715,7 @@ output</code></pre></div>
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                  expr min  lq mean median  uq max neval</span>
-<span class="co">#&gt;  add_to_vector(10000) 185 196  201    206 209 211     3</span></code></pre></div>
+<span class="co">#&gt;  add_to_vector(10000) 154 154  155    155 156 158     3</span></code></pre></div>
 <p>And one that pre-allocates it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector_2 &lt;-<span class="st"> </span>function(n) {
   output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, n)
@@ -727,8 +726,8 @@ output</code></pre></div>
 }
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector_2</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                    expr  min   lq mean median  uq  max neval</span>
-<span class="co">#&gt;  add_to_vector_2(10000) 7.05 7.14 8.02   7.23 8.5 9.77     3</span></code></pre></div>
+<span class="co">#&gt;                    expr  min  lq mean median uq max neval</span>
+<span class="co">#&gt;  add_to_vector_2(10000) 6.79 6.9  7.6   7.01  8   9     3</span></code></pre></div>
 <p>The pre-allocated vector is about <strong>100</strong> times faster! YMMV, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.</p>
 </div>
 </div>
