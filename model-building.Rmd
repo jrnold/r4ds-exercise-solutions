@@ -2,7 +2,7 @@
 
 ## Introduction
 
-```{r}
+```{r, message=FALSE}
 library(tidyverse)
 library(modelr)
 options(na.action = na.warn)
@@ -67,142 +67,8 @@ This doesn't seem terrible to me.
 
 ### What affects the number of daily flights?
 
-```{r}
-library("nycflights13")
-daily <- flights %>% 
-  mutate(date = make_date(year, month, day)) %>% 
-  group_by(date) %>% 
-  summarise(n = n())
-daily
-```
-
-```{r}
-daily <- daily %>% 
-  mutate(wday = wday(date, label = TRUE))
-ggplot(daily, aes(wday, n)) + 
-  geom_boxplot()
-```
-
-```{r}
-mod <- lm(n ~ wday, data = daily)
-
-grid <- daily %>% 
-  data_grid(wday) %>% 
-  add_predictions(mod, "n")
-
-ggplot(daily, aes(wday, n)) + 
-  geom_boxplot() +
-  geom_point(data = grid, colour = "red", size = 4)
-```
-
-```{r}
-daily <- daily %>% 
-  add_residuals(mod)
-daily %>% 
-  ggplot(aes(date, resid)) + 
-  geom_ref_line(h = 0) + 
-  geom_line()
-```
-
-```{r}
-ggplot(daily, aes(date, resid, colour = wday)) + 
-  geom_ref_line(h = 0) + 
-  geom_line()
-```
-
-```{r}
-daily %>% 
-  filter(resid < -100)
-```
-
-```{r}
-daily %>% 
-  ggplot(aes(date, resid)) + 
-  geom_ref_line(h = 0) + 
-  geom_line(colour = "grey50") + 
-  geom_smooth(se = FALSE, span = 0.20)
-```
-
-```{r}
-term <- function(date) {
-  cut(date, 
-    breaks = ymd(20130101, 20130605, 20130825, 20140101),
-    labels = c("spring", "summer", "fall") 
-  )
-}
-
-daily <- daily %>% 
-  mutate(term = term(date)) 
-
-daily %>% 
-  filter(wday == "Sat") %>% 
-  ggplot(aes(date, n, colour = term)) +
-  geom_point(alpha = 1/3) + 
-  geom_line() +
-  scale_x_date(NULL, date_breaks = "1 month", date_labels = "%b")
-```
-
-```{r}
-daily %>% 
-  ggplot(aes(wday, n, colour = term)) +
-    geom_boxplot()
-```
-
-```{r}
-mod1 <- lm(n ~ wday, data = daily)
-mod2 <- lm(n ~ wday * term, data = daily)
-
-daily %>% 
-  gather_residuals(without_term = mod1, with_term = mod2) %>% 
-  ggplot(aes(date, resid, colour = model)) +
-    geom_line(alpha = 0.75)
-```
-
-```{r}
-grid <- daily %>% 
-  data_grid(wday, term) %>% 
-  add_predictions(mod2, "n")
-
-ggplot(daily, aes(wday, n)) +
-  geom_boxplot() + 
-  geom_point(data = grid, colour = "red") + 
-  facet_wrap(~ term)
-```
-
-```{r}
-mod3 <- MASS::rlm(n ~ wday * term, data = daily)
-
-daily %>% 
-  add_residuals(mod3, "resid") %>% 
-  ggplot(aes(date, resid)) + 
-  geom_hline(yintercept = 0, size = 2, colour = "white") + 
-  geom_line()
-```
-
-```{r}
-compute_vars <- function(data) {
-  data %>% 
-    mutate(
-      term = term(date), 
-      wday = wday(date, label = TRUE)
-    )
-}
-```
-
 - Doesn't discuss why and how chooses spline of 5 knots.
 - Introduces natural splines
-
-```{r}
-library(splines)
-mod <- MASS::rlm(n ~ wday * ns(date, 5), data = daily)
-
-daily %>% 
-  data_grid(wday, date = seq_range(date, n = 13)) %>% 
-  add_predictions(mod) %>% 
-  ggplot(aes(date, pred, colour = wday)) + 
-    geom_line() +
-    geom_point()
-```
 
 ```{r}
 library("nycflights13")
@@ -294,13 +160,44 @@ glance(mod4) %>% select(r.squared, sigma, AIC, df)
 glance(mod2) %>% select(r.squared, sigma, AIC, df)
 ```
 
-**Ex 4.** TODO 
+
+**Ex. 4**  Create a new wday variable that combines the day of week, term (for Saturdays), and public holidays. What do the residuals of that model look like?
+
+The question is unclear how to handle the public holidays. We could include a dummy for all public holidays? or the Sunday before public holidays?
+
+Including a level for the public holidays themselves is insufficient because (1) public holiday's effects on travel varies dramatically, (2) the effect can occur on the day itself or the day before and after, and (3) with Thanksgiving and Christmas there are increases in travel as well.
+
+```{r}
+daily <- daily %>%
+  mutate(wday3 = 
+         case_when(
+           .$date %in% lubridate::ymd(c(20130101, # new years
+                                        20130121, # mlk
+                                        20130218, # presidents
+                                        20130527, # memorial
+                                        20130704, # independence
+                                        20130902, # labor
+                                        20131028, # columbus
+                                        20131111, # veterans
+                                        20131128, # thanksgiving
+                                        20131225)) ~
+             "holiday",
+           .$wday == "Sat" & .$term == "summer" ~ "Sat-summer",
+           .$wday == "Sat" & .$ term == "fall" ~ "Sat-fall",
+           .$wday == "Sat" & .$term == "spring" ~ "Sat-spring",
+           TRUE ~ as.character(.$wday)))
+
+mod5 <- lm(n ~ wday3, data = daily)
+
+daily %>% 
+  spread_residuals(mod5) %>%
+  arrange(desc(abs(resid))) %>%
+  slice(1:20) %>% select(date, wday, resid)
+
+```
 
 
-**Ex. 5**  TODO
-
-
-**Ex 5.** What happens if you fit a day of week effect that varies by month (i.e. n ~ wday * month)? Why is this not very helpful?
+**Ex 5.** What happens if you fit a day of week effect that varies by month (i.e. `n ~ wday * month`)? Why is this not very helpful?
 
 There are only 4-5 observations per parameter since only there are only 4-5 weekdays in a given month.
 
@@ -320,7 +217,6 @@ flights %>%
             dist_median = median(distance)) %>%
   ggplot(aes(y = dist_mean, x = wday)) +
   geom_point()
-
 ```
 
 However, breaking it down by hour, I don't see much evidence at first.
@@ -340,12 +236,23 @@ flights %>%
 
 Can someone think of a better way to check this?
 
-**Ex 8.** 
+**Ex 8.** It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.
 
-**Ex 8. It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.
+See the chapter [Factors](http://r4ds.had.co.nz/factors.html) for the function `fct_relevel`. 
+I use `fct_relevel` to put all levels in-front of the first level ("Sunday").
 
 ```{r}
+monday_first <- function(x) {
+  fct_relevel(x, levels(x)[-1])  
+}
+```
 
-
+Now Monday is the first day of the week,
+```{r}
+daily <- daily %>% 
+  mutate(wday = wday(date, label = TRUE))
+ggplot(daily, aes(monday_first(wday), n)) + 
+  geom_boxplot() +
+  labs(x = "Day of Week", y = "Number of flights")
 ```
 
