@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Exercise Solutions and Notes for R for Data Science</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Exercise Solutions and Notes for “R for Data Science”">
+  <meta name="generator" content="bookdown 0.3.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Exercise Solutions and Notes for R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="jrnold/e4qf" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Exercise Solutions and Notes for R for Data Science" />
+  
+  
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="model-basics.html">
+<link rel="next" href="many-models.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Data Science</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="part"><span><b>I Explore</b></span></li>
+<li class="chapter" data-level="1" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="visualize.html"><a href="visualize.html"><i class="fa fa-check"></i><b>2</b> Visualize</a><ul>
+<li class="chapter" data-level="2.1" data-path="visualize.html"><a href="visualize.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="visualize.html"><a href="visualize.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="visualize.html"><a href="visualize.html#first-steps"><i class="fa fa-check"></i><b>2.1.2</b> First Steps</a></li>
+<li class="chapter" data-level="2.1.3" data-path="visualize.html"><a href="visualize.html#aesthetic-mappings"><i class="fa fa-check"></i><b>2.1.3</b> Aesthetic mappings</a></li>
+<li class="chapter" data-level="2.1.4" data-path="visualize.html"><a href="visualize.html#facets"><i class="fa fa-check"></i><b>2.1.4</b> Facets</a></li>
+<li class="chapter" data-level="2.1.5" data-path="visualize.html"><a href="visualize.html#geometric-objects"><i class="fa fa-check"></i><b>2.1.5</b> Geometric Objects</a></li>
+<li class="chapter" data-level="2.1.6" data-path="visualize.html"><a href="visualize.html#statistical-transformations"><i class="fa fa-check"></i><b>2.1.6</b> Statistical Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="visualize.html"><a href="visualize.html#position-adjustments"><i class="fa fa-check"></i><b>2.2</b> Position Adjustments</a></li>
+<li class="chapter" data-level="2.3" data-path="visualize.html"><a href="visualize.html#coordinate-systems"><i class="fa fa-check"></i><b>2.3</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="visualize.html"><a href="visualize.html#exercises-3"><i class="fa fa-check"></i><b>2.3.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>3</b> Workflow Basics</a><ul>
+<li class="chapter" data-level="3.1" data-path="workflow-basics.html"><a href="workflow-basics.html#practice"><i class="fa fa-check"></i><b>3.1</b> Practice</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="workflow-basics.html"><a href="workflow-basics.html#exercises-4"><i class="fa fa-check"></i><b>3.1.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4</b> Data Transformation</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-transformation.html"><a href="data-transformation.html#prerequisites-1"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.2" data-path="data-transformation.html"><a href="data-transformation.html#filter"><i class="fa fa-check"></i><b>4.2</b> Filter</a></li>
+<li class="chapter" data-level="4.3" data-path="data-transformation.html"><a href="data-transformation.html#exercises-5"><i class="fa fa-check"></i><b>4.3</b> Exercises</a></li>
+<li class="chapter" data-level="4.4" data-path="data-transformation.html"><a href="data-transformation.html#arrange"><i class="fa fa-check"></i><b>4.4</b> Arrange</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-6"><i class="fa fa-check"></i><b>4.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="data-transformation.html"><a href="data-transformation.html#mutate"><i class="fa fa-check"></i><b>4.5</b> Mutate</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-7"><i class="fa fa-check"></i><b>4.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="data-transformation.html"><a href="data-transformation.html#grouped-summaries-with-summarise"><i class="fa fa-check"></i><b>4.6</b> Grouped summaries with <code>summarise()</code></a><ul>
+<li class="chapter" data-level="4.6.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-8"><i class="fa fa-check"></i><b>4.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="data-transformation.html"><a href="data-transformation.html#grouped-mutates-and-filters"><i class="fa fa-check"></i><b>4.7</b> Grouped mutates and filters</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="data-transformation.html"><a href="data-transformation.html#exercises-9"><i class="fa fa-check"></i><b>4.7.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#questions"><i class="fa fa-check"></i><b>5.1.1</b> Questions</a></li>
+<li class="chapter" data-level="5.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#variation"><i class="fa fa-check"></i><b>5.1.2</b> Variation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#missing-values"><i class="fa fa-check"></i><b>5.2</b> Missing Values</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-11"><i class="fa fa-check"></i><b>5.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#covariation"><i class="fa fa-check"></i><b>5.3</b> Covariation</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#a-categorical-and-continuous-variable"><i class="fa fa-check"></i><b>5.3.1</b> A categorical and continuous variable</a></li>
+<li class="chapter" data-level="5.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-categorical-variables"><i class="fa fa-check"></i><b>5.3.2</b> Two categorical variables</a></li>
+<li class="chapter" data-level="5.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-continuous-variables"><i class="fa fa-check"></i><b>5.3.3</b> Two continuous variables</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Wrangle</b></span></li>
+<li class="chapter" data-level="6" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>6</b> Tibbles</a><ul>
+<li class="chapter" data-level="6.1" data-path="tibbles.html"><a href="tibbles.html#prerquisites"><i class="fa fa-check"></i><b>6.1</b> Prerquisites</a></li>
+<li class="chapter" data-level="6.2" data-path="tibbles.html"><a href="tibbles.html#creating-tibbles"><i class="fa fa-check"></i><b>6.2</b> Creating Tibbles</a></li>
+<li class="chapter" data-level="6.3" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.data.frame"><i class="fa fa-check"></i><b>6.3</b> Tibbles vs. data.frame</a></li>
+<li class="chapter" data-level="6.4" data-path="tibbles.html"><a href="tibbles.html#subsetting"><i class="fa fa-check"></i><b>6.4</b> Subsetting</a></li>
+<li class="chapter" data-level="6.5" data-path="tibbles.html"><a href="tibbles.html#interacting-with-older-code"><i class="fa fa-check"></i><b>6.5</b> Interacting with older code</a></li>
+<li class="chapter" data-level="6.6" data-path="tibbles.html"><a href="tibbles.html#exercises-12"><i class="fa fa-check"></i><b>6.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>7</b> Data Import</a><ul>
+<li class="chapter" data-level="7.1" data-path="data-import.html"><a href="data-import.html#introduction-2"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>7.2</b> Getting started</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="data-import.html"><a href="data-import.html#exercises-13"><i class="fa fa-check"></i><b>7.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-import.html"><a href="data-import.html#parsing-a-vector"><i class="fa fa-check"></i><b>7.3</b> Parsing a vector</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="data-import.html"><a href="data-import.html#exercises-14"><i class="fa fa-check"></i><b>7.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>7.4</b> Other Types of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>8</b> Tidy Data</a><ul>
+<li class="chapter" data-level="8.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-3"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="tidy-data.html"><a href="tidy-data.html#tidy-data-1"><i class="fa fa-check"></i><b>8.2</b> Tidy Data</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-15"><i class="fa fa-check"></i><b>8.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="tidy-data.html"><a href="tidy-data.html#spreading-and-gathering"><i class="fa fa-check"></i><b>8.3</b> Spreading and Gathering</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-16"><i class="fa fa-check"></i><b>8.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="tidy-data.html"><a href="tidy-data.html#separating-and-uniting"><i class="fa fa-check"></i><b>8.4</b> Separating and Uniting</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-17"><i class="fa fa-check"></i><b>8.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="tidy-data.html"><a href="tidy-data.html#missing-values-1"><i class="fa fa-check"></i><b>8.5</b> Missing Values</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-18"><i class="fa fa-check"></i><b>8.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="tidy-data.html"><a href="tidy-data.html#case-study"><i class="fa fa-check"></i><b>8.6</b> Case Study</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="tidy-data.html"><a href="tidy-data.html#exercises-19"><i class="fa fa-check"></i><b>8.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="tidy-data.html"><a href="tidy-data.html#non-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Non-Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>9</b> Relational Data</a><ul>
+<li class="chapter" data-level="9.1" data-path="relational-data.html"><a href="relational-data.html#prerequisites-2"><i class="fa fa-check"></i><b>9.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="9.2" data-path="relational-data.html"><a href="relational-data.html#nycflights13"><i class="fa fa-check"></i><b>9.2</b> nycflights13</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="relational-data.html"><a href="relational-data.html#exercises-20"><i class="fa fa-check"></i><b>9.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="relational-data.html"><a href="relational-data.html#keys"><i class="fa fa-check"></i><b>9.3</b> Keys</a></li>
+<li class="chapter" data-level="9.4" data-path="relational-data.html"><a href="relational-data.html#mutating-joins"><i class="fa fa-check"></i><b>9.4</b> Mutating Joins</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="relational-data.html"><a href="relational-data.html#exercises-21"><i class="fa fa-check"></i><b>9.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="relational-data.html"><a href="relational-data.html#filtering-joins"><i class="fa fa-check"></i><b>9.5</b> Filtering Joins</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="relational-data.html"><a href="relational-data.html#exercises-22"><i class="fa fa-check"></i><b>9.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="relational-data.html"><a href="relational-data.html#set-operations"><i class="fa fa-check"></i><b>9.6</b> Set operations</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="strings.html"><a href="strings.html"><i class="fa fa-check"></i><b>10</b> Strings</a><ul>
+<li class="chapter" data-level="10.1" data-path="strings.html"><a href="strings.html#introduction-4"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="strings.html"><a href="strings.html#string-basics"><i class="fa fa-check"></i><b>10.2</b> String Basics</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="strings.html"><a href="strings.html#exercises-23"><i class="fa fa-check"></i><b>10.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="strings.html"><a href="strings.html#matching-patterns-and-regular-expressions"><i class="fa fa-check"></i><b>10.3</b> Matching Patterns and Regular Expressions</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="strings.html"><a href="strings.html#exercises-24"><i class="fa fa-check"></i><b>10.3.1</b> Exercises</a></li>
+<li class="chapter" data-level="10.3.2" data-path="strings.html"><a href="strings.html#repitition"><i class="fa fa-check"></i><b>10.3.2</b> Repitition</a></li>
+<li class="chapter" data-level="10.3.3" data-path="strings.html"><a href="strings.html#grouping-and-backreferences"><i class="fa fa-check"></i><b>10.3.3</b> Grouping and backreferences</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="strings.html"><a href="strings.html#tools"><i class="fa fa-check"></i><b>10.4</b> Tools</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="strings.html"><a href="strings.html#detect-matches"><i class="fa fa-check"></i><b>10.4.1</b> Detect matches</a></li>
+<li class="chapter" data-level="10.4.2" data-path="strings.html"><a href="strings.html#exercises-29"><i class="fa fa-check"></i><b>10.4.2</b> Exercises</a></li>
+<li class="chapter" data-level="10.4.3" data-path="strings.html"><a href="strings.html#extract-matches"><i class="fa fa-check"></i><b>10.4.3</b> Extract Matches</a></li>
+<li class="chapter" data-level="10.4.4" data-path="strings.html"><a href="strings.html#grouped-matches"><i class="fa fa-check"></i><b>10.4.4</b> Grouped Matches</a></li>
+<li class="chapter" data-level="10.4.5" data-path="strings.html"><a href="strings.html#splitting"><i class="fa fa-check"></i><b>10.4.5</b> Splitting</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="strings.html"><a href="strings.html#other-types-of-patterns"><i class="fa fa-check"></i><b>10.5</b> Other types of patterns</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="strings.html"><a href="strings.html#exercises-33"><i class="fa fa-check"></i><b>10.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="strings.html"><a href="strings.html#stringi"><i class="fa fa-check"></i><b>10.6</b> stringi</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="strings.html"><a href="strings.html#exercises-34"><i class="fa fa-check"></i><b>10.6.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>11</b> Factors</a><ul>
+<li class="chapter" data-level="11.1" data-path="factors.html"><a href="factors.html#introduction-5"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="factors.html"><a href="factors.html#creating-factors"><i class="fa fa-check"></i><b>11.2</b> Creating Factors</a></li>
+<li class="chapter" data-level="11.3" data-path="factors.html"><a href="factors.html#general-social-survey"><i class="fa fa-check"></i><b>11.3</b> General Social Survey</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="factors.html"><a href="factors.html#exercises-35"><i class="fa fa-check"></i><b>11.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="factors.html"><a href="factors.html#modifying-factor-order"><i class="fa fa-check"></i><b>11.4</b> Modifying factor order</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="factors.html"><a href="factors.html#exercises-36"><i class="fa fa-check"></i><b>11.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="factors.html"><a href="factors.html#modifying-factor-levels"><i class="fa fa-check"></i><b>11.5</b> Modifying factor levels</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="factors.html"><a href="factors.html#exercises-37"><i class="fa fa-check"></i><b>11.5.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>12</b> Dates and Times</a><ul>
+<li class="chapter" data-level="12.1" data-path="dates-and-times.html"><a href="dates-and-times.html#prerequisite"><i class="fa fa-check"></i><b>12.1</b> Prerequisite</a></li>
+<li class="chapter" data-level="12.2" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-datetimes"><i class="fa fa-check"></i><b>12.2</b> Creating date/times</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-38"><i class="fa fa-check"></i><b>12.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="dates-and-times.html"><a href="dates-and-times.html#date-time-components"><i class="fa fa-check"></i><b>12.3</b> Date-Time Components</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-39"><i class="fa fa-check"></i><b>12.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="dates-and-times.html"><a href="dates-and-times.html#time-spans"><i class="fa fa-check"></i><b>12.4</b> Time Spans</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="dates-and-times.html"><a href="dates-and-times.html#durations"><i class="fa fa-check"></i><b>12.4.1</b> Durations</a></li>
+<li class="chapter" data-level="12.4.2" data-path="dates-and-times.html"><a href="dates-and-times.html#periods"><i class="fa fa-check"></i><b>12.4.2</b> Periods</a></li>
+<li class="chapter" data-level="12.4.3" data-path="dates-and-times.html"><a href="dates-and-times.html#intervals"><i class="fa fa-check"></i><b>12.4.3</b> Intervals</a></li>
+<li class="chapter" data-level="12.4.4" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-40"><i class="fa fa-check"></i><b>12.4.4</b> Exercises</a></li>
+<li class="chapter" data-level="12.4.5" data-path="dates-and-times.html"><a href="dates-and-times.html#time-zones"><i class="fa fa-check"></i><b>12.4.5</b> Time Zones</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Program</b></span></li>
+<li class="chapter" data-level="13" data-path="program-intro.html"><a href="program-intro.html"><i class="fa fa-check"></i><b>13</b> Introduction</a></li>
+<li class="chapter" data-level="14" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>14</b> Pipes</a></li>
+<li class="chapter" data-level="15" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>15</b> Functions</a><ul>
+<li class="chapter" data-level="15.1" data-path="functions.html"><a href="functions.html#introduction-6"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="functions.html"><a href="functions.html#when-should-you-write-a-function"><i class="fa fa-check"></i><b>15.2</b> When should you write a function?</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="functions.html"><a href="functions.html#practice-1"><i class="fa fa-check"></i><b>15.2.1</b> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="functions.html"><a href="functions.html#functions-are-for-humans-and-computers"><i class="fa fa-check"></i><b>15.3</b> Functions are for humans and computers</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="functions.html"><a href="functions.html#exercises-41"><i class="fa fa-check"></i><b>15.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="functions.html"><a href="functions.html#conditional-execution"><i class="fa fa-check"></i><b>15.4</b> Conditional execution</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="functions.html"><a href="functions.html#exercises-42"><i class="fa fa-check"></i><b>15.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="functions.html"><a href="functions.html#function-arguments"><i class="fa fa-check"></i><b>15.5</b> Function arguments</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="functions.html"><a href="functions.html#exercises-43"><i class="fa fa-check"></i><b>15.5.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="vectors.html"><a href="vectors.html"><i class="fa fa-check"></i><b>16</b> Vectors</a><ul>
+<li class="chapter" data-level="16.1" data-path="vectors.html"><a href="vectors.html#introduction-7"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="vectors.html"><a href="vectors.html#important-types-of-atomic-vector"><i class="fa fa-check"></i><b>16.2</b> Important types of Atomic Vector</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="vectors.html"><a href="vectors.html#exercises-44"><i class="fa fa-check"></i><b>16.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="vectors.html"><a href="vectors.html#using-atomic-vectors"><i class="fa fa-check"></i><b>16.3</b> Using atomic vectors</a></li>
+<li class="chapter" data-level="16.4" data-path="vectors.html"><a href="vectors.html#recursive-vectors-lists"><i class="fa fa-check"></i><b>16.4</b> Recursive Vectors (lists)</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="vectors.html"><a href="vectors.html#exercises-45"><i class="fa fa-check"></i><b>16.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="vectors.html"><a href="vectors.html#augmented-vectors"><i class="fa fa-check"></i><b>16.5</b> Augmented Vectors</a><ul>
+<li class="chapter" data-level="16.5.1" data-path="vectors.html"><a href="vectors.html#exercises-46"><i class="fa fa-check"></i><b>16.5.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>17</b> Iteration</a><ul>
+<li class="chapter" data-level="17.1" data-path="iteration.html"><a href="iteration.html#introduction-8"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="iteration.html"><a href="iteration.html#for-loops"><i class="fa fa-check"></i><b>17.2</b> For Loops</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="iteration.html"><a href="iteration.html#exercises-47"><i class="fa fa-check"></i><b>17.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="iteration.html"><a href="iteration.html#for-loop-variations"><i class="fa fa-check"></i><b>17.3</b> For loop variations</a><ul>
+<li class="chapter" data-level="17.3.1" data-path="iteration.html"><a href="iteration.html#section"><i class="fa fa-check"></i><b>17.3.1</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="iteration.html"><a href="iteration.html#for-loops-vs.functionals"><i class="fa fa-check"></i><b>17.4</b> For loops vs. functionals</a><ul>
+<li class="chapter" data-level="17.4.1" data-path="iteration.html"><a href="iteration.html#exercises-48"><i class="fa fa-check"></i><b>17.4.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="iteration.html"><a href="iteration.html#the-map-functions"><i class="fa fa-check"></i><b>17.5</b> The map functions</a><ul>
+<li class="chapter" data-level="17.5.1" data-path="iteration.html"><a href="iteration.html#shortcuts"><i class="fa fa-check"></i><b>17.5.1</b> Shortcuts</a></li>
+<li class="chapter" data-level="17.5.2" data-path="iteration.html"><a href="iteration.html#exercises-49"><i class="fa fa-check"></i><b>17.5.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="iteration.html"><a href="iteration.html#dealing-with-failure"><i class="fa fa-check"></i><b>17.6</b> Dealing with Failure</a></li>
+<li class="chapter" data-level="17.7" data-path="iteration.html"><a href="iteration.html#mapping-over-multiple-arguments"><i class="fa fa-check"></i><b>17.7</b> Mapping over multiple arguments</a></li>
+<li class="chapter" data-level="17.8" data-path="iteration.html"><a href="iteration.html#walk"><i class="fa fa-check"></i><b>17.8</b> Walk</a></li>
+<li class="chapter" data-level="17.9" data-path="iteration.html"><a href="iteration.html#other-patterns-of-for-loops"><i class="fa fa-check"></i><b>17.9</b> Other patterns of for loops</a><ul>
+<li class="chapter" data-level="17.9.1" data-path="iteration.html"><a href="iteration.html#exercises-50"><i class="fa fa-check"></i><b>17.9.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Model</b></span></li>
+<li class="chapter" data-level="18" data-path="model-intro.html"><a href="model-intro.html"><i class="fa fa-check"></i><b>18</b> Introduction</a></li>
+<li class="chapter" data-level="19" data-path="model-basics.html"><a href="model-basics.html"><i class="fa fa-check"></i><b>19</b> Model Basics</a><ul>
+<li class="chapter" data-level="19.1" data-path="model-basics.html"><a href="model-basics.html#prerequisites-3"><i class="fa fa-check"></i><b>19.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="19.2" data-path="model-basics.html"><a href="model-basics.html#a-simple-model"><i class="fa fa-check"></i><b>19.2</b> A simple model</a><ul>
+<li class="chapter" data-level="19.2.1" data-path="model-basics.html"><a href="model-basics.html#exercises-51"><i class="fa fa-check"></i><b>19.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="model-basics.html"><a href="model-basics.html#visualizing-models"><i class="fa fa-check"></i><b>19.3</b> Visualizing Models</a><ul>
+<li class="chapter" data-level="19.3.1" data-path="model-basics.html"><a href="model-basics.html#exercises-52"><i class="fa fa-check"></i><b>19.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="model-basics.html"><a href="model-basics.html#formulas-and-model-families"><i class="fa fa-check"></i><b>19.4</b> Formulas and Model Families</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="model-basics.html"><a href="model-basics.html#categorical-variables"><i class="fa fa-check"></i><b>19.4.1</b> Categorical Variables</a></li>
+<li class="chapter" data-level="19.4.2" data-path="model-basics.html"><a href="model-basics.html#exercises-53"><i class="fa fa-check"></i><b>19.4.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="model-basics.html"><a href="model-basics.html#missing-values-2"><i class="fa fa-check"></i><b>19.5</b> Missing values</a></li>
+<li class="chapter" data-level="19.6" data-path="model-basics.html"><a href="model-basics.html#other-model-families"><i class="fa fa-check"></i><b>19.6</b> Other model families</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="model-building.html"><a href="model-building.html"><i class="fa fa-check"></i><b>20</b> Model Building</a><ul>
+<li class="chapter" data-level="20.1" data-path="model-building.html"><a href="model-building.html#introduction-9"><i class="fa fa-check"></i><b>20.1</b> Introduction</a></li>
+<li class="chapter" data-level="20.2" data-path="model-building.html"><a href="model-building.html#why-are-low-quality-diamonds-more-expensive"><i class="fa fa-check"></i><b>20.2</b> Why are low quality diamonds more expensive?</a><ul>
+<li class="chapter" data-level="20.2.1" data-path="model-building.html"><a href="model-building.html#exercises-54"><i class="fa fa-check"></i><b>20.2.1</b> Exercises</a></li>
+<li class="chapter" data-level="20.2.2" data-path="model-building.html"><a href="model-building.html#what-affects-the-number-of-daily-flights"><i class="fa fa-check"></i><b>20.2.2</b> What affects the number of daily flights?</a></li>
+<li class="chapter" data-level="20.2.3" data-path="model-building.html"><a href="model-building.html#exercises-55"><i class="fa fa-check"></i><b>20.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>21</b> Many Models</a><ul>
+<li class="chapter" data-level="21.1" data-path="many-models.html"><a href="many-models.html#introduction-10"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="many-models.html"><a href="many-models.html#gapminder"><i class="fa fa-check"></i><b>21.2</b> Gapminder</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="many-models.html"><a href="many-models.html#exercises-56"><i class="fa fa-check"></i><b>21.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="many-models.html"><a href="many-models.html#creating-list-columns"><i class="fa fa-check"></i><b>21.3</b> Creating list-columns</a><ul>
+<li class="chapter" data-level="21.3.1" data-path="many-models.html"><a href="many-models.html#exercises-57"><i class="fa fa-check"></i><b>21.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="many-models.html"><a href="many-models.html#simplifying-list-columns"><i class="fa fa-check"></i><b>21.4</b> Simplifying list-columns</a><ul>
+<li class="chapter" data-level="21.4.1" data-path="many-models.html"><a href="many-models.html#exercises-58"><i class="fa fa-check"></i><b>21.4.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Communicate</b></span></li>
+<li class="chapter" data-level="22" data-path="communicate-intro.html"><a href="communicate-intro.html"><i class="fa fa-check"></i><b>22</b> Introduction</a></li>
+<li class="chapter" data-level="23" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>23</b> R Markdown</a><ul>
+<li class="chapter" data-level="23.1" data-path="r-markdown.html"><a href="r-markdown.html#r-markdown-basics"><i class="fa fa-check"></i><b>23.1</b> R Markdown Basics</a><ul>
+<li class="chapter" data-level="23.1.1" data-path="r-markdown.html"><a href="r-markdown.html#exercise"><i class="fa fa-check"></i><b>23.1.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="23.2" data-path="r-markdown.html"><a href="r-markdown.html#text-formatting-with-r-markdown"><i class="fa fa-check"></i><b>23.2</b> Text formatting with R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html"><i class="fa fa-check"></i><b>24</b> Graphics for communication</a><ul>
+<li class="chapter" data-level="24.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#introduction-11"><i class="fa fa-check"></i><b>24.1</b> Introduction</a></li>
+<li class="chapter" data-level="24.2" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#label"><i class="fa fa-check"></i><b>24.2</b> Label</a><ul>
+<li class="chapter" data-level="24.2.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#exercises-59"><i class="fa fa-check"></i><b>24.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#annotations"><i class="fa fa-check"></i><b>24.3</b> Annotations</a><ul>
+<li class="chapter" data-level="24.3.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#exercise-1"><i class="fa fa-check"></i><b>24.3.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="24.4" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#scales"><i class="fa fa-check"></i><b>24.4</b> Scales</a><ul>
+<li class="chapter" data-level="24.4.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#exercises-60"><i class="fa fa-check"></i><b>24.4.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="r-markdown-formats.html"><a href="r-markdown-formats.html"><i class="fa fa-check"></i><b>25</b> R Markdown Formats</a></li>
+<li class="chapter" data-level="26" data-path="r-markdown-workflow.html"><a href="r-markdown-workflow.html"><i class="fa fa-check"></i><b>26</b> R Markdown Workflow</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions and Notes for “R for Data Science”</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="model-building" class="section level1">
+<h1><span class="header-section-number">20</span> Model Building</h1>
+<div id="introduction-9" class="section level2">
+<h2><span class="header-section-number">20.1</span> Introduction</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(modelr)
+<span class="kw">options</span>(<span class="dt">na.action =</span> na.warn)
+<span class="kw">library</span>(<span class="st">&quot;broom&quot;</span>)
+
+<span class="kw">library</span>(nycflights13)
+<span class="kw">library</span>(lubridate)</code></pre></div>
+<p><strong>Notes</strong></p>
+<ul>
+<li>talks about <code>MASS::rlm()</code></li>
+<li>splines</li>
+</ul>
+</div>
+<div id="why-are-low-quality-diamonds-more-expensive" class="section level2">
+<h2><span class="header-section-number">20.2</span> Why are low quality diamonds more expensive?</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds2 &lt;-<span class="st"> </span>diamonds %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(carat &lt;=<span class="st"> </span><span class="fl">2.5</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lprice =</span> <span class="kw">log2</span>(price), <span class="dt">lcarat =</span> <span class="kw">log2</span>(carat))
+
+mod_diamond2 &lt;-<span class="st"> </span><span class="kw">lm</span>(lprice ~<span class="st"> </span>lcarat +<span class="st"> </span>color +<span class="st"> </span>cut +<span class="st"> </span>clarity, <span class="dt">data =</span> diamonds2)</code></pre></div>
+<div id="exercises-54" class="section level3">
+<h3><span class="header-section-number">20.2.1</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>In the plot of <code>lcarat</code> vs. <code>lprice</code>, there are some bright vertical strips. What do they represent?</li>
+</ol>
+<p>The distribution of diamonds has more diamonds at round or otherwise human friendly numbers (fractions).</p>
+<ol start="2" style="list-style-type: decimal">
+<li>If <code>log(price) = a_0 + a_1 * log(carat)</code>, what does that say about the relationship between <code>price</code> and <code>carat</code>?</li>
+</ol>
+<p>An 1% increase in carat is associated with an <span class="math inline">\(a_1\)</span>% increase in price.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Extract the diamonds that have very high and very low residuals. Is there anything unusual about these diamonds? Are the particularly bad or good, or do you think these are pricing errors?</li>
+</ol>
+<p>This was already covered in the text. I don’t see anything either.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Does the final model, <code>mod_diamonds2</code>, do a good job of predicting diamond prices? Would you trust it to tell you how much to spend if you were buying a diamond?</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds2 %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">add_predictions</span>(mod_diamond2) %&gt;%
+<span class="st">  </span><span class="kw">add_residuals</span>(mod_diamond2) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sq_err =</span> <span class="kw">sqrt</span>(<span class="kw">mean</span>(resid^<span class="dv">2</span>)),
+            <span class="dt">abs_err =</span> <span class="kw">mean</span>(<span class="kw">abs</span>(resid)),
+            <span class="dt">p975_err =</span> <span class="kw">quantile</span>(resid, <span class="fl">0.975</span>),
+            <span class="dt">p025_err =</span> <span class="kw">quantile</span>(resid, <span class="fl">0.025</span>))
+<span class="co">#&gt; # A tibble: 1 × 4</span>
+<span class="co">#&gt;   sq_err abs_err p975_err p025_err</span>
+<span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  0.192   0.149    0.384   -0.369</span></code></pre></div>
+<p>The average squared and absolute erorrs are <span class="math inline">\(2^0.19 = 1.14\)</span> and <span class="math inline">\(2^0.10\)</span> so on average, the error is <span class="math inline">\(\pm 10--15\)</span>%. And the 95% range of residuals is about <span class="math inline">\(2^0.37 = 1.3\)</span> so within <span class="math inline">\(\pm 30\)</span>%. This doesn’t seem terrible to me.</p>
+</div>
+<div id="what-affects-the-number-of-daily-flights" class="section level3">
+<h3><span class="header-section-number">20.2.2</span> What affects the number of daily flights?</h3>
+<ul>
+<li>Doesn’t discuss why and how chooses spline of 5 knots.</li>
+<li>Introduces natural splines</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;nycflights13&quot;</span>)
+daily &lt;-<span class="st"> </span>flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(year, month, day)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(date) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>())
+daily
+<span class="co">#&gt; # A tibble: 365 × 2</span>
+<span class="co">#&gt;         date     n</span>
+<span class="co">#&gt;       &lt;date&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 2013-01-01   842</span>
+<span class="co">#&gt; 2 2013-01-02   943</span>
+<span class="co">#&gt; 3 2013-01-03   914</span>
+<span class="co">#&gt; 4 2013-01-04   915</span>
+<span class="co">#&gt; 5 2013-01-05   720</span>
+<span class="co">#&gt; 6 2013-01-06   832</span>
+<span class="co">#&gt; # ... with 359 more rows</span>
+
+daily &lt;-<span class="st"> </span>daily %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>))
+
+term &lt;-<span class="st"> </span>function(date) {
+  <span class="kw">cut</span>(date, 
+    <span class="dt">breaks =</span> <span class="kw">ymd</span>(<span class="dv">20130101</span>, <span class="dv">20130605</span>, <span class="dv">20130825</span>, <span class="dv">20140101</span>),
+    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;spring&quot;</span>, <span class="st">&quot;summer&quot;</span>, <span class="st">&quot;fall&quot;</span>) 
+  )
+}
+
+daily &lt;-<span class="st"> </span>daily %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term =</span> <span class="kw">term</span>(date)) 
+
+mod &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday, <span class="dt">data =</span> daily)
+
+daily &lt;-<span class="st"> </span>daily %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">add_residuals</span>(mod)
+
+mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday, <span class="dt">data =</span> daily)
+mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday *<span class="st"> </span>term, <span class="dt">data =</span> daily)</code></pre></div>
+</div>
+<div id="exercises-55" class="section level3">
+<h3><span class="header-section-number">20.2.3</span> Exercises</h3>
+<p><strong>Ex 1.</strong> Use your Google sleuthing skills to brainstorm why there were fewer than expected flights on Jan 20, May 26, and Sep 1. (Hint: they all have the same explanation.) How would these days generalise to another year?</p>
+<p>These are the Sundays before Monday holidays Martin Luther King Day, Memorial Day, and Labor Day.</p>
+<p><strong>Ex 2.</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily %&gt;%
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">3</span>, resid)
+<span class="co">#&gt; # A tibble: 3 × 5</span>
+<span class="co">#&gt;         date     n  wday   term resid</span>
+<span class="co">#&gt;       &lt;date&gt; &lt;int&gt; &lt;ord&gt; &lt;fctr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 2013-11-30   857   Sat   fall 112.4</span>
+<span class="co">#&gt; 2 2013-12-01   987   Sun   fall  95.5</span>
+<span class="co">#&gt; 3 2013-12-28   814   Sat   fall  69.4</span></code></pre></div>
+<p><strong>Ex 3.</strong> Create a new variable that splits the wday variable into terms, but only for Saturdays, i.e. it should have <code>Thurs</code>, <code>Fri</code>, but <code>Sat-summer</code>, <code>Sat-spring</code>, <code>Sat-fall</code> How does this model compare with the model with every combination of wday and term?</p>
+<p>I’ll use the function <code>case_when</code> to do this, though there are other ways which it could be solved.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday2 =</span> 
+         <span class="kw">case_when</span>(.$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$term ==<span class="st"> &quot;summer&quot;</span> ~<span class="st"> &quot;Sat-summer&quot;</span>,
+         .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$<span class="st"> </span>term ==<span class="st"> &quot;fall&quot;</span> ~<span class="st"> &quot;Sat-fall&quot;</span>,
+         .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$term ==<span class="st"> &quot;spring&quot;</span> ~<span class="st"> &quot;Sat-spring&quot;</span>,
+         <span class="ot">TRUE</span> ~<span class="st"> </span><span class="kw">as.character</span>(.$wday)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod4 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday2, <span class="dt">data =</span> daily)
+
+daily %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">gather_residuals</span>(<span class="dt">sat_term =</span> mod4, <span class="dt">all_interact =</span> mod2) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, resid, <span class="dt">colour =</span> model)) +
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.75</span>)</code></pre></div>
+<p><img src="model-building_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>I think the overlapping plot is hard to understand. If we are interested in the differences, it is better to plot the differences directly. In this code I use <code>spread_residuals</code> to add one <em>column</em> per model, rather than <code>gather_residuals</code> which creates a new row for each model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">spread_residuals</span>(<span class="dt">sat_term =</span> mod4, <span class="dt">all_interact =</span> mod2) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">resid_diff =</span> sat_term -<span class="st"> </span>all_interact) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, resid_diff)) +
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.75</span>)</code></pre></div>
+<p><img src="model-building_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The model with terms x Saturday has higher residuals in the fall, and lower residuals in the spring than the model with all interactions.</p>
+<p>Using overall model comparison terms, <code>mod4</code> has a lower <span class="math inline">\(R^2\)</span> and regression standard error, <span class="math inline">\(\hat\sigma\)</span>, despite using fewer variables. More importantly for prediction purposes, it has a higher AIC - which is an estimate of the out of sample error.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(mod4) %&gt;%<span class="st"> </span><span class="kw">select</span>(r.squared, sigma, AIC, df)
+<span class="co">#&gt;   r.squared sigma  AIC df</span>
+<span class="co">#&gt; 1     0.736  47.4 3863  9</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(mod2) %&gt;%<span class="st"> </span><span class="kw">select</span>(r.squared, sigma, AIC, df)
+<span class="co">#&gt;   r.squared sigma  AIC df</span>
+<span class="co">#&gt; 1     0.757  46.2 3856 21</span></code></pre></div>
+<p><strong>Ex. 4</strong> Create a new wday variable that combines the day of week, term (for Saturdays), and public holidays. What do the residuals of that model look like?</p>
+<p>The question is unclear how to handle the public holidays. We could include a dummy for all public holidays? or the Sunday before public holidays?</p>
+<p>Including a level for the public holidays themselves is insufficient because (1) public holiday’s effects on travel varies dramatically, (2) the effect can occur on the day itself or the day before and after, and (3) with Thanksgiving and Christmas there are increases in travel as well.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday3 =</span> 
+         <span class="kw">case_when</span>(
+           .$date %in%<span class="st"> </span>lubridate::<span class="kw">ymd</span>(<span class="kw">c</span>(<span class="dv">20130101</span>, <span class="co"># new years</span>
+                                        <span class="dv">20130121</span>, <span class="co"># mlk</span>
+                                        <span class="dv">20130218</span>, <span class="co"># presidents</span>
+                                        <span class="dv">20130527</span>, <span class="co"># memorial</span>
+                                        <span class="dv">20130704</span>, <span class="co"># independence</span>
+                                        <span class="dv">20130902</span>, <span class="co"># labor</span>
+                                        <span class="dv">20131028</span>, <span class="co"># columbus</span>
+                                        <span class="dv">20131111</span>, <span class="co"># veterans</span>
+                                        <span class="dv">20131128</span>, <span class="co"># thanksgiving</span>
+                                        <span class="dv">20131225</span>)) ~
+<span class="st">             &quot;holiday&quot;</span>,
+           .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$term ==<span class="st"> &quot;summer&quot;</span> ~<span class="st"> &quot;Sat-summer&quot;</span>,
+           .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$<span class="st"> </span>term ==<span class="st"> &quot;fall&quot;</span> ~<span class="st"> &quot;Sat-fall&quot;</span>,
+           .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$term ==<span class="st"> &quot;spring&quot;</span> ~<span class="st"> &quot;Sat-spring&quot;</span>,
+           <span class="ot">TRUE</span> ~<span class="st"> </span><span class="kw">as.character</span>(.$wday)))
+
+mod5 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday3, <span class="dt">data =</span> daily)
+
+daily %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">spread_residuals</span>(mod5) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(<span class="kw">abs</span>(resid))) %&gt;%
+<span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">20</span>) %&gt;%<span class="st"> </span><span class="kw">select</span>(date, wday, resid)
+<span class="co">#&gt; # A tibble: 20 × 3</span>
+<span class="co">#&gt;         date  wday resid</span>
+<span class="co">#&gt;       &lt;date&gt; &lt;ord&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 2013-11-28 Thurs  -332</span>
+<span class="co">#&gt; 2 2013-11-29   Fri  -306</span>
+<span class="co">#&gt; 3 2013-12-25   Wed  -244</span>
+<span class="co">#&gt; 4 2013-07-04 Thurs  -229</span>
+<span class="co">#&gt; 5 2013-12-24  Tues  -190</span>
+<span class="co">#&gt; 6 2013-12-31  Tues  -175</span>
+<span class="co">#&gt; # ... with 14 more rows</span></code></pre></div>
+<p><strong>Ex 5.</strong> What happens if you fit a day of week effect that varies by month (i.e. <code>n ~ wday * month</code>)? Why is this not very helpful?</p>
+<p>There are only 4-5 observations per parameter since only there are only 4-5 weekdays in a given month.</p>
+<p><strong>Ex 6.</strong> It will estimate a smooth seasonal trend (<code>ns(date, 5)</code>) with a day of the week cylicality, (<code>wday</code>). It probably will not be effective since</p>
+<p><strong>Ex 7.</strong> We hypothesised that people leaving on Sundays are more likely to be business travellers who need to be somewhere on Monday. Explore that hypothesis by seeing how it breaks down based on distance and time: if it’s true, you’d expect to see more Sunday evening flights to places that are far away.</p>
+<p>Looking at only day of the week, we see that Sunday flights are on average longer than the rest of the day of the week flights, but not as long as Saturday flights (perhaps vacation flights?).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(year, month, day),
+         <span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(wday) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dist_mean =</span>  <span class="kw">mean</span>(distance),
+            <span class="dt">dist_median =</span> <span class="kw">median</span>(distance)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dist_mean, <span class="dt">x =</span> wday)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="model-building_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>However, breaking it down by hour, I don’t see much evidence at first. Conditional on hour, the distance of Sunday flights seems similar to that of other days (excluding Saturday):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(year, month, day),
+         <span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(wday, hour) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dist_mean =</span>  <span class="kw">mean</span>(distance),
+            <span class="dt">dist_median =</span> <span class="kw">median</span>(distance)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dist_mean, <span class="dt">x =</span> hour, <span class="dt">colour =</span> wday)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="model-building_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Can someone think of a better way to check this?</p>
+<p><strong>Ex 8.</strong> It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.</p>
+<p>See the chapter <a href="http://r4ds.had.co.nz/factors.html">Factors</a> for the function <code>fct_relevel</code>. I use <code>fct_relevel</code> to put all levels in-front of the first level (“Sunday”).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">monday_first &lt;-<span class="st"> </span>function(x) {
+  forcats::<span class="kw">fct_relevel</span>(x, <span class="kw">levels</span>(x)[-<span class="dv">1</span>])  
+}</code></pre></div>
+<p>Now Monday is the first day of the week,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>))
+<span class="kw">ggplot</span>(daily, <span class="kw">aes</span>(<span class="kw">monday_first</span>(wday), n)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Day of Week&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Number of flights&quot;</span>)</code></pre></div>
+<p><img src="model-building_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="model-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="many-models.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/r4ds/edit/master/model-building.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
