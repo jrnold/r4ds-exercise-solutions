@@ -33,6 +33,7 @@ And the types of problems you encounter in social science generally are not deal
 However, if you aren't even aware that "floating point numbers" are a "thing", if something goes wrong, it will seem like magic.
 Also, at least being aware of these problems will help you understand error messages from optimization routines that complaing of "numerical precision".
 
+Computerphile has a good video on [Floating Point Numbers](https://youtu.be/PZRI1IfStY0).
 
 ### Exercises
 
