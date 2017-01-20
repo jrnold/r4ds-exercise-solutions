@@ -1035,5 +1035,3 @@ sapply(df[1:2], is.numeric)
 #> TRUE TRUE
 ```
 
-
-
