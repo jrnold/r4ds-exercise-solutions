@@ -50,9 +50,9 @@ This can also be found by printing the dataset, or looking in the environment pa
 
 The `drv` variable takes the following values
 
-- f = front-wheel drive
-- r = rear wheel drive
-- 4 = 4wd
+- `"f"` = front-wheel drive
+- `"r"` = rear wheel drive
+- `"4"` = 4wd
 
 4. Make a scatterplot of `hwy` vs `cyl`
 
