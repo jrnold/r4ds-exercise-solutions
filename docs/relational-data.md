@@ -265,11 +265,6 @@ airports %>%
     borders("state") +
     geom_point() +
     coord_quickmap()
-#> 
-#> Attaching package: 'maps'
-#> The following object is masked from 'package:purrr':
-#> 
-#>     map
 ```
 
 <img src="relational-data_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />

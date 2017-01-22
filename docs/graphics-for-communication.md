@@ -7,18 +7,8 @@
 
 ```r
 library("tidyverse")
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
 library("modelr")
 library("lubridate")
-#> Loading required package: methods
 #> 
 #> Attaching package: 'lubridate'
 #> The following object is masked from 'package:base':
@@ -256,6 +246,7 @@ ggplot(df, aes(x, y)) +
   geom_hex() +
   scale_colour_gradient(low = "white", high = "red") +
   coord_fixed()
+#> Loading required package: methods
 ```
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
