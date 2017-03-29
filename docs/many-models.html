@@ -50,7 +50,7 @@
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -453,7 +453,7 @@ by_country
 <span class="kw">ggplot</span>(<span class="kw">aes</span>(year, resid)) +
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">alpha =</span> <span class="dv">1</span> /<span class="st"> </span><span class="dv">3</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt; `geom_smooth()` using method = &#39;gam&#39;</span></code></pre></div>
+<span class="co">#&gt; `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</span></code></pre></div>
 <p><img src="many-models_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_country %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">glance =</span> <span class="kw">map</span>(model, broom::glance)) %&gt;%

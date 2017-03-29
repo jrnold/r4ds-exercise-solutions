@@ -50,7 +50,7 @@
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -399,8 +399,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="introduction-11" class="section level2">
 <h2><span class="header-section-number">24.1</span> Introduction</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="co">#&gt; Loading tidyverse: ggplot2</span>
+<span class="co">#&gt; Loading tidyverse: tibble</span>
+<span class="co">#&gt; Loading tidyverse: tidyr</span>
+<span class="co">#&gt; Loading tidyverse: readr</span>
+<span class="co">#&gt; Loading tidyverse: purrr</span>
+<span class="co">#&gt; Loading tidyverse: dplyr</span>
+<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
+<span class="co">#&gt; filter(): dplyr, stats</span>
+<span class="co">#&gt; lag():    dplyr, stats</span>
 <span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;lubridate&quot;</span>)
+<span class="co">#&gt; Loading required package: methods</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: &#39;lubridate&#39;</span>
 <span class="co">#&gt; The following object is masked from &#39;package:base&#39;:</span>
@@ -413,7 +423,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> class)) +
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) +
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>)
-<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> class)) +
@@ -423,7 +433,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="dt">subtitle =</span> <span class="st">&quot;Two seaters (sports cars) are an exception because of their light weight&quot;</span>,
     <span class="dt">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span>
   )
-<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="exercises-59" class="section level3">
 <h3><span class="header-section-number">24.2.1</span> Exercises</h3>
@@ -559,8 +569,7 @@ mpg %&gt;%
 <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y)) +
 <span class="st">  </span><span class="kw">geom_hex</span>() +
 <span class="st">  </span><span class="kw">scale_colour_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>) +
-<span class="st">  </span><span class="kw">coord_fixed</span>()
-<span class="co">#&gt; Loading required package: methods</span></code></pre></div>
+<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>It does not override the default scale because the colors in <code>geom_hex</code> are set by the <code>fill</code> aesthetic, not the <code>color</code> aesthetic.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y)) +
@@ -578,7 +587,7 @@ mpg %&gt;%
     <span class="dt">y =</span> <span class="st">&quot;Highway fuel economy (mpg)&quot;</span>,
     <span class="dt">colour =</span> <span class="st">&quot;Car type&quot;</span>
   )
-<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> class)) +
@@ -586,7 +595,7 @@ mpg %&gt;%
 <span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Engine displacement (L)&quot;</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;Highway fuel economy (mpg)&quot;</span>) +
 <span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;Car type&quot;</span>)
-<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Ex 28.4.4.3</strong> Change the display of the presidential terms by:</p>
 <pre><code>1. Combining the two variants shown above.

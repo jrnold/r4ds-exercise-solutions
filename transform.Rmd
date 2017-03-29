@@ -109,10 +109,16 @@ NA | FALSE
 NA & TRUE
 ```
 
-wut? Since `x * 0 = 0` for all $x$ we might expect `NA * 0 = 0`, but that's not the case.
+wut? Since `x * 0 = 0` for all $x$ (except `Inf`) we might expect `NA * 0 = 0`, but that's not the case.
 ```{r}
 NA * 0
 ```
+The reason that `NA * 0` is not equal to `0` is that `x * 0 = NaN` is undefined when `x = Inf` or `x = -Inf`.
+```{r}
+Inf * 0
+-Inf * 0
+```
+
 
 ## Arrange
 

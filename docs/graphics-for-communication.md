@@ -7,8 +7,18 @@
 
 ```r
 library("tidyverse")
+#> Loading tidyverse: ggplot2
+#> Loading tidyverse: tibble
+#> Loading tidyverse: tidyr
+#> Loading tidyverse: readr
+#> Loading tidyverse: purrr
+#> Loading tidyverse: dplyr
+#> Conflicts with tidy packages ----------------------------------------------
+#> filter(): dplyr, stats
+#> lag():    dplyr, stats
 library("modelr")
 library("lubridate")
+#> Loading required package: methods
 #> 
 #> Attaching package: 'lubridate'
 #> The following object is masked from 'package:base':
@@ -24,7 +34,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
   labs(title = "Fuel efficiency generally decreases with engine size")
-#> `geom_smooth()` using method = 'loess'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
@@ -39,7 +49,7 @@ ggplot(mpg, aes(displ, hwy)) +
     subtitle = "Two seaters (sports cars) are an exception because of their light weight",
     caption = "Data from fueleconomy.gov"
   )
-#> `geom_smooth()` using method = 'loess'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
@@ -246,7 +256,6 @@ ggplot(df, aes(x, y)) +
   geom_hex() +
   scale_colour_gradient(low = "white", high = "red") +
   coord_fixed()
-#> Loading required package: methods
 ```
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
@@ -279,7 +288,7 @@ ggplot(mpg, aes(displ, hwy)) +
     y = "Highway fuel economy (mpg)",
     colour = "Car type"
   )
-#> `geom_smooth()` using method = 'loess'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
@@ -292,7 +301,7 @@ ggplot(mpg, aes(displ, hwy)) +
   scale_x_continuous("Engine displacement (L)") + 
   scale_y_continuous("Highway fuel economy (mpg)") +
   scale_colour_discrete("Car type")
-#> `geom_smooth()` using method = 'loess'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />

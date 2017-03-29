@@ -50,7 +50,7 @@
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -611,9 +611,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; [1] NA</span>
 <span class="ot">NA</span> &amp;<span class="st"> </span><span class="ot">TRUE</span>
 <span class="co">#&gt; [1] NA</span></code></pre></div>
-<p>wut? Since <code>x * 0 = 0</code> for all <span class="math inline">\(x\)</span> we might expect <code>NA * 0 = 0</code>, but that’s not the case.</p>
+<p>wut? Since <code>x * 0 = 0</code> for all <span class="math inline">\(x\)</span> (except <code>Inf</code>) we might expect <code>NA * 0 = 0</code>, but that’s not the case.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">NA</span> *<span class="st"> </span><span class="dv">0</span>
 <span class="co">#&gt; [1] NA</span></code></pre></div>
+<p>The reason that <code>NA * 0</code> is not equal to <code>0</code> is that <code>x * 0 = NaN</code> is undefined when <code>x = Inf</code> or <code>x = -Inf</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">Inf</span> *<span class="st"> </span><span class="dv">0</span>
+<span class="co">#&gt; [1] NaN</span>
+-<span class="ot">Inf</span> *<span class="st"> </span><span class="dv">0</span>
+<span class="co">#&gt; [1] NaN</span></code></pre></div>
 </div>
 <div id="arrange" class="section level2">
 <h2><span class="header-section-number">4.4</span> Arrange</h2>
@@ -988,8 +993,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">ggplot</span>(cancelled_delayed, <span class="kw">aes</span>(<span class="dt">x =</span> avg_dep_delay, prop_cancelled)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_smooth</span>()
-<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="transform_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
+<p><img src="transform_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about <code>flights %&gt;% group_by(carrier, dest) %&gt;% summarise(n())</code>)</li>
 </ol>
@@ -1139,8 +1144,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dep_delay, <span class="dt">y =</span> lag_delay)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_smooth</span>()
-<span class="co">#&gt; `geom_smooth()` using method = &#39;gam&#39;</span></code></pre></div>
-<p><img src="transform_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<span class="co">#&gt; `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</span></code></pre></div>
+<p><img src="transform_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?</li>
 </ol>

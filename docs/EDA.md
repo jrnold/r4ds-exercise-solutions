@@ -640,7 +640,6 @@ ggplot(diamonds, aes(x = carat, y = price)) +
   geom_hex() +
   facet_wrap(~ cut, ncol = 1) +
   scale_fill_viridis()
-#> Loading required package: methods
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />

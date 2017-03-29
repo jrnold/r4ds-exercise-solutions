@@ -50,7 +50,7 @@
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -527,29 +527,29 @@ for (i in <span class="kw">seq_along</span>(normals)) {
 }
 normals
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt;  [1] -11.40  -9.74 -12.44 -10.01  -9.38  -8.85 -11.82 -10.25 -10.24 -10.28</span>
+<span class="co">#&gt;  [1]  -9.03 -11.01 -10.08 -10.55  -9.25 -10.93 -10.47 -10.86 -11.52  -8.03</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt;  [1] -0.5537  0.6290  2.0650 -1.6310  0.5124 -1.8630 -0.5220 -0.0526</span>
-<span class="co">#&gt;  [9]  0.5430 -0.9141</span>
+<span class="co">#&gt;  [1]  0.4632 -0.8562  0.6480  0.0758  0.4918 -0.7535  0.3490 -0.1708</span>
+<span class="co">#&gt;  [9]  1.6312 -0.7827</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt;  [1] 10.47 10.36  8.70 10.74 11.89  9.90  9.06  9.98  9.17  8.49</span>
+<span class="co">#&gt;  [1] 10.00 10.41 10.72 12.35  9.72  9.52 10.08 10.77 10.56  9.63</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt;  [1] 100.9 100.2 100.2 101.6 100.1  99.9  98.1  99.7  99.7 101.1</span></code></pre></div>
+<span class="co">#&gt;  [1]  99.4  99.6  99.1 100.1  99.4  99.7  99.9  97.9 100.2  99.7</span></code></pre></div>
 <p>However, we don’t need a <code>for</code> loop for this since <code>rnorm</code> recycles means.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n *<span class="st"> </span><span class="kw">length</span>(mu), <span class="dt">mean =</span> mu), <span class="dt">ncol =</span> n)
-<span class="co">#&gt;        [,1]   [,2]  [,3]     [,4]   [,5]   [,6]    [,7]   [,8]    [,9]</span>
-<span class="co">#&gt; [1,] -9.930  -9.56 -9.88 -10.2061 -12.27 -8.926 -11.178  -9.51  -8.663</span>
-<span class="co">#&gt; [2,] -0.639   2.76 -1.91   0.0192   2.68 -0.665  -0.976  -1.70   0.237</span>
-<span class="co">#&gt; [3,]  9.950  10.05 10.86  10.0296   9.64 11.114  11.065   8.53  11.318</span>
-<span class="co">#&gt; [4,] 99.749 100.58 99.76 100.5498 100.21 99.754 100.132 100.28 100.524</span>
-<span class="co">#&gt;      [,10]</span>
-<span class="co">#&gt; [1,] -9.39</span>
-<span class="co">#&gt; [2,] -0.11</span>
-<span class="co">#&gt; [3,] 10.17</span>
-<span class="co">#&gt; [4,] 99.91</span></code></pre></div>
+<span class="co">#&gt;        [,1]   [,2]    [,3]    [,4]      [,5]   [,6]    [,7]   [,8]    [,9]</span>
+<span class="co">#&gt; [1,] -9.745 -11.57 -9.0267  -9.563  -8.78273  -9.83 -10.861 -10.69 -11.781</span>
+<span class="co">#&gt; [2,] -0.553  -1.04 -0.0768   0.413   0.00048   1.40   0.421   1.34  -0.716</span>
+<span class="co">#&gt; [3,] 11.405  11.02 10.8929  10.976  10.75513   9.32  11.451  12.74  10.911</span>
+<span class="co">#&gt; [4,] 99.205  99.30 99.2225 101.147 100.34240 100.74 100.194  99.06  99.228</span>
+<span class="co">#&gt;        [,10]</span>
+<span class="co">#&gt; [1,] -10.782</span>
+<span class="co">#&gt; [2,]  -0.432</span>
+<span class="co">#&gt; [3,]   9.332</span>
+<span class="co">#&gt; [4,] 101.390</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:</li>
 </ol>
@@ -584,16 +584,16 @@ for (i in <span class="dv">2</span>:<span class="kw">length</span>(x)) {
   out[i] &lt;-<span class="st"> </span>out[i -<span class="st"> </span><span class="dv">1</span>] +<span class="st"> </span>x[i]
 }
 out
-<span class="co">#&gt;   [1]  0.126  1.064  1.865  2.623  3.156  3.703  3.799  4.187  4.359  5.050</span>
-<span class="co">#&gt;  [11]  5.725  6.672  6.868  7.836  8.224  8.874  9.688  9.759 10.286 11.050</span>
-<span class="co">#&gt;  [21] 11.485 12.038 12.242 12.273 13.242 13.421 14.199 15.085 15.921 16.527</span>
-<span class="co">#&gt;  [31] 17.434 17.470 17.601 17.695 18.392 18.797 18.863 18.989 19.927 20.143</span>
-<span class="co">#&gt;  [41] 20.809 21.013 21.562 22.389 22.517 22.778 23.066 23.081 23.935 24.349</span>
-<span class="co">#&gt;  [51] 25.100 25.819 26.334 27.309 27.670 27.840 28.623 28.654 29.444 29.610</span>
-<span class="co">#&gt;  [61] 29.639 30.425 31.250 32.216 32.594 32.769 33.372 34.178 34.215 34.947</span>
-<span class="co">#&gt;  [71] 35.163 35.179 35.307 35.993 36.635 36.963 37.350 38.058 38.755 39.681</span>
-<span class="co">#&gt;  [81] 40.140 40.736 40.901 41.468 42.366 42.960 43.792 44.386 45.165 45.562</span>
-<span class="co">#&gt;  [91] 46.412 47.154 47.472 47.583 47.685 48.485 48.865 48.917 49.904 50.508</span></code></pre></div>
+<span class="co">#&gt;   [1]  0.938  1.739  2.497  3.030  3.577  3.673  4.061  4.233  4.924  5.599</span>
+<span class="co">#&gt;  [11]  6.546  6.742  7.711  8.098  8.748  9.563  9.634 10.160 10.924 11.359</span>
+<span class="co">#&gt;  [21] 11.912 12.116 12.147 13.116 13.295 14.073 14.959 15.796 16.401 17.308</span>
+<span class="co">#&gt;  [31] 17.344 17.475 17.569 18.266 18.671 18.737 18.864 19.801 20.017 20.683</span>
+<span class="co">#&gt;  [41] 20.887 21.436 22.263 22.391 22.652 22.941 22.955 23.809 24.223 24.974</span>
+<span class="co">#&gt;  [51] 25.693 26.208 27.183 27.544 27.714 28.498 28.529 29.318 29.485 29.513</span>
+<span class="co">#&gt;  [61] 30.299 31.125 32.090 32.468 32.643 33.247 34.052 34.089 34.822 35.037</span>
+<span class="co">#&gt;  [71] 35.053 35.182 35.868 36.510 36.837 37.224 37.932 38.629 39.555 40.014</span>
+<span class="co">#&gt;  [81] 40.610 40.775 41.342 42.240 42.835 43.666 44.260 45.039 45.436 46.286</span>
+<span class="co">#&gt;  [91] 47.028 47.346 47.458 47.559 48.359 48.739 48.791 49.778 50.382 50.531</span></code></pre></div>
 <p>The code above is calculating a cumulative sum. Use the function <code>cumsum</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="kw">cumsum</span>(x),out)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
@@ -763,7 +763,7 @@ output</code></pre></div>
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                  expr min  lq mean median  uq max neval</span>
-<span class="co">#&gt;  add_to_vector(10000) 185 196  201    206 209 211     3</span></code></pre></div>
+<span class="co">#&gt;  add_to_vector(10000) 183 187  189    191 191 192     3</span></code></pre></div>
 <p>And one that pre-allocates it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector_2 &lt;-<span class="st"> </span>function(n) {
   output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, n)
@@ -774,8 +774,8 @@ output</code></pre></div>
 }
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector_2</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                    expr  min   lq mean median  uq  max neval</span>
-<span class="co">#&gt;  add_to_vector_2(10000) 7.05 7.14 8.02   7.23 8.5 9.77     3</span></code></pre></div>
+<span class="co">#&gt;                    expr  min lq mean median   uq  max neval</span>
+<span class="co">#&gt;  add_to_vector_2(10000) 7.54 11 13.5   14.4 16.5 18.7     3</span></code></pre></div>
 <p>The pre-allocated vector is about <strong>100</strong> times faster! YMMV, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.</p>
 </div>
 </div>
@@ -914,7 +914,7 @@ for (nm in <span class="kw">names</span>(x)) {
   <span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>)
 )
 <span class="kw">col_summary2</span>(df, mean)
-<span class="co">#&gt; [1]  0.859  0.555  0.000 -0.451</span></code></pre></div>
+<span class="co">#&gt; [1]  0.0262 -0.3145  0.0000 -0.1516</span></code></pre></div>
 </div>
 </div>
 <div id="the-map-functions" class="section level2">
@@ -1011,16 +1011,16 @@ for (nm in <span class="kw">names</span>(x)) {
 <p>Generate 10 random normals for each of <span class="math inline">\(\mu = -10\)</span>, <span class="math inline">\(0\)</span>, <span class="math inline">\(10\)</span>, and <span class="math inline">\(100\)</span>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">c</span>(-<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>), rnorm, <span class="dt">n =</span> <span class="dv">10</span>)
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt;  [1] -11.27  -9.46  -9.92  -9.44  -9.58 -11.45  -9.06 -10.34 -10.08  -9.96</span>
+<span class="co">#&gt;  [1]  -8.42  -9.99 -10.65  -8.14  -9.17  -8.80  -9.40  -9.94 -11.29 -10.13</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt;  [1]  0.124 -0.998  1.233  0.340 -0.473  0.709 -1.529  0.237 -1.313  0.747</span>
+<span class="co">#&gt;  [1]  0.384 -0.542  0.223 -0.645 -0.415 -2.295 -0.632 -0.531  0.710 -0.248</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt;  [1]  8.44 10.07  9.36  9.15 10.68 11.15  8.31  9.10 11.32 11.10</span>
+<span class="co">#&gt;  [1] 10.68  9.40 10.11 10.37  9.39 11.04  9.70 11.42  9.13  7.78</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt;  [1] 101.2  98.6 101.4 100.0  99.9 100.4 100.1  99.2  99.5  98.8</span></code></pre></div>
+<span class="co">#&gt;  [1]  99.7 100.4 101.0 100.3 101.2  99.7  99.3  98.5 102.5 100.6</span></code></pre></div>
 <p><strong>Ex</strong> How can you create a single vector that for each column in a data frame indicates whether or not it’s a factor?</p>
 <p>Use <code>map_lgl</code> with the function <code>is.factor</code>,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_lgl</span>(mtcars, is.factor)
@@ -1030,44 +1030,44 @@ for (nm in <span class="kw">names</span>(x)) {
 <p>The function <code>map</code> applies the function to each element of the vector.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="dv">1</span>:<span class="dv">5</span>, runif)
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 0.226</span>
+<span class="co">#&gt; [1] 0.133</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] 0.133 0.927</span>
+<span class="co">#&gt; [1] 0.927 0.894</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; [1] 0.894 0.204 0.257</span>
+<span class="co">#&gt; [1] 0.204 0.257 0.614</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt; [1] 0.614 0.441 0.316 0.101</span>
+<span class="co">#&gt; [1] 0.441 0.316 0.101 0.273</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[5]]</span>
-<span class="co">#&gt; [1] 0.2726 0.6537 0.9279 0.0266 0.5595</span></code></pre></div>
+<span class="co">#&gt; [1] 0.6537 0.9279 0.0266 0.5595 0.8542</span></code></pre></div>
 <p><strong>Ex</strong> What does <code>map(-2:2, rnorm, n = 5)</code> do? Why? What does <code>map_dbl(-2:2, rnorm, n = 5)</code> do? Why?</p>
 <p>This takes samples of <code>n = 5</code> from normal distributions of means -2, -1, 0, 1, and 2, and returns a list with each element a numeric vectors of length 5.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(-<span class="dv">2</span>:<span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>)
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] -0.945 -2.821 -2.638 -2.153 -3.416</span>
+<span class="co">#&gt; [1] -3.43 -2.01 -2.21 -2.91 -4.10</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] -0.393 -0.912 -2.570 -0.687 -0.347</span>
+<span class="co">#&gt; [1]  0.893 -1.968 -1.103 -0.760 -0.939</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; [1] -0.00796  1.72703  2.08647 -0.35835 -1.44212</span>
+<span class="co">#&gt; [1] -2.17758 -0.11786  0.11229  0.00789  1.87774</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt; [1] 1.38 1.09 1.16 1.36 0.64</span>
+<span class="co">#&gt; [1] 3.159 1.710 1.767 0.692 2.012</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[5]]</span>
-<span class="co">#&gt; [1] 1.8914 3.8278 0.0381 2.9460 2.5490</span></code></pre></div>
+<span class="co">#&gt; [1] 1.08 2.56 2.32 2.37 3.13</span></code></pre></div>
 <p>However, if we use <code>map_dbl</code> it throws an error. <code>map_dbl</code> expects the function to return a numeric vector of length one.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(-<span class="dv">2</span>:<span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>)
 <span class="co">#&gt; Error: Result 1 is not a length 1 atomic vector</span></code></pre></div>
 <p>If we wanted a numeric vector, we could use <code>map</code> followed by <code>flatten_dbl</code>,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">flatten_dbl</span>(<span class="kw">map</span>(-<span class="dv">2</span>:<span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>))
-<span class="co">#&gt;  [1] -1.402 -1.872 -3.717 -1.964 -0.993 -0.287 -2.110 -0.851 -1.386 -1.230</span>
-<span class="co">#&gt; [11]  0.392  0.470  0.989 -0.714  1.270  1.709  2.047 -0.210  1.380  0.933</span>
-<span class="co">#&gt; [21]  2.280  2.330  2.285  2.429  1.879</span></code></pre></div>
+<span class="co">#&gt;  [1] -2.222 -3.010 -1.519 -0.396 -3.515 -2.416 -0.123 -0.376  1.112 -1.356</span>
+<span class="co">#&gt; [11] -1.064  1.077  1.182  0.198 -0.400  1.616  2.974  2.885 -0.589  0.460</span>
+<span class="co">#&gt; [21]  0.831  2.559  0.181  2.393  2.042</span></code></pre></div>
 <p><strong>Ex</strong> Rewrite <code>map(x, function(df) lm(mpg ~ wt, data = df))</code> to eliminate the anonymous function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">list</span>(mtcars), ~<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>wt, <span class="dt">data =</span> .))
 <span class="co">#&gt; [[1]]</span>

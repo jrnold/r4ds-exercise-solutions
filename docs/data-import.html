@@ -50,7 +50,7 @@
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -458,9 +458,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,6&quot;</span>)
 <span class="co">#&gt; Warning: 2 parsing failures.</span>
-<span class="co">#&gt; row col  expected    actual</span>
-<span class="co">#&gt;   1  -- 2 columns 3 columns</span>
-<span class="co">#&gt;   2  -- 2 columns 3 columns</span>
+<span class="co">#&gt; row col  expected    actual         file</span>
+<span class="co">#&gt;   1  -- 2 columns 3 columns literal data</span>
+<span class="co">#&gt;   2  -- 2 columns 3 columns literal data</span>
 <span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
@@ -469,9 +469,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Only two columns are specified in the header “a” and “b”, but the rows have three columns, so the last column in dropped.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">1,2,3,4&quot;</span>)
 <span class="co">#&gt; Warning: 2 parsing failures.</span>
-<span class="co">#&gt; row col  expected    actual</span>
-<span class="co">#&gt;   1  -- 3 columns 2 columns</span>
-<span class="co">#&gt;   2  -- 3 columns 4 columns</span>
+<span class="co">#&gt; row col  expected    actual         file</span>
+<span class="co">#&gt;   1  -- 3 columns 2 columns literal data</span>
+<span class="co">#&gt;   2  -- 3 columns 4 columns literal data</span>
 <span class="co">#&gt; # A tibble: 2 × 3</span>
 <span class="co">#&gt;       a     b     c</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
@@ -480,9 +480,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The numbers of columns in the data do not match the number of columns in the header (three). In row one, there are only two values, so column <code>c</code> is set to missing. In row two, there is an extra value, and that value is dropped.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n\&quot;</span><span class="st">1&quot;</span>)
 <span class="co">#&gt; Warning: 2 parsing failures.</span>
-<span class="co">#&gt; row col                     expected    actual</span>
-<span class="co">#&gt;   1  a  closing quote at end of file          </span>
-<span class="co">#&gt;   1  -- 2 columns                    1 columns</span>
+<span class="co">#&gt; row col                     expected    actual         file</span>
+<span class="co">#&gt;   1  a  closing quote at end of file           literal data</span>
+<span class="co">#&gt;   1  -- 2 columns                    1 columns literal data</span>
 <span class="co">#&gt; # A tibble: 1 × 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span>
@@ -502,6 +502,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; 1   1;3</span></code></pre></div>
 <p>The values are separated by “;” rather than “,”. Use <code>read_csv2</code> instead:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv2</span>(<span class="st">&quot;a;b</span><span class="ch">\n</span><span class="st">1;3&quot;</span>)
+<span class="co">#&gt; Using &#39;,&#39; as decimal and &#39;.&#39; as grouping mark. Use read_delim() for more control.</span>
 <span class="co">#&gt; # A tibble: 1 × 2</span>
 <span class="co">#&gt;       a     b</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>

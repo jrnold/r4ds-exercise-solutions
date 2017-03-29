@@ -74,14 +74,14 @@ models <- models %>%
   mutate(dist = purrr::map2_dbl(a1, a2, sim1_dist))
 models
 #> # A tibble: 250 × 3
-#>       a1      a2  dist
-#>    <dbl>   <dbl> <dbl>
-#> 1 -15.15  0.0889  30.8
-#> 2  30.06 -0.8274  13.2
-#> 3  16.05  2.2695  13.2
-#> 4 -10.57  1.3769  18.7
-#> 5 -19.56 -1.0359  41.8
-#> 6   7.98  4.5948  19.3
+#>       a1     a2  dist
+#>    <dbl>  <dbl> <dbl>
+#> 1  30.06 -0.827  13.2
+#> 2  16.05  2.269  13.2
+#> 3 -10.57  1.377  18.7
+#> 4 -19.56 -1.036  41.8
+#> 5   7.98  4.595  19.3
+#> 6   9.87 -2.013  20.5
 #> # ... with 244 more rows
 ```
 
@@ -166,7 +166,7 @@ lm(y ~ x, data = sim1a)
 #> 
 #> Coefficients:
 #> (Intercept)            x  
-#>        6.05         1.53
+#>        6.19         1.51
 ```
 
 
@@ -376,7 +376,7 @@ The predictions of loess are the same as the default method for `geom_smooth` be
 ```r
 plot_sim1_loess +
   geom_smooth(colour = "blue", se = FALSE, alpha = 0.20)
-#> `geom_smooth()` using method = 'loess'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="model-basics_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />

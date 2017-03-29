@@ -279,12 +279,21 @@ NA & TRUE
 #> [1] NA
 ```
 
-wut? Since `x * 0 = 0` for all $x$ we might expect `NA * 0 = 0`, but that's not the case.
+wut? Since `x * 0 = 0` for all $x$ (except `Inf`) we might expect `NA * 0 = 0`, but that's not the case.
 
 ```r
 NA * 0
 #> [1] NA
 ```
+The reason that `NA * 0` is not equal to `0` is that `x * 0 = NaN` is undefined when `x = Inf` or `x = -Inf`.
+
+```r
+Inf * 0
+#> [1] NaN
+-Inf * 0
+#> [1] NaN
+```
+
 
 ## Arrange
 
@@ -749,10 +758,10 @@ cancelled_delayed <-
 ggplot(cancelled_delayed, aes(x = avg_dep_delay, prop_cancelled)) +
   geom_point() +
   geom_smooth()
-#> `geom_smooth()` using method = 'loess'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="transform_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 5. Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarise(n())`)
@@ -941,10 +950,10 @@ flights %>%
   ggplot(aes(x = dep_delay, y = lag_delay)) +
   geom_point() +
   geom_smooth()
-#> `geom_smooth()` using method = 'gam'
+#> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="transform_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 6. Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?

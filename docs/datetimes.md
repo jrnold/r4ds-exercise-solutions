@@ -252,7 +252,7 @@ flights_dt %>%
   ggplot(aes(y = dep_delay, x = sched_dep_hour)) +
   geom_point() +
   geom_smooth()
-#> `geom_smooth()` using method = 'loess'
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />

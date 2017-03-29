@@ -50,7 +50,7 @@
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.1.0/str_view.js"></script>
+<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -439,14 +439,14 @@ models &lt;-<span class="st"> </span>models %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dist =</span> purrr::<span class="kw">map2_dbl</span>(a1, a2, sim1_dist))
 models
 <span class="co">#&gt; # A tibble: 250 × 3</span>
-<span class="co">#&gt;       a1      a2  dist</span>
-<span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 -15.15  0.0889  30.8</span>
-<span class="co">#&gt; 2  30.06 -0.8274  13.2</span>
-<span class="co">#&gt; 3  16.05  2.2695  13.2</span>
-<span class="co">#&gt; 4 -10.57  1.3769  18.7</span>
-<span class="co">#&gt; 5 -19.56 -1.0359  41.8</span>
-<span class="co">#&gt; 6   7.98  4.5948  19.3</span>
+<span class="co">#&gt;       a1     a2  dist</span>
+<span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  30.06 -0.827  13.2</span>
+<span class="co">#&gt; 2  16.05  2.269  13.2</span>
+<span class="co">#&gt; 3 -10.57  1.377  18.7</span>
+<span class="co">#&gt; 4 -19.56 -1.036  41.8</span>
+<span class="co">#&gt; 5   7.98  4.595  19.3</span>
+<span class="co">#&gt; 6   9.87 -2.013  20.5</span>
 <span class="co">#&gt; # ... with 244 more rows</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">colour =</span> <span class="st">&quot;grey30&quot;</span>) +<span class="st"> </span>
@@ -498,7 +498,7 @@ best$par
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Coefficients:</span>
 <span class="co">#&gt; (Intercept)            x  </span>
-<span class="co">#&gt;        6.05         1.53</span></code></pre></div>
+<span class="co">#&gt;        6.19         1.51</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1a, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
@@ -649,7 +649,7 @@ plot_sim1_loess</code></pre></div>
 <p>The predictions of loess are the same as the default method for <code>geom_smooth</code> because <code>geom_smooth()</code> uses <code>loess()</code> by default; the message even tells us that.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_sim1_loess +
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.20</span>)
-<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We can plot the residuals (red), and compare them to the residuals from lm (black). In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven’t considered the uncertainty of these estimates).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x)) +

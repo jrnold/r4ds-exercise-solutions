@@ -85,9 +85,9 @@ read_delim(x, ",", quote = "'")
 ```r
 read_csv("a,b\n1,2,3\n4,5,6")
 #> Warning: 2 parsing failures.
-#> row col  expected    actual
-#>   1  -- 2 columns 3 columns
-#>   2  -- 2 columns 3 columns
+#> row col  expected    actual         file
+#>   1  -- 2 columns 3 columns literal data
+#>   2  -- 2 columns 3 columns literal data
 #> # A tibble: 2 × 2
 #>       a     b
 #>   <int> <int>
@@ -101,9 +101,9 @@ Only two columns are specified in the header "a" and "b", but the rows have thre
 ```r
 read_csv("a,b,c\n1,2\n1,2,3,4")
 #> Warning: 2 parsing failures.
-#> row col  expected    actual
-#>   1  -- 3 columns 2 columns
-#>   2  -- 3 columns 4 columns
+#> row col  expected    actual         file
+#>   1  -- 3 columns 2 columns literal data
+#>   2  -- 3 columns 4 columns literal data
 #> # A tibble: 2 × 3
 #>       a     b     c
 #>   <int> <int> <int>
@@ -119,9 +119,9 @@ In row two, there is an extra value, and that value is dropped.
 ```r
 read_csv("a,b\n\"1")
 #> Warning: 2 parsing failures.
-#> row col                     expected    actual
-#>   1  a  closing quote at end of file          
-#>   1  -- 2 columns                    1 columns
+#> row col                     expected    actual         file
+#>   1  a  closing quote at end of file           literal data
+#>   1  -- 2 columns                    1 columns literal data
 #> # A tibble: 1 × 2
 #>       a     b
 #>   <int> <chr>
@@ -156,6 +156,7 @@ The values are separated by ";" rather than ",". Use `read_csv2` instead:
 
 ```r
 read_csv2("a;b\n1;3")
+#> Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.
 #> # A tibble: 1 × 2
 #>       a     b
 #>   <int> <int>
