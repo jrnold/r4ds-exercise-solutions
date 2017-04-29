@@ -168,17 +168,17 @@ filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
 *Were delayed by at least an hour, but made up over 30 minutes in flight*
 
 ```r
-filter(flights, !is.na(dep_delay), dep_delay >= 60, arr_delay < 30)
-#> # A tibble: 206 × 19
+filter(flights, !is.na(dep_delay), dep_delay >= 60, dep_delay-arr_delay > 30)
+#> # A tibble: 1,844 × 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     3     1850           1745        65     2148
-#> 2  2013     1     3     1950           1845        65     2228
-#> 3  2013     1     3     2015           1915        60     2135
-#> 4  2013     1     6     1019            900        79     1558
-#> 5  2013     1     7     1543           1430        73     1758
-#> 6  2013     1    11     1020            920        60     1311
-#> # ... with 200 more rows, and 12 more variables: sched_arr_time <int>,
+#> 1  2013     1     1     2205           1720       285       46
+#> 2  2013     1     1     2326           2130       116      131
+#> 3  2013     1     3     1503           1221       162     1803
+#> 4  2013     1     3     1839           1700        99     2056
+#> 5  2013     1     3     1850           1745        65     2148
+#> 6  2013     1     3     1941           1759       102     2246
+#> # ... with 1,838 more rows, and 12 more variables: sched_arr_time <int>,
 #> #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
 #> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
 #> #   minute <dbl>, time_hour <dttm>
@@ -187,8 +187,8 @@ filter(flights, !is.na(dep_delay), dep_delay >= 60, arr_delay < 30)
 *Departed between midnight and 6am (inclusive)*.
 
 ```r
-filter(flights, dep_time >= 0, dep_time <= 600)
-#> # A tibble: 9,344 × 19
+filter(flights, dep_time <=600 | dep_time == 2400)
+#> # A tibble: 9,373 × 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
 #> 1  2013     1     1      517            515         2      830
@@ -197,7 +197,7 @@ filter(flights, dep_time >= 0, dep_time <= 600)
 #> 4  2013     1     1      544            545        -1     1004
 #> 5  2013     1     1      554            600        -6      812
 #> 6  2013     1     1      554            558        -4      740
-#> # ... with 9,338 more rows, and 12 more variables: sched_arr_time <int>,
+#> # ... with 9,367 more rows, and 12 more variables: sched_arr_time <int>,
 #> #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
 #> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
 #> #   minute <dbl>, time_hour <dttm>

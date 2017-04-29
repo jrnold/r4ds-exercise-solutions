@@ -406,37 +406,37 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="a-simple-model" class="section level2">
 <h2><span class="header-section-number">19.2</span> A simple model</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models &lt;-<span class="st"> </span><span class="kw">tibble</span>(
-  <span class="dt">a1 =</span> <span class="kw">runif</span>(<span class="dv">250</span>, -<span class="dv">20</span>, <span class="dv">40</span>),
-  <span class="dt">a2 =</span> <span class="kw">runif</span>(<span class="dv">250</span>, -<span class="dv">5</span>, <span class="dv">5</span>)
+  <span class="dt">a1 =</span> <span class="kw">runif</span>(<span class="dv">250</span>, <span class="op">-</span><span class="dv">20</span>, <span class="dv">40</span>),
+  <span class="dt">a2 =</span> <span class="kw">runif</span>(<span class="dv">250</span>, <span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>)
 )
 
-<span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) +
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="kw">aes</span>(<span class="dt">intercept =</span> a1, <span class="dt">slope =</span> a2), <span class="dt">data =</span> models, <span class="dt">alpha =</span> <span class="dv">1</span>/<span class="dv">4</span>) +
+<span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="kw">aes</span>(<span class="dt">intercept =</span> a1, <span class="dt">slope =</span> a2), <span class="dt">data =</span> models, <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 &lt;-<span class="st"> </span>function(a, data) {
-  a[<span class="dv">1</span>] +<span class="st"> </span>data$x *<span class="st"> </span>a[<span class="dv">2</span>]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 &lt;-<span class="st"> </span><span class="cf">function</span>(a, data) {
+  a[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>x <span class="op">*</span><span class="st"> </span>a[<span class="dv">2</span>]
 }
 <span class="kw">model1</span>(<span class="kw">c</span>(<span class="dv">7</span>, <span class="fl">1.5</span>), sim1)
 <span class="co">#&gt;  [1]  8.5  8.5  8.5 10.0 10.0 10.0 11.5 11.5 11.5 13.0 13.0 13.0 14.5 14.5</span>
 <span class="co">#&gt; [15] 14.5 16.0 16.0 16.0 17.5 17.5 17.5 19.0 19.0 19.0 20.5 20.5 20.5 22.0</span>
 <span class="co">#&gt; [29] 22.0 22.0</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">measure_distance &lt;-<span class="st"> </span>function(mod, data) {
-  diff &lt;-<span class="st"> </span>data$y -<span class="st"> </span><span class="kw">model1</span>(mod, data)
-  <span class="kw">sqrt</span>(<span class="kw">mean</span>(diff ^<span class="st"> </span><span class="dv">2</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">measure_distance &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {
+  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">model1</span>(mod, data)
+  <span class="kw">sqrt</span>(<span class="kw">mean</span>(diff <span class="op">^</span><span class="st"> </span><span class="dv">2</span>))
 }
 <span class="kw">measure_distance</span>(<span class="kw">c</span>(<span class="dv">7</span>, <span class="fl">1.5</span>), sim1)
 <span class="co">#&gt; [1] 2.67</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1_dist &lt;-<span class="st"> </span>function(a1, a2) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1_dist &lt;-<span class="st"> </span><span class="cf">function</span>(a1, a2) {
   <span class="kw">measure_distance</span>(<span class="kw">c</span>(a1, a2), sim1)
 }
 
-models &lt;-<span class="st"> </span>models %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dist =</span> purrr::<span class="kw">map2_dbl</span>(a1, a2, sim1_dist))
+models &lt;-<span class="st"> </span>models <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dist =</span> purrr<span class="op">::</span><span class="kw">map2_dbl</span>(a1, a2, sim1_dist))
 models
 <span class="co">#&gt; # A tibble: 250 × 3</span>
 <span class="co">#&gt;       a1     a2  dist</span>
@@ -448,50 +448,50 @@ models
 <span class="co">#&gt; 5   7.98  4.595  19.3</span>
 <span class="co">#&gt; 6   9.87 -2.013  20.5</span>
 <span class="co">#&gt; # ... with 244 more rows</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">colour =</span> <span class="st">&quot;grey30&quot;</span>) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>(
-    <span class="kw">aes</span>(<span class="dt">intercept =</span> a1, <span class="dt">slope =</span> a2, <span class="dt">colour =</span> -dist), 
-    <span class="dt">data =</span> <span class="kw">filter</span>(models, <span class="kw">rank</span>(dist) &lt;=<span class="st"> </span><span class="dv">10</span>)
+    <span class="kw">aes</span>(<span class="dt">intercept =</span> a1, <span class="dt">slope =</span> a2, <span class="dt">colour =</span> <span class="op">-</span>dist), 
+    <span class="dt">data =</span> <span class="kw">filter</span>(models, <span class="kw">rank</span>(dist) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>)
   )</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(
-  <span class="dt">a1 =</span> <span class="kw">seq</span>(-<span class="dv">5</span>, <span class="dv">20</span>, <span class="dt">length =</span> <span class="dv">25</span>),
+  <span class="dt">a1 =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">20</span>, <span class="dt">length =</span> <span class="dv">25</span>),
   <span class="dt">a2 =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dt">length =</span> <span class="dv">25</span>)
-  ) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dist =</span> purrr::<span class="kw">map2_dbl</span>(a1, a2, sim1_dist))
+  ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dist =</span> purrr<span class="op">::</span><span class="kw">map2_dbl</span>(a1, a2, sim1_dist))
 
-grid %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(a1, a2)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">filter</span>(grid, <span class="kw">rank</span>(dist) &lt;=<span class="st"> </span><span class="dv">10</span>), <span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> -dist)) </code></pre></div>
+grid <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(a1, a2)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">filter</span>(grid, <span class="kw">rank</span>(dist) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>), <span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="op">-</span>dist)) </code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">colour =</span> <span class="st">&quot;grey30&quot;</span>) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>(
-    <span class="kw">aes</span>(<span class="dt">intercept =</span> a1, <span class="dt">slope =</span> a2, <span class="dt">colour =</span> -dist), 
-    <span class="dt">data =</span> <span class="kw">filter</span>(grid, <span class="kw">rank</span>(dist) &lt;=<span class="st"> </span><span class="dv">10</span>)
+    <span class="kw">aes</span>(<span class="dt">intercept =</span> a1, <span class="dt">slope =</span> a2, <span class="dt">colour =</span> <span class="op">-</span>dist), 
+    <span class="dt">data =</span> <span class="kw">filter</span>(grid, <span class="kw">rank</span>(dist) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>)
   )</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), measure_distance, <span class="dt">data =</span> sim1)
-best$par
+best<span class="op">$</span>par
 <span class="co">#&gt; [1] 4.22 2.05</span>
 
-<span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">colour =</span> <span class="st">&quot;grey30&quot;</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> best$par[<span class="dv">1</span>], <span class="dt">slope =</span> best$par[<span class="dv">2</span>])</code></pre></div>
+<span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">colour =</span> <span class="st">&quot;grey30&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> best<span class="op">$</span>par[<span class="dv">1</span>], <span class="dt">slope =</span> best<span class="op">$</span>par[<span class="dv">2</span>])</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x, <span class="dt">data =</span> sim1)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)
 <span class="kw">coef</span>(sim1_mod)
 <span class="co">#&gt; (Intercept)           x </span>
 <span class="co">#&gt;        4.22        2.05</span></code></pre></div>
 <div id="exercises-51" class="section level3">
 <h3><span class="header-section-number">19.2.1</span> Exercises</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1a &lt;-<span class="st"> </span><span class="kw">tibble</span>(
-  <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),
-  <span class="dt">y =</span> x *<span class="st"> </span><span class="fl">1.5</span> +<span class="st"> </span><span class="dv">6</span> +<span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>)
+  <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),
+  <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>)
 )</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(y ~<span class="st"> </span>x, <span class="dt">data =</span> sim1a)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1a)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Call:</span>
 <span class="co">#&gt; lm(formula = y ~ x, data = sim1a)</span>
@@ -499,29 +499,29 @@ best$par
 <span class="co">#&gt; Coefficients:</span>
 <span class="co">#&gt; (Intercept)            x  </span>
 <span class="co">#&gt;        6.19         1.51</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1a, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1a, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>To re-run this a few times using <code>purrr</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simt &lt;-<span class="st"> </span>function(i) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simt &lt;-<span class="st"> </span><span class="cf">function</span>(i) {
   <span class="kw">tibble</span>(
-    <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),
-    <span class="dt">y =</span> x *<span class="st"> </span><span class="fl">1.5</span> +<span class="st"> </span><span class="dv">6</span> +<span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>),
+    <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),
+    <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>),
     <span class="dt">.id =</span> i
   )
 }
 
-lm_df &lt;-<span class="st"> </span>function(.data) {
-  mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x, <span class="dt">data =</span> .data)
+lm_df &lt;-<span class="st"> </span><span class="cf">function</span>(.data) {
+  mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> .data)
   beta &lt;-<span class="st"> </span><span class="kw">coef</span>(mod)
   <span class="kw">tibble</span>(<span class="dt">intercept =</span> beta[<span class="dv">1</span>], <span class="dt">slope =</span> beta[<span class="dv">2</span>])
 }
 
-sims &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">1</span>:<span class="dv">100</span>, simt) %&gt;%
+sims &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, simt) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">map_df</span>(lm_df)
 
-<span class="kw">ggplot</span>(sims, <span class="kw">aes</span>(<span class="dt">x =</span> intercept, <span class="dt">y =</span> slope)) +
+<span class="kw">ggplot</span>(sims, <span class="kw">aes</span>(<span class="dt">x =</span> intercept, <span class="dt">y =</span> slope)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>NOTE</strong> It’s not entirely clear what is meant by “visualize the results”.</p>
@@ -529,36 +529,36 @@ sims &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">
 <ol start="2" style="list-style-type: decimal">
 <li>One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">measure_distance &lt;-<span class="st"> </span>function(mod, data) {
-  diff &lt;-<span class="st"> </span>data$y -<span class="st"> </span><span class="kw">make_prediction</span>(mod, data)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">measure_distance &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {
+  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">make_prediction</span>(mod, data)
   <span class="kw">mean</span>(<span class="kw">abs</span>(diff))
 }</code></pre></div>
 <p>To re-run this a few times use purrr</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simt &lt;-<span class="st"> </span>function(i) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simt &lt;-<span class="st"> </span><span class="cf">function</span>(i) {
   <span class="kw">tibble</span>(
-    <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),
-    <span class="dt">y =</span> x *<span class="st"> </span><span class="fl">1.5</span> +<span class="st"> </span><span class="dv">6</span> +<span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>),
+    <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),
+    <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>),
     <span class="dt">.id =</span> i
   )
 }
 
-lm_df &lt;-<span class="st"> </span>function(.data) {
-  mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x, <span class="dt">data =</span> .data)
+lm_df &lt;-<span class="st"> </span><span class="cf">function</span>(.data) {
+  mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> .data)
   beta &lt;-<span class="st"> </span><span class="kw">coef</span>(mod)
   <span class="kw">tibble</span>(<span class="dt">intercept =</span> beta[<span class="dv">1</span>], <span class="dt">slope =</span> beta[<span class="dv">2</span>])
 }
 
-sims &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">1</span>:<span class="dv">100</span>, simt) %&gt;%
+sims &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, simt) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">map_df</span>(lm_df)
 
-<span class="kw">ggplot</span>(sims, <span class="kw">aes</span>(<span class="dt">x =</span> intercept, <span class="dt">y =</span> slope)) +
+<span class="kw">ggplot</span>(sims, <span class="kw">aes</span>(<span class="dt">x =</span> intercept, <span class="dt">y =</span> slope)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>One challenge with performing numerical optimisation is that it’s only guaranteed to find one local optima. What’s the problem with optimising a three parameter model like this?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 &lt;-<span class="st"> </span>function(a, data) {
-  a[<span class="dv">1</span>] +<span class="st"> </span>data$x *<span class="st"> </span>a[<span class="dv">2</span>] +<span class="st"> </span>a[<span class="dv">3</span>]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 &lt;-<span class="st"> </span><span class="cf">function</span>(a, data) {
+  a[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>x <span class="op">*</span><span class="st"> </span>a[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>a[<span class="dv">3</span>]
 }</code></pre></div>
 <p>The problem is that you for any values <code>a[1] = a1</code> and <code>a[3] = a3</code>, any other values of <code>a[1]</code> and <code>a[3]</code> where <code>a[1] + a[3] == (a1 + a3)</code> will have the same fit.</p>
 </div>
@@ -576,7 +576,7 @@ sims &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dv">
 <li><code>modelr::add_residuals</code> and <code>modelr::add_predictions</code> functions add residuals or predictions to the original data</li>
 <li><code>geom_ref_line</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span>sim1 %&gt;%<span class="st"> </span><span class="kw">data_grid</span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data_grid</span>(x)
 grid
 <span class="co">#&gt; # A tibble: 10 × 1</span>
 <span class="co">#&gt;       x</span>
@@ -588,7 +588,7 @@ grid
 <span class="co">#&gt; 5     5</span>
 <span class="co">#&gt; 6     6</span>
 <span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span>grid %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span>grid <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">add_predictions</span>(sim1_mod)
 grid
 <span class="co">#&gt; # A tibble: 10 × 2</span>
@@ -601,11 +601,11 @@ grid
 <span class="co">#&gt; 5     5 14.48</span>
 <span class="co">#&gt; 6     6 16.53</span>
 <span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> y)) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> y)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred), <span class="dt">data =</span> grid, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>)</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1 &lt;-<span class="st"> </span>sim1 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1 &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">add_residuals</span>(sim1_mod)
 sim1
 <span class="co">#&gt; # A tibble: 30 × 3</span>
@@ -618,11 +618,11 @@ sim1
 <span class="co">#&gt; 5     2 10.24  1.919</span>
 <span class="co">#&gt; 6     2 11.30  2.973</span>
 <span class="co">#&gt; # ... with 24 more rows</span>
-<span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(resid)) +
+<span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(resid)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>)</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, resid)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, resid)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="exercises-52" class="section level3">
@@ -631,30 +631,30 @@ sim1
 <li>nstead of using <code>lm()</code> to fit a straight line, you can use <code>loess()</code> to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualisation on sim1 using <code>loess()</code> instead of <code>lm()</code>. How does the result compare to <code>geom_smooth()</code>?</li>
 </ol>
 <p>I’ll use <code>add_predictions</code> and <code>add_residuals</code> to add the predictions and residuals from a loess regression to the <code>sim1</code> data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1_loess &lt;-<span class="st"> </span><span class="kw">loess</span>(y ~<span class="st"> </span>x, <span class="dt">data =</span> sim1)
-grid_loess &lt;-<span class="st"> </span>sim1 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1_loess &lt;-<span class="st"> </span><span class="kw">loess</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)
+grid_loess &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">add_predictions</span>(sim1_loess)
 
-sim1 &lt;-<span class="st"> </span>sim1 %&gt;%
-<span class="st">  </span><span class="kw">add_residuals</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;resid_loess&quot;</span>) %&gt;%
+sim1 &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">add_residuals</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;resid_loess&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">add_predictions</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;pred_loess&quot;</span>)
   </code></pre></div>
 <p>This plots the loess predictions. The loess produces a nonlinear, but smooth line through the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_sim1_loess &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pred), <span class="dt">data =</span> grid_loess, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)
 plot_sim1_loess</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The predictions of loess are the same as the default method for <code>geom_smooth</code> because <code>geom_smooth()</code> uses <code>loess()</code> by default; the message even tells us that.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_sim1_loess +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_sim1_loess <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.20</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We can plot the residuals (red), and compare them to the residuals from lm (black). In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven’t considered the uncertainty of these estimates).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x)) +
-<span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> resid)) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> resid)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> resid_loess), <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
@@ -674,17 +674,17 @@ plot_sim1_loess</code></pre></div>
 <div id="formulas-and-model-families" class="section level2">
 <h2><span class="header-section-number">19.4</span> Formulas and Model Families</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  ~y, ~x1, ~x2,
+  <span class="op">~</span>y, <span class="op">~</span>x1, <span class="op">~</span>x2,
   <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>,
   <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">6</span>
 )</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(df, y ~<span class="st"> </span>x1)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(df, y <span class="op">~</span><span class="st"> </span>x1)
 <span class="co">#&gt; # A tibble: 2 × 2</span>
 <span class="co">#&gt;   `(Intercept)`    x1</span>
 <span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1             1     2</span>
 <span class="co">#&gt; 2             1     1</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(df, y ~<span class="st"> </span>x1 -<span class="st"> </span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(df, y <span class="op">~</span><span class="st"> </span>x1 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
 <span class="co">#&gt; # A tibble: 2 × 1</span>
 <span class="co">#&gt;      x1</span>
 <span class="co">#&gt;   &lt;dbl&gt;</span>
@@ -693,24 +693,24 @@ plot_sim1_loess</code></pre></div>
 <div id="categorical-variables" class="section level3">
 <h3><span class="header-section-number">19.4.1</span> Categorical Variables</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  ~<span class="st"> </span>sex, ~<span class="st"> </span>response,
+  <span class="op">~</span><span class="st"> </span>sex, <span class="op">~</span><span class="st"> </span>response,
   <span class="st">&quot;male&quot;</span>, <span class="dv">1</span>,
   <span class="st">&quot;female&quot;</span>, <span class="dv">2</span>,
   <span class="st">&quot;male&quot;</span>, <span class="dv">1</span>
 )
-<span class="kw">model_matrix</span>(df, response ~<span class="st"> </span>sex)
+<span class="kw">model_matrix</span>(df, response <span class="op">~</span><span class="st"> </span>sex)
 <span class="co">#&gt; # A tibble: 3 × 2</span>
 <span class="co">#&gt;   `(Intercept)` sexmale</span>
 <span class="co">#&gt;           &lt;dbl&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt; 1             1       1</span>
 <span class="co">#&gt; 2             1       0</span>
 <span class="co">#&gt; 3             1       1</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim2) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim2) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(x, y))</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x, <span class="dt">data =</span> sim2)
-grid &lt;-<span class="st"> </span>sim2 %&gt;%
-<span class="st">  </span><span class="kw">data_grid</span>(x) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim2)
+grid &lt;-<span class="st"> </span>sim2 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">data_grid</span>(x) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">add_predictions</span>(mod2)
 grid
 <span class="co">#&gt; # A tibble: 4 × 2</span>
@@ -720,13 +720,13 @@ grid
 <span class="co">#&gt; 2     b  8.12</span>
 <span class="co">#&gt; 3     c  6.13</span>
 <span class="co">#&gt; 4     d  1.91</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(x1, y)) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(x1, y)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> x2))</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x1 +<span class="st"> </span>x2, <span class="dt">data =</span> sim3)
-mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x1 *<span class="st"> </span>x2, <span class="dt">data =</span> sim3)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span>sim3 %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">data_grid</span>(x1, x2) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)
+mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span>sim3 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">data_grid</span>(x1, x2) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">gather_predictions</span>(mod1, mod2)
 grid
 <span class="co">#&gt; # A tibble: 80 × 4</span>
@@ -739,26 +739,26 @@ grid
 <span class="co">#&gt; 5  mod1     2      a  1.48</span>
 <span class="co">#&gt; 6  mod1     2      b  4.37</span>
 <span class="co">#&gt; # ... with 74 more rows</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(x1, y, <span class="dt">colour =</span> x2)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> grid, <span class="kw">aes</span>(<span class="dt">y =</span> pred)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>model)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(x1, y, <span class="dt">colour =</span> x2)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> grid, <span class="kw">aes</span>(<span class="dt">y =</span> pred)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model)</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim3 &lt;-<span class="st"> </span>sim3 %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim3 &lt;-<span class="st"> </span>sim3 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">gather_residuals</span>(mod1, mod2)
 
-<span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(x1, resid, <span class="dt">colour =</span> x2)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_grid</span>(model ~<span class="st"> </span>x2)</code></pre></div>
+<span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(x1, resid, <span class="dt">colour =</span> x2)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_grid</span>(model <span class="op">~</span><span class="st"> </span>x2)</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x1 +<span class="st"> </span>x2, <span class="dt">data =</span> sim4)
-mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>x1 *<span class="st"> </span>x2, <span class="dt">data =</span> sim4)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim4)
+mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim4)
 
-grid &lt;-<span class="st"> </span>sim4 %&gt;%<span class="st"> </span>
+grid &lt;-<span class="st"> </span>sim4 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">data_grid</span>(
     <span class="dt">x1 =</span> <span class="kw">seq_range</span>(x1, <span class="dv">5</span>), 
     <span class="dt">x2 =</span> <span class="kw">seq_range</span>(x2, <span class="dv">5</span>) 
-  ) %&gt;%<span class="st"> </span>
+  ) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">gather_predictions</span>(mod1, mod2)
 grid
 <span class="co">#&gt; # A tibble: 50 × 4</span>
@@ -772,17 +772,17 @@ grid
 <span class="co">#&gt; 6  mod1  -0.5  -1.0  1.907</span>
 <span class="co">#&gt; # ... with 44 more rows</span></code></pre></div>
 <p>Function <code>seq_range</code> is useful.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(grid, <span class="kw">aes</span>(x1, x2)) +
-<span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> pred)) +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>model)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(grid, <span class="kw">aes</span>(x1, x2)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> pred)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model)</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(grid, <span class="kw">aes</span>(x1, pred, <span class="dt">colour =</span> x2, <span class="dt">group =</span> x2)) +
-<span class="st">  </span><span class="kw">geom_line</span>() +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>model)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(grid, <span class="kw">aes</span>(x1, pred, <span class="dt">colour =</span> x2, <span class="dt">group =</span> x2)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model)
 
-<span class="kw">ggplot</span>(grid, <span class="kw">aes</span>(x2, pred, <span class="dt">colour =</span> x1, <span class="dt">group =</span> x1)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_line</span>() +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>model)</code></pre></div>
+<span class="kw">ggplot</span>(grid, <span class="kw">aes</span>(x2, pred, <span class="dt">colour =</span> x1, <span class="dt">group =</span> x1)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model)</code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /><img src="model-basics_files/figure-html/unnamed-chunk-42-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>TODO</strong> We should visualize interactions with plotly</p>
 </div>

@@ -423,12 +423,12 @@ my_varıable
 <span class="co">#&gt; filter(): dplyr, stats</span>
 <span class="co">#&gt; lag():    dplyr, stats</span>
 
-<span class="kw">ggplot</span>(<span class="dt">dota =</span> mpg) +<span class="st"> </span>
+<span class="kw">ggplot</span>(<span class="dt">dota =</span> mpg) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))
 <span class="co">#&gt; Error in structure(list(data = data, layers = list(), scales = scales_list(), : argument &quot;data&quot; is missing, with no default</span></code></pre></div>
 <p>The error message is <code>argument &quot;data&quot; is missing, with no default</code>.</p>
 <p>It looks like a typo, <code>dota</code> instead of <code>data</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))</code></pre></div>
 <p><img src="workflow-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fliter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
@@ -437,7 +437,7 @@ my_varıable
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, <span class="dt">cyl =</span> <span class="dv">8</span>)
 <span class="co">#&gt; Error: filter() takes unnamed arguments. Do you need `==`?</span></code></pre></div>
 <p>We aren’t done yet. But the error message gives a suggestion. Let’s follow it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, cyl ==<span class="st"> </span><span class="dv">8</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(mpg, cyl <span class="op">==</span><span class="st"> </span><span class="dv">8</span>)
 <span class="co">#&gt; # A tibble: 70 × 11</span>
 <span class="co">#&gt;   manufacturer              model displ  year   cyl    trans   drv   cty</span>
 <span class="co">#&gt;          &lt;chr&gt;              &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
@@ -449,10 +449,10 @@ my_varıable
 <span class="co">#&gt; 6    chevrolet c1500 suburban 2wd   6.0  2008     8 auto(l4)     r    12</span>
 <span class="co">#&gt; # ... with 64 more rows, and 3 more variables: hwy &lt;int&gt;, fl &lt;chr&gt;,</span>
 <span class="co">#&gt; #   class &lt;chr&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamond, carat &gt;<span class="st"> </span><span class="dv">3</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamond, carat <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>)
 <span class="co">#&gt; Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object &#39;diamond&#39; not found</span></code></pre></div>
 <p>R says it can’t find the object <code>diamond</code>. This is a typo; the data frame is named <code>diamonds</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamonds, carat &gt;<span class="st"> </span><span class="dv">3</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(diamonds, carat <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>)
 <span class="co">#&gt; # A tibble: 32 × 10</span>
 <span class="co">#&gt;   carat     cut color clarity depth table price     x     y     z</span>
 <span class="co">#&gt;   &lt;dbl&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>

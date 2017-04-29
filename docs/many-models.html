@@ -423,18 +423,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">21.2.1</span> Exercises</h3>
 <p><strong>25.2.5</strong> A linear trend seems to be slightly too simple for the overall trend. Can you do better with a quadratic polynomial? How can you interpret the coefficients of the quadratic? (Hint you might want to transform year so that it has mean zero.)</p>
 <p>The following code replicates the analysis in the chapter but the function <code>country_model</code> is replaced with a regression that includes the year squared.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lifeExp ~<span class="st"> </span><span class="kw">poly</span>(year, <span class="dv">2</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">country_model &lt;-<span class="st"> </span>function(df) {
-  <span class="kw">lm</span>(lifeExp ~<span class="st"> </span><span class="kw">poly</span>(year -<span class="st"> </span><span class="kw">median</span>(year), <span class="dv">2</span>), <span class="dt">data =</span> df)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(year, <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">country_model &lt;-<span class="st"> </span><span class="cf">function</span>(df) {
+  <span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(year <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(year), <span class="dv">2</span>), <span class="dt">data =</span> df)
 }
 
-by_country &lt;-<span class="st"> </span>gapminder %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(country, continent) %&gt;%<span class="st"> </span>
+by_country &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(country, continent) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">nest</span>()
 
-by_country &lt;-<span class="st"> </span>by_country %&gt;%
+by_country &lt;-<span class="st"> </span>by_country <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="kw">map</span>(data, country_model))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_country &lt;-<span class="st"> </span>by_country %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_country &lt;-<span class="st"> </span>by_country <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">resids =</span> <span class="kw">map2</span>(data, model, add_residuals)
   )
@@ -449,25 +449,25 @@ by_country
 <span class="co">#&gt; 5   Argentina  Americas &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [12 × 5]&gt;</span>
 <span class="co">#&gt; 6   Australia   Oceania &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;tibble [12 × 5]&gt;</span>
 <span class="co">#&gt; # ... with 136 more rows</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unnest</span>(by_country, resids) %&gt;%
-<span class="kw">ggplot</span>(<span class="kw">aes</span>(year, resid)) +
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">alpha =</span> <span class="dv">1</span> /<span class="st"> </span><span class="dv">3</span>) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unnest</span>(by_country, resids) <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(<span class="kw">aes</span>(year, resid)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">alpha =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</span></code></pre></div>
 <p><img src="many-models_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_country %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">glance =</span> <span class="kw">map</span>(model, broom::glance)) %&gt;%
-<span class="st">  </span><span class="kw">unnest</span>(glance, <span class="dt">.drop =</span> <span class="ot">TRUE</span>) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(continent, r.squared)) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_country <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">glance =</span> <span class="kw">map</span>(model, broom<span class="op">::</span>glance)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unnest</span>(glance, <span class="dt">.drop =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(continent, r.squared)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.5</span>)</code></pre></div>
 <p><img src="many-models_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Ex 25.2.5</strong> Explore other methods for visualising the distribution of <span class="math inline">\(R^2\)</span> per continent. You might want to try the ggbeeswarm package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.</p>
 <p>See exercise 7.5.1.1.6 for more on <strong>ggbeeswarm</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggbeeswarm&quot;</span>)
-by_country %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">glance =</span> <span class="kw">map</span>(model, broom::glance)) %&gt;%
-<span class="st">  </span><span class="kw">unnest</span>(glance, <span class="dt">.drop =</span> <span class="ot">TRUE</span>) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(continent, r.squared)) +
+by_country <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">glance =</span> <span class="kw">map</span>(model, broom<span class="op">::</span>glance)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unnest</span>(glance, <span class="dt">.drop =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(continent, r.squared)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_beeswarm</span>()</code></pre></div>
 <p><img src="many-models_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
@@ -481,9 +481,9 @@ by_country %&gt;%<span class="st"> </span>
 <p><strong>Ex. 25.4.5.2</strong> Brainstorm useful summary functions that, like <code>quantile()</code>, return multiple values.</p>
 <p>E.g. <code>range</code>, <code>fivenum</code>.</p>
 <p><strong>Ex. 25.4.5.3</strong> What’s missing in the following data frame? How does <code>quantile()</code> return that missing piece? Why isn’t that helpful here?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(cyl) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">q =</span> <span class="kw">list</span>(<span class="kw">quantile</span>(mpg))) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">q =</span> <span class="kw">list</span>(<span class="kw">quantile</span>(mpg))) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">unnest</span>()
 <span class="co">#&gt; # A tibble: 15 × 2</span>
 <span class="co">#&gt;     cyl     q</span>
@@ -496,13 +496,13 @@ by_country %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 6     6  17.8</span>
 <span class="co">#&gt; # ... with 9 more rows</span></code></pre></div>
 <p>The particular quantiles of the values are missing, e.g. <code>0%</code>, <code>25%</code>, <code>50%</code>, <code>75%</code>, <code>100%</code>. <code>quantile()</code> returns these in the names of the vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(mtcars$mpg)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(mtcars<span class="op">$</span>mpg)
 <span class="co">#&gt;   0%  25%  50%  75% 100% </span>
 <span class="co">#&gt; 10.4 15.4 19.2 22.8 33.9</span></code></pre></div>
 <p>Since the <code>unnest</code> function drops the names of the vector, they aren’t useful here.</p>
 <p><strong>Ex 25.4.5.4</strong> What does this code do? Why might might it be useful?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(cyl) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise_each</span>(<span class="kw">funs</span>(list))
 <span class="co">#&gt; # A tibble: 3 × 11</span>
 <span class="co">#&gt;     cyl        mpg       disp         hp       drat         wt       qsec</span>

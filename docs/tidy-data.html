@@ -498,13 +498,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p>Which representation is easiest to work with? Which is hardest? Why?</p>
 <p>Without using the joins covered in Ch 12:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tb2_cases &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type ==<span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;count&quot;</span>]]
-tb2_country &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type ==<span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;country&quot;</span>]]
-tb2_year &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type ==<span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;year&quot;</span>]]
-tb2_population &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type ==<span class="st"> &quot;population&quot;</span>)[[<span class="st">&quot;count&quot;</span>]]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tb2_cases &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;count&quot;</span>]]
+tb2_country &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;country&quot;</span>]]
+tb2_year &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>)[[<span class="st">&quot;year&quot;</span>]]
+tb2_population &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type <span class="op">==</span><span class="st"> &quot;population&quot;</span>)[[<span class="st">&quot;count&quot;</span>]]
 table2_clean &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">country =</span> tb2_country,
        <span class="dt">year =</span> tb2_year,
-       <span class="dt">rate =</span> tb2_cases /<span class="st"> </span>tb2_population)
+       <span class="dt">rate =</span> tb2_cases <span class="op">/</span><span class="st"> </span>tb2_population)
 table2_clean
 <span class="co">#&gt; # A tibble: 6 × 3</span>
 <span class="co">#&gt;       country  year     rate</span>
@@ -517,8 +517,8 @@ table2_clean
 <span class="co">#&gt; 6       China  2000 1.67e-04</span></code></pre></div>
 <p>Note, that this assumes that all observations are sorted so that each country, year will have the observation for cases followed by population.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">country =</span> table4a[[<span class="st">&quot;country&quot;</span>]],
-       <span class="st">`</span><span class="dt">1999</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;1999&quot;</span>]] /<span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]],
-       <span class="st">`</span><span class="dt">2000</span><span class="st">`</span> =<span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]] /<span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]])
+       <span class="st">`</span><span class="dt">1999</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;1999&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]],
+       <span class="st">`</span><span class="dt">2000</span><span class="st">`</span> =<span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]])
 <span class="co">#&gt; # A tibble: 3 × 3</span>
 <span class="co">#&gt;       country   `1999` `2000`</span>
 <span class="co">#&gt;         &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;</span>
@@ -528,8 +528,8 @@ table2_clean
 <p>or</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">country =</span> <span class="kw">rep</span>(table4a[[<span class="st">&quot;country&quot;</span>]], <span class="dv">2</span>),
        <span class="dt">year =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1999</span>, <span class="dv">2000</span>), <span class="dt">each =</span> <span class="kw">nrow</span>(table4a)),
-       <span class="st">`</span><span class="dt">rate</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(table4a[[<span class="st">&quot;1999&quot;</span>]] /<span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]],
-                  table4b[[<span class="st">&quot;2000&quot;</span>]] /<span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]]))
+       <span class="st">`</span><span class="dt">rate</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(table4a[[<span class="st">&quot;1999&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]],
+                  table4b[[<span class="st">&quot;2000&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]]))
 <span class="co">#&gt; # A tibble: 6 × 3</span>
 <span class="co">#&gt;       country  year     rate</span>
 <span class="co">#&gt;         &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
@@ -543,19 +543,19 @@ table2_clean
 <li>Recreate the plot showing change in cases over time using <code>table2</code> instead of <code>table1</code>. What do you need to do first?</li>
 </ol>
 <p>First, I needed to filter the tibble to only include those rows that represented the “cases” variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table2 %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(type ==<span class="st"> &quot;cases&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, count)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">colour =</span> <span class="st">&quot;grey50&quot;</span>) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table2 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, count)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> country))</code></pre></div>
 <p><img src="tidy_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="spreading-and-gathering" class="section level2">
 <h2><span class="header-section-number">8.3</span> Spreading and Gathering</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy4a &lt;-<span class="st"> </span>table4a %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy4a &lt;-<span class="st"> </span>table4a <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)
-tidy4b &lt;-<span class="st"> </span>table4b %&gt;%
+tidy4b &lt;-<span class="st"> </span>table4b <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)
 <span class="kw">left_join</span>(tidy4a, tidy4b)
 <span class="co">#&gt; Joining, by = c(&quot;country&quot;, &quot;year&quot;, &quot;cases&quot;)</span>
@@ -588,9 +588,9 @@ tidy4b &lt;-<span class="st"> </span>table4b %&gt;%
   <span class="dt">half  =</span> <span class="kw">c</span>(   <span class="dv">1</span>,    <span class="dv">2</span>,     <span class="dv">1</span>,    <span class="dv">2</span>),
   <span class="dt">return =</span> <span class="kw">c</span>(<span class="fl">1.88</span>, <span class="fl">0.59</span>, <span class="fl">0.92</span>, <span class="fl">0.17</span>)
 )
-stocks %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">spread</span>(year, return) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span>:<span class="st">`</span><span class="dt">2016</span><span class="st">`</span>)
+stocks <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(year, return) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2016</span><span class="st">`</span>)
 <span class="co">#&gt; # A tibble: 4 × 3</span>
 <span class="co">#&gt;    half  year return</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span>
@@ -600,9 +600,9 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 4     2  2016   0.17</span></code></pre></div>
 <p>The functions <code>spread</code> and <code>gather</code> are not perfectly symmetrical because column type information is not transferred between them. In the original table the column <code>year</code> was numeric, but after the spread-gather cyle it is character, because with <code>gather</code>, variable names are always converted to a character vector.</p>
 <p>The <code>convert</code> argument tries to convert character vectors to the appropriate type. In the background this uses the <code>type.convert</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocks %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">spread</span>(year, return) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span>:<span class="st">`</span><span class="dt">2016</span><span class="st">`</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocks <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(year, return) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2016</span><span class="st">`</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; # A tibble: 4 × 3</span>
 <span class="co">#&gt;    half  year return</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;</span>
@@ -613,11 +613,11 @@ stocks %&gt;%<span class="st"> </span>
 <ol start="2" style="list-style-type: decimal">
 <li>Why does this code fail?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">gather</span>(<span class="dv">1999</span>, <span class="dv">2000</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)
 <span class="co">#&gt; Error in eval(expr, envir, enclos): Position must be between 0 and n</span></code></pre></div>
 <p>The code fails because the column names <code>1999</code> and <code>2000</code> are not standard and thus needs to be quoted. The tidyverse functions will interpret <code>1999</code> and <code>2000</code> without quotes as looking for the 1999th and 2000th column of the data frame. This will work:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)
 <span class="co">#&gt; # A tibble: 6 × 3</span>
 <span class="co">#&gt;       country  year  cases</span>
@@ -632,7 +632,7 @@ stocks %&gt;%<span class="st"> </span>
 <li>Why does spreading this tibble fail? How could you add a new column to fix the problem?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  ~name,             ~key,    ~value,
+  <span class="op">~</span>name,             <span class="op">~</span>key,    <span class="op">~</span>value,
   <span class="co">#-----------------|--------|------</span>
   <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">45</span>,
   <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;height&quot;</span>,   <span class="dv">186</span>,
@@ -650,7 +650,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; Error: Duplicate identifiers for rows (1, 3)</span></code></pre></div>
 <p>Spreading the data frame fails because there are two rows with “age” for “Phillip Woods”. We would need to add another column with an indicator for the number observation it is,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  ~name,             ~key,    ~value, ~obs,
+  <span class="op">~</span>name,             <span class="op">~</span>key,    <span class="op">~</span>value, <span class="op">~</span>obs,
   <span class="co">#-----------------|--------|------|------</span>
   <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">45</span>, <span class="dv">1</span>,
   <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;height&quot;</span>,   <span class="dv">186</span>, <span class="dv">1</span>,
@@ -669,7 +669,7 @@ stocks %&gt;%<span class="st"> </span>
 <li>Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preg &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  ~pregnant, ~male, ~female,
+  <span class="op">~</span>pregnant, <span class="op">~</span>male, <span class="op">~</span>female,
   <span class="st">&quot;yes&quot;</span>,     <span class="ot">NA</span>,    <span class="dv">10</span>,
   <span class="st">&quot;no&quot;</span>,      <span class="dv">20</span>,    <span class="dv">12</span>
 )</code></pre></div>
@@ -679,10 +679,10 @@ stocks %&gt;%<span class="st"> </span>
 <li>female: logical</li>
 <li>count: integer</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gather</span>(preg, sex, count, male, female) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pregnant =</span> pregnant ==<span class="st"> &quot;yes&quot;</span>,
-         <span class="dt">female =</span> sex ==<span class="st"> &quot;female&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(-sex)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gather</span>(preg, sex, count, male, female) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pregnant =</span> pregnant <span class="op">==</span><span class="st"> &quot;yes&quot;</span>,
+         <span class="dt">female =</span> sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>sex)
 <span class="co">#&gt; # A tibble: 4 × 3</span>
 <span class="co">#&gt;   pregnant count female</span>
 <span class="co">#&gt;      &lt;lgl&gt; &lt;dbl&gt;  &lt;lgl&gt;</span>
@@ -695,8 +695,8 @@ stocks %&gt;%<span class="st"> </span>
 </div>
 <div id="separating-and-uniting" class="section level2">
 <h2><span class="header-section-number">8.4</span> Separating and Uniting</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table3 %&gt;%
-<span class="st">  </span><span class="kw">separate</span>(rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">separate</span>(rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">separate</span>(year, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;century&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="dt">sep =</span> <span class="dv">2</span>)
 <span class="co">#&gt; # A tibble: 6 × 5</span>
 <span class="co">#&gt;       country century  year  cases population</span>
@@ -707,7 +707,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 4      Brazil      20    00  80488  174504898</span>
 <span class="co">#&gt; 5       China      19    99 212258 1272915272</span>
 <span class="co">#&gt; 6       China      20    00 213766 1280428583</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table5 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table5 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">unite</span>(new, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
 <span class="co">#&gt; # A tibble: 6 × 3</span>
 <span class="co">#&gt;       country   new              rate</span>
@@ -723,7 +723,7 @@ stocks %&gt;%<span class="st"> </span>
 <ol style="list-style-type: decimal">
 <li>What do the extra and fill arguments do in separate()? Experiment with the various options for the following two toy datasets.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
 <span class="co">#&gt; Warning: Too many values at 1 locations: 2</span>
 <span class="co">#&gt; # A tibble: 3 × 3</span>
@@ -733,7 +733,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 2     d     e     f</span>
 <span class="co">#&gt; 3     h     i     j</span>
 
-<span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) %&gt;%<span class="st"> </span>
+<span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
 <span class="co">#&gt; Warning: Too few values at 1 locations: 2</span>
 <span class="co">#&gt; # A tibble: 3 × 3</span>
@@ -744,7 +744,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 3     f     g     i</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?separate</code></pre></div>
 <p>The <code>extra</code> argument tells <code>separate</code> what to do if there are too many pieces, and the <code>fill</code> argument if there aren’t enough.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
 <span class="co">#&gt; Warning: Too many values at 1 locations: 2</span>
 <span class="co">#&gt; # A tibble: 3 × 3</span>
@@ -754,7 +754,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 2     d     e     f</span>
 <span class="co">#&gt; 3     h     i     j</span></code></pre></div>
 <p>By default <code>separate</code> drops the extra values with a warning.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;drop&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 × 3</span>
 <span class="co">#&gt;     one   two three</span>
@@ -763,7 +763,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 2     d     e     f</span>
 <span class="co">#&gt; 3     h     i     j</span></code></pre></div>
 <p>This produces the same result as above, dropping extra values, but without the warning.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 × 3</span>
 <span class="co">#&gt;     one   two three</span>
@@ -773,7 +773,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 3     h     i     j</span></code></pre></div>
 <p>In this, the extra values are not split, so “f,g” appears in column three.</p>
 <p>In this, one of the entries for column, “d,e”, has too few elements. The default for <code>fill</code> is similar to <code>separate</code>; it fills with missing values but emits a warning. In this, row 2 of column “three”, is <code>NA</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
 <span class="co">#&gt; Warning: Too few values at 1 locations: 2</span>
 <span class="co">#&gt; # A tibble: 3 × 3</span>
@@ -783,7 +783,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 2     d     e  &lt;NA&gt;</span>
 <span class="co">#&gt; 3     f     g     i</span></code></pre></div>
 <p>Alternative options for <code>fill</code> are <code>&quot;right&quot;</code>, to fill with missing values from the right, but without a warning</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;right&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 × 3</span>
 <span class="co">#&gt;     one   two three</span>
@@ -792,7 +792,7 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 2     d     e  &lt;NA&gt;</span>
 <span class="co">#&gt; 3     f     g     i</span></code></pre></div>
 <p>The option <code>fill = &quot;left&quot;</code> also fills with missing values without a warning, but this time from the left side. Now, column “one” of row 2 will be missing, and the other values in that row are shifted over.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;left&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 × 3</span>
 <span class="co">#&gt;     one   two three</span>
@@ -828,8 +828,8 @@ stocks %&gt;%<span class="st"> </span>
 </div>
 <div id="case-study" class="section level2">
 <h2><span class="header-section-number">8.6</span> Case Study</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who1 &lt;-<span class="st"> </span>who %&gt;%
-<span class="st">  </span><span class="kw">gather</span>(new_sp_m014:newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who1 &lt;-<span class="st"> </span>who <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(new_sp_m014<span class="op">:</span>newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 <span class="kw">glimpse</span>(who1)
 <span class="co">#&gt; Observations: 76,046</span>
 <span class="co">#&gt; Variables: 6</span>
@@ -839,9 +839,9 @@ stocks %&gt;%<span class="st"> </span>
 <span class="co">#&gt; $ year    &lt;int&gt; 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, ...</span>
 <span class="co">#&gt; $ key     &lt;chr&gt; &quot;new_sp_m014&quot;, &quot;new_sp_m014&quot;, &quot;new_sp_m014&quot;, &quot;new_sp_m...</span>
 <span class="co">#&gt; $ cases   &lt;int&gt; 0, 30, 8, 52, 129, 90, 127, 139, 151, 193, 186, 187, 2...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who2 &lt;-<span class="st"> </span>who1 %&gt;%
-<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">key =</span> stringr::<span class="kw">str_replace</span>(key, <span class="st">&quot;newrel&quot;</span>, <span class="st">&quot;new_rel&quot;</span>))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3 &lt;-<span class="st"> </span>who2 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who2 &lt;-<span class="st"> </span>who1 <span class="op">%&gt;%</span>
+<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">key =</span> stringr<span class="op">::</span><span class="kw">str_replace</span>(key, <span class="st">&quot;newrel&quot;</span>, <span class="st">&quot;new_rel&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3 &lt;-<span class="st"> </span>who2 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)
 who3
 <span class="co">#&gt; # A tibble: 76,046 × 8</span>
@@ -854,15 +854,15 @@ who3
 <span class="co">#&gt; 5 Afghanistan    AF   AFG  2001   new    sp   m014   129</span>
 <span class="co">#&gt; 6 Afghanistan    AF   AFG  2002   new    sp   m014    90</span>
 <span class="co">#&gt; # ... with 7.604e+04 more rows</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">count</span>(new)
 <span class="co">#&gt; # A tibble: 1 × 2</span>
 <span class="co">#&gt;     new     n</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1   new 76046</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who4 &lt;-<span class="st"> </span>who3 %&gt;%
-<span class="st">  </span><span class="kw">select</span>(-new, -iso2, -iso3)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who5 &lt;-<span class="st"> </span>who4 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who4 &lt;-<span class="st"> </span>who3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>new, <span class="op">-</span>iso2, <span class="op">-</span>iso3)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who5 &lt;-<span class="st"> </span>who4 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">separate</span>(sexage, <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>)
 who5
 <span class="co">#&gt; # A tibble: 76,046 × 6</span>
@@ -881,18 +881,18 @@ who5
 <li>In this case study I set <code>na.rm = TRUE</code> just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an <code>NA</code> and zero?</li>
 </ol>
 <p>Perhaps? I would need to know more about the data generation process. There are zero’s in the data, which means they may explicitly be indicating no cases.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who1 %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(cases ==<span class="st"> </span><span class="dv">0</span>) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who1 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(cases <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">nrow</span>()
 <span class="co">#&gt; [1] 11080</span></code></pre></div>
 <p>So it appears that either a country has all its values in a year as non-missing if the WHO collected data for that country, or all its values are non-missing. So it is okay to treat explicitly and implicitly missing values the same, and we don’t lose any information by dropping them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gather</span>(who, new_sp_m014:newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(country, year)  %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">missing =</span> <span class="kw">is.na</span>(cases)) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(country, year, missing) %&gt;%
-<span class="st">  </span><span class="kw">distinct</span>() %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(country, year) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() &gt;<span class="st"> </span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gather</span>(who, new_sp_m014<span class="op">:</span>newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(country, year)  <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">missing =</span> <span class="kw">is.na</span>(cases)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(country, year, missing) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
 <span class="co">#&gt; Source: local data frame [0 x 2]</span>
 <span class="co">#&gt; Groups: country, year [0]</span>
 <span class="co">#&gt; </span>
@@ -901,13 +901,13 @@ who5
 <li>What happens if you neglect the <code>mutate()</code> step? (<code>mutate(key = stringr::str_replace(key, &quot;newrel&quot;, &quot;new_rel&quot;)</code>)</li>
 </ol>
 <p><code>separate</code> emits the warning “too few values”, and if we check the rows for keys beginning with <code>&quot;newrel_&quot;</code>, we see that <code>sexage</code> is messing, and <code>type = m014</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3a &lt;-<span class="st"> </span>who1 %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3a &lt;-<span class="st"> </span>who1 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)
 <span class="co">#&gt; Warning: Too few values at 2580 locations: 73467, 73468, 73469, 73470,</span>
 <span class="co">#&gt; 73471, 73472, 73473, 73474, 73475, 73476, 73477, 73478, 73479, 73480,</span>
 <span class="co">#&gt; 73481, 73482, 73483, 73484, 73485, 73486, ...</span>
 
-<span class="kw">filter</span>(who3a, new ==<span class="st"> &quot;newrel&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">head</span>()
+<span class="kw">filter</span>(who3a, new <span class="op">==</span><span class="st"> &quot;newrel&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()
 <span class="co">#&gt; # A tibble: 6 × 8</span>
 <span class="co">#&gt;       country  iso2  iso3  year    new  type sexage cases</span>
 <span class="co">#&gt;         &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;</span>
@@ -920,10 +920,10 @@ who5
 <ol start="3" style="list-style-type: decimal">
 <li>I claimed that <code>iso2</code> and <code>iso3</code> were redundant with country. Confirm this claim.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(who3, country, iso2, iso3) %&gt;%
-<span class="st">  </span><span class="kw">distinct</span>() %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(country) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() &gt;<span class="st"> </span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(who3, country, iso2, iso3) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
 <span class="co">#&gt; Source: local data frame [0 x 3]</span>
 <span class="co">#&gt; Groups: country [0]</span>
 <span class="co">#&gt; </span>
@@ -931,12 +931,12 @@ who5
 <ol start="4" style="list-style-type: decimal">
 <li>For each country, year, and sex compute the total number of cases of TB. Make an informative visualisation of the data.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who5 %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(country, year, sex) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(year &gt;<span class="st"> </span><span class="dv">1995</span>) %&gt;%
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases)) %&gt;%
-<span class="st">  </span><span class="kw">unite</span>(country_sex, country, sex, <span class="dt">remove =</span> <span class="ot">FALSE</span>) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> cases, <span class="dt">group =</span> country_sex, <span class="dt">colour =</span> sex)) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who5 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(country, year, sex) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1995</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unite</span>(country_sex, country, sex, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> cases, <span class="dt">group =</span> country_sex, <span class="dt">colour =</span> sex)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()
 
   </code></pre></div>

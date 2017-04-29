@@ -413,11 +413,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="why-are-low-quality-diamonds-more-expensive" class="section level2">
 <h2><span class="header-section-number">20.2</span> Why are low quality diamonds more expensive?</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds2 &lt;-<span class="st"> </span>diamonds %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(carat &lt;=<span class="st"> </span><span class="fl">2.5</span>) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds2 &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(carat <span class="op">&lt;=</span><span class="st"> </span><span class="fl">2.5</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lprice =</span> <span class="kw">log2</span>(price), <span class="dt">lcarat =</span> <span class="kw">log2</span>(carat))
 
-mod_diamond2 &lt;-<span class="st"> </span><span class="kw">lm</span>(lprice ~<span class="st"> </span>lcarat +<span class="st"> </span>color +<span class="st"> </span>cut +<span class="st"> </span>clarity, <span class="dt">data =</span> diamonds2)</code></pre></div>
+mod_diamond2 &lt;-<span class="st"> </span><span class="kw">lm</span>(lprice <span class="op">~</span><span class="st"> </span>lcarat <span class="op">+</span><span class="st"> </span>color <span class="op">+</span><span class="st"> </span>cut <span class="op">+</span><span class="st"> </span>clarity, <span class="dt">data =</span> diamonds2)</code></pre></div>
 <div id="exercises-54" class="section level3">
 <h3><span class="header-section-number">20.2.1</span> Exercises</h3>
 <ol style="list-style-type: decimal">
@@ -435,10 +435,10 @@ mod_diamond2 &lt;-<span class="st"> </span><span class="kw">lm</span>(lprice ~<s
 <ol start="4" style="list-style-type: decimal">
 <li>Does the final model, <code>mod_diamonds2</code>, do a good job of predicting diamond prices? Would you trust it to tell you how much to spend if you were buying a diamond?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds2 %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">add_predictions</span>(mod_diamond2) %&gt;%
-<span class="st">  </span><span class="kw">add_residuals</span>(mod_diamond2) %&gt;%
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sq_err =</span> <span class="kw">sqrt</span>(<span class="kw">mean</span>(resid^<span class="dv">2</span>)),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds2 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">add_predictions</span>(mod_diamond2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">add_residuals</span>(mod_diamond2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sq_err =</span> <span class="kw">sqrt</span>(<span class="kw">mean</span>(resid<span class="op">^</span><span class="dv">2</span>)),
             <span class="dt">abs_err =</span> <span class="kw">mean</span>(<span class="kw">abs</span>(resid)),
             <span class="dt">p975_err =</span> <span class="kw">quantile</span>(resid, <span class="fl">0.975</span>),
             <span class="dt">p025_err =</span> <span class="kw">quantile</span>(resid, <span class="fl">0.025</span>))
@@ -455,9 +455,9 @@ mod_diamond2 &lt;-<span class="st"> </span><span class="kw">lm</span>(lprice ~<s
 <li>Introduces natural splines</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;nycflights13&quot;</span>)
-daily &lt;-<span class="st"> </span>flights %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(year, month, day)) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(date) %&gt;%<span class="st"> </span>
+daily &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(year, month, day)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(date) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>())
 daily
 <span class="co">#&gt; # A tibble: 365 × 2</span>
@@ -471,33 +471,33 @@ daily
 <span class="co">#&gt; 6 2013-01-06   832</span>
 <span class="co">#&gt; # ... with 359 more rows</span>
 
-daily &lt;-<span class="st"> </span>daily %&gt;%<span class="st"> </span>
+daily &lt;-<span class="st"> </span>daily <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>))
 
-term &lt;-<span class="st"> </span>function(date) {
+term &lt;-<span class="st"> </span><span class="cf">function</span>(date) {
   <span class="kw">cut</span>(date, 
     <span class="dt">breaks =</span> <span class="kw">ymd</span>(<span class="dv">20130101</span>, <span class="dv">20130605</span>, <span class="dv">20130825</span>, <span class="dv">20140101</span>),
     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;spring&quot;</span>, <span class="st">&quot;summer&quot;</span>, <span class="st">&quot;fall&quot;</span>) 
   )
 }
 
-daily &lt;-<span class="st"> </span>daily %&gt;%<span class="st"> </span>
+daily &lt;-<span class="st"> </span>daily <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term =</span> <span class="kw">term</span>(date)) 
 
-mod &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday, <span class="dt">data =</span> daily)
+mod &lt;-<span class="st"> </span><span class="kw">lm</span>(n <span class="op">~</span><span class="st"> </span>wday, <span class="dt">data =</span> daily)
 
-daily &lt;-<span class="st"> </span>daily %&gt;%<span class="st"> </span>
+daily &lt;-<span class="st"> </span>daily <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">add_residuals</span>(mod)
 
-mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday, <span class="dt">data =</span> daily)
-mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday *<span class="st"> </span>term, <span class="dt">data =</span> daily)</code></pre></div>
+mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(n <span class="op">~</span><span class="st"> </span>wday, <span class="dt">data =</span> daily)
+mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(n <span class="op">~</span><span class="st"> </span>wday <span class="op">*</span><span class="st"> </span>term, <span class="dt">data =</span> daily)</code></pre></div>
 </div>
 <div id="exercises-55" class="section level3">
 <h3><span class="header-section-number">20.2.3</span> Exercises</h3>
 <p><strong>Ex 1.</strong> Use your Google sleuthing skills to brainstorm why there were fewer than expected flights on Jan 20, May 26, and Sep 1. (Hint: they all have the same explanation.) How would these days generalise to another year?</p>
 <p>These are the Sundays before Monday holidays Martin Luther King Day, Memorial Day, and Labor Day.</p>
 <p><strong>Ex 2.</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">top_n</span>(<span class="dv">3</span>, resid)
 <span class="co">#&gt; # A tibble: 3 × 5</span>
 <span class="co">#&gt;         date     n  wday   term resid</span>
@@ -507,41 +507,41 @@ mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st
 <span class="co">#&gt; 3 2013-12-28   814   Sat   fall  69.4</span></code></pre></div>
 <p><strong>Ex 3.</strong> Create a new variable that splits the wday variable into terms, but only for Saturdays, i.e. it should have <code>Thurs</code>, <code>Fri</code>, but <code>Sat-summer</code>, <code>Sat-spring</code>, <code>Sat-fall</code> How does this model compare with the model with every combination of wday and term?</p>
 <p>I’ll use the function <code>case_when</code> to do this, though there are other ways which it could be solved.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday2 =</span> 
-         <span class="kw">case_when</span>(.$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$term ==<span class="st"> &quot;summer&quot;</span> ~<span class="st"> &quot;Sat-summer&quot;</span>,
-         .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$<span class="st"> </span>term ==<span class="st"> &quot;fall&quot;</span> ~<span class="st"> &quot;Sat-fall&quot;</span>,
-         .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$term ==<span class="st"> &quot;spring&quot;</span> ~<span class="st"> &quot;Sat-spring&quot;</span>,
-         <span class="ot">TRUE</span> ~<span class="st"> </span><span class="kw">as.character</span>(.$wday)))</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod4 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday2, <span class="dt">data =</span> daily)
+         <span class="kw">case_when</span>(.<span class="op">$</span>wday <span class="op">==</span><span class="st"> &quot;Sat&quot;</span> <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span>term <span class="op">==</span><span class="st"> &quot;summer&quot;</span> <span class="op">~</span><span class="st"> &quot;Sat-summer&quot;</span>,
+         .<span class="op">$</span>wday <span class="op">==</span><span class="st"> &quot;Sat&quot;</span> <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span><span class="st"> </span>term <span class="op">==</span><span class="st"> &quot;fall&quot;</span> <span class="op">~</span><span class="st"> &quot;Sat-fall&quot;</span>,
+         .<span class="op">$</span>wday <span class="op">==</span><span class="st"> &quot;Sat&quot;</span> <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span>term <span class="op">==</span><span class="st"> &quot;spring&quot;</span> <span class="op">~</span><span class="st"> &quot;Sat-spring&quot;</span>,
+         <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(.<span class="op">$</span>wday)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod4 &lt;-<span class="st"> </span><span class="kw">lm</span>(n <span class="op">~</span><span class="st"> </span>wday2, <span class="dt">data =</span> daily)
 
-daily %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">gather_residuals</span>(<span class="dt">sat_term =</span> mod4, <span class="dt">all_interact =</span> mod2) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, resid, <span class="dt">colour =</span> model)) +
+daily <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather_residuals</span>(<span class="dt">sat_term =</span> mod4, <span class="dt">all_interact =</span> mod2) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, resid, <span class="dt">colour =</span> model)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.75</span>)</code></pre></div>
 <p><img src="model-building_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>I think the overlapping plot is hard to understand. If we are interested in the differences, it is better to plot the differences directly. In this code I use <code>spread_residuals</code> to add one <em>column</em> per model, rather than <code>gather_residuals</code> which creates a new row for each model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">spread_residuals</span>(<span class="dt">sat_term =</span> mod4, <span class="dt">all_interact =</span> mod2) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">resid_diff =</span> sat_term -<span class="st"> </span>all_interact) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, resid_diff)) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread_residuals</span>(<span class="dt">sat_term =</span> mod4, <span class="dt">all_interact =</span> mod2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">resid_diff =</span> sat_term <span class="op">-</span><span class="st"> </span>all_interact) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, resid_diff)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.75</span>)</code></pre></div>
 <p><img src="model-building_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The model with terms x Saturday has higher residuals in the fall, and lower residuals in the spring than the model with all interactions.</p>
 <p>Using overall model comparison terms, <code>mod4</code> has a lower <span class="math inline">\(R^2\)</span> and regression standard error, <span class="math inline">\(\hat\sigma\)</span>, despite using fewer variables. More importantly for prediction purposes, it has a higher AIC - which is an estimate of the out of sample error.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(mod4) %&gt;%<span class="st"> </span><span class="kw">select</span>(r.squared, sigma, AIC, df)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(mod4) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(r.squared, sigma, AIC, df)
 <span class="co">#&gt;   r.squared sigma  AIC df</span>
 <span class="co">#&gt; 1     0.736  47.4 3863  9</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(mod2) %&gt;%<span class="st"> </span><span class="kw">select</span>(r.squared, sigma, AIC, df)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(mod2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(r.squared, sigma, AIC, df)
 <span class="co">#&gt;   r.squared sigma  AIC df</span>
 <span class="co">#&gt; 1     0.757  46.2 3856 21</span></code></pre></div>
 <p><strong>Ex. 4</strong> Create a new wday variable that combines the day of week, term (for Saturdays), and public holidays. What do the residuals of that model look like?</p>
 <p>The question is unclear how to handle the public holidays. We could include a dummy for all public holidays? or the Sunday before public holidays?</p>
 <p>Including a level for the public holidays themselves is insufficient because (1) public holiday’s effects on travel varies dramatically, (2) the effect can occur on the day itself or the day before and after, and (3) with Thanksgiving and Christmas there are increases in travel as well.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday3 =</span> 
          <span class="kw">case_when</span>(
-           .$date %in%<span class="st"> </span>lubridate::<span class="kw">ymd</span>(<span class="kw">c</span>(<span class="dv">20130101</span>, <span class="co"># new years</span>
+           .<span class="op">$</span>date <span class="op">%in%</span><span class="st"> </span>lubridate<span class="op">::</span><span class="kw">ymd</span>(<span class="kw">c</span>(<span class="dv">20130101</span>, <span class="co"># new years</span>
                                         <span class="dv">20130121</span>, <span class="co"># mlk</span>
                                         <span class="dv">20130218</span>, <span class="co"># presidents</span>
                                         <span class="dv">20130527</span>, <span class="co"># memorial</span>
@@ -550,19 +550,19 @@ daily %&gt;%<span class="st"> </span>
                                         <span class="dv">20131028</span>, <span class="co"># columbus</span>
                                         <span class="dv">20131111</span>, <span class="co"># veterans</span>
                                         <span class="dv">20131128</span>, <span class="co"># thanksgiving</span>
-                                        <span class="dv">20131225</span>)) ~
+                                        <span class="dv">20131225</span>)) <span class="op">~</span>
 <span class="st">             &quot;holiday&quot;</span>,
-           .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$term ==<span class="st"> &quot;summer&quot;</span> ~<span class="st"> &quot;Sat-summer&quot;</span>,
-           .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$<span class="st"> </span>term ==<span class="st"> &quot;fall&quot;</span> ~<span class="st"> &quot;Sat-fall&quot;</span>,
-           .$wday ==<span class="st"> &quot;Sat&quot;</span> &amp;<span class="st"> </span>.$term ==<span class="st"> &quot;spring&quot;</span> ~<span class="st"> &quot;Sat-spring&quot;</span>,
-           <span class="ot">TRUE</span> ~<span class="st"> </span><span class="kw">as.character</span>(.$wday)))
+           .<span class="op">$</span>wday <span class="op">==</span><span class="st"> &quot;Sat&quot;</span> <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span>term <span class="op">==</span><span class="st"> &quot;summer&quot;</span> <span class="op">~</span><span class="st"> &quot;Sat-summer&quot;</span>,
+           .<span class="op">$</span>wday <span class="op">==</span><span class="st"> &quot;Sat&quot;</span> <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span><span class="st"> </span>term <span class="op">==</span><span class="st"> &quot;fall&quot;</span> <span class="op">~</span><span class="st"> &quot;Sat-fall&quot;</span>,
+           .<span class="op">$</span>wday <span class="op">==</span><span class="st"> &quot;Sat&quot;</span> <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span>term <span class="op">==</span><span class="st"> &quot;spring&quot;</span> <span class="op">~</span><span class="st"> &quot;Sat-spring&quot;</span>,
+           <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(.<span class="op">$</span>wday)))
 
-mod5 &lt;-<span class="st"> </span><span class="kw">lm</span>(n ~<span class="st"> </span>wday3, <span class="dt">data =</span> daily)
+mod5 &lt;-<span class="st"> </span><span class="kw">lm</span>(n <span class="op">~</span><span class="st"> </span>wday3, <span class="dt">data =</span> daily)
 
-daily %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">spread_residuals</span>(mod5) %&gt;%
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(<span class="kw">abs</span>(resid))) %&gt;%
-<span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">20</span>) %&gt;%<span class="st"> </span><span class="kw">select</span>(date, wday, resid)
+daily <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread_residuals</span>(mod5) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(<span class="kw">abs</span>(resid))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(date, wday, resid)
 <span class="co">#&gt; # A tibble: 20 × 3</span>
 <span class="co">#&gt;         date  wday resid</span>
 <span class="co">#&gt;       &lt;date&gt; &lt;ord&gt; &lt;dbl&gt;</span>
@@ -578,37 +578,37 @@ daily %&gt;%<span class="st"> </span>
 <p><strong>Ex 6.</strong> It will estimate a smooth seasonal trend (<code>ns(date, 5)</code>) with a day of the week cylicality, (<code>wday</code>). It probably will not be effective since</p>
 <p><strong>Ex 7.</strong> We hypothesised that people leaving on Sundays are more likely to be business travellers who need to be somewhere on Monday. Explore that hypothesis by seeing how it breaks down based on distance and time: if it’s true, you’d expect to see more Sunday evening flights to places that are far away.</p>
 <p>Looking at only day of the week, we see that Sunday flights are on average longer than the rest of the day of the week flights, but not as long as Saturday flights (perhaps vacation flights?).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(year, month, day),
-         <span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>)) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(wday) %&gt;%
+         <span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(wday) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dist_mean =</span>  <span class="kw">mean</span>(distance),
-            <span class="dt">dist_median =</span> <span class="kw">median</span>(distance)) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dist_mean, <span class="dt">x =</span> wday)) +
+            <span class="dt">dist_median =</span> <span class="kw">median</span>(distance)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dist_mean, <span class="dt">x =</span> wday)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="model-building_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>However, breaking it down by hour, I don’t see much evidence at first. Conditional on hour, the distance of Sunday flights seems similar to that of other days (excluding Saturday):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(year, month, day),
-         <span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>)) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(wday, hour) %&gt;%
+         <span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(wday, hour) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dist_mean =</span>  <span class="kw">mean</span>(distance),
-            <span class="dt">dist_median =</span> <span class="kw">median</span>(distance)) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dist_mean, <span class="dt">x =</span> hour, <span class="dt">colour =</span> wday)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+            <span class="dt">dist_median =</span> <span class="kw">median</span>(distance)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dist_mean, <span class="dt">x =</span> hour, <span class="dt">colour =</span> wday)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
 <p><img src="model-building_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Can someone think of a better way to check this?</p>
 <p><strong>Ex 8.</strong> It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.</p>
 <p>See the chapter <a href="http://r4ds.had.co.nz/factors.html">Factors</a> for the function <code>fct_relevel</code>. I use <code>fct_relevel</code> to put all levels in-front of the first level (“Sunday”).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">monday_first &lt;-<span class="st"> </span>function(x) {
-  forcats::<span class="kw">fct_relevel</span>(x, <span class="kw">levels</span>(x)[-<span class="dv">1</span>])  
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">monday_first &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  forcats<span class="op">::</span><span class="kw">fct_relevel</span>(x, <span class="kw">levels</span>(x)[<span class="op">-</span><span class="dv">1</span>])  
 }</code></pre></div>
 <p>Now Monday is the first day of the week,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday =</span> <span class="kw">wday</span>(date, <span class="dt">label =</span> <span class="ot">TRUE</span>))
-<span class="kw">ggplot</span>(daily, <span class="kw">aes</span>(<span class="kw">monday_first</span>(wday), n)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>() +
+<span class="kw">ggplot</span>(daily, <span class="kw">aes</span>(<span class="kw">monday_first</span>(wday), n)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Day of Week&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Number of flights&quot;</span>)</code></pre></div>
 <p><img src="model-building_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
 

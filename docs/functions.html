@@ -420,49 +420,49 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong>Note</strong> By a single missing value, this means that <code>x</code> has at least one <code>NA</code> value.</p>
 <p>If there were any <code>NA</code> values, and <code>na.rm = FALSE</code>, then the function would return <code>NA</code>.</p>
 <p>I can confirm this by testing a function that allows for <code>na.rm</code> as an argument:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rescale01_alt &lt;-<span class="st"> </span>function(x, <span class="dt">finite =</span> <span class="ot">TRUE</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rescale01_alt &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">finite =</span> <span class="ot">TRUE</span>) {
   rng &lt;-<span class="st"> </span><span class="kw">range</span>(x, <span class="dt">na.rm =</span> finite, <span class="dt">finite =</span> finite)
-  (x -<span class="st"> </span>rng[<span class="dv">1</span>]) /<span class="st"> </span>(rng[<span class="dv">2</span>] -<span class="st"> </span>rng[<span class="dv">1</span>])
+  (x <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>]) <span class="op">/</span><span class="st"> </span>(rng[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>])
 }
-<span class="kw">rescale01_alt</span>(<span class="kw">c</span>(<span class="ot">NA</span>, <span class="dv">1</span>:<span class="dv">5</span>), <span class="dt">finite =</span> <span class="ot">FALSE</span>)
+<span class="kw">rescale01_alt</span>(<span class="kw">c</span>(<span class="ot">NA</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>), <span class="dt">finite =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; [1] NA NA NA NA NA NA</span>
-<span class="kw">rescale01_alt</span>(<span class="kw">c</span>(<span class="ot">NA</span>, <span class="dv">1</span>:<span class="dv">5</span>), <span class="dt">finite =</span> <span class="ot">TRUE</span>)
+<span class="kw">rescale01_alt</span>(<span class="kw">c</span>(<span class="ot">NA</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>), <span class="dt">finite =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; [1]   NA 0.00 0.25 0.50 0.75 1.00</span></code></pre></div>
 <p><strong>Ex 2.</strong> In the second variant of <code>rescale01()</code>, infinite values are left unchanged. Rewrite <code>rescale01()</code> so that <code>-Inf</code> is mapped to 0, and <code>Inf</code> is mapped to 1.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rescale01 &lt;-<span class="st"> </span>function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rescale01 &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   rng &lt;-<span class="st"> </span><span class="kw">range</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
-  y &lt;-<span class="st"> </span>(x -<span class="st"> </span>rng[<span class="dv">1</span>]) /<span class="st"> </span>(rng[<span class="dv">2</span>] -<span class="st"> </span>rng[<span class="dv">1</span>])
-  y[y ==<span class="st"> </span>-<span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
-  y[y ==<span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
+  y &lt;-<span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>]) <span class="op">/</span><span class="st"> </span>(rng[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>])
+  y[y <span class="op">==</span><span class="st"> </span><span class="op">-</span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
+  y[y <span class="op">==</span><span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
   y
 }
 
-<span class="kw">rescale01</span>(<span class="kw">c</span>(<span class="ot">Inf</span>, -<span class="ot">Inf</span>, <span class="dv">0</span>:<span class="dv">5</span>, <span class="ot">NA</span>))
+<span class="kw">rescale01</span>(<span class="kw">c</span>(<span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">NA</span>))
 <span class="co">#&gt; [1] 1.0 0.0 0.0 0.2 0.4 0.6 0.8 1.0  NA</span></code></pre></div>
 <p><strong>Ex 3.</strong> Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">is.na</span>(x))
 
-x /<span class="st"> </span><span class="kw">sum</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+x <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 
-<span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) /<span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>This function calculates the proportion of <code>NA</code> values in a vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prop_na &lt;-<span class="st"> </span>function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prop_na &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   <span class="kw">mean</span>(<span class="kw">is.na</span>(x))
 }
 <span class="kw">prop_na</span>(<span class="kw">c</span>(<span class="ot">NA</span>, <span class="dv">0</span>, <span class="ot">NA</span>, <span class="dv">0</span>, <span class="ot">NA</span>))
 <span class="co">#&gt; [1] 0.6</span></code></pre></div>
 <p>This function standardizes a function to its weight. If all elements of <code>x</code> are non-negative, this will ensure the vector sums to 1.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weights &lt;-<span class="st"> </span>function(x) {
-  x /<span class="st"> </span><span class="kw">sum</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weights &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  x <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 }
-y &lt;-<span class="st"> </span><span class="kw">weights</span>(<span class="dv">0</span>:<span class="dv">5</span>)
+y &lt;-<span class="st"> </span><span class="kw">weights</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)
 y
 <span class="co">#&gt; [1] 0.0000 0.0667 0.1333 0.2000 0.2667 0.3333</span>
 <span class="kw">sum</span>(y)
 <span class="co">#&gt; [1] 1</span></code></pre></div>
 <p>This function calculates the <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> (assuming that <code>x</code> can only take non-negative values). The coefficient of variation is the standard deviation devided by the mean:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coef_variation &lt;-<span class="st"> </span>function(x) {
-  <span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) /<span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coef_variation &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 }
 <span class="kw">coef_variation</span>(<span class="kw">runif</span>(<span class="dv">10</span>))
 <span class="co">#&gt; [1] 0.672</span></code></pre></div>
@@ -471,36 +471,36 @@ y
 <p>The sample variance is defined as <span class="math display">\[
 Var(x) = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar{x}) ^2
 \]</span> where the sample mean is <span class="math inline">\(\bar{x} = (\sum x_i) / n\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">variance &lt;-<span class="st"> </span>function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">variance &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   <span class="co"># remove missing values</span>
-  x &lt;-<span class="st"> </span>x[!<span class="kw">is.na</span>(x)]
+  x &lt;-<span class="st"> </span>x[<span class="op">!</span><span class="kw">is.na</span>(x)]
   n &lt;-<span class="st"> </span><span class="kw">length</span>(x)
   m &lt;-<span class="st"> </span><span class="kw">mean</span>(x)
-  sq_err &lt;-<span class="st"> </span>(x -<span class="st"> </span>m) ^<span class="st"> </span><span class="dv">2</span>
-  <span class="kw">sum</span>(sq_err) /<span class="st"> </span>(n -<span class="st"> </span><span class="dv">1</span>)
+  sq_err &lt;-<span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>m) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>
+  <span class="kw">sum</span>(sq_err) <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
 }
-<span class="kw">var</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="kw">var</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
 <span class="co">#&gt; [1] 9.17</span>
-<span class="kw">variance</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="kw">variance</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
 <span class="co">#&gt; [1] 9.17</span></code></pre></div>
 <p>There are multiple definitions of <a href="https://en.wikipedia.org/wiki/Skewness">skewness</a>, but I’ll use the method of moments estimator of the population skewness, <span class="math display">\[
 b_1 =  \frac{m_3}{s^3} = \frac{\frac{1}{n} \sum (x_i - \bar{x}) ^ 3}{{\left(\frac{1}{n - 1} \sum (x_i - \bar{x}) ^ 2\right)} ^ \frac{3}{2}}
 \]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">skewness &lt;-<span class="st"> </span>function(x) {
-  x &lt;-<span class="st"> </span>x[!<span class="kw">is.na</span>(x)] 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">skewness &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  x &lt;-<span class="st"> </span>x[<span class="op">!</span><span class="kw">is.na</span>(x)] 
   n &lt;-<span class="st"> </span><span class="kw">length</span>(x)
   m &lt;-<span class="st"> </span><span class="kw">mean</span>(x)
-  m3 &lt;-<span class="st"> </span><span class="kw">sum</span>((x -<span class="st"> </span>m) ^<span class="st"> </span><span class="dv">3</span>) /<span class="st"> </span>n
-  s3 &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>((x -<span class="st"> </span>m) ^<span class="st"> </span><span class="dv">2</span>) /<span class="st"> </span>(n -<span class="st"> </span><span class="dv">1</span>))
-  m3 /<span class="st"> </span>s3
+  m3 &lt;-<span class="st"> </span><span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>m) <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span>n
+  s3 &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span>m) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
+  m3 <span class="op">/</span><span class="st"> </span>s3
 }
 <span class="kw">skewness</span>(<span class="kw">rgamma</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">1</span>))
 <span class="co">#&gt; [1] 1.56</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Write <code>both_na()</code>, a function that takes two vectors of the same length and returns the number of positions that have an <code>NA</code> in both vectors.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">both_na &lt;-<span class="st"> </span>function(x, y) {
-  <span class="kw">sum</span>(<span class="kw">is.na</span>(x) &amp;<span class="st"> </span><span class="kw">is.na</span>(y))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">both_na &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {
+  <span class="kw">sum</span>(<span class="kw">is.na</span>(x) <span class="op">&amp;</span><span class="st"> </span><span class="kw">is.na</span>(y))
 }
 <span class="kw">both_na</span>(<span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>,  <span class="dv">1</span>, <span class="dv">2</span>),
         <span class="kw">c</span>(<span class="ot">NA</span>,  <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">2</span>))
@@ -509,12 +509,12 @@ b_1 =  \frac{m_3}{s^3} = \frac{\frac{1}{n} \sum (x_i - \bar{x}) ^ 3}{{\left(\fra
         <span class="kw">c</span>(<span class="ot">NA</span>,  <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="dv">1</span>))
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 <p><strong>Ex. 6</strong> What do the following functions do? Why are they useful even though they are so short?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_directory &lt;-<span class="st"> </span>function(x) <span class="kw">file.info</span>(x)$isdir
-is_readable &lt;-<span class="st"> </span>function(x) <span class="kw">file.access</span>(x, <span class="dv">4</span>) ==<span class="st"> </span><span class="dv">0</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_directory &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">file.info</span>(x)<span class="op">$</span>isdir
+is_readable &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">file.access</span>(x, <span class="dv">4</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span></code></pre></div>
 <p>The function <code>is_directory</code> checks whether the path in <code>x</code> is a directory. The function <code>is_readable</code> checks whether the path in <code>x</code> is readable, meaning that the file exists and the user has permission to open it. These functions are useful even though they are short because their names make it much clearer what the code is doing.</p>
 <p><strong>Ex 7.</strong> Read the complete lyrics to “Little Bunny Foo Foo”. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.</p>
 <p>This could probably be done cleaner, but here’s one version.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">threat &lt;-<span class="st"> </span>function(chances) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">threat &lt;-<span class="st"> </span><span class="cf">function</span>(chances) {
   <span class="kw">give_chances</span>(<span class="dt">from =</span> Good_Fairy,
                <span class="dt">to =</span> foo_foo,
                <span class="dt">number =</span> chances,
@@ -522,10 +522,10 @@ is_readable &lt;-<span class="st"> </span>function(x) <span class="kw">file.acce
                <span class="dt">consequence =</span> turn_into_goon)  
 }
   
-lyric &lt;-<span class="st"> </span>function() {
-  foo_foo %&gt;%
-<span class="st">    </span><span class="kw">hop</span>(<span class="dt">through =</span> forest) %&gt;%
-<span class="st">    </span><span class="kw">scoop</span>(<span class="dt">up =</span> field_mouse) %&gt;%
+lyric &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  foo_foo <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">hop</span>(<span class="dt">through =</span> forest) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">scoop</span>(<span class="dt">up =</span> field_mouse) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">bop</span>(<span class="dt">on =</span> head)
   
   <span class="kw">down_came</span>(Good_Fairy)
@@ -556,16 +556,16 @@ lyric &lt;-<span class="st"> </span>function() {
 <div id="exercises-41" class="section level3">
 <h3><span class="header-section-number">15.3.1</span> Exercises</h3>
 <p><strong>Ex 1.</strong> Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span>function(string, prefix) {
-  <span class="kw">substr</span>(string, <span class="dv">1</span>, <span class="kw">nchar</span>(prefix)) ==<span class="st"> </span>prefix
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="cf">function</span>(string, prefix) {
+  <span class="kw">substr</span>(string, <span class="dv">1</span>, <span class="kw">nchar</span>(prefix)) <span class="op">==</span><span class="st"> </span>prefix
 }
 
-f2 &lt;-<span class="st"> </span>function(x) {
-  if (<span class="kw">length</span>(x) &lt;=<span class="st"> </span><span class="dv">1</span>) <span class="kw">return</span>(<span class="ot">NULL</span>)
-  x[-<span class="kw">length</span>(x)]
+f2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">return</span>(<span class="ot">NULL</span>)
+  x[<span class="op">-</span><span class="kw">length</span>(x)]
 }
 
-f3 &lt;-<span class="st"> </span>function(x, y) {
+f3 &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {
   <span class="kw">rep</span>(y, <span class="dt">length.out =</span> <span class="kw">length</span>(x))
 }</code></pre></div>
 <p>The function <code>f1</code> returns whether a function has a common prefix.</p>
@@ -573,15 +573,15 @@ f3 &lt;-<span class="st"> </span>function(x, y) {
 <span class="co">#&gt; [1]  TRUE  TRUE FALSE</span></code></pre></div>
 <p>A better name for <code>f1</code> is <code>has_prefix()</code></p>
 <p>The function <code>f2</code> drops the last element:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f2</span>(<span class="dv">1</span>:<span class="dv">3</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)
 <span class="co">#&gt; [1] 1 2</span>
-<span class="kw">f2</span>(<span class="dv">1</span>:<span class="dv">2</span>)
+<span class="kw">f2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)
 <span class="co">#&gt; [1] 1</span>
 <span class="kw">f2</span>(<span class="dv">1</span>)
 <span class="co">#&gt; NULL</span></code></pre></div>
 <p>A better name for <code>f2</code> is <code>drop_last()</code>.</p>
 <p>The function <code>f3</code> repeats <code>y</code> once for each element of <code>x</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f3</span>(<span class="dv">1</span>:<span class="dv">3</span>, <span class="dv">4</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f3</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">4</span>)
 <span class="co">#&gt; [1] 4 4 4</span></code></pre></div>
 <p>This is a harder one to name. I would say something like <code>recycle</code> (R’s name for this behavior), or <code>epxand</code>.</p>
 <p><strong>Ex. 2</strong> Take a function that you’ve written recently and spend 5 minutes brainstorming a better name for it and its arguments.</p>
@@ -600,15 +600,15 @@ f3 &lt;-<span class="st"> </span>function(x, y) {
 <p><strong>Ex. 1</strong> What’s the difference between <code>if</code> and <code>ifelse()</code>? Carefully read the help and construct three examples that illustrate the key differences.</p>
 <p>The keyword <code>if</code> tests a single condition, while <code>ifelse</code> tests each element.</p>
 <p><strong>Ex. 2</strong> Write a greeting function that says “good morning”, “good afternoon”, or “good evening”, depending on the time of day. (Hint: use a time argument that defaults to <code>lubridate::now()</code>. That will make it easier to test your function.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greet &lt;-<span class="st"> </span>function(<span class="dt">time =</span> lubridate::<span class="kw">now</span>()) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greet &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">time =</span> lubridate<span class="op">::</span><span class="kw">now</span>()) {
   hr &lt;-<span class="st"> </span><span class="kw">hour</span>(time)
   <span class="co"># I don&#39;t know what to do about times after midnight, </span>
   <span class="co"># are they evening or morning?</span>
-  if (hr &lt;<span class="st"> </span><span class="dv">12</span>) {
+  <span class="cf">if</span> (hr <span class="op">&lt;</span><span class="st"> </span><span class="dv">12</span>) {
     <span class="kw">print</span>(<span class="st">&quot;good morning&quot;</span>)
-  } else if (hr &lt;<span class="st"> </span><span class="dv">17</span>) {
+  } <span class="cf">else</span> <span class="cf">if</span> (hr <span class="op">&lt;</span><span class="st"> </span><span class="dv">17</span>) {
     <span class="kw">print</span>(<span class="st">&quot;good afternoon&quot;</span>)
-  } else {
+  } <span class="cf">else</span> {
     <span class="kw">print</span>(<span class="st">&quot;good evening&quot;</span>)
   }
 } 
@@ -621,16 +621,16 @@ f3 &lt;-<span class="st"> </span>function(x, y) {
 <span class="kw">greet</span>(<span class="kw">ymd_h</span>(<span class="st">&quot;2017-01-08:20&quot;</span>))
 <span class="co">#&gt; [1] &quot;good evening&quot;</span></code></pre></div>
 <p><strong>Ex. 3</strong> Implement a <code>fizzbuzz</code> function. It takes a single number as input. If the number is divisible by three, it returns “fizz”. If it’s divisible by five it returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”. Otherwise, it returns the number. Make sure you first write working code before you create the function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fizzbuzz &lt;-<span class="st"> </span>function(x) {
-  <span class="kw">stopifnot</span>(<span class="kw">length</span>(x) ==<span class="st"> </span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fizzbuzz &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">stopifnot</span>(<span class="kw">length</span>(x) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
   <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(x))
   <span class="co"># this could be made more efficient by minimizing the</span>
   <span class="co"># number of tests</span>
-  if (!(x %%<span class="st"> </span><span class="dv">3</span>) &amp;<span class="st"> </span>!(x %%<span class="st"> </span><span class="dv">5</span>)) {
+  <span class="cf">if</span> (<span class="op">!</span>(x <span class="op">%%</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>(x <span class="op">%%</span><span class="st"> </span><span class="dv">5</span>)) {
     <span class="kw">print</span>(<span class="st">&quot;fizzbuzz&quot;</span>)
-  } else if (!(x %%<span class="st"> </span><span class="dv">3</span>)) {
+  } <span class="cf">else</span> <span class="cf">if</span> (<span class="op">!</span>(x <span class="op">%%</span><span class="st"> </span><span class="dv">3</span>)) {
     <span class="kw">print</span>(<span class="st">&quot;fizz&quot;</span>)
-  } else if (!(x %%<span class="st"> </span><span class="dv">5</span>)) {
+  } <span class="cf">else</span> <span class="cf">if</span> (<span class="op">!</span>(x <span class="op">%%</span><span class="st"> </span><span class="dv">5</span>)) {
     <span class="kw">print</span>(<span class="st">&quot;buzz&quot;</span>)
   }
 }
@@ -642,27 +642,27 @@ f3 &lt;-<span class="st"> </span>function(x, y) {
 <span class="co">#&gt; [1] &quot;fizzbuzz&quot;</span>
 <span class="kw">fizzbuzz</span>(<span class="dv">2</span>)</code></pre></div>
 <p><strong>Ex. 4</strong> How could you use <code>cut()</code> to simplify this set of nested if-else statements?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (temp &lt;=<span class="st"> </span><span class="dv">0</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (temp <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>) {
   <span class="st">&quot;freezing&quot;</span>
-} else if (temp &lt;=<span class="st"> </span><span class="dv">10</span>) {
+} <span class="cf">else</span> <span class="cf">if</span> (temp <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>) {
   <span class="st">&quot;cold&quot;</span>
-} else if (temp &lt;=<span class="st"> </span><span class="dv">20</span>) {
+} <span class="cf">else</span> <span class="cf">if</span> (temp <span class="op">&lt;=</span><span class="st"> </span><span class="dv">20</span>) {
   <span class="st">&quot;cool&quot;</span>
-} else if (temp &lt;=<span class="st"> </span><span class="dv">30</span>) {
+} <span class="cf">else</span> <span class="cf">if</span> (temp <span class="op">&lt;=</span><span class="st"> </span><span class="dv">30</span>) {
   <span class="st">&quot;warm&quot;</span>
-} else {
+} <span class="cf">else</span> {
   <span class="st">&quot;hot&quot;</span>
 }</code></pre></div>
 <p>How would you change the call to <code>cut()</code> if I’d used <code>&lt;</code> instead of <code>&lt;=</code>? What is the other chief advantage of cut() for this problem? (Hint: what happens if you have many values in temp?)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span><span class="kw">seq</span>(-<span class="dv">10</span>, <span class="dv">50</span>, <span class="dt">by =</span> <span class="dv">5</span>)
-<span class="kw">cut</span>(temp, <span class="kw">c</span>(-<span class="ot">Inf</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="ot">Inf</span>), <span class="dt">right =</span> <span class="ot">TRUE</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">50</span>, <span class="dt">by =</span> <span class="dv">5</span>)
+<span class="kw">cut</span>(temp, <span class="kw">c</span>(<span class="op">-</span><span class="ot">Inf</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="ot">Inf</span>), <span class="dt">right =</span> <span class="ot">TRUE</span>,
     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;freezing&quot;</span>, <span class="st">&quot;cold&quot;</span>, <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;warm&quot;</span>, <span class="st">&quot;hot&quot;</span>))
 <span class="co">#&gt;  [1] freezing freezing freezing cold     cold     cool     cool    </span>
 <span class="co">#&gt;  [8] warm     warm     hot      hot      hot      hot     </span>
 <span class="co">#&gt; Levels: freezing cold cool warm hot</span></code></pre></div>
 <p>To have intervals open on the left (using <code>&lt;</code>), I change the argument to <code>right = FALSE</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span><span class="kw">seq</span>(-<span class="dv">10</span>, <span class="dv">50</span>, <span class="dt">by =</span> <span class="dv">5</span>)
-<span class="kw">cut</span>(temp, <span class="kw">c</span>(-<span class="ot">Inf</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="ot">Inf</span>), <span class="dt">right =</span> <span class="ot">FALSE</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">50</span>, <span class="dt">by =</span> <span class="dv">5</span>)
+<span class="kw">cut</span>(temp, <span class="kw">c</span>(<span class="op">-</span><span class="ot">Inf</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="ot">Inf</span>), <span class="dt">right =</span> <span class="ot">FALSE</span>,
     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;freezing&quot;</span>, <span class="st">&quot;cold&quot;</span>, <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;warm&quot;</span>, <span class="st">&quot;hot&quot;</span>))
 <span class="co">#&gt;  [1] freezing freezing cold     cold     cool     cool     warm    </span>
 <span class="co">#&gt;  [8] warm     hot      hot      hot      hot      hot     </span>
@@ -670,20 +670,20 @@ f3 &lt;-<span class="st"> </span>function(x, y) {
 <p>Two advantages of using <code>cut</code> is that it works on vectors, whereas <code>if</code> only works on a single value (I already demonstrated this above), and that to change comparisons I only needed to change the argument to <code>right</code>, but I would have had to change four operators in the <code>if</code> expression.</p>
 <p><strong>Ex. 5</strong> What happens if you use <code>switch()</code> with numeric values?</p>
 <p>It selects that number argument from <code>...</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">switch(<span class="dv">2</span>, <span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">switch</span>(<span class="dv">2</span>, <span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>)
 <span class="co">#&gt; [1] &quot;two&quot;</span></code></pre></div>
 <p><strong>Ex 6.</strong> What does this <code>switch()</code> call do? What happens if <code>x</code> is <code>“e”</code>?</p>
 <p>It will return the <code>&quot;ab&quot;</code> for <code>a</code> or <code>b</code>, <code>&quot;cd&quot;</code> for <code>c</code> or <code>d</code>, an <code>NULL</code> for <code>e</code>. It returns the first non-missing value for the first name it matches.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;e&quot;</span>
-switch(x, 
+<span class="cf">switch</span>(x, 
   <span class="dt">a =</span> ,
   <span class="dt">b =</span> <span class="st">&quot;ab&quot;</span>,
   <span class="dt">c =</span> ,
   <span class="dt">d =</span> <span class="st">&quot;cd&quot;</span>
 )</code></pre></div>
 <p>Experiment, then carefully read the documentation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">switcheroo &lt;-<span class="st"> </span>function(x) {
-  switch(x, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">switcheroo &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="cf">switch</span>(x, 
   <span class="dt">a =</span> ,
   <span class="dt">b =</span> <span class="st">&quot;ab&quot;</span>,
   <span class="dt">c =</span> ,
@@ -706,30 +706,30 @@ switch(x,
 <div id="exercises-43" class="section level3">
 <h3><span class="header-section-number">15.5.1</span> Exercises</h3>
 <p><strong>Ex 1.</strong> What does <code>commas(letters, collapse = &quot;-&quot;)</code> do? Why?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">commas &lt;-<span class="st"> </span>function(...) stringr::<span class="kw">str_c</span>(..., <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">commas &lt;-<span class="st"> </span><span class="cf">function</span>(...) stringr<span class="op">::</span><span class="kw">str_c</span>(..., <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</code></pre></div>
 <p>It throws an error.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">commas</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>)
 <span class="co">#&gt; Error in stringr::str_c(..., collapse = &quot;, &quot;): formal argument &quot;collapse&quot; matched by multiple actual arguments</span></code></pre></div>
 <p>The argument <code>collapse</code> is passed to <code>str_c</code> as part of <code>...</code>, so it tries to run <code>str_c(letters, collapse = &quot;-&quot;, collapse = &quot;, &quot;)</code>.</p>
 <p><strong>Ex 2.</strong> It’d be nice if you could supply multiple characters to the pad argument, e.g. <code>rule(&quot;Title&quot;, pad = &quot;-+&quot;)</code>. Why doesn’t this currently work? How could you fix it?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rule &lt;-<span class="st"> </span>function(..., <span class="dt">pad =</span> <span class="st">&quot;-&quot;</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rule &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">pad =</span> <span class="st">&quot;-&quot;</span>) {
   title &lt;-<span class="st"> </span><span class="kw">paste0</span>(...)
-  width &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;width&quot;</span>) -<span class="st"> </span><span class="kw">nchar</span>(title) -<span class="st"> </span><span class="dv">5</span>
-  <span class="kw">cat</span>(title, <span class="st">&quot; &quot;</span>, stringr::<span class="kw">str_dup</span>(pad, width), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
+  width &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;width&quot;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">nchar</span>(title) <span class="op">-</span><span class="st"> </span><span class="dv">5</span>
+  <span class="kw">cat</span>(title, <span class="st">&quot; &quot;</span>, stringr<span class="op">::</span><span class="kw">str_dup</span>(pad, width), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
 }</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rule</span>(<span class="st">&quot;Important output&quot;</span>)
 <span class="co">#&gt; Important output ------------------------------------------------------</span>
 <span class="kw">rule</span>(<span class="st">&quot;Important output&quot;</span>, <span class="dt">pad =</span> <span class="st">&quot;-+&quot;</span>)
 <span class="co">#&gt; Important output -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span></code></pre></div>
 <p>It does not work because it duplicates pad by the width minus the length of the string. This is implictly assuming that pad is only one character. I could adjust the code to calculate the length of pad. The trickiest part is handling what to do if width is not a multiple of the number of characters of <code>pad</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rule &lt;-<span class="st"> </span>function(..., <span class="dt">pad =</span> <span class="st">&quot;-&quot;</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rule &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">pad =</span> <span class="st">&quot;-&quot;</span>) {
   title &lt;-<span class="st"> </span><span class="kw">paste0</span>(...)
-  width &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;width&quot;</span>) -<span class="st"> </span><span class="kw">nchar</span>(title) -<span class="st"> </span><span class="dv">5</span>
+  width &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;width&quot;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">nchar</span>(title) <span class="op">-</span><span class="st"> </span><span class="dv">5</span>
   padchar &lt;-<span class="st"> </span><span class="kw">nchar</span>(pad)
   <span class="kw">cat</span>(title, <span class="st">&quot; &quot;</span>,
-      stringr::<span class="kw">str_dup</span>(pad, width %/%<span class="st"> </span>padchar),
+      stringr<span class="op">::</span><span class="kw">str_dup</span>(pad, width <span class="op">%/%</span><span class="st"> </span>padchar),
       <span class="co"># if not multiple, fill in the remaining characters</span>
-      stringr::<span class="kw">str_sub</span>(pad, <span class="dv">1</span>, width %%<span class="st"> </span>padchar),
+      stringr<span class="op">::</span><span class="kw">str_sub</span>(pad, <span class="dv">1</span>, width <span class="op">%%</span><span class="st"> </span>padchar),
       <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
 }
 <span class="kw">rule</span>(<span class="st">&quot;Important output&quot;</span>)

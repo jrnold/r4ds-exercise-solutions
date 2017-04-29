@@ -419,15 +419,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="label" class="section level2">
 <h2><span class="header-section-number">24.2</span> Label</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> class)) +
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> class)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> class)) +
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> class)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(
     <span class="dt">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>,
     <span class="dt">subtitle =</span> <span class="st">&quot;Two seaters (sports cars) are an exception because of their light weight&quot;</span>,
@@ -439,9 +439,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">24.2.1</span> Exercises</h3>
 <p><strong>Ex 28.2.1</strong> Create one plot on the fuel economy data with customised <code>title</code>, <code>subtitle</code>, <code>caption</code>, <code>x</code>, <code>y</code>, and <code>colour</code> labels.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg,
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, median), <span class="dt">y =</span> hwy)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>() +
-<span class="st">  </span><span class="kw">coord_flip</span>() +
+       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, median), <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(
     <span class="dt">title =</span> <span class="st">&quot;Compact Cars have &gt; 10 Hwy MPG than Pickup Trucks&quot;</span>,
     <span class="dt">subtitle =</span> <span class="st">&quot;Comparing the median highway mpg in each class&quot;</span>,
@@ -451,21 +451,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   )</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Ex 28.2.3</strong> The <code>geom_smooth()</code> is somewhat misleading because the <code>hwy</code> for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines. Use your modelling tools to fit and display a better model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy, <span class="dt">colour =</span> class)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> class)) +
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy, <span class="dt">colour =</span> class)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> class)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(
     <span class="dt">title =</span> <span class="st">&quot;Fuel efficiency generally decreases with engine size&quot;</span>,
     <span class="dt">subtitle =</span> <span class="st">&quot;Subcompact cars show the greatest sensitivity to engine size&quot;</span>,
     <span class="dt">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span>
   )</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(hwy ~<span class="st"> </span>class, <span class="dt">data =</span> mpg)
-mpg %&gt;%
-<span class="st">  </span><span class="kw">add_residuals</span>(mod) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(displ, resid)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(hwy <span class="op">~</span><span class="st"> </span>class, <span class="dt">data =</span> mpg)
+mpg <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">add_residuals</span>(mod) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(displ, resid)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(
     <span class="dt">title =</span> <span class="st">&quot;Fuel efficiency decreases with engine size&quot;</span>,
     <span class="dt">subtitle =</span> <span class="st">&quot;Highway MPG for Cars After Subtracing Mean MPG of their Class&quot;</span>,
@@ -486,21 +486,21 @@ mpg %&gt;%
 <p><strong>Ex 28.3.1</strong> Use <code>geom_text()</code> with infinite positions to place text at the four corners of the plot.</p>
 <p>I can use similar code as the example in the text. However, I need to use <code>vjust</code> and <code>hjust</code> in order for the text to appear in the plot, and these need to be different for each corner. But, <code>geom_text</code> takes <code>hjust</code> and <code>vjust</code> as aesthetics, I can add them to the data and mappings, and use a single <code>geom_text</code> call instead of four different <code>geom_text</code> calls with four different data arguments, and four different values of <code>hjust</code> and <code>vjust</code> arguments.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">label &lt;-<span class="st"> </span><span class="kw">tribble</span>(
-  ~displ, ~hwy, ~label, ~vjust, ~hjust,
+  <span class="op">~</span>displ, <span class="op">~</span>hwy, <span class="op">~</span>label, <span class="op">~</span>vjust, <span class="op">~</span>hjust,
      <span class="ot">Inf</span>,  <span class="ot">Inf</span>,    <span class="st">&quot;Top right&quot;</span>, <span class="st">&quot;top&quot;</span>, <span class="st">&quot;right&quot;</span>,
-     <span class="ot">Inf</span>, -<span class="ot">Inf</span>,    <span class="st">&quot;Bottom right&quot;</span>, <span class="st">&quot;bottom&quot;</span>, <span class="st">&quot;right&quot;</span>,
-    -<span class="ot">Inf</span>,  <span class="ot">Inf</span>,    <span class="st">&quot;Top left&quot;</span>, <span class="st">&quot;top&quot;</span>, <span class="st">&quot;left&quot;</span>,
-    -<span class="ot">Inf</span>, -<span class="ot">Inf</span>,    <span class="st">&quot;Bottom left&quot;</span>, <span class="st">&quot;bottom&quot;</span>, <span class="st">&quot;left&quot;</span>
+     <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>,    <span class="st">&quot;Bottom right&quot;</span>, <span class="st">&quot;bottom&quot;</span>, <span class="st">&quot;right&quot;</span>,
+    <span class="op">-</span><span class="ot">Inf</span>,  <span class="ot">Inf</span>,    <span class="st">&quot;Top left&quot;</span>, <span class="st">&quot;top&quot;</span>, <span class="st">&quot;left&quot;</span>,
+    <span class="op">-</span><span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>,    <span class="st">&quot;Bottom left&quot;</span>, <span class="st">&quot;bottom&quot;</span>, <span class="st">&quot;left&quot;</span>
 )
 
-<span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> label, <span class="dt">vjust =</span> vjust, <span class="dt">hjust =</span> hjust), <span class="dt">data =</span> label)</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Ex 28.3.1.2</strong> Read the documentation for <code>annotate()</code>. How can you use it to add a text label to a plot without having to create a tibble?</p>
 <p>With annotate you use what would be aesthetic mappings directly as arguments:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="ot">Inf</span>, <span class="dt">y =</span> <span class="ot">Inf</span>, 
            <span class="dt">label =</span> <span class="st">&quot;Increasing engine size is </span><span class="ch">\n</span><span class="st">related to decreasing fuel economy.&quot;</span>, <span class="dt">vjust =</span> <span class="st">&quot;top&quot;</span>, <span class="dt">hjust =</span> <span class="st">&quot;right&quot;</span>)</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -512,11 +512,11 @@ mpg %&gt;%
   <span class="dt">label =</span> <span class="st">&quot;Increasing engine size is </span><span class="ch">\n</span><span class="st">related to decreasing fuel economy.&quot;</span>
 )
 
-<span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> label), <span class="dt">data =</span> label, <span class="dt">vjust =</span> <span class="st">&quot;top&quot;</span>, <span class="dt">hjust =</span> <span class="st">&quot;right&quot;</span>,
-            <span class="dt">size =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>class)</code></pre></div>
+            <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>class)</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>To draw the label in only one facet, add a column to the label data frame with the value of the faceting variable(s) in which to draw it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">label &lt;-<span class="st"> </span><span class="kw">tibble</span>(
@@ -526,25 +526,25 @@ mpg %&gt;%
   <span class="dt">label =</span> <span class="st">&quot;Increasing engine size is </span><span class="ch">\n</span><span class="st">related to decreasing fuel economy.&quot;</span>
 )
 
-<span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> label), <span class="dt">data =</span> label, <span class="dt">vjust =</span> <span class="st">&quot;top&quot;</span>, <span class="dt">hjust =</span> <span class="st">&quot;right&quot;</span>,
-            <span class="dt">size =</span> <span class="dv">2</span>) +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>class)</code></pre></div>
+            <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>class)</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>To draw labels in different plots, simply have the facetting variable(s):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">label &lt;-<span class="st"> </span><span class="kw">tibble</span>(
   <span class="dt">displ =</span> <span class="ot">Inf</span>,
   <span class="dt">hwy =</span> <span class="ot">Inf</span>,
-  <span class="dt">class =</span> <span class="kw">unique</span>(mpg$class),
-  <span class="dt">label =</span> stringr::<span class="kw">str_c</span>(<span class="st">&quot;Label for &quot;</span>, class)
+  <span class="dt">class =</span> <span class="kw">unique</span>(mpg<span class="op">$</span>class),
+  <span class="dt">label =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(<span class="st">&quot;Label for &quot;</span>, class)
 )
 
-<span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> label), <span class="dt">data =</span> label, <span class="dt">vjust =</span> <span class="st">&quot;top&quot;</span>, <span class="dt">hjust =</span> <span class="st">&quot;right&quot;</span>,
-            <span class="dt">size =</span> <span class="dv">3</span>) +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>class)</code></pre></div>
+            <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>class)</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Ex 28.3.1.4</strong> What arguments to <code>geom_label()</code> control the appearance of the background box?</p>
 <ul>
@@ -566,22 +566,22 @@ mpg %&gt;%
   <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>),
   <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">10000</span>)
 )
-<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y)) +
-<span class="st">  </span><span class="kw">geom_hex</span>() +
-<span class="st">  </span><span class="kw">scale_colour_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>) +
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hex</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>It does not override the default scale because the colors in <code>geom_hex</code> are set by the <code>fill</code> aesthetic, not the <code>color</code> aesthetic.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y)) +
-<span class="st">  </span><span class="kw">geom_hex</span>() +
-<span class="st">  </span><span class="kw">scale_fill_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hex</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Ex 28.4.2.2</strong></p>
 <p>The first argument to every scale is the label for the scale. It is equivalent to using the <code>labs</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> class)) +
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> class)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(
     <span class="dt">x =</span> <span class="st">&quot;Engine displacement (L)&quot;</span>,
     <span class="dt">y =</span> <span class="st">&quot;Highway fuel economy (mpg)&quot;</span>,
@@ -589,11 +589,11 @@ mpg %&gt;%
   )
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> class)) +
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) +
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Engine displacement (L)&quot;</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;Highway fuel economy (mpg)&quot;</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> class)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="st">&quot;Engine displacement (L)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="st">&quot;Highway fuel economy (mpg)&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_colour_discrete</span>(<span class="st">&quot;Car type&quot;</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -603,30 +603,30 @@ mpg %&gt;%
 3. Labelling each term with the name of the president.
 4. Adding informative plot labels.
 5. Placing breaks every 4 years (this is trickier than it seems!).</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">years &lt;-<span class="st"> </span>lubridate::<span class="kw">make_date</span>(<span class="kw">seq</span>(<span class="kw">year</span>(<span class="kw">min</span>(presidential$start)),
-             <span class="kw">year</span>(<span class="kw">max</span>(presidential$end)),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">years &lt;-<span class="st"> </span>lubridate<span class="op">::</span><span class="kw">make_date</span>(<span class="kw">seq</span>(<span class="kw">year</span>(<span class="kw">min</span>(presidential<span class="op">$</span>start)),
+             <span class="kw">year</span>(<span class="kw">max</span>(presidential<span class="op">$</span>end)),
              <span class="dt">by =</span> <span class="dv">4</span>), <span class="dv">1</span>, <span class="dv">1</span>)
 
-presidential %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">33</span> +<span class="st"> </span><span class="kw">row_number</span>(),
-         <span class="dt">name_id =</span> stringr::<span class="kw">str_c</span>(name, <span class="st">&quot; (&quot;</span>, id, <span class="st">&quot;)&quot;</span>),
-         <span class="dt">name_id =</span> <span class="kw">factor</span>(name_id, <span class="dt">levels =</span> name_id)) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(start, name_id, <span class="dt">colour =</span> party)) +
-<span class="st">    </span><span class="kw">geom_point</span>() +
-<span class="st">    </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> end, <span class="dt">yend =</span> name_id)) +
-<span class="st">    </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dt">Republican =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">Democratic =</span> <span class="st">&quot;blue&quot;</span>)) +
-<span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) +
-<span class="st">    </span><span class="kw">scale_x_date</span>(<span class="ot">NULL</span>, <span class="dt">breaks =</span> years, <span class="dt">date_labels =</span> <span class="st">&quot;&#39;%y&quot;</span>) +
+presidential <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="dv">33</span> <span class="op">+</span><span class="st"> </span><span class="kw">row_number</span>(),
+         <span class="dt">name_id =</span> stringr<span class="op">::</span><span class="kw">str_c</span>(name, <span class="st">&quot; (&quot;</span>, id, <span class="st">&quot;)&quot;</span>),
+         <span class="dt">name_id =</span> <span class="kw">factor</span>(name_id, <span class="dt">levels =</span> name_id)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(start, name_id, <span class="dt">colour =</span> party)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> end, <span class="dt">yend =</span> name_id)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dt">Republican =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">Democratic =</span> <span class="st">&quot;blue&quot;</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_y_discrete</span>(<span class="ot">NULL</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_x_date</span>(<span class="ot">NULL</span>, <span class="dt">breaks =</span> years, <span class="dt">date_labels =</span> <span class="st">&quot;&#39;%y&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme</span>(<span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>())</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Ex 28.4.4.4</strong> Use <code>override.aes</code> to make the legend on the following plot easier to see.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(carat, price)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> cut), <span class="dt">alpha =</span> <span class="dv">1</span>/<span class="dv">20</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(carat, price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> cut), <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">20</span>)</code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The problem with the legend is that the <code>alpha</code> value make the colors hard to see. So I’ll override the alpha value to make the points solid in the legend.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(carat, price)) +
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> cut), <span class="dt">alpha =</span> <span class="dv">1</span>/<span class="dv">20</span>)  +
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(carat, price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> cut), <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">20</span>)  <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="kw">guide_legend</span>(<span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">override.aes =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>)))  </code></pre></div>
 <p><img src="graphics-for-communication_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
 

@@ -436,7 +436,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>To compute the mean of every column in <code>mtcars</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="kw">ncol</span>(mtcars))
 <span class="kw">names</span>(output) &lt;-<span class="st"> </span><span class="kw">names</span>(mtcars)
-for (i in <span class="kw">names</span>(mtcars)) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(mtcars)) {
   output[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(mtcars[[i]])
 }
 output
@@ -448,7 +448,7 @@ output
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;flights&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;nycflights13&quot;</span>)
 output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="kw">ncol</span>(flights))
 <span class="kw">names</span>(output) &lt;-<span class="st"> </span><span class="kw">names</span>(flights)
-for (i in <span class="kw">names</span>(flights)) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(flights)) {
   output[[i]] &lt;-<span class="st"> </span><span class="kw">class</span>(flights[[i]])
 }
 output
@@ -511,7 +511,7 @@ output
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(iris)
 iris_uniq &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="kw">ncol</span>(iris))
 <span class="kw">names</span>(iris_uniq) &lt;-<span class="st"> </span><span class="kw">names</span>(iris)
-for (i in <span class="kw">names</span>(iris)) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(iris)) {
   iris_uniq[i] &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(iris[[i]]))
 }
 iris_uniq
@@ -520,9 +520,9 @@ iris_uniq
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number to draw</span>
 n &lt;-<span class="st"> </span><span class="dv">10</span>
 <span class="co"># values of the mean</span>
-mu &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)
+mu &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)
 normals &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="kw">length</span>(mu))
-for (i in <span class="kw">seq_along</span>(normals)) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(normals)) {
   normals[[i]] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> mu[i])
 }
 normals
@@ -539,7 +539,7 @@ normals
 <span class="co">#&gt; [[4]]</span>
 <span class="co">#&gt;  [1]  99.4  99.6  99.1 100.1  99.4  99.7  99.9  97.9 100.2  99.7</span></code></pre></div>
 <p>However, we don’t need a <code>for</code> loop for this since <code>rnorm</code> recycles means.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n *<span class="st"> </span><span class="kw">length</span>(mu), <span class="dt">mean =</span> mu), <span class="dt">ncol =</span> n)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n <span class="op">*</span><span class="st"> </span><span class="kw">length</span>(mu), <span class="dt">mean =</span> mu), <span class="dt">ncol =</span> n)
 <span class="co">#&gt;        [,1]   [,2]    [,3]    [,4]      [,5]   [,6]    [,7]   [,8]    [,9]</span>
 <span class="co">#&gt; [1,] -9.745 -11.57 -9.0267  -9.563  -8.78273  -9.83 -10.861 -10.69 -11.781</span>
 <span class="co">#&gt; [2,] -0.553  -1.04 -0.0768   0.413   0.00048   1.40   0.421   1.34  -0.716</span>
@@ -554,34 +554,34 @@ normals
 <li>Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> &quot;&quot;</span>
-for (x in letters) {
-  out &lt;-<span class="st"> </span>stringr::<span class="kw">str_c</span>(out, x)
+<span class="cf">for</span> (x <span class="cf">in</span> letters) {
+  out &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_c</span>(out, x)
 }
 out
 <span class="co">#&gt; [1] &quot;abcdefghijklmnopqrstuvwxyz&quot;</span></code></pre></div>
 <p><code>str_c</code> already works with vectors, so simply use <code>str_c</code> with the <code>collapse</code> argument to return a single string.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr<span class="op">::</span><span class="kw">str_c</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)
 <span class="co">#&gt; [1] &quot;abcdefghijklmnopqrstuvwxyz&quot;</span></code></pre></div>
 <p>For this I’m going to rename the variable <code>sd</code> to something different because <code>sd</code> is the name of the function we want to use.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">100</span>)
 sd. &lt;-<span class="st"> </span><span class="dv">0</span>
-for (i in <span class="kw">seq_along</span>(x)) {
-  sd. &lt;-<span class="st"> </span>sd. +<span class="st"> </span>(x[i] -<span class="st"> </span><span class="kw">mean</span>(x)) ^<span class="st"> </span><span class="dv">2</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(x)) {
+  sd. &lt;-<span class="st"> </span>sd. <span class="op">+</span><span class="st"> </span>(x[i] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x)) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>
 }
-sd. &lt;-<span class="st"> </span><span class="kw">sqrt</span>(sd. /<span class="st"> </span>(<span class="kw">length</span>(x) -<span class="st"> </span><span class="dv">1</span>))
+sd. &lt;-<span class="st"> </span><span class="kw">sqrt</span>(sd. <span class="op">/</span><span class="st"> </span>(<span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
 sd.
 <span class="co">#&gt; [1] 29</span></code></pre></div>
 <p>We could simply use the <code>sd</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(x)
 <span class="co">#&gt; [1] 29</span></code></pre></div>
 <p>Or if there was a need to use the equation (e.g. for pedagogical reasons), then the functions <code>mean</code> and <code>sum</code> already work with vectors:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">sum</span>((x -<span class="st"> </span><span class="kw">mean</span>(x)) ^<span class="st"> </span><span class="dv">2</span>) /<span class="st"> </span>(<span class="kw">length</span>(x) -<span class="st"> </span><span class="dv">1</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x)) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(<span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
 <span class="co">#&gt; [1] 29</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">100</span>)
 out &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>, <span class="kw">length</span>(x))
 out[<span class="dv">1</span>] &lt;-<span class="st"> </span>x[<span class="dv">1</span>]
-for (i in <span class="dv">2</span>:<span class="kw">length</span>(x)) {
-  out[i] &lt;-<span class="st"> </span>out[i -<span class="st"> </span><span class="dv">1</span>] +<span class="st"> </span>x[i]
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(x)) {
+  out[i] &lt;-<span class="st"> </span>out[i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>x[i]
 }
 out
 <span class="co">#&gt;   [1]  0.938  1.739  2.497  3.030  3.577  3.673  4.061  4.233  4.924  5.599</span>
@@ -610,12 +610,12 @@ out
 <p>I don’t know what the deal is with Hadley and nursery rhymes. Here’s the lyrics for <a href="http://www.kididdles.com/lyrics/a012.html">Alice the Camel</a></p>
 <p>We’ll look from five to no humps, and print out a different last line if there are no humps. This uses <code>cat</code> instead of <code>print</code>, so it looks nicer.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">humps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;five&quot;</span>, <span class="st">&quot;four&quot;</span>, <span class="st">&quot;three&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;one&quot;</span>, <span class="st">&quot;no&quot;</span>)
-for (i in humps) {
+<span class="cf">for</span> (i <span class="cf">in</span> humps) {
   <span class="kw">cat</span>(<span class="kw">str_c</span>(<span class="st">&quot;Alice the camel has &quot;</span>, <span class="kw">rep</span>(i, <span class="dv">3</span>), <span class="st">&quot; humps.&quot;</span>,
              <span class="dt">collapse =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  if (i ==<span class="st"> &quot;no&quot;</span>) {
+  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> &quot;no&quot;</span>) {
     <span class="kw">cat</span>(<span class="st">&quot;Now Alice is a horse.</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  } else {
+  } <span class="cf">else</span> {
     <span class="kw">cat</span>(<span class="st">&quot;So go, Alice, go.</span><span class="ch">\n</span><span class="st">&quot;</span>)
   }
   <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
@@ -652,12 +652,12 @@ for (i in humps) {
 <p>The lyrics for <a href="http://supersimplelearning.com/songs/original-series/one/ten-in-the-bed/">Ten in the Bed</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ten&quot;</span>, <span class="st">&quot;nine&quot;</span>, <span class="st">&quot;eight&quot;</span>, <span class="st">&quot;seven&quot;</span>, <span class="st">&quot;six&quot;</span>, <span class="st">&quot;five&quot;</span>,
              <span class="st">&quot;four&quot;</span>, <span class="st">&quot;three&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;one&quot;</span>)
-for (i in numbers) {
+<span class="cf">for</span> (i <span class="cf">in</span> numbers) {
   <span class="kw">cat</span>(<span class="kw">str_c</span>(<span class="st">&quot;There were &quot;</span>, i, <span class="st">&quot; in the bed</span><span class="ch">\n</span><span class="st">&quot;</span>))
   <span class="kw">cat</span>(<span class="st">&quot;and the little one said</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  if (i ==<span class="st"> &quot;one&quot;</span>) {
+  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> &quot;one&quot;</span>) {
     <span class="kw">cat</span>(<span class="st">&quot;I&#39;m lonely...&quot;</span>)
-  } else {
+  } <span class="cf">else</span> {
     <span class="kw">cat</span>(<span class="st">&quot;Roll over, roll over</span><span class="ch">\n</span><span class="st">&quot;</span>)
     <span class="kw">cat</span>(<span class="st">&quot;So they all rolled over and one fell out.</span><span class="ch">\n</span><span class="st">&quot;</span>)
   }
@@ -712,22 +712,22 @@ for (i in numbers) {
 <span class="co">#&gt; and the little one said</span>
 <span class="co">#&gt; I&#39;m lonely...</span></code></pre></div>
 <p>For the bottles of beer, I define a helper function to correctly print the number of bottles.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bottles &lt;-<span class="st"> </span>function(i) {
-  if (i &gt;<span class="st"> </span><span class="dv">2</span>) {
-   bottles &lt;-<span class="st"> </span><span class="kw">str_c</span>(i -<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot; bottles&quot;</span>)
-  } else if (i ==<span class="st"> </span><span class="dv">2</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bottles &lt;-<span class="st"> </span><span class="cf">function</span>(i) {
+  <span class="cf">if</span> (i <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>) {
+   bottles &lt;-<span class="st"> </span><span class="kw">str_c</span>(i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&quot; bottles&quot;</span>)
+  } <span class="cf">else</span> <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) {
    bottles &lt;-<span class="st"> &quot;1 bottle&quot;</span>
-  } else {
+  } <span class="cf">else</span> {
    bottles &lt;-<span class="st"> &quot;no more bottles&quot;</span>
   }
   bottles
 }
 
-beer_bottles &lt;-<span class="st"> </span>function(n) {
+beer_bottles &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
   <span class="co"># should test whether n &gt;= 1.</span>
-  for (i in <span class="kw">seq</span>(n, <span class="dv">1</span>)) {
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n, <span class="dv">1</span>)) {
      <span class="kw">cat</span>(<span class="kw">str_c</span>(<span class="kw">bottles</span>(i), <span class="st">&quot; of beer on the wall, &quot;</span>, <span class="kw">bottles</span>(i), <span class="st">&quot; of beer.</span><span class="ch">\n</span><span class="st">&quot;</span>))
-     <span class="kw">cat</span>(<span class="kw">str_c</span>(<span class="st">&quot;Take one down and pass it around, &quot;</span>, <span class="kw">bottles</span>(i -<span class="st"> </span><span class="dv">1</span>),
+     <span class="kw">cat</span>(<span class="kw">str_c</span>(<span class="st">&quot;Take one down and pass it around, &quot;</span>, <span class="kw">bottles</span>(i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>),
                 <span class="st">&quot; of beer on the wall.</span><span class="ch">\n\n</span><span class="st">&quot;</span>))
   }
   <span class="kw">cat</span>(<span class="st">&quot;No more bottles of beer on the wall, no more bottles of beer.</span><span class="ch">\n</span><span class="st">&quot;</span>)
@@ -747,15 +747,15 @@ beer_bottles &lt;-<span class="st"> </span>function(n) {
 <span class="co">#&gt; Go to the store and buy some more, 2 bottles of beer on the wall.</span></code></pre></div>
 <p><strong>Ex 21.2.1.4</strong> It’s common to see for loops that don’t preallocate the output and instead increase the length of a vector at each step:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, <span class="dv">0</span>)
-for (i in <span class="kw">seq_along</span>(x)) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(x)) {
   output &lt;-<span class="st"> </span><span class="kw">c</span>(output, <span class="kw">lengths</span>(x[[i]]))
 }
 output</code></pre></div>
 <p>I’ll use the package <strong>microbenchmark</strong> to time this. Microbenchmark will run an R expression a number of times and time it.</p>
 <p>Define a function that appends to an integer vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector &lt;-<span class="st"> </span>function(n) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
   output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, <span class="dv">0</span>)
-  for (i in <span class="kw">seq_len</span>(n)) {
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_len</span>(n)) {
     output &lt;-<span class="st"> </span><span class="kw">c</span>(output, i)
   }
   output  
@@ -765,9 +765,9 @@ output</code></pre></div>
 <span class="co">#&gt;                  expr min  lq mean median  uq max neval</span>
 <span class="co">#&gt;  add_to_vector(10000) 183 187  189    191 191 192     3</span></code></pre></div>
 <p>And one that pre-allocates it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector_2 &lt;-<span class="st"> </span>function(n) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
   output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, n)
-  for (i in <span class="kw">seq_len</span>(n)) {
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_len</span>(n)) {
     output[[i]] &lt;-<span class="st"> </span>i
   }
   output
@@ -786,17 +786,17 @@ output</code></pre></div>
 <p><strong>Ex</strong> Imagine you have a directory full of CSV files that you want to read in. You have their paths in a vector, <code>files &lt;- dir(&quot;data/&quot;, pattern = &quot;\\.csv$&quot;, full.names = TRUE)</code>, and now want to read each one with <code>read_csv()</code>. Write the for loop that will load them into a single data frame.</p>
 <p>I pre-allocate a list, read each file as data frame into an element in that list. This creates a list of data frames. I then use <code>bind_rows</code> to create a single data frame from the list of data frames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="kw">length</span>(files))
-for (fname in <span class="kw">seq_along</span>(files)) {
+<span class="cf">for</span> (fname <span class="cf">in</span> <span class="kw">seq_along</span>(files)) {
   df[[i]] &lt;-<span class="st"> </span><span class="kw">read_csv</span>(files[[i]])
 }
 df &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df)</code></pre></div>
 <p><strong>Ex</strong> What happens if you use <code>for (nm in names(x))</code> and <code>x</code> has no names? What if only some of the elements are named? What if the names are not unique?</p>
 <p>Let’s try it out and see what happens.</p>
 <p>When there are no names for the vector, it does not run the code in the loop (it runs zero iterations of the loop):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">3</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>
 <span class="kw">print</span>(<span class="kw">names</span>(x))
 <span class="co">#&gt; NULL</span>
-for (nm in <span class="kw">names</span>(x)) {
+<span class="cf">for</span> (nm <span class="cf">in</span> <span class="kw">names</span>(x)) {
   <span class="kw">print</span>(nm)
   <span class="kw">print</span>(x[[nm]])
 }</code></pre></div>
@@ -807,7 +807,7 @@ for (nm in <span class="kw">names</span>(x)) {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>)
 <span class="kw">names</span>(x)
 <span class="co">#&gt; [1] &quot;a&quot; &quot;&quot;  &quot;c&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (nm in <span class="kw">names</span>(x)) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (nm <span class="cf">in</span> <span class="kw">names</span>(x)) {
   <span class="kw">print</span>(nm)
   <span class="kw">print</span>(x[[nm]])
 }
@@ -819,7 +819,7 @@ for (nm in <span class="kw">names</span>(x)) {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">a =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>)
 <span class="kw">names</span>(x)
 <span class="co">#&gt; [1] &quot;a&quot; &quot;a&quot; &quot;c&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (nm in <span class="kw">names</span>(x)) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (nm <span class="cf">in</span> <span class="kw">names</span>(x)) {
   <span class="kw">print</span>(nm)
   <span class="kw">print</span>(x[[nm]])
 }
@@ -837,12 +837,12 @@ for (nm in <span class="kw">names</span>(x)) {
 <span class="co">#&gt; Petal.Width:  1.20</span></code></pre></div>
 <p>(Extra challenge: what function did I use to make sure that the numbers lined up nicely, even though the variable names had different lengths?)</p>
 <p>There may be other functions to do this, but I’ll use <code>str_pad</code>, and <code>str_length</code> to ensure that the space given to the variable names is the same. I messed around with the options to <code>format</code> until I got two digits .</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">show_mean &lt;-<span class="st"> </span>function(df, <span class="dt">digits =</span> <span class="dv">2</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">show_mean &lt;-<span class="st"> </span><span class="cf">function</span>(df, <span class="dt">digits =</span> <span class="dv">2</span>) {
   <span class="co"># Get max length of any variable in the dataset</span>
   maxstr &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">str_length</span>(<span class="kw">names</span>(df)))
-  for (nm in <span class="kw">names</span>(df)) {
-    if (<span class="kw">is.numeric</span>(df[[nm]])) {
-      <span class="kw">cat</span>(<span class="kw">str_c</span>(<span class="kw">str_pad</span>(<span class="kw">str_c</span>(nm, <span class="st">&quot;:&quot;</span>), maxstr +<span class="st"> </span>1L, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>),
+  <span class="cf">for</span> (nm <span class="cf">in</span> <span class="kw">names</span>(df)) {
+    <span class="cf">if</span> (<span class="kw">is.numeric</span>(df[[nm]])) {
+      <span class="kw">cat</span>(<span class="kw">str_c</span>(<span class="kw">str_pad</span>(<span class="kw">str_c</span>(nm, <span class="st">&quot;:&quot;</span>), maxstr <span class="op">+</span><span class="st"> </span>1L, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>),
                 <span class="kw">format</span>(<span class="kw">mean</span>(df[[nm]]), <span class="dt">digits =</span> digits, <span class="dt">nsmall =</span> digits),
                 <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>),
           <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
@@ -856,12 +856,12 @@ for (nm in <span class="kw">names</span>(x)) {
 <span class="co">#&gt; Petal.Width:  1.20</span></code></pre></div>
 <p><strong>Ex</strong> What does this code do? How does it work?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trans &lt;-<span class="st"> </span><span class="kw">list</span>( 
-  <span class="dt">disp =</span> function(x) x *<span class="st"> </span><span class="fl">0.0163871</span>,
-  <span class="dt">am =</span> function(x) {
+  <span class="dt">disp =</span> <span class="cf">function</span>(x) x <span class="op">*</span><span class="st"> </span><span class="fl">0.0163871</span>,
+  <span class="dt">am =</span> <span class="cf">function</span>(x) {
     <span class="kw">factor</span>(x, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;auto&quot;</span>, <span class="st">&quot;manual&quot;</span>))
   }
 )</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (var in <span class="kw">names</span>(trans)) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (var <span class="cf">in</span> <span class="kw">names</span>(trans)) {
   mtcars[[var]] &lt;-<span class="st"> </span>trans[[var]](mtcars[[var]])
 }</code></pre></div>
 <p>This code mutates the <code>disp</code> and <code>am</code> columns:</p>
@@ -878,9 +878,9 @@ for (nm in <span class="kw">names</span>(x)) {
 </div>
 <div id="for-loops-vs.functionals" class="section level2">
 <h2><span class="header-section-number">17.4</span> For loops vs. functionals</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_summary &lt;-<span class="st"> </span>function(df, fun) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_summary &lt;-<span class="st"> </span><span class="cf">function</span>(df, fun) {
   out &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="kw">length</span>(df))
-  for (i in <span class="kw">seq_along</span>(df)) {
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {
     out[i] &lt;-<span class="st"> </span><span class="kw">fun</span>(df[[i]])
   }
   out
@@ -890,10 +890,10 @@ for (nm in <span class="kw">names</span>(x)) {
 <p><strong>Ex. 21.4.1.1</strong> Read the documentation for <code>apply()</code>. In the 2d case, what two for loops does it generalise.</p>
 <p>It generalises looping over the rows or columns of a matrix or data-frame.</p>
 <p><strong>Ex. 21.4.1.2</strong> Adapt <code>col_summary()</code> so that it only applies to numeric columns You might want to start with an <code>is_numeric()</code> function that returns a logical vector that has a <code>TRUE</code> corresponding to each numeric column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_summary2 &lt;-<span class="st"> </span>function(df, fun) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_summary2 &lt;-<span class="st"> </span><span class="cf">function</span>(df, fun) {
   <span class="co"># test whether each colum is numeric</span>
   numeric_cols &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;logical&quot;</span>, <span class="kw">length</span>(df))
-  for (i in <span class="kw">seq_along</span>(df)) {
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {
     numeric_cols[[i]] &lt;-<span class="st"> </span><span class="kw">is.numeric</span>(df[[i]])
   }
   <span class="co"># indexes of numeric columns</span>
@@ -901,7 +901,7 @@ for (nm in <span class="kw">names</span>(x)) {
   <span class="co"># number of numeric columns</span>
   n &lt;-<span class="st"> </span><span class="kw">sum</span>(numeric_cols)
   out &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, n)
-  for (i in idxs) {
+  <span class="cf">for</span> (i <span class="cf">in</span> idxs) {
     out[i] &lt;-<span class="st"> </span><span class="kw">fun</span>(df[[i]])
   }
   out
@@ -910,7 +910,7 @@ for (nm in <span class="kw">names</span>(x)) {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(
   <span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),
   <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),
-  <span class="dt">c =</span> letters[<span class="dv">1</span>:<span class="dv">10</span>],
+  <span class="dt">c =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>],
   <span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>)
 )
 <span class="kw">col_summary2</span>(df, mean)
@@ -937,7 +937,7 @@ for (nm in <span class="kw">names</span>(x)) {
 <span class="co">#&gt;    gear    carb </span>
 <span class="co">#&gt;   3.688   2.812</span></code></pre></div>
 <p>The type of every column in <code>nycflights13::flights</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(nycflights13::flights, class)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(nycflights13<span class="op">::</span>flights, class)
 <span class="co">#&gt; $year</span>
 <span class="co">#&gt; [1] &quot;integer&quot;</span>
 <span class="co">#&gt; </span>
@@ -995,7 +995,7 @@ for (nm in <span class="kw">names</span>(x)) {
 <span class="co">#&gt; $time_hour</span>
 <span class="co">#&gt; [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</span></code></pre></div>
 <p>I had to use <code>map</code> rather than <code>map_chr</code> since the class Though if by type, <code>typeof</code> is meant:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_chr</span>(nycflights13::flights, typeof)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_chr</span>(nycflights13<span class="op">::</span>flights, typeof)
 <span class="co">#&gt;           year          month            day       dep_time sched_dep_time </span>
 <span class="co">#&gt;      &quot;integer&quot;      &quot;integer&quot;      &quot;integer&quot;      &quot;integer&quot;      &quot;integer&quot; </span>
 <span class="co">#&gt;      dep_delay       arr_time sched_arr_time      arr_delay        carrier </span>
@@ -1005,11 +1005,11 @@ for (nm in <span class="kw">names</span>(x)) {
 <span class="co">#&gt;       distance           hour         minute      time_hour </span>
 <span class="co">#&gt;       &quot;double&quot;       &quot;double&quot;       &quot;double&quot;       &quot;double&quot;</span></code></pre></div>
 <p>The number of unique values in each column of <code>iris</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_int</span>(iris, ~<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(.)))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_int</span>(iris, <span class="op">~</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(.)))
 <span class="co">#&gt; Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species </span>
 <span class="co">#&gt;           35           23           43           22            3</span></code></pre></div>
 <p>Generate 10 random normals for each of <span class="math inline">\(\mu = -10\)</span>, <span class="math inline">\(0\)</span>, <span class="math inline">\(10\)</span>, and <span class="math inline">\(100\)</span>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">c</span>(-<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>), rnorm, <span class="dt">n =</span> <span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>), rnorm, <span class="dt">n =</span> <span class="dv">10</span>)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt;  [1]  -8.42  -9.99 -10.65  -8.14  -9.17  -8.80  -9.40  -9.94 -11.29 -10.13</span>
 <span class="co">#&gt; </span>
@@ -1028,7 +1028,7 @@ for (nm in <span class="kw">names</span>(x)) {
 <span class="co">#&gt; FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></code></pre></div>
 <p><strong>Ex</strong> What happens when you use the map functions on vectors that aren’t lists? What does <code>map(1:5, runif)</code> do? Why?</p>
 <p>The function <code>map</code> applies the function to each element of the vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="dv">1</span>:<span class="dv">5</span>, runif)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, runif)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 0.133</span>
 <span class="co">#&gt; </span>
@@ -1045,7 +1045,7 @@ for (nm in <span class="kw">names</span>(x)) {
 <span class="co">#&gt; [1] 0.6537 0.9279 0.0266 0.5595 0.8542</span></code></pre></div>
 <p><strong>Ex</strong> What does <code>map(-2:2, rnorm, n = 5)</code> do? Why? What does <code>map_dbl(-2:2, rnorm, n = 5)</code> do? Why?</p>
 <p>This takes samples of <code>n = 5</code> from normal distributions of means -2, -1, 0, 1, and 2, and returns a list with each element a numeric vectors of length 5.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(-<span class="dv">2</span>:<span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] -3.43 -2.01 -2.21 -2.91 -4.10</span>
 <span class="co">#&gt; </span>
@@ -1061,15 +1061,15 @@ for (nm in <span class="kw">names</span>(x)) {
 <span class="co">#&gt; [[5]]</span>
 <span class="co">#&gt; [1] 1.08 2.56 2.32 2.37 3.13</span></code></pre></div>
 <p>However, if we use <code>map_dbl</code> it throws an error. <code>map_dbl</code> expects the function to return a numeric vector of length one.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(-<span class="dv">2</span>:<span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>)
 <span class="co">#&gt; Error: Result 1 is not a length 1 atomic vector</span></code></pre></div>
 <p>If we wanted a numeric vector, we could use <code>map</code> followed by <code>flatten_dbl</code>,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">flatten_dbl</span>(<span class="kw">map</span>(-<span class="dv">2</span>:<span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">flatten_dbl</span>(<span class="kw">map</span>(<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>))
 <span class="co">#&gt;  [1] -2.222 -3.010 -1.519 -0.396 -3.515 -2.416 -0.123 -0.376  1.112 -1.356</span>
 <span class="co">#&gt; [11] -1.064  1.077  1.182  0.198 -0.400  1.616  2.974  2.885 -0.589  0.460</span>
 <span class="co">#&gt; [21]  0.831  2.559  0.181  2.393  2.042</span></code></pre></div>
 <p><strong>Ex</strong> Rewrite <code>map(x, function(df) lm(mpg ~ wt, data = df))</code> to eliminate the anonymous function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">list</span>(mtcars), ~<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>wt, <span class="dt">data =</span> .))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="kw">list</span>(mtcars), <span class="op">~</span><span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> .))
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Call:</span>
@@ -1095,9 +1095,9 @@ for (nm in <span class="kw">names</span>(x)) {
 <h3><span class="header-section-number">17.9.1</span> Exercises</h3>
 <p><strong>Ex</strong> Implement your own version of <code>every()</code> using a for loop. Compare it with <code>purrr::every()</code>. What does purrr’s version do that your version doesn’t?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Use ... to pass arguments to the function</span>
-every2 &lt;-<span class="st"> </span>function(.x, .p, ...) {
-  for (i in .x) {
-    if (!<span class="kw">.p</span>(i, ...)) {
+every2 &lt;-<span class="st"> </span><span class="cf">function</span>(.x, .p, ...) {
+  <span class="cf">for</span> (i <span class="cf">in</span> .x) {
+    <span class="cf">if</span> (<span class="op">!</span><span class="kw">.p</span>(i, ...)) {
       <span class="co"># If any is FALSE we know not all of then were TRUE</span>
       <span class="kw">return</span>(<span class="ot">FALSE</span>)
     }
@@ -1106,15 +1106,15 @@ every2 &lt;-<span class="st"> </span>function(.x, .p, ...) {
   <span class="ot">TRUE</span>  
 }
 
-<span class="kw">every2</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) {x &gt;<span class="st"> </span><span class="dv">1</span>})
+<span class="kw">every2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) {x <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>})
 <span class="co">#&gt; [1] FALSE</span>
-<span class="kw">every2</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) {x &gt;<span class="st"> </span><span class="dv">0</span>})
+<span class="kw">every2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) {x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>})
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>The function <code>purrr::every</code> does fancy things with <code>.p</code>, like taking a logical vector instead of a function, or being able to test part of a string if the elements of <code>.x</code> are lists.</p>
 <p><strong>Ex</strong> Create an enhanced <code>col_sum()</code> that applies a summary function to every numeric column in a data frame.</p>
 <p><strong>Note</strong> this question has a typo. It is referring to <code>col_summary</code>.</p>
 <p>I will use <code>map</code> to apply the function to all the columns, and <code>keep</code> to only select numeric columns.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_sum2 &lt;-<span class="st"> </span>function(df, f, ...) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_sum2 &lt;-<span class="st"> </span><span class="cf">function</span>(df, f, ...) {
   <span class="kw">map</span>(<span class="kw">keep</span>(df, is.numeric), f, ...)
 }</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">col_sum2</span>(iris, mean)
@@ -1130,21 +1130,21 @@ every2 &lt;-<span class="st"> </span>function(.x, .p, ...) {
 <span class="co">#&gt; $Petal.Width</span>
 <span class="co">#&gt; [1] 1.2</span></code></pre></div>
 <p><strong>Ex</strong> A possible base R equivalent of <code>col_sum()</code> is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_sum3 &lt;-<span class="st"> </span>function(df, f) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_sum3 &lt;-<span class="st"> </span><span class="cf">function</span>(df, f) {
   is_num &lt;-<span class="st"> </span><span class="kw">sapply</span>(df, is.numeric)
   df_num &lt;-<span class="st"> </span>df[, is_num]
   <span class="kw">sapply</span>(df_num, f)
 }</code></pre></div>
 <p>But it has a number of bugs as illustrated with the following inputs:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(
-  <span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">3</span>, 
-  <span class="dt">y =</span> <span class="dv">3</span>:<span class="dv">1</span>,
+  <span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, 
+  <span class="dt">y =</span> <span class="dv">3</span><span class="op">:</span><span class="dv">1</span>,
   <span class="dt">z =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)
 )
 <span class="co"># OK</span>
 <span class="kw">col_sum3</span>(df, mean)
 <span class="co"># Has problems: don&#39;t always return numeric vector</span>
-<span class="kw">col_sum3</span>(df[<span class="dv">1</span>:<span class="dv">2</span>], mean)
+<span class="kw">col_sum3</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], mean)
 <span class="kw">col_sum3</span>(df[<span class="dv">1</span>], mean)
 <span class="kw">col_sum3</span>(df[<span class="dv">0</span>], mean)</code></pre></div>
 <p>What causes the bugs?</p>
@@ -1154,7 +1154,7 @@ every2 &lt;-<span class="st"> </span>function(.x, .p, ...) {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df[<span class="dv">1</span>], is.numeric)
 <span class="co">#&gt;    a </span>
 <span class="co">#&gt; TRUE</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df[<span class="dv">1</span>:<span class="dv">2</span>], is.numeric)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], is.numeric)
 <span class="co">#&gt;    a    b </span>
 <span class="co">#&gt; TRUE TRUE</span></code></pre></div>
 

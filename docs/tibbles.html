@@ -416,7 +416,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>In general, discuss how this “dialect” of R relates to base R and other R that they will see.</p>
 <p>Also, need to discuss types of variables.</p>
 <p>If <code>nycflights::flights</code> were printed in the console it would be much worse. Just try it, I dare you.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(nycflights13::flights) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(nycflights13<span class="op">::</span>flights) </code></pre></div>
 </div>
 <div id="subsetting" class="section level2">
 <h2><span class="header-section-number">6.4</span> Subsetting</h2>
@@ -474,7 +474,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Compare and contrast the following operations on a <code>data.frame</code> and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">abc =</span> <span class="dv">1</span>, <span class="dt">xyz =</span> <span class="st">&quot;a&quot;</span>)
-df$x
+df<span class="op">$</span>x
 <span class="co">#&gt; [1] a</span>
 <span class="co">#&gt; Levels: a</span>
 df[, <span class="st">&quot;xyz&quot;</span>]
@@ -484,7 +484,7 @@ df[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span cl
 <span class="co">#&gt;   abc xyz</span>
 <span class="co">#&gt; 1   1   a</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tbl &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(df)
-tbl$x
+tbl<span class="op">$</span>x
 <span class="co">#&gt; Warning: Unknown column &#39;x&#39;</span>
 <span class="co">#&gt; NULL</span>
 tbl[, <span class="st">&quot;xyz&quot;</span>]
@@ -513,23 +513,23 @@ tbl[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span c
 </ol></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying &lt;-<span class="st"> </span><span class="kw">tibble</span>(
-  <span class="st">`</span><span class="dt">1</span><span class="st">`</span> =<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>,
-  <span class="st">`</span><span class="dt">2</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">1</span><span class="st">`</span> *<span class="st"> </span><span class="dv">2</span> +<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>))
+  <span class="st">`</span><span class="dt">1</span><span class="st">`</span> =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,
+  <span class="st">`</span><span class="dt">2</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">1</span><span class="st">`</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>))
 )</code></pre></div>
 <p>Extract the variable called 1:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;1&quot;</span>]]
 <span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
 <p>or</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying$<span class="st">`</span><span class="dt">1</span><span class="st">`</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>
 <span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
 <p>A scatterplot of <code>1</code> vs. <code>2</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(annoying, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>)) +
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(annoying, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="tibble_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>A new column <code>3</code> with is <code>2</code> divided by <code>1</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;3&quot;</span>]] &lt;-<span class="st"> </span>annoying$<span class="st">`</span><span class="dt">2</span><span class="st">`</span> /<span class="st"> </span>annoying$<span class="st">`</span><span class="dt">1</span><span class="st">`</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;3&quot;</span>]] &lt;-<span class="st"> </span>annoying<span class="op">$</span><span class="st">`</span><span class="dt">2</span><span class="st">`</span> <span class="op">/</span><span class="st"> </span>annoying<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span></code></pre></div>
 <p>or</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;3&quot;</span>]] &lt;-<span class="st"> </span>annoying[[<span class="st">&quot;2&quot;</span>]] /<span class="st"> </span>annoying[[<span class="st">&quot;1&quot;</span>]]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;3&quot;</span>]] &lt;-<span class="st"> </span>annoying[[<span class="st">&quot;2&quot;</span>]] <span class="op">/</span><span class="st"> </span>annoying[[<span class="st">&quot;1&quot;</span>]]</code></pre></div>
 <p>Renaming the columns to <code>one</code>, <code>two</code>, and <code>three</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying &lt;-<span class="st"> </span><span class="kw">rename</span>(annoying, <span class="dt">one =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">two =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>, <span class="dt">three =</span> <span class="st">`</span><span class="dt">3</span><span class="st">`</span>)
 <span class="kw">glimpse</span>(annoying)
@@ -542,7 +542,7 @@ tbl[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span c
 <li>What does <code>tibble::enframe()</code> do? When might you use it?</li>
 </ol>
 <p>It converts named vectors to a data frame with names and values</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?tibble::enframe</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?tibble<span class="op">::</span>enframe</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">enframe</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>))
 <span class="co">#&gt; # A tibble: 3 × 2</span>
 <span class="co">#&gt;    name value</span>

@@ -467,7 +467,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The following function extracts the middle character. If the string has an even number of characters the choice is arbitrary. We choose to select <span class="math inline">\(\lceil n / 2 \rceil\)</span>, because that case works even if the string is only of length one. A more general method would allow the user to select either the floor or ceiling for the middle character of an even string.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;abc&quot;</span>, <span class="st">&quot;abcd&quot;</span>, <span class="st">&quot;abcde&quot;</span>, <span class="st">&quot;abcdef&quot;</span>)
 L &lt;-<span class="st"> </span><span class="kw">str_length</span>(x)
-m &lt;-<span class="st"> </span><span class="kw">ceiling</span>(L /<span class="st"> </span><span class="dv">2</span>)
+m &lt;-<span class="st"> </span><span class="kw">ceiling</span>(L <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)
 <span class="kw">str_sub</span>(x, m, m)
 <span class="co">#&gt; [1] &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;c&quot; &quot;c&quot;</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
@@ -495,12 +495,12 @@ m &lt;-<span class="st"> </span><span class="kw">ceiling</span>(L /<span class="
 <li>Write a function that turns (e.g.) a vector c(“a”, “b”, “c”) into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.</li>
 </ol>
 <p><em>Note:</em> See Ch 19 for writing functions.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">str_commasep &lt;-<span class="st"> </span>function(x, <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">last =</span> <span class="st">&quot;, and &quot;</span>) {
-  if (<span class="kw">length</span>(x) &gt;<span class="st"> </span><span class="dv">1</span>) {
-    <span class="kw">str_c</span>(<span class="kw">str_c</span>(x[-<span class="kw">length</span>(x)], <span class="dt">collapse =</span> sep),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">str_commasep &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">last =</span> <span class="st">&quot;, and &quot;</span>) {
+  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {
+    <span class="kw">str_c</span>(<span class="kw">str_c</span>(x[<span class="op">-</span><span class="kw">length</span>(x)], <span class="dt">collapse =</span> sep),
                 x[<span class="kw">length</span>(x)],
                 <span class="dt">sep =</span> last)
-  } else {
+  } <span class="cf">else</span> {
     x
   }
 }
@@ -547,7 +547,7 @@ m &lt;-<span class="st"> </span><span class="kw">ceiling</span>(L /<span class="
 <li><p>Have seven letters or more.</p></li>
 </ol>
 <p>Since this list is long, you might want to use the match argument to <code>str_view()</code> to show only the matching or non-matching words.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(stringr::words)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(stringr<span class="op">::</span>words)
 <span class="co">#&gt; [1] &quot;a&quot;        &quot;able&quot;     &quot;about&quot;    &quot;absolute&quot; &quot;accept&quot;   &quot;account&quot;</span></code></pre></div>
 <p>A simpler way, shown later is</p>
 </div>
@@ -563,30 +563,30 @@ m &lt;-<span class="st"> </span><span class="kw">ceiling</span>(L /<span class="
 <li><p>End with <code>ing</code> or <code>ise</code>.</p></li>
 </ol>
 <p>Words starting with vowels</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr::words, <span class="st">&quot;^[aeiou]&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^[aeiou]&quot;</span>)</code></pre></div>
 <p>Words that contain only consonants</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr::words, <span class="st">&quot;^[^aeiou]+$&quot;</span>, <span class="dt">match=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^[^aeiou]+$&quot;</span>, <span class="dt">match=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>This seems to require using the <code>+</code> pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.</p>
 <p>Words that end with <code>ed</code> but not with <code>eed</code>. This handles the special case of “ed”, as well as words with length &gt; 2.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr::words, <span class="st">&quot;^ed$|[^e]ed$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^ed$|[^e]ed$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>Words ending in ing or ise:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr::words, <span class="st">&quot;i(ng|se)$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;i(ng|se)$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Empirically verify the rule “i before e except after c”.</li>
 </ol>
 <p>Using only what has been introduced thus far:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr::words, <span class="st">&quot;(cei|[^c]ie)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr::words, <span class="st">&quot;(cie|[^c]ei)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cei|[^c]ie)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cie|[^c]ei)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>Using <code>str_detect</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">str_detect</span>(stringr::words, <span class="st">&quot;(cei|[^c]ie)&quot;</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">str_detect</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cei|[^c]ie)&quot;</span>))
 <span class="co">#&gt; [1] 14</span>
-<span class="kw">sum</span>(<span class="kw">str_detect</span>(stringr::words, <span class="st">&quot;(cie|[^c]ei)&quot;</span>))
+<span class="kw">sum</span>(<span class="kw">str_detect</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cie|[^c]ei)&quot;</span>))
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Is “q” always followed by a “u”?</li>
 </ol>
 <p>In the <code>stringr::words</code> dataset, yes. In the full English language, no.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr::words, <span class="st">&quot;q[^u]&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;q[^u]&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Write a regular expression that matches a word if it’s probably written in British English, not American English.</li>
 </ol>
@@ -686,9 +686,9 @@ m &lt;-<span class="st"> </span><span class="kw">ceiling</span>(L /<span class="
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">str_detect</span>(words, <span class="st">&quot;[aeiou]$&quot;</span>))
 <span class="co">#&gt; [1] 0.277</span></code></pre></div>
 <p>To find all words with no vowels</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">no_vowels_1 &lt;-<span class="st"> </span>!<span class="kw">str_detect</span>(words, <span class="st">&quot;[aeiou]&quot;</span>)
-no_vowels_2 &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;^[^aeiou]+$&quot;</span>)
-<span class="kw">identical</span>(no_vowels_1, no_vowels_2)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">no_vowels_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="op">!</span><span class="kw">str_detect</span>(words, <span class="st">&quot;[aeiou]&quot;</span>)
+no_vowels_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;^[^aeiou]+$&quot;</span>)
+<span class="kw">identical</span>(no_vowels_<span class="dv">1</span>, no_vowels_<span class="dv">2</span>)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">words[<span class="kw">str_detect</span>(words, <span class="st">&quot;x$&quot;</span>)]
 <span class="co">#&gt; [1] &quot;box&quot; &quot;sex&quot; &quot;six&quot; &quot;tax&quot;</span>
@@ -698,7 +698,7 @@ no_vowels_2 &lt;-<span class="st"> </span><span class="kw">str_detect</span>(wor
   <span class="dt">word =</span> words,
   <span class="dt">i =</span> <span class="kw">seq_along</span>(word)
 )
-df %&gt;%
+df <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(words, <span class="st">&quot;x$&quot;</span>))
 <span class="co">#&gt; # A tibble: 4 × 2</span>
 <span class="co">#&gt;    word     i</span>
@@ -714,7 +714,7 @@ df %&gt;%
 <p>Average vowels per word</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">str_count</span>(words, <span class="st">&quot;[aeiou]&quot;</span>))
 <span class="co">#&gt; [1] 1.99</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(
     <span class="dt">vowels =</span> <span class="kw">str_count</span>(word, <span class="st">&quot;[aeiou]&quot;</span>),
     <span class="dt">consonants =</span> <span class="kw">str_count</span>(word, <span class="st">&quot;[^aeiou]&quot;</span>)
@@ -749,32 +749,32 @@ words[<span class="kw">str_detect</span>(words, <span class="st">&quot;^x|x$&quo
 <span class="co"># split regex into parts</span>
 start_with_x &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;^x&quot;</span>)
 end_with_x &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;x$&quot;</span>)
-words[start_with_x |<span class="st"> </span>end_with_x]
+words[start_with_x <span class="op">|</span><span class="st"> </span>end_with_x]
 <span class="co">#&gt; [1] &quot;box&quot; &quot;sex&quot; &quot;six&quot; &quot;tax&quot;</span></code></pre></div>
 <p>Find all words starting with vowel and ending with consonant.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_subset</span>(words, <span class="st">&quot;^[aeiou].*[^aeiou]$&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">head</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_subset</span>(words, <span class="st">&quot;^[aeiou].*[^aeiou]$&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()
 <span class="co">#&gt; [1] &quot;about&quot;   &quot;accept&quot;  &quot;account&quot; &quot;across&quot;  &quot;act&quot;     &quot;actual&quot;</span>
 start_with_vowel &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;^[aeiou]&quot;</span>)
 end_with_consonant &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;[^aeiou]$&quot;</span>)
-words[start_with_vowel &amp;<span class="st"> </span>end_with_consonant] %&gt;%<span class="st"> </span><span class="kw">head</span>()
+words[start_with_vowel <span class="op">&amp;</span><span class="st"> </span>end_with_consonant] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()
 <span class="co">#&gt; [1] &quot;about&quot;   &quot;accept&quot;  &quot;account&quot; &quot;across&quot;  &quot;act&quot;     &quot;actual&quot;</span></code></pre></div>
 <p>Words that contain at least one of each vowel. I can’t think of a good way of doing this without doing a regex of the permutations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pattern &lt;-<span class="st"> </span>
 <span class="st">  </span><span class="kw">cross_n</span>(<span class="kw">rerun</span>(<span class="dv">5</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;u&quot;</span>)),
-        <span class="dt">.filter =</span> function(...) {
+        <span class="dt">.filter =</span> <span class="cf">function</span>(...) {
           x &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">unlist</span>(<span class="kw">list</span>(...)))
-          <span class="kw">length</span>(x) !=<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(x))
-        }) %&gt;%
-<span class="st">  </span><span class="kw">map_chr</span>(~<span class="st"> </span><span class="kw">str_c</span>(<span class="kw">unlist</span>(.x), <span class="dt">collapse =</span> <span class="st">&quot;.*&quot;</span>)) %&gt;%
+          <span class="kw">length</span>(x) <span class="op">!=</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(x))
+        }) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map_chr</span>(<span class="op">~</span><span class="st"> </span><span class="kw">str_c</span>(<span class="kw">unlist</span>(.x), <span class="dt">collapse =</span> <span class="st">&quot;.*&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)
 
 <span class="kw">str_subset</span>(words, pattern)
 <span class="co">#&gt; character(0)</span>
 
-words[<span class="kw">str_detect</span>(words, <span class="st">&quot;a&quot;</span>) &amp;
-<span class="st">        </span><span class="kw">str_detect</span>(words, <span class="st">&quot;e&quot;</span>) &amp;
-<span class="st">        </span><span class="kw">str_detect</span>(words, <span class="st">&quot;i&quot;</span>) &amp;
-<span class="st">        </span><span class="kw">str_detect</span>(words, <span class="st">&quot;o&quot;</span>) &amp;
+words[<span class="kw">str_detect</span>(words, <span class="st">&quot;a&quot;</span>) <span class="op">&amp;</span>
+<span class="st">        </span><span class="kw">str_detect</span>(words, <span class="st">&quot;e&quot;</span>) <span class="op">&amp;</span>
+<span class="st">        </span><span class="kw">str_detect</span>(words, <span class="st">&quot;i&quot;</span>) <span class="op">&amp;</span>
+<span class="st">        </span><span class="kw">str_detect</span>(words, <span class="st">&quot;o&quot;</span>) <span class="op">&amp;</span>
 <span class="st">        </span><span class="kw">str_detect</span>(words, <span class="st">&quot;u&quot;</span>)]
 <span class="co">#&gt; character(0)</span></code></pre></div>
 <p>There appear to be none. To check that it works,</p>
@@ -783,8 +783,8 @@ words[<span class="kw">str_detect</span>(words, <span class="st">&quot;a&quot;</
 <ol start="2" style="list-style-type: decimal">
 <li>What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prop_vowels &lt;-<span class="st"> </span><span class="kw">str_count</span>(words, <span class="st">&quot;[aeiou]&quot;</span>) /<span class="st"> </span><span class="kw">str_length</span>(words)
-words[<span class="kw">which</span>(prop_vowels ==<span class="st"> </span><span class="kw">max</span>(prop_vowels))]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prop_vowels &lt;-<span class="st"> </span><span class="kw">str_count</span>(words, <span class="st">&quot;[aeiou]&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="kw">str_length</span>(words)
+words[<span class="kw">which</span>(prop_vowels <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(prop_vowels))]
 <span class="co">#&gt; [1] &quot;a&quot;</span></code></pre></div>
 </div>
 <div id="extract-matches" class="section level3">
@@ -807,7 +807,7 @@ colour_match
 matches &lt;-<span class="st"> </span><span class="kw">str_extract</span>(has_colour, colour_match)
 <span class="kw">head</span>(matches)
 <span class="co">#&gt; [1] &quot;blue&quot; &quot;blue&quot; &quot;red&quot;  &quot;red&quot;  &quot;red&quot;  &quot;blue&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">more &lt;-<span class="st"> </span>sentences[<span class="kw">str_count</span>(sentences, colour_match) &gt;<span class="st"> </span><span class="dv">1</span>]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">more &lt;-<span class="st"> </span>sentences[<span class="kw">str_count</span>(sentences, colour_match) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>]
 <span class="kw">str_view_all</span>(more, colour_match)</code></pre></div>
 <div id="htmlwidget-092118b2671020ef37aa" style="width:960px;height:auto;" class="str_view html-widget"></div>
 <script type="application/json" data-for="htmlwidget-092118b2671020ef37aa">{"x":{"html":"<ul>\n  <li>It is hard to erase <span class='match'>blue<\/span> or <span class='match'>red<\/span> ink.<\/li>\n  <li>The <span class='match'>green<\/span> light in the brown box flicke<span class='match'>red<\/span>.<\/li>\n  <li>The sky in the west is tinged with <span class='match'>orange<\/span> <span class='match'>red<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
@@ -843,7 +843,7 @@ matches &lt;-<span class="st"> </span><span class="kw">str_extract</span>(has_co
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">colour_match2 &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">b(&quot;</span>, <span class="kw">str_c</span>(colours, <span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>), <span class="st">&quot;)</span><span class="ch">\\</span><span class="st">b&quot;</span>)
 colour_match2
 <span class="co">#&gt; [1] &quot;\\b(red|orange|yellow|green|blue|purple)\\b&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">more2 &lt;-<span class="st"> </span>sentences[<span class="kw">str_count</span>(sentences, colour_match) &gt;<span class="st"> </span><span class="dv">1</span>]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">more2 &lt;-<span class="st"> </span>sentences[<span class="kw">str_count</span>(sentences, colour_match) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>]
 <span class="kw">str_view_all</span>(more2, colour_match2, <span class="dt">match =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li><p>From the Harvard sentences data, extract:</p></li>
@@ -852,16 +852,16 @@ colour_match2
 <li><p>All plurals.</p></li>
 </ol>
 <p>The first word in each sentence requires defining what a word is. I’ll consider a word any contiguous</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract</span>(sentences, <span class="st">&quot;[a-zA-X]+&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">head</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract</span>(sentences, <span class="st">&quot;[a-zA-X]+&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()
 <span class="co">#&gt; [1] &quot;The&quot;   &quot;Glue&quot;  &quot;It&quot;    &quot;These&quot; &quot;Rice&quot;  &quot;The&quot;</span></code></pre></div>
 <p>All words ending in <code>ing</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pattern &lt;-<span class="st"> &quot;</span><span class="ch">\\</span><span class="st">b[A-Za-z]+ing</span><span class="ch">\\</span><span class="st">b&quot;</span>
 sentences_with_ing &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sentences, pattern)
-<span class="kw">unique</span>(<span class="kw">unlist</span>(<span class="kw">str_extract_all</span>(sentences[sentences_with_ing], pattern))) %&gt;%
+<span class="kw">unique</span>(<span class="kw">unlist</span>(<span class="kw">str_extract_all</span>(sentences[sentences_with_ing], pattern))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()
 <span class="co">#&gt; [1] &quot;spring&quot;  &quot;evening&quot; &quot;morning&quot; &quot;winding&quot; &quot;living&quot;  &quot;king&quot;</span></code></pre></div>
 <p>All plurals. To do this correct requires linguistic information. But if we just want to say any word ending in an “s” is plural (and with more than 3 characters to remove as, is, gas, etc.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(<span class="kw">unlist</span>(<span class="kw">str_extract_all</span>(sentences, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">b[A-Za-z]{3,}s</span><span class="ch">\\</span><span class="st">b&quot;</span>))) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(<span class="kw">unlist</span>(<span class="kw">str_extract_all</span>(sentences, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">b[A-Za-z]{3,}s</span><span class="ch">\\</span><span class="st">b&quot;</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()
 <span class="co">#&gt; [1] &quot;planks&quot; &quot;days&quot;   &quot;bowls&quot;  &quot;lemons&quot; &quot;makes&quot;  &quot;hogs&quot;</span></code></pre></div>
 </div>
@@ -869,14 +869,14 @@ sentences_with_ing &lt;-<span class="st"> </span><span class="kw">str_detect</sp
 <div id="grouped-matches" class="section level3">
 <h3><span class="header-section-number">10.4.4</span> Grouped Matches</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">noun &lt;-<span class="st"> &quot;(a|the) ([^ ]+)&quot;</span>
-has_noun &lt;-<span class="st"> </span>sentences %&gt;%
-<span class="st">  </span><span class="kw">str_subset</span>(noun) %&gt;%
+has_noun &lt;-<span class="st"> </span>sentences <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">str_subset</span>(noun) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)
-has_noun %&gt;%
+has_noun <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">str_extract</span>(noun)
 <span class="co">#&gt;  [1] &quot;the smooth&quot; &quot;the sheet&quot;  &quot;the depth&quot;  &quot;a chicken&quot;  &quot;the parked&quot;</span>
 <span class="co">#&gt;  [6] &quot;the sun&quot;    &quot;the huge&quot;   &quot;the ball&quot;   &quot;the woman&quot;  &quot;a helps&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">has_noun %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">has_noun <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">str_match</span>(noun)
 <span class="co">#&gt;       [,1]         [,2]  [,3]     </span>
 <span class="co">#&gt;  [1,] &quot;the smooth&quot; &quot;the&quot; &quot;smooth&quot; </span>
@@ -889,8 +889,8 @@ has_noun %&gt;%
 <span class="co">#&gt;  [8,] &quot;the ball&quot;   &quot;the&quot; &quot;ball&quot;   </span>
 <span class="co">#&gt;  [9,] &quot;the woman&quot;  &quot;the&quot; &quot;woman&quot;  </span>
 <span class="co">#&gt; [10,] &quot;a helps&quot;    &quot;a&quot;   &quot;helps&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">sentence =</span> sentences) %&gt;%
-<span class="st">  </span>tidyr::<span class="kw">extract</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">sentence =</span> sentences) <span class="op">%&gt;%</span>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">extract</span>(
     sentence, <span class="kw">c</span>(<span class="st">&quot;article&quot;</span>, <span class="st">&quot;noun&quot;</span>), <span class="st">&quot;(a|the) ([^ ]+)&quot;</span>,
     <span class="dt">remove =</span> <span class="ot">FALSE</span>
   )
@@ -911,7 +911,7 @@ has_noun %&gt;%
 </ol>
 <p>I’ll use the same following “word” pattern as used above</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numword &lt;-<span class="st"> &quot;(one|two|three|four|five|six|seven|eight|nine|ten) +(</span><span class="ch">\\</span><span class="st">S+)&quot;</span>
-sentences[<span class="kw">str_detect</span>(sentences, numword)] %&gt;%
+sentences[<span class="kw">str_detect</span>(sentences, numword)] <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">str_extract</span>(numword)
 <span class="co">#&gt;  [1] &quot;ten served&quot;    &quot;one over&quot;      &quot;seven books&quot;   &quot;two met&quot;      </span>
 <span class="co">#&gt;  [5] &quot;two factors&quot;   &quot;one and&quot;       &quot;three lists&quot;   &quot;seven is&quot;     </span>
@@ -926,8 +926,8 @@ sentences[<span class="kw">str_detect</span>(sentences, numword)] %&gt;%
 <li>Find all contractions. Separate out the pieces before and after the apostrophe.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">contraction &lt;-<span class="st"> &quot;([A-Za-z]+)&#39;([A-Za-z]+)&quot;</span>
-sentences %&gt;%
-<span class="st">  `</span><span class="dt">[</span><span class="st">`</span>(<span class="kw">str_detect</span>(sentences, contraction)) %&gt;%
+sentences <span class="op">%&gt;%</span>
+<span class="st">  `</span><span class="dt">[</span><span class="st">`</span>(<span class="kw">str_detect</span>(sentences, contraction)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">str_extract</span>(contraction)
 <span class="co">#&gt;  [1] &quot;It&#39;s&quot;       &quot;man&#39;s&quot;      &quot;don&#39;t&quot;      &quot;store&#39;s&quot;    &quot;workmen&#39;s&quot; </span>
 <span class="co">#&gt;  [6] &quot;Let&#39;s&quot;      &quot;sun&#39;s&quot;      &quot;child&#39;s&quot;    &quot;king&#39;s&quot;     &quot;It&#39;s&quot;      </span>
@@ -971,13 +971,13 @@ sentences %&gt;%
 <ol start="2" style="list-style-type: decimal">
 <li>What are the five most common words in sentences?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract_all</span>(sentences, <span class="kw">boundary</span>(<span class="st">&quot;word&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">unlist</span>() %&gt;%
-<span class="st">  </span><span class="kw">str_to_lower</span>() %&gt;%
-<span class="st">  </span><span class="kw">tibble</span>() %&gt;%
-<span class="st">  </span><span class="kw">set_names</span>(<span class="st">&quot;word&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(word) %&gt;%
-<span class="st">  </span><span class="kw">count</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_extract_all</span>(sentences, <span class="kw">boundary</span>(<span class="st">&quot;word&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">str_to_lower</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tibble</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">set_names</span>(<span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(word) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)
 <span class="co">#&gt; # A tibble: 5 × 2</span>
 <span class="co">#&gt;    word     n</span>

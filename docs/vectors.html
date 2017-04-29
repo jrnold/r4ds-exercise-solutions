@@ -426,10 +426,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Describe the difference between <code>is.finite(x)</code> and <code>!is.infinite(x)</code>.</li>
 </ol>
 <p>To find out, try the functions on a numeric vector that includes a number and the five special values (<code>NA</code>, <code>NaN</code>, <code>Inf</code>, <code>-Inf</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>)
 <span class="kw">is.finite</span>(x)
 <span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE FALSE</span>
-!<span class="kw">is.infinite</span>(x)
+<span class="op">!</span><span class="kw">is.infinite</span>(x)
 <span class="co">#&gt; [1]  TRUE  TRUE  TRUE FALSE FALSE</span></code></pre></div>
 <p><code>is.finite</code> considers only a number to be finite, and considers missing (<code>NA</code>), not a number (<code>NaN</code>), and positive and negative infinity to be not finite. However, since <code>is.infinite</code> only considers <code>Inf</code> and <code>-Inf</code> to be inifinite, <code>!is.infinite</code> considers <code>0</code> as well as missing and not-a-number to be not infinite.</p>
 <p>So <code>NA</code> and <code>NaN</code> are neither finite or infinite. Mind blown.</p>
@@ -437,7 +437,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Read the source code for <code>dplyr::near()</code> (Hint: to see the source code, drop the ()). How does it work?</li>
 </ol>
 <p>The source for <code>dplyr::near</code> is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr::near
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span>near
 <span class="co">#&gt; function (x, y, tol = .Machine$double.eps^0.5) </span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     abs(x - y) &lt; tol</span>
@@ -457,20 +457,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>methods 0.5 -0.5 1.5 -1.5 ============================== ==== ===== ==== ==== towards zero: 0 0 1 1 away from zero 1 -1 2 -2 largest towards <span class="math inline">\(+\infty\)</span>) 1 0 2 -1 smallest (towards <span class="math inline">\(-\infty\)</span>) 0 -1 1 -2 even 0 0 2 -2 odd 1 -1 1 -1 =====================================================</p>
 <p>See the Wikipedia article <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE floating point</a> for rounding rules.</p>
 <p>For rounding, R and many programming languages use the IEEE standard. This is “round to nearest, ties to even”. This is not the same as what you See the value of looking at the value of <code>.Machine$double.rounding</code> and its documentation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(-<span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.5</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.5</span>)
 
-round2 &lt;-<span class="st"> </span>function(x, <span class="dt">to_even =</span> <span class="ot">TRUE</span>) {
-  q &lt;-<span class="st"> </span>x %/%<span class="st"> </span><span class="dv">1</span>
-  r &lt;-<span class="st"> </span>x %%<span class="st"> </span><span class="dv">1</span>
-  q +<span class="st"> </span>(r &gt;=<span class="st"> </span><span class="fl">0.5</span>)
+round2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">to_even =</span> <span class="ot">TRUE</span>) {
+  q &lt;-<span class="st"> </span>x <span class="op">%/%</span><span class="st"> </span><span class="dv">1</span>
+  r &lt;-<span class="st"> </span>x <span class="op">%%</span><span class="st"> </span><span class="dv">1</span>
+  q <span class="op">+</span><span class="st"> </span>(r <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>)
 }
-x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5</span>, -<span class="fl">11.5</span>, <span class="fl">11.5</span>, <span class="fl">12.5</span>)
+x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">12.5</span>, <span class="op">-</span><span class="fl">11.5</span>, <span class="fl">11.5</span>, <span class="fl">12.5</span>)
 <span class="kw">round</span>(x)
 <span class="co">#&gt; [1] -12 -12  12  12</span>
 <span class="kw">round2</span>(x, <span class="dt">to_even =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; [1] -12 -11  12  13</span></code></pre></div>
 <p>The problem with the always rounding 0.5 up rule is that it is biased upwards. Rounding to nearest with ties towards even is not. Consider the sequence <span class="math inline">\(-100.5, -99.5, \dots, 0, \dots, 99.5, 100.5\)</span>. Its sum is 0. It would be nice if rounding preserved that sum. Using the “ties towards even”, the sum is still zero. Hoever, the “ties towards <span class="math inline">\(+\infty\)</span>” produces a non-zero number.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(-<span class="fl">100.5</span>, <span class="fl">100.5</span>, <span class="dt">by =</span> <span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">100.5</span>, <span class="fl">100.5</span>, <span class="dt">by =</span> <span class="dv">1</span>)
 <span class="kw">sum</span>(x)
 <span class="co">#&gt; [1] 0</span>
 <span class="kw">sum</span>(<span class="kw">round</span>(x))
@@ -498,11 +498,11 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5
 <li>What does <code>mean(is.na(x))</code> tell you about a vector <code>x</code>? What about <code>sum(!is.finite(x))</code>?</li>
 </ol>
 <p>The expression <code>mean(is.na(x))</code> calculates the proportion of missing values in a vector</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>)
 <span class="kw">mean</span>(<span class="kw">is.na</span>(x))
 <span class="co">#&gt; [1] 0.143</span></code></pre></div>
 <p>The expression <code>mean(!is.finite(x))</code> calcualtes the proportion of values that are <code>NA</code>, <code>NaN</code>, or infinite.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(!<span class="kw">is.finite</span>(x))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="op">!</span><span class="kw">is.finite</span>(x))
 <span class="co">#&gt; [1] 0.286</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Carefully read the documentation of <code>is.vector()</code>. What does it actually test for? Why does <code>is.atomic()</code> not agree with the definition of atomic vectors above?</li>
@@ -511,13 +511,13 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.vector</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>))
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>But any object that has an attribute (other than names) is not:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
 <span class="kw">attr</span>(x, <span class="st">&quot;something&quot;</span>) &lt;-<span class="st"> </span><span class="ot">TRUE</span>
 <span class="kw">is.vector</span>(x)
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
 <p>The idea behind this is that object oriented classes will include attributes, including, but not limited to <code>&quot;class&quot;</code>.</p>
 <p>The function <code>is.atomic</code> explicitly checks whether an object is one of the atomic types (“logical”, “integer”, “numeric”, “complex”, “character”, and “raw”) or NULL.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.atomic</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.atomic</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
 <span class="co">#&gt; [1] TRUE</span>
 <span class="kw">is.atomic</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>))
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
@@ -536,7 +536,7 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5
 <span class="co">#&gt; }</span>
 <span class="co">#&gt; &lt;bytecode: 0x7fca28a92038&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr::set_names
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span>set_names
 <span class="co">#&gt; function (x, nm = x) </span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     if (!is_vector(x)) {</span>
@@ -556,12 +556,12 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5
 <li>Every element except the last value.</li>
 <li><p>Only even numbers (and no missing values).</p></li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_value &lt;-<span class="st"> </span>function(x) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_value &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
   <span class="co"># check for case with no length</span>
-  if (<span class="kw">length</span>(x)) {
+  <span class="cf">if</span> (<span class="kw">length</span>(x)) {
     <span class="co"># Use [[ as suggested because it returns one element</span>
     x[[<span class="kw">length</span>(x)]]  
-  } else {
+  } <span class="cf">else</span> {
     x
   }
 }
@@ -569,12 +569,12 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5
 <span class="co">#&gt; numeric(0)</span>
 <span class="kw">last_value</span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] 1</span>
-<span class="kw">last_value</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="kw">last_value</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
 <span class="co">#&gt; [1] 10</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">even_indices &lt;-<span class="st"> </span>function(x) {
-  if (<span class="kw">length</span>(x)) {
-    x[<span class="kw">seq_along</span>(x) %%<span class="st"> </span><span class="dv">2</span> ==<span class="st"> </span><span class="dv">0</span>]
-  } else {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">even_indices &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="cf">if</span> (<span class="kw">length</span>(x)) {
+    x[<span class="kw">seq_along</span>(x) <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>]
+  } <span class="cf">else</span> {
     x
   }  
 }
@@ -582,38 +582,38 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="fl">12.5
 <span class="co">#&gt; numeric(0)</span>
 <span class="kw">even_indices</span>(<span class="dv">1</span>)
 <span class="co">#&gt; numeric(0)</span>
-<span class="kw">even_indices</span>(<span class="dv">1</span>:<span class="dv">10</span>)
+<span class="kw">even_indices</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
 <span class="co">#&gt; [1]  2  4  6  8 10</span>
 <span class="co"># test using case to ensure that values not indices</span>
 <span class="co"># are being returned</span>
 <span class="kw">even_indices</span>(letters)
 <span class="co">#&gt;  [1] &quot;b&quot; &quot;d&quot; &quot;f&quot; &quot;h&quot; &quot;j&quot; &quot;l&quot; &quot;n&quot; &quot;p&quot; &quot;r&quot; &quot;t&quot; &quot;v&quot; &quot;x&quot; &quot;z&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_last &lt;-<span class="st"> </span>function(x) {
-  if (<span class="kw">length</span>(x)) {
-    x[-<span class="kw">length</span>(x)]
-  } else {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_last &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="cf">if</span> (<span class="kw">length</span>(x)) {
+    x[<span class="op">-</span><span class="kw">length</span>(x)]
+  } <span class="cf">else</span> {
     x
   }
 }
-<span class="kw">not_last</span>(<span class="dv">1</span>:<span class="dv">5</span>)
+<span class="kw">not_last</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
 <span class="co">#&gt; [1] 1 2 3 4</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">even_numbers &lt;-<span class="st"> </span>function(x) {
-  x[!<span class="kw">is.na</span>(x) &amp;<span class="st"> </span>(x %%<span class="st"> </span><span class="dv">2</span> ==<span class="st"> </span><span class="dv">0</span>)]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">even_numbers &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  x[<span class="op">!</span><span class="kw">is.na</span>(x) <span class="op">&amp;</span><span class="st"> </span>(x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)]
 }
-<span class="kw">even_numbers</span>(-<span class="dv">10</span>:<span class="dv">10</span>)
+<span class="kw">even_numbers</span>(<span class="op">-</span><span class="dv">10</span><span class="op">:</span><span class="dv">10</span>)
 <span class="co">#&gt;  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Why is <code>x[-which(x &gt; 0)]</code> not the same as <code>x[x &lt;= 0]</code>?</li>
 </ol>
 <p>They will treat missing values differently.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(-<span class="dv">5</span>:<span class="dv">5</span>, <span class="ot">Inf</span>, -<span class="ot">Inf</span>, <span class="ot">NaN</span>, <span class="ot">NA</span>)
-x[-<span class="kw">which</span>(x &gt;<span class="st"> </span><span class="dv">0</span>)]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>, <span class="ot">NaN</span>, <span class="ot">NA</span>)
+x[<span class="op">-</span><span class="kw">which</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)]
 <span class="co">#&gt; [1]   -5   -4   -3   -2   -1    0 -Inf  NaN   NA</span>
--<span class="kw">which</span>(x &gt;<span class="st"> </span><span class="dv">0</span>)
+<span class="op">-</span><span class="kw">which</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
 <span class="co">#&gt; [1]  -7  -8  -9 -10 -11 -12</span>
-x[x &lt;=<span class="st"> </span><span class="dv">0</span>]
+x[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>]
 <span class="co">#&gt; [1]   -5   -4   -3   -2   -1    0 -Inf   NA   NA</span>
-x &lt;=<span class="st"> </span><span class="dv">0</span>
+x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>
 <span class="co">#&gt;  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</span>
 <span class="co">#&gt; [12] FALSE  TRUE    NA    NA</span></code></pre></div>
 <p><code>-which(x &gt; 0)</code> which calculates the indexes for any value that is <code>TRUE</code> and ignores <code>NA</code>. Thus is keeps <code>NA</code> and <code>NaN</code> because the comparison is not <code>TRUE</code>. <code>x &lt;= 0</code> works slightly differently. If <code>x &lt;= 0</code> returns <code>TRUE</code> or <code>FALSE</code> it works the same way. Hoewver, if the comparison generates a <code>NA</code>, then it will always keep that entry, but set it to <code>NA</code>. This is why the last two values of <code>x[x &lt;= 0]</code> are <code>NA</code> rather than <code>c(NaN, NA)</code>.</p>
@@ -621,7 +621,7 @@ x &lt;=<span class="st"> </span><span class="dv">0</span>
 <li>What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?</li>
 </ol>
 <p>When you subset with positive integers that are larger than the length of the vector, <code>NA</code> values are returned for those integers larger than the length of the vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span>:<span class="dv">10</span>)[<span class="dv">11</span>:<span class="dv">12</span>]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)[<span class="dv">11</span><span class="op">:</span><span class="dv">12</span>]
 <span class="co">#&gt; [1] NA NA</span></code></pre></div>
 <p>When a vector is subset with a name that doesn’t exist, an error is generated.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dv">2</span>)[[<span class="st">&quot;b&quot;</span>]]
@@ -638,7 +638,7 @@ x &lt;=<span class="st"> </span><span class="dv">0</span>
 <li><p>What happens if you subset a <code>tibble</code> as if you’re subsetting a list? What are the key differences between a list and a <code>tibble</code>?</p></li>
 </ol>
 <p>Subsetting a <code>tibble</code> works the same way as a list; a data frame can be thought of as a list of columns. The key different between a list and a <code>tibble</code> is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">3</span>:<span class="dv">4</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>)
 x[[<span class="st">&quot;a&quot;</span>]]
 <span class="co">#&gt; [1] 1 2</span>
 x[<span class="st">&quot;a&quot;</span>]
@@ -667,7 +667,7 @@ x[<span class="dv">1</span>, ]
 <ol style="list-style-type: decimal">
 <li>What does <code>hms::hms(3600)</code> return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>hms::<span class="kw">hms</span>(<span class="dv">3600</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>hms<span class="op">::</span><span class="kw">hms</span>(<span class="dv">3600</span>)
 <span class="kw">class</span>(x)
 <span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span>
 x
@@ -687,7 +687,7 @@ x
 <li>Try and make a tibble that has columns with different lengths. What happens?</li>
 </ol>
 <p>If I try to create at tibble with a scalar and column of a different length there are no issues, and the scalar is repeated to the length of the longer vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">1</span>:<span class="dv">5</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
 <span class="co">#&gt; # A tibble: 5 × 2</span>
 <span class="co">#&gt;       x     y</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;</span>
@@ -697,14 +697,14 @@ x
 <span class="co">#&gt; 4     1     4</span>
 <span class="co">#&gt; 5     1     5</span></code></pre></div>
 <p>However, if I try to create a tibble with two vectors of different lengths (other than one), the <code>tibble</code> function throws an error.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">3</span>, <span class="dt">y =</span> <span class="dv">1</span>:<span class="dv">4</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)
 <span class="co">#&gt; Error: Variables must be length 1 or 4.</span>
 <span class="co">#&gt; Problem variables: &#39;x&#39;</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Based on the definition above, is it ok to have a list as a column of a tibble?</li>
 </ol>
 <p>If I didn’t already know the answer, what I would do is try it out. From the above, the error message was about vectors having different lengths. But there is nothing that prevents a tibble from having vectors of different types: doubles, character, integers, logical, factor, date. The later are still atomic, but they have additional attributes. So, maybe there won’t be an issue with a list vector as long as it is the same length.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">1</span>, <span class="kw">list</span>(<span class="dv">1</span>:<span class="dv">3</span>)))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">1</span>, <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)))
 <span class="co">#&gt; # A tibble: 3 × 2</span>
 <span class="co">#&gt;       x          y</span>
 <span class="co">#&gt;   &lt;int&gt;     &lt;list&gt;</span>
