@@ -62,7 +62,7 @@ filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
 
 *Were delayed by at least an hour, but made up over 30 minutes in flight*
 ```{r}
-filter(flights, !is.na(dep_delay), dep_delay >= 60, arr_delay < 30)
+filter(flights, !is.na(dep_delay), dep_delay >= 60, dep_delay-arr_delay > 30)
 ```
 
 *Departed between midnight and 6am (inclusive)*.
