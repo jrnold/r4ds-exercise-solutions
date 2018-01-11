@@ -1,17 +1,17 @@
 
 ---
 knit: "bookdown::render_book"
-title: "Exercise Solutions to for \"R for Data Science\""
+title: "Exercise Solutions to \"R for Data Science\""
 author: Jeffrey B. Arnold
 #url: "http://jrnold.github.io/e4qf"
-github-repo: "jrnold/e4qf"
+github-repo: "jrnold/r4ds-exercise-solutions"
 site: bookdown::bookdown_site
 documentclass: book
 ---
 
 # Welcome {-}
 
-This contains my exercise solutions and notes for Hadley Wickham and Garret Grolemund, [R for Data Science](http://amzn.to/2aHLAQ1). The original website is at [r4ds.had.co.nz](http://r4ds.had.co.nz/).
+This contains my exercise solutions for Hadley Wickham and Garret Grolemund, [R for Data Science](http://amzn.to/2aHLAQ1). The original website is at [r4ds.had.co.nz](http://r4ds.had.co.nz/).
 
 Note that the chapter and section numbers don't exactly match those of R4DS.
 Refer to the titles, not the numbers.
