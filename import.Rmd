@@ -29,7 +29,7 @@ union(names(formals(read_csv)), names(formals(read_tsv)))
 ```
 
 - `col_names` and `col_types` are used to specify the column names and how to parse the columns
-- `locale` is important for determining things like the enecoding and whether "." or "," is used as a decimal mark.
+- `locale` is important for determining things like the encoding and whether "." or "," is used as a decimal mark.
 - `na` and `quoted_na` control which strings are treated as missing values when parsing vectors
 - `trim_ws` trims whitespace before and after cells before parsing
 - `n_max` sets how many rows to read
@@ -135,7 +135,7 @@ The [readr vignette](https://cran.r-project.org/web/packages/readr/vignettes/loc
 locale()
 ```
 
-Examples from the readr vignette of parsing French dates
+Examples from the **readr** vignette of parsing French dates
 ```{r}
 parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
 parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
@@ -182,17 +182,19 @@ The list in the documentation for `stringi::stri_enc_detect` is pretty good sinc
 - Arabic: ISO-8859-6, IBM420, Windows 1256
 
 
-For more information:
+For more information on character encodings:
 
-- https://en.wikipedia.org/wiki/Character_encoding has a good list
-- http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language
-- http://kunststube.net/encoding/
+- The Wikipedia page [Character encoding](https://en.wikipedia.org/wiki/Character_encoding), has a good list of encodings.
+- Unicode [CLDR](http://cldr.unicode.org/) project 
+- [What is the most common encoding of each language](http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language) (Stack Overflow)
+- "What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text
+", <http://kunststube.net/encoding/>.
 
-Some of the more useful programs for this
+Some program that identify the encoding of text are:
 
 - In R see `readr::guess_encoding` and the **stringi** package with `str_enc_detect`
-- iconv: https://en.wikipedia.org/wiki/Iconv
-- chardet: https://github.com/chardet/chardet (Python)
+- [iconv](https://en.wikipedia.org/wiki/Iconv)
+- [chardet](https://github.com/chardet/chardet) (Python)
 
 7. Generate the correct format string to parse each of the following dates and times:
 

@@ -23,8 +23,7 @@ library("nycflights13")
 
 *1. Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.*
 
-In order to make it eaiser to plot them, I'll reshape the dataset so that I 
-can use the variables as facets.
+In order to make it easier to plot them, I'll reshape the dataset so that I can use the variables as facets.
 ```{r}
 diamonds %>%
   mutate(id = row_number()) %>%
@@ -37,11 +36,11 @@ diamonds %>%
 
 ```
 
-There several noticeable features of thedistributions
+There several noticeable features of the distributions
 
 1. They are right skewed, with most diamonds small, but a few very large ones.
 2. There is an outlier in `y`, and `z` (see the rug)
-3. All three distributions have a bimodality (perhaps due to some sort of threshhold)
+3. All three distributions have a bimodality (perhaps due to some sort of threshold)
 
 According to the documentation for `diamonds`:
 `x` is length, `y` is width, and `z` is depth.
@@ -50,9 +49,9 @@ I don't know if I would have figured that out before; maybe if there was data on
 
 *2. Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the binwidth and make sure you try a wide range of values.)*
 
-- The price data is spikey, but I can't tell what that corresponds to, as the following plots don't show much difference in the distributions in the last one and last two digits.
-- There are no diamonds with a price of 1500
-- There's a bulge in the distribution around 7500.
+- The price data has many spikes, but I can't tell what each spike corresponds to. The following plots don't show much difference in the distributions in the last one or two digits.
+- There are no diamonds with a price of $1,500
+- There's a bulge in the distribution around $7,500.
 
 ```{r}
 ggplot(filter(diamonds, price < 2500), aes(x = price)) +
@@ -113,7 +112,7 @@ diamonds %>%
 
 
 
-**Q** Can you think of other examples of similar phenoma where you might expect to see similar discontinuities in areas related to your research.
+**Q** Can you think of other examples of similar phenomena where you might expect to see similar discontinuities in areas related to your research.
 
 4. Compare and contrast `coord_cartesian()` vs `xlim()` or `ylim()` when zooming in on a histogram. What happens if you leave `binwidth` unset? What happens if you try and zoom so only half a bar shows?
 
@@ -175,29 +174,29 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 
 ### A categorical and continuous variable
 
-For a history of the boxplot see Wikckham [40 years of the boxplot] (http://vita.had.co.nz/papers/boxplots.pdf)
+For a history of the box plot see Wickham [40 years of the box plot](http://vita.had.co.nz/papers/boxplots.pdf)
 
-Krywinski, Martin, and Naomi Altman. 2014. "Points of Significance: Visualizing samples with box plots." *Nature Methods* [URL](http://www.nature.com/nmeth/journal/v11/n2/full/nmeth.2813.html)
+> Krywinski, Martin, and Naomi Altman. 2014. "Points of Significance: Visualizing samples with box plots." *Nature Methods* [URL](http://www.nature.com/nmeth/journal/v11/n2/full/nmeth.2813.html)
 
-Where does the 1.5 x IQR come from? It's kind of arbitrary. But in a normal distribution, the IQR is approximatley 2, and 1.5 x IQR is approx 4, so the outliers are approximately within 4 standard deviations of the median (mean).
+Where does the 1.5 x IQR come from? It's somewhat arbitrary. But in a normal distribution, the IQR is approximately 2, and 1.5 x IQR is approx 4, so the outliers are approximately within 4 standard deviations of the median (mean).
 
 
-#### Excercises
+#### Exercises
 
-1.  Use what you've learned to improve the visualisation of the departure times
-    of cancelled vs. non-cancelled flights.
+1.  Use what you've learned to improve the visualization of the departure times
+    of canceled vs. non-canceled flights.
  
 Instead of a `freqplot` use a box-plot
 ```{r}
 nycflights13::flights %>% 
   mutate(
-    cancelled = is.na(dep_time),
+    canceled = is.na(dep_time),
     sched_hour = sched_dep_time %/% 100,
     sched_min = sched_dep_time %% 100,
     sched_dep_time = sched_hour + sched_min / 60
   ) %>% 
   ggplot() +
-    geom_boxplot(mapping = aes(y = sched_dep_time, x = cancelled))
+    geom_boxplot(mapping = aes(y = sched_dep_time, x = canceled))
 ```
 
 2. What variable in the diamonds dataset is most important for predicting
@@ -207,10 +206,10 @@ nycflights13::flights %>%
 
 I'm not exactly sure what this question is asking conditional on using only the tools introduced in the book thus far.
 
-3. Install the **ggstance** package, and create a horizontal boxplot.
+3. Install the **ggstance** package, and create a horizontal box plot.
    How does this compare to using `coord_flip()`?
    
-Earlier we created a horizontal boxplot of the distribution `hwy` by `class`, using `geom_boxplot` and `coord_flip`:   
+Earlier we created a horizontal box plot of the distribution `hwy` by `class`, using `geom_boxplot` and `coord_flip`:   
 ```{r}
 ggplot(data = mpg) +
   geom_boxplot(mapping = aes(x = reorder(class, hwy, FUN = median), y = hwy)) +
@@ -226,12 +225,12 @@ ggplot(data = mpg) +
 
 ```
 
-4. One problem with boxplots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of “outlying values”. One approach to remedy this problem is the letter value plot. Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut. What do you learn? How do you interpret the plots?
+4. One problem with box plots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of “outlying values”. One approach to remedy this problem is the letter value plot. Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut. What do you learn? How do you interpret the plots?
 
 The boxes of the letter-value plot correspond to many more quantiles.
 They are useful for larger datasets because
 
-1. larger datasets can give precise estiamtes of quantiles beyond the quartiles
+1. larger datasets can give precise estimates of quantiles beyond the quartiles
 2. in expectation, larger datasets should have many more outliers
 
 The letter-value plot is described in:
@@ -244,12 +243,12 @@ ggplot(diamonds, aes(x = cut, y = price)) +
   geom_lv()
 ```
 
-5. Compare and contrast `geom_violin()` with a facetted `geom_histogram()`,
-   or a coloured `geom_freqpoly()`. What are the pros and cons of each 
+5. Compare and contrast `geom_violin()` with a faceted `geom_histogram()`,
+   or a colored `geom_freqpoly()`. What are the pros and cons of each 
    method?
 
 I produce plots for these three methods below. The `geom_freqpoly` is better for look-up: meaning that given a price, it is easy to tell which `cut` has the highest density. However, the overlapping lines makes it difficult to distinguish how the overall distributions relate to each other.
-The `geom_violin` and facetted `geom_histogram` have similar strengths and weaknesses.
+The `geom_violin` and faceted `geom_histogram` have similar strengths and weaknesses.
 It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
 However, since we can't easily compare the vertical values of the distribution, its difficult to look up which category has the highest density for a given price.
 All of these methods depend on tuning parameters to determine the level of smoothness of the distribution.
@@ -288,7 +287,7 @@ There are two methods:
 - `geom_quasirandom` that produces plots that resemble something between jitter and violin. There are several different methods that determine exactly how the random location of the points is generated.
 - `geom_beeswarm` creates a shape similar to a violin plot, but by offsetting the points.
     
-I'll use the `mpg`  boxplot example since these methods display individual points, they are better suited for smaller datasets.
+I'll use the `mpg`  box plot example since these methods display individual points, they are better suited for smaller datasets.
 
 ```{r}
 library("ggbeeswarm")
@@ -337,7 +336,7 @@ ggplot(data = mpg) +
 
 ### Two categorical variables
 
-1. How could you rescale the count dataset above to more clearly show the distribution of cut within colour, or colour within cut?
+1. How could you rescale the count dataset above to more clearly show the distribution of cut within color, or color within cut?
 
 TO clearly show the distribution of `cut` within `color`, calculate a new variable `prop` which is the proportion of each cut within a `color`.
 This is done using a grouped mutate.
@@ -381,7 +380,7 @@ flights %>%
 
 There are several things that could be done to improve it,
 
-- sort destinations by a meaningful quanity (distance, number of flights, average delay)
+- sort destinations by a meaningful quantity (distance, number of flights, average delay)
 - remove missing values
 - better color scheme (viridis)
 
@@ -423,9 +422,9 @@ Another justification, for switching the order is that the larger numbers are at
 
 ### Two continuous variables
 
-1.  Instead of summarising the conditional distribution with a boxplot, you
+1.  Instead of summarizing the conditional distribution with a box plot, you
 could use a frequency polygon. What do you need to consider when using
-`cut_width()` vs `cut_number()`? How does that impact a visualisation of
+`cut_width()` vs `cut_number()`? How does that impact a visualization of
 the 2d distribution of `carat` and `price`?
 
 When using `cut_width` the number in each bin may be unequal.
@@ -460,16 +459,16 @@ ggplot(data = diamonds,
   geom_freqpoly()
 ```
 
-2.  Visualise the distribution of `carat`, partitioned by `price`.
+2.  Visualize the distribution of `carat`, partitioned by `price`.
 
-With a boxplot, partitionining into an 10 bins with the same number of observations:
+With a box plot, partitioning into an 10 bins with the same number of observations:
 ```{r}
 ggplot(diamonds, aes(x = cut_number(price, 10), y = carat)) +
   geom_boxplot() +
   coord_flip() +
   xlab("Price")
 ```
-With a boxplot, partitionining into an bins of \$2,000 with the width of the box determined by the number of observations. I use `boundary = 0` to ensure the first bin goes from \$0--\$2,000.
+With a box plot, partitioning into an bins of \$2,000 with the width of the box determined by the number of observations. I use `boundary = 0` to ensure the first bin goes from \$0--\$2,000.
 ```{r}
 ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
   geom_boxplot(varwidth = TRUE) +
@@ -484,7 +483,7 @@ The distribution of very large diamonds is more variable.
 I'm not surprised, since I had a very weak prior about diamond prices.
 Ex post, I would reason that above a certain size other factors such as cut, clarity, color play more of a role in the price.
 
-4.  Combine two of the techniques you've learned to visualise the combined distribution of cut, carat, and price.
+4.  Combine two of the techniques you've learned to visualize the combined distribution of cut, carat, and price.
 
 There's lots of options to try: Here's a couple. What else did you try? What's the best way? 
 
