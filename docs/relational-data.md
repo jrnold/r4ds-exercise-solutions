@@ -135,7 +135,7 @@ nrow(ggplot2::diamonds)
 ```
 
 
-4. Draw a diagram illustrating the connections between the Batting, Master, and Salaries tables in the Lahman package. Draw another diagram that shows the relationship between Master, Managers, AwardsManagers.
+4. Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
 
 - `Batting`
   - primary key: `playerID`, `yearID`, `stint`
@@ -162,7 +162,7 @@ nrow(ggplot2::diamonds)
 `lgID` and `teamID` appear in multiple tables, but should be primary keys for league and team tables.
 
 
-3. How would you characterise the relationship between the Batting, Pitching, and Fielding tables?
+3. How would you characterize the relationship between the Batting, Pitching, and Fielding tables?
 
 ## Mutating Joins
 
@@ -222,9 +222,9 @@ avg_dest_delays %>%
 <img src="relational-data_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-You might want to use the size or colour of the points to display the average delay for each airport.
+You might want to use the size or color of the points to display the average delay for each airport.
 
-2. Add the location of the origin and destination (i.e. the lat and lon) to flights.
+2. Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
 
 
 ```r
@@ -251,7 +251,7 @@ flights %>%
 
 3. Is there a relationship between the age of a plane and its delays?
 
-Suprisingly not. If anything (departure) delay seems to decrease slightly with age (perhaps because of selection):
+Surprisingly not. If anything (departure) delay seems to decrease slightly with age (perhaps because of selection):
 
 ```r
 plane_ages <- 
@@ -300,9 +300,9 @@ flight_weather %>%
 
 5. What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
 
-There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](ttps://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series))
+There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series))
 
-The largest delays are in Tennessee (Nashville) and the Southeaste and Midwest (the location of the derechos).
+The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest, which were the locations of the derechos:
 
 ```r
 library(viridis)
@@ -449,7 +449,7 @@ flights %>%
 
 `anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.
 
-`anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that don't have a flight in the data, meaning that there were no flights to that aiport **from** New York in 2013.
+`anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that don't have a flight in the data, meaning that there were no flights to that airport **from** New York in 2013.
 
 
 5. You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.

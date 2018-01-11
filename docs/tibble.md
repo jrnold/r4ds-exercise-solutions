@@ -1,7 +1,7 @@
 
 # Tibbles
 
-## Prerquisites
+## Prerequisites
 
 
 ```r
@@ -23,7 +23,7 @@ No exercises
 
 ## Interacting with older code
 
-No excercises
+No exercises
 
 ## Exercises
 
@@ -79,9 +79,9 @@ class(as_tibble(mtcars))
 #> [1] "tbl_df"     "tbl"        "data.frame"
 ```
 
-Tibbles will only print out a limited number of rows and show the class on top of each column. Addtionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
+Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
 
-2. Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?
+2. Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
 
 
 ```r
@@ -121,8 +121,7 @@ With data.frames, with `[` the type of object that is returned differs on the nu
 
 3. If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
 
-You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign,
-becuase `df$var` would look for a column named `var`. 
+You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign, because `df$var` would look for a column named `var`. 
 
 4. Practice referring to non-syntactic names in the following data frame by:
 
@@ -153,7 +152,7 @@ annoying$`1`
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
-A scatterplot of `1` vs. `2`:
+A scatter plot of `1` vs. `2`:
 
 ```r
 ggplot(annoying, aes(x = `1`, y = `2`)) +

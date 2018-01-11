@@ -14,7 +14,7 @@ my_varıable
 ```
 
 The variable being printed is `my_varıable`, not `my_variable`:
-the seventh character is "ı" (LATIN SMALL LETTER DOTLESS I) not "i". 
+the seventh character is "ı" ("LATIN SMALL LETTER DOTLESS I"), not "i". 
 
 While it wouldn't have helped much in this case, the importance of distinguishing characters in code is reasons why fonts which clearly distinguish similar characters are preferred in programming: especially important are distinguishing between zero (0), Latin small letter O (o), and Latin capital letter O (O); and the numeral one (1), Latin small letter I (i), Latin capital letter I (i), and Latin small letter L (l).
 In these fonts, zero and the Latin letter O are often distinguished by using a glyph for zero that uses either a dot in the interior or a slash through it.
@@ -107,7 +107,7 @@ filter(diamonds, carat > 3)
 #> # ... with 26 more rows
 ```
 
-How did I know? I started typing in `diamond` and RStudio autocorrected it to `diamonds`. 
+How did I know? I started typing in `diamond` and RStudio completed it to `diamonds`. 
 Since `diamonds` includes the variable `carat` and the code works, that appears to have been the problem.
 
 3. Press Alt + Shift + K. What happens? How can you get to the same place using the menus?

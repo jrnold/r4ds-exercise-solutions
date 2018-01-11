@@ -13,7 +13,7 @@ library(tidyverse)
 
 ### Exercises
 
-1. Using prose, describe how the variables and observations are organised in each of the sample tables.
+1. Using prose, describe how the variables and observations are organized in each of the sample tables.
 
 In `table1` each row is a (country, year) with variables `cases` and `population`.
 
@@ -92,7 +92,7 @@ table4b
   
 Which representation is easiest to work with? Which is hardest? Why?
 
-Without using the joins covered in Ch 12:
+Without using the join functions introduced in Ch 12:
 
 ```r
 tb2_cases <- filter(table2, type == "cases")[["count"]]
@@ -223,7 +223,8 @@ stocks %>%
 ```
 
 The functions `spread` and `gather` are not perfectly symmetrical because column type information is not transferred between them. 
-In the original table the column `year` was numeric, but after the spread-gather cyle it is character, because with `gather`, variable names are always converted to a character vector.
+In the original table the column `year` was numeric, but after running `spread()` and `gather()` it is a character vector. 
+This is because variable names are always converted to a character vector by `gather()`.
 
 The `convert` argument tries to convert character vectors to the appropriate type. 
 In the background this uses the `type.convert` function.
@@ -509,7 +510,7 @@ You would set it to `FALSE` if you want to create a new variable, but keep the o
 3. Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
 
 The function `extract` uses a regular expression to find groups and split into columns.
-In `unite` it is unambigous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the `sep`.
+In `unite` it is unambiguous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the `sep`.
 In `separate`, it is one to many, and there are multiple ways to split the character string.
 
 
@@ -696,7 +697,7 @@ select(who3, country, iso2, iso3) %>%
 ```
 
 
-4. For each country, year, and sex compute the total number of cases of TB. Make an informative visualisation of the data.
+4. For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
 
 
 ```r
@@ -719,5 +720,4 @@ Focusing on those countries with the largest changes or absolute magnitudes afte
 
 ## Non-Tidy Data
 
-- Corpus and text data is often stored in sparse Matrices https://cran.r-project.org/web/packages/tm/tm.pdf
-- Graphical data has its own format: http://igraph.org/r/doc/
+No exercises

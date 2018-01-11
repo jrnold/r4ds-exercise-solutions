@@ -47,9 +47,9 @@ flights_dt %>% head
 
 Times are often stored as integers since a reference time, called an epoch.
 The most epoch is the [UNIX](https://en.wikipedia.org/wiki/Unix_time) (or POSIX) Epoch of January 1st, 1970 00:00:00.
-So, interally, times are stored as the number of days, seconds, or milliseconds, etc. since the 1970-01-01 00:00:00.000.
+Internally, times are stored as the number of days, seconds, or milliseconds, etc. since the 1970-01-01 00:00:00.000.
 
-Calculate dates and datetimes from number of seconds (`as_datetime`) or days (`as_date`) from Unix epoch.
+Calculate dates and date-times from number of seconds (`as_datetime`) or days (`as_date`) from Unix epoch.
 
 ```r
 as_datetime(60 * 60 * 10)
@@ -79,11 +79,11 @@ ret
 
 It produces an `NA` and an warning message.
 
-2. What does the tzone argument to `today()` do? Why is it important?
+2. What does the `tzone` argument to `today()` do? Why is it important?
 
 It determines the time-zone of the date. Since different time-zones can have different dates, the value of `today()` can vary depending on the time-zone specified.
 
-3. Use the appropriate lubridate function to parse each of the following dates:
+3. Use the appropriate **lubridate** function to parse each of the following dates:
 
 
 ```r
@@ -119,7 +119,7 @@ sched_dep <- flights_dt %>%
 ```
 
 
-**Note** The difference between rounded and unrounded dates provides the within period time.
+**Note** The difference between rounded and un-rounded dates provides the within period time.
 
 
 ```r
@@ -192,7 +192,7 @@ flights_dt %>%
 #> # ... with 1,199 more rows
 ```
 
-There exist discrepencies. It looks like there are mistakes in the dates.
+There exist discrepancies. It looks like there are mistakes in the dates.
 These are flights in which the actual departure time is on the *next* day relative to the scheduled departure time. We forgot to account for this when creating the date-times. The code would have had to check if the departure time is less than the scheduled departure time. Alternatively, simply adding the delay time is more robust because it will automatically account for crossing into the next day.
 
 3. Compare `air_time` with the duration between the departure and arrival. Explain your findings. 
@@ -234,7 +234,7 @@ flights_dt %>%
 
 <img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
-5. On what day of the week should you leave if you want to minimise the chance of a delay?
+5. On what day of the week should you leave if you want to minimize the chance of a delay?
 
 Sunday has the lowest average departure delay time and the lowest average arrival delay time.
 
@@ -352,13 +352,13 @@ flights_dt <- flights_dt %>%
 
 1. Why is there `months()` but no `dmonths()`? 
 
-There is no direct unambigous value of months in seconds: 
+There is no direct unambiguous value of months in seconds since months have differing numbers of days. 
 
-- 31 days: Jan, Mar, May, Jul, Aug, Oct,
-- 30 days: Apr, Jun, Sep, Nov, Dec
-- 28 or 29 days: Feb
+- 31 days: January, March, May, July, August, October
+- 30 days: April, Jun, September, November, December
+- 28 or 29 days: February
 
-Though in the past, in the pre-computer era, for arithmetic convenience, bankers adopoted a 360 day year with 30 day months.
+Though in the past, in the pre-computer era, for arithmetic convenience, bankers adopted a 360 day year with 30 day months.
 
 2. Explain `days(overnight * 1)` to someone who has just started learning R. How does it work? 
 

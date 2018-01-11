@@ -92,7 +92,7 @@ sum(y)
 ```
 
 This function calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values). 
-The coefficient of variation is the standard deviation devided by the mean:
+The coefficient of variation is the standard deviation divided by the mean:
 
 ```r
 coef_variation <- function(x) {
@@ -102,9 +102,9 @@ coef_variation(runif(10))
 #> [1] 0.672
 ```
 
-**Ex 4.** Follow http://nicercode.github.io/intro/writing-functions.html to write your own functions to compute the variance and skew of a numeric vecto
+**Ex 4.** Follow <http://nicercode.github.io/intro/writing-functions.html> to write your own functions to compute the variance and skew of a numeric vector.
 
-**Note** The math in https://nicercode.github.io/intro/writing-functions.html seems not to be rendering, but I'll write functions for the variance and skewness.
+**Note** The math in <https://nicercode.github.io/intro/writing-functions.html> seems not to be rendering, but I'll write functions for the variance and skewness.
 
 The sample variance is defined as 
 $$
@@ -479,7 +479,7 @@ rule("Important output", pad = "-+")
 #> Important output -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
 It does not work because it duplicates pad by the width minus the length of the string.
-This is implictly assuming that pad is only one character.
+This is implicitly assuming that pad is only one character.
 I could adjust the code to calculate the length of pad.
 The trickiest part is handling what to do if width is not a multiple of the number of characters of `pad`.
 
@@ -506,7 +506,7 @@ rule("Important output", pad = "-+-")
 **Ex 3.** What does the `trim` argument to `mean()` do? When might you use it?
 
 The `trim` arguments trims a fraction of observations from each end of the vector (meaning the range) before calculating the mean.
-This is useful for calculating a measure of central tendancy that is robust to outliers.
+This is useful for calculating a measure of central tendency that is robust to outliers.
 
 **Ex 4.** The default value for the `method` argument to `cor()` is `c("pearson", "kendall", "spearman")`. What does that mean? What value is used by default?
 

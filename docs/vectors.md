@@ -36,7 +36,7 @@ is.finite(x)
 ```
 
 `is.finite` considers only a number to be finite, and considers missing (`NA`), not a number (`NaN`), and positive and negative infinity to be not finite.
-However, since `is.infinite` only considers `Inf` and `-Inf` to be inifinite, `!is.infinite` considers `0` as well as missing and not-a-number to be not infinite.
+However, since `is.infinite` only considers `Inf` and `-Inf` to be infinite, `!is.infinite` considers `0` as well as missing and not-a-number to be not infinite.
 
 So `NA` and `NaN` are neither finite or infinite. Mind blown.
 
@@ -56,11 +56,11 @@ dplyr::near
 Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, `tol`. 
 By default the tolerance is set to the square root of `.Machine$double.eps`, which is the smallest floating point number that the computer can represent.
 
-3. A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use google to do some research.
+3. A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use Google to do some research.
 
 The help for `.Machine` describes some of this:
 
-  As all current implementations of R use 32-bit integers and usne IEC 60559 floating-point (double precision) arithmetic,
+  As all current implementations of R use 32-bit integers and uses IEC 60559 floating-point (double precision) arithmetic,
 
 The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) or IEEE 754 format uses a 64 bit vector, but 
 
@@ -68,7 +68,7 @@ The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_fo
 4. Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
 
 Broadly, could convert a double to an integer by truncating or rounding to the nearest integer.
-For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determing which integer value to go to.
+For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determining which integer value to go to.
 
 methods                        0.5  -0.5  1.5  -1.5 
 ============================== ==== ===== ==== ==== 
@@ -108,7 +108,7 @@ Consider the sequence $-100.5, -99.5, \dots, 0, \dots, 99.5, 100.5$.
 Its sum is 0. 
 It would be nice if rounding preserved that sum. 
 Using the "ties towards even", the sum is still zero. 
-Hoever, the "ties towards $+\infty$" produces a non-zero number.
+However, the "ties towards $+\infty$" produces a non-zero number.
 
 ```r
 x <- seq(-100.5, 100.5, by = 1)
@@ -149,7 +149,7 @@ parse_number(c("1.0", "3.5", "1,000", "NA"))
 #> [1]    1.0    3.5 1000.0     NA
 ```
 
-Read the documentation of `read_number`. In order to ignore things like currency symbols and comma seperators in number strings it ignores them using a heuristic.
+Read the documentation of `read_number`. In order to ignore things like currency symbols and comma separators in number strings it ignores them using a heuristic.
 
 
 ## Using atomic vectors
@@ -164,7 +164,7 @@ mean(is.na(x))
 #> [1] 0.143
 ```
 
-The expression `mean(!is.finite(x))` calcualtes the proportion of values that are `NA`, `NaN`, or infinite.
+The expression `mean(!is.finite(x))` calculates the proportion of values that are `NA`, `NaN`, or infinite.
 
 ```r
 mean(!is.finite(x))
@@ -339,7 +339,8 @@ x <= 0
 ```
 
 `-which(x > 0)` which calculates the indexes for any value that is `TRUE` and ignores `NA`. Thus is keeps `NA` and `NaN` because the comparison is not `TRUE`.
-`x <= 0` works slightly differently. If `x <= 0` returns `TRUE` or `FALSE` it works the same way. Hoewver, if the comparison generates a `NA`, then it will always keep that entry, but set it to `NA`. This is why the last two values of `x[x <= 0]` are `NA` rather than `c(NaN, NA)`.
+`x <= 0` works slightly differently. If `x <= 0` returns `TRUE` or `FALSE` it works the same way. 
+However, if the comparison generates a `NA`, then it will always keep that entry, but set it to `NA`. This is why the last two values of `x[x <= 0]` are `NA` rather than `c(NaN, NA)`.
 
 
 6. What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?
@@ -422,7 +423,7 @@ typeof(x)
 #> [1] "double"
 ```
 
-The atttributes is uses are `"units"` and `"class"`.
+The attributes is uses are `"units"` and `"class"`.
 
 ```r
 attributes(x)
@@ -457,7 +458,7 @@ tibble(x = 1:3, y = 1:4)
 ```
 
 
-3. Based on the definition above, is it ok to have a list as a column of a tibble?
+3. Based on the definition above, is it OK to have a list as a column of a tibble?
 
 If I didn't already know the answer, what I would do is try it out. 
 From the above, the error message was about vectors having different lengths.
@@ -476,6 +477,6 @@ tibble(x = 1:3, y = list("a", 1, list(1:3)))
 #> 3     3 <list [1]>
 ```
 
-It works! I even used a list with heterogenous types and there wasn't an issue.
+It works! I even used a list with heterogeneous types and there wasn't an issue. 
 In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
 

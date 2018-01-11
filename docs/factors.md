@@ -54,7 +54,7 @@ rincome_plot +
 
 <img src="factors_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
-This is better, but it unituively goes from low to high. It would help if the
+This is better, but it unintuitively goes from low to high. It would help if the
 scale is reversed. Also, if all the missing factors were differentiated.
 
 
@@ -87,7 +87,7 @@ gss_cat %>%
 ```
 
 
-4. Which `relig` does `denom` (denomination) apply to? How can you find out with a table? How can you find out with a visualisation?
+4. Which `relig` does `denom` (denomination) apply to? How can you find out with a table? How can you find out with a visualization?
 
 
 ```r
@@ -157,13 +157,13 @@ gss_cat %>%
 
 <img src="factors_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
-Whether the mean is the best summary epends on what you are using it for :-), i.e. your objective. 
+Whether the mean is the best summary depends on what you are using it for :-), i.e. your objective. 
 But probably the median would be what most people prefer. 
-And the hours of tv doesn't look that surprising to me.
+And the hours of TV doesn't look that surprising to me.
 
-2. For each factor in gss_cat identify whether the order of the levels is arbitrary or principled.
+2. For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
 
-The following piece of code uses functions covered in Ch 21, to print out the names of only the factors.
+The following piece of code uses functions introduced in Ch 21, to print out the names of only the factors.
 
 ```r
 keep(gss_cat, is.factor) %>% names()

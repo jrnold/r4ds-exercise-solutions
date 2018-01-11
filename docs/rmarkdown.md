@@ -3,14 +3,6 @@
 
 ## R Markdown Basics
 
-Doesn't describe what YAML is.
-
-- https://en.wikipedia.org/wiki/YAML
-- The Ansible Guide to YAML is pretty simple; you don't need to know what Ansible is: http://docs.ansible.com/ansible/YAMLSyntax.html
-- https://learnxinyminutes.com/docs/yaml/
-- http://codebeautify.org/yaml-validator
-- https://docs.saltstack.com/en/latest/topics/yaml/
-
 ### Exercise 
 
 1. Create a new notebook using File > New File > R Notebook. Read the instructions. Practice running the chunks. Verify that you can modify the code, re-run it, and see modified output.

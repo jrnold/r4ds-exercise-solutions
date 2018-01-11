@@ -15,7 +15,7 @@ library("tidyverse")
 
 #### Exercises
 
-1. Run ggplot(data = mpg) what do you see?
+1. Run `ggplot(data = mpg)` what do you see?
 
 
 ```r
@@ -38,7 +38,7 @@ ncol(mtcars)
 
 This can also be found by printing the dataset, or looking in the environment pane.
 
-3. What does the drv variable describe? Read the help for `?mpg` to find out.
+3. What does the `drv` variable describe? Read the help for `?mpg` to find out.
 
 
 ```r
@@ -48,10 +48,10 @@ This can also be found by printing the dataset, or looking in the environment pa
 The `drv` variable takes the following values
 
 - `"f"` = front-wheel drive
-- `"r"` = rear wheel drive
-- `"4"` = 4wd
+- `"r"` = rear-wheel drive
+- `"4"` = four-wheel drive
 
-4. Make a scatterplot of `hwy` vs `cyl`
+4. Make a scatter plot of `hwy` vs `cyl`
 
 
 ```r
@@ -61,7 +61,7 @@ ggplot(mpg, aes(x = hwy, y = cyl)) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
-5. What happens if you make a scatterplot of `class` vs `drv`. Why is the plot not useful?
+5. What happens if you make a  of `class` vs `drv`. Why is the plot not useful?
 
 
 ```r
@@ -71,7 +71,7 @@ ggplot(mpg, aes(x = class, y = drv)) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
-A scatterplot is not a useful way to plot these variables, since both `drv` and `class` are factor variables, and the scatterplot cannot show which are overlapping or not.
+A scatter plot is not a useful way to plot these variables, since both `drv` and `class` are factor variables, and the scatter plot cannot show which are overlapping or not.
 
 
 ```r
@@ -163,7 +163,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
-Instead of using discrete colors, the continous variable uses a scale that goes from black to bluish.
+Instead of using discrete colors, the continuous variable uses a scale that goes from black to bluish.
 
 
 ```r
@@ -251,7 +251,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 <img src="visualize_files/figure-html/ex.3.5.1.1-1.png" width="70%" style="display: block; margin: auto;" />
 
-It converts the continuous varible to a factor and creates facets for **all** unique values of it.
+It converts the continuous variable to a factor and creates facets for **all** unique values of it.
 
 2. What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
 
@@ -265,7 +265,7 @@ ggplot(data = mpg) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
-The locations in the above plot without points are the same cells in `facet_grid(drv ~ cyl)` tha have no points.
+The locations in the above plot without points are the same cells in `facet_grid(drv ~ cyl)` that have no points.
 
 3. What plots does the following code make? What does `.` do?
 
@@ -426,9 +426,9 @@ ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
 
 1. What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
 
-The default geom for [stat_summary](http://docs.ggplot2.org/current/stat_summary.html) is `geom_pointrange` (see the `stat`) argument.
+The default geom for [`stat_summary`](http://docs.ggplot2.org/current/stat_summary.html) is `geom_pointrange` (see the `stat`) argument.
 
-But, the default `stat` for [geom_pointrange](http://docs.ggplot2.org/current/geom_linerange.html) is `identity`, so use `geom_pointrange(stat = "summary")`. 
+But, the default `stat` for [`geom_pointrange`](http://docs.ggplot2.org/current/geom_linerange.html) is `identity`, so use `geom_pointrange(stat = "summary")`. 
 
 ```r
 ggplot(data = diamonds) + 
@@ -467,7 +467,7 @@ ggplot(data = diamonds) +
 
 See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
-4. What variables does `stat_smooth()` compute? What parameters control its behaviour?
+4. What variables does `stat_smooth()` compute? What parameters control its behavior?
 
 `stat_smooth` calculates
 
@@ -527,7 +527,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 ```
 
 <img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
-I'd fix it by using a jitter positition adjustment.
+I'd fix it by using a jitter position adjustment.
 
 ```r
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
@@ -578,11 +578,11 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 3. Compare and contrast `geom_jitter()` with `geom_count()`.
 
-4. What’s the default position adjustment for `geom_boxplot()`? Create a visualisation of the mpg dataset that demonstrates it.
+4. What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the mpg dataset that demonstrates it.
 
 The default position for `geom_boxplot` is `position_dodge` (see its [docs](http://docs.ggplot2.org/current/geom_boxplot.html)).
 
-When we add `color = class` to the boxplot, the different classes within `drv` are placed side by side, i.e. dodged. If it was `position_identity`, they would be overlapping.
+When we add `color = class` to the box plot, the different classes within `drv` are placed side by side, i.e. dodged. If it was `position_identity`, they would be overlapping.
 
 ```r
 ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
@@ -625,7 +625,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
 
-If `theta = "y"` is not specified, then you get a bullseye chart
+If `theta = "y"` is not specified, then you get a bull’s-eye chart
 
 ```r
 ggplot(mpg, aes(x = factor(1), fill = drv)) +
@@ -644,7 +644,7 @@ ggplot(data = diamonds) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
 
-you end up with a multi-donut chart
+you end up with a multi-doughnut chart
 
 ```r
 ggplot(data = diamonds) + 
@@ -673,12 +673,12 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 
 See the [docs](http://docs.ggplot2.org/current/coord_quickmap.html):
 
-- `coord_map` uses a 2D projection: by default the Mercatur project of the sphere to the plot. But this requires transforming all geoms.
+- `coord_map` uses a 2D projection: by default the Mercator project of the sphere to the plot. But this requires transforming all geoms.
 - `coord_quickmap` uses a quick approximation by using the lat/long ratio as an approximation. This is "quick" because the shapes don't need to be transformed.
 
 4. What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important? What does `geom_abline()` do?
 
-The coordinates `coord_fixed` ensures that the abline is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.
+The coordinates `coord_fixed` ensures that the `abline` is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.
 
 
 ```r
@@ -699,4 +699,3 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 ```
 
 <img src="visualize_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
-

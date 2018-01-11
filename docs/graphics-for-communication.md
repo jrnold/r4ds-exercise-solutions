@@ -54,7 +54,7 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ### Exercises
 
-**Ex 28.2.1**  Create one plot on the fuel economy data with customised `title`,
+**Ex 28.2.1**  Create one plot on the fuel economy data with customized `title`,
 `subtitle`, `caption`, `x`, `y`, and `colour` labels.
 
 
@@ -77,7 +77,7 @@ ggplot(data = mpg,
 
 **Ex 28.2.3** The `geom_smooth()` is somewhat misleading because the `hwy` for
 large engines is skewed upwards due to the inclusion of lightweight
-sports cars with big engines. Use your modelling tools to fit and display
+sports cars with big engines. Use your modeling tools to fit and display
 a better model.
 
 

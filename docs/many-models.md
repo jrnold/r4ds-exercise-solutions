@@ -6,17 +6,9 @@
 
 
 ```r
-library(modelr)
-library(tidyverse)
-#> ── Attaching packages ────────────────
-#> ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
-#> ✔ tibble  1.4.1     ✔ dplyr   0.7.4
-#> ✔ tidyr   0.7.2     ✔ stringr 1.2.0
-#> ✔ readr   1.1.1     ✔ forcats 0.2.0
-#> ── Conflicts ─────────────────────────
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-library(gapminder)
+library("modelr")
+library("tidyverse")
+library("gapminder")
 ```
 
 ## Gapminder
@@ -86,7 +78,7 @@ by_country %>%
 
 <img src="many-models_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
-**Ex 25.2.5** Explore other methods for visualising the distribution of $R^2$ per continent. You might want to try the ggbeeswarm package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.
+**Ex 25.2.5** Explore other methods for visualizing the distribution of $R^2$ per continent. You might want to try the **ggbeeswarm** package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.
 
 See exercise 7.5.1.1.6 for more on **ggbeeswarm**
 

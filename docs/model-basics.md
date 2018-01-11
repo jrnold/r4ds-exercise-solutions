@@ -214,7 +214,7 @@ measure_distance <- function(mod, data) {
 }
 ```
 
-To re-run this a few times use purrr
+To re-run this a few times use **purrr** functions:
 
 ```r
 simt <- function(i) {
@@ -241,7 +241,7 @@ ggplot(sims, aes(x = intercept, y = slope)) +
 <img src="model-basics_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-3. One challenge with performing numerical optimisation is that it’s only guaranteed to find one local optima. What’s the problem with optimising a three parameter model like this?
+3. One challenge with performing numerical optimization is that it’s only guaranteed to find a local optimum. What’s the problem with optimizing a three parameter model like this?
 
 
 ```r
@@ -330,7 +330,7 @@ ggplot(sim1, aes(x, resid)) +
 
 ### Exercises
 
-1. nstead of using `lm()` to fit a straight line, you can use `loess()` to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualisation on sim1 using `loess()` instead of `lm()`. How does the result compare to `geom_smooth()`?
+1. Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on `sim1` using `loess()` instead of `lm()`. How does the result compare to `geom_smooth()`?
 
 I'll use `add_predictions` and `add_residuals` to add the predictions and residuals from a loess regression to the `sim1` data. 
 
@@ -367,7 +367,7 @@ plot_sim1_loess +
 
 <img src="model-basics_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
 
-We can plot the residuals (red), and compare them to the residuals from lm (black). 
+We can plot the residuals (red), and compare them to the residuals from `lm` (black). 
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven't considered the uncertainty of these estimates).
 
 
@@ -394,7 +394,7 @@ A zero reference line makes it easier to judge these characteristics visually.
 4. Why might you want to look at a frequency polygon of absolute residuals? What are the pros and cons compared to looking at the raw residuals?
 
 The frequency polygon makes it easier to judge whether the variance and/or absolute size of the residuals varies with respect to x.
-This is called heteroskedasticity, and results in incorrect standard errors in inference.
+This pattern of residuals is called heteroskedasticity, and results in incorrect (biased) standard errors in inference.
 In prediction, this provides insight into where the model is working well and where it is not.
 What is lost, is that since the absolute values are shown, whether the model is over-predicting or underpredicting, or on average correctly predicting in different regions of x cannot be determined.
 
