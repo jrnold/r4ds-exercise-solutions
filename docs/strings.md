@@ -3,52 +3,17 @@
 
 ## Introduction
 
-Functions and packages coverered
-
-- **stringr** package
-- `str_length`
-- `str_c`
-- `str_replace_na`
-- `str_sub`
-- `str_to_uppser`, `str_sort`, `str_to_lower`, `str_order`
-- `str_length`, `str_pad`, `str_trim`, `str_sub`
-- For regex = `str_view`, `str_view_all`
-- regex syntax
-- `str_detect`
-- `str_subset`
-- `str_count`
-- `str_extract`
-- `str_match`
-- `tidyr::extract`
-- `str_split`
-- `str_locate`
-- `str_sub`
-- the **stringi** package
-
-Ideas
-
-- mention [`rex`](https://github.com/kevinushey/rex). A package with friendly regular expressions.
-- Use it to match country names? Extract numbers from text?
-- Discuss fuzzy joining and string distance, approximate matching.
-
-Also see 
-
-- [Character encoding](http://stat545.com/block032_character-encoding.html) Stat 545. Jenny Bryan.
-- [Character data](http://stat545.com/block028_character-data.html). Stat 545. Jenny Bryan.
-- [Regular expression in R](http://stat545.com/block022_regular-expression.html). Stat 545. Jenny Bryan.
-
 
 ```r
 library(tidyverse)
 library(stringr)
 ```
 
-
 ## String Basics
 
 ### Exercises
 
-1. In code that doesn’t use stringr, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What stringr function are they equivalent to? How do the functions differ in their handling of NA?
+1. In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What stringr function are they equivalent to? How do the functions differ in their handling of NA?
 
 The function `paste` seperates strings by spaces by default, while `paste0` does not seperate strings with spaces by default.
 
@@ -194,8 +159,8 @@ It will match any patterns that are a dot followed by any character, repeated th
 str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 ```
 
-<!--html_preserve--><div id="htmlwidget-4691559831f28a8b4772" style="width:960px;height:auto;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4691559831f28a8b4772">{"x":{"html":"<ul>\n  <li><span class='match'>$^$<\/span><\/li>\n  <li>ab$^$sfas<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d34691559831f28a8b47" style="width:960px;height:auto;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d34691559831f28a8b47">{"x":{"html":"<ul>\n  <li><span class='match'>$^$<\/span><\/li>\n  <li>ab$^$sfas<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 2. Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
 
@@ -416,8 +381,8 @@ str_view(str_to_lower(words), "([a-z][a-z]).*\\1", match = TRUE)
 str_view(words, "(.).*\\1.*\\1", match = TRUE)
 ```
 
-<!--html_preserve--><div id="htmlwidget-8d3407f82dc7e2d69ae8" style="width:960px;height:auto;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8d3407f82dc7e2d69ae8">{"x":{"html":"<ul>\n  <li>a<span class='match'>pprop<\/span>riate<\/li>\n  <li><span class='match'>availa<\/span>ble<\/li>\n  <li>b<span class='match'>elieve<\/span><\/li>\n  <li>b<span class='match'>etwee<\/span>n<\/li>\n  <li>bu<span class='match'>siness<\/span><\/li>\n  <li>d<span class='match'>egree<\/span><\/li>\n  <li>diff<span class='match'>erence<\/span><\/li>\n  <li>di<span class='match'>scuss<\/span><\/li>\n  <li><span class='match'>eleve<\/span>n<\/li>\n  <li>e<span class='match'>nvironmen<\/span>t<\/li>\n  <li><span class='match'>evidence<\/span><\/li>\n  <li><span class='match'>exercise<\/span><\/li>\n  <li><span class='match'>expense<\/span><\/li>\n  <li><span class='match'>experience<\/span><\/li>\n  <li><span class='match'>indivi<\/span>dual<\/li>\n  <li>p<span class='match'>aragra<\/span>ph<\/li>\n  <li>r<span class='match'>eceive<\/span><\/li>\n  <li>r<span class='match'>emembe<\/span>r<\/li>\n  <li>r<span class='match'>eprese<\/span>nt<\/li>\n  <li>t<span class='match'>elephone<\/span><\/li>\n  <li>th<span class='match'>erefore<\/span><\/li>\n  <li>t<span class='match'>omorro<\/span>w<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-6f8d3407f82dc7e2d69a" style="width:960px;height:auto;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6f8d3407f82dc7e2d69a">{"x":{"html":"<ul>\n  <li>a<span class='match'>pprop<\/span>riate<\/li>\n  <li><span class='match'>availa<\/span>ble<\/li>\n  <li>b<span class='match'>elieve<\/span><\/li>\n  <li>b<span class='match'>etwee<\/span>n<\/li>\n  <li>bu<span class='match'>siness<\/span><\/li>\n  <li>d<span class='match'>egree<\/span><\/li>\n  <li>diff<span class='match'>erence<\/span><\/li>\n  <li>di<span class='match'>scuss<\/span><\/li>\n  <li><span class='match'>eleve<\/span>n<\/li>\n  <li>e<span class='match'>nvironmen<\/span>t<\/li>\n  <li><span class='match'>evidence<\/span><\/li>\n  <li><span class='match'>exercise<\/span><\/li>\n  <li><span class='match'>expense<\/span><\/li>\n  <li><span class='match'>experience<\/span><\/li>\n  <li><span class='match'>indivi<\/span>dual<\/li>\n  <li>p<span class='match'>aragra<\/span>ph<\/li>\n  <li>r<span class='match'>eceive<\/span><\/li>\n  <li>r<span class='match'>emembe<\/span>r<\/li>\n  <li>r<span class='match'>eprese<\/span>nt<\/li>\n  <li>t<span class='match'>elephone<\/span><\/li>\n  <li>th<span class='match'>erefore<\/span><\/li>\n  <li>t<span class='match'>omorro<\/span>w<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ## Tools
 
@@ -468,13 +433,13 @@ df <- tibble(
 )
 df %>%
   filter(str_detect(words, "x$"))
-#> # A tibble: 4 × 2
-#>    word     i
+#> # A tibble: 4 x 2
+#>   word      i
 #>   <chr> <int>
-#> 1   box   108
-#> 2   sex   747
-#> 3   six   772
-#> 4   tax   841
+#> 1 box     108
+#> 2 sex     747
+#> 3 six     772
+#> 4 tax     841
 ```
 
 Number of matches in each string
@@ -498,15 +463,15 @@ df %>%
     vowels = str_count(word, "[aeiou]"),
     consonants = str_count(word, "[^aeiou]")
   )
-#> # A tibble: 980 × 4
-#>       word     i vowels consonants
-#>      <chr> <int>  <int>      <int>
-#> 1        a     1      1          0
-#> 2     able     2      2          2
-#> 3    about     3      3          2
+#> # A tibble: 980 x 4
+#>   word         i vowels consonants
+#>   <chr>    <int>  <int>      <int>
+#> 1 a            1      1          0
+#> 2 able         2      2          2
+#> 3 about        3      3          2
 #> 4 absolute     4      4          4
-#> 5   accept     5      2          4
-#> 6  account     6      3          4
+#> 5 accept       5      2          4
+#> 6 account      6      3          4
 #> # ... with 974 more rows
 ```
 
@@ -558,6 +523,7 @@ pattern <-
         }) %>%
   map_chr(~ str_c(unlist(.x), collapse = ".*")) %>%
   str_c(collapse = "|")
+#> Warning: `cross_n()` is deprecated; please use `cross()` instead.
 
 str_subset(words, pattern)
 #> character(0)
@@ -625,8 +591,8 @@ more <- sentences[str_count(sentences, colour_match) > 1]
 str_view_all(more, colour_match)
 ```
 
-<!--html_preserve--><div id="htmlwidget-092118b2671020ef37aa" style="width:960px;height:auto;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-092118b2671020ef37aa">{"x":{"html":"<ul>\n  <li>It is hard to erase <span class='match'>blue<\/span> or <span class='match'>red<\/span> ink.<\/li>\n  <li>The <span class='match'>green<\/span> light in the brown box flicke<span class='match'>red<\/span>.<\/li>\n  <li>The sky in the west is tinged with <span class='match'>orange<\/span> <span class='match'>red<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-e8092118b2671020ef37" style="width:960px;height:auto;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e8092118b2671020ef37">{"x":{"html":"<ul>\n  <li>It is hard to erase <span class='match'>blue<\/span> or <span class='match'>red<\/span> ink.<\/li>\n  <li>The <span class='match'>green<\/span> light in the brown box flicke<span class='match'>red<\/span>.<\/li>\n  <li>The sky in the west is tinged with <span class='match'>orange<\/span> <span class='match'>red<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 ```r
@@ -756,15 +722,15 @@ tibble(sentence = sentences) %>%
     sentence, c("article", "noun"), "(a|the) ([^ ]+)",
     remove = FALSE
   )
-#> # A tibble: 720 × 3
-#>                                      sentence article    noun
-#> *                                       <chr>   <chr>   <chr>
-#> 1  The birch canoe slid on the smooth planks.     the  smooth
-#> 2 Glue the sheet to the dark blue background.     the   sheet
-#> 3      It's easy to tell the depth of a well.     the   depth
-#> 4    These days a chicken leg is a rare dish.       a chicken
-#> 5        Rice is often served in round bowls.    <NA>    <NA>
-#> 6       The juice of lemons makes fine punch.    <NA>    <NA>
+#> # A tibble: 720 x 3
+#>   sentence                                    article noun   
+#> * <chr>                                       <chr>   <chr>  
+#> 1 The birch canoe slid on the smooth planks.  the     smooth 
+#> 2 Glue the sheet to the dark blue background. the     sheet  
+#> 3 It's easy to tell the depth of a well.      the     depth  
+#> 4 These days a chicken leg is a rare dish.    a       chicken
+#> 5 Rice is often served in round bowls.        <NA>    <NA>   
+#> 6 The juice of lemons makes fine punch.       <NA>    <NA>   
 #> # ... with 714 more rows
 ```
 
@@ -801,6 +767,42 @@ sentences %>%
 #>  [1] "It's"       "man's"      "don't"      "store's"    "workmen's" 
 #>  [6] "Let's"      "sun's"      "child's"    "king's"     "It's"      
 #> [11] "don't"      "queen's"    "don't"      "pirate's"   "neighbor's"
+```
+
+### Replacing Matches
+
+#### Exercises
+
+1. Replace all forward slashes in a string with backslashes.
+
+```r
+backslashed <- str_replace_all("past/present/future", "\\/", "\\\\")
+writeLines(backslashed)
+#> past\present\future
+```
+
+2. Implement a simple version of `str_to_lower()` using `replace_all()`.
+
+```r
+lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "F"="f", "G"="g", "H"="h", "I"="i", "J"="j", "K"="k", "L"="l", "M"="m", "N"="n", "O"="o", "P"="p", "Q"="q", "R"="r", "S"="s", "T"="t", "U"="u", "V"="v", "W"="w", "X"="x", "Y"="y", "Z"="z"))
+```
+
+3. Switch the first and last letters in `words`. Which of those strings are still words?
+
+```r
+# First, make a vector of all the words with first and last letters swapped
+swapped <- str_replace_all(words, "^([A-Za-z])(.*)([a-z])$", "\\3\\2\\1")
+# Next, find what of "swapped" is also in the original list using intersect() from previous chapter
+intersect(swapped,words)
+#>  [1] "a"          "america"    "area"       "dad"        "dead"      
+#>  [6] "lead"       "read"       "depend"     "god"        "educate"   
+#> [11] "else"       "encourage"  "engine"     "europe"     "evidence"  
+#> [16] "example"    "excuse"     "exercise"   "expense"    "experience"
+#> [21] "eye"        "dog"        "health"     "high"       "knock"     
+#> [26] "deal"       "level"      "local"      "nation"     "on"        
+#> [31] "non"        "no"         "rather"     "dear"       "refer"     
+#> [36] "remember"   "serious"    "stairs"     "test"       "tonight"   
+#> [41] "transport"  "treat"      "trust"      "window"     "yesterday"
 ```
 
 ### Splitting
@@ -859,14 +861,15 @@ str_extract_all(sentences, boundary("word")) %>%
   group_by(word) %>%
   count(sort = TRUE) %>%
   head(5)
-#> # A tibble: 5 × 2
-#>    word     n
+#> # A tibble: 5 x 2
+#> # Groups: word [5]
+#>   word      n
 #>   <chr> <int>
-#> 1   the   751
-#> 2     a   202
-#> 3    of   132
-#> 4    to   123
-#> 5   and   118
+#> 1 the     751
+#> 2 a       202
+#> 3 of      132
+#> 4 to      123
+#> 5 and     118
 ```
 
 ## stringi

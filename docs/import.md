@@ -3,28 +3,14 @@
 
 ## Introduction 
 
-Functions and packages used:
-
-- **readr**, **feather**, **haven**, **rio**
-- `read_csv`
-- `parse_*`
-- `type_convert`
-- `save`, `load`
-- `readRDS`, `writeRDS`
-- `write_csv`, `write_tsv`, `write_feather`
-- `read_lines`, `read_file`
-
 
 ```r
 library("tidyverse")
 ```
 
-
 ## Getting started
 
-**Note:** `read_log()` is important for web data, but likely to be irrelevant to most political science research
-
-**TODO** fill in the links and add any missing 
+No code
     
 ### Exercises
 
@@ -45,8 +31,8 @@ They have the following arguments in common:
 ```r
 union(names(formals(read_csv)), names(formals(read_tsv)))
 #>  [1] "file"      "col_names" "col_types" "locale"    "na"       
-#>  [6] "quoted_na" "comment"   "trim_ws"   "skip"      "n_max"    
-#> [11] "guess_max" "progress"
+#>  [6] "quoted_na" "quote"     "comment"   "trim_ws"   "skip"     
+#> [11] "n_max"     "guess_max" "progress"
 ```
 
 - `col_names` and `col_types` are used to specify the column names and how to parse the columns
@@ -71,10 +57,10 @@ The most important argument to `read_fwf` which reads "fixed-width formats", is 
 ```r
 x <- "x,y\n1,'a,b'"
 read_delim(x, ",", quote = "'")
-#> # A tibble: 1 × 2
-#>       x     y
+#> # A tibble: 1 x 2
+#>       x y    
 #>   <int> <chr>
-#> 1     1   a,b
+#> 1     1 a,b
 ```
 
 
@@ -85,10 +71,8 @@ read_delim(x, ",", quote = "'")
 ```r
 read_csv("a,b\n1,2,3\n4,5,6")
 #> Warning: 2 parsing failures.
-#> row col  expected    actual         file
-#>   1  -- 2 columns 3 columns literal data
-#>   2  -- 2 columns 3 columns literal data
-#> # A tibble: 2 × 2
+#> row # A tibble: 2 x 5 col     row col   expected  actual    file         expected   <int> <chr> <chr>     <chr>     <chr>        actual 1     1 <NA>  2 columns 3 columns literal data file 2     2 <NA>  2 columns 3 columns literal data
+#> # A tibble: 2 x 2
 #>       a     b
 #>   <int> <int>
 #> 1     1     2
@@ -101,10 +85,8 @@ Only two columns are specified in the header "a" and "b", but the rows have thre
 ```r
 read_csv("a,b,c\n1,2\n1,2,3,4")
 #> Warning: 2 parsing failures.
-#> row col  expected    actual         file
-#>   1  -- 3 columns 2 columns literal data
-#>   2  -- 3 columns 4 columns literal data
-#> # A tibble: 2 × 3
+#> row # A tibble: 2 x 5 col     row col   expected  actual    file         expected   <int> <chr> <chr>     <chr>     <chr>        actual 1     1 <NA>  3 columns 2 columns literal data file 2     2 <NA>  3 columns 4 columns literal data
+#> # A tibble: 2 x 3
 #>       a     b     c
 #>   <int> <int> <int>
 #> 1     1     2    NA
@@ -119,13 +101,11 @@ In row two, there is an extra value, and that value is dropped.
 ```r
 read_csv("a,b\n\"1")
 #> Warning: 2 parsing failures.
-#> row col                     expected    actual         file
-#>   1  a  closing quote at end of file           literal data
-#>   1  -- 2 columns                    1 columns literal data
-#> # A tibble: 1 × 2
-#>       a     b
+#> row # A tibble: 2 x 5 col     row col   expected                     actual    file         expected   <int> <chr> <chr>                        <chr>     <chr>        actual 1     1 a     closing quote at end of file ""        literal data file 2     1 <NA>  2 columns                    1 columns literal data
+#> # A tibble: 1 x 2
+#>       a b    
 #>   <int> <chr>
-#> 1     1  <NA>
+#> 1     1 <NA>
 ```
 It's not clear what the intent was here.
 The opening quote `\\"1` is dropped because it is not closed, and `a` is treated as an integer.
@@ -133,11 +113,11 @@ The opening quote `\\"1` is dropped because it is not closed, and `a` is treated
 
 ```r
 read_csv("a,b\n1,2\na,b")
-#> # A tibble: 2 × 2
-#>       a     b
+#> # A tibble: 2 x 2
+#>   a     b    
 #>   <chr> <chr>
-#> 1     1     2
-#> 2     a     b
+#> 1 1     2    
+#> 2 a     b
 ```
 Both "a" and "b" are treated as character vectors since they contain non-numeric strings. 
 This may have been intentional, or the author may have intended the values of the columns to be "1,2" and "a,b".
@@ -146,10 +126,10 @@ This may have been intentional, or the author may have intended the values of th
 
 ```r
 read_csv("a;b\n1;3")
-#> # A tibble: 1 × 1
+#> # A tibble: 1 x 1
 #>   `a;b`
 #>   <chr>
-#> 1   1;3
+#> 1 1;3
 ```
 
 The values are separated by ";" rather than ",". Use `read_csv2` instead:
@@ -157,7 +137,7 @@ The values are separated by ";" rather than ",". Use `read_csv2` instead:
 ```r
 read_csv2("a;b\n1;3")
 #> Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.
-#> # A tibble: 1 × 2
+#> # A tibble: 1 x 2
 #>       a     b
 #>   <int> <int>
 #> 1     1     3
@@ -166,27 +146,6 @@ read_csv2("a;b\n1;3")
 
   
 ## Parsing a vector
-
-*Notes* This is detailed, but these details can make your life hell. Skim now, but be aware that what should be simple, actually is not.
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">In data analysis, ��% is data cleaning, ��% is modeling, and the rest is character encoding issues</p>&mdash; Jeffrey B. Arnold (@jrnld) <a href="https://twitter.com/jrnld/status/759608460677832706">July 31, 2016</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-This Computerphile video on Unicode is great [Characters, Symbols and the Unicode Miracle - Computerphile](https://www.youtube.com/watch?v=MijmeoH9LT4)
-
-Note that these issues are real. Reusing one of Chris Adolph's csv files from an earlier version of this course gave me problems, resulting in me filing this [bug report](https://github.com/tidyverse/readr/issues/111).
-
-The suggested reading is very useful: http://kunststube.net/encoding/
-
-This becomes especially useful when you take "Text as Data".
-
-
-```r
-charToRaw("Jeff")
-#> [1] 4a 65 66 66
-class(charToRaw("Jeff"))
-#> [1] "raw"
-```
 
 
 ### Exercises 
@@ -336,25 +295,4 @@ Some of the more useful programs for this
 
 ## Other Types of Data
 
-**NOTES** Expand on what's in this section:
-
-- The `rio` package is very useful for loading different types of 
-- Other useful functions and packages not mentioned here:
-
-  - Stata: haven, read_dta. While the **foreign** package in R reads Stata files, it cannot read files created by the most recent version of Stata (> 13).
-  - SPSS: `haven::read_spss`
-  - SAS: `haven::read_sas`
-  - XLS: `readxl::read_excel`
-  - JSON: **jsonlite** pacakge. However, often there are APIs and clients which make this easier, e.g. **pollstR** which returns data from the Huffington Post Pollster API.
-  - XML: xml2
-  - HTML: rvest
-  - Databases: **DBI** and backends
-  - PDF: This is really a different thing as you are extracting data from an unstructured form. It also depends on whether the PDF text is actually an image as from a scan, in which case you need to use OCR to first indentify words.
-  
-    - `tabulizer`: extracts tables from PDF documents
-    - `pdftools`: extracts text from pdf documents
-    - Also see general text analysis packages like `tm`, `quanteda`, etc. which often have functions to assist with getting text from PDFs.
-
-Links to Jenny Bryan's tutorials: [purrr-tutorial worked examples](https://jennybc.github.io/purrr-tutorial/index.html)
-
-- Discussing `csvy` as an example of a csv with metadata
+No code

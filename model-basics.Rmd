@@ -1,9 +1,5 @@
 # Model Basics
 
-Distinction between *family of models* and *fitted model* is a useful way to think about models. 
-Especially as we can abstract some families of models to be themselves a fitted model of a more flexible family of models.
-For example, linear regression is a special case of GLM or Gaussian Processes etc.
-
 
 ## Prerequisites
 
@@ -151,8 +147,7 @@ ggplot(sims, aes(x = intercept, y = slope)) +
 
 **NOTE** It's not entirely clear what is meant by "visualize the results". 
 
-The data are generated from a low-degrees of freedmo t-distribution, so there will be outliers.r4ds
-Linear regression is 
+The data are generated from a low-degrees of freedom t-distribution, so there will be outliers.
 
 2. One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:
 
@@ -200,16 +195,7 @@ The problem is that you for any values `a[1] = a1` and `a[3] = a3`, any other va
 
 ## Visualizing Models
 
-More complicated models can be visualized with
 
-1. predictions
-2. residuals
-
-Notes
-
-- look at `tidyr::complete`, `tidyr::expand`, and `modelr::data_grid` functions
-- `modelr::add_residuals` and `modelr::add_predictions` functions add residuals or predictions to the original data
-- `geom_ref_line`
 
 ```{r}
 grid <- sim1 %>% data_grid(x)
@@ -412,20 +398,14 @@ ggplot(grid, aes(x2, pred, colour = x1, group = x1)) +
   facet_wrap(~ model)
 ```
 
-**TODO** We should visualize interactions with plotly
-
 
 ### Exercises
 
+**TODO**
 
 ## Missing values
 
-**TODO** Need to write a tidyverse compliant na.omit function.
-
 ## Other model families
 
-**NOTE** It's worth mentioning these as more general models. Though they don't appear as much in social science work. I should try to explain that. I can think of several reasons
+No exercises
 
-- preference for easy to explain models (though I think that's wrong--most people can't visualize high-dimensional space well, and interpret results marginally even though they are conditional)
-- status-quo bias and path dependence combined with lack of knowledge of work outside the field and median lack of technical ability to understand or use these models.
-- the most principled reason is that those modre complicated models really excel in prediction. If we take an agnostic approach to regression, as in the Angrist and Pischke books, then regression isn't being used to fit $f(y | x)$, its being used to fit $E(f(y | x))$, and more specifically to get some sort of average effect for a change in a specific variable.

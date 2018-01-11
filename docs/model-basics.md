@@ -1,10 +1,6 @@
 
 # Model Basics
 
-Distinction between *family of models* and *fitted model* is a useful way to think about models. 
-Especially as we can abstract some families of models to be themselves a fitted model of a more flexible family of models.
-For example, linear regression is a special case of GLM or Gaussian Processes etc.
-
 
 ## Prerequisites
 
@@ -73,15 +69,15 @@ sim1_dist <- function(a1, a2) {
 models <- models %>% 
   mutate(dist = purrr::map2_dbl(a1, a2, sim1_dist))
 models
-#> # A tibble: 250 × 3
-#>       a1     a2  dist
-#>    <dbl>  <dbl> <dbl>
-#> 1  30.06 -0.827  13.2
-#> 2  16.05  2.269  13.2
-#> 3 -10.57  1.377  18.7
-#> 4 -19.56 -1.036  41.8
-#> 5   7.98  4.595  19.3
-#> 6   9.87 -2.013  20.5
+#> # A tibble: 250 x 3
+#>       a1      a2  dist
+#>    <dbl>   <dbl> <dbl>
+#> 1 -15.2   0.0889  30.8
+#> 2  30.1  -0.827   13.2
+#> 3  16.0   2.27    13.2
+#> 4 -10.6   1.38    18.7
+#> 5 -19.6  -1.04    41.8
+#> 6   7.98  4.59    19.3
 #> # ... with 244 more rows
 ```
 
@@ -166,7 +162,7 @@ lm(y ~ x, data = sim1a)
 #> 
 #> Coefficients:
 #> (Intercept)            x  
-#>        6.19         1.51
+#>        6.05         1.53
 ```
 
 
@@ -206,8 +202,7 @@ ggplot(sims, aes(x = intercept, y = slope)) +
 
 **NOTE** It's not entirely clear what is meant by "visualize the results". 
 
-The data are generated from a low-degrees of freedmo t-distribution, so there will be outliers.r4ds
-Linear regression is 
+The data are generated from a low-degrees of freedom t-distribution, so there will be outliers.
 
 2. One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:
 
@@ -259,22 +254,13 @@ The problem is that you for any values `a[1] = a1` and `a[3] = a3`, any other va
 
 ## Visualizing Models
 
-More complicated models can be visualized with
 
-1. predictions
-2. residuals
-
-Notes
-
-- look at `tidyr::complete`, `tidyr::expand`, and `modelr::data_grid` functions
-- `modelr::add_residuals` and `modelr::add_predictions` functions add residuals or predictions to the original data
-- `geom_ref_line`
 
 
 ```r
 grid <- sim1 %>% data_grid(x)
 grid
-#> # A tibble: 10 × 1
+#> # A tibble: 10 x 1
 #>       x
 #>   <int>
 #> 1     1
@@ -291,15 +277,15 @@ grid
 grid <- grid %>%
   add_predictions(sim1_mod)
 grid
-#> # A tibble: 10 × 2
+#> # A tibble: 10 x 2
 #>       x  pred
 #>   <int> <dbl>
 #> 1     1  6.27
 #> 2     2  8.32
-#> 3     3 10.38
-#> 4     4 12.43
-#> 5     5 14.48
-#> 6     6 16.53
+#> 3     3 10.4 
+#> 4     4 12.4 
+#> 5     5 14.5 
+#> 6     6 16.5 
 #> # ... with 4 more rows
 ```
 
@@ -317,15 +303,15 @@ ggplot(sim1, aes(x)) +
 sim1 <- sim1 %>%
   add_residuals(sim1_mod)
 sim1
-#> # A tibble: 30 × 3
+#> # A tibble: 30 x 3
 #>       x     y  resid
 #>   <int> <dbl>  <dbl>
-#> 1     1  4.20 -2.072
-#> 2     1  7.51  1.238
-#> 3     1  2.13 -4.147
+#> 1     1  4.20 -2.07 
+#> 2     1  7.51  1.24 
+#> 3     1  2.13 -4.15 
 #> 4     2  8.99  0.665
-#> 5     2 10.24  1.919
-#> 6     2 11.30  2.973
+#> 5     2 10.2   1.92 
+#> 6     2 11.3   2.97 
 #> # ... with 24 more rows
 ggplot(sim1, aes(resid)) +
   geom_freqpoly(binwidth = 0.5)
@@ -376,7 +362,7 @@ The predictions of loess are the same as the default method for `geom_smooth` be
 ```r
 plot_sim1_loess +
   geom_smooth(colour = "blue", se = FALSE, alpha = 0.20)
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess'
 ```
 
 <img src="model-basics_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
@@ -426,21 +412,21 @@ df <- tribble(
 
 ```r
 model_matrix(df, y ~ x1)
-#> # A tibble: 2 × 2
+#> # A tibble: 2 x 2
 #>   `(Intercept)`    x1
 #>           <dbl> <dbl>
-#> 1             1     2
-#> 2             1     1
+#> 1          1.00  2.00
+#> 2          1.00  1.00
 ```
 
 
 ```r
 model_matrix(df, y ~ x1 - 1)
-#> # A tibble: 2 × 1
+#> # A tibble: 2 x 1
 #>      x1
 #>   <dbl>
-#> 1     2
-#> 2     1
+#> 1  2.00
+#> 2  1.00
 ```
 
 ### Categorical Variables
@@ -454,12 +440,12 @@ df <- tribble(
   "male", 1
 )
 model_matrix(df, response ~ sex)
-#> # A tibble: 3 × 2
+#> # A tibble: 3 x 2
 #>   `(Intercept)` sexmale
 #>           <dbl>   <dbl>
-#> 1             1       1
-#> 2             1       0
-#> 3             1       1
+#> 1          1.00    1.00
+#> 2          1.00    0   
+#> 3          1.00    1.00
 ```
 
 
@@ -478,13 +464,13 @@ grid <- sim2 %>%
   data_grid(x) %>%
   add_predictions(mod2)
 grid
-#> # A tibble: 4 × 2
-#>       x  pred
+#> # A tibble: 4 x 2
+#>   x      pred
 #>   <chr> <dbl>
-#> 1     a  1.15
-#> 2     b  8.12
-#> 3     c  6.13
-#> 4     d  1.91
+#> 1 a      1.15
+#> 2 b      8.12
+#> 3 c      6.13
+#> 4 d      1.91
 ```
 
 
@@ -508,15 +494,15 @@ grid <- sim3 %>%
   data_grid(x1, x2) %>% 
   gather_predictions(mod1, mod2)
 grid
-#> # A tibble: 80 × 4
-#>   model    x1     x2  pred
+#> # A tibble: 80 x 4
+#>   model    x1 x2      pred
 #>   <chr> <int> <fctr> <dbl>
-#> 1  mod1     1      a  1.67
-#> 2  mod1     1      b  4.56
-#> 3  mod1     1      c  6.48
-#> 4  mod1     1      d  4.03
-#> 5  mod1     2      a  1.48
-#> 6  mod1     2      b  4.37
+#> 1 mod1      1 a       1.67
+#> 2 mod1      1 b       4.56
+#> 3 mod1      1 c       6.48
+#> 4 mod1      1 d       4.03
+#> 5 mod1      2 a       1.48
+#> 6 mod1      2 b       4.37
 #> # ... with 74 more rows
 ```
 
@@ -554,15 +540,15 @@ grid <- sim4 %>%
   ) %>% 
   gather_predictions(mod1, mod2)
 grid
-#> # A tibble: 50 × 4
-#>   model    x1    x2   pred
-#>   <chr> <dbl> <dbl>  <dbl>
-#> 1  mod1  -1.0  -1.0  0.996
-#> 2  mod1  -1.0  -0.5 -0.395
-#> 3  mod1  -1.0   0.0 -1.786
-#> 4  mod1  -1.0   0.5 -3.177
-#> 5  mod1  -1.0   1.0 -4.569
-#> 6  mod1  -0.5  -1.0  1.907
+#> # A tibble: 50 x 4
+#>   model     x1     x2   pred
+#>   <chr>  <dbl>  <dbl>  <dbl>
+#> 1 mod1  -1.00  -1.00   0.996
+#> 2 mod1  -1.00  -0.500 -0.395
+#> 3 mod1  -1.00   0     -1.79 
+#> 4 mod1  -1.00   0.500 -3.18 
+#> 5 mod1  -1.00   1.00  -4.57 
+#> 6 mod1  -0.500 -1.00   1.91 
 #> # ... with 44 more rows
 ```
 
@@ -591,20 +577,14 @@ ggplot(grid, aes(x2, pred, colour = x1, group = x1)) +
 
 <img src="model-basics_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /><img src="model-basics_files/figure-html/unnamed-chunk-42-2.png" width="70%" style="display: block; margin: auto;" />
 
-**TODO** We should visualize interactions with plotly
-
 
 ### Exercises
 
+**TODO**
 
 ## Missing values
 
-**TODO** Need to write a tidyverse compliant na.omit function.
-
 ## Other model families
 
-**NOTE** It's worth mentioning these as more general models. Though they don't appear as much in social science work. I should try to explain that. I can think of several reasons
+No exercises
 
-- preference for easy to explain models (though I think that's wrong--most people can't visualize high-dimensional space well, and interpret results marginally even though they are conditional)
-- status-quo bias and path dependence combined with lack of knowledge of work outside the field and median lack of technical ability to understand or use these models.
-- the most principled reason is that those modre complicated models really excel in prediction. If we take an agnostic approach to regression, as in the Angrist and Pischke books, then regression isn't being used to fit $f(y | x)$, its being used to fit $E(f(y | x))$, and more specifically to get some sort of average effect for a change in a specific variable.

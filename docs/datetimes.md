@@ -1,29 +1,6 @@
 
 # Dates and Times
 
-- **lubridate**
-
-  - `today`, `now`
-  - `ymd` etc., `ymd_hms` etc.
-  - `make_datetime`, `make_date`
-  - `as_datetime`, `as_date`
-  - `year`, `month`, `mday`, `yday`, `wday` and `year<-`
-  - `floor_date`, `round_date`, `ceiling_date`
-  - `update`
-  - `as.duration`, duration functions (`ddays`, etc)
-  - period functions (`days`, `months`, etc)
-  - interval creation with `%--%`
-  - `with_tz`, `force_tz`
-
-- **hms** package has times
-- Ideas for applications: CDB90 data, COW war start end and duration 
-- Read more on time-zones: https://en.wikipedia.org/wiki/Time_zone
-- Computerphile [The Problem with Time & Timezones - Computerphile](https://www.youtube.com/watch?v=-5wpm-gesOY)
-- The history of the tz database are themselves interesting: https://en.wikipedia.org/wiki/Tz_database
-- [A literary appreciation of the Olson/Zoneinfo/tz database]( https://blog.jonudell.net/2009/10/23/a-literary-appreciation-of-the-olsonzoneinfotz-database/)
-
-I think time-zones are likely a point for social science research in and of themselves. Policy choices. Coordination. Regression discontinuity designs. Just sayin...
-
 
 ## Prerequisite
 
@@ -54,15 +31,15 @@ flights_dt <- flights %>%
   ) %>%
   select(origin, dest, ends_with("delay"), ends_with("time"))
 flights_dt %>% head
-#> # A tibble: 6 × 9
-#>   origin  dest dep_delay arr_delay            dep_time      sched_dep_time
-#>    <chr> <chr>     <dbl>     <dbl>              <dttm>              <dttm>
-#> 1    EWR   IAH         2        11 2013-01-01 05:17:00 2013-01-01 05:15:00
-#> 2    LGA   IAH         4        20 2013-01-01 05:33:00 2013-01-01 05:29:00
-#> 3    JFK   MIA         2        33 2013-01-01 05:42:00 2013-01-01 05:40:00
-#> 4    JFK   BQN        -1       -18 2013-01-01 05:44:00 2013-01-01 05:45:00
-#> 5    LGA   ATL        -6       -25 2013-01-01 05:54:00 2013-01-01 06:00:00
-#> 6    EWR   ORD        -4        12 2013-01-01 05:54:00 2013-01-01 05:58:00
+#> # A tibble: 6 x 9
+#>   origin dest  dep_delay arr_delay dep_time            sched_dep_time     
+#>   <chr>  <chr>     <dbl>     <dbl> <dttm>              <dttm>             
+#> 1 EWR    IAH        2.00      11.0 2013-01-01 05:17:00 2013-01-01 05:15:00
+#> 2 LGA    IAH        4.00      20.0 2013-01-01 05:33:00 2013-01-01 05:29:00
+#> 3 JFK    MIA        2.00      33.0 2013-01-01 05:42:00 2013-01-01 05:40:00
+#> 4 JFK    BQN       -1.00     -18.0 2013-01-01 05:44:00 2013-01-01 05:45:00
+#> 5 LGA    ATL       -6.00     -25.0 2013-01-01 05:54:00 2013-01-01 06:00:00
+#> 6 EWR    ORD       -4.00      12.0 2013-01-01 05:54:00 2013-01-01 05:58:00
 #> # ... with 3 more variables: arr_time <dttm>, sched_arr_time <dttm>,
 #> #   air_time <dbl>
 ```
@@ -203,15 +180,15 @@ flights_dt %>%
   mutate(dep_time_ = sched_dep_time + dep_delay * 60) %>%
   filter(dep_time_ != dep_time) %>%
   select(dep_time_, dep_time, sched_dep_time, dep_delay)
-#> # A tibble: 1,205 × 4
-#>             dep_time_            dep_time      sched_dep_time dep_delay
-#>                <dttm>              <dttm>              <dttm>     <dbl>
-#> 1 2013-01-02 08:48:00 2013-01-01 08:48:00 2013-01-01 18:35:00       853
-#> 2 2013-01-03 00:42:00 2013-01-02 00:42:00 2013-01-02 23:59:00        43
-#> 3 2013-01-03 01:26:00 2013-01-02 01:26:00 2013-01-02 22:50:00       156
-#> 4 2013-01-04 00:32:00 2013-01-03 00:32:00 2013-01-03 23:59:00        33
-#> 5 2013-01-04 00:50:00 2013-01-03 00:50:00 2013-01-03 21:45:00       185
-#> 6 2013-01-04 02:35:00 2013-01-03 02:35:00 2013-01-03 23:59:00       156
+#> # A tibble: 1,205 x 4
+#>   dep_time_           dep_time            sched_dep_time      dep_delay
+#>   <dttm>              <dttm>              <dttm>                  <dbl>
+#> 1 2013-01-02 08:48:00 2013-01-01 08:48:00 2013-01-01 18:35:00     853  
+#> 2 2013-01-03 00:42:00 2013-01-02 00:42:00 2013-01-02 23:59:00      43.0
+#> 3 2013-01-03 01:26:00 2013-01-02 01:26:00 2013-01-02 22:50:00     156  
+#> 4 2013-01-04 00:32:00 2013-01-03 00:32:00 2013-01-03 23:59:00      33.0
+#> 5 2013-01-04 00:50:00 2013-01-03 00:50:00 2013-01-03 21:45:00     185  
+#> 6 2013-01-04 02:35:00 2013-01-03 02:35:00 2013-01-03 23:59:00     156  
 #> # ... with 1,199 more rows
 ```
 
@@ -227,15 +204,15 @@ flights_dt %>%
          air_time_mins = air_time,
          diff = flight_duration - air_time_mins) %>%
   select(origin, dest, flight_duration, air_time_mins, diff)
-#> # A tibble: 328,063 × 5
-#>   origin  dest flight_duration air_time_mins  diff
-#>    <chr> <chr>           <dbl>         <dbl> <dbl>
-#> 1    EWR   IAH             193           227   -34
-#> 2    LGA   IAH             197           227   -30
-#> 3    JFK   MIA             221           160    61
-#> 4    JFK   BQN             260           183    77
-#> 5    LGA   ATL             138           116    22
-#> 6    EWR   ORD             106           150   -44
+#> # A tibble: 328,063 x 5
+#>   origin dest  flight_duration air_time_mins  diff
+#>   <chr>  <chr>           <dbl>         <dbl> <dbl>
+#> 1 EWR    IAH               193           227 -34.0
+#> 2 LGA    IAH               197           227 -30.0
+#> 3 JFK    MIA               221           160  61.0
+#> 4 JFK    BQN               260           183  77.0
+#> 5 LGA    ATL               138           116  22.0
+#> 6 EWR    ORD               106           150 -44.0
 #> # ... with 3.281e+05 more rows
 ```
 
@@ -252,7 +229,7 @@ flights_dt %>%
   ggplot(aes(y = dep_delay, x = sched_dep_hour)) +
   geom_point() +
   geom_smooth()
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess'
 ```
 
 <img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
@@ -268,16 +245,16 @@ flights_dt %>%
   group_by(dow) %>%
   summarise(dep_delay = mean(dep_delay),
             arr_delay = mean(arr_delay, na.rm = TRUE))
-#> # A tibble: 7 × 3
+#> # A tibble: 7 x 3
 #>     dow dep_delay arr_delay
 #>   <dbl>     <dbl>     <dbl>
-#> 1     1      11.5      4.82
-#> 2     2      14.7      9.65
-#> 3     3      10.6      5.39
-#> 4     4      11.7      7.05
-#> 5     5      16.1     11.74
-#> 6     6      14.7      9.07
-#> # ... with 1 more rows
+#> 1  1.00      11.5      4.82
+#> 2  2.00      14.7      9.65
+#> 3  3.00      10.6      5.39
+#> 4  4.00      11.7      7.05
+#> 5  5.00      16.1     11.7 
+#> 6  6.00      14.7      9.07
+#> # ... with 1 more row
 ```
 
 6. What makes the distribution of `diamonds$carat` and `flights$sched_dep_time` similar?
@@ -370,9 +347,6 @@ flights_dt <- flights_dt %>%
 
 ### Intervals
 
-**NOTE** This section seems less complete than the others. 
-Refer to the [lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html) vignette for more information.
-
 
 ### Exercises
 
@@ -406,9 +380,9 @@ I can do that by taking `today()` and truncating it to the year using `floor_dat
 
 ```r
 floor_date(today(), unit = "year") + months(0:11)
-#>  [1] "2017-01-01" "2017-02-01" "2017-03-01" "2017-04-01" "2017-05-01"
-#>  [6] "2017-06-01" "2017-07-01" "2017-08-01" "2017-09-01" "2017-10-01"
-#> [11] "2017-11-01" "2017-12-01"
+#>  [1] "2018-01-01" "2018-02-01" "2018-03-01" "2018-04-01" "2018-05-01"
+#>  [6] "2018-06-01" "2018-07-01" "2018-08-01" "2018-09-01" "2018-10-01"
+#> [11] "2018-11-01" "2018-12-01"
 ```
 
 
@@ -423,7 +397,7 @@ age(ymd("1990-10-12"))
 #> Note: method with signature 'Timespan#Timespan' chosen for function '%/%',
 #>  target signature 'Interval#Period'.
 #>  "Interval#ANY", "ANY#Period" would also be valid
-#> [1] 26
+#> [1] 27
 ```
 
 5. Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
@@ -440,4 +414,5 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 
 ### Time Zones
 
-No exercises. But time-zones are hell. Be happy you aren't dealing with financial data.
+No exercises. 
+

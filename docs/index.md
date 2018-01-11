@@ -1,7 +1,7 @@
 
 ---
 knit: "bookdown::render_book"
-title: "Exercise Solutions and Notes for \"R for Data Science\""
+title: "Exercise Solutions to for \"R for Data Science\""
 author: Jeffrey B. Arnold
 #url: "http://jrnold.github.io/e4qf"
 github-repo: "jrnold/e4qf"

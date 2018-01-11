@@ -9,77 +9,9 @@ library("tidyverse")
 library("nycflights13")
 ```
 
-Topics, functions
-
-- keys: primary key, foreign key, 
-- mutating joins: `left_join`, `right_join`, `inner_join`, `full_join`
-- `merge` vs. joins
-- filtering joins: `semi_join`, `anti_join`
-- set operations: `intersect`, `union`, `setdiff`
-
-
-**TODO**: fuzzy joining
 
 ## nycflights13
 
-**NOTES**
-
-[nycflights13](https://cran.r-project.org/web/packages/nycflights13/index.html) is an example of a **data-only** R package. R packages can contain both functions and data.
-Since data-sets can get large, often they can be packaged as their own dataset. These sorts of data-only R packages make it convenient for R users to access your data, but it should not be the only way you provide your research data. Not everyone uses R, so the original data should be provided in a program agnostic format (e.g. csv files). This also holds for those using Stata; they should not be distributing data in `.dta` format files specific to Stata (even if as we saw earlier, other programs can read that data.)
-Another example of a data-only R package is [gapminder](https://cran.r-project.org/package=gapminder).
-
-How does Hadley create his diagrams? 
-
-The four tables in the **nycflights13** package:
-
-```r
-airlines
-#> # A tibble: 16 × 2
-#>   carrier                     name
-#>     <chr>                    <chr>
-#> 1      9E        Endeavor Air Inc.
-#> 2      AA   American Airlines Inc.
-#> 3      AS     Alaska Airlines Inc.
-#> 4      B6          JetBlue Airways
-#> 5      DL     Delta Air Lines Inc.
-#> 6      EV ExpressJet Airlines Inc.
-#> # ... with 10 more rows
-airports
-#> # A tibble: 1,458 × 8
-#>     faa                           name   lat   lon   alt    tz   dst
-#>   <chr>                          <chr> <dbl> <dbl> <int> <dbl> <chr>
-#> 1   04G              Lansdowne Airport  41.1 -80.6  1044    -5     A
-#> 2   06A  Moton Field Municipal Airport  32.5 -85.7   264    -6     A
-#> 3   06C            Schaumburg Regional  42.0 -88.1   801    -6     A
-#> 4   06N                Randall Airport  41.4 -74.4   523    -5     A
-#> 5   09J          Jekyll Island Airport  31.1 -81.4    11    -5     A
-#> 6   0A9 Elizabethton Municipal Airport  36.4 -82.2  1593    -5     A
-#> # ... with 1,452 more rows, and 1 more variables: tzone <chr>
-planes
-#> # A tibble: 3,322 × 9
-#>   tailnum  year                    type     manufacturer     model engines
-#>     <chr> <int>                   <chr>            <chr>     <chr>   <int>
-#> 1  N10156  2004 Fixed wing multi engine          EMBRAER EMB-145XR       2
-#> 2  N102UW  1998 Fixed wing multi engine AIRBUS INDUSTRIE  A320-214       2
-#> 3  N103US  1999 Fixed wing multi engine AIRBUS INDUSTRIE  A320-214       2
-#> 4  N104UW  1999 Fixed wing multi engine AIRBUS INDUSTRIE  A320-214       2
-#> 5  N10575  2002 Fixed wing multi engine          EMBRAER EMB-145LR       2
-#> 6  N105UW  1999 Fixed wing multi engine AIRBUS INDUSTRIE  A320-214       2
-#> # ... with 3,316 more rows, and 3 more variables: seats <int>,
-#> #   speed <int>, engine <chr>
-weather
-#> # A tibble: 26,130 × 15
-#>   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
-#>    <chr> <dbl> <dbl> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
-#> 1    EWR  2013     1     1     0  37.0  21.9  54.0      230       10.4
-#> 2    EWR  2013     1     1     1  37.0  21.9  54.0      230       13.8
-#> 3    EWR  2013     1     1     2  37.9  21.9  52.1      230       12.7
-#> 4    EWR  2013     1     1     3  37.9  23.0  54.5      230       13.8
-#> 5    EWR  2013     1     1     4  37.9  24.1  57.0      240       15.0
-#> 6    EWR  2013     1     1     6  39.0  26.1  59.4      270       10.4
-#> # ... with 2.612e+04 more rows, and 5 more variables: wind_gust <dbl>,
-#> #   precip <dbl>, pressure <dbl>, visib <dbl>, time_hour <dttm>
-```
 
 
 ### Exercises
@@ -241,15 +173,15 @@ flights2 <- flights %>%
 flights2 %>%
   select(-origin, -dest) %>%
   left_join(airlines, by = "carrier")
-#> # A tibble: 336,776 × 7
-#>    year month   day  hour tailnum carrier                   name
-#>   <int> <int> <int> <dbl>   <chr>   <chr>                  <chr>
-#> 1  2013     1     1     5  N14228      UA  United Air Lines Inc.
-#> 2  2013     1     1     5  N24211      UA  United Air Lines Inc.
-#> 3  2013     1     1     5  N619AA      AA American Airlines Inc.
-#> 4  2013     1     1     5  N804JB      B6        JetBlue Airways
-#> 5  2013     1     1     6  N668DN      DL   Delta Air Lines Inc.
-#> 6  2013     1     1     5  N39463      UA  United Air Lines Inc.
+#> # A tibble: 336,776 x 7
+#>    year month   day  hour tailnum carrier name                  
+#>   <int> <int> <int> <dbl> <chr>   <chr>   <chr>                 
+#> 1  2013     1     1  5.00 N14228  UA      United Air Lines Inc. 
+#> 2  2013     1     1  5.00 N24211  UA      United Air Lines Inc. 
+#> 3  2013     1     1  5.00 N619AA  AA      American Airlines Inc.
+#> 4  2013     1     1  5.00 N804JB  B6      JetBlue Airways       
+#> 5  2013     1     1  6.00 N668DN  DL      Delta Air Lines Inc.  
+#> 6  2013     1     1  5.00 N39463  UA      United Air Lines Inc. 
 #> # ... with 3.368e+05 more rows
 ```
 
@@ -265,14 +197,9 @@ airports %>%
     borders("state") +
     geom_point() +
     coord_quickmap()
-#> 
-#> Attaching package: 'maps'
-#> The following object is masked from 'package:purrr':
-#> 
-#>     map
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
 (Don’t worry if you don’t understand what `semi_join()` does — you’ll learn about it next.)
 
@@ -292,7 +219,7 @@ avg_dest_delays %>%
     coord_quickmap()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 You might want to use the size or colour of the points to display the average delay for each airport.
@@ -305,21 +232,20 @@ flights %>%
   left_join(airports, by = c(dest = "faa")) %>%
   left_join(airports, by = c(origin = "faa")) %>%
   head()
-#> # A tibble: 6 × 33
-#>    year month   day dep_time sched_dep_time dep_delay arr_time
-#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515         2      830
-#> 2  2013     1     1      533            529         4      850
-#> 3  2013     1     1      542            540         2      923
-#> 4  2013     1     1      544            545        -1     1004
-#> 5  2013     1     1      554            600        -6      812
-#> 6  2013     1     1      554            558        -4      740
-#> # ... with 26 more variables: sched_arr_time <int>, arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
-#> #   time_hour <dttm>, name.x <chr>, lat.x <dbl>, lon.x <dbl>, alt.x <int>,
-#> #   tz.x <dbl>, dst.x <chr>, tzone.x <chr>, name.y <chr>, lat.y <dbl>,
-#> #   lon.y <dbl>, alt.y <int>, tz.y <dbl>, dst.y <chr>, tzone.y <chr>
+#> # A tibble: 6 x 33
+#>    year month   day dep_t… sche… dep_… arr_… sche… arr_… carr… flig… tail…
+#>   <int> <int> <int>  <int> <int> <dbl> <int> <int> <dbl> <chr> <int> <chr>
+#> 1  2013     1     1    517   515  2.00   830   819  11.0 UA     1545 N142…
+#> 2  2013     1     1    533   529  4.00   850   830  20.0 UA     1714 N242…
+#> 3  2013     1     1    542   540  2.00   923   850  33.0 AA     1141 N619…
+#> 4  2013     1     1    544   545 -1.00  1004  1022 -18.0 B6      725 N804…
+#> 5  2013     1     1    554   600 -6.00   812   837 -25.0 DL      461 N668…
+#> 6  2013     1     1    554   558 -4.00   740   728  12.0 UA     1696 N394…
+#> # ... with 21 more variables: origin <chr>, dest <chr>, air_time <dbl>,
+#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>, name.x
+#> #   <chr>, lat.x <dbl>, lon.x <dbl>, alt.x <int>, tz.x <dbl>, dst.x <chr>,
+#> #   tzone.x <chr>, name.y <chr>, lat.y <dbl>, lon.y <dbl>, alt.y <int>,
+#> #   tz.y <dbl>, dst.y <chr>, tzone.y <chr>
 ```
 
 
@@ -345,7 +271,7 @@ flights %>%
 #> Warning: Removed 1 rows containing missing values (geom_path).
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 4. What weather conditions make it more likely to see a delay?
@@ -368,7 +294,7 @@ flight_weather %>%
     geom_line() + geom_point()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -393,7 +319,7 @@ flights %>%
 #> Warning: Removed 3 rows containing missing values (geom_point).
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Filtering Joins
@@ -412,15 +338,15 @@ American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
 flights %>%
   anti_join(planes, by = "tailnum") %>%
   count(carrier, sort = TRUE)
-#> # A tibble: 10 × 2
+#> # A tibble: 10 x 2
 #>   carrier     n
-#>     <chr> <int>
-#> 1      MQ 25397
-#> 2      AA 22558
-#> 3      UA  1693
-#> 4      9E  1044
-#> 5      B6   830
-#> 6      US   699
+#>   <chr>   <int>
+#> 1 MQ      25397
+#> 2 AA      22558
+#> 3 UA       1693
+#> 4 9E       1044
+#> 5 B6        830
+#> 6 US        699
 #> # ... with 4 more rows
 ```
 
@@ -436,19 +362,18 @@ planes_gt100 <-
 
 flights %>%
   semi_join(planes_gt100, by = "tailnum")
-#> # A tibble: 229,202 × 19
-#>    year month   day dep_time sched_dep_time dep_delay arr_time
-#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1     1604           1510        54     1817
-#> 2  2013     1     1     2100           2100         0     2307
-#> 3  2013     1     2      827            835        -8     1059
-#> 4  2013     1     2     2014           2020        -6     2256
-#> 5  2013     1     4     1621           1625        -4     1853
-#> 6  2013     1     5      834            835        -1     1050
-#> # ... with 2.292e+05 more rows, and 12 more variables:
-#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
-#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#> # A tibble: 229,202 x 19
+#>    year month   day dep_t… sche… dep_… arr_… sche… arr_… carr… flig… tail…
+#>   <int> <int> <int>  <int> <int> <dbl> <int> <int> <dbl> <chr> <int> <chr>
+#> 1  2013     1     1    517   515  2.00   830   819  11.0 UA     1545 N142…
+#> 2  2013     1     1    533   529  4.00   850   830  20.0 UA     1714 N242…
+#> 3  2013     1     1    544   545 -1.00  1004  1022 -18.0 B6      725 N804…
+#> 4  2013     1     1    554   558 -4.00   740   728  12.0 UA     1696 N394…
+#> 5  2013     1     1    555   600 -5.00   913   854  19.0 B6      507 N516…
+#> 6  2013     1     1    557   600 -3.00   709   723 -14.0 EV     5708 N829…
+#> # ... with 2.292e+05 more rows, and 7 more variables: origin <chr>, dest
+#> #   <chr>, air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
+#> #   time_hour <dttm>
 ```
 
 
@@ -485,21 +410,40 @@ glimpse(fueleconomy::common)
 ```r
 fueleconomy::vehicles %>%
   semi_join(fueleconomy::common, by = c("make", "model"))
-#> # A tibble: 14,531 × 12
-#>      id  make   model  year           class           trans
-#>   <int> <chr>   <chr> <int>           <chr>           <chr>
-#> 1  1833 Acura Integra  1986 Subcompact Cars Automatic 4-spd
-#> 2  1834 Acura Integra  1986 Subcompact Cars    Manual 5-spd
-#> 3  3037 Acura Integra  1987 Subcompact Cars Automatic 4-spd
-#> 4  3038 Acura Integra  1987 Subcompact Cars    Manual 5-spd
-#> 5  4183 Acura Integra  1988 Subcompact Cars Automatic 4-spd
-#> 6  4184 Acura Integra  1988 Subcompact Cars    Manual 5-spd
-#> # ... with 1.452e+04 more rows, and 6 more variables: drive <chr>,
-#> #   cyl <int>, displ <dbl>, fuel <chr>, hwy <int>, cty <int>
+#> # A tibble: 14,531 x 12
+#>      id make  model   year class trans drive   cyl displ fuel    hwy   cty
+#>   <int> <chr> <chr>  <int> <chr> <chr> <chr> <int> <dbl> <chr> <int> <int>
+#> 1  1833 Acura Integ…  1986 Subc… Auto… Fron…     4  1.60 Regu…    28    22
+#> 2  1834 Acura Integ…  1986 Subc… Manu… Fron…     4  1.60 Regu…    28    23
+#> 3  3037 Acura Integ…  1987 Subc… Auto… Fron…     4  1.60 Regu…    28    22
+#> 4  3038 Acura Integ…  1987 Subc… Manu… Fron…     4  1.60 Regu…    28    23
+#> 5  4183 Acura Integ…  1988 Subc… Auto… Fron…     4  1.60 Regu…    27    22
+#> 6  4184 Acura Integ…  1988 Subc… Manu… Fron…     4  1.60 Regu…    28    23
+#> # ... with 1.452e+04 more rows
 ```
 
 
 3. Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
+
+
+```r
+flights %>%
+  group_by(year, month, day) %>%
+  summarise(total_24 = sum(dep_delay, na.rm = TRUE)+ sum(arr_delay, na.rm = TRUE)) %>%
+  mutate(total_48 = total_24 + lag(total_24)) %>%
+  arrange(desc(total_48))
+#> # A tibble: 365 x 5
+#> # Groups: year, month [12]
+#>    year month   day total_24 total_48
+#>   <int> <int> <int>    <dbl>    <dbl>
+#> 1  2013     7    23    80641   175419
+#> 2  2013     3     8   135264   167530
+#> 3  2013     6    25    80434   166649
+#> 4  2013     8     9    72866   165287
+#> 5  2013     6    28    81389   157910
+#> 6  2013     7    10    97120   157396
+#> # ... with 359 more rows
+```
 
 4. What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
 
@@ -521,18 +465,10 @@ flights %>%
   filter(n() > 1) %>%
   select(tailnum) %>%
   distinct()
-#> Source: local data frame [18 x 1]
-#> Groups: tailnum [18]
-#> 
-#>   tailnum
-#>     <chr>
-#> 1  N146PQ
-#> 2  N153PQ
-#> 3  N176PQ
-#> 4  N181PQ
-#> 5  N197PQ
-#> 6  N200PQ
-#> # ... with 12 more rows
+#> Adding missing grouping variables: `carrier`
+#> # A tibble: 0 x 2
+#> # Groups: tailnum, carrier [0]
+#> # ... with 2 variables: carrier <chr>, tailnum <chr>
 ```
 
 

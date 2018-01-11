@@ -10,9 +10,6 @@
 library("tidyverse")
 ```
 
-Other resources
-
-- [All the graph things](http://stat545.com/graph00_index.html) Stat 545. Jenny Bryan.
 
 ### First Steps
 

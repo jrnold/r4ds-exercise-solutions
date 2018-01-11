@@ -119,11 +119,11 @@ There are more than 70 times as many 1 carat diamonds as 0.99 carat diamond.
 diamonds %>%
   filter(carat >= 0.99, carat <= 1) %>%
   count(carat)
-#> # A tibble: 2 × 2
+#> # A tibble: 2 x 2
 #>   carat     n
 #>   <dbl> <int>
-#> 1  0.99    23
-#> 2  1.00  1558
+#> 1 0.990    23
+#> 2 1.00   1558
 ```
 
 I don't know exactly the process behind how carats are measured, but some way or another some diamonds carat values are being "rounded up", because presumably there is a premium for a 1 carat diamond vs. a 0.99 carat diamond beyond the expected increase in price due to a 0.01 carat increase.
@@ -136,30 +136,30 @@ diamonds %>%
    filter(carat >= 0.9, carat <= 1.1) %>%
    count(carat) %>%
    print(n = 30)
-#> # A tibble: 21 × 2
+#> # A tibble: 21 x 2
 #>    carat     n
 #>    <dbl> <int>
-#> 1   0.90  1485
-#> 2   0.91   570
-#> 3   0.92   226
-#> 4   0.93   142
-#> 5   0.94    59
-#> 6   0.95    65
-#> 7   0.96   103
-#> 8   0.97    59
-#> 9   0.98    31
-#> 10  0.99    23
-#> 11  1.00  1558
-#> 12  1.01  2242
-#> 13  1.02   883
-#> 14  1.03   523
-#> 15  1.04   475
-#> 16  1.05   361
-#> 17  1.06   373
-#> 18  1.07   342
-#> 19  1.08   246
-#> 20  1.09   287
-#> 21  1.10   278
+#>  1 0.900  1485
+#>  2 0.910   570
+#>  3 0.920   226
+#>  4 0.930   142
+#>  5 0.940    59
+#>  6 0.950    65
+#>  7 0.960   103
+#>  8 0.970    59
+#>  9 0.980    31
+#> 10 0.990    23
+#> 11 1.00   1558
+#> 12 1.01   2242
+#> 13 1.02    883
+#> 14 1.03    523
+#> 15 1.04    475
+#> 16 1.05    361
+#> 17 1.06    373
+#> 18 1.07    342
+#> 19 1.08    246
+#> 20 1.09    287
+#> 21 1.10    278
 ```
 
 

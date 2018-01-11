@@ -3,37 +3,22 @@
 
 ## Introduction
 
-Functions mentioned
-
-- `typeof`
-- `dplyr::near`
-- `is.finite`, `is.nan`, `is.na`
-- `attributes`
-
 
 
 ```r
 library("tidyverse")
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
+#> ── Attaching packages ────────────────
+#> ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
+#> ✔ tibble  1.4.1     ✔ dplyr   0.7.4
+#> ✔ tidyr   0.7.2     ✔ stringr 1.2.0
+#> ✔ readr   1.1.1     ✔ forcats 0.2.0
+#> ── Conflicts ─────────────────────────
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 ```
 
+
 ## Important types of Atomic Vector
-
-Why does this matter? 99% of the time in the work you do, it won't.
-Someone else has written the numerical methods and (hopefully) accounted for these issues.
-And the types of problems you encounter in social science generally are not dealing with these issues.
-However, if you aren't even aware that "floating point numbers" are a "thing", if something goes wrong, it will seem like magic.
-Also, at least being aware of these problems will help you understand error messages from optimization routines that complaing of "numerical precision".
-
-Computerphile has a good video on [Floating Point Numbers](https://youtu.be/PZRI1IfStY0).
 
 ### Exercises
 
@@ -78,7 +63,6 @@ The help for `.Machine` describes some of this:
   As all current implementations of R use 32-bit integers and usne IEC 60559 floating-point (double precision) arithmetic,
 
 The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) or IEEE 754 format uses a 64 bit vector, but 
-
 
 
 4. Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
@@ -236,24 +220,32 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fca28a92038>
+#> <bytecode: 0x7fa2d3eb5790>
 #> <environment: namespace:stats>
 ```
 
 ```r
 purrr::set_names
-#> function (x, nm = x) 
+#> function (x, nm = x, ...) 
 #> {
 #>     if (!is_vector(x)) {
-#>         stop("`x` must be a vector", call. = FALSE)
+#>         abort("`x` must be a vector")
 #>     }
-#>     if (length(x) != length(nm)) {
-#>         stop("`x` and `nm` must be the same length", call. = FALSE)
+#>     if (is_function(nm) || is_formula(nm)) {
+#>         nm <- as_function(nm)
+#>         nm <- nm(names2(x), ...)
+#>     }
+#>     else if (!is_null(nm)) {
+#>         nm <- as.character(nm)
+#>         nm <- chr(nm, ...)
+#>     }
+#>     if (!is_null(nm) && !is_character(nm, length(x))) {
+#>         abort("`nm` must be `NULL` or a character vector the same length as `x`")
 #>     }
 #>     names(x) <- nm
 #>     x
 #> }
-#> <environment: namespace:purrr>
+#> <environment: namespace:rlang>
 ```
 
 From the code we can see that `set_names` adds a few sanity checks: `x` has to be a vector, and the lengths of the object and the names have to be the same.
@@ -386,19 +378,19 @@ x <- tibble(a = 1:2, b = 3:4)
 x[["a"]]
 #> [1] 1 2
 x["a"]
-#> # A tibble: 2 × 1
+#> # A tibble: 2 x 1
 #>       a
 #>   <int>
 #> 1     1
 #> 2     2
 x[1]
-#> # A tibble: 2 × 1
+#> # A tibble: 2 x 1
 #>       a
 #>   <int>
 #> 1     1
 #> 2     2
 x[1, ]
-#> # A tibble: 1 × 2
+#> # A tibble: 1 x 2
 #>       a     b
 #>   <int> <int>
 #> 1     1     3
@@ -447,22 +439,21 @@ If I try to create at tibble with a scalar and column of a different length ther
 
 ```r
 tibble(x = 1, y = 1:5)
-#> # A tibble: 5 × 2
+#> # A tibble: 5 x 2
 #>       x     y
 #>   <dbl> <int>
-#> 1     1     1
-#> 2     1     2
-#> 3     1     3
-#> 4     1     4
-#> 5     1     5
+#> 1  1.00     1
+#> 2  1.00     2
+#> 3  1.00     3
+#> 4  1.00     4
+#> 5  1.00     5
 ```
 
 However, if I try to create a tibble with two vectors of different lengths (other than one), the `tibble` function throws an error.
 
 ```r
 tibble(x = 1:3, y = 1:4)
-#> Error: Variables must be length 1 or 4.
-#> Problem variables: 'x'
+#> Error: Column `x` must be length 1 or 4, not 3
 ```
 
 
@@ -477,11 +468,11 @@ So, maybe there won't be an issue with a list vector as long as it is the same l
 
 ```r
 tibble(x = 1:3, y = list("a", 1, list(1:3)))
-#> # A tibble: 3 × 2
-#>       x          y
-#>   <int>     <list>
-#> 1     1  <chr [1]>
-#> 2     2  <dbl [1]>
+#> # A tibble: 3 x 2
+#>       x y         
+#>   <int> <list>    
+#> 1     1 <chr [1]> 
+#> 2     2 <dbl [1]> 
 #> 3     3 <list [1]>
 ```
 

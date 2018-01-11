@@ -14,14 +14,8 @@ library(nycflights13)
 library(lubridate)
 ```
 
-**Notes**
-
-- talks about `MASS::rlm()`
-- splines
-
 
 ## Why are low quality diamonds more expensive?
-
 
 
 
@@ -61,7 +55,7 @@ diamonds2 %>%
             abs_err = mean(abs(resid)),
             p975_err = quantile(resid, 0.975),
             p025_err = quantile(resid, 0.025))
-#> # A tibble: 1 × 4
+#> # A tibble: 1 x 4
 #>   sq_err abs_err p975_err p025_err
 #>    <dbl>   <dbl>    <dbl>    <dbl>
 #> 1  0.192   0.149    0.384   -0.369
@@ -84,9 +78,9 @@ daily <- flights %>%
   group_by(date) %>% 
   summarise(n = n())
 daily
-#> # A tibble: 365 × 2
-#>         date     n
-#>       <date> <int>
+#> # A tibble: 365 x 2
+#>   date           n
+#>   <date>     <int>
 #> 1 2013-01-01   842
 #> 2 2013-01-02   943
 #> 3 2013-01-03   914
@@ -129,12 +123,12 @@ These are the Sundays before Monday holidays Martin Luther King Day, Memorial Da
 ```r
 daily %>%
   top_n(3, resid)
-#> # A tibble: 3 × 5
-#>         date     n  wday   term resid
-#>       <date> <int> <ord> <fctr> <dbl>
-#> 1 2013-11-30   857   Sat   fall 112.4
-#> 2 2013-12-01   987   Sun   fall  95.5
-#> 3 2013-12-28   814   Sat   fall  69.4
+#> # A tibble: 3 x 5
+#>   date           n wday  term   resid
+#>   <date>     <int> <ord> <fctr> <dbl>
+#> 1 2013-11-30   857 Sat   fall   112  
+#> 2 2013-12-01   987 Sun   fall    95.5
+#> 3 2013-12-28   814 Sat   fall    69.4
 ```
 
 
@@ -230,15 +224,15 @@ daily %>%
   spread_residuals(mod5) %>%
   arrange(desc(abs(resid))) %>%
   slice(1:20) %>% select(date, wday, resid)
-#> # A tibble: 20 × 3
-#>         date  wday resid
-#>       <date> <ord> <dbl>
-#> 1 2013-11-28 Thurs  -332
-#> 2 2013-11-29   Fri  -306
-#> 3 2013-12-25   Wed  -244
-#> 4 2013-07-04 Thurs  -229
-#> 5 2013-12-24  Tues  -190
-#> 6 2013-12-31  Tues  -175
+#> # A tibble: 20 x 3
+#>   date       wday  resid
+#>   <date>     <ord> <dbl>
+#> 1 2013-11-28 Thu    -332
+#> 2 2013-11-29 Fri    -306
+#> 3 2013-12-25 Wed    -244
+#> 4 2013-07-04 Thu    -229
+#> 5 2013-12-24 Tue    -190
+#> 6 2013-12-31 Tue    -175
 #> # ... with 14 more rows
 ```
 

@@ -8,23 +8,16 @@
 ```r
 library(modelr)
 library(tidyverse)
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
+#> ── Attaching packages ────────────────
+#> ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
+#> ✔ tibble  1.4.1     ✔ dplyr   0.7.4
+#> ✔ tidyr   0.7.2     ✔ stringr 1.2.0
+#> ✔ readr   1.1.1     ✔ forcats 0.2.0
+#> ── Conflicts ─────────────────────────
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 library(gapminder)
 ```
-
-Functions
-
-- `nest`
-- `unnest`
-- `glance`
 
 ## Gapminder
 
@@ -59,15 +52,15 @@ by_country <- by_country %>%
     resids = map2(data, model, add_residuals)
   )
 by_country
-#> # A tibble: 142 × 5
-#>       country continent              data    model            resids
-#>        <fctr>    <fctr>            <list>   <list>            <list>
-#> 1 Afghanistan      Asia <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
-#> 2     Albania    Europe <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
-#> 3     Algeria    Africa <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
-#> 4      Angola    Africa <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
-#> 5   Argentina  Americas <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
-#> 6   Australia   Oceania <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
+#> # A tibble: 142 x 5
+#>   country     continent data              model    resids           
+#>   <fctr>      <fctr>    <list>            <list>   <list>           
+#> 1 Afghanistan Asia      <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
+#> 2 Albania     Europe    <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
+#> 3 Algeria     Africa    <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
+#> 4 Angola      Africa    <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
+#> 5 Argentina   Americas  <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
+#> 6 Australia   Oceania   <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
 #> # ... with 136 more rows
 ```
 
@@ -77,7 +70,7 @@ unnest(by_country, resids) %>%
 ggplot(aes(year, resid)) +
   geom_line(aes(group = country), alpha = 1 / 3) + 
   geom_smooth(se = FALSE)
-#> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+#> `geom_smooth()` using method = 'gam'
 ```
 
 <img src="many-models_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
@@ -130,15 +123,15 @@ mtcars %>%
   group_by(cyl) %>% 
   summarise(q = list(quantile(mpg))) %>% 
   unnest()
-#> # A tibble: 15 × 2
+#> # A tibble: 15 x 2
 #>     cyl     q
 #>   <dbl> <dbl>
-#> 1     4  21.4
-#> 2     4  22.8
-#> 3     4  26.0
-#> 4     4  30.4
-#> 5     4  33.9
-#> 6     6  17.8
+#> 1  4.00  21.4
+#> 2  4.00  22.8
+#> 3  4.00  26.0
+#> 4  4.00  30.4
+#> 5  4.00  33.9
+#> 6  6.00  17.8
 #> # ... with 9 more rows
 ```
 
@@ -159,14 +152,15 @@ Since the `unnest` function drops the names of the vector, they aren't useful he
 mtcars %>% 
   group_by(cyl) %>% 
   summarise_each(funs(list))
-#> # A tibble: 3 × 11
-#>     cyl        mpg       disp         hp       drat         wt       qsec
-#>   <dbl>     <list>     <list>     <list>     <list>     <list>     <list>
-#> 1     4 <dbl [11]> <dbl [11]> <dbl [11]> <dbl [11]> <dbl [11]> <dbl [11]>
-#> 2     6  <dbl [7]>  <dbl [7]>  <dbl [7]>  <dbl [7]>  <dbl [7]>  <dbl [7]>
-#> 3     8 <dbl [14]> <dbl [14]> <dbl [14]> <dbl [14]> <dbl [14]> <dbl [14]>
-#> # ... with 4 more variables: vs <list>, am <list>, gear <list>,
-#> #   carb <list>
+#> `summarise_each()` is deprecated.
+#> Use `summarise_all()`, `summarise_at()` or `summarise_if()` instead.
+#> To map `funs` over all variables, use `summarise_all()`
+#> # A tibble: 3 x 11
+#>     cyl mpg        disp   hp     drat  wt    qsec  vs    am    gear  carb 
+#>   <dbl> <list>     <list> <list> <lis> <lis> <lis> <lis> <lis> <lis> <lis>
+#> 1  4.00 <dbl [11]> <dbl … <dbl … <dbl… <dbl… <dbl… <dbl… <dbl… <dbl… <dbl…
+#> 2  6.00 <dbl [7]>  <dbl … <dbl … <dbl… <dbl… <dbl… <dbl… <dbl… <dbl… <dbl…
+#> 3  8.00 <dbl [14]> <dbl … <dbl … <dbl… <dbl… <dbl… <dbl… <dbl… <dbl… <dbl…
 ```
 
 It creates a data frame in which each row corresponds to a value of `cyl`, 

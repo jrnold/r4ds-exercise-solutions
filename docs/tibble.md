@@ -8,45 +8,22 @@
 library("tidyverse")
 ```
 
-Functions and packages covered in this chapter:
-
-- package **tibble**
-- `as_tibble`, `tibble`
-
 ## Creating Tibbles
 
-Why might you want to create non-syntactic variable names? 
-Since variable names are often used as in plots (e.g. axis-titles) or headers in tables, where having spaces or other characters that are invalid R variable names is useful.
-Those functions will have ways to use text other than the column.
+No exercises
 
 ## Tibbles vs. data.frame
 
-Discuss the definition of a data frame.
-
-What is the traditional R `data.frame`?
-
-In general, discuss how this "dialect" of R relates to base R and other R that they will see.
-
-Also, need to discuss types of variables.
-
-If `nycflights::flights` were printed in the console it would be much worse. Just try it, I dare you.
-
-```r
-as.data.frame(nycflights13::flights) 
-```
+No exercises
 
 
 ## Subsetting
 
-**Note** Warnings about partial matching! What is it and why is it dangerous.
-
-
+No exercises
 
 ## Interacting with older code
 
-**Note** Not all older functions work with tibbles (an example includes giAmelia); usually because they rely on quirks in `data.frame` behavior that `tibbles` "fix". Use `as.data.frame()` to turn a tibble back into a `data.frame`. 
-This is usually because of `[` and the way it inconsistenly returns a vector or a data frame.
-With tibbles `[` always returns a data frame
+No excercises
 
 ## Exercises
 
@@ -124,18 +101,18 @@ df[, c("abc", "xyz")]
 ```r
 tbl <- as_tibble(df)
 tbl$x
-#> Warning: Unknown column 'x'
+#> Warning: Unknown or uninitialised column: 'x'.
 #> NULL
 tbl[, "xyz"]
-#> # A tibble: 1 × 1
-#>      xyz
+#> # A tibble: 1 x 1
+#>   xyz   
 #>   <fctr>
-#> 1      a
+#> 1 a
 tbl[, c("abc", "xyz")]
-#> # A tibble: 1 × 2
-#>     abc    xyz
+#> # A tibble: 1 x 2
+#>     abc xyz   
 #>   <dbl> <fctr>
-#> 1     1      a
+#> 1  1.00 a
 ```
 
 Using `$` a data.frame will partially complete the column. So even though we wrote `df$x` it returned `df$xyz`. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.
@@ -183,7 +160,7 @@ ggplot(annoying, aes(x = `1`, y = `2`)) +
   geom_point()
 ```
 
-<img src="tibble_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="tibble_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 A new column `3` with is `2` divided by `1`:
 
@@ -205,8 +182,8 @@ glimpse(annoying)
 #> Observations: 10
 #> Variables: 3
 #> $ one   <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-#> $ two   <dbl> 2.97, 2.99, 5.92, 7.45, 10.75, 11.07, 13.53, 15.14, 16.4...
-#> $ three <dbl> 2.97, 1.50, 1.97, 1.86, 2.15, 1.84, 1.93, 1.89, 1.83, 2.20
+#> $ two   <dbl> 0.60, 4.26, 3.56, 7.99, 10.62, 13.15, 12.18, 15.75, 17.7...
+#> $ three <dbl> 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97
 ```
 
 5. What does `tibble::enframe()` do? When might you use it?
@@ -220,12 +197,12 @@ It converts named vectors to a data frame with names and values
 
 ```r
 enframe(c(a = 1, b = 2, c = 3))
-#> # A tibble: 3 × 2
-#>    name value
+#> # A tibble: 3 x 2
+#>   name  value
 #>   <chr> <dbl>
-#> 1     a     1
-#> 2     b     2
-#> 3     c     3
+#> 1 a      1.00
+#> 2 b      2.00
+#> 3 c      3.00
 ```
 
 
@@ -238,3 +215,6 @@ The print function for tibbles is in `print.tbl_df`:
 ```
 The option `n_extra` determines the number of extra columns to print information for.
 
+## Import
+
+No code

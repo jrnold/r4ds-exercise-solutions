@@ -6,25 +6,6 @@
 
 Functions and packages:
 
-- **forcats**
-- `factor`
-- `fct_inorder`
-- `levels`
-- `readr::parse_factor`
-- `fct_reorder`
-- `fct_relevel`
-- `fct_reorder2`
-- `fct_infreq`
-- `fct_rev`
-- `fct_recode`
-- `fct_lump`
-- `fct_collapse`
-
-Also see the 
-
-- [Be the boss of your factors](http://stat545.com/block029_factors.html) Stat 545. Jenny Bryan.
-
-
 
 ```r
 library("tidyverse")
@@ -86,9 +67,9 @@ gss_cat %>%
   count(relig) %>%
   arrange(-n) %>%
   head(1)
-#> # A tibble: 1 × 2
-#>        relig     n
-#>       <fctr> <int>
+#> # A tibble: 1 x 2
+#>   relig          n
+#>   <fctr>     <int>
 #> 1 Protestant 10846
 ```
 
@@ -99,9 +80,9 @@ gss_cat %>%
   count(partyid) %>% 
   arrange(-n) %>%
   head(1)
-#> # A tibble: 1 × 2
-#>       partyid     n
-#>        <fctr> <int>
+#> # A tibble: 1 x 2
+#>   partyid         n
+#>   <fctr>      <int>
 #> 1 Independent  4119
 ```
 
@@ -133,9 +114,9 @@ gss_cat %>%
   filter(!denom %in% c("No answer", "Other", "Don't know", "Not applicable",
                        "No denomination")) %>%
   count(relig)
-#> # A tibble: 1 × 2
-#>        relig     n
-#>       <fctr> <int>
+#> # A tibble: 1 x 2
+#>   relig          n
+#>   <fctr>     <int>
 #> 1 Protestant  7025
 ```
 

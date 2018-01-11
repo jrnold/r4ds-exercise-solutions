@@ -3,11 +3,6 @@
 
 ## Introduction
 
-- `&&`, `||`, `any`, `all`, `identical`, `dplyr::near`
-- `switch`, `cut`
-- `stop`, `stopifnot`
-- `...`
-
 
 ## When should you write a function?
 
@@ -319,7 +314,7 @@ greet <- function(time = lubridate::now()) {
   }
 } 
 greet()
-#> [1] "good morning"
+#> [1] "good evening"
 greet(ymd_h("2017-01-08:05"))
 #> [1] "good morning"
 greet(ymd_h("2017-01-08:13"))
