@@ -412,51 +412,76 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg)</code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Nothing. The plot is created, but <code>ggplot</code> is not given any data to plot.</p>
+<p>An empty plot. The background of the plot is created by <code>ggplot()</code>, but nothing else is displayed.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>How many rows are in <code>mtcars</code>? How many columns?</li>
 </ol>
+<p>There are 32 rows and 11 columns in the the <code>mtcars</code> data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(mtcars)
 <span class="co">#&gt; [1] 32</span>
 <span class="kw">ncol</span>(mtcars)
 <span class="co">#&gt; [1] 11</span></code></pre></div>
-<p>This can also be found by printing the dataset, or looking in the environment pane.</p>
+<p>The number of rows and columns is also displayed by <code>glimpse()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(mtcars)
+<span class="co">#&gt; Observations: 32</span>
+<span class="co">#&gt; Variables: 11</span>
+<span class="co">#&gt; $ mpg  &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19....</span>
+<span class="co">#&gt; $ cyl  &lt;dbl&gt; 6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8, 8, 8, 8, 8, 8, 4, 4, ...</span>
+<span class="co">#&gt; $ disp &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7, 1...</span>
+<span class="co">#&gt; $ hp   &lt;dbl&gt; 110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, ...</span>
+<span class="co">#&gt; $ drat &lt;dbl&gt; 3.90, 3.90, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.9...</span>
+<span class="co">#&gt; $ wt   &lt;dbl&gt; 2.62, 2.88, 2.32, 3.21, 3.44, 3.46, 3.57, 3.19, 3.15, 3.4...</span>
+<span class="co">#&gt; $ qsec &lt;dbl&gt; 16.5, 17.0, 18.6, 19.4, 17.0, 20.2, 15.8, 20.0, 22.9, 18....</span>
+<span class="co">#&gt; $ vs   &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, ...</span>
+<span class="co">#&gt; $ am   &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, ...</span>
+<span class="co">#&gt; $ gear &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, ...</span>
+<span class="co">#&gt; $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, ...</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>What does the <code>drv</code> variable describe? Read the help for <code>?mpg</code> to find out.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?mpg</code></pre></div>
 <p>The <code>drv</code> variable takes the following values</p>
-<ul>
-<li><code>&quot;f&quot;</code> = front-wheel drive</li>
-<li><code>&quot;r&quot;</code> = rear-wheel drive</li>
-<li><code>&quot;4&quot;</code> = four-wheel drive</li>
-</ul>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">- <code>&quot;f&quot;</code></td>
+<td align="left">front-wheel drive</td>
+</tr>
+<tr class="even">
+<td align="left">- <code>&quot;r&quot;</code></td>
+<td align="left">rear-wheel drive</td>
+</tr>
+<tr class="odd">
+<td align="left">- <code>&quot;4&quot;</code></td>
+<td align="left">four-wheel drive</td>
+</tr>
+</tbody>
+</table>
 <ol start="4" style="list-style-type: decimal">
 <li>Make a scatter plot of <code>hwy</code> vs <code>cyl</code></li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> hwy, <span class="dt">y =</span> cyl)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="5" style="list-style-type: decimal">
-<li>What happens if you make a of <code>class</code> vs <code>drv</code>. Why is the plot not useful?</li>
+<li>What happens if you make a scatter plot of <code>class</code> vs <code>drv</code>. Why is the plot not useful?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> class, <span class="dt">y =</span> drv)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>A scatter plot is not a useful way to plot these variables, since both <code>drv</code> and <code>class</code> are factor variables, and the scatter plot cannot show which are overlapping or not.</p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>A scatter plot is not a useful way to plot these variables, since both <code>drv</code> and <code>class</code> are factor variables taking a limited number of values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">count</span>(mpg, drv, class)
-<span class="co">#&gt; Source: local data frame [12 x 3]</span>
-<span class="co">#&gt; Groups: drv [?]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     drv      class     n</span>
-<span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1     4    compact    12</span>
-<span class="co">#&gt; 2     4    midsize     3</span>
-<span class="co">#&gt; 3     4     pickup    33</span>
-<span class="co">#&gt; 4     4 subcompact     4</span>
-<span class="co">#&gt; 5     4        suv    51</span>
-<span class="co">#&gt; 6     f    compact    35</span>
+<span class="co">#&gt; # A tibble: 12 x 3</span>
+<span class="co">#&gt;   drv   class          n</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1 4     compact       12</span>
+<span class="co">#&gt; 2 4     midsize        3</span>
+<span class="co">#&gt; 3 4     pickup        33</span>
+<span class="co">#&gt; 4 4     subcompact     4</span>
+<span class="co">#&gt; 5 4     suv           51</span>
+<span class="co">#&gt; 6 f     compact       35</span>
 <span class="co">#&gt; # ... with 6 more rows</span></code></pre></div>
+<p>The scatter plot cannot show which are overlapping or not. Later chapters discuss means to deal with this, including alternative plots and jittering the points so they don’t overlap.</p>
 </div>
 </div>
 <div id="aesthetic-mappings" class="section level3">
@@ -468,25 +493,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Since <code>color = &quot;blue&quot;</code> was included within the <code>mapping</code> argument, it was treated as an aesthetic (a mapping between a variable and a value). It was treated as a variable which has only one value: “blue”.</p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Since <code>color = &quot;blue&quot;</code> was included within the <code>mapping</code> argument, it was treated as an aesthetic (a mapping between a variable and a value). The expression, <code>color=&quot;blue&quot;</code>, treats <code>&quot;blue&quot;</code> as a variable with only one value: <code>&quot;blue&quot;</code>. If this is confusing, consider how <code>color = 1:234</code> or <code>color = 1</code> would be interpreted by <code>aes()</code>.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?</li>
+<li>Which variables in <code>mpg</code> are categorical? Which variables are continuous? (Hint: type <code>?mpg</code> to read the documentation for the dataset). How can you see this information when you run <code>mpg</code>?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?mpg</code></pre></div>
 <p>When printing the data frame, this information is given at the top of each column within angled brackets. Categorical variables have a class of “character” (<code>&lt;chr&gt;</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mpg
-<span class="co">#&gt; # A tibble: 234 × 11</span>
-<span class="co">#&gt;   manufacturer model displ  year   cyl      trans   drv   cty   hwy    fl</span>
-<span class="co">#&gt;          &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;      &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1         audi    a4   1.8  1999     4   auto(l5)     f    18    29     p</span>
-<span class="co">#&gt; 2         audi    a4   1.8  1999     4 manual(m5)     f    21    29     p</span>
-<span class="co">#&gt; 3         audi    a4   2.0  2008     4 manual(m6)     f    20    31     p</span>
-<span class="co">#&gt; 4         audi    a4   2.0  2008     4   auto(av)     f    21    30     p</span>
-<span class="co">#&gt; 5         audi    a4   2.8  1999     6   auto(l5)     f    16    26     p</span>
-<span class="co">#&gt; 6         audi    a4   2.8  1999     6 manual(m5)     f    18    26     p</span>
-<span class="co">#&gt; # ... with 228 more rows, and 1 more variables: class &lt;chr&gt;</span></code></pre></div>
-<p>The <code>glimpse</code> command from “mpg” shows this:</p>
+<span class="co">#&gt; # A tibble: 234 x 11</span>
+<span class="co">#&gt;   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class</span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 audi         a4     1.80  1999     4 auto… f        18    29 p     comp…</span>
+<span class="co">#&gt; 2 audi         a4     1.80  1999     4 manu… f        21    29 p     comp…</span>
+<span class="co">#&gt; 3 audi         a4     2.00  2008     4 manu… f        20    31 p     comp…</span>
+<span class="co">#&gt; 4 audi         a4     2.00  2008     4 auto… f        21    30 p     comp…</span>
+<span class="co">#&gt; 5 audi         a4     2.80  1999     6 auto… f        16    26 p     comp…</span>
+<span class="co">#&gt; 6 audi         a4     2.80  1999     6 manu… f        18    26 p     comp…</span>
+<span class="co">#&gt; # ... with 228 more rows</span></code></pre></div>
+<p>Alternatively, the <code>glimpse</code> function displays the type of each column:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(mpg)
 <span class="co">#&gt; Observations: 234</span>
 <span class="co">#&gt; Variables: 11</span>
@@ -507,23 +532,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The variable <code>cty</code>, city highway miles per gallon, is a continuous variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> cty)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Instead of using discrete colors, the continuous variable uses a scale that goes from black to bluish.</p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Instead of using discrete colors, the continuous variable uses a scale that varies from a light to dark blue color.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">size =</span> cty)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>When mapped to size, the sizes of the points vary continuously with respect to the size (although the legend shows a few representative values)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">shape =</span> cty)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()
 <span class="co">#&gt; Error: A continuous variable can not be mapped to shape</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>When a continuous value is mapped to shape, it gives an error. Though we could split a continuous variable into discrete categories and use shape, this would conceptually not make sense. A continuous numeric variable is ordered, but shapes have no natural order. It is clear that smaller points correspond to smaller values, or once the color scale is given, which points are larger or smaller. But it is not clear whether a square is greater or less than a circle.</p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>When a continuous value is mapped to shape, it gives an error. Though we could split a continuous variable into discrete categories and use a shape aesthetic, this would conceptually not make sense. A continuous numeric variable is ordered, but shapes have no natural order. It is clear that smaller points correspond to smaller values, or once the color scale is given, which colors correspond to larger or smaller values. But it is not clear whether a square is greater or less than a circle.</p>
 <ol start="4" style="list-style-type: decimal">
 <li>What happens if you map the same variable to multiple aesthetics?</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> hwy, <span class="dt">size =</span> displ)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>In the above plot, <code>hwy</code> is mapped to both location on the y-axis and color, and <code>displ</code> is mapped to both location on the x-axis and size. The code works and produces a plot, even if it is a bad one. Mapping a single variable to multiple aesthetics is redundant. Because it is redundant information, in most cases avoid mapping a single variable to multiple aesthetics.</p>
 <ol start="5" style="list-style-type: decimal">
 <li>What does the stroke aesthetic do? What shapes does it work with? (Hint: use <code>?geom_point</code>)</li>
@@ -549,7 +574,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ol style="list-style-type: decimal">
 <li>What happens if you facet on a continuous variable?</li>
 </ol>
-<p>Let’s see</p>
+<p>Let’s see.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>cty)</code></pre></div>
@@ -561,7 +586,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>They are cells in which there are no values of the combination of <code>drv</code> and <code>cyl</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> drv, <span class="dt">y =</span> cyl))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The locations in the above plot without points are the same cells in <code>facet_grid(drv ~ cyl)</code> that have no points.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>What plots does the following code make? What does <code>.</code> do?</li>
@@ -600,13 +625,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>By default <code>se = TRUE</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> drv)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>()
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Will these two graphs look different? Why/why not?</li>
 </ol>
@@ -615,12 +640,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>()
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Recreate the R code necessary to generate the following graphs.</li>
 </ol>
@@ -628,30 +653,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">group =</span> drv), <span class="dt">se =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> drv)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">colour =</span> drv)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> drv)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> drv), <span class="dt">se =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">fill =</span> drv)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">shape =</span> <span class="dv">21</span>)</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="statistical-transformations" class="section level3">
 <h3><span class="header-section-number">2.1.6</span> Statistical Transformations</h3>
@@ -666,7 +691,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="dt">stat =</span> <span class="st">&quot;summary&quot;</span>,
   )
 <span class="co">#&gt; No summary function supplied, defaulting to `mean_se()</span></code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The default message says that <code>stat_summary</code> uses the <code>mean</code> and <code>sd</code> to calculate the point, and range of the line. So lets use the previous values of <code>fun.ymin</code>, <code>fun.ymax</code>, and <code>fun.y</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_pointrange</span>(
@@ -676,7 +701,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <span class="dt">fun.ymax =</span> max,
     <span class="dt">fun.y =</span> median
   )</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>What does <code>geom_col()</code> do? How is it different to <code>geom_bar()</code>?</li>
 </ol>
@@ -702,21 +727,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>If <code>group</code> is not set to 1, then all the bars have <code>prop == 1</code>. The function <code>geom_bar</code> assumes that the groups are equal to the <code>x</code> values, since the stat computes the counts within the group.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> ..prop..))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The problem with these two plots is that the proportions are calculated within the groups.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> ..prop..))
 
 <span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> color, <span class="dt">y =</span> ..prop..))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-31-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-32-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>This is more likely what was intended:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> ..prop.., <span class="dt">group =</span> <span class="dv">1</span>))
 
 <span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> color, <span class="dt">y =</span> ..prop.., <span class="dt">group =</span> color))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-32-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-33-2.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="position-adjustments" class="section level2">
@@ -727,10 +752,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>There is overplotting because there are multiple observations for each combination of <code>cty</code> and <code>hwy</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /> I’d fix it by using a jitter position adjustment.</p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /> I’d fix it by using a jitter position adjustment.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>What parameters to <code>geom_jitter()</code> control the amount of jittering?</li>
 </ol>
@@ -738,19 +763,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>No horizontal jitter</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Way too much vertical jitter</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="dv">15</span>))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Only horizontal jitter:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Way too much horizontal jitter:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">20</span>))</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Compare and contrast <code>geom_jitter()</code> with <code>geom_count()</code>.</p></li>
 <li><p>What’s the default position adjustment for <code>geom_boxplot()</code>? Create a visualization of the mpg dataset that demonstrates it.</p></li>
@@ -759,10 +784,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>When we add <code>color = class</code> to the box plot, the different classes within <code>drv</code> are placed side by side, i.e. dodged. If it was <code>position_identity</code>, they would be overlapping.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="kw">aes</span>(<span class="dt">x =</span> drv, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="kw">aes</span>(<span class="dt">x =</span> drv, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>)</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="coordinate-systems" class="section level2">
 <h2><span class="header-section-number">2.3</span> Coordinate Systems</h2>
@@ -774,42 +799,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This is a stacked bar chart with a single category</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(<span class="dv">1</span>), <span class="dt">fill =</span> drv)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>See the documentation for <a href="http://docs.ggplot2.org/current/coord_polar.html">coord_polar</a> for an example of making a pie chart. In particular, <code>theta = &quot;y&quot;</code>, meaning that the angle of the chart is the <code>y</code> variable has to be specified.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(<span class="dv">1</span>), <span class="dt">fill =</span> drv)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">width =</span> <span class="dv">1</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_polar</span>(<span class="dt">theta =</span> <span class="st">&quot;y&quot;</span>)</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>If <code>theta = &quot;y&quot;</code> is not specified, then you get a bull’s-eye chart</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(<span class="dv">1</span>), <span class="dt">fill =</span> drv)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">width =</span> <span class="dv">1</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_polar</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>If you had a multiple stacked bar chart, like,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> clarity), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>you end up with a multi-doughnut chart</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> clarity), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_polar</span>(<span class="dt">theta =</span> <span class="st">&quot;y&quot;</span>)</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>What does <code>labs()</code> do? Read the documentation.</li>
 </ol>
-<p><code>labs</code> is a shortcut function to add labels to different scales.</p>
+<p>The <code>labs</code> function adds labels for different scales and the title of the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> class, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Highway MPG&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Highway MPG&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Highway MPG by car class&quot;</span>)</code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>What’s the difference between <code>coord_quickmap()</code> and <code>coord_map()</code>?</li>
 </ol>
 <p>See the <a href="http://docs.ggplot2.org/current/coord_quickmap.html">docs</a>:</p>
 <ul>
 <li><code>coord_map</code> uses a 2D projection: by default the Mercator project of the sphere to the plot. But this requires transforming all geoms.</li>
-<li><code>coord_quickmap</code> uses a quick approximation by using the lat/long ratio as an approximation. This is “quick” because the shapes don’t need to be transformed.</li>
+<li><code>coord_quickmap</code> uses a approximate, but faster, map projection using the lat/long ratio as an approximation. This is “quick” because the shapes don’t need to be transformed.</li>
 </ul>
 <ol start="4" style="list-style-type: decimal">
 <li>What does the plot below tell you about the relationship between city and highway mpg? Why is <code>coord_fixed()</code> important? What does <code>geom_abline()</code> do?</li>
@@ -819,12 +844,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>If we didn’t include geom_point, then the line is no longer at 45 degrees:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>()</code></pre></div>
-<p><img src="visualize_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
