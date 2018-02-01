@@ -286,96 +286,6 @@ What is lost, is that since the absolute values are shown, whether the model is 
 
 ### Categorical Variables
 
-```{r}
-df <- tribble(
-  ~ sex, ~ response,
-  "male", 1,
-  "female", 2,
-  "male", 1
-)
-model_matrix(df, response ~ sex)
-```
-
-```{r}
-ggplot(sim2) +
-  geom_point(aes(x, y))
-```
-
-
-```{r}
-mod2 <- lm(y ~ x, data = sim2)
-grid <- sim2 %>%
-  data_grid(x) %>%
-  add_predictions(mod2)
-grid
-```
-
-
-```{r}
-ggplot(sim3, aes(x1, y)) + 
-  geom_point(aes(colour = x2))
-```
-
-```{r}
-mod1 <- lm(y ~ x1 + x2, data = sim3)
-mod2 <- lm(y ~ x1 * x2, data = sim3)
-```
-
-```{r}
-grid <- sim3 %>% 
-  data_grid(x1, x2) %>% 
-  gather_predictions(mod1, mod2)
-grid
-```
-
-```{r}
-ggplot(sim3, aes(x1, y, colour = x2)) + 
-  geom_point() + 
-  geom_line(data = grid, aes(y = pred)) + 
-  facet_wrap(~ model)
-```
-
-```{r}
-sim3 <- sim3 %>% 
-  gather_residuals(mod1, mod2)
-
-ggplot(sim3, aes(x1, resid, colour = x2)) + 
-  geom_point() + 
-  facet_grid(model ~ x2)
-```
-
-```{r}
-mod1 <- lm(y ~ x1 + x2, data = sim4)
-mod2 <- lm(y ~ x1 * x2, data = sim4)
-
-grid <- sim4 %>% 
-  data_grid(
-    x1 = seq_range(x1, 5), 
-    x2 = seq_range(x2, 5) 
-  ) %>% 
-  gather_predictions(mod1, mod2)
-grid
-```
-
-Function `seq_range` is useful.
-
-```{r}
-ggplot(grid, aes(x1, x2)) +
-  geom_tile(aes(fill = pred)) +
-  facet_wrap(~ model)
-```
-
-
-```{r}
-ggplot(grid, aes(x1, pred, colour = x2, group = x2)) +
-  geom_line() +
-  facet_wrap(~ model)
-
-ggplot(grid, aes(x2, pred, colour = x1, group = x1)) + 
-  geom_line() +
-  facet_wrap(~ model)
-```
-
 
 ### Exercises
 
@@ -402,7 +312,8 @@ grid
 2. Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`. Why is `*` a good shorthand for interaction?
 
 
-**TODO**n
+
+
 
 3. Using the basic principles, convert the formulas in the following two models into functions. (Hint: start by converting the categorical variable into 0-1 variables.)
 
