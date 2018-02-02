@@ -1,0 +1,37 @@
+---
+title: "Exercise 24.4.7.4"
+author: "Jeffrey Arnold"
+date: "2/1/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+The chunk `a` has no dependencies.
+```{r a}
+print(lubridate::now())
+x <- 1
+```
+
+The chunk `b` depends on `a`.
+```{r b, dependson = c("a")}
+print(lubridate::now())
+y <- x + 1
+```
+
+The chunk `c` depends on `a`.
+```{r c, dependson = c("a")}
+print(lubridate::now())
+z <- x * 2
+```
+
+The chunk `d` depends on `c` and `b`:
+```{r d, dependson = c("c", "b")}
+print(lubridate::now())
+w <- y + z
+```
+
+If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
+and the same as the first time the document was run with caching.
