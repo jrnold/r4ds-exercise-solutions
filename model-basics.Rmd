@@ -20,9 +20,6 @@ It is a function.
 
 ## A simple model
 
-
-### Exercises
-
 1. One downside of the linear model is that it is sensitive to unusual values because the distance incorporates a squared term. Fit a linear model to the simulated data below, and visualise the results. Rerun a few times to generate different simulated datasets. What do you notice about the model?
 
 ```{r}
@@ -146,7 +143,7 @@ See the `MASS` package's `rlm` and `lqs` functions for more information and func
 
 3. One challenge with performing numerical optimization is that it’s only guaranteed to find a local optimum. What’s the problem with optimizing a three parameter model like this?
 
-```{r eval=FALSE}
+```{r}
 model3 <- function(a, data) {
   a[1] + data$x * a[2] + a[3]
 }
@@ -191,17 +188,21 @@ Problem is that due to finite iterations, numerically these converge:
 
 ## Visualizing Models
 
-### Exercises
 
 1. Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on `sim1` using `loess()` instead of `lm()`. How does the result compare to `geom_smooth()`?
 
 I'll use `add_predictions` and `add_residuals` to add the predictions and residuals from a loess regression to the `sim1` data. 
+
 ```{r}
 sim1_loess <- loess(y ~ x, data = sim1)
+sim1_lm <- lm(y ~ x, data = sim1)
+
 grid_loess <- sim1 %>%
   add_predictions(sim1_loess)
 
 sim1 <- sim1 %>%
+  add_residuals(sim1_lm) %>%
+  add_predictions(sim1_lm) %>% 
   add_residuals(sim1_loess, var = "resid_loess") %>%
   add_predictions(sim1_loess, var = "pred_loess")
   
@@ -220,7 +221,7 @@ plot_sim1_loess
 The predictions of loess are the same as the default method for `geom_smooth` because `geom_smooth()` uses `loess()` by default; the message even tells us that.
 ```{r}
 plot_sim1_loess +
-  geom_smooth(colour = "blue", se = FALSE, alpha = 0.20)
+  geom_smooth(method = "loess", colour = "blue", se = FALSE, alpha = 0.20)
 ```
 
 We can plot the residuals (red), and compare them to the residuals from `lm` (black). 
@@ -306,11 +307,6 @@ frequency polygon cannot show whether the model systematically over- or under-es
 ## Formulas and Model Families
 
 
-### Categorical Variables
-
-
-### Exercises
-
 1. What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation? What happens to the predictions?
 
 To run a model without an intercept, add `- 1` or `+ 0` to the right-hand-side o f the formula:
@@ -325,10 +321,9 @@ The predictions are exactly the same in the models with and without an intercept
 ```{r}
 grid <- sim2 %>% 
   data_grid(x) %>% 
-  add_predictions(mod2, mod2a)
+  spread_predictions(mod2, mod2a)
 grid
 ```
-
 
 
 2. Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`. Why is `*` a good shorthand for interaction?
@@ -467,6 +462,8 @@ The standard deviation of the residuals of `mod2` is smaller than that of `mod1`
 
 
 ## Missing values
+
+No exercises
 
 ## Other model families
 

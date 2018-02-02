@@ -2,7 +2,7 @@
 # Dates and Times
 
 
-## Prerequisite
+## Introduction
 
 
 ```r
@@ -13,57 +13,25 @@ library(nycflights13)
 
 ## Creating date/times
 
-**NOTE** %/% is integer division, divide and throw away the remainder. %% calculates the modulus (remainder of division). For example to test for an even number: `x %% 2 == 0`, or odd `x %% 2 == 1`. To get the thousands value of a number `x %/% 1000`.
-
+This code is needed by exercises.
 
 ```r
 make_datetime_100 <- function(year, month, day, time) {
   make_datetime(year, month, day, time %/% 100, time %% 100)
 }
 
-flights_dt <- flights %>%
-  filter(!is.na(dep_time), !is.na(arr_time)) %>%
+flights_dt <- flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
   mutate(
     dep_time = make_datetime_100(year, month, day, dep_time),
     arr_time = make_datetime_100(year, month, day, arr_time),
     sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
     sched_arr_time = make_datetime_100(year, month, day, sched_arr_time)
-  ) %>%
+  ) %>% 
   select(origin, dest, ends_with("delay"), ends_with("time"))
-flights_dt %>% head
-#> # A tibble: 6 x 9
-#>   origin dest  dep_delay arr_delay dep_time            sched_dep_time     
-#>   <chr>  <chr>     <dbl>     <dbl> <dttm>              <dttm>             
-#> 1 EWR    IAH        2.00      11.0 2013-01-01 05:17:00 2013-01-01 05:15:00
-#> 2 LGA    IAH        4.00      20.0 2013-01-01 05:33:00 2013-01-01 05:29:00
-#> 3 JFK    MIA        2.00      33.0 2013-01-01 05:42:00 2013-01-01 05:40:00
-#> 4 JFK    BQN       -1.00     -18.0 2013-01-01 05:44:00 2013-01-01 05:45:00
-#> 5 LGA    ATL       -6.00     -25.0 2013-01-01 05:54:00 2013-01-01 06:00:00
-#> 6 EWR    ORD       -4.00      12.0 2013-01-01 05:54:00 2013-01-01 05:58:00
-#> # ... with 3 more variables: arr_time <dttm>, sched_arr_time <dttm>,
-#> #   air_time <dbl>
 ```
 
 
-Times are often stored as integers since a reference time, called an epoch.
-The most epoch is the [UNIX](https://en.wikipedia.org/wiki/Unix_time) (or POSIX) Epoch of January 1st, 1970 00:00:00.
-Internally, times are stored as the number of days, seconds, or milliseconds, etc. since the 1970-01-01 00:00:00.000.
-
-Calculate dates and date-times from number of seconds (`as_datetime`) or days (`as_date`) from Unix epoch.
-
-```r
-as_datetime(60 * 60 * 10)
-#> [1] "1970-01-01 10:00:00 UTC"
-```
-
-
-```r
-as_date(365 * 10 + 2)
-#> [1] "1980-01-01"
-```
-
-
-### Exercises 
 
 1. What happens if you parse a string that contains invalid dates?
 
@@ -152,7 +120,7 @@ flights_dt %>%
   geom_freqpoly(binwidth = 100)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
 This will look better if everything is normalized within groups. The reason
 that February is lower is that there are fewer days and thus fewer flights.
@@ -166,7 +134,7 @@ flights_dt %>%
   geom_freqpoly(binwidth = 100)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 At least to me there doesn't appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.
 
@@ -232,7 +200,7 @@ flights_dt %>%
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 5. On what day of the week should you leave if you want to minimize the chance of a delay?
 
@@ -265,7 +233,7 @@ ggplot(diamonds, aes(x = carat)) +
   geom_density()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 In both `carat` and `sched_dep_time` there are abnormally large numbers of values are at nice "human" numbers. In `sched_dep_time` it is at 00 and 30 minutes. In carats, it is at 0, 1/3, 1/2, 2/3, 
 
@@ -275,7 +243,7 @@ ggplot(diamonds, aes(x = carat %% 1 * 100)) +
   geom_histogram(binwidth = 1)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
 
 In scheduled departure times it is 00 and 30 minutes, and minutes
 ending in 0 and 5.
@@ -286,7 +254,7 @@ ggplot(flights_dt, aes(x = minute(sched_dep_time))) +
   geom_histogram(binwidth = 1)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 7. Confirm my hypothesis that the early departures of flights in minutes 20-30 and 50-60 are caused by scheduled flights that leave early. Hint: create a binary variable that tells you whether or not a flight was delayed.
 
@@ -302,7 +270,7 @@ flights_dt %>%
   geom_point()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 But if grouped in 10 minute intervals, there is a higher proportion of early flights during those minutes.
@@ -318,20 +286,10 @@ flights_dt %>%
   geom_point()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="datetimes_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Time Spans
-
-- duration: exact number of seconds
-- period: human time periods - e.g. weeks, months
-- interval: start and end points
-
-### Durations
-
-No exercises
-
-### Periods
 
 Define overnight when `arr_time < dep_time` (no flights > 24 hours):
 
@@ -344,11 +302,6 @@ flights_dt <- flights_dt %>%
   )
 ```
 
-
-### Intervals
-
-
-### Exercises
 
 1. Why is there `months()` but no `dmonths()`? 
 
@@ -412,7 +365,7 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 ```
 
 
-### Time Zones
+## Time Zones
 
 No exercises. 
 

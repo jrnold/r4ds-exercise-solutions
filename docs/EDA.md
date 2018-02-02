@@ -1,4 +1,9 @@
 
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Exploratory Data Analysis
 
 ## Introduction
@@ -16,13 +21,10 @@ library("nycflights13")
 ```
 
 
-### Questions
+## Questions
 
-### Variation
+## Variation
 
-#### Exercises
-
-<!-- 7.3.4 Exercises -->
 
 *1. Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.*
 
@@ -197,8 +199,6 @@ ggplot(diamonds) +
 
 ## Missing Values
 
-### Exercises
-
 1. What happens to missing values in a histogram? What happens to missing values in a bar chart? Why is there a difference?
 
 Missing values are removed when the number of observations in each bin are calculated. See the warning message: `Removed 9 rows containing non-finite values (stat_bin)`
@@ -245,15 +245,6 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 ## Covariation
 
 ### A categorical and continuous variable
-
-For a history of the box plot see Wickham [40 years of the box plot](http://vita.had.co.nz/papers/boxplots.pdf)
-
-> Krywinski, Martin, and Naomi Altman. 2014. "Points of Significance: Visualizing samples with box plots." *Nature Methods* [URL](http://www.nature.com/nmeth/journal/v11/n2/full/nmeth.2813.html)
-
-Where does the 1.5 x IQR come from? It's somewhat arbitrary. But in a normal distribution, the IQR is approximately 2, and 1.5 x IQR is approx 4, so the outliers are approximately within 4 standard deviations of the median (mean).
-
-
-#### Exercises
 
 1.  Use what you've learned to improve the visualization of the departure times
     of canceled vs. non-canceled flights.
@@ -658,3 +649,34 @@ ggplot(diamonds, aes(color = cut_number(carat, 5), y = price, x = cut)) +
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" />
+
+5. Two dimensional plots reveal outliers that are not visible in one dimensional plots. For example, some points in the plot below have an unusual combination of `x` and `y` values, which makes the points outliers even though their `x` and `y` values appear normal when examined separately.
+
+
+```r
+ggplot(data = diamonds) +
+  geom_point(mapping = aes(x = x, y = y)) +
+  coord_cartesian(xlim = c(4, 11), ylim = c(4, 11))
+```
+
+<img src="EDA_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
+
+Why is a scatterplot a better display than a binned plot for this case?
+
+In this case, there is a strong relationship between $x$ and $y$. The outliers in this case are not extreme in either $x$ or $y$.
+A binned plot would not reveal these outliers, and may lead us to conclude that the largest value of $x$ was an outlier even though it appears to fit the bivariate pattern well.
+
+The later chapter [Model Basics] discusses fitting models to bivariate data and plotting residuals, which would reveal this outliers.
+
+
+## Patterns and models
+
+No exercises
+
+## ggplot2 calls
+
+No exercises
+
+## Learning more
+
+No exercises.

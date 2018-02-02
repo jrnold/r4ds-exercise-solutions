@@ -1,9 +1,24 @@
 
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Workflow Basics
 
-## Practice
+## Coding basics
 
-### Exercises 
+No exercises
+
+## What's in a name?
+
+No exercises
+
+## Calling functions
+
+No exercises
+
+## Practice
 
 1. Why does this code not work?
 

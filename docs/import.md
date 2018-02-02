@@ -1,4 +1,9 @@
 
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Data Import
 
 ## Introduction 
@@ -10,9 +15,7 @@ library("tidyverse")
 
 ## Getting started
 
-No code
-    
-### Exercises
+
 
 1. What function would you use to read a file where fields were separated with
 “|”?
@@ -147,8 +150,6 @@ read_csv2("a;b\n1;3")
   
 ## Parsing a vector
 
-
-### Exercises 
 
 1. What are the most important arguments to `locale()`?
 
@@ -294,6 +295,48 @@ Some program that identify the encoding of text are:
 - [chardet](https://github.com/chardet/chardet) (Python)
 
 7. Generate the correct format string to parse each of the following dates and times:
+
+
+```r
+d1 <- "January 1, 2010"
+d2 <- "2015-Mar-07"
+d3 <- "06-Jun-2017"
+d4 <- c("August 19 (2015)", "July 1 (2015)")
+d5 <- "12/30/14" # Dec 30, 2014
+t1 <- "1705"
+t2 <- "11:15:10.12 PM"
+```
+
+The correct formats are:
+
+```r
+parse_date(d1, "%B %d, %Y")
+#> [1] "2010-01-01"
+parse_date(d2, "%Y-%b-%d")
+#> [1] "2015-03-07"
+parse_date(d3, "%d-%b-%Y")
+#> [1] "2017-06-06"
+parse_date(d4, "%B %d (%Y)")
+#> [1] "2015-08-19" "2015-07-01"
+parse_date(d5, "%m/%d/%y")
+#> [1] "2014-12-30"
+parse_time(t1, "%H%M")
+#> 17:05:00
+```
+The time `t2` uses real seconds,
+
+```r
+parse_time(t2, "%H:%M:%OS %p")
+#> 23:15:10.12
+```
+
+## Parsing a file
+
+No exercises
+
+## Writing to a file
+
+No exercises
 
 ## Other Types of Data
 

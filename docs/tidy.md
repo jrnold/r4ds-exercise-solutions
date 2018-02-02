@@ -11,8 +11,6 @@ library(tidyverse)
 
 ## Tidy Data
 
-### Exercises
-
 1. Using prose, describe how the variables and observations are organized in each of the sample tables.
 
 In `table1` each row is a (country, year) with variables `cases` and `population`.
@@ -163,45 +161,18 @@ table2 %>%
 
 ## Spreading and Gathering
 
+This code is reproduced from the chapter because it is needed by the exercises:
 
 ```r
 tidy4a <- table4a %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
 tidy4b <- table4b %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
-left_join(tidy4a, tidy4b)
-#> Joining, by = c("country", "year", "cases")
-#> # A tibble: 6 x 3
-#>   country     year   cases
-#>   <chr>       <chr>  <int>
-#> 1 Afghanistan 1999     745
-#> 2 Brazil      1999   37737
-#> 3 China       1999  212258
-#> 4 Afghanistan 2000    2666
-#> 5 Brazil      2000   80488
-#> 6 China       2000  213766
 ```
 
 
-```r
-spread(table2, key = type, value = count)
-#> # A tibble: 6 x 4
-#>   country      year  cases population
-#> * <chr>       <int>  <int>      <int>
-#> 1 Afghanistan  1999    745   19987071
-#> 2 Afghanistan  2000   2666   20595360
-#> 3 Brazil       1999  37737  172006362
-#> 4 Brazil       2000  80488  174504898
-#> 5 China        1999 212258 1272915272
-#> 6 China        2000 213766 1280428583
-```
-
-
-### Exercises
-
-1. Why are gather() and spread() not perfectly symmetrical?
+1. Why are `gather()` and `spread()` not perfectly symmetrical?
    Carefully consider the following example:
-
 
 
 ```r
@@ -356,41 +327,7 @@ Converting `pregnant` and `female` from character vectors to logical was not nec
 
 ## Separating and Uniting
 
-
-```r
-table3 %>%
-  separate(rate, into = c("cases", "population"), sep = "/", convert = TRUE) %>%
-  separate(year, into = c("century", "year"), sep = 2)
-#> # A tibble: 6 x 5
-#>   country     century year   cases population
-#> * <chr>       <chr>   <chr>  <int>      <int>
-#> 1 Afghanistan 19      99       745   19987071
-#> 2 Afghanistan 20      00      2666   20595360
-#> 3 Brazil      19      99     37737  172006362
-#> 4 Brazil      20      00     80488  174504898
-#> 5 China       19      99    212258 1272915272
-#> 6 China       20      00    213766 1280428583
-```
-
-
-```r
-table5 %>%
-  unite(new, century, year, sep = "")
-#> # A tibble: 6 x 3
-#>   country     new   rate             
-#> * <chr>       <chr> <chr>            
-#> 1 Afghanistan 1999  745/19987071     
-#> 2 Afghanistan 2000  2666/20595360    
-#> 3 Brazil      1999  37737/172006362  
-#> 4 Brazil      2000  80488/174504898  
-#> 5 China       1999  212258/1272915272
-#> 6 China       2000  213766/1280428583
-```
-
-
-### Exercises
-
-1. What do the extra and fill arguments do in separate()? Experiment with the various 
+1. What do the extra and fill arguments do in `separate()`? Experiment with the various 
 options for the following two toy datasets.
 
 
@@ -460,9 +397,9 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
 #> 2 d     e     f,g  
 #> 3 h     i     j
 ```
-In this, the extra values are not split, so "f,g" appears in column three.
+In this, the extra values are not split, so `"f,g"` appears in column three.
 
-In this, one of the entries for column, "d,e", has too few elements.
+In this, one of the entries for column, `"d,e"`, has too few elements.
 The default for `fill` is similar to `separate`; it fills with missing values but emits a warning. In this, row 2 of column "three", is `NA`.
 
 ```r
@@ -517,9 +454,6 @@ In `separate`, it is one to many, and there are multiple ways to split the chara
 ## Missing Values
 
 
-### Exercises
-
-
 1. Compare and contrast the `fill` arguments to `spread()` and `complete()`.
 
 
@@ -543,6 +477,7 @@ With `fill`, it determines whether `NA` values should be replaced by the previou
 
 ## Case Study
 
+This code is repeated from the chapter because it is needed by the exercises.
 
 
 ```r
@@ -614,9 +549,6 @@ who5
 #> 6 Afghanistan  2002 sp    m     014      90
 #> # ... with 7.604e+04 more rows
 ```
-
-
-### Exercises
 
 1. In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
 
@@ -712,7 +644,7 @@ who5 %>%
   
 ```
 
-<img src="tidy_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="tidy_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
 
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.

@@ -1,7 +1,12 @@
 
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Data Transformation
 
-## Prerequisites
+## Introduction
 
 
 ```r
@@ -9,7 +14,7 @@ library("nycflights13")
 library("tidyverse")
 ```
 
-## Filter
+## Filter rows with `filter()`
 
 
 ```r
@@ -36,8 +41,6 @@ glimpse(flights)
 #> $ minute         <dbl> 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, ...
 #> $ time_hour      <dttm> 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013...
 ```
-
-## Exercises
 
 1. Find all flights that
 
@@ -292,11 +295,8 @@ Inf * 0
 ```
 
 
-## Arrange
+## Arrange rows with `arrange()`
 
-missing values always at the end.
-
-### Exercises
 
 1. How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
 
@@ -418,6 +418,10 @@ arrange(flights, distance)
 #> #   minute <dbl>, time_hour <dttm>
 ```
 
+
+
+## Select columns with `select()`
+
 1. Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from flights.
 
 A few ways include:
@@ -527,9 +531,7 @@ select(flights, contains("TIME", ignore.case = FALSE))
 #> # A tibble: 336,776 x 0
 ```
 
-## Mutate
-
-### Exercises
+## Add new variables with `mutate()`
 
 1. Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
 
@@ -681,11 +683,83 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 
 6. What trigonometric functions does R provide?
 
-All the classics: `cos`, `sin`, `tan`, `acos`, `asin`, `atan`, plus a few others that are drive by numerical or computational issues.
+These are all described in the same help page, 
+
+```r
+help("Trig")
+```
+
+Cosine (`cos`), sine (`sin`), tangent (`tan`) are provided:
+
+```r
+tibble(
+  x = seq(-3, 7, by = 1 / 2),
+  cosx = cos(pi * x),
+  sinx = cos(pi * x),
+  tanx = tan(pi * x)
+)
+#> # A tibble: 21 x 4
+#>        x                   cosx                   sinx                tanx
+#>    <dbl>                  <dbl>                  <dbl>               <dbl>
+#> 1 -3.00  -1.00                  -1.00                             3.67e⁻¹⁶
+#> 2 -2.50   0.000000000000000306   0.000000000000000306            -3.27e⁺¹⁵
+#> 3 -2.00   1.00                   1.00                             2.45e⁻¹⁶
+#> 4 -1.50  -0.000000000000000184  -0.000000000000000184            -5.44e⁺¹⁵
+#> 5 -1.00  -1.00                  -1.00                             1.22e⁻¹⁶
+#> 6 -0.500  0.0000000000000000612  0.0000000000000000612           -1.63e⁺¹⁶
+#> # ... with 15 more rows
+```
+The convenience function `cospi(x)` is equivalent to `cos(pi * x)`, with `sinpi` and `tanpi` similarly defined,
+
+```r
+tibble(
+  x = seq(-3, 7, by = 1 / 2),
+  cosx = cospi(x),
+  sinx = cos(x),
+  tanx = tan(x)
+)
+#> # A tibble: 21 x 4
+#>        x  cosx    sinx    tanx
+#>    <dbl> <dbl>   <dbl>   <dbl>
+#> 1 -3.00  -1.00 -0.990    0.143
+#> 2 -2.50   0    -0.801    0.747
+#> 3 -2.00   1.00 -0.416    2.19 
+#> 4 -1.50   0     0.0707 -14.1  
+#> 5 -1.00  -1.00  0.540  - 1.56 
+#> 6 -0.500  0     0.878  - 0.546
+#> # ... with 15 more rows
+```
+
+The inverse function arc-cosine (`acos`), arc-sine (`asin`), and arc-tangent (`atan`) are provided,
+
+```r
+tibble(
+  x = seq(-1, 1, by = 1 / 4),
+  acosx = acos(x),
+  asinx = asin(x),
+  atanx = atan(x)
+)
+#> # A tibble: 9 x 4
+#>        x acosx  asinx  atanx
+#>    <dbl> <dbl>  <dbl>  <dbl>
+#> 1 -1.00   3.14 -1.57  -0.785
+#> 2 -0.750  2.42 -0.848 -0.644
+#> 3 -0.500  2.09 -0.524 -0.464
+#> 4 -0.250  1.82 -0.253 -0.245
+#> 5  0      1.57  0      0    
+#> 6  0.250  1.32  0.253  0.245
+#> # ... with 3 more rows
+```
+
+The function `atan2` is the angle between the x-axis and the the vector (0,0) to (`x`, `y`).
+
+```r
+atan2(c(1, 0, -1, 0), c(0, 1, 0, -1))
+#> [1]  1.57  0.00 -1.57  3.14
+```
+
 
 ## Grouped summaries with `summarise()`
-
-### Exercises
 
 1. Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
 
@@ -751,7 +825,7 @@ ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="transform_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 5. Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarise(n())`)
@@ -823,9 +897,7 @@ flights %>%
 The sort argument to `count` sorts the results in order of `n`.
 You could use this anytime you would do `count` followed by `arrange`.
 
-## Grouped mutates and filters
-
-### Exercises
+## Grouped mutates (and filters)
 
 1. Refer back to the table of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
 
@@ -938,7 +1010,7 @@ flights %>%
 #> `geom_smooth()` using method = 'gam'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="transform_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 6. Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?

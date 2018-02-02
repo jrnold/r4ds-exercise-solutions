@@ -1,7 +1,7 @@
 # Dates and Times
 
 
-## Prerequisite
+## Introduction
 
 ```{r message=FALSE}
 library(tidyverse)
@@ -11,41 +11,24 @@ library(nycflights13)
 
 ## Creating date/times
 
-**NOTE** %/% is integer division, divide and throw away the remainder. %% calculates the modulus (remainder of division). For example to test for an even number: `x %% 2 == 0`, or odd `x %% 2 == 1`. To get the thousands value of a number `x %/% 1000`.
-
+This code is needed by exercises.
 ```{r}
 make_datetime_100 <- function(year, month, day, time) {
   make_datetime(year, month, day, time %/% 100, time %% 100)
 }
 
-flights_dt <- flights %>%
-  filter(!is.na(dep_time), !is.na(arr_time)) %>%
+flights_dt <- flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
   mutate(
     dep_time = make_datetime_100(year, month, day, dep_time),
     arr_time = make_datetime_100(year, month, day, arr_time),
     sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
     sched_arr_time = make_datetime_100(year, month, day, sched_arr_time)
-  ) %>%
+  ) %>% 
   select(origin, dest, ends_with("delay"), ends_with("time"))
-flights_dt %>% head
 ```
 
 
-Times are often stored as integers since a reference time, called an epoch.
-The most epoch is the [UNIX](https://en.wikipedia.org/wiki/Unix_time) (or POSIX) Epoch of January 1st, 1970 00:00:00.
-Internally, times are stored as the number of days, seconds, or milliseconds, etc. since the 1970-01-01 00:00:00.000.
-
-Calculate dates and date-times from number of seconds (`as_datetime`) or days (`as_date`) from Unix epoch.
-```{r}
-as_datetime(60 * 60 * 10)
-```
-
-```{r}
-as_date(365 * 10 + 2)
-```
-
-
-### Exercises 
 
 1. What happens if you parse a string that contains invalid dates?
 
@@ -231,16 +214,6 @@ flights_dt %>%
 
 ## Time Spans
 
-- duration: exact number of seconds
-- period: human time periods - e.g. weeks, months
-- interval: start and end points
-
-### Durations
-
-No exercises
-
-### Periods
-
 Define overnight when `arr_time < dep_time` (no flights > 24 hours):
 ```{r}
 flights_dt <- flights_dt %>% 
@@ -251,11 +224,6 @@ flights_dt <- flights_dt %>%
   )
 ```
 
-
-### Intervals
-
-
-### Exercises
 
 1. Why is there `months()` but no `dmonths()`? 
 
@@ -303,7 +271,7 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 ```
 
 
-### Time Zones
+## Time Zones
 
 No exercises. 
 

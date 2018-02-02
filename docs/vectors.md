@@ -4,7 +4,6 @@
 ## Introduction
 
 
-
 ```r
 library("tidyverse")
 #> ── Attaching packages ────────────────
@@ -18,9 +17,13 @@ library("tidyverse")
 ```
 
 
-## Important types of Atomic Vector
+## Vector Basics
 
-### Exercises
+No exercises
+
+
+## Important Types of Atomic Vector
+
 
 1. Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
 
@@ -362,7 +365,6 @@ c(a = 1, 2)[["b"]]
 
 ## Recursive Vectors (lists)
 
-### Exercises
 
 1. Draw the following lists as nested sets:
 
@@ -397,10 +399,12 @@ x[1, ]
 #> 1     1     3
 ```
 
+
+## Attributes
+
+No exercises
+
 ## Augmented Vectors
-
-
-### Exercises
 
 1. What does `hms::hms(3600)` return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?
 

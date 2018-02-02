@@ -4,9 +4,6 @@
 ## Introduction
 
 
-## When should you write a function?
-
-
 ```r
 library("lubridate")
 #> Loading required package: methods
@@ -18,7 +15,8 @@ library("lubridate")
 ```
 
 
-### Practice
+## When should you write a function?
+
 
 **Ex 1.** Why is TRUE not a parameter to `rescale01()`? What would happen if `x` contained a single missing value, and `na.rm` was `FALSE`?
 
@@ -213,11 +211,6 @@ turn_into_goon(Good_Fairy, foo_foo)
 
 ## Functions are for humans and computers
 
-> There are only two hard problems in Computer Science: cache invalidation and naming things. - Phil Karlton (as quoted by many places online but no original source.)
-
-See this Quora discussion: [Why is naming things hard in computer science, and how can it can be made easier?](https://www.quora.com/Why-is-naming-things-hard-in-computer-science-and-how-can-it-can-be-made-easier).
-
-### Exercises
 
 **Ex 1.** Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
 
@@ -289,8 +282,6 @@ If named `rnorm`, and `dnorm`, functions related to are grouped into families by
 
 
 ## Conditional execution
-
-### Exercises
 
 **Ex. 1** What’s the difference between `if` and `ifelse()`? Carefully read the help and construct three examples that illustrate the key differences.
 
@@ -441,7 +432,6 @@ switcheroo("e")
 
 ## Function arguments
 
-### Exercises
 
 **Ex 1.** What does `commas(letters, collapse = "-")` do? Why?
 
@@ -512,3 +502,8 @@ This is useful for calculating a measure of central tendency that is robust to o
 
 It means that the `method` argument can take one of those three values. 
 The first value, `"pearson"`, is used by default.
+
+## Environment 
+
+No Exercises
+

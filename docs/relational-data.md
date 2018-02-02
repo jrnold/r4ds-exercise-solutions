@@ -1,7 +1,7 @@
 
 # Relational Data
 
-## Prerequisites
+## Introduction
 
 
 ```r
@@ -9,12 +9,14 @@ library("tidyverse")
 library("nycflights13")
 ```
 
+The package datamodelr is used to draw database schema:
+
+```r
+library("datamodelr")
+```
+
 
 ## nycflights13
-
-
-
-### Exercises
 
 1. Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
 
@@ -137,32 +139,76 @@ nrow(ggplot2::diamonds)
 
 4. Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
 
+Most flowchart or diagramming software can be used used to create database schema diagrams.
+For example, the diagrams in *R for Data Science* were created with [Gliffy](https://www.gliffy.com/). 
+
+You can use anything to create these diagrams, but I'll use an R-centric solution. The package [datamodelr](https://github.com/bergant/datamodelr) can programmatically create data models from R.
+
+For the `Batting`, `Master`, and `Salaries` tables:
+
+- `Master` 
+  - Primary keys: `playerID`
 - `Batting`
-  - primary key: `playerID`, `yearID`, `stint`
-  - foreign keys:
-    - `playerID` -> `Master.playerID`
-- `Master`
-  - primary key: `playerID`
-- `Salaries`
-  - primary key: `yearID`, `teamID`, `playerID`
-  - foreign keys:
-    - `playerID` -> `Master.playerID`
-- `Managers`:
-  - primary key: `yearID`, `playerID`, `teamID`, `inseason`
-  - foreign keys:
-    - `playerID` -> `Master.teamID`
-- `Managers`:
-  - primary key: `awardID`, `yearID`
+  - Primary keys: `yearID`, `yearID`, `stint`
+  - Foreign Keys:
+    - `playerID` = `Master$playerID` (many-to-1)
+- `Salaries`:
+  - Primary keys: `yearID`, `teamID`, `playerID`
+  - Foreign Keys
+    - `playerID` = `Master$playerID` (many-to-1)
+
+
+
+```r
+dm1 <- dm_from_data_frames(list(Batting = Lahman::Batting, 
+                                Master = Lahman::Master, 
+                                Salaries = Lahman::Salaries)) %>%
+  dm_set_key("Batting", c("playerID", "yearID", "stint")) %>%
+  dm_set_key("Master", "playerID") %>%
+  dm_set_key("Salaries", c("yearID", "teamID", "playerID")) %>%
+  dm_add_references(
+    Batting$playerID == Master$playerID,
+    Salaries$playerID == Master$playerID
+  )
+
+dm_create_graph(dm1, rankdir = "LR", columnArrows = TRUE)
+```
+
+For the `Master`, `Manager`, and `AwardsManagers` tables:
+
+- `Master` 
+  - Primary keys: `playerID`
+- `Managers`
+  - Primary keys: `yearID`, `teamID`, `inseason`
+  - Foreign Keys:
+    - `playerID` = `Master$playerID` (many-to-1)
 - `AwardsManagers`:
-  - primary key: `playerID`, `awardID`, `yearID` (since there are ties and while `tie` distinguishes those awards it has `NA` values)
-  - foreign keys:
-    - `playerID` -> `Master.playerID`
-    - `playerID`, `yearID`, `lgID` -> `Managers.playerID`, `yearID`, `lgID`
-
-`lgID` and `teamID` appear in multiple tables, but should be primary keys for league and team tables.
+    - `playerID` = `Master$playerID` (many-to-1)
 
 
-3. How would you characterize the relationship between the Batting, Pitching, and Fielding tables?
+```r
+dm2 <- dm_from_data_frames(list(Master = Lahman::Master, 
+                                Managers = Lahman::Managers,
+                                AwardsManagers = Lahman::AwardsManagers)) %>%
+  dm_set_key("Master", "playerID") %>%
+  dm_set_key("Managers", c("yearID", "teamID", "inseason")) %>%
+  dm_set_key("AwardsManagers", c("playerID", "awardID", "yearID")) %>%
+  dm_add_references(
+    Managers$playerID == Master$playerID,
+    AwardsManagers$playerID == Master$playerID
+  )
+
+dm_create_graph(dm2, rankdir = "LR", columnArrows = TRUE)
+```
+
+In the previous diagrams, I do not consider `teamID` and `lgID` as foreign keys even though they appear in multiple tables (and have the same meaning) because they are not primary keys in the tables considered in this exercise.
+The `teamID` variable references `Teams$teamID`, and `lgID` does not have its own table.
+
+How would you characterize the relationship between the `Batting`, `Pitching`, and `Fielding` tables?
+
+The `Batting`, `Pitching`, and `Fielding` tables all have a primary key consisting of the `playerID`, `yearID`, and `stint` variables.
+They all have a 1-1 relationship to each other. 
+
 
 ## Mutating Joins
 
@@ -170,22 +216,7 @@ nrow(ggplot2::diamonds)
 ```r
 flights2 <- flights %>%
   select(year:day, hour, origin, dest, tailnum, carrier)
-flights2 %>%
-  select(-origin, -dest) %>%
-  left_join(airlines, by = "carrier")
-#> # A tibble: 336,776 x 7
-#>    year month   day  hour tailnum carrier name                  
-#>   <int> <int> <int> <dbl> <chr>   <chr>   <chr>                 
-#> 1  2013     1     1  5.00 N14228  UA      United Air Lines Inc. 
-#> 2  2013     1     1  5.00 N24211  UA      United Air Lines Inc. 
-#> 3  2013     1     1  5.00 N619AA  AA      American Airlines Inc.
-#> 4  2013     1     1  5.00 N804JB  B6      JetBlue Airways       
-#> 5  2013     1     1  6.00 N668DN  DL      Delta Air Lines Inc.  
-#> 6  2013     1     1  5.00 N39463  UA      United Air Lines Inc. 
-#> # ... with 3.368e+05 more rows
 ```
-
-### Exercises
 
 1. Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
 
@@ -199,7 +230,7 @@ airports %>%
     coord_quickmap()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 (Don’t worry if you don’t understand what `semi_join()` does — you’ll learn about it next.)
 
@@ -219,7 +250,7 @@ avg_dest_delays %>%
     coord_quickmap()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 You might want to use the size or color of the points to display the average delay for each airport.
@@ -251,7 +282,8 @@ flights %>%
 
 3. Is there a relationship between the age of a plane and its delays?
 
-Surprisingly not. If anything (departure) delay seems to decrease slightly with age (perhaps because of selection):
+Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
+This could be due to choices about how airlines allocate planes to airports.
 
 ```r
 plane_ages <- 
@@ -271,7 +303,7 @@ flights %>%
 #> Warning: Removed 1 rows containing missing values (geom_path).
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 4. What weather conditions make it more likely to see a delay?
@@ -294,7 +326,7 @@ flight_weather %>%
     geom_line() + geom_point()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -319,16 +351,10 @@ flights %>%
 #> Warning: Removed 3 rows containing missing values (geom_point).
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="relational-data_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ## Filtering Joins
-
-
-- `semi_join`: keep all obs in `x` with match in `y`
-- `anti_join`: drop all obs in `x` with a match in `y`
-
-### Exercises
 
 1. What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
 
@@ -454,23 +480,35 @@ flights %>%
 
 5. You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
 
-There isn't such a relationship, since planes can be sold or airlines can merge.
-However, that doesn't necessarily mean that such a plane will appear in this data. 
-There are eight planes which 
+There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
+It should be the case that an airplane is associated with only airline at a given time, though may 
+However, even thogh that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
+Let's check:
 
 ```r
-flights %>%
+airplane_multi_carrier <- 
+  flights %>%
   group_by(tailnum, carrier) %>%
   count() %>%
   filter(n() > 1) %>%
   select(tailnum) %>%
   distinct()
 #> Adding missing grouping variables: `carrier`
+airplane_multi_carrier
 #> # A tibble: 0 x 2
 #> # Groups: tailnum, carrier [0]
 #> # ... with 2 variables: carrier <chr>, tailnum <chr>
 ```
+There are 0 airplanes in this dataset that have had more than one carrier.
+Even if there were none, the substantive reasons why an airplane *could* have more than one carrier would hold. 
 
+It is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship.
+Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks.
+There is rarely a substitute for understanding the data which you are using as an analyst.
+
+## Join problems
+
+No exercises
 
 ## Set operations
 

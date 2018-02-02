@@ -1,19 +1,21 @@
 
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Visualize
 
 ## Introduction 
-
-### Prerequisites
 
 
 ```r
 library("tidyverse")
 ```
 
+No exercises.
 
-### First Steps
-
-#### Exercises
+## First Steps
 
 1. Run `ggplot(data = mpg)` what do you see?
 
@@ -109,10 +111,7 @@ count(mpg, drv, class)
 The scatter plot cannot show which are overlapping or not. 
 Later chapters discuss means to deal with this, including alternative plots and jittering the points so they don't overlap.
 
-### Aesthetic mappings
-
-
-#### Exercises
+## Aesthetic mappings
 
 1. What’s gone wrong with this code? Why are the points not blue?
 
@@ -250,11 +249,11 @@ It will create a temporary variable which takes values from  the result of the e
 In this case, it is logical variable which is `TRUE` or `FALSE`.
 This also explains exercise 1, `color = "blue"` created a categorical variable that only had one category: "blue".
 
+## Common problems
 
-### Facets
+No exercises
 
-
-#### Exercises
+## Facets
 
 1. What happens if you facet on a continuous variable?
 
@@ -320,13 +319,89 @@ It is easier to compare relative levels of y by scanning horizontally, so it may
 
 ### Geometric Objects
 
-1. What does show.legend = FALSE do? What happens if you remove it?
+1. What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+
+- line chart: `geom_line`
+- boxplot: `geom_boxplot`
+- histogram: `geom_hist`
+
+2. Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```
+
+This will produce a scatter plot with `displ` on the x-axis, `hwy` on the y-axis.
+The points will be colored by `drv`.
+There will be a smooth line, without standard errors, fit through each `drv` group.
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+#> `geom_smooth()` using method = 'loess'
+```
+
+<img src="visualize_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+3. What does `show.legend = FALSE` do? What happens if you remove it?
 Why do you think I used it earlier in the chapter?
 
-**NOTE** This doesn't appear earlier in the chapter [Issue #510](https://github.com/hadley/r4ds/issues/510)
+Show legend hides the legend box. In this code, without show legend, there is a legend.
+
+```r
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+  )
+#> `geom_smooth()` using method = 'loess'
+```
+
+<img src="visualize_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+But there is no legend in this code:
+
+```r
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE
+  )
+#> `geom_smooth()` using method = 'loess'
+```
+
+<img src="visualize_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+
+In the example earlier in the chapter,
+
+```r
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+#> `geom_smooth()` using method = 'loess'
+              
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
+#> `geom_smooth()` using method = 'loess'
+    
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE
+  )
+#> `geom_smooth()` using method = 'loess'
+```
+
+<img src="visualize_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-23-2.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-23-3.png" width="70%" style="display: block; margin: auto;" />
+the legend is suppressed because there are three plots, and adding a legend that only appears in the last one would make the presentation asymmetric.
+Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a `group` aesthetic, and using a `color` aesthetic (with implicit grouping). 
+In that example, the legend isn't necessary since looking up the values associated with each color isn't necessary to make that point.
 
 
-2. What does the `se` argument to `geom_smooth()` do?
+4. What does the `se` argument to `geom_smooth()` do?
 
 It adds standard error bands to the lines.
 
@@ -338,7 +413,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
 
 By default `se = TRUE`:
 
@@ -350,10 +425,10 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-4. Will these two graphs look different? Why/why not?
+5. Will these two graphs look different? Why/why not?
 
 No. Because both `geom_point` and `geom_smooth` use the same data and mappings. They will inherit those options from the `ggplot` object, and thus don't need to specified again (or twice).
 
@@ -365,7 +440,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -375,7 +450,7 @@ ggplot() +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 6. Recreate the R code necessary to generate the following graphs.
@@ -388,7 +463,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -398,7 +473,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -408,7 +483,7 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = drv)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -418,7 +493,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -428,7 +503,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -436,10 +511,10 @@ ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
   geom_point(color = "white", shape = 21)
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-### Statistical Transformations
+## Statistical Transformations
 
 1. What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
 
@@ -456,7 +531,7 @@ ggplot(data = diamonds) +
 #> No summary function supplied, defaulting to `mean_se()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
 
 The default message says that `stat_summary` uses the `mean` and `sd` to calculate the point, and range of the line. So lets use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
 
@@ -471,7 +546,7 @@ ggplot(data = diamonds) +
   )
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 2. What does `geom_col()` do? How is it different to `geom_bar()`?
@@ -506,7 +581,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop..))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
 
 The problem with these two plots is that the proportions are calculated within the groups.
 
@@ -518,7 +593,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-32-2.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-37-2.png" width="70%" style="display: block; margin: auto;" />
 
 This is more likely what was intended:
 
@@ -530,7 +605,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop.., group = color))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-33-2.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-38-2.png" width="70%" style="display: block; margin: auto;" />
 
 ## Position Adjustments
 
@@ -543,7 +618,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
 I'd fix it by using a jitter position adjustment.
 
 ```r
@@ -551,7 +626,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = "jitter")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" />
 
 2. What parameters to `geom_jitter()` control the amount of jittering?
 
@@ -564,7 +639,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
 
 Way too much vertical jitter
 
@@ -573,7 +648,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0, height = 15))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
 
 Only horizontal jitter:
 
@@ -582,7 +657,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(height = 0))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" />
 
 Way too much horizontal jitter:
 
@@ -591,7 +666,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(height = 0, width = 20))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
 
 3. Compare and contrast `geom_jitter()` with `geom_count()`.
 
@@ -606,7 +681,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
   geom_boxplot()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -614,11 +689,10 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
   geom_boxplot(position = "identity")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
 
 ## Coordinate Systems
 
-### Exercises
 
 1. Turn a stacked bar chart into a pie chart using `coord_polar()`.
 
@@ -629,7 +703,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   geom_bar()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
 
 See the documentation for [coord_polar](http://docs.ggplot2.org/current/coord_polar.html) for an example of making a pie chart. In particular, `theta = "y"`, meaning that the angle of the chart is the `y` variable has to be specified.
 
@@ -640,7 +714,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   coord_polar(theta = "y")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
 
 If `theta = "y"` is not specified, then you get a bull’s-eye chart
 
@@ -650,7 +724,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   coord_polar()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
 
 If you had a multiple stacked bar chart, like,
 
@@ -659,7 +733,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" />
 
 you end up with a multi-doughnut chart
 
@@ -669,7 +743,7 @@ ggplot(data = diamonds) +
   coord_polar(theta = "y")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 2. What does `labs()` do? Read the documentation.
@@ -684,7 +758,7 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
   labs(y = "Highway MPG", x = "", title = "Highway MPG by car class")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" />
 
 3. What’s the difference between `coord_quickmap()` and `coord_map()`?
 
@@ -705,7 +779,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   coord_fixed()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-53-1.png" width="70%" style="display: block; margin: auto;" />
 
 If we didn't include geom_point, then the line is no longer at 45 degrees:
 
@@ -715,4 +789,8 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_abline()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" />
+
+## The Layered Grammar of Graphics
+
+No exercises

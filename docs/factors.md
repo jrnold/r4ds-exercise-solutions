@@ -1,6 +1,10 @@
 
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Factors
-
 
 ## Introduction
 
@@ -19,7 +23,6 @@ No exercises
 
 ## General Social Survey
 
-### Exercises
 
 1. Explore the distribution of `rincome` (reported income). What makes the default bar chart hard to understand? How could you improve the plot?
 
@@ -135,8 +138,6 @@ gss_cat %>%
 
 
 ## Modifying factor order
-
-### Exercises
 
 1. There are some suspiciously high numbers in `tvhours`. Is the `mean` a good summary?
 
@@ -276,8 +277,6 @@ Because that gives the level "Not applicable" an integer value of 1.
 
 ## Modifying factor levels
 
-
-### Exercises
 
 1. How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
 

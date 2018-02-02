@@ -1,17 +1,19 @@
 # Relational Data
 
-## Prerequisites
+## Introduction
 
 ```{r message=FALSE}
 library("tidyverse")
 library("nycflights13")
 ```
 
+The package datamodelr is used to draw database schema:
+```{r}
+library("datamodelr")
+```
+
 
 ## nycflights13
-
-
-### Exercises
 
 1. Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
 
@@ -120,7 +122,9 @@ For the `Batting`, `Master`, and `Salaries` tables:
 
 
 ```{r}
-dm1 <- dm_from_data_frames(Batting, Master, Salaries) %>%
+dm1 <- dm_from_data_frames(list(Batting = Lahman::Batting, 
+                                Master = Lahman::Master, 
+                                Salaries = Lahman::Salaries)) %>%
   dm_set_key("Batting", c("playerID", "yearID", "stint")) %>%
   dm_set_key("Master", "playerID") %>%
   dm_set_key("Salaries", c("yearID", "teamID", "playerID")) %>%
@@ -144,7 +148,9 @@ For the `Master`, `Manager`, and `AwardsManagers` tables:
     - `playerID` = `Master$playerID` (many-to-1)
 
 ```{r}
-dm2 <- dm_from_data_frames(Master, Managers, AwardsManagers) %>%
+dm2 <- dm_from_data_frames(list(Master = Lahman::Master, 
+                                Managers = Lahman::Managers,
+                                AwardsManagers = Lahman::AwardsManagers)) %>%
   dm_set_key("Master", "playerID") %>%
   dm_set_key("Managers", c("yearID", "teamID", "inseason")) %>%
   dm_set_key("AwardsManagers", c("playerID", "awardID", "yearID")) %>%
@@ -170,13 +176,7 @@ They all have a 1-1 relationship to each other.
 ```{r}
 flights2 <- flights %>%
   select(year:day, hour, origin, dest, tailnum, carrier)
-flights2 %>%
-  select(-origin, -dest) %>%
-  left_join(airlines, by = "carrier")
-  
 ```
-
-### Exercises
 
 1. Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
 
@@ -286,12 +286,6 @@ flights %>%
 
 ## Filtering Joins
 
-
-- `semi_join`: keep all obs in `x` with match in `y`
-- `anti_join`: drop all obs in `x` with a match in `y`
-
-### Exercises
-
 1. What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
 
 American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
@@ -371,8 +365,9 @@ It is quite possible that we could have looked at the data, seen that each airpl
 Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks.
 There is rarely a substitute for understanding the data which you are using as an analyst.
 
+## Join problems
 
-
+No exercises
 
 ## Set operations
 

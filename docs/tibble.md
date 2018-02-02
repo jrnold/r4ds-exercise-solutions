@@ -1,7 +1,7 @@
 
 # Tibbles
 
-## Prerequisites
+## Introduction
 
 
 ```r
@@ -15,7 +15,6 @@ No exercises
 ## Tibbles vs. data.frame
 
 No exercises
-
 
 ## Subsetting
 
@@ -214,6 +213,4 @@ The print function for tibbles is in `print.tbl_df`:
 ```
 The option `n_extra` determines the number of extra columns to print information for.
 
-## Import
 
-No code

@@ -9,7 +9,6 @@ library(stringr)
 
 ## String Basics
 
-### Exercises
 
 1. In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What **stringr** function are they equivalent to? How do the functions differ in their handling of NA?
 
@@ -76,7 +75,7 @@ str_pad("abc", 4, side = "left")
 
 6. Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
 
-*Note:* See Ch 19 for writing functions.
+See the Chapter [Functions] for more details on writing R functions.
 
 ```{r}
 str_commasep <- function(x, sep = ", ", last = ", and ") {
@@ -96,9 +95,7 @@ str_commasep(c("a", "b", "c"))
 
 ## Matching Patterns and Regular Expressions
 
-
-
-### Exercises
+### Basic Matches
 
 1. Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
 
@@ -138,7 +135,7 @@ str_view(x, "apple")
 str_view(x, "^apple$")
 ```
 
-#### Exercises
+### Anchors
 
 1. How would you match the literal string "$^$"?
 
@@ -180,12 +177,7 @@ str_view(stringr::words, "^.{3}$", match = TRUE)
 str_view(stringr::words, ".......", match = TRUE)
 ```
 
-#### Character classes and alternatives
-
-
-
-##### Exercises
-
+### Character classes and alternatives
 
 1. Create regular expressions to find all words that:
 
@@ -215,7 +207,7 @@ Words ending in `ing` or `ise`:
 str_view(stringr::words, "i(ng|se)$", match = TRUE)
 ```
 
-2. Empirically verify the rule “i before e except after c”.
+2. Empirically verify the rule ``i before e except after c''.
 
 Using only what has been introduced thus far: 
 ```{r results='hide'}
@@ -225,13 +217,13 @@ str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
 
-Using `str_detect`:
+Using `str_detect` we can count the number of words that follow these rules:
 ```{r}
 sum(str_detect(stringr::words, "(cei|[^c]ie)"))
 sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 ```
 
-3. Is “q” always followed by a “u”?
+3. Is ``q'' always followed by a ``u''?
 
 In the `stringr::words` dataset, yes. In the full English language, no.
 ```{r results='hide'}
@@ -260,24 +252,22 @@ The answer to this will vary by country.
 For the United States, phone numbers have a format like `123-456-7890`.
 ```{r}
 x <- c("123-456-7890", "1235-2351")
-str_subset(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
+str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
 or 
 ```{r}
-str_subset(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
+str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
 ```{r}
-str_subset(x, "\\d{3}-\\d{3}-\\d{4}")
+str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 
 Note that this pattern doesn't account for phone numbers that are invalid because of unassigned area code, or special numbers like 911, or extensions. See the Wikipedia page for the [North American Numbering Plan](https://en.wikipedia.org/wiki/North_American_Numbering_Plan) for more information on the complexities of US phone numbers, and [this Stack Overflow question](http://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation) for a discussion of using a regex for phone number validation.
 
 
 ### Repetition
-
-#### Exercises
 
 1. Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
 
@@ -289,7 +279,7 @@ Note that this pattern doesn't account for phone numbers that are invalid becaus
 
 The `*` pattern has no `{m,n}` equivalent since there is no upper bound on the number of matches. The expected pattern `{,}` is not valid.
 ```{r error=TRUE}
-str_match("abcd", ".{,}")
+str_view("abcd", ".{,}")
 ```
 
 
@@ -322,17 +312,17 @@ Examples:
   
 A regex to find all words starting with three consonants
 ```{r}
-str_subset(words, "^[^aeiou]{3}")
+str_view(words, "^[^aeiou]{3}")
 ```
 
 A regex to find three or more vowels in a row:
 ```{r}
-str_subset(words, "[aeiou]{3,}")
+str_view(words, "[aeiou]{3,}")
 ```
 
 Two or more vowel-consonant pairs in a row.
 ```{r}
-str_subset(words, "([aeiou][^aeiou]){2,}")
+str_view(words, "([aeiou][^aeiou]){2,}")
 ```
 
   
@@ -341,12 +331,6 @@ str_subset(words, "([aeiou][^aeiou]){2,}")
 Exercise left to reader. That site validates its solutions, so they aren't repeated here.
 
 ### Grouping and backreferences
-
-```{r results='hide'}
-str_view(fruit, "(..)\\1", match = TRUE)
-```
-
-#### Exercises
 
 1. Describe, in words, what these expressions will match:
 
@@ -388,61 +372,7 @@ The `\\1` is used to refer back to the first group (`(.)`) so that whatever lett
 
 ### Detect matches
 
-```{r}
-x <- c("apple", "banana", "pear")
-str_detect(x, "e")
-```
-
-Number of words starting with t?
-```{r}
-sum(str_detect(words, "^t"))
-```
-Proportion of words ending with a vowel?
-```{r}
-mean(str_detect(words, "[aeiou]$"))
-```
-
-To find all words with no vowels
-```{r}
-no_vowels_1 <- !str_detect(words, "[aeiou]")
-no_vowels_2 <- str_detect(words, "^[^aeiou]+$")
-identical(no_vowels_1, no_vowels_2)
-```
-
-```{r}
-words[str_detect(words, "x$")]
-str_subset(words, "x$")
-```
-
-```{r}
-df <- tibble(
-  word = words,
-  i = seq_along(word)
-)
-df %>%
-  filter(str_detect(words, "x$"))
-```
-
-Number of matches in each string
-```{r}
-x <- c("apple", "banana", "pear")
-str_count(x, "a")
-```
-Average vowels per word
-```{r}
-mean(str_count(words, "[aeiou]"))
-```
-
-```{r}
-df %>%
-  mutate(
-    vowels = str_count(word, "[aeiou]"),
-    consonants = str_count(word, "[^aeiou]")
-  )
-```
-
-- matches do not overlap - they are usually greedy, except when otherwise noted.
-- matches only match the first one. `_all()` functions will get all matches.
+No exercises 
 
 ### Exercises
 
@@ -508,52 +438,17 @@ words[which(prop_vowels == max(prop_vowels))]
 
 ### Extract Matches
 
-The Harvard sentences:
-```{r}
-length(sentences)
-head(sentences)
-```
-
-```{r}
-colours <- c("red", "orange", "yellow", "green", "blue", "purple")
-colour_match <- str_c(colours, collapse = "|")
-colour_match
-```
-
-```{r}
-has_colour <- str_subset(sentences, colour_match)
-matches <- str_extract(has_colour, colour_match)
-head(matches)
-```
-
-```{r}
-more <- sentences[str_count(sentences, colour_match) > 1]
-str_view_all(more, colour_match)
-```
-
-```{r}
-str_extract(more, colour_match)
-```
-
-The `_all` versions of functions return lists.
-```{r}
-str_extract_all(more, colour_match)
-```
-
-```{r}
-str_extract_all(more, colour_match, simplify = TRUE)
-```
-
-```{r}
-x <- c("a", "a b", "a b c")
-str_extract_all(x, "[a-z]", simplify = TRUE)
-```
-
-#### Exercises
 
 1. In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.
 
-Add the `\b` before and after the pattern
+This was the original color match pattern:
+```{r}
+colours <- c("red", "orange", "yellow", "green", "blue", "purple")
+colour_match <- str_c(colours, collapse = "|")
+```
+It matches "flickered" because it matches "red". 
+The problem is that the previous pattern will match any word with the name of a color inside it. We want to only match colors in which the entire word is the name of the color.
+We can do this by adding a `\b` (to indicate a word boundary) before and after the pattern:
 ```{r}
 colour_match2 <- str_c("\\b(", str_c(colours, collapse = "|"), ")\\b")
 colour_match2
@@ -592,30 +487,6 @@ unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b"))) %>%
 
 ### Grouped Matches
 
-```{r}
-noun <- "(a|the) ([^ ]+)"
-has_noun <- sentences %>%
-  str_subset(noun) %>%
-  head(10)
-has_noun %>%
-  str_extract(noun)
-```
-
-
-```{r}
-has_noun %>%
-  str_match(noun)
-```
-
-```{r}
-tibble(sentence = sentences) %>%
-  tidyr::extract(
-    sentence, c("article", "noun"), "(a|the) ([^ ]+)",
-    remove = FALSE
-  )
-```
-
-#### Exercises
 
 1. Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
 
@@ -638,7 +509,6 @@ sentences %>%
 
 ### Replacing Matches
 
-#### Exercises
 
 1. Replace all forward slashes in a string with backslashes.
 ```{r}
@@ -661,9 +531,6 @@ intersect(swapped,words)
 
 ### Splitting
 
-
-#### Exercises
-
 1. Split up a string like `"apples, pears, and bananas"` into individual components.
 
 ```{r}
@@ -684,10 +551,12 @@ str_split("ab. cd|agt", "")[[1]]
 
 It splits the string into individual characters.
 
+### Find matches
+
+No exercises
 
 ## Other types of patterns
 
-### Exercises
 
 1. How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
 
@@ -709,9 +578,12 @@ str_extract_all(sentences, boundary("word")) %>%
   head(5)
 ```
 
+## Other uses of regular expressions
+
+No exercises
+
 ## stringi
 
-### Exercises
 
 1. Find the **stringi** functions that:
 

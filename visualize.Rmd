@@ -1,17 +1,19 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Visualize
 
 ## Introduction 
-
-### Prerequisites
 
 ```{r, message=FALSE}
 library("tidyverse")
 ```
 
+No exercises.
 
-### First Steps
-
-#### Exercises
+## First Steps
 
 1. Run `ggplot(data = mpg)` what do you see?
 
@@ -69,10 +71,7 @@ count(mpg, drv, class)
 The scatter plot cannot show which are overlapping or not. 
 Later chapters discuss means to deal with this, including alternative plots and jittering the points so they don't overlap.
 
-### Aesthetic mappings
-
-
-#### Exercises
+## Aesthetic mappings
 
 1. What’s gone wrong with this code? Why are the points not blue?
 
@@ -162,11 +161,11 @@ It will create a temporary variable which takes values from  the result of the e
 In this case, it is logical variable which is `TRUE` or `FALSE`.
 This also explains exercise 1, `color = "blue"` created a categorical variable that only had one category: "blue".
 
+## Common problems
 
-### Facets
+No exercises
 
-
-#### Exercises
+## Facets
 
 1. What happens if you facet on a continuous variable?
 
@@ -220,13 +219,70 @@ It is easier to compare relative levels of y by scanning horizontally, so it may
 
 ### Geometric Objects
 
-1. What does show.legend = FALSE do? What happens if you remove it?
+1. What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+
+- line chart: `geom_line`
+- boxplot: `geom_boxplot`
+- histogram: `geom_hist`
+
+2. Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+
+```{r eval=FALSE}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```
+
+This will produce a scatter plot with `displ` on the x-axis, `hwy` on the y-axis.
+The points will be colored by `drv`.
+There will be a smooth line, without standard errors, fit through each `drv` group.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```
+
+
+3. What does `show.legend = FALSE` do? What happens if you remove it?
 Why do you think I used it earlier in the chapter?
 
-**NOTE** This doesn't appear earlier in the chapter [Issue #510](https://github.com/hadley/r4ds/issues/510)
+Show legend hides the legend box. In this code, without show legend, there is a legend.
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+  )
+```
+But there is no legend in this code:
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE
+  )
+```
+
+In the example earlier in the chapter,
+```{r}
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+              
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
+    
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = FALSE
+  )
+```
+the legend is suppressed because there are three plots, and adding a legend that only appears in the last one would make the presentation asymmetric.
+Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a `group` aesthetic, and using a `color` aesthetic (with implicit grouping). 
+In that example, the legend isn't necessary since looking up the values associated with each color isn't necessary to make that point.
 
 
-2. What does the `se` argument to `geom_smooth()` do?
+4. What does the `se` argument to `geom_smooth()` do?
 
 It adds standard error bands to the lines.
 
@@ -245,7 +301,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 ```
 
 
-4. Will these two graphs look different? Why/why not?
+5. Will these two graphs look different? Why/why not?
 
 No. Because both `geom_point` and `geom_smooth` use the same data and mappings. They will inherit those options from the `ggplot` object, and thus don't need to specified again (or twice).
 
@@ -300,7 +356,7 @@ ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
 ```
 
 
-### Statistical Transformations
+## Statistical Transformations
 
 1. What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
 
@@ -440,7 +496,6 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 
 ## Coordinate Systems
 
-### Exercises
 
 1. Turn a stacked bar chart into a pie chart using `coord_polar()`.
 
@@ -514,3 +569,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point() + 
   geom_abline()
 ```
+
+## The Layered Grammar of Graphics
+
+No exercises

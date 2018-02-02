@@ -18,9 +18,7 @@ library("microbenchmark")
 
 ## For Loops
 
-### Exercises
-
-Write for loops to:
+1. Write for loops to:
 
 1. Compute the mean of every column in `mtcars`.
 2. Determine the type of each column in `nycflights13::flights`.
@@ -460,8 +458,6 @@ YMMV, but the longer the vector and the bigger the objects, the more that pre-al
 ## For loop variations
 
 
-### 
-
 **Ex** Imagine you have a directory full of CSV files that you want to read in.
 You have their paths in a vector, 
 `files <- dir("data/", pattern = "\\.csv$", full.names = TRUE)`, and now
@@ -628,6 +624,14 @@ trans[["disp"]](mtcars[["disp"]])
 ## For loops vs. functionals
 
 
+**Ex. 21.4.1.1** Read the documentation for `apply()`. In the 2d case, what two for loops does it generalize.
+
+It generalizes looping over the rows or columns of a matrix or data-frame. 
+
+**Ex. 21.4.1.2** Adapt `col_summary()` so that it only applies to numeric columns You might want to start with an `is_numeric()` function that returns a logical vector that has a `TRUE` corresponding to each numeric column.
+
+The original `col_summary()` function is,
+
 ```r
 col_summary <- function(df, fun) {
   out <- vector("double", length(df))
@@ -638,14 +642,7 @@ col_summary <- function(df, fun) {
 }
 ```
 
-### Exercises
-
-**Ex. 21.4.1.1** Read the documentation for `apply()`. In the 2d case, what two for loops does it generalize.
-
-It generalizes looping over the rows or columns of a matrix or data-frame. 
-
-**Ex. 21.4.1.2** Adapt `col_summary()` so that it only applies to numeric columns You might want to start with an `is_numeric()` function that returns a logical vector that has a `TRUE` corresponding to each numeric column.
-
+The adapted version is,
 
 ```r
 col_summary2 <- function(df, fun) {
@@ -681,13 +678,6 @@ col_summary2(df, mean)
 
 
 ## The map functions
-
-### Shortcuts
-
-**Notes** The `lm()` function runs a linear regression. It is introduced in the [Model Basics](http://r4ds.had.co.nz/model-basics.html) chapter.
-
-
-### Exercises
 
 **Ex** Write code that uses one of the map functions to:
 
@@ -899,17 +889,19 @@ map(list(mtcars), ~ lm(mpg ~ wt, data = .))
 #>       37.29        -5.34
 ```
 
-
-
 ## Dealing with Failure
+
+No exercises
 
 ## Mapping over multiple arguments
 
+No exercises
+
 ## Walk
 
-## Other patterns of for loops
+No exercises
 
-### Exercises
+## Other patterns of for loops
 
 **Ex** Implement your own version of `every()` using a for loop. Compare it with
 `purrr::every()`. What does purrr's version do that your version doesn't?
@@ -1018,5 +1010,3 @@ sapply(df[1:2], is.numeric)
 #>    a    b 
 #> TRUE TRUE
 ```
-
-## Models
