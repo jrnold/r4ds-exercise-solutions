@@ -348,7 +348,7 @@ grid %>%
   spread(model, pred)
 #> # A tibble: 10 x 3
 #>       x sim1_loess sim1_mod
-#> * <int>      <dbl>    <dbl>
+#>   <int>      <dbl>    <dbl>
 #> 1     1       5.34     6.27
 #> 2     2       8.27     8.32
 #> 3     3      10.8     10.4 

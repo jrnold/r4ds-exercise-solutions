@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Exercise Solutions to R for Data Science</title>
   <meta name="description" content="Exercise Solutions to “R for Data Science”">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Exercise Solutions to R for Data Science" />
   <meta property="og:type" content="book" />
@@ -46,7 +46,7 @@
 
 
 
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
@@ -513,7 +513,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">borders</span>(<span class="st">&quot;state&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">coord_quickmap</span>()</code></pre></div>
+<span class="st">    </span><span class="kw">coord_quickmap</span>()
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: &#39;maps&#39;</span>
+<span class="co">#&gt; The following object is masked from &#39;package:purrr&#39;:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     map</span></code></pre></div>
 <p><img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>(Don’t worry if you don’t understand what <code>semi_join()</code> does — you’ll learn about it next.)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avg_dest_delays &lt;-
@@ -538,19 +543,20 @@ avg_dest_delays <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">left_join</span>(airports, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">origin =</span> <span class="st">&quot;faa&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>()
 <span class="co">#&gt; # A tibble: 6 x 33</span>
-<span class="co">#&gt;    year month   day dep_t… sche… dep_… arr_… sche… arr_… carr… flig… tail…</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1  2013     1     1    517   515  2.00   830   819  11.0 UA     1545 N142…</span>
-<span class="co">#&gt; 2  2013     1     1    533   529  4.00   850   830  20.0 UA     1714 N242…</span>
-<span class="co">#&gt; 3  2013     1     1    542   540  2.00   923   850  33.0 AA     1141 N619…</span>
-<span class="co">#&gt; 4  2013     1     1    544   545 -1.00  1004  1022 -18.0 B6      725 N804…</span>
-<span class="co">#&gt; 5  2013     1     1    554   600 -6.00   812   837 -25.0 DL      461 N668…</span>
-<span class="co">#&gt; 6  2013     1     1    554   558 -4.00   740   728  12.0 UA     1696 N394…</span>
-<span class="co">#&gt; # ... with 21 more variables: origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, name.x</span>
-<span class="co">#&gt; #   &lt;chr&gt;, lat.x &lt;dbl&gt;, lon.x &lt;dbl&gt;, alt.x &lt;int&gt;, tz.x &lt;dbl&gt;, dst.x &lt;chr&gt;,</span>
-<span class="co">#&gt; #   tzone.x &lt;chr&gt;, name.y &lt;chr&gt;, lat.y &lt;dbl&gt;, lon.y &lt;dbl&gt;, alt.y &lt;int&gt;,</span>
-<span class="co">#&gt; #   tz.y &lt;dbl&gt;, dst.y &lt;chr&gt;, tzone.y &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  2013     1     1      517            515      2.00      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529      4.00      850</span>
+<span class="co">#&gt; 3  2013     1     1      542            540      2.00      923</span>
+<span class="co">#&gt; 4  2013     1     1      544            545     -1.00     1004</span>
+<span class="co">#&gt; 5  2013     1     1      554            600     -6.00      812</span>
+<span class="co">#&gt; 6  2013     1     1      554            558     -4.00      740</span>
+<span class="co">#&gt; # ... with 26 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span>
+<span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   time_hour &lt;dttm&gt;, name.x &lt;chr&gt;, lat.x &lt;dbl&gt;, lon.x &lt;dbl&gt;, alt.x &lt;int&gt;,</span>
+<span class="co">#&gt; #   tz.x &lt;dbl&gt;, dst.x &lt;chr&gt;, tzone.x &lt;chr&gt;, name.y &lt;chr&gt;, lat.y &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   lon.y &lt;dbl&gt;, alt.y &lt;int&gt;, tz.y &lt;dbl&gt;, dst.y &lt;chr&gt;, tzone.y &lt;chr&gt;</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Is there a relationship between the age of a plane and its delays?</li>
 </ol>
@@ -595,6 +601,7 @@ flight_weather <span class="op">%&gt;%</span>
 <p>There was a large series of storms (derechos) in the southeastern US (see <a href="https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series">June 12-13, 2013 derecho series</a>)</p>
 <p>The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest, which were the locations of the derechos:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(viridis)
+<span class="co">#&gt; Loading required package: viridisLite</span>
 flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2013</span>, month <span class="op">==</span><span class="st"> </span><span class="dv">6</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">13</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span>
@@ -639,17 +646,18 @@ flights <span class="op">%&gt;%</span>
 flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">semi_join</span>(planes_gt100, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>)
 <span class="co">#&gt; # A tibble: 229,202 x 19</span>
-<span class="co">#&gt;    year month   day dep_t… sche… dep_… arr_… sche… arr_… carr… flig… tail…</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1  2013     1     1    517   515  2.00   830   819  11.0 UA     1545 N142…</span>
-<span class="co">#&gt; 2  2013     1     1    533   529  4.00   850   830  20.0 UA     1714 N242…</span>
-<span class="co">#&gt; 3  2013     1     1    544   545 -1.00  1004  1022 -18.0 B6      725 N804…</span>
-<span class="co">#&gt; 4  2013     1     1    554   558 -4.00   740   728  12.0 UA     1696 N394…</span>
-<span class="co">#&gt; 5  2013     1     1    555   600 -5.00   913   854  19.0 B6      507 N516…</span>
-<span class="co">#&gt; 6  2013     1     1    557   600 -3.00   709   723 -14.0 EV     5708 N829…</span>
-<span class="co">#&gt; # ... with 2.292e+05 more rows, and 7 more variables: origin &lt;chr&gt;, dest</span>
-<span class="co">#&gt; #   &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   time_hour &lt;dttm&gt;</span></code></pre></div>
+<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  2013     1     1      517            515      2.00      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529      4.00      850</span>
+<span class="co">#&gt; 3  2013     1     1      544            545     -1.00     1004</span>
+<span class="co">#&gt; 4  2013     1     1      554            558     -4.00      740</span>
+<span class="co">#&gt; 5  2013     1     1      555            600     -5.00      913</span>
+<span class="co">#&gt; 6  2013     1     1      557            600     -3.00      709</span>
+<span class="co">#&gt; # ... with 2.292e+05 more rows, and 12 more variables:</span>
+<span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span>
+<span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Combine <code>fueleconomy::vehicles</code> and <code>fueleconomy::common</code> to find only the records for the most common models.</li>
 </ol>
@@ -697,7 +705,7 @@ flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_48 =</span> total_<span class="dv">24</span> <span class="op">+</span><span class="st"> </span><span class="kw">lag</span>(total_<span class="dv">24</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(total_<span class="dv">48</span>))
 <span class="co">#&gt; # A tibble: 365 x 5</span>
-<span class="co">#&gt; # Groups: year, month [12]</span>
+<span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day total_24 total_48</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt; 1  2013     7    23    80641   175419</span>
@@ -726,7 +734,7 @@ flights <span class="op">%&gt;%</span>
 <span class="co">#&gt; Adding missing grouping variables: `carrier`</span>
 airplane_multi_carrier
 <span class="co">#&gt; # A tibble: 0 x 2</span>
-<span class="co">#&gt; # Groups: tailnum, carrier [0]</span>
+<span class="co">#&gt; # Groups:   tailnum, carrier [0]</span>
 <span class="co">#&gt; # ... with 2 variables: carrier &lt;chr&gt;, tailnum &lt;chr&gt;</span></code></pre></div>
 <p>There are 0 airplanes in this dataset that have had more than one carrier. Even if there were none, the substantive reasons why an airplane <em>could</em> have more than one carrier would hold.</p>
 <p>It is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship. Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks. There is rarely a substitute for understanding the data which you are using as an analyst.</p>
@@ -783,9 +791,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

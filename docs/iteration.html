@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Exercise Solutions to R for Data Science</title>
   <meta name="description" content="Exercise Solutions to “R for Data Science”">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Exercise Solutions to R for Data Science" />
   <meta property="og:type" content="book" />
@@ -46,7 +46,7 @@
 
 
 
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
@@ -525,7 +525,7 @@ out
 1. Convert the song &quot;99 bottles of beer on the wall&quot; to a function.
    Generalise to any number of any vessel containing any liquid on 
    any surface.</code></pre>
-<p>I don’t know what the deal is with Hadley and nursery rhymes. Here’s the lyrics for <a href="http://www.kididdles.com/lyrics/a012.html">Alice the Camel</a></p>
+<p>The lyrics for ``Alice the Camel’’ can be found at <a href="http://www.kididdles.com/lyrics/a012.html" class="uri">http://www.kididdles.com/lyrics/a012.html</a>.</p>
 <p>We’ll look from five to no humps, and print out a different last line if there are no humps. This uses <code>cat</code> instead of <code>print</code>, so it looks nicer.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">humps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;five&quot;</span>, <span class="st">&quot;four&quot;</span>, <span class="st">&quot;three&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;one&quot;</span>, <span class="st">&quot;no&quot;</span>)
 <span class="cf">for</span> (i <span class="cf">in</span> humps) {
@@ -681,7 +681,7 @@ output</code></pre></div>
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                  expr min  lq mean median  uq max neval</span>
-<span class="co">#&gt;  add_to_vector(10000) 158 162  186    165 200 235     3</span></code></pre></div>
+<span class="co">#&gt;  add_to_vector(10000) 172 175  186    177 193 209     3</span></code></pre></div>
 <p>And one that pre-allocates it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
   output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, n)
@@ -693,7 +693,7 @@ output</code></pre></div>
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector_2</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: microseconds</span>
 <span class="co">#&gt;                    expr min  lq mean median   uq  max neval</span>
-<span class="co">#&gt;  add_to_vector_2(10000) 714 749 1590    785 2028 3271     3</span></code></pre></div>
+<span class="co">#&gt;  add_to_vector_2(10000) 543 552 1457    560 1914 3268     3</span></code></pre></div>
 <p>The pre-allocated vector is about <strong>100</strong> times faster! YMMV, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.</p>
 </div>
 <div id="for-loop-variations" class="section level2">
@@ -1112,9 +1112,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

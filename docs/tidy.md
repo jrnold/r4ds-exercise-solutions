@@ -285,7 +285,7 @@ people <- tribble(
 spread(people, key, value)
 #> # A tibble: 3 x 4
 #>   name              obs   age height
-#> * <chr>           <dbl> <dbl>  <dbl>
+#>   <chr>           <dbl> <dbl>  <dbl>
 #> 1 Jessica Cordero  1.00  37.0    156
 #> 2 Phillip Woods    1.00  45.0    186
 #> 3 Phillip Woods    2.00  50.0     NA
@@ -334,20 +334,20 @@ options for the following two toy datasets.
 ```r
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
   separate(x, c("one", "two", "three"))
-#> Warning: Too many values at 1 locations: 2
+#> Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].
 #> # A tibble: 3 x 3
 #>   one   two   three
-#> * <chr> <chr> <chr>
+#>   <chr> <chr> <chr>
 #> 1 a     b     c    
 #> 2 d     e     f    
 #> 3 h     i     j
 
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
   separate(x, c("one", "two", "three"))
-#> Warning: Too few values at 1 locations: 2
+#> Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].
 #> # A tibble: 3 x 3
 #>   one   two   three
-#> * <chr> <chr> <chr>
+#>   <chr> <chr> <chr>
 #> 1 a     b     c    
 #> 2 d     e     <NA> 
 #> 3 f     g     i
@@ -365,10 +365,10 @@ and the `fill` argument if there aren't enough.
 ```r
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
   separate(x, c("one", "two", "three"))
-#> Warning: Too many values at 1 locations: 2
+#> Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].
 #> # A tibble: 3 x 3
 #>   one   two   three
-#> * <chr> <chr> <chr>
+#>   <chr> <chr> <chr>
 #> 1 a     b     c    
 #> 2 d     e     f    
 #> 3 h     i     j
@@ -380,7 +380,7 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "drop")
 #> # A tibble: 3 x 3
 #>   one   two   three
-#> * <chr> <chr> <chr>
+#>   <chr> <chr> <chr>
 #> 1 a     b     c    
 #> 2 d     e     f    
 #> 3 h     i     j
@@ -392,7 +392,7 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "merge")
 #> # A tibble: 3 x 3
 #>   one   two   three
-#> * <chr> <chr> <chr>
+#>   <chr> <chr> <chr>
 #> 1 a     b     c    
 #> 2 d     e     f,g  
 #> 3 h     i     j
@@ -405,10 +405,10 @@ The default for `fill` is similar to `separate`; it fills with missing values bu
 ```r
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
   separate(x, c("one", "two", "three"))
-#> Warning: Too few values at 1 locations: 2
+#> Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].
 #> # A tibble: 3 x 3
 #>   one   two   three
-#> * <chr> <chr> <chr>
+#>   <chr> <chr> <chr>
 #> 1 a     b     c    
 #> 2 d     e     <NA> 
 #> 3 f     g     i
@@ -421,7 +421,7 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "right")
 #> # A tibble: 3 x 3
 #>   one   two   three
-#> * <chr> <chr> <chr>
+#>   <chr> <chr> <chr>
 #> 1 a     b     c    
 #> 2 d     e     <NA> 
 #> 3 f     g     i
@@ -434,7 +434,7 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "left")
 #> # A tibble: 3 x 3
 #>   one   two   three
-#> * <chr> <chr> <chr>
+#>   <chr> <chr> <chr>
 #> 1 a     b     c    
 #> 2 <NA>  d     e    
 #> 3 f     g     i
@@ -507,7 +507,7 @@ who3 <- who2 %>%
 who3
 #> # A tibble: 76,046 x 8
 #>   country     iso2  iso3   year new   type  sexage cases
-#> * <chr>       <chr> <chr> <int> <chr> <chr> <chr>  <int>
+#>   <chr>       <chr> <chr> <int> <chr> <chr> <chr>  <int>
 #> 1 Afghanistan AF    AFG    1997 new   sp    m014       0
 #> 2 Afghanistan AF    AFG    1998 new   sp    m014      30
 #> 3 Afghanistan AF    AFG    1999 new   sp    m014       8
@@ -540,7 +540,7 @@ who5 <- who4 %>%
 who5
 #> # A tibble: 76,046 x 6
 #>   country      year type  sex   age   cases
-#> * <chr>       <int> <chr> <chr> <chr> <int>
+#>   <chr>       <int> <chr> <chr> <chr> <int>
 #> 1 Afghanistan  1997 sp    m     014       0
 #> 2 Afghanistan  1998 sp    m     014      30
 #> 3 Afghanistan  1999 sp    m     014       8
@@ -574,7 +574,7 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
   group_by(country, year) %>%
   filter(n() > 1)
 #> # A tibble: 6,968 x 3
-#> # Groups: country, year [3,484]
+#> # Groups:   country, year [3,484]
 #>   country      year missing
 #>   <chr>       <int> <lgl>  
 #> 1 Afghanistan  1997 F      
@@ -598,9 +598,9 @@ and `type = m014`.
 ```r
 who3a <- who1 %>%
   separate(key, c("new", "type", "sexage"), sep = "_")
-#> Warning: Too few values at 2580 locations: 73467, 73468, 73469, 73470,
-#> 73471, 73472, 73473, 73474, 73475, 73476, 73477, 73478, 73479, 73480,
-#> 73481, 73482, 73483, 73484, 73485, 73486, ...
+#> Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2580 rows
+#> [73467, 73468, 73469, 73470, 73471, 73472, 73473, 73474, 73475, 73476,
+#> 73477, 73478, 73479, 73480, 73481, 73482, 73483, 73484, 73485, 73486, ...].
 
 filter(who3a, new == "newrel") %>% head()
 #> # A tibble: 6 x 8
@@ -624,7 +624,7 @@ select(who3, country, iso2, iso3) %>%
   group_by(country) %>%
   filter(n() > 1)
 #> # A tibble: 0 x 3
-#> # Groups: country [0]
+#> # Groups:   country [0]
 #> # ... with 3 variables: country <chr>, iso2 <chr>, iso3 <chr>
 ```
 

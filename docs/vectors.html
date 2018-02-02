@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Exercise Solutions to R for Data Science</title>
   <meta name="description" content="Exercise Solutions to “R for Data Science”">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Exercise Solutions to R for Data Science" />
   <meta property="og:type" content="book" />
@@ -46,7 +46,7 @@
 
 
 
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
@@ -337,12 +337,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="introduction-12" class="section level2">
 <h2><span class="header-section-number">19.1</span> Introduction</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="co">#&gt; ── Attaching packages ────────────────</span>
-<span class="co">#&gt; ✔ ggplot2 2.2.1     ✔ purrr   0.2.4</span>
-<span class="co">#&gt; ✔ tibble  1.4.1     ✔ dplyr   0.7.4</span>
-<span class="co">#&gt; ✔ tidyr   0.7.2     ✔ stringr 1.2.0</span>
-<span class="co">#&gt; ✔ readr   1.1.1     ✔ forcats 0.2.0</span>
-<span class="co">#&gt; ── Conflicts ─────────────────────────</span>
+<span class="co">#&gt; ── Attaching packages ────────────────────────────────────── tidyverse 1.2.1 ──</span>
+<span class="co">#&gt; ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     </span>
+<span class="co">#&gt; ✔ tibble  1.4.2          ✔ dplyr   0.7.4.9000</span>
+<span class="co">#&gt; ✔ tidyr   0.8.0          ✔ stringr 1.2.0     </span>
+<span class="co">#&gt; ✔ readr   1.1.1          ✔ forcats 0.2.0</span>
+<span class="co">#&gt; ── Conflicts ───────────────────────────────────────── tidyverse_conflicts() ──</span>
 <span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span>
 <span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></code></pre></div>
 </div>
@@ -368,9 +368,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p>The source for <code>dplyr::near</code> is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span>near
-<span class="co">#&gt; function (x, y, tol = .Machine$double.eps^0.5) </span>
-<span class="co">#&gt; {</span>
-<span class="co">#&gt;     abs(x - y) &lt; tol</span>
+<span class="co">#&gt; function(x, y, tol = .Machine$double.eps ^ 0.5) {</span>
+<span class="co">#&gt;   abs(x - y) &lt; tol</span>
 <span class="co">#&gt; }</span>
 <span class="co">#&gt; &lt;environment: namespace:dplyr&gt;</span></code></pre></div>
 <p>Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, <code>tol</code>. By default the tolerance is set to the square root of <code>.Machine$double.eps</code>, which is the smallest floating point number that the computer can represent.</p>
@@ -463,28 +462,33 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</sp
 <span class="co">#&gt;     names(object) &lt;- nm</span>
 <span class="co">#&gt;     object</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fa2d3eb5790&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7fd094762f40&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span>set_names
-<span class="co">#&gt; function (x, nm = x, ...) </span>
-<span class="co">#&gt; {</span>
-<span class="co">#&gt;     if (!is_vector(x)) {</span>
-<span class="co">#&gt;         abort(&quot;`x` must be a vector&quot;)</span>
+<span class="co">#&gt; function(x, nm = x, ...) {</span>
+<span class="co">#&gt;   if (!is_vector(x)) {</span>
+<span class="co">#&gt;     abort(&quot;`x` must be a vector&quot;)</span>
+<span class="co">#&gt;   }</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   if (is_function(nm) || is_formula(nm)) {</span>
+<span class="co">#&gt;     nm &lt;- as_function(nm)</span>
+<span class="co">#&gt;     nm &lt;- nm(names2(x), ...)</span>
+<span class="co">#&gt;   } else if (!is_null(nm)) {</span>
+<span class="co">#&gt;     if (dots_n(...)) {</span>
+<span class="co">#&gt;       nm &lt;- as.character(c(nm, ...))</span>
+<span class="co">#&gt;     } else {</span>
+<span class="co">#&gt;       nm &lt;- as.character(nm)</span>
 <span class="co">#&gt;     }</span>
-<span class="co">#&gt;     if (is_function(nm) || is_formula(nm)) {</span>
-<span class="co">#&gt;         nm &lt;- as_function(nm)</span>
-<span class="co">#&gt;         nm &lt;- nm(names2(x), ...)</span>
-<span class="co">#&gt;     }</span>
-<span class="co">#&gt;     else if (!is_null(nm)) {</span>
-<span class="co">#&gt;         nm &lt;- as.character(nm)</span>
-<span class="co">#&gt;         nm &lt;- chr(nm, ...)</span>
-<span class="co">#&gt;     }</span>
-<span class="co">#&gt;     if (!is_null(nm) &amp;&amp; !is_character(nm, length(x))) {</span>
-<span class="co">#&gt;         abort(&quot;`nm` must be `NULL` or a character vector the same length as `x`&quot;)</span>
-<span class="co">#&gt;     }</span>
-<span class="co">#&gt;     names(x) &lt;- nm</span>
-<span class="co">#&gt;     x</span>
+<span class="co">#&gt;   }</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   if (!is_null(nm) &amp;&amp; !is_character(nm, length(x))) {</span>
+<span class="co">#&gt;     abort(&quot;`nm` must be `NULL` or a character vector the same length as `x`&quot;)</span>
+<span class="co">#&gt;   }</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   names(x) &lt;- nm</span>
+<span class="co">#&gt;   x</span>
 <span class="co">#&gt; }</span>
+<span class="co">#&gt; &lt;bytecode: 0x7fd096827ee0&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:rlang&gt;</span></code></pre></div>
 <p>From the code we can see that <code>set_names</code> adds a few sanity checks: <code>x</code> has to be a vector, and the lengths of the object and the names have to be the same.</p>
 <ol start="4" style="list-style-type: decimal">
@@ -692,9 +696,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

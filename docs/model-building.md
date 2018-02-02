@@ -124,11 +124,11 @@ These are the Sundays before Monday holidays Martin Luther King Day, Memorial Da
 daily %>%
   top_n(3, resid)
 #> # A tibble: 3 x 5
-#>   date           n wday  term   resid
-#>   <date>     <int> <ord> <fctr> <dbl>
-#> 1 2013-11-30   857 Sat   fall   112  
-#> 2 2013-12-01   987 Sun   fall    95.5
-#> 3 2013-12-28   814 Sat   fall    69.4
+#>   date           n wday  term  resid
+#>   <date>     <int> <ord> <fct> <dbl>
+#> 1 2013-11-30   857 Sat   fall  112  
+#> 2 2013-12-01   987 Sun   fall   95.5
+#> 3 2013-12-28   814 Sat   fall   69.4
 ```
 
 

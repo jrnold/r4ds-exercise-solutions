@@ -228,6 +228,11 @@ airports %>%
     borders("state") +
     geom_point() +
     coord_quickmap()
+#> 
+#> Attaching package: 'maps'
+#> The following object is masked from 'package:purrr':
+#> 
+#>     map
 ```
 
 <img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
@@ -264,19 +269,20 @@ flights %>%
   left_join(airports, by = c(origin = "faa")) %>%
   head()
 #> # A tibble: 6 x 33
-#>    year month   day dep_t… sche… dep_… arr_… sche… arr_… carr… flig… tail…
-#>   <int> <int> <int>  <int> <int> <dbl> <int> <int> <dbl> <chr> <int> <chr>
-#> 1  2013     1     1    517   515  2.00   830   819  11.0 UA     1545 N142…
-#> 2  2013     1     1    533   529  4.00   850   830  20.0 UA     1714 N242…
-#> 3  2013     1     1    542   540  2.00   923   850  33.0 AA     1141 N619…
-#> 4  2013     1     1    544   545 -1.00  1004  1022 -18.0 B6      725 N804…
-#> 5  2013     1     1    554   600 -6.00   812   837 -25.0 DL      461 N668…
-#> 6  2013     1     1    554   558 -4.00   740   728  12.0 UA     1696 N394…
-#> # ... with 21 more variables: origin <chr>, dest <chr>, air_time <dbl>,
-#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>, name.x
-#> #   <chr>, lat.x <dbl>, lon.x <dbl>, alt.x <int>, tz.x <dbl>, dst.x <chr>,
-#> #   tzone.x <chr>, name.y <chr>, lat.y <dbl>, lon.y <dbl>, alt.y <int>,
-#> #   tz.y <dbl>, dst.y <chr>, tzone.y <chr>
+#>    year month   day dep_time sched_dep_time dep_delay arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
+#> 1  2013     1     1      517            515      2.00      830
+#> 2  2013     1     1      533            529      4.00      850
+#> 3  2013     1     1      542            540      2.00      923
+#> 4  2013     1     1      544            545     -1.00     1004
+#> 5  2013     1     1      554            600     -6.00      812
+#> 6  2013     1     1      554            558     -4.00      740
+#> # ... with 26 more variables: sched_arr_time <int>, arr_delay <dbl>,
+#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
+#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
+#> #   time_hour <dttm>, name.x <chr>, lat.x <dbl>, lon.x <dbl>, alt.x <int>,
+#> #   tz.x <dbl>, dst.x <chr>, tzone.x <chr>, name.y <chr>, lat.y <dbl>,
+#> #   lon.y <dbl>, alt.y <int>, tz.y <dbl>, dst.y <chr>, tzone.y <chr>
 ```
 
 
@@ -338,6 +344,7 @@ The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest,
 
 ```r
 library(viridis)
+#> Loading required package: viridisLite
 flights %>%
   filter(year == 2013, month == 6, day == 13) %>%
   group_by(dest) %>%
@@ -389,17 +396,18 @@ planes_gt100 <-
 flights %>%
   semi_join(planes_gt100, by = "tailnum")
 #> # A tibble: 229,202 x 19
-#>    year month   day dep_t… sche… dep_… arr_… sche… arr_… carr… flig… tail…
-#>   <int> <int> <int>  <int> <int> <dbl> <int> <int> <dbl> <chr> <int> <chr>
-#> 1  2013     1     1    517   515  2.00   830   819  11.0 UA     1545 N142…
-#> 2  2013     1     1    533   529  4.00   850   830  20.0 UA     1714 N242…
-#> 3  2013     1     1    544   545 -1.00  1004  1022 -18.0 B6      725 N804…
-#> 4  2013     1     1    554   558 -4.00   740   728  12.0 UA     1696 N394…
-#> 5  2013     1     1    555   600 -5.00   913   854  19.0 B6      507 N516…
-#> 6  2013     1     1    557   600 -3.00   709   723 -14.0 EV     5708 N829…
-#> # ... with 2.292e+05 more rows, and 7 more variables: origin <chr>, dest
-#> #   <chr>, air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
-#> #   time_hour <dttm>
+#>    year month   day dep_time sched_dep_time dep_delay arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
+#> 1  2013     1     1      517            515      2.00      830
+#> 2  2013     1     1      533            529      4.00      850
+#> 3  2013     1     1      544            545     -1.00     1004
+#> 4  2013     1     1      554            558     -4.00      740
+#> 5  2013     1     1      555            600     -5.00      913
+#> 6  2013     1     1      557            600     -3.00      709
+#> # ... with 2.292e+05 more rows, and 12 more variables:
+#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
+#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
+#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
 
@@ -459,7 +467,7 @@ flights %>%
   mutate(total_48 = total_24 + lag(total_24)) %>%
   arrange(desc(total_48))
 #> # A tibble: 365 x 5
-#> # Groups: year, month [12]
+#> # Groups:   year, month [12]
 #>    year month   day total_24 total_48
 #>   <int> <int> <int>    <dbl>    <dbl>
 #> 1  2013     7    23    80641   175419
@@ -496,7 +504,7 @@ airplane_multi_carrier <-
 #> Adding missing grouping variables: `carrier`
 airplane_multi_carrier
 #> # A tibble: 0 x 2
-#> # Groups: tailnum, carrier [0]
+#> # Groups:   tailnum, carrier [0]
 #> # ... with 2 variables: carrier <chr>, tailnum <chr>
 ```
 There are 0 airplanes in this dataset that have had more than one carrier.

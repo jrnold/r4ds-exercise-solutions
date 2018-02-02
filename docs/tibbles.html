@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Exercise Solutions to R for Data Science</title>
   <meta name="description" content="Exercise Solutions to “R for Data Science”">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Exercise Solutions to R for Data Science" />
   <meta property="og:type" content="book" />
@@ -46,7 +46,7 @@
 
 
 
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
@@ -417,13 +417,13 @@ tbl<span class="op">$</span>x
 <span class="co">#&gt; NULL</span>
 tbl[, <span class="st">&quot;xyz&quot;</span>]
 <span class="co">#&gt; # A tibble: 1 x 1</span>
-<span class="co">#&gt;   xyz   </span>
-<span class="co">#&gt;   &lt;fctr&gt;</span>
+<span class="co">#&gt;   xyz  </span>
+<span class="co">#&gt;   &lt;fct&gt;</span>
 <span class="co">#&gt; 1 a</span>
 tbl[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;xyz&quot;</span>)]
 <span class="co">#&gt; # A tibble: 1 x 2</span>
-<span class="co">#&gt;     abc xyz   </span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;fctr&gt;</span>
+<span class="co">#&gt;     abc xyz  </span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;fct&gt;</span>
 <span class="co">#&gt; 1  1.00 a</span></code></pre></div>
 <p>Using <code>$</code> a data.frame will partially complete the column. So even though we wrote <code>df$x</code> it returned <code>df$xyz</code>. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.</p>
 <p>With data.frames, with <code>[</code> the type of object that is returned differs on the number of columns. If it is one column, it won’t return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did <code>df[ , vars]</code> where <code>vars</code> was a variable. Then you what that code does depends on <code>length(vars)</code> and you’d have to write code to account for those situations or risk bugs.</p>
@@ -529,9 +529,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

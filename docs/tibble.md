@@ -104,13 +104,13 @@ tbl$x
 #> NULL
 tbl[, "xyz"]
 #> # A tibble: 1 x 1
-#>   xyz   
-#>   <fctr>
+#>   xyz  
+#>   <fct>
 #> 1 a
 tbl[, c("abc", "xyz")]
 #> # A tibble: 1 x 2
-#>     abc xyz   
-#>   <dbl> <fctr>
+#>     abc xyz  
+#>   <dbl> <fct>
 #> 1  1.00 a
 ```
 

@@ -8,6 +8,14 @@
 ```r
 library("modelr")
 library("tidyverse")
+#> ── Attaching packages ────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     
+#> ✔ tibble  1.4.2          ✔ dplyr   0.7.4.9000
+#> ✔ tidyr   0.8.0          ✔ stringr 1.2.0     
+#> ✔ readr   1.1.1          ✔ forcats 0.2.0
+#> ── Conflicts ───────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 library("gapminder")
 ```
 
@@ -46,7 +54,7 @@ by_country <- by_country %>%
 by_country
 #> # A tibble: 142 x 5
 #>   country     continent data              model    resids           
-#>   <fctr>      <fctr>    <list>            <list>   <list>           
+#>   <fct>       <fct>     <list>            <list>   <list>           
 #> 1 Afghanistan Asia      <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
 #> 2 Albania     Europe    <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>
 #> 3 Algeria     Africa    <tibble [12 × 4]> <S3: lm> <tibble [12 × 5]>

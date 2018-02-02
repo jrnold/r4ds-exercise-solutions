@@ -72,7 +72,7 @@ gss_cat %>%
   head(1)
 #> # A tibble: 1 x 2
 #>   relig          n
-#>   <fctr>     <int>
+#>   <fct>      <int>
 #> 1 Protestant 10846
 ```
 
@@ -85,7 +85,7 @@ gss_cat %>%
   head(1)
 #> # A tibble: 1 x 2
 #>   partyid         n
-#>   <fctr>      <int>
+#>   <fct>       <int>
 #> 1 Independent  4119
 ```
 
@@ -119,7 +119,7 @@ gss_cat %>%
   count(relig)
 #> # A tibble: 1 x 2
 #>   relig          n
-#>   <fctr>     <int>
+#>   <fct>      <int>
 #> 1 Protestant  7025
 ```
 

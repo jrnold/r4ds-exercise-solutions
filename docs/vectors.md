@@ -6,12 +6,12 @@
 
 ```r
 library("tidyverse")
-#> ── Attaching packages ────────────────
-#> ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
-#> ✔ tibble  1.4.1     ✔ dplyr   0.7.4
-#> ✔ tidyr   0.7.2     ✔ stringr 1.2.0
-#> ✔ readr   1.1.1     ✔ forcats 0.2.0
-#> ── Conflicts ─────────────────────────
+#> ── Attaching packages ────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     
+#> ✔ tibble  1.4.2          ✔ dplyr   0.7.4.9000
+#> ✔ tidyr   0.8.0          ✔ stringr 1.2.0     
+#> ✔ readr   1.1.1          ✔ forcats 0.2.0
+#> ── Conflicts ───────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -49,9 +49,8 @@ The source for `dplyr::near` is:
 
 ```r
 dplyr::near
-#> function (x, y, tol = .Machine$double.eps^0.5) 
-#> {
-#>     abs(x - y) < tol
+#> function(x, y, tol = .Machine$double.eps ^ 0.5) {
+#>   abs(x - y) < tol
 #> }
 #> <environment: namespace:dplyr>
 ```
@@ -223,31 +222,36 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fa2d3eb5790>
+#> <bytecode: 0x7fd094762f40>
 #> <environment: namespace:stats>
 ```
 
 ```r
 purrr::set_names
-#> function (x, nm = x, ...) 
-#> {
-#>     if (!is_vector(x)) {
-#>         abort("`x` must be a vector")
+#> function(x, nm = x, ...) {
+#>   if (!is_vector(x)) {
+#>     abort("`x` must be a vector")
+#>   }
+#> 
+#>   if (is_function(nm) || is_formula(nm)) {
+#>     nm <- as_function(nm)
+#>     nm <- nm(names2(x), ...)
+#>   } else if (!is_null(nm)) {
+#>     if (dots_n(...)) {
+#>       nm <- as.character(c(nm, ...))
+#>     } else {
+#>       nm <- as.character(nm)
 #>     }
-#>     if (is_function(nm) || is_formula(nm)) {
-#>         nm <- as_function(nm)
-#>         nm <- nm(names2(x), ...)
-#>     }
-#>     else if (!is_null(nm)) {
-#>         nm <- as.character(nm)
-#>         nm <- chr(nm, ...)
-#>     }
-#>     if (!is_null(nm) && !is_character(nm, length(x))) {
-#>         abort("`nm` must be `NULL` or a character vector the same length as `x`")
-#>     }
-#>     names(x) <- nm
-#>     x
+#>   }
+#> 
+#>   if (!is_null(nm) && !is_character(nm, length(x))) {
+#>     abort("`nm` must be `NULL` or a character vector the same length as `x`")
+#>   }
+#> 
+#>   names(x) <- nm
+#>   x
 #> }
+#> <bytecode: 0x7fd096827ee0>
 #> <environment: namespace:rlang>
 ```
 

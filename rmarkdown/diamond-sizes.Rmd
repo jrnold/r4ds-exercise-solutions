@@ -1,0 +1,81 @@
+---
+title: "Diamond sizes"
+date: 2016-08-25
+output: html_document
+---
+
+```{r knitr_opts, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r setup, message = FALSE}
+library("ggplot2")
+library("dplyr")
+
+smaller <- diamonds %>% 
+  filter(carat <= 2.5)
+```
+
+```{r include = FALSE}
+# Hide objects and functions ONLY used inline
+n_larger <- nrow(diamonds) - nrow(smaller)
+pct_larger <- n_larger / nrow(diamonds) * 100
+
+comma <- function(x) {
+  format(x, digits = 2, big.mark = ",")
+}
+```
+
+# Size and Cut, Color, and Clarity
+
+Diamonds with lower quality cuts (cuts are ranked from "Ideal" to "Fair") tend to be be larger.
+```{r}
+ggplot(diamonds, aes(y = carat, x = cut)) +
+  geom_boxplot()
+```
+Likewise, diamonds with worse color (diamond colors are ranked from J (worst) to D (best)) tend to be larger:
+```{r}
+ggplot(diamonds, aes(y = carat, x = color)) +
+  geom_boxplot()
+```
+The pattern present in cut and color is also present in clarity.
+Diamonds with worse clarity  (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best)) tend to be larger:
+```{r}
+ggplot(diamonds, aes(y = carat, x = clarity)) +
+  geom_boxplot()
+```
+These patterns are consistent with there being a profitability threshhold for retail diamonds that is a function of carat, clarity, color, cut and other characteristics.
+A diamond may be profitable to sell if a poor value of one feature, for example, poor clarity, color, or cut, is be offset by a good value of another feature, such as a large size.
+
+
+# Largest Diamonds
+
+We have data about `r comma(nrow(diamonds))` diamonds. Only 
+`r n_larger` (`r round(nrow(smaller) / nrow(smaller) * 100, 1)`%) are larger than
+2.5 carats. The distribution of the remainder is shown
+below:
+
+```{r}
+smaller %>% 
+  ggplot(aes(carat)) + 
+  geom_freqpoly(binwidth = 0.01)
+```
+
+The frequency distribution of diamond sizes is marked by spikes at 
+whole-number and half-carat values, as well as several other carat values corresponding to fractions.
+
+
+The largest twenty diamonds (by carat) in the datasets are,
+```{r results = "asis"}
+diamonds %>%
+  arrange(desc(carat)) %>%
+  slice(1:20) %>%
+  select(carat, cut, color, clarity) %>%
+  knitr::kable(
+    caption = "The largest 20 diamonds in the `diamonds` dataset."
+  )
+```
+Most of the twenty largest datasets are in the lowest clarity category ("I1"), with one being in the second best category ("VVS2")
+The top twenty diamonds have colors rangind from the worst, "J", to best, "D", categories, though most are in the lower categories "J" and "I".
+The top twenty diamonds are more evenly distributed among the cut categories, from "Fair" to "Ideal", although the worst category (Fair) is the most common.
+

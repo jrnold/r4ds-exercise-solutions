@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Exercise Solutions to R for Data Science</title>
   <meta name="description" content="Exercise Solutions to “R for Data Science”">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Exercise Solutions to R for Data Science" />
   <meta property="og:type" content="book" />
@@ -46,7 +46,7 @@
 
 
 
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
@@ -433,11 +433,11 @@ mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(n <span class="op"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">top_n</span>(<span class="dv">3</span>, resid)
 <span class="co">#&gt; # A tibble: 3 x 5</span>
-<span class="co">#&gt;   date           n wday  term   resid</span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt; &lt;ord&gt; &lt;fctr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2013-11-30   857 Sat   fall   112  </span>
-<span class="co">#&gt; 2 2013-12-01   987 Sun   fall    95.5</span>
-<span class="co">#&gt; 3 2013-12-28   814 Sat   fall    69.4</span></code></pre></div>
+<span class="co">#&gt;   date           n wday  term  resid</span>
+<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt; &lt;ord&gt; &lt;fct&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 2013-11-30   857 Sat   fall  112  </span>
+<span class="co">#&gt; 2 2013-12-01   987 Sun   fall   95.5</span>
+<span class="co">#&gt; 3 2013-12-28   814 Sat   fall   69.4</span></code></pre></div>
 <p><strong>Ex 3.</strong> Create a new variable that splits the <code>wday</code> variable into terms, but only for Saturdays, i.e. it should have <code>Thurs</code>, <code>Fri</code>, but <code>Sat-summer</code>, <code>Sat-spring</code>, <code>Sat-fall</code> How does this model compare with the model with every combination of <code>wday</code> and <code>term</code>?</p>
 <p>I’ll use the function <code>case_when</code> to do this, though there are other ways which it could be solved.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span>daily <span class="op">%&gt;%</span>
@@ -590,9 +590,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

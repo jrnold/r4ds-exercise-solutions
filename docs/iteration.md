@@ -252,8 +252,7 @@ all.equal(cumsum(x),out)
        Generalise to any number of any vessel containing any liquid on 
        any surface.
     
-I don't know what the deal is with Hadley and nursery rhymes.
-Here's the lyrics for [Alice the Camel](http://www.kididdles.com/lyrics/a012.html)
+The lyrics for ``Alice the Camel'' can be found at <http://www.kididdles.com/lyrics/a012.html>.
 
 We'll look from five to no humps, and print out a different last line if there are no humps. This uses `cat` instead of `print`, so it looks nicer.
 
@@ -432,7 +431,7 @@ add_to_vector <- function(n) {
 microbenchmark(add_to_vector(10000), times = 3)
 #> Unit: milliseconds
 #>                  expr min  lq mean median  uq max neval
-#>  add_to_vector(10000) 158 162  186    165 200 235     3
+#>  add_to_vector(10000) 172 175  186    177 193 209     3
 ```
 
 And one that pre-allocates it.
@@ -448,7 +447,7 @@ add_to_vector_2 <- function(n) {
 microbenchmark(add_to_vector_2(10000), times = 3)
 #> Unit: microseconds
 #>                    expr min  lq mean median   uq  max neval
-#>  add_to_vector_2(10000) 714 749 1590    785 2028 3271     3
+#>  add_to_vector_2(10000) 543 552 1457    560 1914 3268     3
 ```
 
 The pre-allocated vector is about **100** times faster!

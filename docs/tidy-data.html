@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Exercise Solutions to R for Data Science</title>
   <meta name="description" content="Exercise Solutions to “R for Data Science”">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
 
   <meta property="og:title" content="Exercise Solutions to R for Data Science" />
   <meta property="og:type" content="book" />
@@ -46,7 +46,7 @@
 
 
 
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
@@ -541,7 +541,7 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="kw">spread</span>(people, key, value)
 <span class="co">#&gt; # A tibble: 3 x 4</span>
 <span class="co">#&gt;   name              obs   age height</span>
-<span class="co">#&gt; * &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 Jessica Cordero  1.00  37.0    156</span>
 <span class="co">#&gt; 2 Phillip Woods    1.00  45.0    186</span>
 <span class="co">#&gt; 3 Phillip Woods    2.00  50.0     NA</span></code></pre></div>
@@ -579,20 +579,20 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
-<span class="co">#&gt; Warning: Too many values at 1 locations: 2</span>
+<span class="co">#&gt; Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].</span>
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   one   two   three</span>
-<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 a     b     c    </span>
 <span class="co">#&gt; 2 d     e     f    </span>
 <span class="co">#&gt; 3 h     i     j</span>
 
 <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
-<span class="co">#&gt; Warning: Too few values at 1 locations: 2</span>
+<span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].</span>
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   one   two   three</span>
-<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 a     b     c    </span>
 <span class="co">#&gt; 2 d     e     &lt;NA&gt; </span>
 <span class="co">#&gt; 3 f     g     i</span></code></pre></div>
@@ -600,10 +600,10 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 <p>The <code>extra</code> argument tells <code>separate</code> what to do if there are too many pieces, and the <code>fill</code> argument if there aren’t enough.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
-<span class="co">#&gt; Warning: Too many values at 1 locations: 2</span>
+<span class="co">#&gt; Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].</span>
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   one   two   three</span>
-<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 a     b     c    </span>
 <span class="co">#&gt; 2 d     e     f    </span>
 <span class="co">#&gt; 3 h     i     j</span></code></pre></div>
@@ -612,7 +612,7 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;drop&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   one   two   three</span>
-<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 a     b     c    </span>
 <span class="co">#&gt; 2 d     e     f    </span>
 <span class="co">#&gt; 3 h     i     j</span></code></pre></div>
@@ -621,7 +621,7 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   one   two   three</span>
-<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 a     b     c    </span>
 <span class="co">#&gt; 2 d     e     f,g  </span>
 <span class="co">#&gt; 3 h     i     j</span></code></pre></div>
@@ -629,10 +629,10 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 <p>In this, one of the entries for column, <code>&quot;d,e&quot;</code>, has too few elements. The default for <code>fill</code> is similar to <code>separate</code>; it fills with missing values but emits a warning. In this, row 2 of column “three”, is <code>NA</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))
-<span class="co">#&gt; Warning: Too few values at 1 locations: 2</span>
+<span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].</span>
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   one   two   three</span>
-<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 a     b     c    </span>
 <span class="co">#&gt; 2 d     e     &lt;NA&gt; </span>
 <span class="co">#&gt; 3 f     g     i</span></code></pre></div>
@@ -641,7 +641,7 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;right&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   one   two   three</span>
-<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 a     b     c    </span>
 <span class="co">#&gt; 2 d     e     &lt;NA&gt; </span>
 <span class="co">#&gt; 3 f     g     i</span></code></pre></div>
@@ -650,7 +650,7 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;left&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   one   two   three</span>
-<span class="co">#&gt; * &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
 <span class="co">#&gt; 1 a     b     c    </span>
 <span class="co">#&gt; 2 &lt;NA&gt;  d     e    </span>
 <span class="co">#&gt; 3 f     g     i</span></code></pre></div>
@@ -697,7 +697,7 @@ stocks <span class="op">%&gt;%</span><span class="st"> </span>
 who3
 <span class="co">#&gt; # A tibble: 76,046 x 8</span>
 <span class="co">#&gt;   country     iso2  iso3   year new   type  sexage cases</span>
-<span class="co">#&gt; * &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span>
 <span class="co">#&gt; 1 Afghanistan AF    AFG    1997 new   sp    m014       0</span>
 <span class="co">#&gt; 2 Afghanistan AF    AFG    1998 new   sp    m014      30</span>
 <span class="co">#&gt; 3 Afghanistan AF    AFG    1999 new   sp    m014       8</span>
@@ -718,7 +718,7 @@ who3
 who5
 <span class="co">#&gt; # A tibble: 76,046 x 6</span>
 <span class="co">#&gt;   country      year type  sex   age   cases</span>
-<span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1 Afghanistan  1997 sp    m     014       0</span>
 <span class="co">#&gt; 2 Afghanistan  1998 sp    m     014      30</span>
 <span class="co">#&gt; 3 Afghanistan  1999 sp    m     014       8</span>
@@ -743,7 +743,7 @@ who5
 <span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
 <span class="co">#&gt; # A tibble: 6,968 x 3</span>
-<span class="co">#&gt; # Groups: country, year [3,484]</span>
+<span class="co">#&gt; # Groups:   country, year [3,484]</span>
 <span class="co">#&gt;   country      year missing</span>
 <span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;lgl&gt;  </span>
 <span class="co">#&gt; 1 Afghanistan  1997 F      </span>
@@ -759,9 +759,9 @@ who5
 <p><code>separate</code> emits the warning “too few values”, and if we check the rows for keys beginning with <code>&quot;newrel_&quot;</code>, we see that <code>sexage</code> is messing, and <code>type = m014</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">who3a &lt;-<span class="st"> </span>who1 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)
-<span class="co">#&gt; Warning: Too few values at 2580 locations: 73467, 73468, 73469, 73470,</span>
-<span class="co">#&gt; 73471, 73472, 73473, 73474, 73475, 73476, 73477, 73478, 73479, 73480,</span>
-<span class="co">#&gt; 73481, 73482, 73483, 73484, 73485, 73486, ...</span>
+<span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2580 rows</span>
+<span class="co">#&gt; [73467, 73468, 73469, 73470, 73471, 73472, 73473, 73474, 73475, 73476,</span>
+<span class="co">#&gt; 73477, 73478, 73479, 73480, 73481, 73482, 73483, 73484, 73485, 73486, ...].</span>
 
 <span class="kw">filter</span>(who3a, new <span class="op">==</span><span class="st"> &quot;newrel&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()
 <span class="co">#&gt; # A tibble: 6 x 8</span>
@@ -781,7 +781,7 @@ who5
 <span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)
 <span class="co">#&gt; # A tibble: 0 x 3</span>
-<span class="co">#&gt; # Groups: country [0]</span>
+<span class="co">#&gt; # Groups:   country [0]</span>
 <span class="co">#&gt; # ... with 3 variables: country &lt;chr&gt;, iso2 &lt;chr&gt;, iso3 &lt;chr&gt;</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.</li>
@@ -846,9 +846,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
