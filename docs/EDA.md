@@ -301,6 +301,11 @@ In this case the output looks the same, but in the aesthetics the `x` and `y` ar
 
 ```r
 library("ggstance")
+#> 
+#> Attaching package: 'ggstance'
+#> The following objects are masked from 'package:ggplot2':
+#> 
+#>     geom_errorbarh, GeomErrorbarh
 
 ggplot(data = mpg) +
   geom_boxploth(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
@@ -667,6 +672,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
   geom_hex() +
   facet_wrap(~ cut, ncol = 1) +
   scale_fill_viridis()
+#> Loading required package: methods
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />

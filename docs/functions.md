@@ -5,13 +5,8 @@
 
 
 ```r
+library("tidyverse")
 library("lubridate")
-#> Loading required package: methods
-#> 
-#> Attaching package: 'lubridate'
-#> The following object is masked from 'package:base':
-#> 
-#>     date
 ```
 
 
@@ -186,7 +181,7 @@ These functions are useful even though they are short because their names make i
 
 > Read the complete lyrics to “Little Bunny Foo Foo”. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
 
-This could probably be done cleaner, but here's one version.
+<!-- This could probably be done cleaner, but here's one version. -->
 
 ```r
 threat <- function(chances) {
@@ -207,7 +202,7 @@ lyric <- function() {
   said(Good_Fairy, 
       c("Little bunny Foo Foo",
         "I don't want to see you",
-        "Scooping up the field mice"
+        "Scooping up the field mice",
         "And bopping them on the head.")
 }
 
@@ -331,7 +326,7 @@ greet <- function(time = lubridate::now()) {
   }
 } 
 greet()
-#> [1] "good morning"
+#> [1] "good afternoon"
 greet(ymd_h("2017-01-08:05"))
 #> [1] "good morning"
 greet(ymd_h("2017-01-08:13"))
@@ -470,20 +465,27 @@ switcheroo("e")
 
 > What does `commas(letters, collapse = "-")` do? Why?
 
+The `commas` function in the chapter is defined as,
 
 ```r
-commas <- function(...) stringr::str_c(..., collapse = ", ")
+commas <- function(...) {
+  stringr::str_c(..., collapse = ", ")
+}
 ```
 
-It throws an error.
+When `commas()` is given a collapse argument, it throws an error.
 
 ```r
 commas(letters, collapse = "-")
 #> Error in stringr::str_c(..., collapse = ", "): formal argument "collapse" matched by multiple actual arguments
 ```
-The argument `collapse` is passed to `str_c` as part of `...`, 
-so it tries to run `str_c(letters, collapse = "-", collapse = ", ")`.
+The argument `collapse` is passed to `str_c` as part of `...`.
+This expands to
 
+```r
+str_c(letters, collapse = "-", collapse = ", ")
+```
+However, it is an error to give the same named argument to a function twice.
 
 ### Exercise 2 {.exercise}
 

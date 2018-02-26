@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -826,33 +823,13 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</sp
 <span class="co">#&gt;     names(object) &lt;- nm</span>
 <span class="co">#&gt;     object</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fd094762f40&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7fd6dd8ffa70&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span>set_names
 <span class="co">#&gt; function(x, nm = x, ...) {</span>
-<span class="co">#&gt;   if (!is_vector(x)) {</span>
-<span class="co">#&gt;     abort(&quot;`x` must be a vector&quot;)</span>
-<span class="co">#&gt;   }</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   if (is_function(nm) || is_formula(nm)) {</span>
-<span class="co">#&gt;     nm &lt;- as_function(nm)</span>
-<span class="co">#&gt;     nm &lt;- nm(names2(x), ...)</span>
-<span class="co">#&gt;   } else if (!is_null(nm)) {</span>
-<span class="co">#&gt;     if (dots_n(...)) {</span>
-<span class="co">#&gt;       nm &lt;- as.character(c(nm, ...))</span>
-<span class="co">#&gt;     } else {</span>
-<span class="co">#&gt;       nm &lt;- as.character(nm)</span>
-<span class="co">#&gt;     }</span>
-<span class="co">#&gt;   }</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   if (!is_null(nm) &amp;&amp; !is_character(nm, length(x))) {</span>
-<span class="co">#&gt;     abort(&quot;`nm` must be `NULL` or a character vector the same length as `x`&quot;)</span>
-<span class="co">#&gt;   }</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   names(x) &lt;- nm</span>
-<span class="co">#&gt;   x</span>
+<span class="co">#&gt;   set_names_impl(x, x, nm, ...)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fd096827ee0&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7fd6e0f7ae08&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:rlang&gt;</span></code></pre></div>
 <p>From the code we can see that <code>set_names</code> adds a few sanity checks: <code>x</code> has to be a vector, and the lengths of the object and the names have to be the same.</p>
 </div>
@@ -1079,7 +1056,7 @@ gitbook.start({
 "link": "https://github.com/jrnold/r4ds/edit/master/vectors.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "section"
 }

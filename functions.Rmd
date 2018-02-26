@@ -2,7 +2,8 @@
 
 ## Introduction
 
-```{r}
+```{r message=FALSE}
+library("tidyverse")
 library("lubridate")
 ```
 
@@ -156,7 +157,7 @@ These functions are useful even though they are short because their names make i
 
 > Read the complete lyrics to “Little Bunny Foo Foo”. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
 
-This could probably be done cleaner, but here's one version.
+<!-- This could probably be done cleaner, but here's one version. -->
 ```{r eval=FALSE}
 threat <- function(chances) {
   give_chances(from = Good_Fairy,
@@ -176,7 +177,7 @@ lyric <- function() {
   said(Good_Fairy, 
       c("Little bunny Foo Foo",
         "I don't want to see you",
-        "Scooping up the field mice"
+        "Scooping up the field mice",
         "And bopping them on the head.")
 }
 
@@ -404,17 +405,23 @@ switcheroo("e")
 
 > What does `commas(letters, collapse = "-")` do? Why?
 
+The `commas` function in the chapter is defined as,
 ```{r}
-commas <- function(...) stringr::str_c(..., collapse = ", ")
+commas <- function(...) {
+  stringr::str_c(..., collapse = ", ")
+}
 ```
 
-It throws an error.
+When `commas()` is given a collapse argument, it throws an error.
 ```{r error=TRUE}
 commas(letters, collapse = "-")
 ```
-The argument `collapse` is passed to `str_c` as part of `...`, 
-so it tries to run `str_c(letters, collapse = "-", collapse = ", ")`.
-
+The argument `collapse` is passed to `str_c` as part of `...`.
+This expands to
+```{r eval=FALSE}
+str_c(letters, collapse = "-", collapse = ", ")
+```
+However, it is an error to give the same named argument to a function twice.
 
 ### Exercise 2 {.exercise}
 

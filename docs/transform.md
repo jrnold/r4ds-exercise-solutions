@@ -60,7 +60,7 @@ for flights where `arr_delay > 120`:
 ```r
 flights %>% 
   filter(arr_delay > 120)
-#> # A tibble: 10,034 × 19
+#> # A tibble: 10,034 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
 #> 1  2013     1     1      811            630       101     1047
@@ -80,15 +80,15 @@ flights %>%
 ```r
 flights %>%
   filter(dest %in% c("IAH", "HOU"))
-#> # A tibble: 9,313 × 19
+#> # A tibble: 9,313 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515         2      830
-#> 2  2013     1     1      533            529         4      850
-#> 3  2013     1     1      623            627        -4      933
-#> 4  2013     1     1      728            732        -4     1041
-#> 5  2013     1     1      739            739         0     1104
-#> 6  2013     1     1      908            908         0     1228
+#> 1  2013     1     1      517            515      2.00      830
+#> 2  2013     1     1      533            529      4.00      850
+#> 3  2013     1     1      623            627     -4.00      933
+#> 4  2013     1     1      728            732     -4.00     1041
+#> 5  2013     1     1      739            739      0        1104
+#> 6  2013     1     1      908            908      0        1228
 #> # ... with 9,307 more rows, and 12 more variables: sched_arr_time <int>,
 #> #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
 #> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
@@ -100,15 +100,15 @@ dataset.
 
 ```r
 airlines
-#> # A tibble: 16 × 2
-#>   carrier                     name
-#>     <chr>                    <chr>
-#> 1      9E        Endeavor Air Inc.
-#> 2      AA   American Airlines Inc.
-#> 3      AS     Alaska Airlines Inc.
-#> 4      B6          JetBlue Airways
-#> 5      DL     Delta Air Lines Inc.
-#> 6      EV ExpressJet Airlines Inc.
+#> # A tibble: 16 x 2
+#>   carrier name                    
+#>   <chr>   <chr>                   
+#> 1 9E      Endeavor Air Inc.       
+#> 2 AA      American Airlines Inc.  
+#> 3 AS      Alaska Airlines Inc.    
+#> 4 B6      JetBlue Airways         
+#> 5 DL      Delta Air Lines Inc.    
+#> 6 EV      ExpressJet Airlines Inc.
 #> # ... with 10 more rows
 ```
 Since there are only 16 rows, its not even worth filtering.
@@ -116,15 +116,15 @@ Delta is `DL`, American is `AA`, and United is `UA`:
 
 ```r
 filter(flights, carrier %in% c("AA", "DL", "UA"))
-#> # A tibble: 139,504 × 19
+#> # A tibble: 139,504 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515         2      830
-#> 2  2013     1     1      533            529         4      850
-#> 3  2013     1     1      542            540         2      923
-#> 4  2013     1     1      554            600        -6      812
-#> 5  2013     1     1      554            558        -4      740
-#> 6  2013     1     1      558            600        -2      753
+#> 1  2013     1     1      517            515      2.00      830
+#> 2  2013     1     1      533            529      4.00      850
+#> 3  2013     1     1      542            540      2.00      923
+#> 4  2013     1     1      554            600     -6.00      812
+#> 5  2013     1     1      554            558     -4.00      740
+#> 6  2013     1     1      558            600     -2.00      753
 #> # ... with 1.395e+05 more rows, and 12 more variables:
 #> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
 #> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
@@ -135,15 +135,15 @@ filter(flights, carrier %in% c("AA", "DL", "UA"))
 
 ```r
 filter(flights, between(month, 7, 9))
-#> # A tibble: 86,326 × 19
+#> # A tibble: 86,326 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     7     1        1           2029       212      236
-#> 2  2013     7     1        2           2359         3      344
-#> 3  2013     7     1       29           2245       104      151
-#> 4  2013     7     1       43           2130       193      322
-#> 5  2013     7     1       44           2150       174      300
-#> 6  2013     7     1       46           2051       235      304
+#> 1  2013     7     1        1           2029    212         236
+#> 2  2013     7     1        2           2359      3.00      344
+#> 3  2013     7     1       29           2245    104         151
+#> 4  2013     7     1       43           2130    193         322
+#> 5  2013     7     1       44           2150    174         300
+#> 6  2013     7     1       46           2051    235         304
 #> # ... with 8.632e+04 more rows, and 12 more variables:
 #> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
 #> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
@@ -154,15 +154,15 @@ filter(flights, between(month, 7, 9))
 
 ```r
 filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
-#> # A tibble: 29 × 19
+#> # A tibble: 29 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1    27     1419           1420        -1     1754
-#> 2  2013    10     7     1350           1350         0     1736
-#> 3  2013    10     7     1357           1359        -2     1858
-#> 4  2013    10    16      657            700        -3     1258
-#> 5  2013    11     1      658            700        -2     1329
-#> 6  2013     3    18     1844           1847        -3       39
+#> 1  2013     1    27     1419           1420     -1.00     1754
+#> 2  2013    10     7     1350           1350      0        1736
+#> 3  2013    10     7     1357           1359     -2.00     1858
+#> 4  2013    10    16      657            700     -3.00     1258
+#> 5  2013    11     1      658            700     -2.00     1329
+#> 6  2013     3    18     1844           1847     -3.00       39
 #> # ... with 23 more rows, and 12 more variables: sched_arr_time <int>,
 #> #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
 #> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
@@ -210,15 +210,15 @@ or using `between` (see next question)
 
 ```r
 filter(flights, between(dep_time, 0, 600))
-#> # A tibble: 9,344 × 19
+#> # A tibble: 9,344 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515         2      830
-#> 2  2013     1     1      533            529         4      850
-#> 3  2013     1     1      542            540         2      923
-#> 4  2013     1     1      544            545        -1     1004
-#> 5  2013     1     1      554            600        -6      812
-#> 6  2013     1     1      554            558        -4      740
+#> 1  2013     1     1      517            515      2.00      830
+#> 2  2013     1     1      533            529      4.00      850
+#> 3  2013     1     1      542            540      2.00      923
+#> 4  2013     1     1      544            545     -1.00     1004
+#> 5  2013     1     1      554            600     -6.00      812
+#> 6  2013     1     1      554            558     -4.00      740
 #> # ... with 9,338 more rows, and 12 more variables: sched_arr_time <int>,
 #> #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
 #> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
@@ -240,7 +240,7 @@ used it in 1.4.
 
 ```r
 filter(flights, is.na(dep_time))
-#> # A tibble: 8,255 × 19
+#> # A tibble: 8,255 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
 #> 1  2013     1     1       NA           1630        NA       NA

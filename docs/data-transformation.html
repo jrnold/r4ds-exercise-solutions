@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -667,7 +664,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><em>Had an arrival delay of two or more hours</em> Since delay is in minutes, we are looking for flights where <code>arr_delay &gt; 120</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">120</span>)
-<span class="co">#&gt; # A tibble: 10,034 × 19</span>
+<span class="co">#&gt; # A tibble: 10,034 x 19</span>
 <span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
 <span class="co">#&gt; 1  2013     1     1      811            630       101     1047</span>
@@ -683,72 +680,72 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><em>Flew to Houston (IAH or HOU)</em>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(dest <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;IAH&quot;</span>, <span class="st">&quot;HOU&quot;</span>))
-<span class="co">#&gt; # A tibble: 9,313 × 19</span>
+<span class="co">#&gt; # A tibble: 9,313 x 19</span>
 <span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     1     1      517            515         2      830</span>
-<span class="co">#&gt; 2  2013     1     1      533            529         4      850</span>
-<span class="co">#&gt; 3  2013     1     1      623            627        -4      933</span>
-<span class="co">#&gt; 4  2013     1     1      728            732        -4     1041</span>
-<span class="co">#&gt; 5  2013     1     1      739            739         0     1104</span>
-<span class="co">#&gt; 6  2013     1     1      908            908         0     1228</span>
+<span class="co">#&gt; 1  2013     1     1      517            515      2.00      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529      4.00      850</span>
+<span class="co">#&gt; 3  2013     1     1      623            627     -4.00      933</span>
+<span class="co">#&gt; 4  2013     1     1      728            732     -4.00     1041</span>
+<span class="co">#&gt; 5  2013     1     1      739            739      0        1104</span>
+<span class="co">#&gt; 6  2013     1     1      908            908      0        1228</span>
 <span class="co">#&gt; # ... with 9,307 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,</span>
 <span class="co">#&gt; #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,</span>
 <span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
 <p><em>Were operated by United, American, or Delta</em> The variable <code>carrier</code> has the airline: but it is in two-digit carrier codes. However, we can look it up in the <code>airlines</code> dataset.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airlines
-<span class="co">#&gt; # A tibble: 16 × 2</span>
-<span class="co">#&gt;   carrier                     name</span>
-<span class="co">#&gt;     &lt;chr&gt;                    &lt;chr&gt;</span>
-<span class="co">#&gt; 1      9E        Endeavor Air Inc.</span>
-<span class="co">#&gt; 2      AA   American Airlines Inc.</span>
-<span class="co">#&gt; 3      AS     Alaska Airlines Inc.</span>
-<span class="co">#&gt; 4      B6          JetBlue Airways</span>
-<span class="co">#&gt; 5      DL     Delta Air Lines Inc.</span>
-<span class="co">#&gt; 6      EV ExpressJet Airlines Inc.</span>
+<span class="co">#&gt; # A tibble: 16 x 2</span>
+<span class="co">#&gt;   carrier name                    </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span>
+<span class="co">#&gt; 1 9E      Endeavor Air Inc.       </span>
+<span class="co">#&gt; 2 AA      American Airlines Inc.  </span>
+<span class="co">#&gt; 3 AS      Alaska Airlines Inc.    </span>
+<span class="co">#&gt; 4 B6      JetBlue Airways         </span>
+<span class="co">#&gt; 5 DL      Delta Air Lines Inc.    </span>
+<span class="co">#&gt; 6 EV      ExpressJet Airlines Inc.</span>
 <span class="co">#&gt; # ... with 10 more rows</span></code></pre></div>
 <p>Since there are only 16 rows, its not even worth filtering. Delta is <code>DL</code>, American is <code>AA</code>, and United is <code>UA</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, carrier <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;AA&quot;</span>, <span class="st">&quot;DL&quot;</span>, <span class="st">&quot;UA&quot;</span>))
-<span class="co">#&gt; # A tibble: 139,504 × 19</span>
+<span class="co">#&gt; # A tibble: 139,504 x 19</span>
 <span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     1     1      517            515         2      830</span>
-<span class="co">#&gt; 2  2013     1     1      533            529         4      850</span>
-<span class="co">#&gt; 3  2013     1     1      542            540         2      923</span>
-<span class="co">#&gt; 4  2013     1     1      554            600        -6      812</span>
-<span class="co">#&gt; 5  2013     1     1      554            558        -4      740</span>
-<span class="co">#&gt; 6  2013     1     1      558            600        -2      753</span>
+<span class="co">#&gt; 1  2013     1     1      517            515      2.00      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529      4.00      850</span>
+<span class="co">#&gt; 3  2013     1     1      542            540      2.00      923</span>
+<span class="co">#&gt; 4  2013     1     1      554            600     -6.00      812</span>
+<span class="co">#&gt; 5  2013     1     1      554            558     -4.00      740</span>
+<span class="co">#&gt; 6  2013     1     1      558            600     -2.00      753</span>
 <span class="co">#&gt; # ... with 1.395e+05 more rows, and 12 more variables:</span>
 <span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span>
 <span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
 <p><em>Departed in summer (July, August, and September)</em> The variable <code>month</code> has the month, and it is numeric.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, <span class="kw">between</span>(month, <span class="dv">7</span>, <span class="dv">9</span>))
-<span class="co">#&gt; # A tibble: 86,326 × 19</span>
+<span class="co">#&gt; # A tibble: 86,326 x 19</span>
 <span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     7     1        1           2029       212      236</span>
-<span class="co">#&gt; 2  2013     7     1        2           2359         3      344</span>
-<span class="co">#&gt; 3  2013     7     1       29           2245       104      151</span>
-<span class="co">#&gt; 4  2013     7     1       43           2130       193      322</span>
-<span class="co">#&gt; 5  2013     7     1       44           2150       174      300</span>
-<span class="co">#&gt; 6  2013     7     1       46           2051       235      304</span>
+<span class="co">#&gt; 1  2013     7     1        1           2029    212         236</span>
+<span class="co">#&gt; 2  2013     7     1        2           2359      3.00      344</span>
+<span class="co">#&gt; 3  2013     7     1       29           2245    104         151</span>
+<span class="co">#&gt; 4  2013     7     1       43           2130    193         322</span>
+<span class="co">#&gt; 5  2013     7     1       44           2150    174         300</span>
+<span class="co">#&gt; 6  2013     7     1       46           2051    235         304</span>
 <span class="co">#&gt; # ... with 8.632e+04 more rows, and 12 more variables:</span>
 <span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span>
 <span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
 <p><em>Arrived more than two hours late, but didn’t leave late</em></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, <span class="op">!</span><span class="kw">is.na</span>(dep_delay), dep_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>, arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">120</span>)
-<span class="co">#&gt; # A tibble: 29 × 19</span>
+<span class="co">#&gt; # A tibble: 29 x 19</span>
 <span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     1    27     1419           1420        -1     1754</span>
-<span class="co">#&gt; 2  2013    10     7     1350           1350         0     1736</span>
-<span class="co">#&gt; 3  2013    10     7     1357           1359        -2     1858</span>
-<span class="co">#&gt; 4  2013    10    16      657            700        -3     1258</span>
-<span class="co">#&gt; 5  2013    11     1      658            700        -2     1329</span>
-<span class="co">#&gt; 6  2013     3    18     1844           1847        -3       39</span>
+<span class="co">#&gt; 1  2013     1    27     1419           1420     -1.00     1754</span>
+<span class="co">#&gt; 2  2013    10     7     1350           1350      0        1736</span>
+<span class="co">#&gt; 3  2013    10     7     1357           1359     -2.00     1858</span>
+<span class="co">#&gt; 4  2013    10    16      657            700     -3.00     1258</span>
+<span class="co">#&gt; 5  2013    11     1      658            700     -2.00     1329</span>
+<span class="co">#&gt; 6  2013     3    18     1844           1847     -3.00       39</span>
 <span class="co">#&gt; # ... with 23 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,</span>
 <span class="co">#&gt; #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,</span>
 <span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span>
@@ -785,15 +782,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
 <p>or using <code>between</code> (see next question)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, <span class="kw">between</span>(dep_time, <span class="dv">0</span>, <span class="dv">600</span>))
-<span class="co">#&gt; # A tibble: 9,344 × 19</span>
+<span class="co">#&gt; # A tibble: 9,344 x 19</span>
 <span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     1     1      517            515         2      830</span>
-<span class="co">#&gt; 2  2013     1     1      533            529         4      850</span>
-<span class="co">#&gt; 3  2013     1     1      542            540         2      923</span>
-<span class="co">#&gt; 4  2013     1     1      544            545        -1     1004</span>
-<span class="co">#&gt; 5  2013     1     1      554            600        -6      812</span>
-<span class="co">#&gt; 6  2013     1     1      554            558        -4      740</span>
+<span class="co">#&gt; 1  2013     1     1      517            515      2.00      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529      4.00      850</span>
+<span class="co">#&gt; 3  2013     1     1      542            540      2.00      923</span>
+<span class="co">#&gt; 4  2013     1     1      544            545     -1.00     1004</span>
+<span class="co">#&gt; 5  2013     1     1      554            600     -6.00      812</span>
+<span class="co">#&gt; 6  2013     1     1      554            558     -4.00      740</span>
 <span class="co">#&gt; # ... with 9,338 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,</span>
 <span class="co">#&gt; #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,</span>
 <span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span>
@@ -812,7 +809,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>How many flights have a missing <code>dep_time</code>? What other variables are missing? What might these rows represent?</p>
 </blockquote>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, <span class="kw">is.na</span>(dep_time))
-<span class="co">#&gt; # A tibble: 8,255 × 19</span>
+<span class="co">#&gt; # A tibble: 8,255 x 19</span>
 <span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
 <span class="co">#&gt; 1  2013     1     1       NA           1630        NA       NA</span>
@@ -1630,7 +1627,7 @@ gitbook.start({
 "link": "https://github.com/jrnold/r4ds/edit/master/transform.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "section"
 }

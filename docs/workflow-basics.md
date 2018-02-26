@@ -47,15 +47,14 @@ This is usually because you either (1) forgot to define the function (or had an 
 
 ```r
 library(tidyverse)
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
+#> ── Attaching packages ────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     
+#> ✔ tibble  1.4.2          ✔ dplyr   0.7.4.9000
+#> ✔ tidyr   0.8.0          ✔ stringr 1.2.0     
+#> ✔ readr   1.1.1          ✔ forcats 0.2.0
+#> ── Conflicts ───────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 
 ggplot(dota = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy))
@@ -75,7 +74,7 @@ ggplot(data = mpg) +
 
 ```r
 fliter(mpg, cyl = 8)
-#> Error in eval(expr, envir, enclos): could not find function "fliter"
+#> Error in fliter(mpg, cyl = 8): could not find function "fliter"
 ```
 
 R could not find the function `fliter` because we made a typo: `fliter` instead of `filter`.
@@ -83,7 +82,7 @@ R could not find the function `fliter` because we made a typo: `fliter` instead 
 
 ```r
 filter(mpg, cyl = 8)
-#> Error: filter() takes unnamed arguments. Do you need `==`?
+#> Error: `cyl` (`cyl = 8`) must not be named, do you need `==`?
 ```
 
 We aren't done yet. But the error message gives a suggestion. Let's follow it.
@@ -91,23 +90,22 @@ We aren't done yet. But the error message gives a suggestion. Let's follow it.
 
 ```r
 filter(mpg, cyl == 8)
-#> # A tibble: 70 × 11
-#>   manufacturer              model displ  year   cyl    trans   drv   cty
-#>          <chr>              <chr> <dbl> <int> <int>    <chr> <chr> <int>
-#> 1         audi         a6 quattro   4.2  2008     8 auto(s6)     4    16
-#> 2    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14
-#> 3    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    11
-#> 4    chevrolet c1500 suburban 2wd   5.3  2008     8 auto(l4)     r    14
-#> 5    chevrolet c1500 suburban 2wd   5.7  1999     8 auto(l4)     r    13
-#> 6    chevrolet c1500 suburban 2wd   6.0  2008     8 auto(l4)     r    12
-#> # ... with 64 more rows, and 3 more variables: hwy <int>, fl <chr>,
-#> #   class <chr>
+#> # A tibble: 70 x 11
+#>   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
+#>   <chr>        <chr> <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr>
+#> 1 audi         a6 q…  4.20  2008     8 auto… 4        16    23 p     mids…
+#> 2 chevrolet    c150…  5.30  2008     8 auto… r        14    20 r     suv  
+#> 3 chevrolet    c150…  5.30  2008     8 auto… r        11    15 e     suv  
+#> 4 chevrolet    c150…  5.30  2008     8 auto… r        14    20 r     suv  
+#> 5 chevrolet    c150…  5.70  1999     8 auto… r        13    17 r     suv  
+#> 6 chevrolet    c150…  6.00  2008     8 auto… r        12    17 r     suv  
+#> # ... with 64 more rows
 ```
 
 
 ```r
 filter(diamond, carat > 3)
-#> Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object 'diamond' not found
+#> Error in filter(diamond, carat > 3): object 'diamond' not found
 ```
 
 R says it can't find the object `diamond`.
@@ -115,15 +113,15 @@ This is a typo; the data frame is named `diamonds`.
 
 ```r
 filter(diamonds, carat > 3)
-#> # A tibble: 32 × 10
-#>   carat     cut color clarity depth table price     x     y     z
-#>   <dbl>   <ord> <ord>   <ord> <dbl> <dbl> <int> <dbl> <dbl> <dbl>
-#> 1  3.01 Premium     I      I1  62.7    58  8040  9.10  8.97  5.67
-#> 2  3.11    Fair     J      I1  65.9    57  9823  9.15  9.02  5.98
-#> 3  3.01 Premium     F      I1  62.2    56  9925  9.24  9.13  5.73
-#> 4  3.05 Premium     E      I1  60.9    58 10453  9.26  9.25  5.66
-#> 5  3.02    Fair     I      I1  65.2    56 10577  9.11  9.02  5.91
-#> 6  3.01    Fair     H      I1  56.1    62 10761  9.54  9.38  5.31
+#> # A tibble: 32 x 10
+#>   carat cut     color clarity depth table price     x     y     z
+#>   <dbl> <ord>   <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
+#> 1  3.01 Premium I     I1       62.7  58.0  8040  9.10  8.97  5.67
+#> 2  3.11 Fair    J     I1       65.9  57.0  9823  9.15  9.02  5.98
+#> 3  3.01 Premium F     I1       62.2  56.0  9925  9.24  9.13  5.73
+#> 4  3.05 Premium E     I1       60.9  58.0 10453  9.26  9.25  5.66
+#> 5  3.02 Fair    I     I1       65.2  56.0 10577  9.11  9.02  5.91
+#> 6  3.01 Fair    H     I1       56.1  62.0 10761  9.54  9.38  5.31
 #> # ... with 26 more rows
 ```
 

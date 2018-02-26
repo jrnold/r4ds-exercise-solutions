@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -837,6 +834,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>In this case the output looks the same, but in the aesthetics the <code>x</code> and <code>y</code> are flipped from the previous case.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggstance&quot;</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: &#39;ggstance&#39;</span>
+<span class="co">#&gt; The following objects are masked from &#39;package:ggplot2&#39;:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     geom_errorbarh, GeomErrorbarh</span>
 
 <span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxploth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">x =</span> hwy))</code></pre></div>
@@ -1069,7 +1071,8 @@ flights <span class="op">%&gt;%</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_hex</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">scale_fill_viridis</span>()
+<span class="co">#&gt; Loading required package: methods</span></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">y =</span> price, <span class="dt">color =</span> cut)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
@@ -1136,7 +1139,7 @@ gitbook.start({
 "link": "https://github.com/jrnold/r4ds/edit/master/EDA.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "section"
 }

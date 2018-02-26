@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -988,7 +985,7 @@ output</code></pre></div>
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                  expr min  lq mean median  uq max neval</span>
-<span class="co">#&gt;  add_to_vector(10000) 172 175  186    177 193 209     3</span></code></pre></div>
+<span class="co">#&gt;  add_to_vector(10000) 173 180  188    187 195 204     3</span></code></pre></div>
 <p>And one that pre-allocates it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
   output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, n)
@@ -1000,7 +997,7 @@ output</code></pre></div>
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector_2</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: microseconds</span>
 <span class="co">#&gt;                    expr min  lq mean median   uq  max neval</span>
-<span class="co">#&gt;  add_to_vector_2(10000) 543 552 1457    560 1914 3268     3</span></code></pre></div>
+<span class="co">#&gt;  add_to_vector_2(10000) 566 567 1549    568 2040 3511     3</span></code></pre></div>
 <p>The pre-allocated vector is about <strong>100</strong> times faster! You may get different answers, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.</p>
 </div>
 </div>
@@ -1486,7 +1483,7 @@ gitbook.start({
 "link": "https://github.com/jrnold/r4ds/edit/master/iteration.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "section"
 }

@@ -237,36 +237,16 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fd094762f40>
+#> <bytecode: 0x7fd6dd8ffa70>
 #> <environment: namespace:stats>
 ```
 
 ```r
 purrr::set_names
 #> function(x, nm = x, ...) {
-#>   if (!is_vector(x)) {
-#>     abort("`x` must be a vector")
-#>   }
-#> 
-#>   if (is_function(nm) || is_formula(nm)) {
-#>     nm <- as_function(nm)
-#>     nm <- nm(names2(x), ...)
-#>   } else if (!is_null(nm)) {
-#>     if (dots_n(...)) {
-#>       nm <- as.character(c(nm, ...))
-#>     } else {
-#>       nm <- as.character(nm)
-#>     }
-#>   }
-#> 
-#>   if (!is_null(nm) && !is_character(nm, length(x))) {
-#>     abort("`nm` must be `NULL` or a character vector the same length as `x`")
-#>   }
-#> 
-#>   names(x) <- nm
-#>   x
+#>   set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fd096827ee0>
+#> <bytecode: 0x7fd6e0f7ae08>
 #> <environment: namespace:rlang>
 ```
 

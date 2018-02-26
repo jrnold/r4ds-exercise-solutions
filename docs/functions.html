@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -623,13 +620,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">18</span> Functions</h1>
 <div id="introduction-11" class="section level2">
 <h2><span class="header-section-number">18.1</span> Introduction</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;lubridate&quot;</span>)
-<span class="co">#&gt; Loading required package: methods</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: &#39;lubridate&#39;</span>
-<span class="co">#&gt; The following object is masked from &#39;package:base&#39;:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     date</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;lubridate&quot;</span>)</code></pre></div>
 </div>
 <div id="when-should-you-write-a-function" class="section level2">
 <h2><span class="header-section-number">18.2</span> When should you write a function?</h2>
@@ -757,7 +749,7 @@ is_readable &lt;-<span class="st"> </span><span class="cf">function</span>(x) <s
 <blockquote>
 <p>Read the complete lyrics to “Little Bunny Foo Foo”. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.</p>
 </blockquote>
-<p>This could probably be done cleaner, but here’s one version.</p>
+<!-- This could probably be done cleaner, but here's one version. -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">threat &lt;-<span class="st"> </span><span class="cf">function</span>(chances) {
   <span class="kw">give_chances</span>(<span class="dt">from =</span> Good_Fairy,
                <span class="dt">to =</span> foo_foo,
@@ -776,7 +768,7 @@ lyric &lt;-<span class="st"> </span><span class="cf">function</span>() {
   <span class="kw">said</span>(Good_Fairy, 
       <span class="kw">c</span>(<span class="st">&quot;Little bunny Foo Foo&quot;</span>,
         <span class="st">&quot;I don&#39;t want to see you&quot;</span>,
-        <span class="st">&quot;Scooping up the field mice&quot;</span>
+        <span class="st">&quot;Scooping up the field mice&quot;</span>,
         <span class="st">&quot;And bopping them on the head.&quot;</span>)
 <span class="er">}</span>
 
@@ -877,7 +869,7 @@ f3 &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {
   }
 } 
 <span class="kw">greet</span>()
-<span class="co">#&gt; [1] &quot;good morning&quot;</span>
+<span class="co">#&gt; [1] &quot;good afternoon&quot;</span>
 <span class="kw">greet</span>(<span class="kw">ymd_h</span>(<span class="st">&quot;2017-01-08:05&quot;</span>))
 <span class="co">#&gt; [1] &quot;good morning&quot;</span>
 <span class="kw">greet</span>(<span class="kw">ymd_h</span>(<span class="st">&quot;2017-01-08:13&quot;</span>))
@@ -992,11 +984,16 @@ f3 &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {
 <blockquote>
 <p>What does <code>commas(letters, collapse = &quot;-&quot;)</code> do? Why?</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">commas &lt;-<span class="st"> </span><span class="cf">function</span>(...) stringr<span class="op">::</span><span class="kw">str_c</span>(..., <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</code></pre></div>
-<p>It throws an error.</p>
+<p>The <code>commas</code> function in the chapter is defined as,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">commas &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
+  stringr<span class="op">::</span><span class="kw">str_c</span>(..., <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)
+}</code></pre></div>
+<p>When <code>commas()</code> is given a collapse argument, it throws an error.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">commas</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>)
 <span class="co">#&gt; Error in stringr::str_c(..., collapse = &quot;, &quot;): formal argument &quot;collapse&quot; matched by multiple actual arguments</span></code></pre></div>
-<p>The argument <code>collapse</code> is passed to <code>str_c</code> as part of <code>...</code>, so it tries to run <code>str_c(letters, collapse = &quot;-&quot;, collapse = &quot;, &quot;)</code>.</p>
+<p>The argument <code>collapse</code> is passed to <code>str_c</code> as part of <code>...</code>. This expands to</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_c</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</code></pre></div>
+<p>However, it is an error to give the same named argument to a function twice.</p>
 </div>
 <div id="exercise-2-46" class="section level3 exercise">
 <h3><span class="header-section-number">18.5.2</span> Exercise 2</h3>
@@ -1080,7 +1077,7 @@ gitbook.start({
 "link": "https://github.com/jrnold/r4ds/edit/master/functions.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "section"
 }

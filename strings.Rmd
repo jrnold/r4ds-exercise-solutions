@@ -121,7 +121,7 @@ str_commasep(c("a", "b", "c"))
 
 > How would you match the sequence `"'\` ?
 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view("\"'\\", "\"'\\\\")
 ```
 
@@ -131,25 +131,25 @@ str_view("\"'\\", "\"'\\\\")
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
 ```
 
-```{r, include=FALSE}
+```{r results='hide'}
 x < c("apple", "banana", "pear")
 str_view(x, "^a")
 ```
 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view(x, "a$")
 ```
 
-```{r, include=FALSE}
+```{r results='hide'}
 x <- c("apple pie", "apple", "apple cake")
 str_view(x, "apple")
 ```
 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view(x, "^apple$")
 ```
 
@@ -157,9 +157,9 @@ str_view(x, "^apple$")
 
 #### Exercise 1 {.exercise}
 
-> How would you match the literal string "$^$"?
+> How would you match the literal string `"$^$"`?
 
-```{r}
+```{r results='hide'}
 str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 ```
 
@@ -167,35 +167,32 @@ str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 
 > Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
 
-  1. Start with “y”.
-  2. End with “x”
-  3. Are exactly three letters long. (Don’t cheat by using `str_length()`!)
-  4. Have seven letters or more.
-  
-Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
+>  1. Start with “y”.
+>  2. End with “x”
+>  3. Are exactly three letters long. (Don’t cheat by using `str_length()`!)
+>  4. Have seven letters or more.
+>  
+> Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
 
-```{r}
-head(stringr::words)
-```
 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view(stringr::words, "^y", match =TRUE)
 ```
 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view(stringr::words, "x$", match = TRUE)
 ```
 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view(stringr::words, "^...$", match = TRUE)
 ```
 
 A simpler way, shown later is 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view(stringr::words, "^.{3}$", match = TRUE)
 ```
 
-```{r, include=FALSE}
+```{r results='hide'}
 str_view(stringr::words, ".......", match = TRUE)
 ```
 
@@ -204,15 +201,15 @@ str_view(stringr::words, ".......", match = TRUE)
 #### Exercise 1 {.exercise}
 
 > Create regular expressions to find all words that:
-
-   1. Start with a vowel.
-   2. That only contain consonants. (Hint: thinking about matching “not”-vowels.)
-   3. End with `ed`, but not with `eed`.
-   4. End with `ing` or `ise`.
+>
+> 1.  Start with a vowel.
+> 2.  That only contain consonants. (Hint: thinking about matching “not”-vowels.)
+> 3.  End with `ed`, but not with `eed`.
+> 4.  End with `ing` or `ise`.
 
 Words starting with vowels
 ```{r results='hide'}
-str_view(stringr::words, "^[aeiou]")
+str_view(stringr::words, "^[aeiou]", match = TRUE)
 ```
 
 Words that contain only consonants
@@ -244,7 +241,7 @@ str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
 
 Using `str_detect` we can count the number of words that follow these rules:
-```{r}
+```{r results='hide'}
 sum(str_detect(stringr::words, "(cei|[^c]ie)"))
 sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 ```
@@ -282,17 +279,17 @@ It would require a dictionary with differences in spellings for different words.
 The answer to this will vary by country.
 
 For the United States, phone numbers have a format like `123-456-7890`.
-```{r}
+```{r results='hide'}
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
 or 
-```{r}
+```{r results='hide'}
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
-```{r}
+```{r results='hide'}
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 
@@ -312,7 +309,7 @@ Note that this pattern doesn't account for phone numbers that are invalid becaus
 ----- ---------  ----------------------------------
 
 The `*` pattern has no `{m,n}` equivalent since there is no upper bound on the number of matches. The expected pattern `{,}` is not valid.
-```{r error=TRUE}
+```{r error=TRUE,results='hide'}
 str_view("abcd", ".{,}")
 ```
 
@@ -320,11 +317,11 @@ str_view("abcd", ".{,}")
 #### Exercise 2 {.exercise}
 
 > Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
-
-    1. `^.*$`
-    2. `"\\{.+\\}"`: Any string with curly braces surrounding at least one   character.
-    3. `\d{4}-\d{2}-\d{2}`: A date in "%Y-%m-%d" format: four digits followed by a dash, followed by two digits followed by a dash, followed by another two digits followed by a dash.
-    4. `"\\\\{4}"`: This resolves to the regular expression `\\{4}`, which is four backslashes.
+>
+> 1.  `^.*$`
+> 2.  `"\\{.+\\}"`
+> 3.  `\d{4}-\d{2}-\d{2}`
+> 4.  `"\\\\{4}"`
 
 
 -------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -343,23 +340,23 @@ Examples:
 #### Exercise 3 {.exercise}
 
 > Create regular expressions to find all words that:
-
-  1. Start with three consonants. 
-  2. Have three or more vowels in a row.
-  3. Have two or more vowel-consonant pairs in a row.
+>
+> 1. Start with three consonants. 
+> 2. Have three or more vowels in a row.
+> 3. Have two or more vowel-consonant pairs in a row.
   
 A regex to find all words starting with three consonants
-```{r}
+```{r results='hide'}
 str_view(words, "^[^aeiou]{3}")
 ```
 
 A regex to find three or more vowels in a row:
-```{r}
+```{r results='hide'}
 str_view(words, "[aeiou]{3,}")
 ```
 
 Two or more vowel-consonant pairs in a row.
-```{r}
+```{r results='hide'}
 str_view(words, "([aeiou][^aeiou]){2,}")
 ```
 
@@ -374,37 +371,49 @@ Exercise left to reader. That site validates its solutions, so they aren't repea
 
 #### Exercise 1 {.exercise}
 
-Describe, in words, what these expressions will match:
-
-  1. `(.)\1\1` : The same character appearing three times in a row. E.g. `"aaa"`
-  2. `"(.)(.)\\2\\1"`: A pair of characters followed by the same pair of characters in reversed order. E.g. `"abba"`.
-  3. `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
-  4. `"(.).\\1.\\1"`: A character followed by any character, the original character, any other character, the original character again. E.g. `"abaca"`, `"b8b.b"`.
-  5. `"(.)(.)(.).*\\3\\2\\1"` Three characters followed by zero or more characters of any kind followed by the same three characters but in reverse order. E.g. `"abcsgasgddsadgsdgcba"` or `"abccba"` or `"abc1cba"`.
+> Describe, in words, what these expressions will match:
+>
+> 1.  `(.)\1\1` :
+> 2.  `"(.)(.)\\2\\1"`:
+> 3.  `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
+> 4.  `"(.).\\1.\\1"`:
+> 5.  `"(.)(.)(.).*\\3\\2\\1"`
+  
+  
+1.  `(.)\1\1` : The same character appearing three times in a row. E.g. `"aaa"`
+2.  `"(.)(.)\\2\\1"`: A pair of characters followed by the same pair of characters in reversed order. E.g. `"abba"`.
+3.  `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
+4.  `"(.).\\1.\\1"`: A character followed by any character, the original character, any other character, the original character again. E.g. `"abaca"`, `"b8b.b"`.
+5.  `"(.)(.)(.).*\\3\\2\\1"` Three characters followed by zero or more characters of any kind followed by the same three characters but in reverse order. E.g. `"abcsgasgddsadgsdgcba"` or `"abccba"` or `"abc1cba"`.
   
 #### Exercise 2 {.exercise}
 
 > Construct regular expressions to match words that:
+>
+> 1. Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
+> 2. Contain a repeated pair of letters (e.g. ``church'' contains ``ch'' repeated twice.)
+> 3. Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
 
-  1. Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
-  
-```{r}
-str_subset(words, "^(.).*\\1$")
-```
 
-  2. Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.). 
-  
+Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`:
 ```{r results='hide'}
-# any two characters repeated
-str_subset(words, "(..).*\\1")
+str_view(words, "^(.).*\\1$")
 ```
+
+Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.):
+
+I'll consider several patterns with varying levels of generality.
+This pattern checks for any pair of repeated characters:
 ```{r results='hide'}
-# more stringent, letters only, but also allowing for differences in capitalization
-str_view(str_to_lower(words), "([a-z][a-z]).*\\1")
+str_view(words, "(..).*\\1")
+```
+This pattern is checks for any pair of repeated "letters":
+```{r results='hide'}
+str_view(words, "([A-Za-z][A-Za-z]).*\\1")
 ```
 
 
-  3. Contain one letter repeated in at least three places (e.g. “eleven” contains three “e”s.)
+Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
   
 ```{r}
 str_subset(str_to_lower(words), "([a-z]).*\\1.*\\1")
@@ -513,10 +522,10 @@ str_view_all(more2, colour_match2, match = TRUE)
 #### Exercise 2 {.exercise}
 
 > From the Harvard sentences data, extract:
-
-  1. The first word from each sentence.
-  2. All words ending in `ing`.
-  3. All plurals.
+>
+> 1. The first word from each sentence.
+> 2. All words ending in `ing`.
+> 3. All plurals.
 
 The first word in each sentence requires defining what a word is. I'll consider a word any contiguous 
 ```{r}
@@ -584,10 +593,13 @@ lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "
 #### Exercise 3 {.exercise}
 
 > Switch the first and last letters in `words`. Which of those strings are still words?
+
+First, make a vector of all the words with first and last letters swapped,
 ```{r}
-# First, make a vector of all the words with first and last letters swapped
 swapped <- str_replace_all(words, "^([A-Za-z])(.*)([a-z])$", "\\3\\2\\1")
-# Next, find what of "swapped" is also in the original list using intersect() from previous chapter
+```
+Next, find what of "swapped" is also in the original list using the function `intersect`,
+```{r}
 intersect(swapped,words)
 ```
 
@@ -661,9 +673,14 @@ No exercises
 
 > Find the **stringi** functions that:
 
-    1. Count the number of words. `stri_count_words`
-    2. Find duplicated strings. `stri_duplicated`
-    2. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
+> 1. Count the number of words. `stri_count_words`
+> 2. Find duplicated strings. `stri_duplicated`
+> 3. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
+
+1. Count the number of words. `stri_count_words`
+2. Find duplicated strings. `stri_duplicated`
+3. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
+
 
 ### Exercise 2 {.exercise}
 
