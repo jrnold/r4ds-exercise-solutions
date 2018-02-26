@@ -6,14 +6,14 @@
 
 ```r
 library("tidyverse")
-#> ── Attaching packages ────────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     
-#> ✔ tibble  1.4.2          ✔ dplyr   0.7.4.9000
-#> ✔ tidyr   0.8.0          ✔ stringr 1.2.0     
-#> ✔ readr   1.1.1          ✔ forcats 0.2.0
-#> ── Conflicts ───────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+#> -- Attaching packages -------------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 2.2.1          √ purrr   0.2.4     
+#> √ tibble  1.4.2          √ dplyr   0.7.4.9000
+#> √ tidyr   0.8.0          √ stringr 1.2.0     
+#> √ readr   1.1.1          √ forcats 0.2.0
+#> -- Conflicts ----------------------------------------- tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 ```
 
 
@@ -237,7 +237,7 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fd6dd8ffa70>
+#> <bytecode: 0x7f9a1b37fc68>
 #> <environment: namespace:stats>
 ```
 
@@ -246,7 +246,7 @@ purrr::set_names
 #> function(x, nm = x, ...) {
 #>   set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fd6e0f7ae08>
+#> <bytecode: 0x7f9a1c0d5550>
 #> <environment: namespace:rlang>
 ```
 

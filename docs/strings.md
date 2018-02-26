@@ -152,6 +152,10 @@ str_commasep(c("a", "b", "c"))
 str_view("\"'\\", "\"'\\\\")
 ```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-10-1} 
+
 #### Exercise 3 {.exercise}
 
 > What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
@@ -164,6 +168,10 @@ str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
 ```
 
 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-11-1} 
+
+
 ```r
 x < c("apple", "banana", "pear")
 #> Warning in x < c("apple", "banana", "pear"): longer object length is not a
@@ -172,9 +180,17 @@ str_view(x, "^a")
 ```
 
 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-12-1} 
+
+
 ```r
 str_view(x, "a$")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-13-1} 
 
 
 ```r
@@ -183,9 +199,17 @@ str_view(x, "apple")
 ```
 
 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-14-1} 
+
+
 ```r
 str_view(x, "^apple$")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-15-1} 
 
 ### Anchors
 
@@ -197,6 +221,10 @@ str_view(x, "^apple$")
 ```r
 str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-16-1} 
 
 #### Exercise 2 {.exercise}
 
@@ -216,14 +244,26 @@ str_view(stringr::words, "^y", match =TRUE)
 ```
 
 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-17-1} 
+
+
 ```r
 str_view(stringr::words, "x$", match = TRUE)
 ```
 
 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-18-1} 
+
+
 ```r
 str_view(stringr::words, "^...$", match = TRUE)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-19-1} 
 
 A simpler way, shown later is 
 
@@ -232,9 +272,17 @@ str_view(stringr::words, "^.{3}$", match = TRUE)
 ```
 
 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-20-1} 
+
+
 ```r
 str_view(stringr::words, ".......", match = TRUE)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-21-1} 
 
 ### Character classes and alternatives
 
@@ -253,11 +301,19 @@ Words starting with vowels
 str_view(stringr::words, "^[aeiou]", match = TRUE)
 ```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-22-1} 
+
 Words that contain only consonants
 
 ```r
 str_view(stringr::words, "^[^aeiou]+$", match=TRUE)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-23-1} 
 This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
 
 Words that end with `ed` but not with `eed`. This handles the special case of "ed", as well as words with length > 2.
@@ -266,11 +322,19 @@ Words that end with `ed` but not with `eed`. This handles the special case of "e
 str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
 ```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-24-1} 
+
 Words ending in `ing` or `ise`:
 
 ```r
 str_view(stringr::words, "i(ng|se)$", match = TRUE)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-25-1} 
 
 #### Exercise 2 {.exercise}
 
@@ -282,9 +346,17 @@ Using only what has been introduced thus far:
 str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 ```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-26-1} 
+
 ```r
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-27-1} 
 
 Using `str_detect` we can count the number of words that follow these rules:
 
@@ -302,6 +374,10 @@ In the `stringr::words` dataset, yes. In the full English language, no.
 ```r
 str_view(stringr::words, "q[^u]", match = TRUE)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-29-1} 
 
 #### Exercise 4 {.exercise}
 
@@ -332,17 +408,29 @@ For the United States, phone numbers have a format like `123-456-7890`.
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-30-1} 
 or 
 
 ```r
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-31-1} 
+
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
 
 ```r
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-32-1} 
 
 Note that this pattern doesn't account for phone numbers that are invalid because of unassigned area code, or special numbers like 911, or extensions. See the Wikipedia page for the [North American Numbering Plan](https://en.wikipedia.org/wiki/North_American_Numbering_Plan) for more information on the complexities of US phone numbers, and [this Stack Overflow question](http://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation) for a discussion of using a regex for phone number validation.
 
@@ -404,17 +492,29 @@ A regex to find all words starting with three consonants
 str_view(words, "^[^aeiou]{3}")
 ```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-34-1} 
+
 A regex to find three or more vowels in a row:
 
 ```r
 str_view(words, "[aeiou]{3,}")
 ```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-35-1} 
+
 Two or more vowel-consonant pairs in a row.
 
 ```r
 str_view(words, "([aeiou][^aeiou]){2,}")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-36-1} 
 
   
 #### Exercise 4 {.exercise}
@@ -457,6 +557,10 @@ Start and end with the same character. Assuming the word is more than one charac
 str_view(words, "^(.).*\\1$")
 ```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-37-1} 
+
 Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.):
 
 I'll consider several patterns with varying levels of generality.
@@ -465,11 +569,19 @@ This pattern checks for any pair of repeated characters:
 ```r
 str_view(words, "(..).*\\1")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-38-1} 
 This pattern is checks for any pair of repeated "letters":
 
 ```r
 str_view(words, "([A-Za-z][A-Za-z]).*\\1")
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-39-1} 
 
 
 Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
@@ -599,6 +711,10 @@ colour_match2
 more2 <- sentences[str_count(sentences, colour_match) > 1]
 str_view_all(more2, colour_match2, match = TRUE)
 ```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-48-1} 
 
 
 #### Exercise 2 {.exercise}

@@ -166,7 +166,9 @@ ggplot(annoying, aes(x = `1`, y = `2`)) +
   geom_point()
 ```
 
-<img src="tibble_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{tibble_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 A new column `3` with is `2` divided by `1`:
 

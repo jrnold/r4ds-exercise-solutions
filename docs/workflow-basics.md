@@ -47,14 +47,14 @@ This is usually because you either (1) forgot to define the function (or had an 
 
 ```r
 library(tidyverse)
-#> ── Attaching packages ────────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     
-#> ✔ tibble  1.4.2          ✔ dplyr   0.7.4.9000
-#> ✔ tidyr   0.8.0          ✔ stringr 1.2.0     
-#> ✔ readr   1.1.1          ✔ forcats 0.2.0
-#> ── Conflicts ───────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+#> -- Attaching packages -------------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 2.2.1          √ purrr   0.2.4     
+#> √ tibble  1.4.2          √ dplyr   0.7.4.9000
+#> √ tidyr   0.8.0          √ stringr 1.2.0     
+#> √ readr   1.1.1          √ forcats 0.2.0
+#> -- Conflicts ----------------------------------------- tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 
 ggplot(dota = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy))
@@ -69,7 +69,9 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-<img src="workflow-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{workflow-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 
 ```r
@@ -93,12 +95,12 @@ filter(mpg, cyl == 8)
 #> # A tibble: 70 x 11
 #>   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 #>   <chr>        <chr> <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr>
-#> 1 audi         a6 q…  4.20  2008     8 auto… 4        16    23 p     mids…
-#> 2 chevrolet    c150…  5.30  2008     8 auto… r        14    20 r     suv  
-#> 3 chevrolet    c150…  5.30  2008     8 auto… r        11    15 e     suv  
-#> 4 chevrolet    c150…  5.30  2008     8 auto… r        14    20 r     suv  
-#> 5 chevrolet    c150…  5.70  1999     8 auto… r        13    17 r     suv  
-#> 6 chevrolet    c150…  6.00  2008     8 auto… r        12    17 r     suv  
+#> 1 audi         a6 q~  4.20  2008     8 auto~ 4        16    23 p     mids~
+#> 2 chevrolet    c150~  5.30  2008     8 auto~ r        14    20 r     suv  
+#> 3 chevrolet    c150~  5.30  2008     8 auto~ r        11    15 e     suv  
+#> 4 chevrolet    c150~  5.30  2008     8 auto~ r        14    20 r     suv  
+#> 5 chevrolet    c150~  5.70  1999     8 auto~ r        13    17 r     suv  
+#> 6 chevrolet    c150~  6.00  2008     8 auto~ r        12    17 r     suv  
 #> # ... with 64 more rows
 ```
 

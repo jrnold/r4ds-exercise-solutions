@@ -746,12 +746,12 @@ tibble(
 #> # A tibble: 21 x 4
 #>        x                   cosx                   sinx                tanx
 #>    <dbl>                  <dbl>                  <dbl>               <dbl>
-#> 1 -3.00  -1.00                  -1.00                             3.67e⁻¹⁶
-#> 2 -2.50   0.000000000000000306   0.000000000000000306            -3.27e⁺¹⁵
-#> 3 -2.00   1.00                   1.00                             2.45e⁻¹⁶
-#> 4 -1.50  -0.000000000000000184  -0.000000000000000184            -5.44e⁺¹⁵
-#> 5 -1.00  -1.00                  -1.00                             1.22e⁻¹⁶
-#> 6 -0.500  0.0000000000000000612  0.0000000000000000612           -1.63e⁺¹⁶
+#> 1 -3.00  -1.00                  -1.00                             3.67e-16
+#> 2 -2.50   0.000000000000000306   0.000000000000000306            -3.27e+15
+#> 3 -2.00   1.00                   1.00                             2.45e-16
+#> 4 -1.50  -0.000000000000000184  -0.000000000000000184            -5.44e+15
+#> 5 -1.00  -1.00                  -1.00                             1.22e-16
+#> 6 -0.500  0.0000000000000000612  0.0000000000000000612           -1.63e+16
 #> # ... with 15 more rows
 ```
 The convenience function `cospi(x)` is equivalent to `cos(pi * x)`, with `sinpi` and `tanpi` similarly defined,
@@ -874,7 +874,9 @@ ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 
 ### Exercise 5 {.exercise}
@@ -1079,7 +1081,9 @@ flights %>%
 #> `geom_smooth()` using method = 'gam'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
 
 ### Exercise 6 {.exercise}

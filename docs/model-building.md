@@ -168,7 +168,9 @@ daily %>%
     geom_line(alpha = 0.75)
 ```
 
-<img src="model-building_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 I think the overlapping plot is hard to understand.
 If we are interested in the differences, it is better to plot the differences directly.
@@ -182,7 +184,9 @@ daily %>%
     geom_line(alpha = 0.75)
 ```
 
-<img src="model-building_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 The model with terms x Saturday has higher residuals in the fall, and lower residuals in the spring than the model with all interactions. 
 
@@ -279,7 +283,9 @@ flights %>%
   geom_point()
 ```
 
-<img src="model-building_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 However, breaking it down by hour, I don't see much evidence at first.
 Conditional on hour, the distance of Sunday flights seems similar to that of other days (excluding Saturday):
@@ -297,7 +303,9 @@ flights %>%
   geom_line()
 ```
 
-<img src="model-building_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Can someone think of a better way to check this?
 
@@ -325,5 +333,7 @@ ggplot(daily, aes(monday_first(wday), n)) +
   labs(x = "Day of Week", y = "Number of flights")
 ```
 
-<img src="model-building_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-16-1} \end{center}
 

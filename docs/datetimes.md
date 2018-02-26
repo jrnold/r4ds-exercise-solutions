@@ -111,7 +111,9 @@ flights_dt %>%
   geom_freqpoly(binwidth = 100)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 This will look better if everything is normalized within groups. The reason
 that February is lower is that there are fewer days and thus fewer flights.
@@ -125,7 +127,9 @@ flights_dt %>%
   geom_freqpoly(binwidth = 100)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 At least to me there doesn't appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.
 
@@ -197,7 +201,9 @@ flights_dt %>%
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 ### Exercise 5 {.exercise}
 
@@ -234,7 +240,9 @@ ggplot(diamonds, aes(x = carat)) +
   geom_density()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 In both `carat` and `sched_dep_time` there are abnormally large numbers of values are at nice "human" numbers. In `sched_dep_time` it is at 00 and 30 minutes. In carats, it is at 0, 1/3, 1/2, 2/3, 
 
@@ -244,7 +252,9 @@ ggplot(diamonds, aes(x = carat %% 1 * 100)) +
   geom_histogram(binwidth = 1)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 In scheduled departure times it is 00 and 30 minutes, and minutes
 ending in 0 and 5.
@@ -255,7 +265,9 @@ ggplot(flights_dt, aes(x = minute(sched_dep_time))) +
   geom_histogram(binwidth = 1)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 ### Exercise 7 {.exercise}
 
@@ -273,7 +285,9 @@ flights_dt %>%
   geom_point()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 
 But if grouped in 10 minute intervals, there is a higher proportion of early flights during those minutes.
@@ -289,7 +303,9 @@ flights_dt %>%
   geom_point()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 
 ## Time Spans

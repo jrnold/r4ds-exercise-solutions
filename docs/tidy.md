@@ -162,7 +162,9 @@ table2 %>%
   geom_point(aes(colour = country))
 ```
 
-<img src="tidy_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 
 ## Spreading and Gathering
@@ -674,7 +676,9 @@ who5 %>%
   
 ```
 
-<img src="tidy_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.

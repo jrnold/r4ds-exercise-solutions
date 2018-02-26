@@ -42,7 +42,9 @@ ggplot(sim1a, aes(x = x, y = y)) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 To re-run this a few times using `purrr`,
 and plot using code similar to that in the chapter:
@@ -70,7 +72,9 @@ ggplot(sims, aes(x = x, y = y)) +
   facet_wrap(~ .id, ncol = 4)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 What if we did the same things with normal distributions? 
 
@@ -91,7 +95,9 @@ ggplot(simdf_norm, aes(x = x, y = y)) +
   facet_wrap(~ .id, ncol = 4)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-6-1} \end{center}
 There are not large outliers, and the slopes are more similar. 
 
 The reason for this is that the Student's $t$-distribution, from which we sample with `rt` has fatter tails than the normal distribution (`rnorm`), which means is assigns larger probability to values further from the center of the distribution.
@@ -107,7 +113,9 @@ tibble(
   geom_line()
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 For a normal distribution with mean zero and standard deviation one, the probability of being greater than 2 is,
 
@@ -259,7 +267,9 @@ plot_sim1_loess <-
 plot_sim1_loess
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 The predictions of loess are the same as the default method for `geom_smooth` because `geom_smooth()` uses `loess()` by default; the message even tells us that.
 
@@ -268,7 +278,9 @@ plot_sim1_loess +
   geom_smooth(method = "loess", colour = "blue", se = FALSE, alpha = 0.20)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 We can plot the residuals (red), and compare them to the residuals from `lm` (black). 
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven't considered the uncertainty of these estimates).
@@ -281,7 +293,9 @@ ggplot(sim1, aes(x = x)) +
   geom_point(aes(y = resid_loess), colour = "red")
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 ### Exercise 2 {.exercise}
 
@@ -401,7 +415,9 @@ ggplot(sim1, aes(x = abs(resid))) +
   geom_freqpoly(binwidth = 0.5)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 However, using the absolute values of residuals throws away information about the sign, meaning that the 
 frequency polygon cannot show whether the model systematically over- or under-estimates the residuals.
@@ -627,7 +643,9 @@ ggplot(sim4_mods, aes(x = resid, color = model)) +
   geom_rug()
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-45-1} \end{center}
 and the absolute values of the residuals,
 
 ```r
@@ -636,7 +654,9 @@ ggplot(sim4_mods, aes(x = abs(resid), color = model)) +
   geom_rug()
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-46-1} \end{center}
 does not show much difference in the residuals between the models.
 However, `mod2` appears to have fewer residuals in the tails of the distribution between 2.5 and 5 (although the most extreme residuals are from `mod2`.
 

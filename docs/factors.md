@@ -39,7 +39,9 @@ rincome_plot <-
 rincome_plot
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 The default bar chart labels are too squished to read.
 One solution is to change the angle of the labels,
@@ -49,7 +51,9 @@ rincome_plot +
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 But that's not natural either, because text is vertical, and we read horizontally.
 So with long labels, it is better to flip it.
@@ -59,7 +63,9 @@ rincome_plot +
   coord_flip()
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 This is better, but it unintuitively goes from low to high. It would help if the
 scale is reversed. Also, if all the missing factors were differentiated.
@@ -145,7 +151,9 @@ gss_cat %>%
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 
 ## Modifying factor order
@@ -170,7 +178,9 @@ gss_cat %>%
   geom_histogram(binwidth = 1)
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 Whether the mean is the best summary depends on what you are using it for :-), i.e. your objective.
 But probably the median would be what most people prefer.
@@ -205,7 +215,9 @@ gss_cat %>%
   geom_bar()
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 The ordering of race is principled in that the categories are ordered by count of observations in the data.
 
@@ -221,7 +233,9 @@ gss_cat %>%
 #> Warning: Ignoring unknown parameters: drop
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The levels of `rincome` are ordered in decreasing order of the income; however the placement of "No answer", "Don't know", and "Refused" before, and "Not applicable" after the income levels is arbitrary. It would be better to place all the missing income level categories either before or after all the known values.
 
@@ -255,7 +269,9 @@ gss_cat %>%
   coord_flip()
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 The same goes for `denom`.
 
@@ -331,7 +347,9 @@ gss_cat %>%
 
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 
 ### Exercise 2 {.exercise}
@@ -366,4 +384,6 @@ gss_cat %>%
   coord_flip()
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-26-1} \end{center}

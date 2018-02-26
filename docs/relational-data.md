@@ -251,7 +251,9 @@ airports %>%
 #>     map
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 (Don’t worry if you don’t understand what `semi_join()` does — you’ll learn about it next.)
 
@@ -271,7 +273,9 @@ avg_dest_delays %>%
     coord_quickmap()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 
 You might want to use the size or color of the points to display the average delay for each airport.
@@ -329,7 +333,9 @@ flights %>%
 #> Warning: Removed 1 rows containing missing values (geom_path).
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 
 ### Exercise 4 {.exercise}
@@ -354,7 +360,9 @@ flight_weather %>%
     geom_line() + geom_point()
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 
 
@@ -382,7 +390,9 @@ flights %>%
 #> Warning: Removed 3 rows containing missing values (geom_point).
 ```
 
-<img src="relational-data_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 
 ## Filtering Joins
@@ -477,12 +487,12 @@ fueleconomy::vehicles %>%
 #> # A tibble: 14,531 x 12
 #>      id make  model   year class trans drive   cyl displ fuel    hwy   cty
 #>   <int> <chr> <chr>  <int> <chr> <chr> <chr> <int> <dbl> <chr> <int> <int>
-#> 1  1833 Acura Integ…  1986 Subc… Auto… Fron…     4  1.60 Regu…    28    22
-#> 2  1834 Acura Integ…  1986 Subc… Manu… Fron…     4  1.60 Regu…    28    23
-#> 3  3037 Acura Integ…  1987 Subc… Auto… Fron…     4  1.60 Regu…    28    22
-#> 4  3038 Acura Integ…  1987 Subc… Manu… Fron…     4  1.60 Regu…    28    23
-#> 5  4183 Acura Integ…  1988 Subc… Auto… Fron…     4  1.60 Regu…    27    22
-#> 6  4184 Acura Integ…  1988 Subc… Manu… Fron…     4  1.60 Regu…    28    23
+#> 1  1833 Acura Integ~  1986 Subc~ Auto~ Fron~     4  1.60 Regu~    28    22
+#> 2  1834 Acura Integ~  1986 Subc~ Manu~ Fron~     4  1.60 Regu~    28    23
+#> 3  3037 Acura Integ~  1987 Subc~ Auto~ Fron~     4  1.60 Regu~    28    22
+#> 4  3038 Acura Integ~  1987 Subc~ Manu~ Fron~     4  1.60 Regu~    28    23
+#> 5  4183 Acura Integ~  1988 Subc~ Auto~ Fron~     4  1.60 Regu~    27    22
+#> 6  4184 Acura Integ~  1988 Subc~ Manu~ Fron~     4  1.60 Regu~    28    23
 #> # ... with 1.452e+04 more rows
 ```
 

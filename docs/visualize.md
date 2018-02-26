@@ -27,7 +27,9 @@ No exercises.
 ggplot(data = mpg)
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 An empty plot. The background of the plot is created by `ggplot()`, but nothing else is displayed.
 
@@ -90,7 +92,9 @@ ggplot(mpg, aes(x = hwy, y = cyl)) +
   geom_point()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 ### Exercise 5. {.exercise}
 
@@ -102,7 +106,9 @@ ggplot(mpg, aes(x = class, y = drv)) +
   geom_point()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 A scatter plot is not a useful way to plot these variables, since both `drv` and `class` are factor variables taking a limited number of values.
 
@@ -134,7 +140,9 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 Since `color = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
 The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `color = 1:234` or `color = 1` would be interpreted by `aes()`.
@@ -158,12 +166,12 @@ mpg
 #> # A tibble: 234 x 11
 #>   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 #>   <chr>        <chr> <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr>
-#> 1 audi         a4     1.80  1999     4 auto… f        18    29 p     comp…
-#> 2 audi         a4     1.80  1999     4 manu… f        21    29 p     comp…
-#> 3 audi         a4     2.00  2008     4 manu… f        20    31 p     comp…
-#> 4 audi         a4     2.00  2008     4 auto… f        21    30 p     comp…
-#> 5 audi         a4     2.80  1999     6 auto… f        16    26 p     comp…
-#> 6 audi         a4     2.80  1999     6 manu… f        18    26 p     comp…
+#> 1 audi         a4     1.80  1999     4 auto~ f        18    29 p     comp~
+#> 2 audi         a4     1.80  1999     4 manu~ f        21    29 p     comp~
+#> 3 audi         a4     2.00  2008     4 manu~ f        20    31 p     comp~
+#> 4 audi         a4     2.00  2008     4 auto~ f        21    30 p     comp~
+#> 5 audi         a4     2.80  1999     6 auto~ f        16    26 p     comp~
+#> 6 audi         a4     2.80  1999     6 manu~ f        18    26 p     comp~
 #> # ... with 228 more rows
 ```
 Alternatively, the `glimpse` function displays the type of each column:
@@ -198,7 +206,9 @@ ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
   geom_point()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Instead of using discrete colors, the continuous variable uses a scale that varies from a light to dark blue color.
 
@@ -208,7 +218,9 @@ ggplot(mpg, aes(x = displ, y = hwy, size = cty)) +
   geom_point()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 When mapped to size, the sizes of the points vary continuously with respect to the size (although the legend shows a few representative values)
 
@@ -219,7 +231,9 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = cty)) +
 #> Error: A continuous variable can not be mapped to shape
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 When a continuous value is mapped to shape, it gives an error.
 Though we could split a continuous variable into discrete categories and use a shape aesthetic, this would conceptually not make sense.
@@ -237,7 +251,9 @@ ggplot(mpg, aes(x = displ, y = hwy, color = hwy, size = displ)) +
   geom_point()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 In the above plot, `hwy` is mapped to both location on the y-axis and color, and `displ` is mapped to both location on the x-axis and size.
 The code works and produces a plot, even if it is a bad one. 
@@ -255,7 +271,9 @@ ggplot(mtcars, aes(wt, mpg)) +
   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 ```
 
-<img src="visualize_files/figure-html/ex.3.3.1.5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/ex.3.3.1.5-1} \end{center}
 
 Stroke changes the color of the border for shapes (22-24).
 
@@ -269,7 +287,9 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = displ < 5)) +
   geom_point()
 ```
 
-<img src="visualize_files/figure-html/ex.3.3.1.6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/ex.3.3.1.6-1} \end{center}
 
 Aesthetics can also be mapped to expressions (code like `displ < 5`). 
 It will create a temporary variable which takes values from  the result of the expression.
@@ -294,7 +314,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_grid(. ~ cty)
 ```
 
-<img src="visualize_files/figure-html/ex.3.5.1.1-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/ex.3.5.1.1-1} \end{center}
 
 It converts the continuous variable to a factor and creates facets for **all** unique values of it.
 
@@ -310,7 +332,9 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = drv, y = cyl))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 The locations in the above plot without points are the same cells in `facet_grid(drv ~ cyl)` that have no points.
 
@@ -328,7 +352,9 @@ ggplot(data = mpg) +
   facet_grid(drv ~ .)
 ```
 
-<img src="visualize_files/figure-html/ex.3.5.1.4.a-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/ex.3.5.1.4.a-1} \end{center}
 This plot facets by values of `cyl` on the x-axis:
 
 ```r
@@ -337,7 +363,9 @@ ggplot(data = mpg) +
   facet_grid(. ~ cyl)
 ```
 
-<img src="visualize_files/figure-html/ex.3.5.1.4.b-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/ex.3.5.1.4.b-1} \end{center}
 
 ### Exercise 5. {.exercise}
 
@@ -387,7 +415,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 
 ### Exercise 3. {.exercise}
@@ -405,7 +435,9 @@ ggplot(data = mpg) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-1} \end{center}
 But there is no legend in this code:
 
 ```r
@@ -417,7 +449,9 @@ ggplot(data = mpg) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 In the example earlier in the chapter,
 
@@ -438,7 +472,9 @@ ggplot(data = mpg) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-24-2.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-24-3.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-2} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-3} \end{center}
 the legend is suppressed because there are three plots, and adding a legend that only appears in the last one would make the presentation asymmetric.
 Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a `group` aesthetic, and using a `color` aesthetic (with implicit grouping). 
 In that example, the legend isn't necessary since looking up the values associated with each color isn't necessary to make that point.
@@ -458,7 +494,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 By default `se = TRUE`:
 
@@ -470,7 +508,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 
 ### Exercise 5. {.exercise}
@@ -487,7 +527,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 
 ```r
@@ -497,7 +539,9 @@ ggplot() +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 
 ### Exercise 6. {.exercise}
@@ -512,7 +556,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 
 ```r
@@ -522,7 +568,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 
 ```r
@@ -532,7 +580,9 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = drv)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 
 ```r
@@ -542,7 +592,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 
 ```r
@@ -552,7 +604,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 
 ```r
@@ -560,7 +614,9 @@ ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
   geom_point(color = "white", shape = 21)
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 
 ## Statistical Transformations
@@ -582,7 +638,9 @@ ggplot(data = diamonds) +
 #> No summary function supplied, defaulting to `mean_se()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 The default message says that `stat_summary` uses the `mean` and `sd` to calculate the point, and range of the line. So lets use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
 
@@ -597,7 +655,9 @@ ggplot(data = diamonds) +
   )
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 
 ### Exercise 2. {.exercise}
@@ -643,7 +703,9 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop..))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 The problem with these two plots is that the proportions are calculated within the groups.
 
@@ -655,7 +717,9 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-38-2.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-2} \end{center}
 
 This is more likely what was intended:
 
@@ -667,7 +731,9 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop.., group = color))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-39-2.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-2} \end{center}
 
 ## Position Adjustments
 
@@ -683,7 +749,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-40-1} \end{center}
 I'd fix it by using a jitter position adjustment.
 
 ```r
@@ -691,7 +759,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = "jitter")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 ### Exercise 2. {.exercise}
 
@@ -706,7 +776,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 Way too much vertical jitter
 
@@ -715,7 +787,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0, height = 15))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 Only horizontal jitter:
 
@@ -724,7 +798,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(height = 0))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 Way too much horizontal jitter:
 
@@ -733,7 +809,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(height = 0, width = 20))
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 ### Exercise 3. {.exercise}
 
@@ -754,7 +832,9 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
   geom_boxplot()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 
 ```r
@@ -762,7 +842,9 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
   geom_boxplot(position = "identity")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-47-1} \end{center}
 
 ## Coordinate Systems
 
@@ -778,7 +860,9 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   geom_bar()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-48-1} \end{center}
 
 See the documentation for [coord_polar](http://docs.ggplot2.org/current/coord_polar.html) for an example of making a pie chart. In particular, `theta = "y"`, meaning that the angle of the chart is the `y` variable has to be specified.
 
@@ -789,7 +873,9 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   coord_polar(theta = "y")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 If `theta = "y"` is not specified, then you get a bull’s-eye chart
 
@@ -799,7 +885,9 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   coord_polar()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
 If you had a multiple stacked bar chart, like,
 
@@ -808,7 +896,9 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-51-1} \end{center}
 
 you end up with a multi-doughnut chart
 
@@ -818,7 +908,9 @@ ggplot(data = diamonds) +
   coord_polar(theta = "y")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
 
 ### Exercise 2. {.exercise}
@@ -835,7 +927,9 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
   labs(y = "Highway MPG", x = "", title = "Highway MPG by car class")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-53-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 ### Exercise 3. {.exercise}
 
@@ -861,7 +955,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   coord_fixed()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 If we didn't include geom_point, then the line is no longer at 45 degrees:
 
@@ -871,7 +967,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_abline()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-55-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 ## The Layered Grammar of Graphics
 
