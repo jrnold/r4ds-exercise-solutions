@@ -31,19 +31,27 @@ mod_diamond2 <- lm(lprice ~ lcarat + color + cut + clarity, data = diamonds2)
 
 ### Exercises
 
-1. In the plot of `lcarat` vs. `lprice`, there are some bright vertical strips. What do they represent?
+#### Exercise 1 {.exercise}
+
+> In the plot of `lcarat` vs. `lprice`, there are some bright vertical strips. What do they represent?
 
 The distribution of diamonds has more diamonds at round or otherwise human friendly numbers (fractions).
 
-2. If `log(price) = a_0 + a_1 * log(carat)`, what does that say about the relationship between `price` and `carat`?
+#### Exercise 2 {.exercise}
+
+> If `log(price) = a_0 + a_1 * log(carat)`, what does that say about the relationship between `price` and `carat`?
 
 An 1% increase in carat is associated with an $a_1$% increase in price.
 
-3. Extract the diamonds that have very high and very low residuals. Is there anything unusual about these diamonds? Are the particularly bad or good, or do you think these are pricing errors?
+#### Exercise 3 {.exercise}
+
+> Extract the diamonds that have very high and very low residuals. Is there anything unusual about these diamonds? Are the particularly bad or good, or do you think these are pricing errors?
 
 This was already discussed in the text. I don't see anything either.
 
-4. Does the final model, `mod_diamonds2`, do a good job of predicting diamond prices? Would you trust it to tell you how much to spend if you were buying a diamond?
+#### Exercise 4 {.exercise}
+
+> Does the final model, `mod_diamonds2`, do a good job of predicting diamond prices? Would you trust it to tell you how much to spend if you were buying a diamond?
 
 
 
@@ -66,9 +74,6 @@ And the 95% range of residuals is about $2^0.37 = 1.3$ so within $\pm 30$%.
 This doesn't seem terrible to me.
 
 ### What affects the number of daily flights?
-
-- Doesn't discuss why and how chooses spline of 5 knots.
-- Introduces natural splines
 
 
 ```r
@@ -113,11 +118,15 @@ mod2 <- lm(n ~ wday * term, data = daily)
 
 ### Exercises
 
-**Ex 1.** Use your Google sleuthing skills to brainstorm why there were fewer than expected flights on Jan 20, May 26, and Sep 1. (Hint: they all have the same explanation.) How would these days generalize to another year?
+#### Exercise 1 {.exercise}
+
+> Use your Google sleuthing skills to brainstorm why there were fewer than expected flights on Jan 20, May 26, and Sep 1. (Hint: they all have the same explanation.) How would these days generalize to another year?
 
 These are the Sundays before Monday holidays Martin Luther King Day, Memorial Day, and Labor Day.
 
-**Ex 2.** 
+#### Exercise 2 {.exercise}
+
+> 
 
 
 ```r
@@ -132,7 +141,9 @@ daily %>%
 ```
 
 
-**Ex 3.** Create a new variable that splits the `wday` variable into terms, but only for Saturdays, i.e. it should have `Thurs`, `Fri`, but `Sat-summer`, `Sat-spring`, `Sat-fall` How does this model compare with the model with every combination of `wday` and `term`?
+#### Exercise 3 {.exercise}
+
+> Create a new variable that splits the `wday` variable into terms, but only for Saturdays, i.e. it should have `Thurs`, `Fri`, but `Sat-summer`, `Sat-spring`, `Sat-fall` How does this model compare with the model with every combination of `wday` and `term`?
 
 I'll use the function `case_when` to do this, though there are other ways which it could be solved.
 
@@ -191,7 +202,9 @@ glance(mod2) %>% select(r.squared, sigma, AIC, df)
 ```
 
 
-**Ex. 4**  Create a new `wday` variable that combines the day of week, term (for Saturdays), and public holidays. What do the residuals of that model look like?
+#### Exercise 4 {.exercise}
+
+> Create a new `wday` variable that combines the day of week, term (for Saturdays), and public holidays. What do the residuals of that model look like?
 
 The question is unclear how to handle the public holidays. We could include a dummy for all public holidays? or the Sunday before public holidays?
 
@@ -237,15 +250,21 @@ daily %>%
 ```
 
 
-**Ex 5.** What happens if you fit a day of week effect that varies by month (i.e. `n ~ wday * month`)? Why is this not very helpful?
+#### Exercise 5 {.exercise}
+
+> What happens if you fit a day of week effect that varies by month (i.e. `n ~ wday * month`)? Why is this not very helpful?
 
 There are only 4-5 observations per parameter since only there are only 4-5 weekdays in a given month.
 
 
-**Ex 6.** It will estimate a smooth seasonal trend (`ns(date, 5)`) with a day of the week cyclicality, (`wday`).
+#### Exercise 6 {.exercise}
+
+It will estimate a smooth seasonal trend (`ns(date, 5)`) with a day of the week cyclicality, (`wday`).
 It probably will not be effective since 
 
-**Ex 7.** We hypothesized that people leaving on Sundays are more likely to be business travelers who need to be somewhere on Monday. Explore that hypothesis by seeing how it breaks down based on distance and time: if it’s true, you’d expect to see more Sunday evening flights to places that are far away.
+#### Exercise 7 {.exercise}
+
+> We hypothesized that people leaving on Sundays are more likely to be business travelers who need to be somewhere on Monday. Explore that hypothesis by seeing how it breaks down based on distance and time: if it’s true, you’d expect to see more Sunday evening flights to places that are far away.
 
 Looking at only day of the week, we see that Sunday flights are on average longer than the rest of the day of the week flights, but not as long as Saturday flights (perhaps vacation flights?).
 
@@ -282,7 +301,9 @@ flights %>%
 
 Can someone think of a better way to check this?
 
-**Ex 8.** It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.
+#### Exercise 8 {.exercise}
+
+> It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.
 
 See the chapter [Factors](http://r4ds.had.co.nz/factors.html) for the function `fct_relevel`. 
 I use `fct_relevel` to put all levels in-front of the first level ("Sunday").

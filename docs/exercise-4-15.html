@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Exercise Solutions to R for Data Science</title>
+  <meta name="description" content="Exercise Solutions to “R for Data Science”">
+  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Exercise Solutions to R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="jrnold/r4ds-exercise-solutions" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Exercise Solutions to R for Data Science" />
+  
+  
+  
+
+<meta name="author" content="Jeffrey B. Arnold">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="relational-data.html">
+<link rel="next" href="strings.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.2.0/str_view.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="r4ds.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">R for Data Science</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="part"><span><b>I Explore</b></span></li>
+<li class="chapter" data-level="2" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="visualize.html"><a href="visualize.html"><i class="fa fa-check"></i><b>3</b> Visualize</a><ul>
+<li class="chapter" data-level="3.1" data-path="visualize.html"><a href="visualize.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="visualize.html"><a href="visualize.html#first-steps"><i class="fa fa-check"></i><b>3.2</b> First Steps</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="visualize.html"><a href="visualize.html#exercise-1."><i class="fa fa-check"></i><b>3.2.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="3.2.2" data-path="visualize.html"><a href="visualize.html#exercise-2."><i class="fa fa-check"></i><b>3.2.2</b> Exercise 2.</a></li>
+<li class="chapter" data-level="3.2.3" data-path="visualize.html"><a href="visualize.html#exercise-3."><i class="fa fa-check"></i><b>3.2.3</b> Exercise 3.</a></li>
+<li class="chapter" data-level="3.2.4" data-path="visualize.html"><a href="visualize.html#exercise-4."><i class="fa fa-check"></i><b>3.2.4</b> Exercise 4.</a></li>
+<li class="chapter" data-level="3.2.5" data-path="visualize.html"><a href="visualize.html#exercise-5."><i class="fa fa-check"></i><b>3.2.5</b> Exercise 5.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="visualize.html"><a href="visualize.html#aesthetic-mappings"><i class="fa fa-check"></i><b>3.3</b> Aesthetic mappings</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="visualize.html"><a href="visualize.html#exercise-1.-1"><i class="fa fa-check"></i><b>3.3.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="3.3.2" data-path="visualize.html"><a href="visualize.html#exercise-2.-1"><i class="fa fa-check"></i><b>3.3.2</b> Exercise 2.</a></li>
+<li class="chapter" data-level="3.3.3" data-path="visualize.html"><a href="visualize.html#exercise-3.-1"><i class="fa fa-check"></i><b>3.3.3</b> Exercise 3.</a></li>
+<li class="chapter" data-level="3.3.4" data-path="visualize.html"><a href="visualize.html#exercise-4.-1"><i class="fa fa-check"></i><b>3.3.4</b> Exercise 4.</a></li>
+<li class="chapter" data-level="3.3.5" data-path="visualize.html"><a href="visualize.html#exercise-5.-1"><i class="fa fa-check"></i><b>3.3.5</b> Exercise 5.</a></li>
+<li class="chapter" data-level="3.3.6" data-path="visualize.html"><a href="visualize.html#exercise-6."><i class="fa fa-check"></i><b>3.3.6</b> Exercise 6.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="visualize.html"><a href="visualize.html#common-problems"><i class="fa fa-check"></i><b>3.4</b> Common problems</a></li>
+<li class="chapter" data-level="3.5" data-path="visualize.html"><a href="visualize.html#facets"><i class="fa fa-check"></i><b>3.5</b> Facets</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="visualize.html"><a href="visualize.html#exercise-1.-2"><i class="fa fa-check"></i><b>3.5.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="3.5.2" data-path="visualize.html"><a href="visualize.html#exercise-2.-2"><i class="fa fa-check"></i><b>3.5.2</b> Exercise 2.</a></li>
+<li class="chapter" data-level="3.5.3" data-path="visualize.html"><a href="visualize.html#exercise-3.-2"><i class="fa fa-check"></i><b>3.5.3</b> Exercise 3.</a></li>
+<li class="chapter" data-level="3.5.4" data-path="visualize.html"><a href="visualize.html#exercise-5.-2"><i class="fa fa-check"></i><b>3.5.4</b> Exercise 5.</a></li>
+<li class="chapter" data-level="3.5.5" data-path="visualize.html"><a href="visualize.html#exercise-6.-1"><i class="fa fa-check"></i><b>3.5.5</b> Exercise 6.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="visualize.html"><a href="visualize.html#geometric-objects"><i class="fa fa-check"></i><b>3.6</b> Geometric Objects</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="visualize.html"><a href="visualize.html#exercise-1.-3"><i class="fa fa-check"></i><b>3.6.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="3.6.2" data-path="visualize.html"><a href="visualize.html#exercise-2.-3"><i class="fa fa-check"></i><b>3.6.2</b> Exercise 2.</a></li>
+<li class="chapter" data-level="3.6.3" data-path="visualize.html"><a href="visualize.html#exercise-3.-3"><i class="fa fa-check"></i><b>3.6.3</b> Exercise 3.</a></li>
+<li class="chapter" data-level="3.6.4" data-path="visualize.html"><a href="visualize.html#exercise-4.-2"><i class="fa fa-check"></i><b>3.6.4</b> Exercise 4.</a></li>
+<li class="chapter" data-level="3.6.5" data-path="visualize.html"><a href="visualize.html#exercise-5.-3"><i class="fa fa-check"></i><b>3.6.5</b> Exercise 5.</a></li>
+<li class="chapter" data-level="3.6.6" data-path="visualize.html"><a href="visualize.html#exercise-6.-2"><i class="fa fa-check"></i><b>3.6.6</b> Exercise 6.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="visualize.html"><a href="visualize.html#statistical-transformations"><i class="fa fa-check"></i><b>3.7</b> Statistical Transformations</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="visualize.html"><a href="visualize.html#exercise-1.-4"><i class="fa fa-check"></i><b>3.7.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="3.7.2" data-path="visualize.html"><a href="visualize.html#exercise-2.-4"><i class="fa fa-check"></i><b>3.7.2</b> Exercise 2.</a></li>
+<li class="chapter" data-level="3.7.3" data-path="visualize.html"><a href="visualize.html#exercise-3.-4"><i class="fa fa-check"></i><b>3.7.3</b> Exercise 3.</a></li>
+<li class="chapter" data-level="3.7.4" data-path="visualize.html"><a href="visualize.html#exercise-4.-3"><i class="fa fa-check"></i><b>3.7.4</b> Exercise 4.</a></li>
+<li class="chapter" data-level="3.7.5" data-path="visualize.html"><a href="visualize.html#exercise-5.-4"><i class="fa fa-check"></i><b>3.7.5</b> Exercise 5.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="visualize.html"><a href="visualize.html#position-adjustments"><i class="fa fa-check"></i><b>3.8</b> Position Adjustments</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="visualize.html"><a href="visualize.html#exercise-1.-5"><i class="fa fa-check"></i><b>3.8.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="3.8.2" data-path="visualize.html"><a href="visualize.html#exercise-2.-5"><i class="fa fa-check"></i><b>3.8.2</b> Exercise 2.</a></li>
+<li class="chapter" data-level="3.8.3" data-path="visualize.html"><a href="visualize.html#exercise-3.-5"><i class="fa fa-check"></i><b>3.8.3</b> Exercise 3.</a></li>
+<li class="chapter" data-level="3.8.4" data-path="visualize.html"><a href="visualize.html#exercise-4.-4"><i class="fa fa-check"></i><b>3.8.4</b> Exercise 4.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="visualize.html"><a href="visualize.html#coordinate-systems"><i class="fa fa-check"></i><b>3.9</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="visualize.html"><a href="visualize.html#exercise-1.-6"><i class="fa fa-check"></i><b>3.9.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="3.9.2" data-path="visualize.html"><a href="visualize.html#exercise-2.-6"><i class="fa fa-check"></i><b>3.9.2</b> Exercise 2.</a></li>
+<li class="chapter" data-level="3.9.3" data-path="visualize.html"><a href="visualize.html#exercise-3.-6"><i class="fa fa-check"></i><b>3.9.3</b> Exercise 3.</a></li>
+<li class="chapter" data-level="3.9.4" data-path="visualize.html"><a href="visualize.html#exercise-4.-5"><i class="fa fa-check"></i><b>3.9.4</b> Exercise 4.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="visualize.html"><a href="visualize.html#the-layered-grammar-of-graphics"><i class="fa fa-check"></i><b>3.10</b> The Layered Grammar of Graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="workflow-basics.html"><a href="workflow-basics.html"><i class="fa fa-check"></i><b>4</b> Workflow Basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="workflow-basics.html"><a href="workflow-basics.html#coding-basics"><i class="fa fa-check"></i><b>4.1</b> Coding basics</a></li>
+<li class="chapter" data-level="4.2" data-path="workflow-basics.html"><a href="workflow-basics.html#whats-in-a-name"><i class="fa fa-check"></i><b>4.2</b> What’s in a name?</a></li>
+<li class="chapter" data-level="4.3" data-path="workflow-basics.html"><a href="workflow-basics.html#calling-functions"><i class="fa fa-check"></i><b>4.3</b> Calling functions</a></li>
+<li class="chapter" data-level="4.4" data-path="workflow-basics.html"><a href="workflow-basics.html#practice"><i class="fa fa-check"></i><b>4.4</b> Practice</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="workflow-basics.html"><a href="workflow-basics.html#exercise-1"><i class="fa fa-check"></i><b>4.4.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="4.4.2" data-path="workflow-basics.html"><a href="workflow-basics.html#exercise-2"><i class="fa fa-check"></i><b>4.4.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="4.4.3" data-path="workflow-basics.html"><a href="workflow-basics.html#exercise-3"><i class="fa fa-check"></i><b>4.4.3</b> Exercise 3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>5</b> Data Transformation</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-transformation.html"><a href="data-transformation.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="data-transformation.html"><a href="data-transformation.html#filter-rows-with-filter"><i class="fa fa-check"></i><b>5.2</b> Filter rows with <code>filter()</code></a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-transformation.html"><a href="data-transformation.html#exercise-1-1"><i class="fa fa-check"></i><b>5.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-transformation.html"><a href="data-transformation.html#exercise-2-1"><i class="fa fa-check"></i><b>5.2.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="5.2.3" data-path="data-transformation.html"><a href="data-transformation.html#exercise-3-1"><i class="fa fa-check"></i><b>5.2.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="5.2.4" data-path="data-transformation.html"><a href="data-transformation.html#exercise-4"><i class="fa fa-check"></i><b>5.2.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-transformation.html"><a href="data-transformation.html#arrange-rows-with-arrange"><i class="fa fa-check"></i><b>5.3</b> Arrange rows with <code>arrange()</code></a><ul>
+<li class="chapter" data-level="5.3.1" data-path="data-transformation.html"><a href="data-transformation.html#exercise-1-2"><i class="fa fa-check"></i><b>5.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="5.3.2" data-path="data-transformation.html"><a href="data-transformation.html#exercise-2-2"><i class="fa fa-check"></i><b>5.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="5.3.3" data-path="data-transformation.html"><a href="data-transformation.html#exercise-3-2"><i class="fa fa-check"></i><b>5.3.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="5.3.4" data-path="data-transformation.html"><a href="data-transformation.html#exercise-4-1"><i class="fa fa-check"></i><b>5.3.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="data-transformation.html"><a href="data-transformation.html#select-columns-with-select"><i class="fa fa-check"></i><b>5.4</b> Select columns with <code>select()</code></a><ul>
+<li class="chapter" data-level="5.4.1" data-path="data-transformation.html"><a href="data-transformation.html#exercise-1-3"><i class="fa fa-check"></i><b>5.4.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-transformation.html"><a href="data-transformation.html#exercise-2-3"><i class="fa fa-check"></i><b>5.4.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="5.4.3" data-path="data-transformation.html"><a href="data-transformation.html#exercise-3-3"><i class="fa fa-check"></i><b>5.4.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="5.4.4" data-path="data-transformation.html"><a href="data-transformation.html#exercise-4-2"><i class="fa fa-check"></i><b>5.4.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-transformation.html"><a href="data-transformation.html#add-new-variables-with-mutate"><i class="fa fa-check"></i><b>5.5</b> Add new variables with <code>mutate()</code></a><ul>
+<li class="chapter" data-level="5.5.1" data-path="data-transformation.html"><a href="data-transformation.html#exercise-1-4"><i class="fa fa-check"></i><b>5.5.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-transformation.html"><a href="data-transformation.html#exercise-2-4"><i class="fa fa-check"></i><b>5.5.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-transformation.html"><a href="data-transformation.html#exercise-3-4"><i class="fa fa-check"></i><b>5.5.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="5.5.4" data-path="data-transformation.html"><a href="data-transformation.html#exercise-4-3"><i class="fa fa-check"></i><b>5.5.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="5.5.5" data-path="data-transformation.html"><a href="data-transformation.html#exercise-5"><i class="fa fa-check"></i><b>5.5.5</b> Exercise 5</a></li>
+<li class="chapter" data-level="5.5.6" data-path="data-transformation.html"><a href="data-transformation.html#exercise-6"><i class="fa fa-check"></i><b>5.5.6</b> Exercise 6</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="data-transformation.html"><a href="data-transformation.html#grouped-summaries-with-summarise"><i class="fa fa-check"></i><b>5.6</b> Grouped summaries with <code>summarise()</code></a><ul>
+<li class="chapter" data-level="5.6.1" data-path="data-transformation.html"><a href="data-transformation.html#exercise-1-5"><i class="fa fa-check"></i><b>5.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="5.6.2" data-path="data-transformation.html"><a href="data-transformation.html#exercise-2-5"><i class="fa fa-check"></i><b>5.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="5.6.3" data-path="data-transformation.html"><a href="data-transformation.html#exercise-3-5"><i class="fa fa-check"></i><b>5.6.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="5.6.4" data-path="data-transformation.html"><a href="data-transformation.html#exercise-4-4"><i class="fa fa-check"></i><b>5.6.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="5.6.5" data-path="data-transformation.html"><a href="data-transformation.html#exercise-5-1"><i class="fa fa-check"></i><b>5.6.5</b> Exercise 5</a></li>
+<li class="chapter" data-level="5.6.6" data-path="data-transformation.html"><a href="data-transformation.html#exercise-6-1"><i class="fa fa-check"></i><b>5.6.6</b> Exercise 6</a></li>
+<li class="chapter" data-level="5.6.7" data-path="data-transformation.html"><a href="data-transformation.html#exercise-7"><i class="fa fa-check"></i><b>5.6.7</b> Exercise 7</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="data-transformation.html"><a href="data-transformation.html#grouped-mutates-and-filters"><i class="fa fa-check"></i><b>5.7</b> Grouped mutates (and filters)</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="data-transformation.html"><a href="data-transformation.html#exercise-1-6"><i class="fa fa-check"></i><b>5.7.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="5.7.2" data-path="data-transformation.html"><a href="data-transformation.html#exercise-2-6"><i class="fa fa-check"></i><b>5.7.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="5.7.3" data-path="data-transformation.html"><a href="data-transformation.html#exercise-3-6"><i class="fa fa-check"></i><b>5.7.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="5.7.4" data-path="data-transformation.html"><a href="data-transformation.html#exercise-4-5"><i class="fa fa-check"></i><b>5.7.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="5.7.5" data-path="data-transformation.html"><a href="data-transformation.html#exercise-5-2"><i class="fa fa-check"></i><b>5.7.5</b> Exercise 5</a></li>
+<li class="chapter" data-level="5.7.6" data-path="data-transformation.html"><a href="data-transformation.html#exercise-6-2"><i class="fa fa-check"></i><b>5.7.6</b> Exercise 6</a></li>
+<li class="chapter" data-level="5.7.7" data-path="data-transformation.html"><a href="data-transformation.html#exercise-7-1"><i class="fa fa-check"></i><b>5.7.7</b> Exercise 7</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="workflow-scripts.html"><a href="workflow-scripts.html"><i class="fa fa-check"></i><b>6</b> Workflow: scripts</a><ul>
+<li class="chapter" data-level="6.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#running-code"><i class="fa fa-check"></i><b>6.1</b> Running code</a></li>
+<li class="chapter" data-level="6.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#rstudio-diagnostics"><i class="fa fa-check"></i><b>6.2</b> RStudio diagnostics</a></li>
+<li class="chapter" data-level="6.3" data-path="workflow-scripts.html"><a href="workflow-scripts.html#practice-1"><i class="fa fa-check"></i><b>6.3</b> Practice</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="workflow-scripts.html"><a href="workflow-scripts.html#exercise-1-7"><i class="fa fa-check"></i><b>6.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="6.3.2" data-path="workflow-scripts.html"><a href="workflow-scripts.html#exercise-2-7"><i class="fa fa-check"></i><b>6.3.2</b> Exercise 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction-3"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#questions"><i class="fa fa-check"></i><b>7.2</b> Questions</a></li>
+<li class="chapter" data-level="7.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#variation"><i class="fa fa-check"></i><b>7.3</b> Variation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-1-8"><i class="fa fa-check"></i><b>7.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="7.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-2.-7"><i class="fa fa-check"></i><b>7.3.2</b> Exercise 2.</a></li>
+<li class="chapter" data-level="7.3.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-3.-7"><i class="fa fa-check"></i><b>7.3.3</b> Exercise 3.</a></li>
+<li class="chapter" data-level="7.3.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-4-6"><i class="fa fa-check"></i><b>7.3.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#missing-values"><i class="fa fa-check"></i><b>7.4</b> Missing Values</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-1-9"><i class="fa fa-check"></i><b>7.4.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="7.4.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-2-8"><i class="fa fa-check"></i><b>7.4.2</b> Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#covariation"><i class="fa fa-check"></i><b>7.5</b> Covariation</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#a-categorical-and-continuous-variable"><i class="fa fa-check"></i><b>7.5.1</b> A categorical and continuous variable</a></li>
+<li class="chapter" data-level="7.5.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-categorical-variables"><i class="fa fa-check"></i><b>7.5.2</b> Two categorical variables</a></li>
+<li class="chapter" data-level="7.5.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#two-continuous-variables"><i class="fa fa-check"></i><b>7.5.3</b> Two continuous variables</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#patterns-and-models"><i class="fa fa-check"></i><b>7.6</b> Patterns and models</a></li>
+<li class="chapter" data-level="7.7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#ggplot2-calls"><i class="fa fa-check"></i><b>7.7</b> ggplot2 calls</a></li>
+<li class="chapter" data-level="7.8" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#learning-more"><i class="fa fa-check"></i><b>7.8</b> Learning more</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="workflow-projects.html"><a href="workflow-projects.html"><i class="fa fa-check"></i><b>8</b> Workflow: Projects</a></li>
+<li class="part"><span><b>II Wrangle</b></span></li>
+<li class="chapter" data-level="9" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>9</b> Tibbles</a><ul>
+<li class="chapter" data-level="9.1" data-path="tibbles.html"><a href="tibbles.html#introduction-4"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="tibbles.html"><a href="tibbles.html#creating-tibbles"><i class="fa fa-check"></i><b>9.2</b> Creating Tibbles</a></li>
+<li class="chapter" data-level="9.3" data-path="tibbles.html"><a href="tibbles.html#tibbles-vs.data.frame"><i class="fa fa-check"></i><b>9.3</b> Tibbles vs. data.frame</a></li>
+<li class="chapter" data-level="9.4" data-path="tibbles.html"><a href="tibbles.html#subsetting"><i class="fa fa-check"></i><b>9.4</b> Subsetting</a></li>
+<li class="chapter" data-level="9.5" data-path="tibbles.html"><a href="tibbles.html#interacting-with-older-code"><i class="fa fa-check"></i><b>9.5</b> Interacting with older code</a></li>
+<li class="chapter" data-level="9.6" data-path="tibbles.html"><a href="tibbles.html#exercises"><i class="fa fa-check"></i><b>9.6</b> Exercises</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="tibbles.html"><a href="tibbles.html#exercise-1-13"><i class="fa fa-check"></i><b>9.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="9.6.2" data-path="tibbles.html"><a href="tibbles.html#exercise-2-12"><i class="fa fa-check"></i><b>9.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="9.6.3" data-path="tibbles.html"><a href="tibbles.html#exercise-3-10"><i class="fa fa-check"></i><b>9.6.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="9.6.4" data-path="tibbles.html"><a href="tibbles.html#exercise-4-9"><i class="fa fa-check"></i><b>9.6.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="9.6.5" data-path="tibbles.html"><a href="tibbles.html#exercise-5-5"><i class="fa fa-check"></i><b>9.6.5</b> Exercise 5</a></li>
+<li class="chapter" data-level="9.6.6" data-path="tibbles.html"><a href="tibbles.html#exercise-6-4"><i class="fa fa-check"></i><b>9.6.6</b> Exercise 6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="data-import.html"><a href="data-import.html"><i class="fa fa-check"></i><b>10</b> Data Import</a><ul>
+<li class="chapter" data-level="10.1" data-path="data-import.html"><a href="data-import.html#introduction-5"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="data-import.html"><a href="data-import.html#getting-started"><i class="fa fa-check"></i><b>10.2</b> Getting started</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="data-import.html"><a href="data-import.html#exercise-1-14"><i class="fa fa-check"></i><b>10.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="10.2.2" data-path="data-import.html"><a href="data-import.html#exercise-2-13"><i class="fa fa-check"></i><b>10.2.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="10.2.3" data-path="data-import.html"><a href="data-import.html#exercise-3-11"><i class="fa fa-check"></i><b>10.2.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="10.2.4" data-path="data-import.html"><a href="data-import.html#exercise-4-10"><i class="fa fa-check"></i><b>10.2.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="10.2.5" data-path="data-import.html"><a href="data-import.html#exercise-6-5"><i class="fa fa-check"></i><b>10.2.5</b> Exercise 6</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="data-import.html"><a href="data-import.html#parsing-a-vector"><i class="fa fa-check"></i><b>10.3</b> Parsing a vector</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="data-import.html"><a href="data-import.html#exercise-1-15"><i class="fa fa-check"></i><b>10.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="10.3.2" data-path="data-import.html"><a href="data-import.html#exercise-2-14"><i class="fa fa-check"></i><b>10.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="10.3.3" data-path="data-import.html"><a href="data-import.html#exercise-3-12"><i class="fa fa-check"></i><b>10.3.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="10.3.4" data-path="data-import.html"><a href="data-import.html#exercise-4-11"><i class="fa fa-check"></i><b>10.3.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="10.3.5" data-path="data-import.html"><a href="data-import.html#exercise-5-6"><i class="fa fa-check"></i><b>10.3.5</b> Exercise 5</a></li>
+<li class="chapter" data-level="10.3.6" data-path="data-import.html"><a href="data-import.html#exercise-6-6"><i class="fa fa-check"></i><b>10.3.6</b> Exercise 6</a></li>
+<li class="chapter" data-level="10.3.7" data-path="data-import.html"><a href="data-import.html#exercise-7-2"><i class="fa fa-check"></i><b>10.3.7</b> Exercise 7</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="data-import.html"><a href="data-import.html#parsing-a-file"><i class="fa fa-check"></i><b>10.4</b> Parsing a file</a></li>
+<li class="chapter" data-level="10.5" data-path="data-import.html"><a href="data-import.html#writing-to-a-file"><i class="fa fa-check"></i><b>10.5</b> Writing to a file</a></li>
+<li class="chapter" data-level="10.6" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>10.6</b> Other Types of Data</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>11</b> Tidy Data</a><ul>
+<li class="chapter" data-level="11.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-6"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="tidy-data.html"><a href="tidy-data.html#tidy-data-1"><i class="fa fa-check"></i><b>11.2</b> Tidy Data</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="tidy-data.html"><a href="tidy-data.html#exercise-1-16"><i class="fa fa-check"></i><b>11.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="11.2.2" data-path="tidy-data.html"><a href="tidy-data.html#exercise-2-15"><i class="fa fa-check"></i><b>11.2.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="11.2.3" data-path="tidy-data.html"><a href="tidy-data.html#exercise-3-13"><i class="fa fa-check"></i><b>11.2.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="tidy-data.html"><a href="tidy-data.html#spreading-and-gathering"><i class="fa fa-check"></i><b>11.3</b> Spreading and Gathering</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="tidy-data.html"><a href="tidy-data.html#exercise-1-17"><i class="fa fa-check"></i><b>11.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="11.3.2" data-path="tidy-data.html"><a href="tidy-data.html#exercise-2-16"><i class="fa fa-check"></i><b>11.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="11.3.3" data-path="tidy-data.html"><a href="tidy-data.html#exercise-3-14"><i class="fa fa-check"></i><b>11.3.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="11.3.4" data-path="tidy-data.html"><a href="tidy-data.html#exercise-4-12"><i class="fa fa-check"></i><b>11.3.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="tidy-data.html"><a href="tidy-data.html#separating-and-uniting"><i class="fa fa-check"></i><b>11.4</b> Separating and Uniting</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="tidy-data.html"><a href="tidy-data.html#exercise-1-18"><i class="fa fa-check"></i><b>11.4.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="11.4.2" data-path="tidy-data.html"><a href="tidy-data.html#exercise-2-17"><i class="fa fa-check"></i><b>11.4.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="11.4.3" data-path="tidy-data.html"><a href="tidy-data.html#exercise-3-15"><i class="fa fa-check"></i><b>11.4.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="tidy-data.html"><a href="tidy-data.html#missing-values-1"><i class="fa fa-check"></i><b>11.5</b> Missing Values</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="tidy-data.html"><a href="tidy-data.html#exercise-1-19"><i class="fa fa-check"></i><b>11.5.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="11.5.2" data-path="tidy-data.html"><a href="tidy-data.html#exercise-2-18"><i class="fa fa-check"></i><b>11.5.2</b> Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="tidy-data.html"><a href="tidy-data.html#case-study"><i class="fa fa-check"></i><b>11.6</b> Case Study</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="tidy-data.html"><a href="tidy-data.html#exercise-1-20"><i class="fa fa-check"></i><b>11.6.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="11.6.2" data-path="tidy-data.html"><a href="tidy-data.html#exercise-2-19"><i class="fa fa-check"></i><b>11.6.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="11.6.3" data-path="tidy-data.html"><a href="tidy-data.html#exercise-3-16"><i class="fa fa-check"></i><b>11.6.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="11.6.4" data-path="tidy-data.html"><a href="tidy-data.html#exercise-4-13"><i class="fa fa-check"></i><b>11.6.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="tidy-data.html"><a href="tidy-data.html#non-tidy-data"><i class="fa fa-check"></i><b>11.7</b> Non-Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="relational-data.html"><a href="relational-data.html"><i class="fa fa-check"></i><b>12</b> Relational Data</a><ul>
+<li class="chapter" data-level="12.1" data-path="relational-data.html"><a href="relational-data.html#introduction-7"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="relational-data.html"><a href="relational-data.html#nycflights13"><i class="fa fa-check"></i><b>12.2</b> nycflights13</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="relational-data.html"><a href="relational-data.html#exercise-1-21"><i class="fa fa-check"></i><b>12.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="12.2.2" data-path="relational-data.html"><a href="relational-data.html#exercise-2-20"><i class="fa fa-check"></i><b>12.2.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="12.2.3" data-path="relational-data.html"><a href="relational-data.html#exercise-3-17"><i class="fa fa-check"></i><b>12.2.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="12.2.4" data-path="relational-data.html"><a href="relational-data.html#exercise-4-14"><i class="fa fa-check"></i><b>12.2.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="relational-data.html"><a href="relational-data.html#keys"><i class="fa fa-check"></i><b>12.3</b> Keys</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="relational-data.html"><a href="relational-data.html#exercise-1-22"><i class="fa fa-check"></i><b>12.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="12.3.2" data-path="relational-data.html"><a href="relational-data.html#exercise-2-21"><i class="fa fa-check"></i><b>12.3.2</b> Exercise 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="exercise-4-15.html"><a href="exercise-4-15.html"><i class="fa fa-check"></i><b>13</b> Exercise 4</a><ul>
+<li class="chapter" data-level="13.1" data-path="exercise-4-15.html"><a href="exercise-4-15.html#mutating-joins"><i class="fa fa-check"></i><b>13.1</b> Mutating Joins</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-1-23"><i class="fa fa-check"></i><b>13.1.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="13.1.2" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-2-22"><i class="fa fa-check"></i><b>13.1.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="13.1.3" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-3-18"><i class="fa fa-check"></i><b>13.1.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="13.1.4" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-4-16"><i class="fa fa-check"></i><b>13.1.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="13.1.5" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-5-7"><i class="fa fa-check"></i><b>13.1.5</b> Exercise 5</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="exercise-4-15.html"><a href="exercise-4-15.html#filtering-joins"><i class="fa fa-check"></i><b>13.2</b> Filtering Joins</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-1-24"><i class="fa fa-check"></i><b>13.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="13.2.2" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-2-23"><i class="fa fa-check"></i><b>13.2.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="13.2.3" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-3-19"><i class="fa fa-check"></i><b>13.2.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="13.2.4" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-3-20"><i class="fa fa-check"></i><b>13.2.4</b> Exercise 3</a></li>
+<li class="chapter" data-level="13.2.5" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-4-17"><i class="fa fa-check"></i><b>13.2.5</b> Exercise 4</a></li>
+<li class="chapter" data-level="13.2.6" data-path="exercise-4-15.html"><a href="exercise-4-15.html#exercise-5-8"><i class="fa fa-check"></i><b>13.2.6</b> Exercise 5</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="exercise-4-15.html"><a href="exercise-4-15.html#join-problems"><i class="fa fa-check"></i><b>13.3</b> Join problems</a></li>
+<li class="chapter" data-level="13.4" data-path="exercise-4-15.html"><a href="exercise-4-15.html#set-operations"><i class="fa fa-check"></i><b>13.4</b> Set operations</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="strings.html"><a href="strings.html"><i class="fa fa-check"></i><b>14</b> Strings</a><ul>
+<li class="chapter" data-level="14.1" data-path="strings.html"><a href="strings.html#introduction-8"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="strings.html"><a href="strings.html#string-basics"><i class="fa fa-check"></i><b>14.2</b> String Basics</a></li>
+<li class="chapter" data-level="14.3" data-path="strings.html"><a href="strings.html#matching-patterns-and-regular-expressions"><i class="fa fa-check"></i><b>14.3</b> Matching Patterns and Regular Expressions</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="strings.html"><a href="strings.html#basic-matches"><i class="fa fa-check"></i><b>14.3.1</b> Basic Matches</a></li>
+<li class="chapter" data-level="14.3.2" data-path="strings.html"><a href="strings.html#anchors"><i class="fa fa-check"></i><b>14.3.2</b> Anchors</a></li>
+<li class="chapter" data-level="14.3.3" data-path="strings.html"><a href="strings.html#character-classes-and-alternatives"><i class="fa fa-check"></i><b>14.3.3</b> Character classes and alternatives</a></li>
+<li class="chapter" data-level="14.3.4" data-path="strings.html"><a href="strings.html#repetition"><i class="fa fa-check"></i><b>14.3.4</b> Repetition</a></li>
+<li class="chapter" data-level="14.3.5" data-path="strings.html"><a href="strings.html#grouping-and-backreferences"><i class="fa fa-check"></i><b>14.3.5</b> Grouping and backreferences</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="strings.html"><a href="strings.html#tools"><i class="fa fa-check"></i><b>14.4</b> Tools</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="strings.html"><a href="strings.html#detect-matches"><i class="fa fa-check"></i><b>14.4.1</b> Detect matches</a></li>
+<li class="chapter" data-level="14.4.2" data-path="strings.html"><a href="strings.html#exercises-1"><i class="fa fa-check"></i><b>14.4.2</b> Exercises</a></li>
+<li class="chapter" data-level="14.4.3" data-path="strings.html"><a href="strings.html#extract-matches"><i class="fa fa-check"></i><b>14.4.3</b> Extract Matches</a></li>
+<li class="chapter" data-level="14.4.4" data-path="strings.html"><a href="strings.html#grouped-matches"><i class="fa fa-check"></i><b>14.4.4</b> Grouped Matches</a></li>
+<li class="chapter" data-level="14.4.5" data-path="strings.html"><a href="strings.html#replacing-matches"><i class="fa fa-check"></i><b>14.4.5</b> Replacing Matches</a></li>
+<li class="chapter" data-level="14.4.6" data-path="strings.html"><a href="strings.html#splitting"><i class="fa fa-check"></i><b>14.4.6</b> Splitting</a></li>
+<li class="chapter" data-level="14.4.7" data-path="strings.html"><a href="strings.html#find-matches"><i class="fa fa-check"></i><b>14.4.7</b> Find matches</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="strings.html"><a href="strings.html#other-types-of-patterns"><i class="fa fa-check"></i><b>14.5</b> Other types of patterns</a></li>
+<li class="chapter" data-level="14.6" data-path="strings.html"><a href="strings.html#other-uses-of-regular-expressions"><i class="fa fa-check"></i><b>14.6</b> Other uses of regular expressions</a></li>
+<li class="chapter" data-level="14.7" data-path="strings.html"><a href="strings.html#stringi"><i class="fa fa-check"></i><b>14.7</b> stringi</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="factors.html"><a href="factors.html"><i class="fa fa-check"></i><b>15</b> Factors</a><ul>
+<li class="chapter" data-level="15.1" data-path="factors.html"><a href="factors.html#introduction-9"><i class="fa fa-check"></i><b>15.1</b> Introduction</a></li>
+<li class="chapter" data-level="15.2" data-path="factors.html"><a href="factors.html#creating-factors"><i class="fa fa-check"></i><b>15.2</b> Creating Factors</a></li>
+<li class="chapter" data-level="15.3" data-path="factors.html"><a href="factors.html#general-social-survey"><i class="fa fa-check"></i><b>15.3</b> General Social Survey</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="factors.html"><a href="factors.html#exercise-1-25"><i class="fa fa-check"></i><b>15.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="15.3.2" data-path="factors.html"><a href="factors.html#exercise-2-24"><i class="fa fa-check"></i><b>15.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="15.3.3" data-path="factors.html"><a href="factors.html#exercise-4-18"><i class="fa fa-check"></i><b>15.3.3</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="factors.html"><a href="factors.html#modifying-factor-order"><i class="fa fa-check"></i><b>15.4</b> Modifying factor order</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="factors.html"><a href="factors.html#exercise-1-26"><i class="fa fa-check"></i><b>15.4.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="15.4.2" data-path="factors.html"><a href="factors.html#exercise-2-25"><i class="fa fa-check"></i><b>15.4.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="15.4.3" data-path="factors.html"><a href="factors.html#exercise-3-21"><i class="fa fa-check"></i><b>15.4.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="factors.html"><a href="factors.html#modifying-factor-levels"><i class="fa fa-check"></i><b>15.5</b> Modifying factor levels</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="factors.html"><a href="factors.html#exercise-1-27"><i class="fa fa-check"></i><b>15.5.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="15.5.2" data-path="factors.html"><a href="factors.html#exercise-2-26"><i class="fa fa-check"></i><b>15.5.2</b> Exercise 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="dates-and-times.html"><a href="dates-and-times.html"><i class="fa fa-check"></i><b>16</b> Dates and Times</a><ul>
+<li class="chapter" data-level="16.1" data-path="dates-and-times.html"><a href="dates-and-times.html#introduction-10"><i class="fa fa-check"></i><b>16.1</b> Introduction</a></li>
+<li class="chapter" data-level="16.2" data-path="dates-and-times.html"><a href="dates-and-times.html#creating-datetimes"><i class="fa fa-check"></i><b>16.2</b> Creating date/times</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-1-28"><i class="fa fa-check"></i><b>16.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="16.2.2" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-2-27"><i class="fa fa-check"></i><b>16.2.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="16.2.3" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-3-22"><i class="fa fa-check"></i><b>16.2.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="dates-and-times.html"><a href="dates-and-times.html#date-time-components"><i class="fa fa-check"></i><b>16.3</b> Date-Time Components</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercises-2"><i class="fa fa-check"></i><b>16.3.1</b> Exercises</a></li>
+<li class="chapter" data-level="16.3.2" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-2-28"><i class="fa fa-check"></i><b>16.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="16.3.3" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-3-24"><i class="fa fa-check"></i><b>16.3.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="16.3.4" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-4-19"><i class="fa fa-check"></i><b>16.3.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="16.3.5" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-5-9"><i class="fa fa-check"></i><b>16.3.5</b> Exercise 5</a></li>
+<li class="chapter" data-level="16.3.6" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-6-7"><i class="fa fa-check"></i><b>16.3.6</b> Exercise 6</a></li>
+<li class="chapter" data-level="16.3.7" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-7-3"><i class="fa fa-check"></i><b>16.3.7</b> Exercise 7</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="dates-and-times.html"><a href="dates-and-times.html#time-spans"><i class="fa fa-check"></i><b>16.4</b> Time Spans</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-1-29"><i class="fa fa-check"></i><b>16.4.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="16.4.2" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-2-29"><i class="fa fa-check"></i><b>16.4.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="16.4.3" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-3-25"><i class="fa fa-check"></i><b>16.4.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="16.4.4" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-4-20"><i class="fa fa-check"></i><b>16.4.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="16.4.5" data-path="dates-and-times.html"><a href="dates-and-times.html#exercise-5-10"><i class="fa fa-check"></i><b>16.4.5</b> Exercise 5</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="dates-and-times.html"><a href="dates-and-times.html#time-zones"><i class="fa fa-check"></i><b>16.5</b> Time Zones</a></li>
+</ul></li>
+<li class="part"><span><b>III Program</b></span></li>
+<li class="chapter" data-level="17" data-path="program-intro.html"><a href="program-intro.html"><i class="fa fa-check"></i><b>17</b> Introduction</a></li>
+<li class="chapter" data-level="18" data-path="pipes.html"><a href="pipes.html"><i class="fa fa-check"></i><b>18</b> Pipes</a></li>
+<li class="chapter" data-level="19" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>19</b> Functions</a><ul>
+<li class="chapter" data-level="19.1" data-path="functions.html"><a href="functions.html#introduction-11"><i class="fa fa-check"></i><b>19.1</b> Introduction</a></li>
+<li class="chapter" data-level="19.2" data-path="functions.html"><a href="functions.html#when-should-you-write-a-function"><i class="fa fa-check"></i><b>19.2</b> When should you write a function?</a><ul>
+<li class="chapter" data-level="19.2.1" data-path="functions.html"><a href="functions.html#exercise-1-30"><i class="fa fa-check"></i><b>19.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="19.2.2" data-path="functions.html"><a href="functions.html#exercise-2-30"><i class="fa fa-check"></i><b>19.2.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="19.2.3" data-path="functions.html"><a href="functions.html#exercise-3-26"><i class="fa fa-check"></i><b>19.2.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="19.2.4" data-path="functions.html"><a href="functions.html#exercise-4-21"><i class="fa fa-check"></i><b>19.2.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="19.2.5" data-path="functions.html"><a href="functions.html#exercise-7-4"><i class="fa fa-check"></i><b>19.2.5</b> Exercise 7</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="functions.html"><a href="functions.html#functions-are-for-humans-and-computers"><i class="fa fa-check"></i><b>19.3</b> Functions are for humans and computers</a><ul>
+<li class="chapter" data-level="19.3.1" data-path="functions.html"><a href="functions.html#exercise-1-31"><i class="fa fa-check"></i><b>19.3.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="functions.html"><a href="functions.html#conditional-execution"><i class="fa fa-check"></i><b>19.4</b> Conditional execution</a><ul>
+<li class="chapter" data-level="19.4.1" data-path="functions.html"><a href="functions.html#exercise-6-8"><i class="fa fa-check"></i><b>19.4.1</b> Exercise 6</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="functions.html"><a href="functions.html#function-arguments"><i class="fa fa-check"></i><b>19.5</b> Function arguments</a><ul>
+<li class="chapter" data-level="19.5.1" data-path="functions.html"><a href="functions.html#exercise-1-32"><i class="fa fa-check"></i><b>19.5.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="19.5.2" data-path="functions.html"><a href="functions.html#exercise-2-31"><i class="fa fa-check"></i><b>19.5.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="19.5.3" data-path="functions.html"><a href="functions.html#exercise-3-27"><i class="fa fa-check"></i><b>19.5.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="19.5.4" data-path="functions.html"><a href="functions.html#exercise-4-22"><i class="fa fa-check"></i><b>19.5.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="19.6" data-path="functions.html"><a href="functions.html#environment"><i class="fa fa-check"></i><b>19.6</b> Environment</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="vectors.html"><a href="vectors.html"><i class="fa fa-check"></i><b>20</b> Vectors</a><ul>
+<li class="chapter" data-level="20.1" data-path="vectors.html"><a href="vectors.html#introduction-12"><i class="fa fa-check"></i><b>20.1</b> Introduction</a></li>
+<li class="chapter" data-level="20.2" data-path="vectors.html"><a href="vectors.html#vector-basics"><i class="fa fa-check"></i><b>20.2</b> Vector Basics</a></li>
+<li class="chapter" data-level="20.3" data-path="vectors.html"><a href="vectors.html#important-types-of-atomic-vector"><i class="fa fa-check"></i><b>20.3</b> Important Types of Atomic Vector</a></li>
+<li class="chapter" data-level="20.4" data-path="vectors.html"><a href="vectors.html#using-atomic-vectors"><i class="fa fa-check"></i><b>20.4</b> Using atomic vectors</a></li>
+<li class="chapter" data-level="20.5" data-path="vectors.html"><a href="vectors.html#recursive-vectors-lists"><i class="fa fa-check"></i><b>20.5</b> Recursive Vectors (lists)</a></li>
+<li class="chapter" data-level="20.6" data-path="vectors.html"><a href="vectors.html#attributes"><i class="fa fa-check"></i><b>20.6</b> Attributes</a></li>
+<li class="chapter" data-level="20.7" data-path="vectors.html"><a href="vectors.html#augmented-vectors"><i class="fa fa-check"></i><b>20.7</b> Augmented Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>21</b> Iteration</a><ul>
+<li class="chapter" data-level="21.1" data-path="iteration.html"><a href="iteration.html#introduction-13"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="iteration.html"><a href="iteration.html#for-loops"><i class="fa fa-check"></i><b>21.2</b> For Loops</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="iteration.html"><a href="iteration.html#exercise-1-33"><i class="fa fa-check"></i><b>21.2.1</b> Exercise 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="exercise-2-32.html"><a href="exercise-2-32.html"><i class="fa fa-check"></i><b>22</b> Exercise 2</a><ul>
+<li class="chapter" data-level="22.0.1" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-3-28"><i class="fa fa-check"></i><b>22.0.1</b> Exercise 3</a></li>
+<li class="chapter" data-level="22.1" data-path="exercise-2-32.html"><a href="exercise-2-32.html#for-loop-variations"><i class="fa fa-check"></i><b>22.1</b> For loop variations</a><ul>
+<li class="chapter" data-level="22.1.1" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-1-34"><i class="fa fa-check"></i><b>22.1.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="22.1.2" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-2-33"><i class="fa fa-check"></i><b>22.1.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="22.1.3" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-3-29"><i class="fa fa-check"></i><b>22.1.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="22.1.4" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-4-24"><i class="fa fa-check"></i><b>22.1.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="exercise-2-32.html"><a href="exercise-2-32.html#for-loops-vs.functionals"><i class="fa fa-check"></i><b>22.2</b> For loops vs. functionals</a><ul>
+<li class="chapter" data-level="22.2.1" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-1-35"><i class="fa fa-check"></i><b>22.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="22.2.2" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-2-34"><i class="fa fa-check"></i><b>22.2.2</b> Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="exercise-2-32.html"><a href="exercise-2-32.html#the-map-functions"><i class="fa fa-check"></i><b>22.3</b> The map functions</a><ul>
+<li class="chapter" data-level="22.3.1" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-1-36"><i class="fa fa-check"></i><b>22.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="22.3.2" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-2-35"><i class="fa fa-check"></i><b>22.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="22.3.3" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-3-30"><i class="fa fa-check"></i><b>22.3.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="22.3.4" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-4-25"><i class="fa fa-check"></i><b>22.3.4</b> Exercise 4</a></li>
+<li class="chapter" data-level="22.3.5" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-5-11"><i class="fa fa-check"></i><b>22.3.5</b> Exercise 5</a></li>
+</ul></li>
+<li class="chapter" data-level="22.4" data-path="exercise-2-32.html"><a href="exercise-2-32.html#dealing-with-failure"><i class="fa fa-check"></i><b>22.4</b> Dealing with Failure</a></li>
+<li class="chapter" data-level="22.5" data-path="exercise-2-32.html"><a href="exercise-2-32.html#mapping-over-multiple-arguments"><i class="fa fa-check"></i><b>22.5</b> Mapping over multiple arguments</a></li>
+<li class="chapter" data-level="22.6" data-path="exercise-2-32.html"><a href="exercise-2-32.html#walk"><i class="fa fa-check"></i><b>22.6</b> Walk</a></li>
+<li class="chapter" data-level="22.7" data-path="exercise-2-32.html"><a href="exercise-2-32.html#other-patterns-of-for-loops"><i class="fa fa-check"></i><b>22.7</b> Other patterns of for loops</a><ul>
+<li class="chapter" data-level="22.7.1" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-1-37"><i class="fa fa-check"></i><b>22.7.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="22.7.2" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-2-36"><i class="fa fa-check"></i><b>22.7.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="22.7.3" data-path="exercise-2-32.html"><a href="exercise-2-32.html#exercise-3-31"><i class="fa fa-check"></i><b>22.7.3</b> Exercise 3</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Model</b></span></li>
+<li class="chapter" data-level="23" data-path="model-intro.html"><a href="model-intro.html"><i class="fa fa-check"></i><b>23</b> Introduction</a></li>
+<li class="chapter" data-level="24" data-path="model-basics.html"><a href="model-basics.html"><i class="fa fa-check"></i><b>24</b> Model Basics</a><ul>
+<li class="chapter" data-level="24.1" data-path="model-basics.html"><a href="model-basics.html#prerequisites"><i class="fa fa-check"></i><b>24.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="24.2" data-path="model-basics.html"><a href="model-basics.html#a-simple-model"><i class="fa fa-check"></i><b>24.2</b> A simple model</a><ul>
+<li class="chapter" data-level="24.2.1" data-path="model-basics.html"><a href="model-basics.html#exercise-1-38"><i class="fa fa-check"></i><b>24.2.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="24.2.2" data-path="model-basics.html"><a href="model-basics.html#exercise-2-37"><i class="fa fa-check"></i><b>24.2.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="24.2.3" data-path="model-basics.html"><a href="model-basics.html#exercise-3-32"><i class="fa fa-check"></i><b>24.2.3</b> Exercise 3</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="model-basics.html"><a href="model-basics.html#visualizing-models"><i class="fa fa-check"></i><b>24.3</b> Visualizing Models</a><ul>
+<li class="chapter" data-level="24.3.1" data-path="model-basics.html"><a href="model-basics.html#exercise-1-39"><i class="fa fa-check"></i><b>24.3.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="24.3.2" data-path="model-basics.html"><a href="model-basics.html#exercise-2-38"><i class="fa fa-check"></i><b>24.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="24.3.3" data-path="model-basics.html"><a href="model-basics.html#exercise-3-33"><i class="fa fa-check"></i><b>24.3.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="24.3.4" data-path="model-basics.html"><a href="model-basics.html#exercise-4-26"><i class="fa fa-check"></i><b>24.3.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="24.4" data-path="model-basics.html"><a href="model-basics.html#formulas-and-model-families"><i class="fa fa-check"></i><b>24.4</b> Formulas and Model Families</a><ul>
+<li class="chapter" data-level="24.4.1" data-path="model-basics.html"><a href="model-basics.html#exercise-1-40"><i class="fa fa-check"></i><b>24.4.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="24.4.2" data-path="model-basics.html"><a href="model-basics.html#exercise-2-39"><i class="fa fa-check"></i><b>24.4.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="24.4.3" data-path="model-basics.html"><a href="model-basics.html#exercise-3-34"><i class="fa fa-check"></i><b>24.4.3</b> Exercise 3</a></li>
+<li class="chapter" data-level="24.4.4" data-path="model-basics.html"><a href="model-basics.html#exercise-4-27"><i class="fa fa-check"></i><b>24.4.4</b> Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="24.5" data-path="model-basics.html"><a href="model-basics.html#missing-values-2"><i class="fa fa-check"></i><b>24.5</b> Missing values</a></li>
+<li class="chapter" data-level="24.6" data-path="model-basics.html"><a href="model-basics.html#other-model-families"><i class="fa fa-check"></i><b>24.6</b> Other model families</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="model-building.html"><a href="model-building.html"><i class="fa fa-check"></i><b>25</b> Model Building</a><ul>
+<li class="chapter" data-level="25.1" data-path="model-building.html"><a href="model-building.html#introduction-14"><i class="fa fa-check"></i><b>25.1</b> Introduction</a></li>
+<li class="chapter" data-level="25.2" data-path="model-building.html"><a href="model-building.html#why-are-low-quality-diamonds-more-expensive"><i class="fa fa-check"></i><b>25.2</b> Why are low quality diamonds more expensive?</a><ul>
+<li class="chapter" data-level="25.2.1" data-path="model-building.html"><a href="model-building.html#exercises-3"><i class="fa fa-check"></i><b>25.2.1</b> Exercises</a></li>
+<li class="chapter" data-level="25.2.2" data-path="model-building.html"><a href="model-building.html#what-affects-the-number-of-daily-flights"><i class="fa fa-check"></i><b>25.2.2</b> What affects the number of daily flights?</a></li>
+<li class="chapter" data-level="25.2.3" data-path="model-building.html"><a href="model-building.html#exercises-4"><i class="fa fa-check"></i><b>25.2.3</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="many-models.html"><a href="many-models.html"><i class="fa fa-check"></i><b>26</b> Many Models</a><ul>
+<li class="chapter" data-level="26.1" data-path="many-models.html"><a href="many-models.html#introduction-15"><i class="fa fa-check"></i><b>26.1</b> Introduction</a></li>
+<li class="chapter" data-level="26.2" data-path="many-models.html"><a href="many-models.html#gapminder"><i class="fa fa-check"></i><b>26.2</b> Gapminder</a><ul>
+<li class="chapter" data-level="26.2.1" data-path="many-models.html"><a href="many-models.html#exercises-5"><i class="fa fa-check"></i><b>26.2.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="26.3" data-path="many-models.html"><a href="many-models.html#creating-list-columns"><i class="fa fa-check"></i><b>26.3</b> Creating list-columns</a><ul>
+<li class="chapter" data-level="26.3.1" data-path="many-models.html"><a href="many-models.html#exercises-6"><i class="fa fa-check"></i><b>26.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="26.4" data-path="many-models.html"><a href="many-models.html#simplifying-list-columns"><i class="fa fa-check"></i><b>26.4</b> Simplifying list-columns</a><ul>
+<li class="chapter" data-level="26.4.1" data-path="many-models.html"><a href="many-models.html#exercises-7"><i class="fa fa-check"></i><b>26.4.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Communicate</b></span></li>
+<li class="chapter" data-level="27" data-path="communicate-intro.html"><a href="communicate-intro.html"><i class="fa fa-check"></i><b>27</b> Introduction</a></li>
+<li class="chapter" data-level="28" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>28</b> R Markdown</a><ul>
+<li class="chapter" data-level="28.1" data-path="r-markdown.html"><a href="r-markdown.html#r-markdown-basics"><i class="fa fa-check"></i><b>28.1</b> R Markdown Basics</a><ul>
+<li class="chapter" data-level="28.1.1" data-path="r-markdown.html"><a href="r-markdown.html#exercise"><i class="fa fa-check"></i><b>28.1.1</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="28.2" data-path="r-markdown.html"><a href="r-markdown.html#text-formatting-with-r-markdown"><i class="fa fa-check"></i><b>28.2</b> Text formatting with R Markdown</a></li>
+<li class="chapter" data-level="28.3" data-path="r-markdown.html"><a href="r-markdown.html#code-chunks"><i class="fa fa-check"></i><b>28.3</b> Code Chunks</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html"><i class="fa fa-check"></i><b>29</b> Graphics for communication</a><ul>
+<li class="chapter" data-level="29.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#introduction-16"><i class="fa fa-check"></i><b>29.1</b> Introduction</a></li>
+<li class="chapter" data-level="29.2" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#label"><i class="fa fa-check"></i><b>29.2</b> Label</a><ul>
+<li class="chapter" data-level="29.2.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#exercises-8"><i class="fa fa-check"></i><b>29.2.1</b> Exercises</a></li>
+<li class="chapter" data-level="29.2.2" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#ex-28.2.3-the-geom_smooth-is-somewhat-misleading-because-the-hwy-for"><i class="fa fa-check"></i><b>29.2.2</b> Ex 28.2.3** The <code>geom_smooth()</code> is somewhat misleading because the <code>hwy</code> for</a></li>
+</ul></li>
+<li class="chapter" data-level="29.3" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#annotations"><i class="fa fa-check"></i><b>29.3</b> Annotations</a><ul>
+<li class="chapter" data-level="29.3.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#exercises-9"><i class="fa fa-check"></i><b>29.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="29.4" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#scales"><i class="fa fa-check"></i><b>29.4</b> Scales</a><ul>
+<li class="chapter" data-level="29.4.1" data-path="graphics-for-communication.html"><a href="graphics-for-communication.html#exercises-10"><i class="fa fa-check"></i><b>29.4.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="r-markdown-formats.html"><a href="r-markdown-formats.html"><i class="fa fa-check"></i><b>30</b> R Markdown Formats</a></li>
+<li class="chapter" data-level="31" data-path="r-markdown-workflow.html"><a href="r-markdown-workflow.html"><i class="fa fa-check"></i><b>31</b> R Markdown Workflow</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions to “R for Data Science”</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-4-15" class="section level1 exercise">
+<h1><span class="header-section-number">13</span> Exercise 4</h1>
+<p>Draw a diagram illustrating the connections between the <code>Batting</code>, <code>Master</code>, and <code>Salaries</code> tables in the <strong>Lahman</strong> package. Draw another diagram that shows the relationship between <code>Master</code>, <code>Managers</code>, <code>AwardsManagers</code>.</p>
+<p>Most flowchart or diagramming software can be used used to create database schema diagrams. For example, the diagrams in <em>R for Data Science</em> were created with <a href="https://www.gliffy.com/">Gliffy</a>.</p>
+<p>You can use anything to create these diagrams, but I’ll use the R package <a href="https://github.com/bergant/datamodelr">datamodelr</a> to programmatically create data models from R.</p>
+<p>For the <code>Batting</code>, <code>Master</code>, and <code>Salaries</code> tables:</p>
+<ul>
+<li><code>Master</code></li>
+<li>Primary keys: <code>playerID</code></li>
+<li><code>Batting</code></li>
+<li>Primary keys: <code>yearID</code>, <code>yearID</code>, <code>stint</code></li>
+<li>Foreign Keys:
+<ul>
+<li><code>playerID</code> = <code>Master$playerID</code> (many-to-1)</li>
+</ul></li>
+<li><code>Salaries</code>:</li>
+<li>Primary keys: <code>yearID</code>, <code>teamID</code>, <code>playerID</code></li>
+<li>Foreign Keys
+<ul>
+<li><code>playerID</code> = <code>Master$playerID</code> (many-to-1)</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dm1 &lt;-<span class="st"> </span><span class="kw">dm_from_data_frames</span>(<span class="kw">list</span>(<span class="dt">Batting =</span> Lahman<span class="op">::</span>Batting, 
+                                <span class="dt">Master =</span> Lahman<span class="op">::</span>Master, 
+                                <span class="dt">Salaries =</span> Lahman<span class="op">::</span>Salaries)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dm_set_key</span>(<span class="st">&quot;Batting&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;playerID&quot;</span>, <span class="st">&quot;yearID&quot;</span>, <span class="st">&quot;stint&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dm_set_key</span>(<span class="st">&quot;Master&quot;</span>, <span class="st">&quot;playerID&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dm_set_key</span>(<span class="st">&quot;Salaries&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;yearID&quot;</span>, <span class="st">&quot;teamID&quot;</span>, <span class="st">&quot;playerID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dm_add_references</span>(
+    Batting<span class="op">$</span>playerID <span class="op">==</span><span class="st"> </span>Master<span class="op">$</span>playerID,
+    Salaries<span class="op">$</span>playerID <span class="op">==</span><span class="st"> </span>Master<span class="op">$</span>playerID
+  )
+
+<span class="kw">dm_create_graph</span>(dm1, <span class="dt">rankdir =</span> <span class="st">&quot;LR&quot;</span>, <span class="dt">columnArrows =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>For the <code>Master</code>, <code>Manager</code>, and <code>AwardsManagers</code> tables:</p>
+<ul>
+<li><code>Master</code></li>
+<li>Primary keys: <code>playerID</code></li>
+<li><code>Managers</code></li>
+<li>Primary keys: <code>yearID</code>, <code>teamID</code>, <code>inseason</code></li>
+<li>Foreign Keys:
+<ul>
+<li><code>playerID</code> = <code>Master$playerID</code> (many-to-1)</li>
+</ul></li>
+<li><code>AwardsManagers</code>:
+<ul>
+<li><code>playerID</code> = <code>Master$playerID</code> (many-to-1)</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dm2 &lt;-<span class="st"> </span><span class="kw">dm_from_data_frames</span>(<span class="kw">list</span>(<span class="dt">Master =</span> Lahman<span class="op">::</span>Master, 
+                                <span class="dt">Managers =</span> Lahman<span class="op">::</span>Managers,
+                                <span class="dt">AwardsManagers =</span> Lahman<span class="op">::</span>AwardsManagers)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dm_set_key</span>(<span class="st">&quot;Master&quot;</span>, <span class="st">&quot;playerID&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dm_set_key</span>(<span class="st">&quot;Managers&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;yearID&quot;</span>, <span class="st">&quot;teamID&quot;</span>, <span class="st">&quot;inseason&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dm_set_key</span>(<span class="st">&quot;AwardsManagers&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;playerID&quot;</span>, <span class="st">&quot;awardID&quot;</span>, <span class="st">&quot;yearID&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">dm_add_references</span>(
+    Managers<span class="op">$</span>playerID <span class="op">==</span><span class="st"> </span>Master<span class="op">$</span>playerID,
+    AwardsManagers<span class="op">$</span>playerID <span class="op">==</span><span class="st"> </span>Master<span class="op">$</span>playerID
+  )
+
+<span class="kw">dm_create_graph</span>(dm2, <span class="dt">rankdir =</span> <span class="st">&quot;LR&quot;</span>, <span class="dt">columnArrows =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>In the previous diagrams, I do not consider <code>teamID</code> and <code>lgID</code> as foreign keys even though they appear in multiple tables (and have the same meaning) because they are not primary keys in the tables considered in this exercise. The <code>teamID</code> variable references <code>Teams$teamID</code>, and <code>lgID</code> does not have its own table.</p>
+<p>How would you characterize the relationship between the <code>Batting</code>, <code>Pitching</code>, and <code>Fielding</code> tables?</p>
+<p>The <code>Batting</code>, <code>Pitching</code>, and <code>Fielding</code> tables all have a primary key consisting of the <code>playerID</code>, <code>yearID</code>, and <code>stint</code> variables. They all have a 1-1 relationship to each other.</p>
+<div id="mutating-joins" class="section level2">
+<h2><span class="header-section-number">13.1</span> Mutating Joins</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights2 &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(year<span class="op">:</span>day, hour, origin, dest, tailnum, carrier)</code></pre></div>
+<div id="exercise-1-23" class="section level3 exercise">
+<h3><span class="header-section-number">13.1.1</span> Exercise 1</h3>
+<blockquote>
+<p>Compute the average delay by destination, then join on the <code>airports</code> data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airports <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">semi_join</span>(flights, <span class="kw">c</span>(<span class="st">&quot;faa&quot;</span> =<span class="st"> &quot;dest&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">borders</span>(<span class="st">&quot;state&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_quickmap</span>()
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: &#39;maps&#39;</span>
+<span class="co">#&gt; The following object is masked from &#39;package:purrr&#39;:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     map</span></code></pre></div>
+<p><img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>(Don’t worry if you don’t understand what <code>semi_join()</code> does — you’ll learn about it next.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avg_dest_delays &lt;-
+<span class="st">  </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># arrival delay NA&#39;s are cancelled flights</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(airports, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">dest =</span> <span class="st">&quot;faa&quot;</span>))
+
+avg_dest_delays <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat, <span class="dt">colour =</span> delay)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">borders</span>(<span class="st">&quot;state&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_quickmap</span>()</code></pre></div>
+<p><img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>You might want to use the size or color of the points to display the average delay for each airport.</p>
+</div>
+<div id="exercise-2-22" class="section level3 exercise">
+<h3><span class="header-section-number">13.1.2</span> Exercise 2</h3>
+<blockquote>
+<p>Add the location of the origin and destination (i.e. the <code>lat</code> and <code>lon</code>) to <code>flights</code>.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(airports, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">dest =</span> <span class="st">&quot;faa&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(airports, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">origin =</span> <span class="st">&quot;faa&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()
+<span class="co">#&gt; # A tibble: 6 x 33</span>
+<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  2013     1     1      517            515      2.00      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529      4.00      850</span>
+<span class="co">#&gt; 3  2013     1     1      542            540      2.00      923</span>
+<span class="co">#&gt; 4  2013     1     1      544            545     -1.00     1004</span>
+<span class="co">#&gt; 5  2013     1     1      554            600     -6.00      812</span>
+<span class="co">#&gt; 6  2013     1     1      554            558     -4.00      740</span>
+<span class="co">#&gt; # ... with 26 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span>
+<span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   time_hour &lt;dttm&gt;, name.x &lt;chr&gt;, lat.x &lt;dbl&gt;, lon.x &lt;dbl&gt;, alt.x &lt;int&gt;,</span>
+<span class="co">#&gt; #   tz.x &lt;dbl&gt;, dst.x &lt;chr&gt;, tzone.x &lt;chr&gt;, name.y &lt;chr&gt;, lat.y &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   lon.y &lt;dbl&gt;, alt.y &lt;int&gt;, tz.y &lt;dbl&gt;, dst.y &lt;chr&gt;, tzone.y &lt;chr&gt;</span></code></pre></div>
+</div>
+<div id="exercise-3-18" class="section level3 exercise">
+<h3><span class="header-section-number">13.1.3</span> Exercise 3</h3>
+<blockquote>
+<p>Is there a relationship between the age of a plane and its delays?</p>
+</blockquote>
+<p>Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane. This could be due to choices about how airlines allocate planes to airports.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plane_ages &lt;-<span class="st"> </span>
+<span class="st">  </span>planes <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">age =</span> <span class="dv">2013</span> <span class="op">-</span><span class="st"> </span>year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(tailnum, age)
+
+flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(plane_ages, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(age) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(dep_delay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">delay =</span> <span class="kw">mean</span>(dep_delay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> delay)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>()
+<span class="co">#&gt; Warning: Removed 1 rows containing missing values (geom_point).</span>
+<span class="co">#&gt; Warning: Removed 1 rows containing missing values (geom_path).</span></code></pre></div>
+<p><img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="exercise-4-16" class="section level3 exercise">
+<h3><span class="header-section-number">13.1.4</span> Exercise 4</h3>
+<blockquote>
+<p>What weather conditions make it more likely to see a delay?</p>
+</blockquote>
+<p>Almost any amount or precipitation is associated with a delay, though not as strong a trend after 0.02 in as one would expect</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flight_weather &lt;-
+<span class="st">  </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(weather, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span> =<span class="st"> &quot;origin&quot;</span>,
+                            <span class="st">&quot;year&quot;</span> =<span class="st"> &quot;year&quot;</span>,
+                            <span class="st">&quot;month&quot;</span> =<span class="st"> &quot;month&quot;</span>,
+                            <span class="st">&quot;day&quot;</span> =<span class="st"> &quot;day&quot;</span>,
+                            <span class="st">&quot;hour&quot;</span> =<span class="st"> &quot;hour&quot;</span>))
+
+flight_weather <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(precip) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> precip, <span class="dt">y =</span> delay)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="relational-data_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="exercise-5-7" class="section level3 exercise">
+<h3><span class="header-section-number">13.1.5</span> Exercise 5</h3>
+<blockquote>
+<p>What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.</p>
+</blockquote>
+<p>There was a large series of storms (derechos) in the southeastern US (see <a href="https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series">June 12-13, 2013 derecho series</a>)</p>
+<p>The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest, which were the locations of the derechos:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(viridis)
+<span class="co">#&gt; Loading required package: viridisLite</span>
+flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2013</span>, month <span class="op">==</span><span class="st"> </span><span class="dv">6</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">13</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">inner_join</span>(airports, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;dest&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> lat, <span class="dt">x =</span> lon, <span class="dt">size =</span> delay, <span class="dt">colour =</span> delay)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">borders</span>(<span class="st">&quot;state&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_quickmap</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>()
+<span class="co">#&gt; Warning: Removed 3 rows containing missing values (geom_point).</span></code></pre></div>
+<p><img src="relational-data_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="filtering-joins" class="section level2">
+<h2><span class="header-section-number">13.2</span> Filtering Joins</h2>
+<div id="exercise-1-24" class="section level3 exercise">
+<h3><span class="header-section-number">13.2.1</span> Exercise 1</h3>
+<blockquote>
+<p>What does it mean for a flight to have a missing <code>tailnum</code>? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)</p>
+</blockquote>
+<p>American Airlines (AA) and Envoy Airlines (MQ) don’t report tail numbers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">anti_join</span>(planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(carrier, <span class="dt">sort =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; # A tibble: 10 x 2</span>
+<span class="co">#&gt;   carrier     n</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1 MQ      25397</span>
+<span class="co">#&gt; 2 AA      22558</span>
+<span class="co">#&gt; 3 UA       1693</span>
+<span class="co">#&gt; 4 9E       1044</span>
+<span class="co">#&gt; 5 B6        830</span>
+<span class="co">#&gt; 6 US        699</span>
+<span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
+</div>
+<div id="exercise-2-23" class="section level3 exercise">
+<h3><span class="header-section-number">13.2.2</span> Exercise 2</h3>
+<blockquote>
+<p>Filter flights to only show flights with planes that have flown at least 100 flights.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">planes_gt100 &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(flights) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>)
+
+flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">semi_join</span>(planes_gt100, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>)
+<span class="co">#&gt; # A tibble: 229,202 x 19</span>
+<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  2013     1     1      517            515      2.00      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529      4.00      850</span>
+<span class="co">#&gt; 3  2013     1     1      544            545     -1.00     1004</span>
+<span class="co">#&gt; 4  2013     1     1      554            558     -4.00      740</span>
+<span class="co">#&gt; 5  2013     1     1      555            600     -5.00      913</span>
+<span class="co">#&gt; 6  2013     1     1      557            600     -3.00      709</span>
+<span class="co">#&gt; # ... with 2.292e+05 more rows, and 12 more variables:</span>
+<span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span>
+<span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
+</div>
+<div id="exercise-3-19" class="section level3 exercise">
+<h3><span class="header-section-number">13.2.3</span> Exercise 3</h3>
+<blockquote>
+<p>Combine <code>fueleconomy::vehicles</code> and <code>fueleconomy::common</code> to find only the records for the most common models.</p>
+</blockquote>
+<p>The table <code>fueleconomy::common</code> identifies vehicles by <code>make</code> and <code>model</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(fueleconomy<span class="op">::</span>vehicles)
+<span class="co">#&gt; Observations: 33,442</span>
+<span class="co">#&gt; Variables: 12</span>
+<span class="co">#&gt; $ id    &lt;int&gt; 27550, 28426, 27549, 28425, 1032, 1033, 3347, 13309, 133...</span>
+<span class="co">#&gt; $ make  &lt;chr&gt; &quot;AM General&quot;, &quot;AM General&quot;, &quot;AM General&quot;, &quot;AM General&quot;, ...</span>
+<span class="co">#&gt; $ model &lt;chr&gt; &quot;DJ Po Vehicle 2WD&quot;, &quot;DJ Po Vehicle 2WD&quot;, &quot;FJ8c Post Off...</span>
+<span class="co">#&gt; $ year  &lt;int&gt; 1984, 1984, 1984, 1984, 1985, 1985, 1987, 1997, 1997, 19...</span>
+<span class="co">#&gt; $ class &lt;chr&gt; &quot;Special Purpose Vehicle 2WD&quot;, &quot;Special Purpose Vehicle ...</span>
+<span class="co">#&gt; $ trans &lt;chr&gt; &quot;Automatic 3-spd&quot;, &quot;Automatic 3-spd&quot;, &quot;Automatic 3-spd&quot;,...</span>
+<span class="co">#&gt; $ drive &lt;chr&gt; &quot;2-Wheel Drive&quot;, &quot;2-Wheel Drive&quot;, &quot;2-Wheel Drive&quot;, &quot;2-Wh...</span>
+<span class="co">#&gt; $ cyl   &lt;int&gt; 4, 4, 6, 6, 4, 6, 6, 4, 4, 6, 4, 4, 6, 4, 4, 6, 5, 5, 6,...</span>
+<span class="co">#&gt; $ displ &lt;dbl&gt; 2.5, 2.5, 4.2, 4.2, 2.5, 4.2, 3.8, 2.2, 2.2, 3.0, 2.3, 2...</span>
+<span class="co">#&gt; $ fuel  &lt;chr&gt; &quot;Regular&quot;, &quot;Regular&quot;, &quot;Regular&quot;, &quot;Regular&quot;, &quot;Regular&quot;, &quot;...</span>
+<span class="co">#&gt; $ hwy   &lt;int&gt; 17, 17, 13, 13, 17, 13, 21, 26, 28, 26, 27, 29, 26, 27, ...</span>
+<span class="co">#&gt; $ cty   &lt;int&gt; 18, 18, 13, 13, 16, 13, 14, 20, 22, 18, 19, 21, 17, 20, ...</span>
+<span class="kw">glimpse</span>(fueleconomy<span class="op">::</span>common)
+<span class="co">#&gt; Observations: 347</span>
+<span class="co">#&gt; Variables: 4</span>
+<span class="co">#&gt; $ make  &lt;chr&gt; &quot;Acura&quot;, &quot;Acura&quot;, &quot;Acura&quot;, &quot;Acura&quot;, &quot;Acura&quot;, &quot;Audi&quot;, &quot;Au...</span>
+<span class="co">#&gt; $ model &lt;chr&gt; &quot;Integra&quot;, &quot;Legend&quot;, &quot;MDX 4WD&quot;, &quot;NSX&quot;, &quot;TSX&quot;, &quot;A4&quot;, &quot;A4 ...</span>
+<span class="co">#&gt; $ n     &lt;int&gt; 42, 28, 12, 28, 27, 49, 49, 66, 20, 12, 46, 20, 30, 29, ...</span>
+<span class="co">#&gt; $ years &lt;int&gt; 16, 10, 12, 14, 11, 19, 15, 19, 19, 12, 20, 15, 16, 16, ...</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fueleconomy<span class="op">::</span>vehicles <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">semi_join</span>(fueleconomy<span class="op">::</span>common, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;make&quot;</span>, <span class="st">&quot;model&quot;</span>))
+<span class="co">#&gt; # A tibble: 14,531 x 12</span>
+<span class="co">#&gt;      id make  model   year class trans drive   cyl displ fuel    hwy   cty</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1  1833 Acura Integ…  1986 Subc… Auto… Fron…     4  1.60 Regu…    28    22</span>
+<span class="co">#&gt; 2  1834 Acura Integ…  1986 Subc… Manu… Fron…     4  1.60 Regu…    28    23</span>
+<span class="co">#&gt; 3  3037 Acura Integ…  1987 Subc… Auto… Fron…     4  1.60 Regu…    28    22</span>
+<span class="co">#&gt; 4  3038 Acura Integ…  1987 Subc… Manu… Fron…     4  1.60 Regu…    28    23</span>
+<span class="co">#&gt; 5  4183 Acura Integ…  1988 Subc… Auto… Fron…     4  1.60 Regu…    27    22</span>
+<span class="co">#&gt; 6  4184 Acura Integ…  1988 Subc… Manu… Fron…     4  1.60 Regu…    28    23</span>
+<span class="co">#&gt; # ... with 1.452e+04 more rows</span></code></pre></div>
+</div>
+<div id="exercise-3-20" class="section level3 exercise">
+<h3><span class="header-section-number">13.2.4</span> Exercise 3</h3>
+<blockquote>
+<p>Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, month, day) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_24 =</span> <span class="kw">sum</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)<span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_48 =</span> total_<span class="dv">24</span> <span class="op">+</span><span class="st"> </span><span class="kw">lag</span>(total_<span class="dv">24</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(total_<span class="dv">48</span>))
+<span class="co">#&gt; # A tibble: 365 x 5</span>
+<span class="co">#&gt; # Groups:   year, month [12]</span>
+<span class="co">#&gt;    year month   day total_24 total_48</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  2013     7    23    80641   175419</span>
+<span class="co">#&gt; 2  2013     3     8   135264   167530</span>
+<span class="co">#&gt; 3  2013     6    25    80434   166649</span>
+<span class="co">#&gt; 4  2013     8     9    72866   165287</span>
+<span class="co">#&gt; 5  2013     6    28    81389   157910</span>
+<span class="co">#&gt; 6  2013     7    10    97120   157396</span>
+<span class="co">#&gt; # ... with 359 more rows</span></code></pre></div>
+</div>
+<div id="exercise-4-17" class="section level3 exercise">
+<h3><span class="header-section-number">13.2.5</span> Exercise 4</h3>
+<blockquote>
+<p>What does <code>anti_join(flights, airports, by = c(&quot;dest&quot; = &quot;faa&quot;))</code> tell you? What does <code>anti_join(airports, flights, by = c(&quot;faa&quot; = &quot;dest&quot;))</code> tell you?</p>
+</blockquote>
+<p><code>anti_join(flights, airports, by = c(&quot;dest&quot; = &quot;faa&quot;))</code> are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.</p>
+<p><code>anti_join(airports, flights, by = c(&quot;faa&quot; = &quot;dest&quot;))</code> are US airports that don’t have a flight in the data, meaning that there were no flights to that airport <strong>from</strong> New York in 2013.</p>
+</div>
+<div id="exercise-5-8" class="section level3 exercise">
+<h3><span class="header-section-number">13.2.6</span> Exercise 5</h3>
+<blockquote>
+<p>You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.</p>
+</blockquote>
+<p>There isn’t such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge. It should be the case that an airplane is associated with only airline at a given time, though may However, even though that’s a possibility, it doesn’t necessarily mean that plane associated with more than one appear in this data. Let’s check:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airplane_multi_carrier &lt;-<span class="st"> </span>
+<span class="st">  </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(tailnum, carrier) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(tailnum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>()
+<span class="co">#&gt; Adding missing grouping variables: `carrier`</span>
+airplane_multi_carrier
+<span class="co">#&gt; # A tibble: 0 x 2</span>
+<span class="co">#&gt; # Groups:   tailnum, carrier [0]</span>
+<span class="co">#&gt; # ... with 2 variables: carrier &lt;chr&gt;, tailnum &lt;chr&gt;</span></code></pre></div>
+<p>There are 0 airplanes in this dataset that have had more than one carrier. Even if there were none, the substantive reasons why an airplane <em>could</em> have more than one carrier would hold.</p>
+<p>It is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship. Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks. There is rarely a substitute for understanding the data which you are using as an analyst.</p>
+</div>
+</div>
+<div id="join-problems" class="section level2">
+<h2><span class="header-section-number">13.3</span> Join problems</h2>
+<p>No exercises</p>
+</div>
+<div id="set-operations" class="section level2">
+<h2><span class="header-section-number">13.4</span> Set operations</h2>
+<p>No exercises</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="relational-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="strings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jrnold/r4ds/edit/master/relational-data.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

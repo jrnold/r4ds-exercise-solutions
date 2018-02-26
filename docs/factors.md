@@ -1,7 +1,7 @@
 
 ---
 output: html_document
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 # Factors
@@ -24,7 +24,11 @@ No exercises
 ## General Social Survey
 
 
-1. Explore the distribution of `rincome` (reported income). What makes the default bar chart hard to understand? How could you improve the plot?
+### Exercise 1 {.exercise}
+
+> Explore the distribution of `rincome` (reported income). 
+> What makes the default bar chart hard to understand? 
+> How could you improve the plot?
 
 
 ```r
@@ -61,7 +65,10 @@ This is better, but it unintuitively goes from low to high. It would help if the
 scale is reversed. Also, if all the missing factors were differentiated.
 
 
-2. What is the most common `relig` in this survey? What’s the most common `partyid`?
+### Exercise 2 {.exercise}
+
+> What is the most common `relig` in this survey? 
+> What’s the most common `partyid`?
 
 The most common `relig` is "Protestant"
 
@@ -80,7 +87,7 @@ The most common `partyid` is "Independent"
 
 ```r
 gss_cat %>%
-  count(partyid) %>% 
+  count(partyid) %>%
   arrange(-n) %>%
   head(1)
 #> # A tibble: 1 x 2
@@ -90,7 +97,11 @@ gss_cat %>%
 ```
 
 
-4. Which `relig` does `denom` (denomination) apply to? How can you find out with a table? How can you find out with a visualization?
+### Exercise 4 {.exercise}
+
+> Which `relig` does `denom` (denomination) apply to? 
+> How can you find out with a table? 
+> How can you find out with a visualization?
 
 
 ```r
@@ -139,7 +150,10 @@ gss_cat %>%
 
 ## Modifying factor order
 
-1. There are some suspiciously high numbers in `tvhours`. Is the `mean` a good summary?
+### Exercise 1 {.exercise}
+
+> There are some suspiciously high numbers in `tvhours`. 
+> Is the `mean` a good summary?
 
 
 ```r
@@ -158,11 +172,13 @@ gss_cat %>%
 
 <img src="factors_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
-Whether the mean is the best summary depends on what you are using it for :-), i.e. your objective. 
-But probably the median would be what most people prefer. 
+Whether the mean is the best summary depends on what you are using it for :-), i.e. your objective.
+But probably the median would be what most people prefer.
 And the hours of TV doesn't look that surprising to me.
 
-2. For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
+### Exercise 2 {.exercise}
+
+> For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
 
 The following piece of code uses functions introduced in Ch 21, to print out the names of only the factors.
 
@@ -173,7 +189,7 @@ keep(gss_cat, is.factor) %>% names()
 
 There are five six categorical variables: `marital`, `race`, `rincome`, `partyid`, `relig`, `denom`.
 
-The ordering of marital is "somewhat principled". There is some sort of logic in that the levels are grouped "never married", married at some point (separated, divorced, widowed), and "married"; though it would seem that "Never Married", "Divorced", "Widowed", "Separated", "Married" might be more natural. 
+The ordering of marital is "somewhat principled". There is some sort of logic in that the levels are grouped "never married", married at some point (separated, divorced, widowed), and "married"; though it would seem that "Never Married", "Divorced", "Widowed", "Separated", "Married" might be more natural.
 I find that the question of ordering can be determined by the level of aggregation in a categorical variable, and there can be more "partially ordered" factors than one would expect.
 
 
@@ -269,7 +285,9 @@ levels(gss_cat$partyid)
 ```
 
 
-3. Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
+### Exercise 3 {.exercise}
+
+>  Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
 
 Because that gives the level "Not applicable" an integer value of 1.
 
@@ -278,7 +296,9 @@ Because that gives the level "Not applicable" an integer value of 1.
 ## Modifying factor levels
 
 
-1. How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
+### Exercise 1 {.exercise}
+
+>  How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
 
 To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent
 
@@ -293,8 +313,8 @@ levels(gss_cat$partyid)
 
 
 ```r
-gss_cat %>% 
-  mutate(partyid = 
+gss_cat %>%
+  mutate(partyid =
            fct_collapse(partyid,
                         other = c("No answer", "Don't know", "Other party"),
                         rep = c("Strong republican", "Not str republican"),
@@ -308,15 +328,15 @@ gss_cat %>%
   geom_point() +
   geom_line() +
   labs(colour = "Party ID.")
-  
 
-                                  
 ```
 
 <img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-2. How could you collapse `rincome` into a small set of categories?
+### Exercise 2 {.exercise}
+
+> How could you collapse `rincome` into a small set of categories?
 
 Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn't want to use something like `fct_lump`.
 
@@ -332,7 +352,7 @@ levels(gss_cat$rincome)
 ```r
 library("stringr")
 gss_cat %>%
-  mutate(rincome = 
+  mutate(rincome =
            fct_collapse(
              rincome,
              `Unknown` = c("No answer", "Don't know", "Refused", "Not applicable"),
@@ -342,9 +362,8 @@ gss_cat %>%
                                       " to ", c("5999", "6999", "7999", "9999"))
            )) %>%
   ggplot(aes(x = rincome)) +
-  geom_bar() + 
+  geom_bar() +
   coord_flip()
 ```
 
 <img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
-

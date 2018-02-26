@@ -20,7 +20,10 @@ No exercises
 
 ## Practice
 
-1. Why does this code not work?
+### Exercise 1 {.exercise} 
+
+
+> Why does this code not work?
 
 ```r
 my_variable <- 10
@@ -37,7 +40,9 @@ In these fonts, zero and the Latin letter O are often distinguished by using a g
 Also note that the error messages of the form "object '...' not found", mean just what they say, the object can't be found by R.
 This is usually because you either (1) forgot to define the function (or had an error that prevented it from being defined earlier), (2) didn't load a package with the object, or (3) made a typo in the object's name (either when using it or when you originally defined it).
 
-2. Tweak each of the following R commands so that they run correctly:
+### Exercise 2 {.exercise}
+
+> Tweak each of the following R commands so that they run correctly:
 
 
 ```r
@@ -125,7 +130,9 @@ filter(diamonds, carat > 3)
 How did I know? I started typing in `diamond` and RStudio completed it to `diamonds`. 
 Since `diamonds` includes the variable `carat` and the code works, that appears to have been the problem.
 
-3. Press Alt + Shift + K. What happens? How can you get to the same place using the menus?
+### Exercise 3 {.exercise}
+
+> Press *Alt + Shift + K*. What happens? How can you get to the same place using the menus?
 
 This gives a menu with keyboard shortcuts. This can be found in the menu under `Tools -> Keyboard Shortcuts Help`.
 

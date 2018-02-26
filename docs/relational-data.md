@@ -18,21 +18,29 @@ library("datamodelr")
 
 ## nycflights13
 
-1. Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
+### Exercise 1 {.exercise}
+
+> Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
 
 - `flights` table: `origin` and `dest`
 - `airports` table: longitude and latitude variables
 - We would merge the `flights` with airports twice: once to get the location of the `origin` airport, and once to get the location of the `dest` airport.
 
-2. I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
+### Exercise 2 {.exercise}
+
+> I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
 
 The variable `origin` in `weather` is matched with `faa` in `airports`.
 
-3. weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
+### Exercise 3 {.exercise}
+
+> weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
 
 `year`, `month`, `day`, `hour`, `origin` in `weather` would be matched to `year`, `month`, `day`, `hour`, `dest` in `flight` (though it should use the arrival date-time values for `dest` if possible).
 
-4. We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
+### Exercise 4 {.exercise}
+
+> We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
 
 I would add a table of special dates.
 The primary key would be date.
@@ -40,7 +48,9 @@ It would match to the `year`, `month`, `day` columns of `flights.
 
 ## Keys
 
-1. Add a surrogate key to flights.
+### Exercise 1 {.exercise}
+
+> Add a surrogate key to flights.
 
 I add the column `flight_id` as a surrogate key. 
 I sort the data prior to making the key, even though it is not strictly necessary, so the order of the rows has some meaning.
@@ -75,15 +85,17 @@ flights %>%
 ```
 
 
-Identify the keys in the following datasets
+### Exercise 2 {.exercise}
 
-1. `Lahman::Batting`
-2. `babynames::babynames`
-3. `nasaweather::atmos`
-4. `fueleconomy::vehicles`
-5. `ggplot2::diamonds`
-
-(You might need to install some packages and read some documentation.)
+> Identify the keys in the following datasets
+> 
+> 1. `Lahman::Batting`
+> 2. `babynames::babynames`
+> 3. `nasaweather::atmos`
+> 4. `fueleconomy::vehicles`
+> 5. `ggplot2::diamonds`
+>
+> (You might need to install some packages and read some documentation.)
 
 The primary key for `Lahman::Batting` is `playerID`, `yearID`, `stint`. It is not simply `playerID`, `yearID` because players can have different stints in different leagues within the same year.
 
@@ -137,12 +149,14 @@ nrow(ggplot2::diamonds)
 ```
 
 
-4. Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
+### Exercise 4 {.exercise} 
+
+Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
 
 Most flowchart or diagramming software can be used used to create database schema diagrams.
 For example, the diagrams in *R for Data Science* were created with [Gliffy](https://www.gliffy.com/). 
 
-You can use anything to create these diagrams, but I'll use an R-centric solution. The package [datamodelr](https://github.com/bergant/datamodelr) can programmatically create data models from R.
+You can use anything to create these diagrams, but I'll use the R package [datamodelr](https://github.com/bergant/datamodelr) to programmatically create data models from R.
 
 For the `Batting`, `Master`, and `Salaries` tables:
 
@@ -218,7 +232,9 @@ flights2 <- flights %>%
   select(year:day, hour, origin, dest, tailnum, carrier)
 ```
 
-1. Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
+### Exercise 1 {.exercise}
+
+> Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
 
 
 ```r
@@ -260,7 +276,9 @@ avg_dest_delays %>%
 
 You might want to use the size or color of the points to display the average delay for each airport.
 
-2. Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
+### Exercise 2 {.exercise}
+
+> Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
 
 
 ```r
@@ -286,7 +304,9 @@ flights %>%
 ```
 
 
-3. Is there a relationship between the age of a plane and its delays?
+### Exercise 3 {.exercise}
+
+> Is there a relationship between the age of a plane and its delays?
 
 Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
 This could be due to choices about how airlines allocate planes to airports.
@@ -312,7 +332,9 @@ flights %>%
 <img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-4. What weather conditions make it more likely to see a delay?
+### Exercise 4 {.exercise}
+
+> What weather conditions make it more likely to see a delay?
 
 Almost any amount or precipitation is associated with a delay, though not as strong a trend after 0.02 in as one would expect
 
@@ -336,7 +358,9 @@ flight_weather %>%
 
 
 
-5. What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+### Exercise 5 {.exercise}
+
+> What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
 
 There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series))
 
@@ -363,7 +387,9 @@ flights %>%
 
 ## Filtering Joins
 
-1. What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+### Exercise 1 {.exercise}
+
+> What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
 
 American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
 
@@ -383,7 +409,9 @@ flights %>%
 #> # ... with 4 more rows
 ```
 
-2. Filter flights to only show flights with planes that have flown at least 100 flights.
+### Exercise 2 {.exercise}
+
+> Filter flights to only show flights with planes that have flown at least 100 flights.
 
 
 ```r
@@ -411,7 +439,9 @@ flights %>%
 ```
 
 
-3. Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
+### Exercise 3 {.exercise}
+
+> Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
 
 The table `fueleconomy::common` identifies vehicles by `make` and `model`:
 
@@ -457,7 +487,9 @@ fueleconomy::vehicles %>%
 ```
 
 
-3. Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
+### Exercise 3 {.exercise}
+
+> Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
 
 
 ```r
@@ -479,18 +511,22 @@ flights %>%
 #> # ... with 359 more rows
 ```
 
-4. What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
+### Exercise 4 {.exercise}
+
+> What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
 
 `anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.
 
 `anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that don't have a flight in the data, meaning that there were no flights to that airport **from** New York in 2013.
 
 
-5. You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
+### Exercise 5 {.exercise}
+
+> You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
 
 There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
 It should be the case that an airplane is associated with only airline at a given time, though may 
-However, even thogh that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
+However, even though that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
 Let's check:
 
 ```r
