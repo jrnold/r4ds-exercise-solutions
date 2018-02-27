@@ -42,9 +42,7 @@ ggplot(sim1a, aes(x = x, y = y)) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
 
 To re-run this a few times using `purrr`,
 and plot using code similar to that in the chapter:
@@ -72,9 +70,7 @@ ggplot(sims, aes(x = x, y = y)) +
   facet_wrap(~ .id, ncol = 4)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-5-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
 What if we did the same things with normal distributions? 
 
@@ -95,9 +91,7 @@ ggplot(simdf_norm, aes(x = x, y = y)) +
   facet_wrap(~ .id, ncol = 4)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-6-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 There are not large outliers, and the slopes are more similar. 
 
 The reason for this is that the Student's $t$-distribution, from which we sample with `rt` has fatter tails than the normal distribution (`rnorm`), which means is assigns larger probability to values further from the center of the distribution.
@@ -113,9 +107,7 @@ tibble(
   geom_line()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-7-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
 For a normal distribution with mean zero and standard deviation one, the probability of being greater than 2 is,
 
@@ -267,9 +259,7 @@ plot_sim1_loess <-
 plot_sim1_loess
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-20-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 The predictions of loess are the same as the default method for `geom_smooth` because `geom_smooth()` uses `loess()` by default; the message even tells us that.
 
@@ -278,9 +268,7 @@ plot_sim1_loess +
   geom_smooth(method = "loess", colour = "blue", se = FALSE, alpha = 0.20)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-21-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
 
 We can plot the residuals (red), and compare them to the residuals from `lm` (black). 
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven't considered the uncertainty of these estimates).
@@ -293,9 +281,7 @@ ggplot(sim1, aes(x = x)) +
   geom_point(aes(y = resid_loess), colour = "red")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-22-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
 
 ### Exercise 2 {.exercise}
 
@@ -415,9 +401,7 @@ ggplot(sim1, aes(x = abs(resid))) +
   geom_freqpoly(binwidth = 0.5)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-28-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
 
 However, using the absolute values of residuals throws away information about the sign, meaning that the 
 frequency polygon cannot show whether the model systematically over- or under-estimates the residuals.
@@ -473,12 +457,12 @@ x3
 #> # A tibble: 120 x 8
 #>   `(Intercept)`    x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`
 #>           <dbl> <dbl> <dbl> <dbl> <dbl>    <dbl>    <dbl>    <dbl>
-#> 1          1.00  1.00  0        0     0     0           0        0
-#> 2          1.00  1.00  0        0     0     0           0        0
-#> 3          1.00  1.00  0        0     0     0           0        0
-#> 4          1.00  1.00  1.00     0     0     1.00        0        0
-#> 5          1.00  1.00  1.00     0     0     1.00        0        0
-#> 6          1.00  1.00  1.00     0     0     1.00        0        0
+#> 1            1.    1.    0.    0.    0.       0.       0.       0.
+#> 2            1.    1.    0.    0.    0.       0.       0.       0.
+#> 3            1.    1.    0.    0.    0.       0.       0.       0.
+#> 4            1.    1.    1.    0.    0.       1.       0.       0.
+#> 5            1.    1.    1.    0.    0.       1.       0.       0.
+#> 6            1.    1.    1.    0.    0.       1.       0.       0.
 #> # ... with 114 more rows
 ```
 We can confirm that the variables `x1:x2b` is the product of `x1` and `x2b`,
@@ -505,12 +489,12 @@ x4
 #> # A tibble: 300 x 4
 #>   `(Intercept)`    x1     x2 `x1:x2`
 #>           <dbl> <dbl>  <dbl>   <dbl>
-#> 1          1.00 -1.00 -1.00    1.00 
-#> 2          1.00 -1.00 -1.00    1.00 
-#> 3          1.00 -1.00 -1.00    1.00 
-#> 4          1.00 -1.00 -0.778   0.778
-#> 5          1.00 -1.00 -0.778   0.778
-#> 6          1.00 -1.00 -0.778   0.778
+#> 1            1.   -1. -1.00    1.00 
+#> 2            1.   -1. -1.00    1.00 
+#> 3            1.   -1. -1.00    1.00 
+#> 4            1.   -1. -0.778   0.778
+#> 5            1.   -1. -0.778   0.778
+#> 6            1.   -1. -0.778   0.778
 #> # ... with 294 more rows
 ```
 Confirm that `x1:x2` is the product of the `x1` and `x2`,
@@ -557,12 +541,12 @@ model_matrix_mod1(sim3)
 #> # A tibble: 120 x 7
 #>      x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`
 #>   <int> <dbl> <dbl> <dbl>    <dbl>    <dbl>    <dbl>
-#> 1     1  0        0     0     0           0        0
-#> 2     1  0        0     0     0           0        0
-#> 3     1  0        0     0     0           0        0
-#> 4     1  1.00     0     0     1.00        0        0
-#> 5     1  1.00     0     0     1.00        0        0
-#> 6     1  1.00     0     0     1.00        0        0
+#> 1     1    0.    0.    0.       0.       0.       0.
+#> 2     1    0.    0.    0.       0.       0.       0.
+#> 3     1    0.    0.    0.       0.       0.       0.
+#> 4     1    1.    0.    0.       1.       0.       0.
+#> 5     1    1.    0.    0.       1.       0.       0.
+#> 6     1    1.    0.    0.       1.       0.       0.
 #> # ... with 114 more rows
 ```
 
@@ -577,12 +561,12 @@ model_matrix_mod2(sim4)
 #> # A tibble: 300 x 3
 #>      x1     x2 `x1:x2`
 #>   <dbl>  <dbl>   <dbl>
-#> 1 -1.00 -1.00    1.00 
-#> 2 -1.00 -1.00    1.00 
-#> 3 -1.00 -1.00    1.00 
-#> 4 -1.00 -0.778   0.778
-#> 5 -1.00 -0.778   0.778
-#> 6 -1.00 -0.778   0.778
+#> 1   -1. -1.00    1.00 
+#> 2   -1. -1.00    1.00 
+#> 3   -1. -1.00    1.00 
+#> 4   -1. -0.778   0.778
+#> 5   -1. -0.778   0.778
+#> 6   -1. -0.778   0.778
 #> # ... with 294 more rows
 ```
 
@@ -643,9 +627,7 @@ ggplot(sim4_mods, aes(x = resid, color = model)) +
   geom_rug()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-45-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
 and the absolute values of the residuals,
 
 ```r
@@ -654,9 +636,7 @@ ggplot(sim4_mods, aes(x = abs(resid), color = model)) +
   geom_rug()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-46-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
 does not show much difference in the residuals between the models.
 However, `mod2` appears to have fewer residuals in the tails of the distribution between 2.5 and 5 (although the most extreme residuals are from `mod2`.
 

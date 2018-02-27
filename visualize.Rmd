@@ -1,20 +1,3 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
-
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-```
 ---
 output: html_document
 editor_options: 
@@ -84,7 +67,9 @@ ggplot(mpg, aes(x = hwy, y = cyl)) +
 
 ### Exercise 5. {.exercise}
 
-> What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
+`r BeginQuestion()`
+What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
+`r EndQuestion()`
 
 ```{r}
 ggplot(mpg, aes(x = class, y = drv)) +
@@ -102,24 +87,29 @@ Later chapters discuss means to deal with this, including alternative plots and 
 
 ### Exercise 1. {.exercise}
 
-> What’s gone wrong with this code? Why are the points not blue?
+::::question
+What’s gone wrong with this code? Why are the points not blue?
 
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
 ```
+`r EndQuestion()`
 
 Since `color = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
 The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `color = 1:234` or `color = 1` would be interpreted by `aes()`.
 
 ### Exercise 2. {.exercise}
 
-> Which variables in `mpg` are categorical? 
-> Which variables are continuous?
-> (Hint: type `?mpg` to read the documentation for the dataset).
-> How can you see this information when you run `mpg`?
+`r BeginQuestion()`
+Which variables in `mpg` are categorical? 
+Which variables are continuous?
+(Hint: type `?mpg` to read the documentation for the dataset).
+How can you see this information when you run `mpg`?
 
-```{r}
+`r EndQuestion()`
+
+```{r eval=FALSE}
 ?mpg
 ```
 

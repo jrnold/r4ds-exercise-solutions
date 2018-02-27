@@ -23,7 +23,7 @@ First, note that by a a single missing value, this means that the vector `x` has
 If there were any `NA` values, and `na.rm = FALSE`, then the function would 
 return `NA`.
 
-I can confirm this by testing a function that allows for `na.rm` as an argument:
+I can confirm this by testing a function that allows for `na.rm` as an argument</div>
 
 ```r
 rescale01_alt <- function(x, finite = TRUE) {
@@ -69,7 +69,7 @@ sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 ```
 
 
-This function calculates the proportion of `NA` values in a vector:
+This function calculates the proportion of `NA` values in a vector</div>
 
 ```r
 prop_na <- function(x) {
@@ -93,7 +93,7 @@ sum(y)
 ```
 
 This function calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values). 
-The coefficient of variation is the standard deviation divided by the mean:
+The coefficient of variation is the standard deviation divided by the mean</div>
 
 ```r
 coef_variation <- function(x) {
@@ -179,10 +179,35 @@ These functions are useful even though they are short because their names make i
 
 ### Exercise 7 {.exercise}
 
-> Read the complete lyrics to “Little Bunny Foo Foo”. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
+<div class='question'>
+Read the complete lyrics to ``Little Bunny Foo Foo''. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
+</div>
 
-<!-- This could probably be done cleaner, but here's one version. -->
+The lyrics of one of the [most common versions](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) of this song are</div>
 
+> Little bunny Foo Foo
+> Hopping through the forest
+> Scooping up the field mice
+> And bopping them on the head
+> 
+> Down came the Good Fairy, and she said
+> "Little bunny Foo Foo
+> I don't want to see you
+> Scooping up the field mice
+> 
+> And bopping them on the head.
+> I'll give you three chances,
+> And if you don't stop, I'll turn you into a GOON!"
+> And the next day...
+
+The verses repeat with one chance fewer each time.
+When there are no chances left, the Good Fairy says
+
+> "I gave you three chances, and you didn't stop; so...."
+> POOF. She turned him into a GOON!
+> And the moral of this story is: *hare today, goon tomorrow.*
+
+Here's one way of writing this</div>
 ```r
 threat <- function(chances) {
   give_chances(from = Good_Fairy,
@@ -191,7 +216,7 @@ threat <- function(chances) {
                condition = "Don't behave",
                consequence = turn_into_goon)  
 }
-  
+
 lyric <- function() {
   foo_foo %>%
     hop(through = forest) %>%
@@ -249,7 +274,7 @@ f1(c("str_c", "str_foo", "abc"), "str_")
 ```
 A better name for `f1` is `has_prefix()`
 
-The function `f2` drops the last element:
+The function `f2` drops the last element</div>
 
 ```r
 f2(1:3)
@@ -326,7 +351,7 @@ greet <- function(time = lubridate::now()) {
   }
 } 
 greet()
-#> [1] "good afternoon"
+#> [1] "good evening"
 greet(ymd_h("2017-01-08:05"))
 #> [1] "good morning"
 greet(ymd_h("2017-01-08:13"))
@@ -393,7 +418,7 @@ cut(temp, c(-Inf, 0, 10, 20, 30, Inf), right = TRUE,
 #> Levels: freezing cold cool warm hot
 ```
 
-To have intervals open on the left (using `<`), I change the argument to `right = FALSE`:
+To have intervals open on the left (using `<`), I change the argument to `right = FALSE`</div>
 
 ```r
 temp <- seq(-10, 50, by = 5)
@@ -465,7 +490,7 @@ switcheroo("e")
 
 > What does `commas(letters, collapse = "-")` do? Why?
 
-The `commas` function in the chapter is defined as,
+The `commas` function in the chapter is defined as
 
 ```r
 commas <- function(...) {
@@ -479,13 +504,25 @@ When `commas()` is given a collapse argument, it throws an error.
 commas(letters, collapse = "-")
 #> Error in stringr::str_c(..., collapse = ", "): formal argument "collapse" matched by multiple actual arguments
 ```
-The argument `collapse` is passed to `str_c` as part of `...`.
-This expands to
+This is because when the argument `collapse` is given to `commas`, it 
+is passed to `str_c` as part of `...`.
+In other words, the previous code is equivalent to
 
 ```r
 str_c(letters, collapse = "-", collapse = ", ")
 ```
 However, it is an error to give the same named argument to a function twice.
+
+One way to allow the user to override the separator in `commas` is to add a `collapse`
+argument to the function.
+
+```r
+commas <- function(..., collapse = ", ") {
+  stringr::str_c(..., collapse = collapse)
+}
+```
+
+
 
 ### Exercise 2 {.exercise}
 

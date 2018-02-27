@@ -4,7 +4,7 @@ options(digits = 3)
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = FALSE,
+  cache = TRUE,
   autodep = TRUE,
   out.width = "70%",
   fig.align = 'center',
@@ -14,3 +14,21 @@ knitr::opts_chunk$set(
 )
 
 options(dplyr.print_min = 6, dplyr.print_max = 6)
+
+is_html <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
+
+BeginQuestion <- function() {
+  if (is_html) {
+    "<div class='question'>"
+  } else {
+    "\\begin{question}"
+  }
+}
+EndQuestion <- function() {
+  if (is_html) {
+    "</div>"
+  } else {
+    "\\end{question}"
+  }
+}
+

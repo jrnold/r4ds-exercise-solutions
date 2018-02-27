@@ -5,21 +5,21 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Exercise Solutions to R for Data Science</title>
-  <meta name="description" content="Exercise Solutions to “R for Data Science”">
-  <meta name="generator" content="bookdown 0.6 and GitBook 2.6.7">
+  <title>R for Data Science Solutions</title>
+  <meta name="description" content="This contains the solutions to the exercises in the book, R for Data Science, by Garrett Grolemund and Hadley Wickham.">
+  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Exercise Solutions to R for Data Science" />
+  <meta property="og:title" content="R for Data Science Solutions" />
   <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://jrnold.github.io/r4ds-exercise-solutions" />
   
-  
-  
+  <meta property="og:description" content="This contains the solutions to the exercises in the book, R for Data Science, by Garrett Grolemund and Hadley Wickham." />
   <meta name="github-repo" content="jrnold/r4ds-exercise-solutions" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Exercise Solutions to R for Data Science" />
-  
-  
+  <meta name="twitter:title" content="R for Data Science Solutions" />
+  <meta name="twitter:site" content="@jrnld" />
+  <meta name="twitter:description" content="This contains the solutions to the exercises in the book, R for Data Science, by Garrett Grolemund and Hadley Wickham." />
   
 
 <meta name="author" content="Jeffrey B. Arnold">
@@ -46,44 +46,75 @@
 
 
 
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.3.0/str_view.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
@@ -99,7 +130,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><strong><a href="./">R for Data Science</a></strong></li>
+<li><strong><a href="./">R for Data Science Solutions</a></strong></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
@@ -608,7 +639,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exercise Solutions to “R for Data Science”</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Data Science Solutions</a>
           </h1>
         </div>
 
@@ -620,37 +651,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">15</span> Dates and Times</h1>
 <div id="introduction-10" class="section level2">
 <h2><span class="header-section-number">15.1</span> Introduction</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(lubridate)
-<span class="kw">library</span>(nycflights13)</code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb354-2" data-line-number="2"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb354-3" data-line-number="3"><span class="kw">library</span>(nycflights13)</a></code></pre></div>
 </div>
 <div id="creating-datetimes" class="section level2">
 <h2><span class="header-section-number">15.2</span> Creating date/times</h2>
 <p>This code is needed by exercises.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_datetime_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="cf">function</span>(year, month, day, time) {
-  <span class="kw">make_datetime</span>(year, month, day, time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span>, time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>)
-}
-
-flights_dt &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(dep_time), <span class="op">!</span><span class="kw">is.na</span>(arr_time)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(
-    <span class="dt">dep_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, dep_time),
-    <span class="dt">arr_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, arr_time),
-    <span class="dt">sched_dep_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, sched_dep_time),
-    <span class="dt">sched_arr_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, sched_arr_time)
-  ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(origin, dest, <span class="kw">ends_with</span>(<span class="st">&quot;delay&quot;</span>), <span class="kw">ends_with</span>(<span class="st">&quot;time&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1">make_datetime_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="cf">function</span>(year, month, day, time) {</a>
+<a class="sourceLine" id="cb355-2" data-line-number="2">  <span class="kw">make_datetime</span>(year, month, day, time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span>, time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb355-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb355-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb355-5" data-line-number="5">flights_dt &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb355-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(dep_time), <span class="op">!</span><span class="kw">is.na</span>(arr_time)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb355-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb355-8" data-line-number="8">    <span class="dt">dep_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, dep_time),</a>
+<a class="sourceLine" id="cb355-9" data-line-number="9">    <span class="dt">arr_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, arr_time),</a>
+<a class="sourceLine" id="cb355-10" data-line-number="10">    <span class="dt">sched_dep_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, sched_dep_time),</a>
+<a class="sourceLine" id="cb355-11" data-line-number="11">    <span class="dt">sched_arr_time =</span> <span class="kw">make_datetime_100</span>(year, month, day, sched_arr_time)</a>
+<a class="sourceLine" id="cb355-12" data-line-number="12">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb355-13" data-line-number="13"><span class="st">  </span><span class="kw">select</span>(origin, dest, <span class="kw">ends_with</span>(<span class="st">&quot;delay&quot;</span>), <span class="kw">ends_with</span>(<span class="st">&quot;time&quot;</span>))</a></code></pre></div>
 <div id="exercise-1-41" class="section level3 exercise">
 <h3><span class="header-section-number">15.2.1</span> Exercise 1</h3>
 <blockquote>
-<p>What happens if you parse a string that contains invalid dates?</p>
+<p>What happens if you parse a string that
+contains invalid dates?</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ret &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="kw">c</span>(<span class="st">&quot;2010-10-10&quot;</span>, <span class="st">&quot;bananas&quot;</span>))
-<span class="co">#&gt; Warning: 1 failed to parse.</span>
-<span class="kw">print</span>(<span class="kw">class</span>(ret))
-<span class="co">#&gt; [1] &quot;Date&quot;</span>
-ret
-<span class="co">#&gt; [1] &quot;2010-10-10&quot; NA</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="kw">c</span>(<span class="st">&quot;2010-10-10&quot;</span>, <span class="st">&quot;bananas&quot;</span>))</a>
+<a class="sourceLine" id="cb356-2" data-line-number="2"><span class="co">#&gt; Warning: 1 failed to parse.</span></a>
+<a class="sourceLine" id="cb356-3" data-line-number="3"><span class="kw">print</span>(<span class="kw">class</span>(ret))</a>
+<a class="sourceLine" id="cb356-4" data-line-number="4"><span class="co">#&gt; [1] &quot;Date&quot;</span></a>
+<a class="sourceLine" id="cb356-5" data-line-number="5">ret</a>
+<a class="sourceLine" id="cb356-6" data-line-number="6"><span class="co">#&gt; [1] &quot;2010-10-10&quot; NA</span></a></code></pre></div>
 <p>It produces an <code>NA</code> and an warning message.</p>
 </div>
 <div id="exercise-2-40" class="section level3 exercise">
@@ -661,55 +693,58 @@ ret
 <div id="exercise-3-28" class="section level3 exercise">
 <h3><span class="header-section-number">15.2.3</span> Exercise 3</h3>
 <blockquote>
-<p>Use the appropriate <strong>lubridate</strong> function to parse each of the following dates:</p>
+<p>Use the appropriate <strong>lubridate</strong> function to
+parse each of the following dates:</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d1 &lt;-<span class="st"> &quot;January 1, 2010&quot;</span>
-<span class="kw">mdy</span>(d1)
-<span class="co">#&gt; [1] &quot;2010-01-01&quot;</span>
-d2 &lt;-<span class="st"> &quot;2015-Mar-07&quot;</span>
-<span class="kw">ymd</span>(d2)
-<span class="co">#&gt; [1] &quot;2015-03-07&quot;</span>
-d3 &lt;-<span class="st"> &quot;06-Jun-2017&quot;</span>
-<span class="kw">dmy</span>(d3)
-<span class="co">#&gt; [1] &quot;2017-06-06&quot;</span>
-d4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;August 19 (2015)&quot;</span>, <span class="st">&quot;July 1 (2015)&quot;</span>)
-<span class="kw">mdy</span>(d4)
-<span class="co">#&gt; [1] &quot;2015-08-19&quot; &quot;2015-07-01&quot;</span>
-d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30, 2014</span>
-<span class="kw">mdy</span>(d5)
-<span class="co">#&gt; [1] &quot;2014-12-30&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1">d1 &lt;-<span class="st"> &quot;January 1, 2010&quot;</span></a>
+<a class="sourceLine" id="cb357-2" data-line-number="2"><span class="kw">mdy</span>(d1)</a>
+<a class="sourceLine" id="cb357-3" data-line-number="3"><span class="co">#&gt; [1] &quot;2010-01-01&quot;</span></a>
+<a class="sourceLine" id="cb357-4" data-line-number="4">d2 &lt;-<span class="st"> &quot;2015-Mar-07&quot;</span></a>
+<a class="sourceLine" id="cb357-5" data-line-number="5"><span class="kw">ymd</span>(d2)</a>
+<a class="sourceLine" id="cb357-6" data-line-number="6"><span class="co">#&gt; [1] &quot;2015-03-07&quot;</span></a>
+<a class="sourceLine" id="cb357-7" data-line-number="7">d3 &lt;-<span class="st"> &quot;06-Jun-2017&quot;</span></a>
+<a class="sourceLine" id="cb357-8" data-line-number="8"><span class="kw">dmy</span>(d3)</a>
+<a class="sourceLine" id="cb357-9" data-line-number="9"><span class="co">#&gt; [1] &quot;2017-06-06&quot;</span></a>
+<a class="sourceLine" id="cb357-10" data-line-number="10">d4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;August 19 (2015)&quot;</span>, <span class="st">&quot;July 1 (2015)&quot;</span>)</a>
+<a class="sourceLine" id="cb357-11" data-line-number="11"><span class="kw">mdy</span>(d4)</a>
+<a class="sourceLine" id="cb357-12" data-line-number="12"><span class="co">#&gt; [1] &quot;2015-08-19&quot; &quot;2015-07-01&quot;</span></a>
+<a class="sourceLine" id="cb357-13" data-line-number="13">d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30, 2014</span></a>
+<a class="sourceLine" id="cb357-14" data-line-number="14"><span class="kw">mdy</span>(d5)</a>
+<a class="sourceLine" id="cb357-15" data-line-number="15"><span class="co">#&gt; [1] &quot;2014-12-30&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="date-time-components" class="section level2">
 <h2><span class="header-section-number">15.3</span> Date-Time Components</h2>
 <p>The following code from the chapter is used</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sched_dep &lt;-<span class="st"> </span>flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(minute) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(
-    <span class="dt">avg_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-    <span class="dt">n =</span> <span class="kw">n</span>())</code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1">sched_dep &lt;-<span class="st"> </span>flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb358-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb358-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(minute) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb358-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb358-5" data-line-number="5">    <span class="dt">avg_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb358-6" data-line-number="6">    <span class="dt">n =</span> <span class="kw">n</span>())</a></code></pre></div>
 <p>In the previous code, the difference between rounded and un-rounded dates provides the within-period time.</p>
 <div id="exercise-1-42" class="section level3 exercise">
 <h3><span class="header-section-number">15.3.1</span> Exercise 1</h3>
 <blockquote>
-<p>How does the distribution of flight times within a day change over the course of the year?</p>
+<p>How does the distribution of flight times
+within a day change over the course of the year?</p>
 </blockquote>
 <p>Let’s try plotting this by month:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">hour</span>(dep_time) <span class="op">*</span><span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">minute</span>(dep_time),
-         <span class="dt">mon =</span> <span class="kw">as.factor</span>(month
-                         (dep_time))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">group =</span> mon, <span class="dt">color =</span> mon)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)</code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb359-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">hour</span>(dep_time) <span class="op">*</span><span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">minute</span>(dep_time),</a>
+<a class="sourceLine" id="cb359-3" data-line-number="3">         <span class="dt">mon =</span> <span class="kw">as.factor</span>(month</a>
+<a class="sourceLine" id="cb359-4" data-line-number="4">                         (dep_time))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb359-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">group =</span> mon, <span class="dt">color =</span> mon)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb359-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)</a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>This will look better if everything is normalized within groups. The reason that February is lower is that there are fewer days and thus fewer flights.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">hour</span>(dep_time) <span class="op">*</span><span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">minute</span>(dep_time),
-         <span class="dt">mon =</span> <span class="kw">as.factor</span>(month
-                         (dep_time))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> ..density.., <span class="dt">group =</span> mon, <span class="dt">color =</span> mon)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)</code></pre></div>
+<p>This will look better if everything is normalized within groups. The reason
+that February is lower is that there are fewer days and thus fewer flights.</p>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb360-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">hour</span>(dep_time) <span class="op">*</span><span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">minute</span>(dep_time),</a>
+<a class="sourceLine" id="cb360-3" data-line-number="3">         <span class="dt">mon =</span> <span class="kw">as.factor</span>(month</a>
+<a class="sourceLine" id="cb360-4" data-line-number="4">                         (dep_time))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb360-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> ..density.., <span class="dt">group =</span> mon, <span class="dt">color =</span> mon)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb360-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)</a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>At least to me there doesn’t appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.</p>
 </div>
@@ -717,110 +752,112 @@ d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30,
 <h3><span class="header-section-number">15.3.2</span> Exercise 2</h3>
 <p>Compare <code>dep_time</code>, <code>sched_dep_time</code> and <code>dep_delay</code>. Are they consistent? Explain your findings.</p>
 <p>If they are consistent, then <code>dep_time = sched_dep_time + dep_delay</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dep_time_ =</span> sched_dep_time <span class="op">+</span><span class="st"> </span>dep_delay <span class="op">*</span><span class="st"> </span><span class="dv">60</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(dep_time_ <span class="op">!=</span><span class="st"> </span>dep_time) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(dep_time_, dep_time, sched_dep_time, dep_delay)
-<span class="co">#&gt; # A tibble: 1,205 x 4</span>
-<span class="co">#&gt;   dep_time_           dep_time            sched_dep_time      dep_delay</span>
-<span class="co">#&gt;   &lt;dttm&gt;              &lt;dttm&gt;              &lt;dttm&gt;                  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2013-01-02 08:48:00 2013-01-01 08:48:00 2013-01-01 18:35:00     853  </span>
-<span class="co">#&gt; 2 2013-01-03 00:42:00 2013-01-02 00:42:00 2013-01-02 23:59:00      43.0</span>
-<span class="co">#&gt; 3 2013-01-03 01:26:00 2013-01-02 01:26:00 2013-01-02 22:50:00     156  </span>
-<span class="co">#&gt; 4 2013-01-04 00:32:00 2013-01-03 00:32:00 2013-01-03 23:59:00      33.0</span>
-<span class="co">#&gt; 5 2013-01-04 00:50:00 2013-01-03 00:50:00 2013-01-03 21:45:00     185  </span>
-<span class="co">#&gt; 6 2013-01-04 02:35:00 2013-01-03 02:35:00 2013-01-03 23:59:00     156  </span>
-<span class="co">#&gt; # ... with 1,199 more rows</span></code></pre></div>
-<p>There exist discrepancies. It looks like there are mistakes in the dates. These are flights in which the actual departure time is on the <em>next</em> day relative to the scheduled departure time. We forgot to account for this when creating the date-times. The code would have had to check if the departure time is less than the scheduled departure time. Alternatively, simply adding the delay time is more robust because it will automatically account for crossing into the next day.</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb361-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dep_time_ =</span> sched_dep_time <span class="op">+</span><span class="st"> </span>dep_delay <span class="op">*</span><span class="st"> </span><span class="dv">60</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb361-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(dep_time_ <span class="op">!=</span><span class="st"> </span>dep_time) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb361-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(dep_time_, dep_time, sched_dep_time, dep_delay)</a>
+<a class="sourceLine" id="cb361-5" data-line-number="5"><span class="co">#&gt; # A tibble: 1,205 x 4</span></a>
+<a class="sourceLine" id="cb361-6" data-line-number="6"><span class="co">#&gt;   dep_time_           dep_time            sched_dep_time      dep_delay</span></a>
+<a class="sourceLine" id="cb361-7" data-line-number="7"><span class="co">#&gt;   &lt;dttm&gt;              &lt;dttm&gt;              &lt;dttm&gt;                  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb361-8" data-line-number="8"><span class="co">#&gt; 1 2013-01-02 08:48:00 2013-01-01 08:48:00 2013-01-01 18:35:00      853.</span></a>
+<a class="sourceLine" id="cb361-9" data-line-number="9"><span class="co">#&gt; 2 2013-01-03 00:42:00 2013-01-02 00:42:00 2013-01-02 23:59:00       43.</span></a>
+<a class="sourceLine" id="cb361-10" data-line-number="10"><span class="co">#&gt; 3 2013-01-03 01:26:00 2013-01-02 01:26:00 2013-01-02 22:50:00      156.</span></a>
+<a class="sourceLine" id="cb361-11" data-line-number="11"><span class="co">#&gt; 4 2013-01-04 00:32:00 2013-01-03 00:32:00 2013-01-03 23:59:00       33.</span></a>
+<a class="sourceLine" id="cb361-12" data-line-number="12"><span class="co">#&gt; 5 2013-01-04 00:50:00 2013-01-03 00:50:00 2013-01-03 21:45:00      185.</span></a>
+<a class="sourceLine" id="cb361-13" data-line-number="13"><span class="co">#&gt; 6 2013-01-04 02:35:00 2013-01-03 02:35:00 2013-01-03 23:59:00      156.</span></a>
+<a class="sourceLine" id="cb361-14" data-line-number="14"><span class="co">#&gt; # ... with 1,199 more rows</span></a></code></pre></div>
+<p>There exist discrepancies. It looks like there are mistakes in the dates.
+These are flights in which the actual departure time is on the <em>next</em> day relative to the scheduled departure time. We forgot to account for this when creating the date-times. The code would have had to check if the departure time is less than the scheduled departure time. Alternatively, simply adding the delay time is more robust because it will automatically account for crossing into the next day.</p>
 </div>
 <div id="exercise-3-29" class="section level3 exercise">
 <h3><span class="header-section-number">15.3.3</span> Exercise 3</h3>
 <p>Compare <code>air_time</code> with the duration between the departure and arrival. Explain your findings.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">flight_duration =</span> <span class="kw">as.numeric</span>(arr_time <span class="op">-</span><span class="st"> </span>dep_time),
-         <span class="dt">air_time_mins =</span> air_time,
-         <span class="dt">diff =</span> flight_duration <span class="op">-</span><span class="st"> </span>air_time_mins) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(origin, dest, flight_duration, air_time_mins, diff)
-<span class="co">#&gt; # A tibble: 328,063 x 5</span>
-<span class="co">#&gt;   origin dest  flight_duration air_time_mins  diff</span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 EWR    IAH               193           227 -34.0</span>
-<span class="co">#&gt; 2 LGA    IAH               197           227 -30.0</span>
-<span class="co">#&gt; 3 JFK    MIA               221           160  61.0</span>
-<span class="co">#&gt; 4 JFK    BQN               260           183  77.0</span>
-<span class="co">#&gt; 5 LGA    ATL               138           116  22.0</span>
-<span class="co">#&gt; 6 EWR    ORD               106           150 -44.0</span>
-<span class="co">#&gt; # ... with 3.281e+05 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb362-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">flight_duration =</span> <span class="kw">as.numeric</span>(arr_time <span class="op">-</span><span class="st"> </span>dep_time),</a>
+<a class="sourceLine" id="cb362-3" data-line-number="3">         <span class="dt">air_time_mins =</span> air_time,</a>
+<a class="sourceLine" id="cb362-4" data-line-number="4">         <span class="dt">diff =</span> flight_duration <span class="op">-</span><span class="st"> </span>air_time_mins) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb362-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(origin, dest, flight_duration, air_time_mins, diff)</a>
+<a class="sourceLine" id="cb362-6" data-line-number="6"><span class="co">#&gt; # A tibble: 328,063 x 5</span></a>
+<a class="sourceLine" id="cb362-7" data-line-number="7"><span class="co">#&gt;   origin dest  flight_duration air_time_mins  diff</span></a>
+<a class="sourceLine" id="cb362-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb362-9" data-line-number="9"><span class="co">#&gt; 1 EWR    IAH              193.          227.  -34.</span></a>
+<a class="sourceLine" id="cb362-10" data-line-number="10"><span class="co">#&gt; 2 LGA    IAH              197.          227.  -30.</span></a>
+<a class="sourceLine" id="cb362-11" data-line-number="11"><span class="co">#&gt; 3 JFK    MIA              221.          160.   61.</span></a>
+<a class="sourceLine" id="cb362-12" data-line-number="12"><span class="co">#&gt; 4 JFK    BQN              260.          183.   77.</span></a>
+<a class="sourceLine" id="cb362-13" data-line-number="13"><span class="co">#&gt; 5 LGA    ATL              138.          116.   22.</span></a>
+<a class="sourceLine" id="cb362-14" data-line-number="14"><span class="co">#&gt; 6 EWR    ORD              106.          150.  -44.</span></a>
+<a class="sourceLine" id="cb362-15" data-line-number="15"><span class="co">#&gt; # ... with 3.281e+05 more rows</span></a></code></pre></div>
 </div>
 <div id="exercise-4-22" class="section level3 exercise">
 <h3><span class="header-section-number">15.3.4</span> Exercise 4</h3>
 <p>How does the average delay time change over the course of a day? Should you use <code>dep_time</code> or <code>sched_dep_time</code>? Why?</p>
 <p>Use <code>sched_dep_time</code> because that is the relevant metric for someone scheduling a flight. Also, using <code>dep_time</code> will always bias delays to later in the day since delays will push flights later.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sched_dep_hour =</span> <span class="kw">hour</span>(sched_dep_time)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(sched_dep_hour) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dep_delay, <span class="dt">x =</span> sched_dep_hour)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>()
-<span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb363-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sched_dep_hour =</span> <span class="kw">hour</span>(sched_dep_time)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb363-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(sched_dep_hour) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb363-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb363-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dep_delay, <span class="dt">x =</span> sched_dep_hour)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb363-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb363-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_smooth</span>()</a>
+<a class="sourceLine" id="cb363-8" data-line-number="8"><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="exercise-5-11" class="section level3 exercise">
 <h3><span class="header-section-number">15.3.5</span> Exercise 5</h3>
 <p>On what day of the week should you leave if you want to minimize the chance of a delay?</p>
 <p>Sunday has the lowest average departure delay time and the lowest average arrival delay time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dow =</span> <span class="kw">wday</span>(sched_dep_time)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(dow) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay),
-            <span class="dt">arr_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
-<span class="co">#&gt; # A tibble: 7 x 3</span>
-<span class="co">#&gt;     dow dep_delay arr_delay</span>
-<span class="co">#&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  1.00      11.5      4.82</span>
-<span class="co">#&gt; 2  2.00      14.7      9.65</span>
-<span class="co">#&gt; 3  3.00      10.6      5.39</span>
-<span class="co">#&gt; 4  4.00      11.7      7.05</span>
-<span class="co">#&gt; 5  5.00      16.1     11.7 </span>
-<span class="co">#&gt; 6  6.00      14.7      9.07</span>
-<span class="co">#&gt; # ... with 1 more row</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb364-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dow =</span> <span class="kw">wday</span>(sched_dep_time)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb364-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(dow) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb364-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay),</a>
+<a class="sourceLine" id="cb364-5" data-line-number="5">            <span class="dt">arr_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb364-6" data-line-number="6"><span class="co">#&gt; # A tibble: 7 x 3</span></a>
+<a class="sourceLine" id="cb364-7" data-line-number="7"><span class="co">#&gt;     dow dep_delay arr_delay</span></a>
+<a class="sourceLine" id="cb364-8" data-line-number="8"><span class="co">#&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb364-9" data-line-number="9"><span class="co">#&gt; 1    1.      11.5      4.82</span></a>
+<a class="sourceLine" id="cb364-10" data-line-number="10"><span class="co">#&gt; 2    2.      14.7      9.65</span></a>
+<a class="sourceLine" id="cb364-11" data-line-number="11"><span class="co">#&gt; 3    3.      10.6      5.39</span></a>
+<a class="sourceLine" id="cb364-12" data-line-number="12"><span class="co">#&gt; 4    4.      11.7      7.05</span></a>
+<a class="sourceLine" id="cb364-13" data-line-number="13"><span class="co">#&gt; 5    5.      16.1     11.7 </span></a>
+<a class="sourceLine" id="cb364-14" data-line-number="14"><span class="co">#&gt; 6    6.      14.7      9.07</span></a>
+<a class="sourceLine" id="cb364-15" data-line-number="15"><span class="co">#&gt; # ... with 1 more row</span></a></code></pre></div>
 </div>
 <div id="exercise-6-8" class="section level3 exercise">
 <h3><span class="header-section-number">15.3.6</span> Exercise 6</h3>
 <p>What makes the distribution of <code>diamonds$carat</code> and <code>flights$sched_dep_time</code> similar?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb365-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>In both <code>carat</code> and <code>sched_dep_time</code> there are abnormally large numbers of values are at nice “human” numbers. In <code>sched_dep_time</code> it is at 00 and 30 minutes. In carats, it is at 0, 1/3, 1/2, 2/3,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat <span class="op">%%</span><span class="st"> </span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat <span class="op">%%</span><span class="st"> </span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb366-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>In scheduled departure times it is 00 and 30 minutes, and minutes ending in 0 and 5.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(flights_dt, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">minute</span>(sched_dep_time))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</code></pre></div>
+<p>In scheduled departure times it is 00 and 30 minutes, and minutes
+ending in 0 and 5.</p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1"><span class="kw">ggplot</span>(flights_dt, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">minute</span>(sched_dep_time))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb367-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="exercise-7-3" class="section level3 exercise">
 <h3><span class="header-section-number">15.3.7</span> Exercise 7</h3>
 <p>Confirm my hypothesis that the early departures of flights in minutes 20-30 and 50-60 are caused by scheduled flights that leave early. Hint: create a binary variable that tells you whether or not a flight was delayed.</p>
 <p>At the minute level, there doesn’t appear to be anything:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">early =</span> dep_delay <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>,
-         <span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(minute) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">early =</span> <span class="kw">mean</span>(early)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> minute, <span class="dt">y =</span> early)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb368-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">early =</span> dep_delay <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb368-3" data-line-number="3">         <span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb368-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(minute) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb368-5" data-line-number="5"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">early =</span> <span class="kw">mean</span>(early)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb368-6" data-line-number="6"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> minute, <span class="dt">y =</span> early)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb368-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>But if grouped in 10 minute intervals, there is a higher proportion of early flights during those minutes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_dt <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">early =</span> dep_delay <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>,
-         <span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time) <span class="op">%%</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(minute) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">early =</span> <span class="kw">mean</span>(early)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> minute, <span class="dt">y =</span> early)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb369-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">early =</span> dep_delay <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb369-3" data-line-number="3">         <span class="dt">minute =</span> <span class="kw">minute</span>(sched_dep_time) <span class="op">%%</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb369-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(minute) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb369-5" data-line-number="5"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">early =</span> <span class="kw">mean</span>(early)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb369-6" data-line-number="6"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> minute, <span class="dt">y =</span> early)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb369-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -844,7 +881,8 @@ d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30,
 <blockquote>
 <p>Explain <code>days(overnight * 1)</code> to someone who has just started learning R. How does it work?</p>
 </blockquote>
-<p>The variable <code>overnight</code> is equal to <code>TRUE</code> or <code>FALSE</code>. If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0, and no days are added to the date.</p>
+<p>The variable <code>overnight</code> is equal to <code>TRUE</code> or <code>FALSE</code>.
+If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0, and no days are added to the date.</p>
 </div>
 <div id="exercise-3-30" class="section level3 exercise">
 <h3><span class="header-section-number">15.4.3</span> Exercise 3</h3>
@@ -852,29 +890,30 @@ d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30,
 <p>Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.</p>
 </blockquote>
 <p>A vector of the first day of the month for every month in 2015:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ymd</span>(<span class="st">&quot;2015-01-01&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)
-<span class="co">#&gt;  [1] &quot;2015-01-01&quot; &quot;2015-02-01&quot; &quot;2015-03-01&quot; &quot;2015-04-01&quot; &quot;2015-05-01&quot;</span>
-<span class="co">#&gt;  [6] &quot;2015-06-01&quot; &quot;2015-07-01&quot; &quot;2015-08-01&quot; &quot;2015-09-01&quot; &quot;2015-10-01&quot;</span>
-<span class="co">#&gt; [11] &quot;2015-11-01&quot; &quot;2015-12-01&quot;</span></code></pre></div>
-<p>To get the vector of the first day of the month for <em>this</em> year, we first need to figure out what this year is, and get January 1st of it. I can do that by taking <code>today()</code> and truncating it to the year using <code>floor_date</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">floor_date</span>(<span class="kw">today</span>(), <span class="dt">unit =</span> <span class="st">&quot;year&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)
-<span class="co">#&gt;  [1] &quot;2018-01-01&quot; &quot;2018-02-01&quot; &quot;2018-03-01&quot; &quot;2018-04-01&quot; &quot;2018-05-01&quot;</span>
-<span class="co">#&gt;  [6] &quot;2018-06-01&quot; &quot;2018-07-01&quot; &quot;2018-08-01&quot; &quot;2018-09-01&quot; &quot;2018-10-01&quot;</span>
-<span class="co">#&gt; [11] &quot;2018-11-01&quot; &quot;2018-12-01&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1"><span class="kw">ymd</span>(<span class="st">&quot;2015-01-01&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb370-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;2015-01-01&quot; &quot;2015-02-01&quot; &quot;2015-03-01&quot; &quot;2015-04-01&quot; &quot;2015-05-01&quot;</span></a>
+<a class="sourceLine" id="cb370-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;2015-06-01&quot; &quot;2015-07-01&quot; &quot;2015-08-01&quot; &quot;2015-09-01&quot; &quot;2015-10-01&quot;</span></a>
+<a class="sourceLine" id="cb370-4" data-line-number="4"><span class="co">#&gt; [11] &quot;2015-11-01&quot; &quot;2015-12-01&quot;</span></a></code></pre></div>
+<p>To get the vector of the first day of the month for <em>this</em> year, we first need to figure out what this year is, and get January 1st of it.
+I can do that by taking <code>today()</code> and truncating it to the year using <code>floor_date</code>:</p>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" data-line-number="1"><span class="kw">floor_date</span>(<span class="kw">today</span>(), <span class="dt">unit =</span> <span class="st">&quot;year&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb371-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;2018-01-01&quot; &quot;2018-02-01&quot; &quot;2018-03-01&quot; &quot;2018-04-01&quot; &quot;2018-05-01&quot;</span></a>
+<a class="sourceLine" id="cb371-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;2018-06-01&quot; &quot;2018-07-01&quot; &quot;2018-08-01&quot; &quot;2018-09-01&quot; &quot;2018-10-01&quot;</span></a>
+<a class="sourceLine" id="cb371-4" data-line-number="4"><span class="co">#&gt; [11] &quot;2018-11-01&quot; &quot;2018-12-01&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-4-23" class="section level3 exercise">
 <h3><span class="header-section-number">15.4.4</span> Exercise 4</h3>
 <blockquote>
 <p>Write a function that given your birthday (as a date), returns how old you are in years.</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age &lt;-<span class="st"> </span><span class="cf">function</span>(bday) {
-  (bday <span class="op">%--%</span><span class="st"> </span><span class="kw">today</span>()) <span class="op">%/%</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)
-}
-<span class="kw">age</span>(<span class="kw">ymd</span>(<span class="st">&quot;1990-10-12&quot;</span>))
-<span class="co">#&gt; Note: method with signature &#39;Timespan#Timespan&#39; chosen for function &#39;%/%&#39;,</span>
-<span class="co">#&gt;  target signature &#39;Interval#Period&#39;.</span>
-<span class="co">#&gt;  &quot;Interval#ANY&quot;, &quot;ANY#Period&quot; would also be valid</span>
-<span class="co">#&gt; [1] 27</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1">age &lt;-<span class="st"> </span><span class="cf">function</span>(bday) {</a>
+<a class="sourceLine" id="cb372-2" data-line-number="2">  (bday <span class="op">%--%</span><span class="st"> </span><span class="kw">today</span>()) <span class="op">%/%</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb372-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb372-4" data-line-number="4"><span class="kw">age</span>(<span class="kw">ymd</span>(<span class="st">&quot;1990-10-12&quot;</span>))</a>
+<a class="sourceLine" id="cb372-5" data-line-number="5"><span class="co">#&gt; Note: method with signature &#39;Timespan#Timespan&#39; chosen for function &#39;%/%&#39;,</span></a>
+<a class="sourceLine" id="cb372-6" data-line-number="6"><span class="co">#&gt;  target signature &#39;Interval#Period&#39;.</span></a>
+<a class="sourceLine" id="cb372-7" data-line-number="7"><span class="co">#&gt;  &quot;Interval#ANY&quot;, &quot;ANY#Period&quot; would also be valid</span></a>
+<a class="sourceLine" id="cb372-8" data-line-number="8"><span class="co">#&gt; [1] 27</span></a></code></pre></div>
 </div>
 <div id="exercise-5-12" class="section level3 exercise">
 <h3><span class="header-section-number">15.4.5</span> Exercise 5</h3>
@@ -882,10 +921,10 @@ d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30,
 <p>Why can’t <code>(today() %--% (today() + years(1)) / months(1)</code> work?</p>
 </blockquote>
 <p>It appears to work. Today is a date. Today + 1 year is a valid endpoint for an interval. And months is period that is defined in this period.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">today</span>() <span class="op">%--%</span><span class="st"> </span>(<span class="kw">today</span>() <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>))) <span class="op">%/%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
-<span class="co">#&gt; [1] 12</span>
-(<span class="kw">today</span>() <span class="op">%--%</span><span class="st"> </span>(<span class="kw">today</span>() <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>))) <span class="op">/</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
-<span class="co">#&gt; [1] 12</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" data-line-number="1">(<span class="kw">today</span>() <span class="op">%--%</span><span class="st"> </span>(<span class="kw">today</span>() <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>))) <span class="op">%/%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb373-2" data-line-number="2"><span class="co">#&gt; [1] 12</span></a>
+<a class="sourceLine" id="cb373-3" data-line-number="3">(<span class="kw">today</span>() <span class="op">%--%</span><span class="st"> </span>(<span class="kw">today</span>() <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>))) <span class="op">/</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb373-4" data-line-number="4"><span class="co">#&gt; [1] 12</span></a></code></pre></div>
 </div>
 </div>
 <div id="time-zones" class="section level2">
@@ -923,7 +962,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jrnold/r4ds/edit/master/datetimes.Rmd",
+"link": "https://github.com/jrnold/r4ds-exercise-solutions/edit/master/datetimes.Rmd",
 "text": "Edit"
 },
 "download": ["_main.pdf"],
@@ -939,7 +978,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

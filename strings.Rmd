@@ -121,7 +121,7 @@ str_commasep(c("a", "b", "c"))
 
 > How would you match the sequence `"'\` ?
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view("\"'\\", "\"'\\\\")
 ```
 
@@ -131,25 +131,29 @@ str_view("\"'\\", "\"'\\\\")
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
 ```
 
-```{r results='hide'}
-x < c("apple", "banana", "pear")
+```{r}
+x <- c("apple", "banana", "pear")
+```
+```{r eval=is_html}
 str_view(x, "^a")
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(x, "a$")
 ```
 
-```{r results='hide'}
+```{r}
 x <- c("apple pie", "apple", "apple cake")
+```
+```{r eval=is_html}
 str_view(x, "apple")
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(x, "^apple$")
 ```
 
@@ -159,7 +163,7 @@ str_view(x, "^apple$")
 
 > How would you match the literal string `"$^$"`?
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 ```
 
@@ -175,24 +179,24 @@ str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 > Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
 
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^y", match =TRUE)
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "x$", match = TRUE)
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^...$", match = TRUE)
 ```
 
 A simpler way, shown later is 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^.{3}$", match = TRUE)
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, ".......", match = TRUE)
 ```
 
@@ -208,23 +212,23 @@ str_view(stringr::words, ".......", match = TRUE)
 > 4.  End with `ing` or `ise`.
 
 Words starting with vowels
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^[aeiou]", match = TRUE)
 ```
 
 Words that contain only consonants
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^[^aeiou]+$", match=TRUE)
 ```
 This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
 
 Words that end with `ed` but not with `eed`. This handles the special case of "ed", as well as words with length > 2.
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
 ```
 
 Words ending in `ing` or `ise`:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "i(ng|se)$", match = TRUE)
 ```
 
@@ -233,15 +237,15 @@ str_view(stringr::words, "i(ng|se)$", match = TRUE)
 > Empirically verify the rule ``i before e except after c''.
 
 Using only what has been introduced thus far: 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 ```
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
 
 Using `str_detect` we can count the number of words that follow these rules:
-```{r results='hide'}
+```{r eval=is_html}
 sum(str_detect(stringr::words, "(cei|[^c]ie)"))
 sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 ```
@@ -251,7 +255,7 @@ sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 > Is ``q'' always followed by a ``u''?
 
 In the `stringr::words` dataset, yes. In the full English language, no.
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "q[^u]", match = TRUE)
 ```
 
@@ -279,17 +283,17 @@ It would require a dictionary with differences in spellings for different words.
 The answer to this will vary by country.
 
 For the United States, phone numbers have a format like `123-456-7890`.
-```{r results='hide'}
+```{r eval=is_html}
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
 or 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
-```{r results='hide'}
+```{r eval=is_html}
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 
@@ -309,7 +313,7 @@ Note that this pattern doesn't account for phone numbers that are invalid becaus
 ----- ---------  ----------------------------------
 
 The `*` pattern has no `{m,n}` equivalent since there is no upper bound on the number of matches. The expected pattern `{,}` is not valid.
-```{r error=TRUE,results='hide'}
+```{r error=TRUE,eval=is_html}
 str_view("abcd", ".{,}")
 ```
 
@@ -346,17 +350,17 @@ Examples:
 > 3. Have two or more vowel-consonant pairs in a row.
   
 A regex to find all words starting with three consonants
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "^[^aeiou]{3}")
 ```
 
 A regex to find three or more vowels in a row:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "[aeiou]{3,}")
 ```
 
 Two or more vowel-consonant pairs in a row.
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "([aeiou][^aeiou]){2,}")
 ```
 
@@ -396,7 +400,7 @@ Exercise left to reader. That site validates its solutions, so they aren't repea
 
 
 Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "^(.).*\\1$")
 ```
 
@@ -404,11 +408,11 @@ Contain a repeated pair of letters (e.g. “church” contains “ch” repeated
 
 I'll consider several patterns with varying levels of generality.
 This pattern checks for any pair of repeated characters:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "(..).*\\1")
 ```
 This pattern is checks for any pair of repeated "letters":
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "([A-Za-z][A-Za-z]).*\\1")
 ```
 
@@ -513,8 +517,10 @@ colour_match2 <- str_c("\\b(", str_c(colours, collapse = "|"), ")\\b")
 colour_match2
 ```
 
-```{r results='hide'}
+```{r}
 more2 <- sentences[str_count(sentences, colour_match) > 1]
+```
+```{r eval=is_html}
 str_view_all(more2, colour_match2, match = TRUE)
 ```
 

@@ -6,22 +6,8 @@
 
 ```r
 library("tidyverse")
-#> -- Attaching packages -------------------------------------- tidyverse 1.2.1 --
-#> √ ggplot2 2.2.1          √ purrr   0.2.4     
-#> √ tibble  1.4.2          √ dplyr   0.7.4.9000
-#> √ tidyr   0.8.0          √ stringr 1.2.0     
-#> √ readr   1.1.1          √ forcats 0.2.0
-#> -- Conflicts ----------------------------------------- tidyverse_conflicts() --
-#> x dplyr::filter() masks stats::filter()
-#> x dplyr::lag()    masks stats::lag()
 library("modelr")
 library("lubridate")
-#> Loading required package: methods
-#> 
-#> Attaching package: 'lubridate'
-#> The following object is masked from 'package:base':
-#> 
-#>     date
 ```
 
 ## Label
@@ -48,9 +34,7 @@ ggplot(data = mpg,
   )
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-3-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ### Exercise 3 {.exercise}
@@ -71,9 +55,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   )
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-4-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -93,9 +75,7 @@ mpg %>%
   )
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-5-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
 #### Exercise 3 
 
@@ -129,9 +109,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_text(aes(label = label, vjust = vjust, hjust = hjust), data = label)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-6-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 #### Exercise 2 {.exercise}
@@ -147,9 +125,7 @@ ggplot(mpg, aes(displ, hwy)) +
            label = "Increasing engine size is \nrelated to decreasing fuel economy.", vjust = "top", hjust = "right")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-7-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 #### Exercise 3 {.exercise}
@@ -175,9 +151,7 @@ ggplot(mpg, aes(displ, hwy)) +
   facet_wrap(~ class)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-8-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
 To draw the label in only one facet, add a column to the label data frame with the value of the faceting variable(s) in which to draw it.
 
@@ -196,9 +170,7 @@ ggplot(mpg, aes(displ, hwy)) +
   facet_wrap(~ class)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-9-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 To draw labels in different plots, simply have the facetting variable(s):
@@ -218,9 +190,7 @@ ggplot(mpg, aes(displ, hwy)) +
   facet_wrap(~ class)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-10-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
 #### Exercise 4 {.exercise}
 
@@ -263,9 +233,7 @@ ggplot(df, aes(x, y)) +
   coord_fixed()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-11-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 It does not override the default scale because the colors in `geom_hex` are set by the `fill` aesthetic, not the `color` aesthetic.
 
@@ -277,9 +245,7 @@ ggplot(df, aes(x, y)) +
   coord_fixed()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-12-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 #### Exercise 2 {.exercise}
@@ -300,9 +266,7 @@ ggplot(mpg, aes(displ, hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-13-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -315,9 +279,7 @@ ggplot(mpg, aes(displ, hwy)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-14-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 #### Exercise 3 {.exercise}
 
@@ -348,9 +310,7 @@ presidential %>%
     theme(panel.grid.minor = element_blank())
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-15-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
 
 #### Exercise 4 {.exercise}
 
@@ -362,9 +322,7 @@ ggplot(diamonds, aes(carat, price)) +
   geom_point(aes(colour = cut), alpha = 1/20)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-16-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 The problem with the legend is that the `alpha` value make the colors hard to see. So I'll override the alpha value to make the points solid in the legend.
 
@@ -375,7 +333,5 @@ ggplot(diamonds, aes(carat, price)) +
   guides(colour = guide_legend(nrow = 1, override.aes = list(alpha = 1)))  
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-17-1} \end{center}
+<img src="graphics-for-communication_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 

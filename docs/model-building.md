@@ -135,7 +135,7 @@ daily %>%
 #> # A tibble: 3 x 5
 #>   date           n wday  term  resid
 #>   <date>     <int> <ord> <fct> <dbl>
-#> 1 2013-11-30   857 Sat   fall  112  
+#> 1 2013-11-30   857 Sat   fall  112. 
 #> 2 2013-12-01   987 Sun   fall   95.5
 #> 3 2013-12-28   814 Sat   fall   69.4
 ```
@@ -168,9 +168,7 @@ daily %>%
     geom_line(alpha = 0.75)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-8-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
 I think the overlapping plot is hard to understand.
 If we are interested in the differences, it is better to plot the differences directly.
@@ -184,9 +182,7 @@ daily %>%
     geom_line(alpha = 0.75)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-9-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 The model with terms x Saturday has higher residuals in the fall, and lower residuals in the spring than the model with all interactions. 
 
@@ -244,12 +240,12 @@ daily %>%
 #> # A tibble: 20 x 3
 #>   date       wday  resid
 #>   <date>     <ord> <dbl>
-#> 1 2013-11-28 Thu    -332
-#> 2 2013-11-29 Fri    -306
-#> 3 2013-12-25 Wed    -244
-#> 4 2013-07-04 Thu    -229
-#> 5 2013-12-24 Tue    -190
-#> 6 2013-12-31 Tue    -175
+#> 1 2013-11-28 Thu   -332.
+#> 2 2013-11-29 Fri   -306.
+#> 3 2013-12-25 Wed   -244.
+#> 4 2013-07-04 Thu   -229.
+#> 5 2013-12-24 Tue   -190.
+#> 6 2013-12-31 Tue   -175.
 #> # ... with 14 more rows
 ```
 
@@ -283,9 +279,7 @@ flights %>%
   geom_point()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-13-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 However, breaking it down by hour, I don't see much evidence at first.
 Conditional on hour, the distance of Sunday flights seems similar to that of other days (excluding Saturday):
@@ -303,9 +297,7 @@ flights %>%
   geom_line()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-14-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 Can someone think of a better way to check this?
 
@@ -333,7 +325,5 @@ ggplot(daily, aes(monday_first(wday), n)) +
   labs(x = "Day of Week", y = "Number of flights")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-16-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
