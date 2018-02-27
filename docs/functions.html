@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
+<link rel="stylesheet" href="r4ds-solutions.css" type="text/css" />
 </head>
 
 <body>
@@ -658,14 +659,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">18.2</span> When should you write a function?</h2>
 <div id="exercise-1-44" class="section level3 exercise">
 <h3><span class="header-section-number">18.2.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Why is TRUE not a parameter to <code>rescale01()</code>?
 What would happen if <code>x</code> contained a single missing value, and <code>na.rm</code> was <code>FALSE</code>?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>First, note that by a a single missing value, this means that the vector <code>x</code> has at least one element equal to <code>NA</code>.</p>
 <p>If there were any <code>NA</code> values, and <code>na.rm = FALSE</code>, then the function would
 return <code>NA</code>.</p>
-<p>I can confirm this by testing a function that allows for <code>na.rm</code> as an argument:</p>
+I can confirm this by testing a function that allows for <code>na.rm</code> as an argument
+</div>
 <div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" data-line-number="1">rescale01_alt &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">finite =</span> <span class="ot">TRUE</span>) {</a>
 <a class="sourceLine" id="cb375-2" data-line-number="2">  rng &lt;-<span class="st"> </span><span class="kw">range</span>(x, <span class="dt">na.rm =</span> finite, <span class="dt">finite =</span> finite)</a>
 <a class="sourceLine" id="cb375-3" data-line-number="3">  (x <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>]) <span class="op">/</span><span class="st"> </span>(rng[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>])</a>
@@ -675,12 +678,14 @@ return <code>NA</code>.</p>
 <a class="sourceLine" id="cb375-7" data-line-number="7"><span class="kw">rescale01_alt</span>(<span class="kw">c</span>(<span class="ot">NA</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>), <span class="dt">finite =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb375-8" data-line-number="8"><span class="co">#&gt; [1]   NA 0.00 0.25 0.50 0.75 1.00</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-43" class="section level3 exercise">
 <h3><span class="header-section-number">18.2.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>In the second variant of <code>rescale01()</code>, infinite values are left unchanged.
 Rewrite <code>rescale01()</code> so that <code>-Inf</code> is mapped to 0, and <code>Inf</code> is mapped to 1.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" data-line-number="1">rescale01 &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
 <a class="sourceLine" id="cb376-2" data-line-number="2">  rng &lt;-<span class="st"> </span><span class="kw">range</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">finite =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb376-3" data-line-number="3">  y &lt;-<span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>]) <span class="op">/</span><span class="st"> </span>(rng[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>])</a>
@@ -692,6 +697,7 @@ Rewrite <code>rescale01()</code> so that <code>-Inf</code> is mapped to 0, and <
 <a class="sourceLine" id="cb376-9" data-line-number="9"><span class="kw">rescale01</span>(<span class="kw">c</span>(<span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">NA</span>))</a>
 <a class="sourceLine" id="cb376-10" data-line-number="10"><span class="co">#&gt; [1] 1.0 0.0 0.0 0.2 0.4 0.6 0.8 1.0  NA</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-31" class="section level3 exercise">
 <h3><span class="header-section-number">18.2.3</span> Exercise 3</h3>
 <p>Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?</p>
@@ -700,7 +706,8 @@ Rewrite <code>rescale01()</code> so that <code>-Inf</code> is mapped to 0, and <
 <a class="sourceLine" id="cb377-3" data-line-number="3">x <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb377-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb377-5" data-line-number="5"><span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p>This function calculates the proportion of <code>NA</code> values in a vector:</p>
+This function calculates the proportion of <code>NA</code> values in a vector
+</div>
 <div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" data-line-number="1">prop_na &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
 <a class="sourceLine" id="cb378-2" data-line-number="2">  <span class="kw">mean</span>(<span class="kw">is.na</span>(x))</a>
 <a class="sourceLine" id="cb378-3" data-line-number="3">}</a>
@@ -715,8 +722,9 @@ Rewrite <code>rescale01()</code> so that <code>-Inf</code> is mapped to 0, and <
 <a class="sourceLine" id="cb379-6" data-line-number="6"><span class="co">#&gt; [1] 0.0000 0.0667 0.1333 0.2000 0.2667 0.3333</span></a>
 <a class="sourceLine" id="cb379-7" data-line-number="7"><span class="kw">sum</span>(y)</a>
 <a class="sourceLine" id="cb379-8" data-line-number="8"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
-<p>This function calculates the <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> (assuming that <code>x</code> can only take non-negative values).
-The coefficient of variation is the standard deviation divided by the mean:</p>
+This function calculates the <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> (assuming that <code>x</code> can only take non-negative values).
+The coefficient of variation is the standard deviation divided by the mean
+</div>
 <div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" data-line-number="1">coef_variation &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
 <a class="sourceLine" id="cb380-2" data-line-number="2">  <span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb380-3" data-line-number="3">}</a>
@@ -725,9 +733,10 @@ The coefficient of variation is the standard deviation divided by the mean:</p>
 </div>
 <div id="exercise-4-24" class="section level3">
 <h3><span class="header-section-number">18.2.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Follow <a href="http://nicercode.github.io/intro/writing-functions.html" class="uri">http://nicercode.github.io/intro/writing-functions.html</a> to write your own functions to compute the variance and skew of a numeric vector.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><strong>Note</strong> The math in <a href="https://nicercode.github.io/intro/writing-functions.html" class="uri">https://nicercode.github.io/intro/writing-functions.html</a> seems not to be rendering, but I’ll write functions for the variance and skewness.</p>
 <p>The sample variance is defined as
 <span class="math display">\[
@@ -773,24 +782,28 @@ b_1 =  \frac{m_3}{s^3} = \frac{\frac{1}{n} \sum (x_i - \bar{x}) ^ 3}{{\left(\fra
 <a class="sourceLine" id="cb383-8" data-line-number="8">        <span class="kw">c</span>(<span class="ot">NA</span>,  <span class="dv">1</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb383-9" data-line-number="9"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-6-9" class="section level3 exercise">
 <h3><span class="header-section-number">18.2.5</span> Exercise 6</h3>
-<blockquote>
+<div class="question">
 <p>What do the following functions do? Why are they useful even though they are so short?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" data-line-number="1">is_directory &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">file.info</span>(x)<span class="op">$</span>isdir</a>
 <a class="sourceLine" id="cb384-2" data-line-number="2">is_readable &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">file.access</span>(x, <span class="dv">4</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span></a></code></pre></div>
 <p>The function <code>is_directory</code> checks whether the path in <code>x</code> is a directory.
 The function <code>is_readable</code> checks whether the path in <code>x</code> is readable, meaning that the file exists and the user has permission to open it.
 These functions are useful even though they are short because their names make it much clearer what the code is doing.</p>
 </div>
+</div>
 <div id="exercise-7-4" class="section level3 exercise">
 <h3><span class="header-section-number">18.2.6</span> Exercise 7</h3>
 <div class="question">
 <p>Read the complete lyrics to ``Little Bunny Foo Foo’’. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.</p>
 </div>
-<p>The lyrics of one of the <a href="https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">most common versions</a> of this song are:</p>
-<blockquote>
+The lyrics of one of the <a href="https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">most common versions</a> of this song are
+</div>
+<div class="question">
 <p>Little bunny Foo Foo
 Hopping through the forest
 Scooping up the field mice
@@ -803,7 +816,8 @@ Scooping up the field mice</p>
 I’ll give you three chances,
 And if you don’t stop, I’ll turn you into a GOON!&quot;
 And the next day…</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The verses repeat with one chance fewer each time.
 When there are no chances left, the Good Fairy says</p>
 <blockquote>
@@ -811,7 +825,8 @@ When there are no chances left, the Good Fairy says</p>
 POOF. She turned him into a GOON!
 And the moral of this story is: <em>hare today, goon tomorrow.</em></p>
 </blockquote>
-<p>Here’s one way of writing this:</p>
+Here’s one way of writing this
+</div>
 <div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" data-line-number="1">threat &lt;-<span class="st"> </span><span class="cf">function</span>(chances) {</a>
 <a class="sourceLine" id="cb385-2" data-line-number="2">  <span class="kw">give_chances</span>(<span class="dt">from =</span> Good_Fairy,</a>
 <a class="sourceLine" id="cb385-3" data-line-number="3">               <span class="dt">to =</span> foo_foo,</a>
@@ -845,13 +860,15 @@ And the moral of this story is: <em>hare today, goon tomorrow.</em></p>
 <a class="sourceLine" id="cb385-31" data-line-number="31">             </a></code></pre></div>
 </div>
 </div>
+</div>
 <div id="functions-are-for-humans-and-computers" class="section level2">
 <h2><span class="header-section-number">18.3</span> Functions are for humans and computers</h2>
 <div id="exercise-1-45" class="section level3 exercise">
 <h3><span class="header-section-number">18.3.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" data-line-number="1">f1 &lt;-<span class="st"> </span><span class="cf">function</span>(string, prefix) {</a>
 <a class="sourceLine" id="cb386-2" data-line-number="2">  <span class="kw">substr</span>(string, <span class="dv">1</span>, <span class="kw">nchar</span>(prefix)) <span class="op">==</span><span class="st"> </span>prefix</a>
 <a class="sourceLine" id="cb386-3" data-line-number="3">}</a>
@@ -868,7 +885,8 @@ And the moral of this story is: <em>hare today, goon tomorrow.</em></p>
 <div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" data-line-number="1"><span class="kw">f1</span>(<span class="kw">c</span>(<span class="st">&quot;str_c&quot;</span>, <span class="st">&quot;str_foo&quot;</span>, <span class="st">&quot;abc&quot;</span>), <span class="st">&quot;str_&quot;</span>)</a>
 <a class="sourceLine" id="cb387-2" data-line-number="2"><span class="co">#&gt; [1]  TRUE  TRUE FALSE</span></a></code></pre></div>
 <p>A better name for <code>f1</code> is <code>has_prefix()</code></p>
-<p>The function <code>f2</code> drops the last element:</p>
+The function <code>f2</code> drops the last element
+</div>
 <div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" data-line-number="1"><span class="kw">f2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb388-2" data-line-number="2"><span class="co">#&gt; [1] 1 2</span></a>
 <a class="sourceLine" id="cb388-3" data-line-number="3"><span class="kw">f2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</a>
@@ -881,18 +899,22 @@ And the moral of this story is: <em>hare today, goon tomorrow.</em></p>
 <a class="sourceLine" id="cb389-2" data-line-number="2"><span class="co">#&gt; [1] 4 4 4</span></a></code></pre></div>
 <p>This is a harder one to name. I would say something like <code>recycle</code> (R’s name for this behavior), or <code>epxand</code>.</p>
 </div>
+</div>
 <div id="exercise-2-44" class="section level3 exercise">
 <h3><span class="header-section-number">18.3.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Take a function that you’ve written recently and spend 5 minutes brainstorming a better name for it and its arguments.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Answer left to the reader.</p>
+</div>
 </div>
 <div id="exercise-3-32" class="section level3 exercise">
 <h3><span class="header-section-number">18.3.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Compare and contrast <code>rnorm()</code> and <code>MASS::mvrnorm()</code>. How could you make them more consistent?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><em>You can ignore</em></p>
 <p><code>rnorm</code> samples from the univariate normal distribution, while <code>MASS::mvrnorm</code> samples from the multivariate normal distribution.
 The main arguments in <code>rnorm</code> are <code>n</code>, <code>mean</code>, <code>sd</code>.
@@ -903,29 +925,35 @@ In general, it is better to be consistent with more widely used functions, e.g. 
 However, while <code>mean</code> is correct in the multivariate case, <code>sd</code> does not make sense in the multivariate case.
 Both functions an internally consistent though; it would be bad to have <code>mu</code> and <code>sd</code> or <code>mean</code> and <code>Sigma</code>.</p>
 </div>
+</div>
 <div id="exercise-4-25" class="section level3 exercise">
 <h3><span class="header-section-number">18.3.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Make a case for why <code>norm_r()</code>, <code>norm_d()</code> etc would be better than <code>rnorm()</code>, <code>dnorm()</code>. Make a case for the opposite.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>If named <code>norm_r</code> and <code>norm_d</code>, it groups the family of functions related to the normal distribution.
 If named <code>rnorm</code>, and <code>dnorm</code>, functions related to are grouped into families by the action they perform. <code>r*</code> functions always sample from distributions: <code>rnorm</code>, <code>rbinom</code>, <code>runif</code>, <code>rexp</code>. <code>d*</code> functions calculate the probability density or mass of a distribution: <code>dnorm</code>, <code>dbinom</code>, <code>dunif</code>, <code>dexp</code>.</p>
+</div>
 </div>
 </div>
 <div id="conditional-execution" class="section level2">
 <h2><span class="header-section-number">18.4</span> Conditional execution</h2>
 <div id="exercise-1-46" class="section level3 exercise">
 <h3><span class="header-section-number">18.4.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>What’s the difference between <code>if</code> and <code>ifelse()</code>? &gt; Carefully read the help and construct three examples that illustrate the key differences.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The keyword <code>if</code> tests a single condition, while <code>ifelse</code> tests each element.</p>
+</div>
 </div>
 <div id="exercise-2-45" class="section level3 exercise">
 <h3><span class="header-section-number">18.4.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Write a greeting function that says “good morning”, “good afternoon”, or “good evening”, depending on the time of day. (Hint: use a time argument that defaults to <code>lubridate::now()</code>. That will make it easier to test your function.)</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" data-line-number="1">greet &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">time =</span> lubridate<span class="op">::</span><span class="kw">now</span>()) {</a>
 <a class="sourceLine" id="cb390-2" data-line-number="2">  hr &lt;-<span class="st"> </span><span class="kw">hour</span>(time)</a>
 <a class="sourceLine" id="cb390-3" data-line-number="3">  <span class="co"># I don&#39;t know what to do about times after midnight, </span></a>
@@ -947,11 +975,13 @@ If named <code>rnorm</code>, and <code>dnorm</code>, functions related to are gr
 <a class="sourceLine" id="cb390-19" data-line-number="19"><span class="kw">greet</span>(<span class="kw">ymd_h</span>(<span class="st">&quot;2017-01-08:20&quot;</span>))</a>
 <a class="sourceLine" id="cb390-20" data-line-number="20"><span class="co">#&gt; [1] &quot;good evening&quot;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-33" class="section level3 exercise">
 <h3><span class="header-section-number">18.4.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Implement a <code>fizzbuzz</code> function. It takes a single number as input. If the number is divisible by three, it returns “fizz”. If it’s divisible by five it returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”. Otherwise, it returns the number. Make sure you first write working code before you create the function.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" data-line-number="1">fizzbuzz &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
 <a class="sourceLine" id="cb391-2" data-line-number="2">  <span class="kw">stopifnot</span>(<span class="kw">length</span>(x) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb391-3" data-line-number="3">  <span class="kw">stopifnot</span>(<span class="kw">is.numeric</span>(x))</a>
@@ -973,11 +1003,13 @@ If named <code>rnorm</code>, and <code>dnorm</code>, functions related to are gr
 <a class="sourceLine" id="cb391-19" data-line-number="19"><span class="co">#&gt; [1] &quot;fizzbuzz&quot;</span></a>
 <a class="sourceLine" id="cb391-20" data-line-number="20"><span class="kw">fizzbuzz</span>(<span class="dv">2</span>)</a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-26" class="section level3 exercise">
 <h3><span class="header-section-number">18.4.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>How could you use <code>cut()</code> to simplify this set of nested if-else statements?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" data-line-number="1"><span class="cf">if</span> (temp <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>) {</a>
 <a class="sourceLine" id="cb392-2" data-line-number="2">  <span class="st">&quot;freezing&quot;</span></a>
 <a class="sourceLine" id="cb392-3" data-line-number="3">} <span class="cf">else</span> <span class="cf">if</span> (temp <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>) {</a>
@@ -996,7 +1028,8 @@ If named <code>rnorm</code>, and <code>dnorm</code>, functions related to are gr
 <a class="sourceLine" id="cb393-4" data-line-number="4"><span class="co">#&gt;  [1] freezing freezing freezing cold     cold     cool     cool    </span></a>
 <a class="sourceLine" id="cb393-5" data-line-number="5"><span class="co">#&gt;  [8] warm     warm     hot      hot      hot      hot     </span></a>
 <a class="sourceLine" id="cb393-6" data-line-number="6"><span class="co">#&gt; Levels: freezing cold cool warm hot</span></a></code></pre></div>
-<p>To have intervals open on the left (using <code>&lt;</code>), I change the argument to <code>right = FALSE</code>:</p>
+To have intervals open on the left (using <code>&lt;</code>), I change the argument to <code>right = FALSE</code>
+</div>
 <div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" data-line-number="1">temp &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">50</span>, <span class="dt">by =</span> <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb394-2" data-line-number="2"><span class="kw">cut</span>(temp, <span class="kw">c</span>(<span class="op">-</span><span class="ot">Inf</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="ot">Inf</span>), <span class="dt">right =</span> <span class="ot">FALSE</span>,</a>
 <a class="sourceLine" id="cb394-3" data-line-number="3">    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;freezing&quot;</span>, <span class="st">&quot;cold&quot;</span>, <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;warm&quot;</span>, <span class="st">&quot;hot&quot;</span>))</a>
@@ -1006,20 +1039,24 @@ If named <code>rnorm</code>, and <code>dnorm</code>, functions related to are gr
 <p>Two advantages of using <code>cut</code> is that it works on vectors, whereas <code>if</code> only works on a single value (I already demonstrated this above),
 and that to change comparisons I only needed to change the argument to <code>right</code>, but I would have had to change four operators in the <code>if</code> expression.</p>
 </div>
+</div>
 <div id="exercise-5-13" class="section level3 exercise">
 <h3><span class="header-section-number">18.4.5</span> Exercise 5</h3>
-<blockquote>
+<div class="question">
 <p>What happens if you use <code>switch()</code> with numeric values?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>It selects that number argument from <code>...</code>.</p>
 <div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" data-line-number="1"><span class="cf">switch</span>(<span class="dv">2</span>, <span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>)</a>
 <a class="sourceLine" id="cb395-2" data-line-number="2"><span class="co">#&gt; [1] &quot;two&quot;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-6-10" class="section level3 exercise">
 <h3><span class="header-section-number">18.4.6</span> Exercise 6</h3>
-<blockquote>
+<div class="question">
 <p>What does this <code>switch()</code> call do? What happens if <code>x</code> is <code>&quot;e&quot;</code>?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>It will return the <code>&quot;ab&quot;</code> for <code>a</code> or <code>b</code>, <code>&quot;cd&quot;</code> for <code>c</code> or <code>d</code>, an <code>NULL</code> for <code>e</code>. It returns the first non-missing value for the first name it matches.</p>
 <div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" data-line-number="1">x &lt;-<span class="st"> &quot;e&quot;</span></a>
 <a class="sourceLine" id="cb396-2" data-line-number="2"><span class="cf">switch</span>(x, </a>
@@ -1048,13 +1085,15 @@ and that to change comparisons I only needed to change the argument to <code>rig
 <a class="sourceLine" id="cb397-17" data-line-number="17"><span class="kw">switcheroo</span>(<span class="st">&quot;e&quot;</span>)</a></code></pre></div>
 </div>
 </div>
+</div>
 <div id="function-arguments" class="section level2">
 <h2><span class="header-section-number">18.5</span> Function arguments</h2>
 <div id="exercise-1-47" class="section level3 exercise">
 <h3><span class="header-section-number">18.5.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>What does <code>commas(letters, collapse = &quot;-&quot;)</code> do? Why?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The <code>commas</code> function in the chapter is defined as</p>
 <div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" data-line-number="1">commas &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
 <a class="sourceLine" id="cb398-2" data-line-number="2">  stringr<span class="op">::</span><span class="kw">str_c</span>(..., <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</a>
@@ -1073,12 +1112,14 @@ argument to the function.</p>
 <a class="sourceLine" id="cb401-2" data-line-number="2">  stringr<span class="op">::</span><span class="kw">str_c</span>(..., <span class="dt">collapse =</span> collapse)</a>
 <a class="sourceLine" id="cb401-3" data-line-number="3">}</a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-46" class="section level3 exercise">
 <h3><span class="header-section-number">18.5.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>It’d be nice if you could supply multiple characters to the pad argument, e.g. <code>rule(&quot;Title&quot;, pad = &quot;-+&quot;)</code>.
 Why doesn’t this currently work? How could you fix it?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" data-line-number="1">rule &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">pad =</span> <span class="st">&quot;-&quot;</span>) {</a>
 <a class="sourceLine" id="cb402-2" data-line-number="2">  title &lt;-<span class="st"> </span><span class="kw">paste0</span>(...)</a>
 <a class="sourceLine" id="cb402-3" data-line-number="3">  width &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;width&quot;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">nchar</span>(title) <span class="op">-</span><span class="st"> </span><span class="dv">5</span></a>
@@ -1109,22 +1150,27 @@ The trickiest part is handling what to do if width is not a multiple of the numb
 <a class="sourceLine" id="cb404-15" data-line-number="15"><span class="kw">rule</span>(<span class="st">&quot;Important output&quot;</span>, <span class="dt">pad =</span> <span class="st">&quot;-+-&quot;</span>)</a>
 <a class="sourceLine" id="cb404-16" data-line-number="16"><span class="co">#&gt; Important output -+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-34" class="section level3 exercise">
 <h3><span class="header-section-number">18.5.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>What does the <code>trim</code> argument to <code>mean()</code> do? When might you use it?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The <code>trim</code> arguments trims a fraction of observations from each end of the vector (meaning the range) before calculating the mean.
 This is useful for calculating a measure of central tendency that is robust to outliers.</p>
 </div>
+</div>
 <div id="exercise-4-27" class="section level3 exercise">
 <h3><span class="header-section-number">18.5.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>The default value for the <code>method</code> argument to <code>cor()</code> is <code>c(&quot;pearson&quot;, &quot;kendall&quot;, &quot;spearman&quot;)</code>.
 What does that mean? What value is used by default?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>It means that the <code>method</code> argument can take one of those three values.
 The first value, <code>&quot;pearson&quot;</code>, is used by default.</p>
+</div>
 </div>
 </div>
 <div id="environment" class="section level2">

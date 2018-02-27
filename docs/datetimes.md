@@ -33,8 +33,14 @@ flights_dt <- flights %>%
 
 ### Exercise 1 {.exercise}
 
-> What happens if you parse a string that
-> contains invalid dates?
+
+
+What happens if you parse a string that
+contains invalid dates?
+
+
+
+
 
 
 ```r
@@ -48,6 +54,8 @@ ret
 
 It produces an `NA` and an warning message.
 
+
+
 ### Exercise 2 {.exercise}
 
 What does the `tzone` argument to `today()` do? Why is it important?
@@ -56,8 +64,14 @@ It determines the time-zone of the date. Since different time-zones can have dif
 
 ### Exercise 3 {.exercise}
 
-> Use the appropriate **lubridate** function to
-> parse each of the following dates:
+
+
+Use the appropriate **lubridate** function to
+parse each of the following dates:
+
+
+
+
 
 
 ```r
@@ -79,6 +93,8 @@ mdy(d5)
 ```
 
 
+
+
 ## Date-Time Components
 
 The following code from the chapter is used 
@@ -97,8 +113,14 @@ In the previous code, the difference between rounded and un-rounded dates provid
 
 ### Exercise 1 {.exercise}
 
-> How does the distribution of flight times 
-> within a day change over the course of the year?
+
+
+How does the distribution of flight times 
+within a day change over the course of the year?
+
+
+
+
 
 Let's try plotting this by month:
 
@@ -111,7 +133,9 @@ flights_dt %>%
   geom_freqpoly(binwidth = 100)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 This will look better if everything is normalized within groups. The reason
 that February is lower is that there are fewer days and thus fewer flights.
@@ -125,9 +149,13 @@ flights_dt %>%
   geom_freqpoly(binwidth = 100)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 At least to me there doesn't appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.
+
+
 
 ### Exercise 2 {.exercise}
 
@@ -197,7 +225,9 @@ flights_dt %>%
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 ### Exercise 5 {.exercise}
 
@@ -234,7 +264,9 @@ ggplot(diamonds, aes(x = carat)) +
   geom_density()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 In both `carat` and `sched_dep_time` there are abnormally large numbers of values are at nice "human" numbers. In `sched_dep_time` it is at 00 and 30 minutes. In carats, it is at 0, 1/3, 1/2, 2/3, 
 
@@ -244,7 +276,9 @@ ggplot(diamonds, aes(x = carat %% 1 * 100)) +
   geom_histogram(binwidth = 1)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 In scheduled departure times it is 00 and 30 minutes, and minutes
 ending in 0 and 5.
@@ -255,7 +289,9 @@ ggplot(flights_dt, aes(x = minute(sched_dep_time))) +
   geom_histogram(binwidth = 1)
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 ### Exercise 7 {.exercise}
 
@@ -273,7 +309,9 @@ flights_dt %>%
   geom_point()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 
 But if grouped in 10 minute intervals, there is a higher proportion of early flights during those minutes.
@@ -289,14 +327,22 @@ flights_dt %>%
   geom_point()
 ```
 
-<img src="datetimes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 
 ## Time Spans
 
 ### Exercise 1 {.exercise}
 
-> Why is there `months()` but no `dmonths()`? 
+
+
+Why is there `months()` but no `dmonths()`? 
+
+
+
+
 
 There is no direct unambiguous value of months in seconds since months have differing numbers of days. 
 
@@ -306,16 +352,32 @@ There is no direct unambiguous value of months in seconds since months have diff
 
 Though in the past, in the pre-computer era, for arithmetic convenience, bankers adopted a 360 day year with 30 day months.
 
+
+
 ### Exercise 2 {.exercise}
 
-> Explain `days(overnight * 1)` to someone who has just started learning R. How does it work? 
+
+
+Explain `days(overnight * 1)` to someone who has just started learning R. How does it work? 
+
+
+
+
 
 The variable `overnight` is equal to `TRUE` or `FALSE`.
 If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0, and no days are added to the date.
 
+
+
 ### Exercise 3 {.exercise}
 
-> Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
+
+
+Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
+
+
+
+
 
 A vector of the first day of the month for every month in 2015:
 
@@ -337,9 +399,17 @@ floor_date(today(), unit = "year") + months(0:11)
 ```
 
 
+
+
 ### Exercise 4 {.exercise}
 
-> Write a function that given your birthday (as a date), returns how old you are in years.
+
+
+Write a function that given your birthday (as a date), returns how old you are in years.
+
+
+
+
 
 
 ```r
@@ -353,9 +423,17 @@ age(ymd("1990-10-12"))
 #> [1] 27
 ```
 
+
+
 ### Exercise 5 {.exercise}
 
-> Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
+
+
+Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
+
+
+
+
 
 It appears to work. Today is a date. Today + 1 year is a valid endpoint for an interval. And months is period that is defined in this period.
 
@@ -365,6 +443,8 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 (today() %--% (today() + years(1))) / months(1)
 #> [1] 12
 ```
+
+
 
 
 ## Time Zones

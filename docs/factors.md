@@ -26,9 +26,15 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> Explore the distribution of `rincome` (reported income). 
-> What makes the default bar chart hard to understand? 
-> How could you improve the plot?
+
+
+Explore the distribution of `rincome` (reported income). 
+What makes the default bar chart hard to understand? 
+How could you improve the plot?
+
+
+
+
 
 
 ```r
@@ -39,7 +45,9 @@ rincome_plot <-
 rincome_plot
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 The default bar chart labels are too squished to read.
 One solution is to change the angle of the labels,
@@ -49,7 +57,9 @@ rincome_plot +
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 But that's not natural either, because text is vertical, and we read horizontally.
 So with long labels, it is better to flip it.
@@ -59,16 +69,26 @@ rincome_plot +
   coord_flip()
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 This is better, but it unintuitively goes from low to high. It would help if the
 scale is reversed. Also, if all the missing factors were differentiated.
 
 
+
+
 ### Exercise 2 {.exercise}
 
-> What is the most common `relig` in this survey? 
-> What’s the most common `partyid`?
+
+
+What is the most common `relig` in this survey? 
+What’s the most common `partyid`?
+
+
+
+
 
 The most common `relig` is "Protestant"
 
@@ -97,11 +117,19 @@ gss_cat %>%
 ```
 
 
+
+
 ### Exercise 4 {.exercise}
 
-> Which `relig` does `denom` (denomination) apply to? 
-> How can you find out with a table? 
-> How can you find out with a visualization?
+
+
+Which `relig` does `denom` (denomination) apply to? 
+How can you find out with a table? 
+How can you find out with a visualization?
+
+
+
+
 
 
 ```r
@@ -145,15 +173,25 @@ gss_cat %>%
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-10-1} \end{center}
+
+
 
 
 ## Modifying factor order
 
 ### Exercise 1 {.exercise}
 
-> There are some suspiciously high numbers in `tvhours`. 
-> Is the `mean` a good summary?
+
+
+There are some suspiciously high numbers in `tvhours`. 
+Is the `mean` a good summary?
+
+
+
+
 
 
 ```r
@@ -170,15 +208,25 @@ gss_cat %>%
   geom_histogram(binwidth = 1)
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 Whether the mean is the best summary depends on what you are using it for :-), i.e. your objective.
 But probably the median would be what most people prefer.
 And the hours of TV doesn't look that surprising to me.
 
+
+
 ### Exercise 2 {.exercise}
 
-> For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
+
+
+For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
+
+
+
+
 
 The following piece of code uses functions introduced in Ch 21, to print out the names of only the factors.
 
@@ -205,7 +253,9 @@ gss_cat %>%
   geom_bar()
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 The ordering of race is principled in that the categories are ordered by count of observations in the data.
 
@@ -221,7 +271,9 @@ gss_cat %>%
 #> Warning: Ignoring unknown parameters: drop
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The levels of `rincome` are ordered in decreasing order of the income; however the placement of "No answer", "Don't know", and "Refused" before, and "Not applicable" after the income levels is arbitrary. It would be better to place all the missing income level categories either before or after all the known values.
 
@@ -255,7 +307,9 @@ gss_cat %>%
   coord_flip()
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 The same goes for `denom`.
 
@@ -285,11 +339,21 @@ levels(gss_cat$partyid)
 ```
 
 
+
+
 ### Exercise 3 {.exercise}
 
->  Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
+
+
+Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
+
+
+
+
 
 Because that gives the level "Not applicable" an integer value of 1.
+
+
 
 
 
@@ -298,7 +362,13 @@ Because that gives the level "Not applicable" an integer value of 1.
 
 ### Exercise 1 {.exercise}
 
->  How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
+
+
+How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
+
+
+
+
 
 To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent
 
@@ -331,12 +401,22 @@ gss_cat %>%
 
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-24-1} \end{center}
+
+
 
 
 ### Exercise 2 {.exercise}
 
-> How could you collapse `rincome` into a small set of categories?
+
+
+How could you collapse `rincome` into a small set of categories?
+
+
+
+
 
 Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn't want to use something like `fct_lump`.
 
@@ -366,4 +446,8 @@ gss_cat %>%
   coord_flip()
 ```
 
-<img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-26-1} \end{center}
+
+

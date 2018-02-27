@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
+<link rel="stylesheet" href="r4ds-solutions.css" type="text/css" />
 </head>
 
 <body>
@@ -663,11 +664,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">14.3</span> General Social Survey</h2>
 <div id="exercise-1-38" class="section level3 exercise">
 <h3><span class="header-section-number">14.3.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Explore the distribution of <code>rincome</code> (reported income).
 What makes the default bar chart hard to understand?
 How could you improve the plot?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1">rincome_plot &lt;-</a>
 <a class="sourceLine" id="cb330-2" data-line-number="2"><span class="st">  </span>gss_cat <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb330-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(rincome)) <span class="op">+</span></a>
@@ -687,12 +689,14 @@ So with long labels, it is better to flip it.</p>
 <p>This is better, but it unintuitively goes from low to high. It would help if the
 scale is reversed. Also, if all the missing factors were differentiated.</p>
 </div>
+</div>
 <div id="exercise-2-37" class="section level3 exercise">
 <h3><span class="header-section-number">14.3.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>What is the most common <code>relig</code> in this survey?
 What’s the most common <code>partyid</code>?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The most common <code>relig</code> is “Protestant”</p>
 <div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb333-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(relig) <span class="op">%&gt;%</span></a>
@@ -712,13 +716,15 @@ What’s the most common <code>partyid</code>?</p>
 <a class="sourceLine" id="cb334-7" data-line-number="7"><span class="co">#&gt;   &lt;fct&gt;       &lt;int&gt;</span></a>
 <a class="sourceLine" id="cb334-8" data-line-number="8"><span class="co">#&gt; 1 Independent  4119</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-21" class="section level3 exercise">
 <h3><span class="header-section-number">14.3.3</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Which <code>relig</code> does <code>denom</code> (denomination) apply to?
 How can you find out with a table?
 How can you find out with a visualization?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>denom)</a>
 <a class="sourceLine" id="cb335-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span></a>
 <a class="sourceLine" id="cb335-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span></a>
@@ -752,14 +758,16 @@ proportional to the size of the number of answers (since otherwise there would b
 <p><img src="factors_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
+</div>
 <div id="modifying-factor-order" class="section level2">
 <h2><span class="header-section-number">14.4</span> Modifying factor order</h2>
 <div id="exercise-1-39" class="section level3 exercise">
 <h3><span class="header-section-number">14.4.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>There are some suspiciously high numbers in <code>tvhours</code>.
 Is the <code>mean</code> a good summary?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1"><span class="kw">summary</span>(gss_cat[[<span class="st">&quot;tvhours&quot;</span>]])</a>
 <a class="sourceLine" id="cb338-2" data-line-number="2"><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s </span></a>
 <a class="sourceLine" id="cb338-3" data-line-number="3"><span class="co">#&gt;       0       1       2       3       4      24   10146</span></a></code></pre></div>
@@ -772,11 +780,13 @@ Is the <code>mean</code> a good summary?</p>
 But probably the median would be what most people prefer.
 And the hours of TV doesn’t look that surprising to me.</p>
 </div>
+</div>
 <div id="exercise-2-38" class="section level3 exercise">
 <h3><span class="header-section-number">14.4.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>For each factor in <code>gss_cat</code> identify whether the order of the levels is arbitrary or principled.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The following piece of code uses functions introduced in Ch 21, to print out the names of only the factors.</p>
 <div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="kw">keep</span>(gss_cat, is.factor) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">names</span>()</a>
 <a class="sourceLine" id="cb340-2" data-line-number="2"><span class="co">#&gt; [1] &quot;marital&quot; &quot;race&quot;    &quot;rincome&quot; &quot;partyid&quot; &quot;relig&quot;   &quot;denom&quot;</span></a></code></pre></div>
@@ -838,21 +848,25 @@ I find that the question of ordering can be determined by the level of aggregati
 <a class="sourceLine" id="cb349-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span></a>
 <a class="sourceLine" id="cb349-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-27" class="section level3 exercise">
 <h3><span class="header-section-number">14.4.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Because that gives the level “Not applicable” an integer value of 1.</p>
+</div>
 </div>
 </div>
 <div id="modifying-factor-levels" class="section level2">
 <h2><span class="header-section-number">14.5</span> Modifying factor levels</h2>
 <div id="exercise-1-40" class="section level3 exercise">
 <h3><span class="header-section-number">14.5.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent</p>
 <div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>partyid)</a>
 <a class="sourceLine" id="cb350-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span></a>
@@ -876,11 +890,13 @@ I find that the question of ordering can be determined by the level of aggregati
 <a class="sourceLine" id="cb351-15" data-line-number="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">colour =</span> <span class="st">&quot;Party ID.&quot;</span>)</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-2-39" class="section level3 exercise">
 <h3><span class="header-section-number">14.5.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>How could you collapse <code>rincome</code> into a small set of categories?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn’t want to use something like <code>fct_lump</code>.</p>
 <div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>rincome)</a>
 <a class="sourceLine" id="cb352-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span></a>
@@ -902,6 +918,7 @@ I find that the question of ordering can be determined by the level of aggregati
 <a class="sourceLine" id="cb353-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb353-14" data-line-number="14"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
 
 </div>
 </div>

@@ -30,8 +30,14 @@ flights_dt <- flights %>%
 
 ### Exercise 1 {.exercise}
 
-> What happens if you parse a string that
-> contains invalid dates?
+
+`r BeginQuestion()`
+What happens if you parse a string that
+contains invalid dates?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 ret <- ymd(c("2010-10-10", "bananas"))
@@ -41,6 +47,8 @@ ret
 
 It produces an `NA` and an warning message.
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
 What does the `tzone` argument to `today()` do? Why is it important?
@@ -49,8 +57,14 @@ It determines the time-zone of the date. Since different time-zones can have dif
 
 ### Exercise 3 {.exercise}
 
-> Use the appropriate **lubridate** function to
-> parse each of the following dates:
+
+`r BeginQuestion()`
+Use the appropriate **lubridate** function to
+parse each of the following dates:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 d1 <- "January 1, 2010"
@@ -65,6 +79,8 @@ d5 <- "12/30/14" # Dec 30, 2014
 mdy(d5)
 ```
 
+
+`r EndAnswer()`
 
 ## Date-Time Components
 
@@ -83,8 +99,14 @@ In the previous code, the difference between rounded and un-rounded dates provid
 
 ### Exercise 1 {.exercise}
 
-> How does the distribution of flight times 
-> within a day change over the course of the year?
+
+`r BeginQuestion()`
+How does the distribution of flight times 
+within a day change over the course of the year?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 Let's try plotting this by month:
 ```{r}
@@ -108,6 +130,8 @@ flights_dt %>%
 ```
 
 At least to me there doesn't appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.
+
+`r EndAnswer()`
 
 ### Exercise 2 {.exercise}
 
@@ -224,7 +248,13 @@ flights_dt %>%
 
 ### Exercise 1 {.exercise}
 
-> Why is there `months()` but no `dmonths()`? 
+
+`r BeginQuestion()`
+Why is there `months()` but no `dmonths()`? 
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 There is no direct unambiguous value of months in seconds since months have differing numbers of days. 
 
@@ -234,16 +264,32 @@ There is no direct unambiguous value of months in seconds since months have diff
 
 Though in the past, in the pre-computer era, for arithmetic convenience, bankers adopted a 360 day year with 30 day months.
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> Explain `days(overnight * 1)` to someone who has just started learning R. How does it work? 
+
+`r BeginQuestion()`
+Explain `days(overnight * 1)` to someone who has just started learning R. How does it work? 
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The variable `overnight` is equal to `TRUE` or `FALSE`.
 If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0, and no days are added to the date.
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
+
+`r BeginQuestion()`
+Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 A vector of the first day of the month for every month in 2015:
 ```{r}
@@ -257,9 +303,17 @@ floor_date(today(), unit = "year") + months(0:11)
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 4 {.exercise}
 
-> Write a function that given your birthday (as a date), returns how old you are in years.
+
+`r BeginQuestion()`
+Write a function that given your birthday (as a date), returns how old you are in years.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 age <- function(bday) {
@@ -268,9 +322,17 @@ age <- function(bday) {
 age(ymd("1990-10-12"))
 ```
 
+`r EndAnswer()`
+
 ### Exercise 5 {.exercise}
 
-> Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
+
+`r BeginQuestion()`
+Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 It appears to work. Today is a date. Today + 1 year is a valid endpoint for an interval. And months is period that is defined in this period.
 ```{r}
@@ -278,6 +340,8 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 (today() %--% (today() + years(1))) / months(1)
 ```
 
+
+`r EndAnswer()`
 
 ## Time Zones
 

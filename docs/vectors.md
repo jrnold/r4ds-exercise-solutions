@@ -6,6 +6,14 @@
 
 ```r
 library("tidyverse")
+#> -- Attaching packages -------------------------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 2.2.1     √ purrr   0.2.4
+#> √ tibble  1.4.2     √ dplyr   0.7.4
+#> √ tidyr   0.8.0     √ stringr 1.3.0
+#> √ readr   1.1.1     √ forcats 0.3.0
+#> -- Conflicts ----------------------------------------------------- tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 ```
 
 
@@ -19,7 +27,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
+
+
+Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
+
+
+
+
 
 To find out, try the functions on a numeric vector that includes a number and the five special values (`NA`, `NaN`, `Inf`, `-Inf`).
 
@@ -37,9 +51,17 @@ However, since `is.infinite` only considers `Inf` and `-Inf` to be infinite, `!i
 
 So `NA` and `NaN` are neither finite or infinite. Mind blown.
 
+
+
 ### Exercise 2 {.exercise}
 
-> Read the source code for `dplyr::near()` (Hint: to see the source code, drop the ()). How does it work?
+
+
+Read the source code for `dplyr::near()` (Hint: to see the source code, drop the ()). How does it work?
+
+
+
+
 
 The source for `dplyr::near` is:
 
@@ -55,9 +77,18 @@ dplyr::near
 Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, `tol`. 
 By default the tolerance is set to the square root of `.Machine$double.eps`, which is the smallest floating point number that the computer can represent.
 
+
+
+
 ### Exercise 3 {.exercise}
 
-> A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use Google to do some research.
+
+
+A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use Google to do some research.
+
+
+
+
 
 The help for `.Machine` describes some of this:
 
@@ -66,9 +97,17 @@ The help for `.Machine` describes some of this:
 The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) or IEEE 754 format uses a 64 bit vector, but 
 
 
+
+
 ### Exercise 4 {.exercise}
 
-> Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
+
+
+Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
+
+
+
+
 
 Broadly, could convert a double to an integer by truncating or rounding to the nearest integer.
 For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determining which integer value to go to.
@@ -129,9 +168,17 @@ Here's a [list](https://www.ma.utexas.edu/users/arbogast/misc/disasters.html) of
 
 
 
+
+
 ### Exercise 5 {.exercise}
 
-> What functions from the **readr** package allow you to turn a string into logical, integer, and double vector?
+
+
+What functions from the **readr** package allow you to turn a string into logical, integer, and double vector?
+
+
+
+
 
 The functions `parse_logical`, `parse_integer`, and `parse_number`.
 
@@ -156,11 +203,19 @@ parse_number(c("1.0", "3.5", "1,000", "NA"))
 Read the documentation of `read_number`. In order to ignore things like currency symbols and comma separators in number strings it ignores them using a heuristic.
 
 
+
+
 ## Using atomic vectors
 
 ### Exercise 1 {.exercise}
 
-> What does `mean(is.na(x))` tell you about a vector `x`? What about `sum(!is.finite(x))`?
+
+
+What does `mean(is.na(x))` tell you about a vector `x`? What about `sum(!is.finite(x))`?
+
+
+
+
 
 The expression `mean(is.na(x))` calculates the proportion of missing values in a vector
 
@@ -178,9 +233,17 @@ mean(!is.finite(x))
 ```
 
 
+
+
 ### Exercise 2 {.exercise}
 
-> Carefully read the documentation of `is.vector()`. What does it actually test for? Why does `is.atomic()` not agree with the definition of atomic vectors above?
+
+
+Carefully read the documentation of `is.vector()`. What does it actually test for? Why does `is.atomic()` not agree with the definition of atomic vectors above?
+
+
+
+
 
 The function `is.vector` only checks whether the object has no attributes other than names. Thus a `list` is a vector:
 
@@ -217,9 +280,17 @@ is.atomic(x)
 ```
 
 
+
+
 ### Exercise 3 {.exercise}
 
-> Compare and contrast `setNames()` with `purrr::set_names()`.
+
+
+Compare and contrast `setNames()` with `purrr::set_names()`.
+
+
+
+
 
 These are simple functions, so we can simply print out their source code:
 
@@ -230,7 +301,7 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fc4bff5e808>
+#> <bytecode: 0x7fe7646b9478>
 #> <environment: namespace:stats>
 ```
 
@@ -240,16 +311,24 @@ purrr::set_names
 #> {
 #>     set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fc4c4243c28>
+#> <bytecode: 0x7fe7659540a8>
 #> <environment: namespace:rlang>
 ```
 
 From the code we can see that `set_names` adds a few sanity checks: `x` has to be a vector, and the lengths of the object and the names have to be the same.
 
 
+
+
 ### Exercise 4 {.exercise}
 
-> Create functions that take a vector as input and returns:
+
+
+Create functions that take a vector as input and returns:
+
+
+
+
 >
 >  1. The last value. Should you use [ or [[?
 >  2 The elements at even numbered positions.
@@ -297,6 +376,7 @@ even_indices(letters)
 ```
 
 
+
 ```r
 not_last <- function(x) {
   if (length(x)) {
@@ -319,9 +399,16 @@ even_numbers(-10:10)
 ```
 
 
+
 ### Exercise 5 {.exercise}
 
-> Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
+
+
+Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
+
+
+
+
 
 They will treat missing values differently.
 
@@ -343,9 +430,17 @@ x <= 0
 However, if the comparison generates a `NA`, then it will always keep that entry, but set it to `NA`. This is why the last two values of `x[x <= 0]` are `NA` rather than `c(NaN, NA)`.
 
 
+
+
 ### Exercise 6 {.exercise}
 
-> What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?
+
+
+What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?
+
+
+
+
 
 When you subset with positive integers that are larger than the length of the vector, `NA` values are returned for those integers larger than the length of the vector.
 
@@ -362,21 +457,35 @@ c(a = 1, 2)[["b"]]
 #> Error in c(a = 1, 2)[["b"]]: subscript out of bounds
 ```
 
+
+
 ## Recursive Vectors (lists)
 
 
 ### Exercise 1 {.exercise}
 
-> Draw the following lists as nested sets:
->
->  1. `list(a, b, list(c, d), list(e, f))`
->  2. `list(list(list(list(list(list(a))))))`
+
+
+Draw the following lists as nested sets:
+
+1. `list(a, b, list(c, d), list(e, f))`
+2. `list(list(list(list(list(list(a))))))`
+
 
 **TODO**
   
+
+
+
 ### Exercise 2 {.exercise}
 
-> What happens if you subset a `tibble` as if you’re subsetting a list? What are the key differences between a list and a `tibble`?
+
+
+What happens if you subset a `tibble` as if you’re subsetting a list? What are the key differences between a list and a `tibble`?
+
+
+
+
 
 Subsetting a `tibble` works the same way as a list; a data frame can be thought of as a list of columns.
 The key different between a list and a `tibble` is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.
@@ -405,6 +514,8 @@ x[1, ]
 ```
 
 
+
+
 ## Attributes
 
 No exercises
@@ -413,7 +524,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> What does `hms::hms(3600)` return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?
+
+
+What does `hms::hms(3600)` return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?
+
+
+
+
 
 
 
@@ -445,9 +562,17 @@ attributes(x)
 #> [1] "hms"      "difftime"
 ```
 
+
+
 ### Exercise 2 {.exercise}
 
-> Try and make a tibble that has columns with different lengths. What happens?
+
+
+Try and make a tibble that has columns with different lengths. What happens?
+
+
+
+
 
 If I try to create at tibble with a scalar and column of a different length there are no issues, and the scalar is repeated to the length of the longer vector.
 
@@ -471,9 +596,17 @@ tibble(x = 1:3, y = 1:4)
 ```
 
 
+
+
 ### Exercise 3 {.exercise}
 
-> Based on the definition above, is it OK to have a list as a column of a tibble?
+
+
+Based on the definition above, is it OK to have a list as a column of a tibble?
+
+
+
+
 
 If I didn't already know the answer, what I would do is try it out. 
 From the above, the error message was about vectors having different lengths.
@@ -494,4 +627,6 @@ tibble(x = 1:3, y = list("a", 1, list(1:3)))
 
 It works! I even used a list with heterogeneous types and there wasn't an issue. 
 In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
+
+
 

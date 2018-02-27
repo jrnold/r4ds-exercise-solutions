@@ -21,14 +21,30 @@ BeginQuestion <- function() {
   if (is_html) {
     "<div class='question'>"
   } else {
-    "\\begin{question}"
+    # "\\begin{question}"
   }
 }
 EndQuestion <- function() {
   if (is_html) {
     "</div>"
   } else {
-    "\\end{question}"
+    # "\\end{question}"
   }
 }
+
+BeginAnswer <- function() {
+  if (is_html) {
+    "<div class='answer'>"
+  } else {
+    # "\\begin{answer}"
+  }
+}
+EndAnswer <- function() {
+  if (is_html) {
+    "</div>"
+  } else {
+    # "\\end{answer}"
+  }
+}
+
 

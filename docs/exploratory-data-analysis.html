@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
+<link rel="stylesheet" href="r4ds-solutions.css" type="text/css" />
 </head>
 
 <body>
@@ -664,9 +665,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.3</span> Variation</h2>
 <div id="exercise-1-8" class="section level3 exercise">
 <h3><span class="header-section-number">7.3.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>In order to make it easier to plot them, I’ll reshape the dataset so that I can use the variables as facets.</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb125-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
@@ -687,11 +689,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <code>x</code> is length, <code>y</code> is width, and <code>z</code> is depth.
 I don’t know if I would have figured that out before; maybe if there was data on the type of cuts.</p>
 </div>
+</div>
 <div id="exercise-2.-7" class="section level3">
 <h3><span class="header-section-number">7.3.2</span> Exercise 2.</h3>
-<blockquote>
+<div class="question">
 <p>Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the <code>binwidth</code> and make sure you try a wide range of values.)</p>
-</blockquote>
+</div>
+<div class="answer">
 <ul>
 <li>The price data has many spikes, but I can’t tell what each spike corresponds to. The following plots don’t show much difference in the distributions in the last one or two digits.</li>
 <li>There are no diamonds with a price of $1,500</li>
@@ -724,11 +728,13 @@ I don’t know if I would have figured that out before; maybe if there was data 
 <a class="sourceLine" id="cb130-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-3.-7" class="section level3">
 <h3><span class="header-section-number">7.3.3</span> Exercise 3.</h3>
-<blockquote>
+<div class="question">
 <p>How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>There are more than 70 times as many 1 carat diamonds as 0.99 carat diamond.</p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb131-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(carat <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.99</span>, carat <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
@@ -769,11 +775,13 @@ I don’t know if I would have figured that out before; maybe if there was data 
 <a class="sourceLine" id="cb132-27" data-line-number="27"><span class="co">#&gt; 20 1.09    287</span></a>
 <a class="sourceLine" id="cb132-28" data-line-number="28"><span class="co">#&gt; 21 1.10    278</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-6" class="section level3 exercise">
 <h3><span class="header-section-number">7.3.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Compare and contrast <code>coord_cartesian()</code> vs <code>xlim()</code> or <code>ylim()</code> when zooming in on a histogram. What happens if you leave <code>binwidth</code> unset? What happens if you try and zoom so only half a bar shows?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><code>coord_cartesian</code> simply zooms in on the area specified by the limits. The calculation of the histogram is unaffected.</p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
 <a class="sourceLine" id="cb133-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
@@ -791,14 +799,16 @@ I don’t know if I would have figured that out before; maybe if there was data 
 <p><img src="EDA_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
+</div>
 <div id="missing-values" class="section level2">
 <h2><span class="header-section-number">7.4</span> Missing Values</h2>
 <div id="exercise-1-9" class="section level3 exercise">
 <h3><span class="header-section-number">7.4.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>What happens to missing values in a histogram?
 What happens to missing values in a bar chart? &gt; Why is there a difference?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Missing values are removed when the number of observations in each bin are calculated. See the warning message: <code>Removed 9 rows containing non-finite values (stat_bin)</code></p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">diamonds2 &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb135-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">y =</span> <span class="kw">ifelse</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>, <span class="ot">NA</span>, y))</a>
@@ -817,16 +827,19 @@ What happens to missing values in a bar chart? &gt; Why is there a difference?</
 <p>In a histogram, the <code>x</code> aesthetic variable needs to be numeric, and <code>stat_bin</code> groups the observations by ranges into bins.
 Since the numeric value of the <code>NA</code> observations is unknown, they cannot be placed in a particular bin, and are dropped.</p>
 </div>
+</div>
 <div id="exercise-2-8" class="section level3 exercise">
 <h3><span class="header-section-number">7.4.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>What does <code>na.rm = TRUE</code> do in <code>mean()</code> and <code>sum()</code>?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>This option removes <code>NA</code> values from the vector prior to calculating the mean and sum.</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1"><span class="kw">mean</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb137-2" data-line-number="2"><span class="co">#&gt; [1] 1</span></a>
 <a class="sourceLine" id="cb137-3" data-line-number="3"><span class="kw">sum</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb137-4" data-line-number="4"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
+</div>
 </div>
 </div>
 <div id="covariation" class="section level2">
@@ -835,10 +848,11 @@ Since the numeric value of the <code>NA</code> observations is unknown, they can
 <h3><span class="header-section-number">7.5.1</span> A categorical and continuous variable</h3>
 <div id="exercise-1-10" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.1.1</span> Exercise 1</h4>
-<blockquote>
-<p>Use what you’ve learned to improve the visualization of the departure times
-of canceled vs. non-canceled flights.</p>
-</blockquote>
+<div class="question">
+<p>Use what you’ve learned to improve the visualization of the departure times</p>
+</div>
+<div class="answer">
+<p>of canceled vs. non-canceled flights.</p>
 <p>Instead of a <code>freqplot</code> use a box-plot</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb138-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
@@ -851,20 +865,24 @@ of canceled vs. non-canceled flights.</p>
 <a class="sourceLine" id="cb138-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> sched_dep_time, <span class="dt">x =</span> canceled))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-2-9" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.1.2</span> Exercise 2</h4>
-<blockquote>
+<div class="question">
 <p>What variable in the diamonds dataset is most important for predicting the price of a diamond? &gt; How is that variable correlated with
 Why does the combination of those two relationships lead to lower quality diamonds being more expensive?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><strong>TODO</strong> I’m unsure what this question is asking conditional on using only the tools introduced in the book thus far.</p>
+</div>
 </div>
 <div id="exercise-3-7" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.1.3</span> Exercise 3</h4>
-<blockquote>
+<div class="question">
 <p>Install the <strong>ggstance</strong> package, and create a horizontal box plot.
 How does this compare to using <code>coord_flip()</code>?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Earlier we created a horizontal box plot of the distribution <code>hwy</code> by <code>class</code>, using <code>geom_boxplot</code> and <code>coord_flip</code>:</p>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
 <a class="sourceLine" id="cb139-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
@@ -882,13 +900,15 @@ How does this compare to using <code>coord_flip()</code>?</p>
 <a class="sourceLine" id="cb140-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_boxploth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">x =</span> hwy))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-4-7" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.1.4</span> Exercise 4</h4>
-<blockquote>
+<div class="question">
 <p>One problem with box plots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of `<code>outlying values''. One approach to remedy this problem is the letter value plot.  Install the **lvplot** package, and try using</code>geom_lv()` to display the distribution of price vs cut.
-What do you learn?
-How do you interpret the plots?</p>
-</blockquote>
+What do you learn?</p>
+</div>
+<div class="answer">
+<p>How do you interpret the plots?</p>
 <p>The boxes of the letter-value plot correspond to many more quantiles.
 They are useful for larger datasets because</p>
 <ol style="list-style-type: decimal">
@@ -904,12 +924,14 @@ They are useful for larger datasets because</p>
 <a class="sourceLine" id="cb141-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_lv</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-5-3" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.1.5</span> Exercise 5</h4>
-<blockquote>
+<div class="question">
 <p>Compare and contrast <code>geom_violin()</code> with a faceted <code>geom_histogram()</code>, or a colored <code>geom_freqpoly()</code>.
 What are the pros and cons of each method?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>I produce plots for these three methods below. The <code>geom_freqpoly</code> is better for look-up: meaning that given a price, it is easy to tell which <code>cut</code> has the highest density. However, the overlapping lines makes it difficult to distinguish how the overall distributions relate to each other.
 The <code>geom_violin</code> and faceted <code>geom_histogram</code> have similar strengths and weaknesses.
 It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
@@ -932,13 +954,15 @@ All of these methods depend on tuning parameters to determine the level of smoot
 <p>Hintze JL, Nelson RD (1998). “Violin Plots: A Box Plot-Density Trace Synergism.” The American Statistician, 52(2), 181–184</p>
 </blockquote>
 </div>
+</div>
 <div id="exercise-6-3" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.1.6</span> Exercise 6</h4>
-<blockquote>
+<div class="question">
 <p>If you have a small dataset, it’s sometimes useful to use <code>geom_jitter()</code> to see the relationship between a continuous and categorical variable.
 The <strong>ggbeeswarm</strong> package provides a number of methods similar to <code>geom_jitter()</code>.
 List them and briefly describe what each one does.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>There are two methods:</p>
 <ul>
 <li><code>geom_quasirandom</code> that produces plots that resemble something between jitter and violin. There are several different methods that determine exactly how the random location of the points is generated.</li>
@@ -976,13 +1000,15 @@ List them and briefly describe what each one does.</p>
 <p><img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
+</div>
 <div id="two-categorical-variables" class="section level3">
 <h3><span class="header-section-number">7.5.2</span> Two categorical variables</h3>
 <div id="exercise-1-11" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.2.1</span> Exercise 1</h4>
-<blockquote>
+<div class="question">
 <p>How could you rescale the count dataset above to more clearly show the distribution of cut within color, or color within cut?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>To clearly show the distribution of <code>cut</code> within <code>color</code>, calculate a new variable <code>prop</code> which is the proportion of each cut within a <code>color</code>.
 This is done using a grouped mutate.</p>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
@@ -1008,13 +1034,15 @@ This makes it possible to compare each cell to its actual value, and would impro
 However, it ends up limiting the colors and makes it harder to compare within the dataset.
 However, using the default limits of the minimum and maximum values makes it easier to compare within the dataset the emphasizing relative differences, but harder to compare across datasets.</p>
 </div>
+</div>
 <div id="exercise-2-10" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.2.2</span> Exercise 2</h4>
-<blockquote>
+<div class="question">
 <p>Use <code>geom_tile()</code> together with <strong>dplyr</strong> to explore how average flight delays vary by destination and month of year.
 What makes the plot difficult to read?
 How could you improve it?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb153-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(month, dest) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb153-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
@@ -1045,11 +1073,13 @@ These are likely smaller airports (with higher variance in their average due to 
 <a class="sourceLine" id="cb154-12" data-line-number="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Destination&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Departure Delay&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-3-8" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.2.3</span> Exercise 3</h4>
-<blockquote>
+<div class="question">
 <p>Why is it slightly better to use <code>aes(x = color, y = cut)</code> rather than <code>aes(x = cut, y = color)</code> in the example above?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>It’s usually better to use the categorical variable with a larger number of categories or the longer labels on the y axis.
 If at all possible, labels should be horizontal because that is easier to read.</p>
 <p>However, switching the order doesn’t result in overlapping labels.</p>
@@ -1061,16 +1091,18 @@ If at all possible, labels should be horizontal because that is easier to read.<
 <p>Another justification, for switching the order is that the larger numbers are at the top when <code>x = color</code> and <code>y = cut</code>, and that lowers the cognitive burden of interpreting the plot.</p>
 </div>
 </div>
+</div>
 <div id="two-continuous-variables" class="section level3">
 <h3><span class="header-section-number">7.5.3</span> Two continuous variables</h3>
 <div id="exercise-1-12" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.3.1</span> Exercise 1</h4>
-<blockquote>
+<div class="question">
 <p>Instead of summarizing the conditional distribution with a box plot, you could use a frequency polygon.
 What do you need to consider when using <code>cut_width()</code> vs <code>cut_number()</code>?
-How does that impact a visualization of
-the 2d distribution of <code>carat</code> and <code>price</code>?</p>
-</blockquote>
+How does that impact a visualization of</p>
+</div>
+<div class="answer">
+<p>the 2d distribution of <code>carat</code> and <code>price</code>?</p>
 <p>When using <code>cut_width</code> the number in each bin may be unequal.
 The distribution of <code>carat</code> is right skewed so there are few diamonds in those bins.</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds,</a>
@@ -1103,11 +1135,13 @@ Since there are equal numbers in each bin, the plot looks the same if density is
 <a class="sourceLine" id="cb159-6" data-line-number="6"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-2-11" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.3.2</span> Exercise 2</h4>
-<blockquote>
+<div class="question">
 <p>Visualize the distribution of <code>carat</code>, partitioned by <code>price</code>.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>With a box plot, partitioning into an 10 bins with the same number of observations:</p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_number</span>(price, <span class="dv">10</span>), <span class="dt">y =</span> carat)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb160-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
@@ -1121,21 +1155,25 @@ With a box plot, partitioning into an bins of $2,000 with the width of the box d
 <a class="sourceLine" id="cb161-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Price&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-3-9" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.3.3</span> Exercise 3</h4>
-<blockquote>
+<div class="question">
 <p>How does the price distribution of very large diamonds compare to small diamonds.
 Is it as you expect, or does it surprise you?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The distribution of very large diamonds is more variable.
 I’m not surprised, since I had a very weak prior about diamond prices.
 Ex post, I would reason that above a certain size other factors such as cut, clarity, color play more of a role in the price.</p>
 </div>
+</div>
 <div id="exercise-4-8" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.3.4</span> Exercise 4</h4>
-<blockquote>
+<div class="question">
 <p>Combine two of the techniques you’ve learned to visualize the combined distribution of cut, carat, and price.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>There’s lots of options to try, so readers may prodocue a variety of solutions.
 Here’s a couple that I tried.</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span></a>
@@ -1151,12 +1189,14 @@ Here’s a couple that I tried.</p>
 <a class="sourceLine" id="cb164-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-5-4" class="section level4 exercise">
 <h4><span class="header-section-number">7.5.3.5</span> Exercise 5</h4>
-<blockquote>
+<div class="question">
 <p>Two dimensional plots reveal outliers that are not visible in one dimensional plots.
 For example, some points in the plot below have an unusual combination of <code>x</code> and <code>y</code> values, which makes the points outliers even though their <code>x</code> and <code>y</code> values appear normal when examined separately.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
 <a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb165-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">11</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">11</span>))</a></code></pre></div>
@@ -1165,6 +1205,7 @@ For example, some points in the plot below have an unusual combination of <code>
 <p>In this case, there is a strong relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. The outliers in this case are not extreme in either <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span>.
 A binned plot would not reveal these outliers, and may lead us to conclude that the largest value of <span class="math inline">\(x\)</span> was an outlier even though it appears to fit the bivariate pattern well.</p>
 <p>The later chapter <a href="model-basics.html#model-basics">Model Basics</a> discusses fitting models to bivariate data and plotting residuals, which would reveal this outliers.</p>
+</div>
 </div>
 </div>
 </div>

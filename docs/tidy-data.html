@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
+<link rel="stylesheet" href="r4ds-solutions.css" type="text/css" />
 </head>
 
 <body>
@@ -657,9 +658,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">11.2</span> Tidy Data</h2>
 <div id="exercise-1-16" class="section level3 exercise">
 <h3><span class="header-section-number">11.2.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Using prose, describe how the variables and observations are organized in each of the sample tables.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>In <code>table1</code> each row is a (country, year) with variables <code>cases</code> and <code>population</code>.</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">table1</a>
 <a class="sourceLine" id="cb203-2" data-line-number="2"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
@@ -710,10 +712,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb207-6" data-line-number="6"><span class="co">#&gt; 2 Brazil       172006362  174504898</span></a>
 <a class="sourceLine" id="cb207-7" data-line-number="7"><span class="co">#&gt; 3 China       1272915272 1280428583</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-15" class="section level3 exercise">
 <h3><span class="header-section-number">11.2.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Compute the <code>rate</code> for <code>table2</code>, and <code>table4a</code> + <code>table4b</code>. You will need to perform four operations:</p>
+</div>
+<div class="answer">
+<blockquote>
 <ol style="list-style-type: decimal">
 <li>Extract the number of TB cases per country per year.</li>
 <li>Extract the matching population per country per year.</li>
@@ -765,11 +771,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb210-12" data-line-number="12"><span class="co">#&gt; 5 Brazil      2000. 1.00     </span></a>
 <a class="sourceLine" id="cb210-13" data-line-number="13"><span class="co">#&gt; 6 China       2000. 1.00</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-13" class="section level3 exercise">
 <h3><span class="header-section-number">11.2.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Recreate the plot showing change in cases over time using <code>table2</code> instead of <code>table1</code>. What do you need to do first?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>First, I needed to filter the tibble to only include those rows that represented the “cases” variable.</p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">table2 <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -777,6 +785,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb211-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb211-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> country))</a></code></pre></div>
 <p><img src="tidy_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 </div>
 <div id="spreading-and-gathering" class="section level2">
@@ -788,10 +797,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb212-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a></code></pre></div>
 <div id="exercise-1-17" class="section level3 exercise">
 <h3><span class="header-section-number">11.3.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Why are <code>gather()</code> and <code>spread()</code> not perfectly symmetrical?
 Carefully consider the following example:</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1">stocks &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb213-2" data-line-number="2">  <span class="dt">year   =</span> <span class="kw">c</span>(<span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2016</span>, <span class="dv">2016</span>),</a>
 <a class="sourceLine" id="cb213-3" data-line-number="3">  <span class="dt">half  =</span> <span class="kw">c</span>(   <span class="dv">1</span>,    <span class="dv">2</span>,     <span class="dv">1</span>,    <span class="dv">2</span>),</a>
@@ -823,11 +833,13 @@ In the background this uses the <code>type.convert</code> function.</p>
 <a class="sourceLine" id="cb214-9" data-line-number="9"><span class="co">#&gt; 3    1.  2016  0.920</span></a>
 <a class="sourceLine" id="cb214-10" data-line-number="10"><span class="co">#&gt; 4    2.  2016  0.170</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-16" class="section level3 exercise">
 <h3><span class="header-section-number">11.3.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Why does this code fail?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1">table4a <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb215-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(<span class="dv">1999</span>, <span class="dv">2000</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a>
 <a class="sourceLine" id="cb215-3" data-line-number="3"><span class="co">#&gt; Error in inds_combine(.vars, ind_list): Position must be between 0 and n</span></a></code></pre></div>
@@ -846,11 +858,13 @@ This will work:</p>
 <a class="sourceLine" id="cb216-10" data-line-number="10"><span class="co">#&gt; 5 Brazil      2000   80488</span></a>
 <a class="sourceLine" id="cb216-11" data-line-number="11"><span class="co">#&gt; 6 China       2000  213766</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-14" class="section level3 exercise">
 <h3><span class="header-section-number">11.3.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Why does spreading this tibble fail? How could you add a new column to fix the problem?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
 <a class="sourceLine" id="cb217-2" data-line-number="2">  <span class="op">~</span>name,             <span class="op">~</span>key,    <span class="op">~</span>value,</a>
 <a class="sourceLine" id="cb217-3" data-line-number="3">  <span class="co">#-----------------|--------|------</span></a>
@@ -887,11 +901,13 @@ We would need to add another column with an indicator for the number observation
 <a class="sourceLine" id="cb219-15" data-line-number="15"><span class="co">#&gt; 2 Phillip Woods      1.   45.   186.</span></a>
 <a class="sourceLine" id="cb219-16" data-line-number="16"><span class="co">#&gt; 3 Phillip Woods      2.   50.    NA</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-12" class="section level3 exercise">
 <h3><span class="header-section-number">11.3.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1">preg &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
 <a class="sourceLine" id="cb220-2" data-line-number="2">  <span class="op">~</span>pregnant, <span class="op">~</span>male, <span class="op">~</span>female,</a>
 <a class="sourceLine" id="cb220-3" data-line-number="3">  <span class="st">&quot;yes&quot;</span>,     <span class="ot">NA</span>,    <span class="dv">10</span>,</a>
@@ -917,13 +933,15 @@ We would need to add another column with an indicator for the number observation
 <p>Converting <code>pregnant</code> and <code>female</code> from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.</p>
 </div>
 </div>
+</div>
 <div id="separating-and-uniting" class="section level2">
 <h2><span class="header-section-number">11.4</span> Separating and Uniting</h2>
 <div id="exercise-1-18" class="section level3 exercise">
 <h3><span class="header-section-number">11.4.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>What do the extra and fill arguments do in <code>separate()</code>? Experiment with the various options for the following two toy datasets.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb222-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
 <a class="sourceLine" id="cb222-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].</span></a>
@@ -1005,42 +1023,51 @@ Now, column “one” of row 2 will be missing, and the other values in that row
 <a class="sourceLine" id="cb229-7" data-line-number="7"><span class="co">#&gt; 2 &lt;NA&gt;  d     e    </span></a>
 <a class="sourceLine" id="cb229-8" data-line-number="8"><span class="co">#&gt; 3 f     g     i</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-17" class="section level3 exercise">
 <h3><span class="header-section-number">11.4.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Both <code>unite()</code> and <code>separate()</code> have a remove argument. What does it do? Why would you set it to <code>FALSE</code>?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>You would set it to <code>FALSE</code> if you want to create a new variable, but keep the old one.</p>
+</div>
 </div>
 <div id="exercise-3-15" class="section level3 exercise">
 <h3><span class="header-section-number">11.4.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Compare and contrast <code>separate()</code> and <code>extract()</code>, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The function <code>extract</code> uses a regular expression to find groups and split into columns.
 In <code>unite</code> it is unambiguous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the <code>sep</code>.
 In <code>separate</code>, it is one to many, and there are multiple ways to split the character string.</p>
+</div>
 </div>
 </div>
 <div id="missing-values-1" class="section level2">
 <h2><span class="header-section-number">11.5</span> Missing Values</h2>
 <div id="exercise-1-19" class="section level3 exercise">
 <h3><span class="header-section-number">11.5.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Compare and contrast the <code>fill</code> arguments to <code>spread()</code> and <code>complete()</code>.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">?spread</a></code></pre></div>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">?complete</a></code></pre></div>
 <p>In <code>spread</code>, the fill argument explicitly sets the value to replace <code>NA</code>s.
 In <code>complete</code>, the fill argument also sets a value to replace <code>NA</code>s but it is named list, allowing for different values for different variables.
 Also, both cases replace both implicit and explicit missing values.</p>
 </div>
+</div>
 <div id="exercise-2-18" class="section level3 exercise">
 <h3><span class="header-section-number">11.5.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>What does the direction argument to <code>fill()</code> do?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>With <code>fill</code>, it determines whether <code>NA</code> values should be replaced by the previous non-missing value (<code>&quot;down&quot;</code>) or the next non-missing value (<code>&quot;up&quot;</code>).</p>
+</div>
 </div>
 </div>
 <div id="case-study" class="section level2">
@@ -1095,9 +1122,10 @@ Also, both cases replace both implicit and explicit missing values.</p>
 <a class="sourceLine" id="cb237-13" data-line-number="13"><span class="co">#&gt; # ... with 7.604e+04 more rows</span></a></code></pre></div>
 <div id="exercise-1-20" class="section level3 exercise">
 <h3><span class="header-section-number">11.6.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>In this case study I set <code>na.rm = TRUE</code> just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an <code>NA</code> and zero?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Perhaps? I would need to know more about the data generation process.
 There are zero’s in the data, which means they may explicitly be indicating no cases.</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">who1 <span class="op">%&gt;%</span></a>
@@ -1125,11 +1153,13 @@ So it is okay to treat explicitly and implicitly missing values the same, and we
 <a class="sourceLine" id="cb239-17" data-line-number="17"><span class="co">#&gt; 6 Afghanistan  2002 FALSE  </span></a>
 <a class="sourceLine" id="cb239-18" data-line-number="18"><span class="co">#&gt; # ... with 6,962 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-19" class="section level3 exercise">
 <h3><span class="header-section-number">11.6.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>What happens if you neglect the <code>mutate()</code> step? (<code>mutate(key = stringr::str_replace(key, &quot;newrel&quot;, &quot;new_rel&quot;)</code>)</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><code>separate</code> emits the warning “too few values”, and if we check the
 rows for keys beginning with <code>&quot;newrel_&quot;</code>, we see that <code>sexage</code> is messing,
 and <code>type = m014</code>.</p>
@@ -1150,11 +1180,13 @@ and <code>type = m014</code>.</p>
 <a class="sourceLine" id="cb240-15" data-line-number="15"><span class="co">#&gt; 5 Angola      AO    AGO    2013 newrel m014  &lt;NA&gt;     486</span></a>
 <a class="sourceLine" id="cb240-16" data-line-number="16"><span class="co">#&gt; 6 Anguilla    AI    AIA    2013 newrel m014  &lt;NA&gt;       0</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-16" class="section level3 exercise">
 <h3><span class="header-section-number">11.6.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>I claimed that <code>iso2</code> and <code>iso3</code> were redundant with country. Confirm this claim.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1"><span class="kw">select</span>(who3, country, iso2, iso3) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb241-2" data-line-number="2"><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb241-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
@@ -1163,11 +1195,13 @@ and <code>type = m014</code>.</p>
 <a class="sourceLine" id="cb241-6" data-line-number="6"><span class="co">#&gt; # Groups:   country [0]</span></a>
 <a class="sourceLine" id="cb241-7" data-line-number="7"><span class="co">#&gt; # ... with 3 variables: country &lt;chr&gt;, iso2 &lt;chr&gt;, iso3 &lt;chr&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-13" class="section level3 exercise">
 <h3><span class="header-section-number">11.6.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">who5 <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb242-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year, sex) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb242-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1995</span>) <span class="op">%&gt;%</span></a>
@@ -1180,6 +1214,7 @@ and <code>type = m014</code>.</p>
 <p><img src="tidy_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.</p>
+</div>
 </div>
 </div>
 <div id="non-tidy-data" class="section level2">

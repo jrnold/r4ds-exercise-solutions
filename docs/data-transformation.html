@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
+<link rel="stylesheet" href="r4ds-solutions.css" type="text/css" />
 </head>
 
 <body>
@@ -680,7 +681,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb68-22" data-line-number="22"><span class="co">#&gt; $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013...</span></a></code></pre></div>
 <div id="exercise-1-1" class="section level3 exercise">
 <h3><span class="header-section-number">5.2.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Find all flights that</p>
 <ol style="list-style-type: decimal">
 <li>Had an arrival delay of two or more hours</li>
@@ -691,7 +692,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Were delayed by at least an hour, but made up over 30 minutes in flight</li>
 <li>Departed between midnight and 6am (inclusive)</li>
 </ol>
-</blockquote>
+</div>
+<div class="answer">
 <p><em>Had an arrival delay of two or more hours</em> Since delay is in minutes, we are looking
 for flights where <code>arr_delay &gt; 120</code>:</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">flights <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -830,19 +832,23 @@ Delta is <code>DL</code>, American is <code>AA</code>, and United is <code>UA</c
 <a class="sourceLine" id="cb77-13" data-line-number="13"><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb77-14" data-line-number="14"><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-1" class="section level3 exercise">
 <h3><span class="header-section-number">5.2.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Another useful <strong>dplyr</strong> filtering helper is <code>between()</code>. What does it do? Can you use it to simplify the code needed to answer the previous challenges?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><code>between(x, left, right)</code> is equivalent to <code>x &gt;= left &amp; x &lt;= right</code>. I already
 used it in 1.4.</p>
 </div>
+</div>
 <div id="exercise-3-1" class="section level3 exercise">
 <h3><span class="header-section-number">5.2.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>How many flights have a missing <code>dep_time</code>? What other variables are missing? What might these rows represent?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">filter</span>(flights, <span class="kw">is.na</span>(dep_time))</a>
 <a class="sourceLine" id="cb78-2" data-line-number="2"><span class="co">#&gt; # A tibble: 8,255 x 19</span></a>
 <a class="sourceLine" id="cb78-3" data-line-number="3"><span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span></a>
@@ -859,11 +865,13 @@ used it in 1.4.</p>
 <a class="sourceLine" id="cb78-14" data-line-number="14"><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></a></code></pre></div>
 <p>Since <code>arr_time</code> is also missing, these are canceled flights.</p>
 </div>
+</div>
 <div id="exercise-4" class="section level3 exercise">
 <h3><span class="header-section-number">5.2.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Why is <code>NA ^ 0</code> not missing? Why is <code>NA | TRUE</code> not missing? Why is <code>FALSE &amp; NA</code> not missing? Can you figure out the general rule? (<code>NA * 0</code> is a tricky counterexample!)</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><code>NA ^ 0 == 1</code> since for all numeric values <span class="math inline">\(x ^ 0 = 1\)</span>.</p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="ot">NA</span> <span class="op">^</span><span class="st"> </span><span class="dv">0</span></a>
 <a class="sourceLine" id="cb79-2" data-line-number="2"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
@@ -888,13 +896,15 @@ used it in 1.4.</p>
 <a class="sourceLine" id="cb84-4" data-line-number="4"><span class="co">#&gt; [1] NaN</span></a></code></pre></div>
 </div>
 </div>
+</div>
 <div id="arrange-rows-with-arrange" class="section level2">
 <h2><span class="header-section-number">5.3</span> Arrange rows with <code>arrange()</code></h2>
 <div id="exercise-1-2" class="section level3 exercise">
 <h3><span class="header-section-number">5.3.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>How could you use <code>arrange()</code> to sort all missing values to the start? (Hint: use <code>is.na()</code>).</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>This sorts by increasing <code>dep_time</code>, but with all missing values put first.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(<span class="kw">is.na</span>(dep_time)), dep_time)</a>
 <a class="sourceLine" id="cb85-2" data-line-number="2"><span class="co">#&gt; # A tibble: 336,776 x 19</span></a>
@@ -911,11 +921,13 @@ used it in 1.4.</p>
 <a class="sourceLine" id="cb85-13" data-line-number="13"><span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb85-14" data-line-number="14"><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-2" class="section level3 exercise">
 <h3><span class="header-section-number">5.3.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Sort flights to find the most delayed flights. Find the flights that left earliest.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The most delayed flights are found by sorting by <code>dep_delay</code> in descending order.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(dep_delay))</a>
 <a class="sourceLine" id="cb86-2" data-line-number="2"><span class="co">#&gt; # A tibble: 336,776 x 19</span></a>
@@ -948,11 +960,13 @@ There was a flight that left 43 minutes early.</p>
 <a class="sourceLine" id="cb87-13" data-line-number="13"><span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb87-14" data-line-number="14"><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-2" class="section level3 exercise">
 <h3><span class="header-section-number">5.3.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Sort flights to find the fastest flights.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>I assume that by by “fastest flights” it means the flights with the minimum air time.
 So I sort by <code>air_time</code>. The fastest flights. The fastest flights area couple of flights between EWR and BDL with an air time of 20 minutes.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">arrange</span>(flights, air_time)</a>
@@ -970,11 +984,13 @@ So I sort by <code>air_time</code>. The fastest flights. The fastest flights are
 <a class="sourceLine" id="cb88-13" data-line-number="13"><span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb88-14" data-line-number="14"><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-1" class="section level3 exercise">
 <h3><span class="header-section-number">5.3.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Which flights traveled the longest? Which traveled the shortest?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>I’ll assume hat traveled the longest or shortest refers to distance, rather than air-time.</p>
 <p>The longest flights are the Hawaii Air (HA 51) between JFK and HNL (Honolulu) at 4,983 miles.</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(distance))</a>
@@ -1008,13 +1024,15 @@ So I sort by <code>air_time</code>. The fastest flights. The fastest flights are
 <a class="sourceLine" id="cb90-14" data-line-number="14"><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></a></code></pre></div>
 </div>
 </div>
+</div>
 <div id="select-columns-with-select" class="section level2">
 <h2><span class="header-section-number">5.4</span> Select columns with <code>select()</code></h2>
 <div id="exercise-1-3" class="section level3 exercise">
 <h3><span class="header-section-number">5.4.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Brainstorm as many ways as possible to select <code>dep_time</code>, <code>dep_delay</code>, <code>arr_time</code>, and <code>arr_delay</code> from flights.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>A few ways include:</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">select</span>(flights, dep_time, dep_delay, arr_time, arr_delay)</a>
 <a class="sourceLine" id="cb91-2" data-line-number="2"><span class="co">#&gt; # A tibble: 336,776 x 4</span></a>
@@ -1051,11 +1069,13 @@ So I sort by <code>air_time</code>. The fastest flights. The fastest flights are
 <a class="sourceLine" id="cb91-33" data-line-number="33"><span class="co">#&gt; # ... with 3.368e+05 more rows</span></a></code></pre></div>
 <p>using <code>ends_with()</code> doesn’t work well since it would return both <code>sched_arr_time</code> and <code>sched_dep_time</code>.</p>
 </div>
+</div>
 <div id="exercise-2-3" class="section level3 exercise">
 <h3><span class="header-section-number">5.4.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>What happens if you include the name of a variable multiple times in a select() call?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>It ignores the duplicates, and that variable is only included once. No error, warning, or message is emitted.</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">select</span>(flights, year, month, day, year, year)</a>
 <a class="sourceLine" id="cb92-2" data-line-number="2"><span class="co">#&gt; # A tibble: 336,776 x 3</span></a>
@@ -1069,11 +1089,13 @@ So I sort by <code>air_time</code>. The fastest flights. The fastest flights are
 <a class="sourceLine" id="cb92-10" data-line-number="10"><span class="co">#&gt; 6  2013     1     1</span></a>
 <a class="sourceLine" id="cb92-11" data-line-number="11"><span class="co">#&gt; # ... with 3.368e+05 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-3" class="section level3 exercise">
 <h3><span class="header-section-number">5.4.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>What does the <code>one_of()</code> function do? Why might it be helpful in conjunction with this vector?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The <code>one_of</code> vector allows you to select variables with a character vector rather than as unquoted variable names.
 It’s useful because then you can easily pass vectors to <code>select()</code>.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;dep_delay&quot;</span>, <span class="st">&quot;arr_delay&quot;</span>)</a>
@@ -1089,11 +1111,13 @@ It’s useful because then you can easily pass vectors to <code>select()</code>.
 <a class="sourceLine" id="cb93-11" data-line-number="11"><span class="co">#&gt; 6  2013     1     1       -4.       12.</span></a>
 <a class="sourceLine" id="cb93-12" data-line-number="12"><span class="co">#&gt; # ... with 3.368e+05 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-2" class="section level3 exercise">
 <h3><span class="header-section-number">5.4.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">select</span>(flights, <span class="kw">contains</span>(<span class="st">&quot;TIME&quot;</span>))</a>
 <a class="sourceLine" id="cb94-2" data-line-number="2"><span class="co">#&gt; # A tibble: 336,776 x 6</span></a>
 <a class="sourceLine" id="cb94-3" data-line-number="3"><span class="co">#&gt;   dep_time sched_dep_time arr_time sched_arr_time air_time</span></a>
@@ -1113,13 +1137,15 @@ Upon reflection, I realized that this is likely the default behavior because <co
 <a class="sourceLine" id="cb95-2" data-line-number="2"><span class="co">#&gt; # A tibble: 336,776 x 0</span></a></code></pre></div>
 </div>
 </div>
+</div>
 <div id="add-new-variables-with-mutate" class="section level2">
 <h2><span class="header-section-number">5.5</span> Add new variables with <code>mutate()</code></h2>
 <div id="exercise-1-4" class="section level3 exercise">
 <h3><span class="header-section-number">5.5.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Currently <code>dep_time</code> and <code>sched_dep_time</code> are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>To get the departure times in the number of minutes, (integer) divide <code>dep_time</code> by 100 to get the hours since midnight and multiply by 60 and add the remainder of <code>dep_time</code> divided by 100.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">mutate</span>(flights,</a>
 <a class="sourceLine" id="cb96-2" data-line-number="2">       <span class="dt">dep_time_mins =</span> dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>,</a>
@@ -1154,11 +1180,13 @@ Upon reflection, I realized that this is likely the default behavior because <co
 <a class="sourceLine" id="cb97-16" data-line-number="16"><span class="co">#&gt; 6      554          354.            558                358.</span></a>
 <a class="sourceLine" id="cb97-17" data-line-number="17"><span class="co">#&gt; # ... with 3.368e+05 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-4" class="section level3 exercise">
 <h3><span class="header-section-number">5.5.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Compare <code>air_time</code> with <code>arr_time - dep_time</code>. What do you expect to see? What do you see? What do you need to do to fix it?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Since <code>arr_time</code> and <code>dep_time</code> may be in different time zones, the <code>air_time</code> doesn’t equal the difference.
 We would need to account for time-zones in these calculations.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="kw">mutate</span>(flights,</a>
@@ -1177,11 +1205,13 @@ We would need to account for time-zones in these calculations.</p>
 <a class="sourceLine" id="cb98-14" data-line-number="14"><span class="co">#&gt; 6     150.       186      554      740 ORD  </span></a>
 <a class="sourceLine" id="cb98-15" data-line-number="15"><span class="co">#&gt; # ... with 3.261e+05 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-4" class="section level3 exercise">
 <h3><span class="header-section-number">5.5.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Compare <code>dep_time</code>, <code>sched_dep_time</code>, and <code>dep_delay</code>. How would you expect those three numbers to be related?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>I’d expect <code>dep_time</code>, <code>sched_dep_time</code>, and <code>dep_delay</code> to be related so that <code>dep_time - sched_dep_time = dep_delay</code>.</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="kw">mutate</span>(flights,</a>
 <a class="sourceLine" id="cb99-2" data-line-number="2">       <span class="dt">dep_delay2 =</span> dep_time <span class="op">-</span><span class="st"> </span>sched_dep_time) <span class="op">%&gt;%</span></a>
@@ -1214,11 +1244,13 @@ We would need to account for time-zones in these calculations.</p>
 <a class="sourceLine" id="cb100-14" data-line-number="14"><span class="co">#&gt; # ... with 1,201 more rows</span></a></code></pre></div>
 <p>Well, that solved most of the problems, but these two numbers don’t match because we aren’t accounting for flights where the departure time is the next day from the scheduled departure time.</p>
 </div>
+</div>
 <div id="exercise-4-3" class="section level3 exercise">
 <h3><span class="header-section-number">5.5.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Find the 10 most delayed flights using a ranking function. How do you want to handle ties? Carefully read the documentation for <code>min_rank()</code>.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>I’d want to handle ties by taking the minimum of tied values. If three flights are have the same value and are the most delayed, we would say they are tied for first, not tied for third or second.</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="kw">mutate</span>(flights,</a>
 <a class="sourceLine" id="cb101-2" data-line-number="2">       <span class="dt">dep_delay_rank =</span> <span class="kw">min_rank</span>(<span class="op">-</span>dep_delay)) <span class="op">%&gt;%</span></a>
@@ -1238,11 +1270,13 @@ We would need to account for time-zones in these calculations.</p>
 <a class="sourceLine" id="cb101-16" data-line-number="16"><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb101-17" data-line-number="17"><span class="co">#&gt; #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, dep_delay_rank &lt;int&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-5" class="section level3 exercise">
 <h3><span class="header-section-number">5.5.5</span> Exercise 5</h3>
-<blockquote>
+<div class="question">
 <p>What does <code>1:3 + 1:10</code> return? Why?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>It returns <code>c(1 + 1, 2 + 2, 3 + 3, 1 + 4, 2 + 5, 3 + 6, 1 + 7, 2 + 8, 3 + 9, 1 + 10)</code>.
 When adding two vectors recycles the shorter vector’s values to get vectors of the same length.
 We get a warning vector since the shorter vector is not a multiple of the longer one (this often, but not necessarily, means we made an error somewhere).</p>
@@ -1251,11 +1285,13 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 <a class="sourceLine" id="cb102-3" data-line-number="3"><span class="co">#&gt; object length</span></a>
 <a class="sourceLine" id="cb102-4" data-line-number="4"><span class="co">#&gt;  [1]  2  4  6  5  7  9  8 10 12 11</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-6" class="section level3 exercise">
 <h3><span class="header-section-number">5.5.6</span> Exercise 6</h3>
-<blockquote>
+<div class="question">
 <p>What trigonometric functions does R provide?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>These are all described in the same help page,</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="kw">help</span>(<span class="st">&quot;Trig&quot;</span>)</a></code></pre></div>
 <p>Cosine (<code>cos</code>), sine (<code>sin</code>), tangent (<code>tan</code>) are provided:</p>
@@ -1314,17 +1350,19 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 <a class="sourceLine" id="cb107-2" data-line-number="2"><span class="co">#&gt; [1]  1.57  0.00 -1.57  3.14</span></a></code></pre></div>
 </div>
 </div>
+</div>
 <div id="grouped-summaries-with-summarise" class="section level2">
 <h2><span class="header-section-number">5.6</span> Grouped summaries with <code>summarise()</code></h2>
 <div id="exercise-1-5" class="section level3 exercise">
 <h3><span class="header-section-number">5.6.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
 - A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.
 - A flight is always 10 minutes late.
 - A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
 - 99% of the time a flight is on time. 1% of the time it’s 2 hours late.</p>
-</blockquote>
+</div>
+<div class="answer">
 <blockquote>
 <p>Which is more important: arrival delay or departure delay?</p>
 </blockquote>
@@ -1334,17 +1372,22 @@ Variation is worse than consistency; if I know the plane will always arrive 10 m
 <p>So I’d try something that calculates the expected time of the flight, and then aggregates over any delays from that time. I would ignore any early arrival times.
 A better ranking would also consider cancellations, and need a way to convert them to a delay time (perhaps using the arrival time of the next flight to the same destination).</p>
 </div>
+</div>
 <div id="exercise-2-5" class="section level3 exercise">
 <h3><span class="header-section-number">5.6.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Come up with another approach that will give you the same output as <code>not_canceled %&gt;% count(dest)</code> and <code>not_canceled %&gt;% count(tailnum, wt = distance)</code> (without using <code>count()</code>).</p>
-</blockquote>
+</div>
+<div class="answer">
+
+</div>
 </div>
 <div id="exercise-3-5" class="section level3 exercise">
 <h3><span class="header-section-number">5.6.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Our definition of canceled flights <code>(is.na(dep_delay) | is.na(arr_delay))</code> is slightly suboptimal. Why? Which is the most important column?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>If a flight doesn’t depart, then it won’t arrive. A flight can also depart and not arrive if it crashes; I’m not sure how this data would handle flights that are redirected and land at other airports for whatever reason.</p>
 <p>The more important column is <code>arr_delay</code> so we could just use that.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="kw">filter</span>(flights, <span class="op">!</span><span class="kw">is.na</span>(dep_delay), <span class="kw">is.na</span>(arr_delay)) <span class="op">%&gt;%</span></a>
@@ -1362,11 +1405,13 @@ A better ranking would also consider cancellations, and need a way to convert th
 <p>Okay, I’m not sure what’s going on in this data. <code>dep_time</code> can be non-missing and <code>arr_delay</code> missing but <code>arr_time</code> not missing.
 They may be combining different flights?</p>
 </div>
+</div>
 <div id="exercise-4-4" class="section level3 exercise">
 <h3><span class="header-section-number">5.6.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Look at the number of canceled flights per day. Is there a pattern? Is the proportion of canceled flights related to the average delay?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1">canceled_delayed &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb109-2" data-line-number="2"><span class="st">  </span>flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb109-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">canceled =</span> (<span class="kw">is.na</span>(arr_delay) <span class="op">|</span><span class="st"> </span><span class="kw">is.na</span>(dep_delay))) <span class="op">%&gt;%</span></a>
@@ -1380,11 +1425,13 @@ They may be combining different flights?</p>
 <a class="sourceLine" id="cb109-11" data-line-number="11"><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></a></code></pre></div>
 <p><img src="transform_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-5-1" class="section level3 exercise">
 <h3><span class="header-section-number">5.6.5</span> Exercise 5</h3>
-<blockquote>
+<div class="question">
 <p>Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about <code>flights %&gt;% group_by(carrier, dest) %&gt;% summarise(n())</code>)</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb110-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(carrier) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb110-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">arr_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
@@ -1410,11 +1457,13 @@ comparing each flight’s delay to the average delay of destination airport.
 However, you’d really want to compare it to the average delay of the destination airport, <em>after</em> removing other flights from the same airline.</p>
 <p>FiveThirtyEight conducted a <a href="http://fivethirtyeight.com/features/the-best-and-worst-airlines-airports-and-flights-summer-2015-update/">similar analysis</a>.</p>
 </div>
+</div>
 <div id="exercise-6-1" class="section level3 exercise">
 <h3><span class="header-section-number">5.6.6</span> Exercise 6</h3>
-<blockquote>
+<div class="question">
 <p>For each plane, count the number of flights before the first delay of greater than 1 hour.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>I think this requires grouped mutate (but I may be wrong):</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb112-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(tailnum, year, month, day) <span class="op">%&gt;%</span></a>
@@ -1435,29 +1484,35 @@ However, you’d really want to compare it to the average delay of the destinati
 <a class="sourceLine" id="cb112-17" data-line-number="17"><span class="co">#&gt; 6 N3742C     98</span></a>
 <a class="sourceLine" id="cb112-18" data-line-number="18"><span class="co">#&gt; # ... with 3,749 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-7" class="section level3 exercise">
 <h3><span class="header-section-number">5.6.7</span> Exercise 7</h3>
-<blockquote>
+<div class="question">
 <p>What does the sort argument to <code>count()</code> do. When might you use it?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The sort argument to <code>count</code> sorts the results in order of <code>n</code>.
 You could use this anytime you would do <code>count</code> followed by <code>arrange</code>.</p>
+</div>
 </div>
 </div>
 <div id="grouped-mutates-and-filters" class="section level2">
 <h2><span class="header-section-number">5.7</span> Grouped mutates (and filters)</h2>
 <div id="exercise-1-6" class="section level3 exercise">
 <h3><span class="header-section-number">5.7.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Refer back to the table of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>They operate within each group rather than over the entire data frame. E.g. <code>mean</code> will calculate the mean within each group.</p>
+</div>
 </div>
 <div id="exercise-2-6" class="section level3 exercise">
 <h3><span class="header-section-number">5.7.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Which plane (<code>tailnum</code>) has the worst on-time record?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb113-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb113-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">arr_delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
@@ -1468,11 +1523,13 @@ You could use this anytime you would do <code>count</code> followed by <code>arr
 <a class="sourceLine" id="cb113-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb113-9" data-line-number="9"><span class="co">#&gt; 1 N844MH       320.</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-6" class="section level3 exercise">
 <h3><span class="header-section-number">5.7.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>What time of day should you fly if you want to avoid delays as much as possible?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Let’s group by hour. The earlier the better to fly. This is intuitive as delays early in the morning are likely to propagate throughout the day.</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb114-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(hour) <span class="op">%&gt;%</span></a>
@@ -1490,11 +1547,13 @@ You could use this anytime you would do <code>count</code> followed by <code>arr
 <a class="sourceLine" id="cb114-14" data-line-number="14"><span class="co">#&gt; 6   10.     0.954</span></a>
 <a class="sourceLine" id="cb114-15" data-line-number="15"><span class="co">#&gt; # ... with 14 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-5" class="section level3 exercise">
 <h3><span class="header-section-number">5.7.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>For each destination, compute the total minutes of delay. For each, flight, compute the proportion of the total delay for its destination.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1">flights <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb115-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(arr_delay), arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st">  </span></a>
 <a class="sourceLine" id="cb115-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span></a>
@@ -1537,11 +1596,13 @@ You could use this anytime you would do <code>count</code> followed by <code>arr
 <a class="sourceLine" id="cb116-19" data-line-number="19"><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span></a>
 <a class="sourceLine" id="cb116-20" data-line-number="20"><span class="co">#&gt; #   total_delay &lt;dbl&gt;, prop_delay &lt;dbl&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-5-2" class="section level3 exercise">
 <h3><span class="header-section-number">5.7.5</span> Exercise 5</h3>
-<blockquote>
+<div class="question">
 <p>Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using <code>lag()</code> explore how the delay of a flight is related to the delay of the immediately preceding flight.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>We want to group by day to avoid taking the lag from the previous day.
 Also, I want to use departure delay, since this mechanism is relevant for departures.
 Also, I remove missing values both before and after calculating the lag delay.
@@ -1557,11 +1618,13 @@ However, it would be interesting to ask the probability or average delay after a
 <a class="sourceLine" id="cb117-9" data-line-number="9"><span class="co">#&gt; `geom_smooth()` using method = &#39;gam&#39;</span></a></code></pre></div>
 <p><img src="transform_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-6-2" class="section level3 exercise">
 <h3><span class="header-section-number">5.7.6</span> Exercise 6</h3>
-<blockquote>
+<div class="question">
 <p>Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The shorter BOS and PHL flights that are 20 minutes for 30+ minutes flights seem plausible - though maybe entries of +/- a few minutes can easily create large changes.
 I assume that departure time has a standardized definition, but I’m not sure; if there is some discretion, that could create errors that are small in absolute time, but large in relative time for small flights.
 The ATL, GSP, and BNA flights look suspicious as they are almost half the time of longer flights.</p>
@@ -1626,11 +1689,13 @@ The ATL, GSP, and BNA flights look suspicious as they are almost half the time o
 <a class="sourceLine" id="cb120-17" data-line-number="17"><span class="co">#&gt; 6 LAS    2013    11    22 UA         587          143.     399.     2142</span></a>
 <a class="sourceLine" id="cb120-18" data-line-number="18"><span class="co">#&gt; # ... with 1 more variable: arr_time &lt;int&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-7-1" class="section level3 exercise">
 <h3><span class="header-section-number">5.7.7</span> Exercise 7</h3>
-<blockquote>
+<div class="question">
 <p>Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The carrier that flies to the most locations is ExpressJet Airlines (EV).
 ExpressJet is a regional airline and partner for major airlines, so its one of those that flies small planes to close airports</p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1">flights <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -1654,6 +1719,7 @@ ExpressJet is a regional airline and partner for major airlines, so its one of t
 <a class="sourceLine" id="cb122-3" data-line-number="3"><span class="co">#&gt;   carrier name                    </span></a>
 <a class="sourceLine" id="cb122-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span></a>
 <a class="sourceLine" id="cb122-5" data-line-number="5"><span class="co">#&gt; 1 EV      ExpressJet Airlines Inc.</span></a></code></pre></div>
+</div>
 
 </div>
 </div>

@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
+<link rel="stylesheet" href="r4ds-solutions.css" type="text/css" />
 </head>
 
 <body>
@@ -660,46 +661,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">12.2</span> nycflights13</h2>
 <div id="exercise-1-21" class="section level3 exercise">
 <h3><span class="header-section-number">12.2.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?</p>
-</blockquote>
+</div>
+<div class="answer">
 <ul>
 <li><code>flights</code> table: <code>origin</code> and <code>dest</code></li>
 <li><code>airports</code> table: longitude and latitude variables</li>
 <li>We would merge the <code>flights</code> with airports twice: once to get the location of the <code>origin</code> airport, and once to get the location of the <code>dest</code> airport.</li>
 </ul>
 </div>
+</div>
 <div id="exercise-2-20" class="section level3 exercise">
 <h3><span class="header-section-number">12.2.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The variable <code>origin</code> in <code>weather</code> is matched with <code>faa</code> in <code>airports</code>.</p>
+</div>
 </div>
 <div id="exercise-3-17" class="section level3 exercise">
 <h3><span class="header-section-number">12.2.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with <code>flights</code>?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code> in <code>weather</code> would be matched to <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>dest</code> in <code>flight</code> (though it should use the arrival date-time values for <code>dest</code> if possible).</p>
+</div>
 </div>
 <div id="exercise-4-14" class="section level3 exercise">
 <h3><span class="header-section-number">12.2.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>I would add a table of special dates.
 The primary key would be date.
 It would match to the <code>year</code>, <code>month</code>, <code>day</code> columns of `flights.</p>
+</div>
 </div>
 </div>
 <div id="keys" class="section level2">
 <h2><span class="header-section-number">12.3</span> Keys</h2>
 <div id="exercise-1-22" class="section level3 exercise">
 <h3><span class="header-section-number">12.3.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Add a surrogate key to flights.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>I add the column <code>flight_id</code> as a surrogate key.
 I sort the data prior to making the key, even though it is not strictly necessary, so the order of the rows has some meaning.</p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1">flights <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -729,9 +739,10 @@ I sort the data prior to making the key, even though it is not strictly necessar
 <a class="sourceLine" id="cb245-25" data-line-number="25"><span class="co">#&gt; $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013...</span></a>
 <a class="sourceLine" id="cb245-26" data-line-number="26"><span class="co">#&gt; $ flight_id      &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ...</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-21" class="section level3 exercise">
 <h3><span class="header-section-number">12.3.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Identify the keys in the following datasets</p>
 <ol style="list-style-type: decimal">
 <li><code>Lahman::Batting</code></li>
@@ -740,6 +751,9 @@ I sort the data prior to making the key, even though it is not strictly necessar
 <li><code>fueleconomy::vehicles</code></li>
 <li><code>ggplot2::diamonds</code></li>
 </ol>
+</div>
+<div class="answer">
+<blockquote>
 <p>(You might need to install some packages and read some documentation.)</p>
 </blockquote>
 <p>The primary key for <code>Lahman::Batting</code> is <code>playerID</code>, <code>yearID</code>, <code>stint</code>. It is not simply <code>playerID</code>, <code>yearID</code> because players can have different stints in different leagues within the same year.</p>
@@ -773,6 +787,7 @@ I sort the data prior to making the key, even though it is not strictly necessar
 <a class="sourceLine" id="cb250-4" data-line-number="4"><span class="co">#&gt; [1] 53794</span></a>
 <a class="sourceLine" id="cb250-5" data-line-number="5"><span class="kw">nrow</span>(ggplot2<span class="op">::</span>diamonds)</a>
 <a class="sourceLine" id="cb250-6" data-line-number="6"><span class="co">#&gt; [1] 53940</span></a></code></pre></div>
+</div>
 </div>
 <div id="exercise-4-15" class="section level3 exercise">
 <h3><span class="header-section-number">12.3.3</span> Exercise 4</h3>
@@ -859,9 +874,10 @@ They all have a 1-1 relationship to each other.</p>
 <a class="sourceLine" id="cb253-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(year<span class="op">:</span>day, hour, origin, dest, tailnum, carrier)</a></code></pre></div>
 <div id="exercise-1-23" class="section level3 exercise">
 <h3><span class="header-section-number">12.4.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Compute the average delay by destination, then join on the <code>airports</code> data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1">airports <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb254-2" data-line-number="2"><span class="st">  </span><span class="kw">semi_join</span>(flights, <span class="kw">c</span>(<span class="st">&quot;faa&quot;</span> =<span class="st"> &quot;dest&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb254-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(lon, lat)) <span class="op">+</span></a>
@@ -885,11 +901,13 @@ They all have a 1-1 relationship to each other.</p>
 <p><img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>You might want to use the size or color of the points to display the average delay for each airport.</p>
 </div>
+</div>
 <div id="exercise-2-22" class="section level3 exercise">
 <h3><span class="header-section-number">12.4.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Add the location of the origin and destination (i.e. the <code>lat</code> and <code>lon</code>) to <code>flights</code>.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb256-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(airports, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">dest =</span> <span class="st">&quot;faa&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb256-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(airports, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">origin =</span> <span class="st">&quot;faa&quot;</span>)) <span class="op">%&gt;%</span></a>
@@ -910,11 +928,13 @@ They all have a 1-1 relationship to each other.</p>
 <a class="sourceLine" id="cb256-18" data-line-number="18"><span class="co">#&gt; #   tz.x &lt;dbl&gt;, dst.x &lt;chr&gt;, tzone.x &lt;chr&gt;, name.y &lt;chr&gt;, lat.y &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb256-19" data-line-number="19"><span class="co">#&gt; #   lon.y &lt;dbl&gt;, alt.y &lt;int&gt;, tz.y &lt;dbl&gt;, dst.y &lt;chr&gt;, tzone.y &lt;chr&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-18" class="section level3 exercise">
 <h3><span class="header-section-number">12.4.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Is there a relationship between the age of a plane and its delays?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
 This could be due to choices about how airlines allocate planes to airports.</p>
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1">plane_ages &lt;-<span class="st"> </span></a>
@@ -934,11 +954,13 @@ This could be due to choices about how airlines allocate planes to airports.</p>
 <a class="sourceLine" id="cb257-15" data-line-number="15"><span class="co">#&gt; Warning: Removed 1 rows containing missing values (geom_path).</span></a></code></pre></div>
 <p><img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-4-16" class="section level3 exercise">
 <h3><span class="header-section-number">12.4.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>What weather conditions make it more likely to see a delay?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Almost any amount or precipitation is associated with a delay, though not as strong a trend after 0.02 in as one would expect</p>
 <div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1">flight_weather &lt;-</a>
 <a class="sourceLine" id="cb258-2" data-line-number="2"><span class="st">  </span>flights <span class="op">%&gt;%</span></a>
@@ -955,11 +977,13 @@ This could be due to choices about how airlines allocate planes to airports.</p>
 <a class="sourceLine" id="cb258-13" data-line-number="13"><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="relational-data_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
+</div>
 <div id="exercise-5-7" class="section level3 exercise">
 <h3><span class="header-section-number">12.4.5</span> Exercise 5</h3>
-<blockquote>
+<div class="question">
 <p>What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>There was a large series of storms (derechos) in the southeastern US (see <a href="https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series">June 12-13, 2013 derecho series</a>)</p>
 <p>The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest, which were the locations of the derechos:</p>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" data-line-number="1"><span class="kw">library</span>(viridis)</a>
@@ -977,13 +1001,15 @@ This could be due to choices about how airlines allocate planes to airports.</p>
 <p><img src="relational-data_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
+</div>
 <div id="filtering-joins" class="section level2">
 <h2><span class="header-section-number">12.5</span> Filtering Joins</h2>
 <div id="exercise-1-24" class="section level3 exercise">
 <h3><span class="header-section-number">12.5.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>What does it mean for a flight to have a missing <code>tailnum</code>? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>American Airlines (AA) and Envoy Airlines (MQ) don’t report tail numbers.</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb260-2" data-line-number="2"><span class="st">  </span><span class="kw">anti_join</span>(planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -999,11 +1025,13 @@ This could be due to choices about how airlines allocate planes to airports.</p>
 <a class="sourceLine" id="cb260-12" data-line-number="12"><span class="co">#&gt; 6 US        699</span></a>
 <a class="sourceLine" id="cb260-13" data-line-number="13"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-2-23" class="section level3 exercise">
 <h3><span class="header-section-number">12.5.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Filter flights to only show flights with planes that have flown at least 100 flights.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" data-line-number="1">planes_gt100 &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb261-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(flights) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb261-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span></a>
@@ -1026,11 +1054,13 @@ This could be due to choices about how airlines allocate planes to airports.</p>
 <a class="sourceLine" id="cb261-20" data-line-number="20"><span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb261-21" data-line-number="21"><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-19" class="section level3 exercise">
 <h3><span class="header-section-number">12.5.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Combine <code>fueleconomy::vehicles</code> and <code>fueleconomy::common</code> to find only the records for the most common models.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The table <code>fueleconomy::common</code> identifies vehicles by <code>make</code> and <code>model</code>:</p>
 <div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" data-line-number="1"><span class="kw">glimpse</span>(fueleconomy<span class="op">::</span>vehicles)</a>
 <a class="sourceLine" id="cb262-2" data-line-number="2"><span class="co">#&gt; Observations: 33,442</span></a>
@@ -1067,11 +1097,13 @@ This could be due to choices about how airlines allocate planes to airports.</p>
 <a class="sourceLine" id="cb263-11" data-line-number="11"><span class="co">#&gt; 6  4184 Acura Integ…  1988 Subc… Manu… Fron…     4  1.60 Regu…    28    23</span></a>
 <a class="sourceLine" id="cb263-12" data-line-number="12"><span class="co">#&gt; # ... with 1.452e+04 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-3-20" class="section level3 exercise">
 <h3><span class="header-section-number">12.5.4</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb264-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(year, month, day) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb264-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_24 =</span> <span class="kw">sum</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)<span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
@@ -1089,19 +1121,23 @@ This could be due to choices about how airlines allocate planes to airports.</p>
 <a class="sourceLine" id="cb264-15" data-line-number="15"><span class="co">#&gt; 6  2013     7    10   97120.  157396.</span></a>
 <a class="sourceLine" id="cb264-16" data-line-number="16"><span class="co">#&gt; # ... with 359 more rows</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-17" class="section level3 exercise">
 <h3><span class="header-section-number">12.5.5</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>What does <code>anti_join(flights, airports, by = c(&quot;dest&quot; = &quot;faa&quot;))</code> tell you? What does <code>anti_join(airports, flights, by = c(&quot;faa&quot; = &quot;dest&quot;))</code> tell you?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p><code>anti_join(flights, airports, by = c(&quot;dest&quot; = &quot;faa&quot;))</code> are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.</p>
 <p><code>anti_join(airports, flights, by = c(&quot;faa&quot; = &quot;dest&quot;))</code> are US airports that don’t have a flight in the data, meaning that there were no flights to that airport <strong>from</strong> New York in 2013.</p>
 </div>
+</div>
 <div id="exercise-5-8" class="section level3 exercise">
 <h3><span class="header-section-number">12.5.6</span> Exercise 5</h3>
-<blockquote>
+<div class="question">
 <p>You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>There isn’t such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
 It should be the case that an airplane is associated with only airline at a given time, though may
 However, even though that’s a possibility, it doesn’t necessarily mean that plane associated with more than one appear in this data.
@@ -1123,6 +1159,7 @@ Even if there were none, the substantive reasons why an airplane <em>could</em> 
 <p>It is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship.
 Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks.
 There is rarely a substitute for understanding the data which you are using as an analyst.</p>
+</div>
 </div>
 </div>
 <div id="join-problems" class="section level2">

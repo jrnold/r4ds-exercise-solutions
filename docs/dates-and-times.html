@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
+<link rel="stylesheet" href="r4ds-solutions.css" type="text/css" />
 </head>
 
 <body>
@@ -673,10 +674,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb355-13" data-line-number="13"><span class="st">  </span><span class="kw">select</span>(origin, dest, <span class="kw">ends_with</span>(<span class="st">&quot;delay&quot;</span>), <span class="kw">ends_with</span>(<span class="st">&quot;time&quot;</span>))</a></code></pre></div>
 <div id="exercise-1-41" class="section level3 exercise">
 <h3><span class="header-section-number">15.2.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>What happens if you parse a string that
 contains invalid dates?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1">ret &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span class="kw">c</span>(<span class="st">&quot;2010-10-10&quot;</span>, <span class="st">&quot;bananas&quot;</span>))</a>
 <a class="sourceLine" id="cb356-2" data-line-number="2"><span class="co">#&gt; Warning: 1 failed to parse.</span></a>
 <a class="sourceLine" id="cb356-3" data-line-number="3"><span class="kw">print</span>(<span class="kw">class</span>(ret))</a>
@@ -685,6 +687,7 @@ contains invalid dates?</p>
 <a class="sourceLine" id="cb356-6" data-line-number="6"><span class="co">#&gt; [1] &quot;2010-10-10&quot; NA</span></a></code></pre></div>
 <p>It produces an <code>NA</code> and an warning message.</p>
 </div>
+</div>
 <div id="exercise-2-40" class="section level3 exercise">
 <h3><span class="header-section-number">15.2.2</span> Exercise 2</h3>
 <p>What does the <code>tzone</code> argument to <code>today()</code> do? Why is it important?</p>
@@ -692,10 +695,11 @@ contains invalid dates?</p>
 </div>
 <div id="exercise-3-28" class="section level3 exercise">
 <h3><span class="header-section-number">15.2.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Use the appropriate <strong>lubridate</strong> function to
 parse each of the following dates:</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1">d1 &lt;-<span class="st"> &quot;January 1, 2010&quot;</span></a>
 <a class="sourceLine" id="cb357-2" data-line-number="2"><span class="kw">mdy</span>(d1)</a>
 <a class="sourceLine" id="cb357-3" data-line-number="3"><span class="co">#&gt; [1] &quot;2010-01-01&quot;</span></a>
@@ -713,6 +717,7 @@ parse each of the following dates:</p>
 <a class="sourceLine" id="cb357-15" data-line-number="15"><span class="co">#&gt; [1] &quot;2014-12-30&quot;</span></a></code></pre></div>
 </div>
 </div>
+</div>
 <div id="date-time-components" class="section level2">
 <h2><span class="header-section-number">15.3</span> Date-Time Components</h2>
 <p>The following code from the chapter is used</p>
@@ -725,10 +730,11 @@ parse each of the following dates:</p>
 <p>In the previous code, the difference between rounded and un-rounded dates provides the within-period time.</p>
 <div id="exercise-1-42" class="section level3 exercise">
 <h3><span class="header-section-number">15.3.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>How does the distribution of flight times
 within a day change over the course of the year?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>Let’s try plotting this by month:</p>
 <div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1">flights_dt <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb359-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">hour</span>(dep_time) <span class="op">*</span><span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">minute</span>(dep_time),</a>
@@ -747,6 +753,7 @@ that February is lower is that there are fewer days and thus fewer flights.</p>
 <a class="sourceLine" id="cb360-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>)</a></code></pre></div>
 <p><img src="datetimes_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>At least to me there doesn’t appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.</p>
+</div>
 </div>
 <div id="exercise-2-41" class="section level3 exercise">
 <h3><span class="header-section-number">15.3.2</span> Exercise 2</h3>
@@ -865,9 +872,10 @@ ending in 0 and 5.</p>
 <h2><span class="header-section-number">15.4</span> Time Spans</h2>
 <div id="exercise-1-43" class="section level3 exercise">
 <h3><span class="header-section-number">15.4.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>Why is there <code>months()</code> but no <code>dmonths()</code>?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>There is no direct unambiguous value of months in seconds since months have differing numbers of days.</p>
 <ul>
 <li>31 days: January, March, May, July, August, October</li>
@@ -876,19 +884,23 @@ ending in 0 and 5.</p>
 </ul>
 <p>Though in the past, in the pre-computer era, for arithmetic convenience, bankers adopted a 360 day year with 30 day months.</p>
 </div>
+</div>
 <div id="exercise-2-42" class="section level3 exercise">
 <h3><span class="header-section-number">15.4.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Explain <code>days(overnight * 1)</code> to someone who has just started learning R. How does it work?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The variable <code>overnight</code> is equal to <code>TRUE</code> or <code>FALSE</code>.
 If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0, and no days are added to the date.</p>
 </div>
+</div>
 <div id="exercise-3-30" class="section level3 exercise">
 <h3><span class="header-section-number">15.4.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>A vector of the first day of the month for every month in 2015:</p>
 <div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1"><span class="kw">ymd</span>(<span class="st">&quot;2015-01-01&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
 <a class="sourceLine" id="cb370-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;2015-01-01&quot; &quot;2015-02-01&quot; &quot;2015-03-01&quot; &quot;2015-04-01&quot; &quot;2015-05-01&quot;</span></a>
@@ -901,11 +913,13 @@ I can do that by taking <code>today()</code> and truncating it to the year using
 <a class="sourceLine" id="cb371-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;2018-06-01&quot; &quot;2018-07-01&quot; &quot;2018-08-01&quot; &quot;2018-09-01&quot; &quot;2018-10-01&quot;</span></a>
 <a class="sourceLine" id="cb371-4" data-line-number="4"><span class="co">#&gt; [11] &quot;2018-11-01&quot; &quot;2018-12-01&quot;</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-4-23" class="section level3 exercise">
 <h3><span class="header-section-number">15.4.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Write a function that given your birthday (as a date), returns how old you are in years.</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1">age &lt;-<span class="st"> </span><span class="cf">function</span>(bday) {</a>
 <a class="sourceLine" id="cb372-2" data-line-number="2">  (bday <span class="op">%--%</span><span class="st"> </span><span class="kw">today</span>()) <span class="op">%/%</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb372-3" data-line-number="3">}</a>
@@ -915,16 +929,19 @@ I can do that by taking <code>today()</code> and truncating it to the year using
 <a class="sourceLine" id="cb372-7" data-line-number="7"><span class="co">#&gt;  &quot;Interval#ANY&quot;, &quot;ANY#Period&quot; would also be valid</span></a>
 <a class="sourceLine" id="cb372-8" data-line-number="8"><span class="co">#&gt; [1] 27</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-5-12" class="section level3 exercise">
 <h3><span class="header-section-number">15.4.5</span> Exercise 5</h3>
-<blockquote>
+<div class="question">
 <p>Why can’t <code>(today() %--% (today() + years(1)) / months(1)</code> work?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>It appears to work. Today is a date. Today + 1 year is a valid endpoint for an interval. And months is period that is defined in this period.</p>
 <div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" data-line-number="1">(<span class="kw">today</span>() <span class="op">%--%</span><span class="st"> </span>(<span class="kw">today</span>() <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>))) <span class="op">%/%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb373-2" data-line-number="2"><span class="co">#&gt; [1] 12</span></a>
 <a class="sourceLine" id="cb373-3" data-line-number="3">(<span class="kw">today</span>() <span class="op">%--%</span><span class="st"> </span>(<span class="kw">today</span>() <span class="op">+</span><span class="st"> </span><span class="kw">years</span>(<span class="dv">1</span>))) <span class="op">/</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb373-4" data-line-number="4"><span class="co">#&gt; [1] 12</span></a></code></pre></div>
+</div>
 </div>
 </div>
 <div id="time-zones" class="section level2">

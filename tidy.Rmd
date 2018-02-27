@@ -11,7 +11,13 @@ library(tidyverse)
 
 ### Exercise 1 {.exercise}
 
-> Using prose, describe how the variables and observations are organized in each of the sample tables.
+
+`r BeginQuestion()`
+Using prose, describe how the variables and observations are organized in each of the sample tables.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 In `table1` each row is a (country, year) with variables `cases` and `population`.
 ```{r}
@@ -36,9 +42,17 @@ table4a
 table4b
 ```
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
+
+`r BeginQuestion()`
+Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 >
 >  1.  Extract the number of TB cases per country per year.
 >  2.  Extract the matching population per country per year.
@@ -74,9 +88,17 @@ tibble(country = rep(table4a[["country"]], 2),
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
+
+`r BeginQuestion()`
+Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 First, I needed to filter the tibble to only include those rows that represented the "cases" variable.
 ```{r}
@@ -87,6 +109,8 @@ table2 %>%
   geom_point(aes(colour = country))
 ```
 
+
+`r EndAnswer()`
 
 ## Spreading and Gathering
 
@@ -101,8 +125,14 @@ tidy4b <- table4b %>%
 
 ### Exercise 1 {.exercise}
 
-> Why are `gather()` and `spread()` not perfectly symmetrical?
-> Carefully consider the following example:
+
+`r BeginQuestion()`
+Why are `gather()` and `spread()` not perfectly symmetrical?
+Carefully consider the following example:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 stocks <- tibble(
@@ -127,9 +157,17 @@ stocks %>%
   gather("year", "return", `2015`:`2016`, convert = TRUE)
 ```
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> Why does this code fail?
+
+`r BeginQuestion()`
+Why does this code fail?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r error=TRUE}
 table4a %>% 
@@ -144,9 +182,17 @@ table4a %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
 ```
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> Why does spreading this tibble fail? How could you add a new column to fix the problem?
+
+`r BeginQuestion()`
+Why does spreading this tibble fail? How could you add a new column to fix the problem?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 people <- tribble(
@@ -182,9 +228,17 @@ spread(people, key, value)
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 4 {.exercise}
 
-> Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
+
+`r BeginQuestion()`
+Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 preg <- tribble(
@@ -208,11 +262,19 @@ gather(preg, sex, count, male, female) %>%
 ```
 Converting `pregnant` and `female` from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.
 
+`r EndAnswer()`
+
 ## Separating and Uniting
 
 ### Exercise 1 {.exercise}
 
-> What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
+
+`r BeginQuestion()`
+What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
@@ -264,27 +326,51 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "left")
 ```
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
+
+`r BeginQuestion()`
+Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 You would set it to `FALSE` if you want to create a new variable, but keep the old one.
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
+
+`r BeginQuestion()`
+Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The function `extract` uses a regular expression to find groups and split into columns.
 In `unite` it is unambiguous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the `sep`.
 In `separate`, it is one to many, and there are multiple ways to split the character string.
 
 
+`r EndAnswer()`
+
 ## Missing Values
 
 
 ### Exercise 1 {.exercise}
 
-> Compare and contrast the `fill` arguments to `spread()` and `complete()`.
+
+`r BeginQuestion()`
+Compare and contrast the `fill` arguments to `spread()` and `complete()`.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 ?spread
@@ -297,13 +383,23 @@ In `spread`, the fill argument explicitly sets the value to replace `NA`s.
 In `complete`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
 Also, both cases replace both implicit and explicit missing values.
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> What does the direction argument to `fill()` do?
+
+`r BeginQuestion()`
+What does the direction argument to `fill()` do?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 With `fill`, it determines whether `NA` values should be replaced by the previous non-missing value (`"down"`) or the next non-missing value (`"up"`).
 
 
+
+`r EndAnswer()`
 
 ## Case Study
 
@@ -345,7 +441,13 @@ who5
 
 ### Exercise 1 {.exercise}
 
-> In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
+
+`r BeginQuestion()`
+In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 Perhaps? I would need to know more about the data generation process. 
 There are zero's in the data, which means they may explicitly be indicating no cases.
@@ -370,9 +472,17 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
 
 
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+
+`r BeginQuestion()`
+What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 `separate` emits the warning "too few values", and if we check the 
 rows for keys beginning with `"newrel_"`, we see that `sexage` is messing, 
@@ -386,9 +496,17 @@ filter(who3a, new == "newrel") %>% head()
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
+
+`r BeginQuestion()`
+I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 select(who3, country, iso2, iso3) %>%
@@ -399,9 +517,17 @@ select(who3, country, iso2, iso3) %>%
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 4 {.exercise}
 
-> For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
+
+`r BeginQuestion()`
+For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 who5 %>%
@@ -418,6 +544,8 @@ who5 %>%
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.
 
+
+`r EndAnswer()`
 
 ## Non-Tidy Data
 

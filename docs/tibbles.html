@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <link rel="stylesheet" href="r4ds.css" type="text/css" />
+<link rel="stylesheet" href="r4ds-solutions.css" type="text/css" />
 </head>
 
 <body>
@@ -673,9 +674,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">9.6</span> Exercises</h2>
 <div id="exercise-1-13" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.1</span> Exercise 1</h3>
-<blockquote>
+<div class="question">
 <p>How can you tell if an object is a tibble? (Hint: try printing <code>mtcars</code>, which is a regular data frame).</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">mtcars</a>
 <a class="sourceLine" id="cb167-2" data-line-number="2"><span class="co">#&gt;                      mpg cyl  disp  hp drat   wt qsec vs am gear carb</span></a>
 <a class="sourceLine" id="cb167-3" data-line-number="3"><span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.62 16.5  0  1    4    4</span></a>
@@ -716,11 +718,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb169-2" data-line-number="2"><span class="co">#&gt; [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</span></a></code></pre></div>
 <p>Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class <code>&quot;tbl_df&quot;</code> and <code>&quot;tbl_&quot;</code> in addition to <code>&quot;data.frame&quot;</code>.</p>
 </div>
+</div>
 <div id="exercise-2-12" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.2</span> Exercise 2</h3>
-<blockquote>
+<div class="question">
 <p>Compare and contrast the following operations on a <code>data.frame</code> and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?</p>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">abc =</span> <span class="dv">1</span>, <span class="dt">xyz =</span> <span class="st">&quot;a&quot;</span>)</a>
 <a class="sourceLine" id="cb170-2" data-line-number="2">df<span class="op">$</span>x</a>
 <a class="sourceLine" id="cb170-3" data-line-number="3"><span class="co">#&gt; [1] a</span></a>
@@ -748,16 +752,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Using <code>$</code> a data.frame will partially complete the column. So even though we wrote <code>df$x</code> it returned <code>df$xyz</code>. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.</p>
 <p>With data.frames, with <code>[</code> the type of object that is returned differs on the number of columns. If it is one column, it won’t return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did <code>df[ , vars]</code> where <code>vars</code> was a variable. Then you what that code does depends on <code>length(vars)</code> and you’d have to write code to account for those situations or risk bugs.</p>
 </div>
+</div>
 <div id="exercise-3-10" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.3</span> Exercise 3</h3>
-<blockquote>
+<div class="question">
 <p>If you have the name of a variable stored in an object, e.g. <code>var &lt;- &quot;mpg&quot;</code>, how can you extract the reference variable from a tibble?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>You can use the double bracket, like <code>df[[var]]</code>. You cannot use the dollar sign, because <code>df$var</code> would look for a column named <code>var</code>.</p>
+</div>
 </div>
 <div id="exercise-4-9" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.4</span> Exercise 4</h3>
-<blockquote>
+<div class="question">
 <p>Practice referring to non-syntactic names in the following data frame by:</p>
 <ol style="list-style-type: decimal">
 <li>Extracting the variable called 1.</li>
@@ -765,7 +772,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Creating a new column called 3 which is 2 divided by 1.</li>
 <li>Renaming the columns to one, two and three.</li>
 </ol>
-</blockquote>
+</div>
+<div class="answer">
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1">annoying &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb172-2" data-line-number="2">  <span class="st">`</span><span class="dt">1</span><span class="st">`</span> =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,</a>
 <a class="sourceLine" id="cb172-3" data-line-number="3">  <span class="st">`</span><span class="dt">2</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">1</span><span class="st">`</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>))</a>
@@ -793,11 +801,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb178-6" data-line-number="6"><span class="co">#&gt; $ two   &lt;dbl&gt; 0.60, 4.26, 3.56, 7.99, 10.62, 13.15, 12.18, 15.75, 17.7...</span></a>
 <a class="sourceLine" id="cb178-7" data-line-number="7"><span class="co">#&gt; $ three &lt;dbl&gt; 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-5-5" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.5</span> Exercise 5</h3>
-<blockquote>
+<div class="question">
 <p>What does <code>tibble::enframe()</code> do? When might you use it?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>It converts named vectors to a data frame with names and values</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1">?tibble<span class="op">::</span>enframe</a></code></pre></div>
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1"><span class="kw">enframe</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>))</a>
@@ -808,14 +818,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb180-6" data-line-number="6"><span class="co">#&gt; 2 b        2.</span></a>
 <a class="sourceLine" id="cb180-7" data-line-number="7"><span class="co">#&gt; 3 c        3.</span></a></code></pre></div>
 </div>
+</div>
 <div id="exercise-6-4" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.6</span> Exercise 6</h3>
-<blockquote>
+<div class="question">
 <p>What option controls how many additional column names are printed at the footer of a tibble?</p>
-</blockquote>
+</div>
+<div class="answer">
 <p>The print function for tibbles is in <code>print.tbl_df</code>:</p>
 <div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1">?print.tbl_df</a></code></pre></div>
 <p>The option <code>n_extra</code> determines the number of extra columns to print information for.</p>
+</div>
 
 </div>
 </div>

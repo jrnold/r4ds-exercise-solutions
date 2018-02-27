@@ -17,7 +17,13 @@ library("tidyverse")
 
 ### Exercise 1 {.exercise}
 
->  What function would you use to read a file where fields were separated with
+
+
+What function would you use to read a file where fields were separated with
+
+
+
+
 “|”?
 
 I'd use `read_delim` with `delim="|"`:
@@ -27,9 +33,17 @@ read_delim(file, delim = "|")
 ```
 
 
+
+
 ### Exercise 2 {.exercise}
 
-> Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
+
+
+Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
+
+
+
+
 
 They have the following arguments in common:
 
@@ -48,18 +62,34 @@ union(names(formals(read_csv)), names(formals(read_tsv)))
 - `guess_max` sets how many rows to use when guessing the column type
 - `progress` determines whether a progress bar is shown.
 
+
+
 ### Exercise 3 {.exercise}
 
-> What are the most important arguments to `read_fwf()`?
+
+
+What are the most important arguments to `read_fwf()`?
+
+
+
+
 
 The most important argument to `read_fwf` which reads "fixed-width formats", is `col_positions` which tells the function where data columns begin and end.
 
+
+
 ### Exercise 4 {.exercise}
 
-> Sometimes strings in a CSV file contain commas. 
-> To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`. 
-> By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead. 
-> What arguments do you need to specify to read the following text into a data frame?
+
+
+Sometimes strings in a CSV file contain commas. 
+To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`. 
+By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead. 
+What arguments do you need to specify to read the following text into a data frame?
+
+
+
+
 
 ```
 "x,y\n1,'a,b'"
@@ -77,10 +107,18 @@ read_delim(x, ",", quote = "'")
 
 
 
+
+
 ### Exercise 6 {.exercise}
 
-> Identify what is wrong with each of the following inline CSV files. 
-> What happens when you run the code?
+
+
+Identify what is wrong with each of the following inline CSV files. 
+What happens when you run the code?
+
+
+
+
 
 
 ```r
@@ -160,12 +198,20 @@ read_csv2("a;b\n1;3")
 
 
   
+
+
 ## Parsing a vector
 
 
 ### Exercise 1 {.exercise}
 
-> What are the most important arguments to `locale()`?
+
+
+What are the most important arguments to `locale()`?
+
+
+
+
 
 The locale broadly controls the following:
 
@@ -175,11 +221,19 @@ The locale broadly controls the following:
 - encoding: `encoding`
 
 
+
+
 ### Exercise 2 {.exercise}
 
-> What happens if you try and set `decimal_mark` and `grouping_mark` to the same character?
-> What happens to the default value of `grouping_mark` when you set `decimal_mark` to `","`? 
-> What happens to the default value of `decimal_mark` when you set the `grouping_mark` to `"."`?
+
+
+What happens if you try and set `decimal_mark` and `grouping_mark` to the same character?
+What happens to the default value of `grouping_mark` when you set `decimal_mark` to `","`? 
+What happens to the default value of `decimal_mark` when you set the `grouping_mark` to `"."`?
+
+
+
+
 
 If the decimal and grouping marks are set to the same character, `locale` throws an error:
 
@@ -225,11 +279,19 @@ locale(grouping_mark = ",")
 
 
 
+
+
 ### Exercise 3 {.exercise}
 
-> I didn’t discuss the `date_format` and `time_format` options to `locale()`. 
-> What do they do? 
-> Construct an example that shows when they might be useful.
+
+
+I didn’t discuss the `date_format` and `time_format` options to `locale()`. 
+What do they do? 
+Construct an example that shows when they might be useful.
+
+
+
+
 
 They provide default date and time formats. 
 The [readr vignette](https://cran.r-project.org/web/packages/readr/vignettes/locales.html) discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM
@@ -262,9 +324,17 @@ Apparently the time format is not used for anything, but the date format is used
 
 
 
+
+
 ### Exercise 4 {.exercise}
 
-> If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
+
+
+If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
+
+
+
+
 
 
 ```r
@@ -272,17 +342,33 @@ Apparently the time format is not used for anything, but the date format is used
 ```
 
 
+
+
 ### Exercise 5 {.exercise}
 
-> What’s the difference between `read_csv()` and `read_csv2()`?
+
+
+What’s the difference between `read_csv()` and `read_csv2()`?
+
+
+
+
 
 The delimiter. The function `read_csv` uses a comma, while `read_csv2` uses a semi-colon (`;`). Using a semi-colon is useful when commas are used as the decimal point (as in Europe).
 
+
+
 ### Exercise 6 {.exercise}
 
-> What are the most common encodings used in Europe? 
-> What are the most common encodings used in Asia? 
-> Do some googling to find out. 
+
+
+What are the most common encodings used in Europe? 
+What are the most common encodings used in Asia? 
+Do some googling to find out. 
+
+
+
+
 
 UTF-8 is standard now, and ASCII has been around forever.
 
@@ -323,9 +409,17 @@ Some program that identify the encoding of text are:
 - [iconv](https://en.wikipedia.org/wiki/Iconv)
 - [chardet](https://github.com/chardet/chardet) (Python)
 
+
+
 ### Exercise 7 {.exercise}
 
-> Generate the correct format string to parse each of the following dates and times:
+
+
+Generate the correct format string to parse each of the following dates and times:
+
+
+
+
 
 
 ```r
@@ -360,6 +454,8 @@ The time `t2` uses real seconds,
 parse_time(t2, "%H:%M:%OS %p")
 #> 23:15:10.12
 ```
+
+
 
 ## Parsing a file
 
