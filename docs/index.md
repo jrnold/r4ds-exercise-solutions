@@ -11,7 +11,6 @@ github-repo: "jrnold/r4ds-exercise-solutions"
 url: 'http\://jrnold.github.io/r4ds-exercise-solutions'
 twitter-handle: jrnld
 documentclass: book
-book_filename: "r4ds-exercise-solutions.Rmd"
 ---
 
 # Welcome {-}
