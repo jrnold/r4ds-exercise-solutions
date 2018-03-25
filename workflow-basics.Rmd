@@ -1,6 +1,6 @@
 ---
 output: html_document
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 # Workflow Basics
@@ -19,7 +19,7 @@ No exercises
 
 ## Practice
 
-### Exercise 1 {.exercise} 
+### Exercise 1 {.exercise}
 
 `r BeginQuestion()`
 Why does this code not work?
@@ -30,12 +30,13 @@ my_varıable
 `r EndQuestion()`
 
 The variable being printed is `my_varıable`, not `my_variable`:
-the seventh character is "ı" ("LATIN SMALL LETTER DOTLESS I"), not "i". 
+the seventh character is "ı" ("LATIN SMALL LETTER DOTLESS I"), not "i".
 
 While it wouldn't have helped much in this case, the importance of distinguishing characters in code is reasons why fonts which clearly distinguish similar characters are preferred in programming: especially important are distinguishing between zero (0), Latin small letter O (o), and Latin capital letter O (O); and the numeral one (1), Latin small letter I (i), Latin capital letter I (i), and Latin small letter L (l).
 In these fonts, zero and the Latin letter O are often distinguished by using a glyph for zero that uses either a dot in the interior or a slash through it.
 
-Also note that the error messages of the form "object '...' not found", mean just what they say, the object can't be found by R.
+Also note that the error messages of the form "object '...' not found", means what it says: R cannot find an object with that name.
+Unfortunately, the error does not tell you why that object cannot be found.
 This is usually because you either (1) forgot to define the function (or had an error that prevented it from being defined earlier), (2) didn't load a package with the object, or (3) made a typo in the object's name (either when using it or when you originally defined it).
 
 ### Exercise 2 {.exercise}
@@ -47,14 +48,14 @@ Tweak each of the following R commands so that they run correctly:
 ```{r error=TRUE}
 library("tidyverse")
 
-ggplot(dota = mpg) + 
+ggplot(dota = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
-The error message is `argument "data" is missing, with no default`. 
+The error message is `argument "data" is missing, with no default`.
 
 It looks like a typo, `dota` instead of `data`.
 ```{r error=TRUE}
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
@@ -84,7 +85,7 @@ This is a typo; the data frame is named `diamonds`.
 filter(diamonds, carat > 3)
 ```
 
-How did I know? I started typing in `diamond` and RStudio completed it to `diamonds`. 
+How did I know? I started typing in `diamond` and RStudio completed it to `diamonds`.
 Since `diamonds` includes the variable `carat` and the code works, that appears to have been the problem.
 
 ### Exercise 3 {.exercise}
@@ -94,4 +95,3 @@ Press *Alt + Shift + K*. What happens? How can you get to the same place using t
 `r EndQuestion()`
 
 This gives a menu with keyboard shortcuts. This can be found in the menu under `Tools -> Keyboard Shortcuts Help`.
-

@@ -1,6 +1,6 @@
 ---
 output: html_document
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 # Data Transformation
@@ -39,7 +39,7 @@ Find all flights that
 *Had an arrival delay of two or more hours* Since delay is in minutes, we are looking
 for flights where `arr_delay > 120`:
 ```{r}
-flights %>% 
+flights %>%
   filter(arr_delay > 120)
 ```
 
@@ -97,7 +97,7 @@ Another useful **dplyr** filtering helper is `between()`. What does it do? Can y
 
 `r BeginAnswer()`
 
-`between(x, left, right)` is equivalent to `x >= left & x <= right`. I already 
+`between(x, left, right)` is equivalent to `x >= left & x <= right`. I already
 used it in 1.4.
 
 `r EndAnswer()`
@@ -130,7 +130,7 @@ Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA`
 
 `r BeginAnswer()`
 
-`NA ^ 0 == 1` since for all numeric values $x ^ 0 = 1$. 
+`NA ^ 0 == 1` since for all numeric values $x ^ 0 = 1$.
 ```{r}
 NA ^ 0
 ```
@@ -378,7 +378,7 @@ Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What d
 
 `r BeginAnswer()`
 
-Since `arr_time` and `dep_time` may be in different time zones, the `air_time` doesn't equal the difference. 
+Since `arr_time` and `dep_time` may be in different time zones, the `air_time` doesn't equal the difference.
 We would need to account for time-zones in these calculations.
 ```{r}
 mutate(flights,
@@ -415,7 +415,7 @@ mutate(flights,
   filter(dep_delay2 != dep_delay) %>%
   select(dep_time, sched_dep_time, dep_delay, dep_delay2)
 ```
-Well, that solved most of the problems, but these two numbers don't match because we aren't accounting for flights where the departure time is the next day from the scheduled departure time. 
+Well, that solved most of the problems, but these two numbers don't match because we aren't accounting for flights where the departure time is the next day from the scheduled departure time.
 
 
 `r EndAnswer()`
@@ -434,7 +434,7 @@ I'd want to handle ties by taking the minimum of tied values. If three flights a
 ```{r}
 mutate(flights,
        dep_delay_rank = min_rank(-dep_delay)) %>%
-  arrange(dep_delay_rank) %>% 
+  arrange(dep_delay_rank) %>%
   filter(dep_delay_rank <= 10)
 ```
 
@@ -472,7 +472,7 @@ What trigonometric functions does R provide?
 
 `r BeginAnswer()`
 
-These are all described in the same help page, 
+These are all described in the same help page,
 ```{r eval=FALSE}
 help("Trig")
 ```
@@ -533,7 +533,7 @@ Brainstorm at least 5 different ways to assess the typical delay characteristics
 > Which is more important: arrival delay or departure delay?
 
 Arrival delay is more important.
-Arriving early is nice, but equally as good as arriving late is bad. 
+Arriving early is nice, but equally as good as arriving late is bad.
 Variation is worse than consistency; if I know the plane will always arrive 10 minutes late, then I can plan for it arriving as if the actual arrival time was 10 minutes later than the scheduled arrival time.
 
 So I'd try something that calculates the expected time of the flight, and then aggregates over any delays from that time. I would ignore any early arrival times.
@@ -566,9 +566,10 @@ Our definition of canceled flights `(is.na(dep_delay) | is.na(arr_delay))` is sl
 
 `r BeginAnswer()`
 
-If a flight doesn't depart, then it won't arrive. A flight can also depart and not arrive if it crashes; I'm not sure how this data would handle flights that are redirected and land at other airports for whatever reason.
+If a flight never departs, then it won't arrive.
+A flight could also depart and not arrive if it crashes, or if it is redirected and lands in an airport other than its intended destination.
 
-The more important column is `arr_delay` so we could just use that.
+The more important column is `arr_delay`, which indicates the amount of delay in arrival.
 ```{r}
 filter(flights, !is.na(dep_delay), is.na(arr_delay)) %>%
   select(dep_time, arr_time, sched_arr_time, dep_delay, arr_delay)
@@ -589,7 +590,7 @@ Look at the number of canceled flights per day. Is there a pattern? Is the propo
 `r BeginAnswer()`
 
 ```{r}
-canceled_delayed <- 
+canceled_delayed <-
   flights %>%
   mutate(canceled = (is.na(arr_delay) | is.na(dep_delay))) %>%
   group_by(year, month, day) %>%
@@ -627,7 +628,7 @@ filter(airlines, carrier == "F9")
 
 Frontier Airlines (FL) has the worst delays.
 
-You can get part of the way to disentangling the effects of airports vs. carriers by 
+You can get part of the way to disentangling the effects of airports vs. carriers by
 comparing each flight's delay to the average delay of destination airport.
 However, you'd really want to compare it to the average delay of the destination airport, *after* removing other flights from the same airline.
 
@@ -703,7 +704,7 @@ Which plane (`tailnum`) has the worst on-time record?
 
 ```{r}
 flights %>%
-  group_by(tailnum) %>% 
+  group_by(tailnum) %>%
   summarise(arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
   ungroup() %>%
   filter(rank(desc(arr_delay)) <= 1)
@@ -747,17 +748,17 @@ For each destination, compute the total minutes of delay. For each, flight, comp
 `r BeginAnswer()`
 
 ```{r}
-flights %>% 
+flights %>%
   filter(!is.na(arr_delay), arr_delay > 0) %>%  
   group_by(dest) %>%
   mutate(total_delay = sum(arr_delay),
          prop_delay = arr_delay / sum(arr_delay))
-  
+
 ```
 
 Alternatively, consider the delay as relative to the *minimum* delay for any flight to that destination. Now all non-canceled flights have a proportion.
 ```{r}
-flights %>% 
+flights %>%
   filter(!is.na(arr_delay), arr_delay > 0) %>%  
   group_by(dest) %>%
   mutate(total_delay = sum(arr_delay - min(arr_delay)),
@@ -778,8 +779,8 @@ Delays are typically temporally correlated: even once the problem that caused th
 
 `r BeginAnswer()`
 
-We want to group by day to avoid taking the lag from the previous day. 
-Also, I want to use departure delay, since this mechanism is relevant for departures. 
+We want to group by day to avoid taking the lag from the previous day.
+Also, I want to use departure delay, since this mechanism is relevant for departures.
 Also, I remove missing values both before and after calculating the lag delay.
 However, it would be interesting to ask the probability or average delay after a cancellation.
 ```{r}
@@ -859,7 +860,7 @@ The carrier that flies to the most locations is ExpressJet Airlines (EV).
 ExpressJet is a regional airline and partner for major airlines, so its one of those that flies small planes to close airports
 
 ```{r}
-flights %>% 
+flights %>%
   group_by(dest, carrier) %>%
   count(carrier) %>%
   group_by(carrier) %>%
@@ -872,4 +873,3 @@ filter(airlines, carrier == "EV")
 ```
 
 `r EndAnswer()`
-

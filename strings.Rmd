@@ -884,7 +884,23 @@ Why is it better to split up by `boundary("word")` than `" "`?
 
 `r BeginAnswer()`
 
-Splitting by `boundary("word")` splits on punctuation and not just whitespace.
+Splitting by `boundary("word")` is a more intelligent means of splitting up a string into words.
+It will recognize non-space punctation that splits words, and also remove that punctuation from words.
+You can read the set of rules that are used to determine word boundaries on the [ICU website](http://userguide.icu-project.org/boundaryanalysis).
+
+Consider this sentence from the official [Unicode Report on word boundaries](http://www.unicode.org/reports/tr29/#Word_Boundaries),
+```{r}
+sentence <- "The quick (“brown”) fox can’t jump 32.3 feet, right?"
+```
+Splitting the string on spaces considers will group the punctuation with the words,
+```{r}
+str_split(sentence, " ")
+```
+However, splitting the string using `boundary("word")` correctly removes punctuation, while not
+separating "32.2" and "can't",
+```{r}
+str_split(sentence, boundary("word"))
+```
 
 `r EndAnswer()`
 
