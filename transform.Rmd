@@ -551,14 +551,18 @@ Come up with another approach that will give you the same output as `not_cancell
 
 `r BeginAnswer()`
 
-Count will group a dataset on the given variable and then determine the number of instances within each group. The easiest way to do this is to `group_by` the given variable and then find the length of each group.  To make it match count, the value should go in a new column `n`.
+Count will group a dataset on the given variable and then determine the number of instances within each group. The easiest way to do this is to `group_by` the given variable and then find the length of each group.  To make it match `count()`, the value should go in a new column `n`.
 ```{r}
-not_cancelled %>% group_by(dest) %>% summarize(n = length(dest))
+not_cancelled %>%
+  group_by(dest) %>%
+  summarise(n = length(dest))
 ```
 
-For a weighted count, just take the sum of the weight variable in each group.
+For a weighted count, take the sum of the weight variable in each group.
 ```{r}
-not_cancelled %>% group_by(tailnum) %>% summarize(n = sum(distance))
+not_cancelled %>%
+  group_by(tailnum) %>%
+  summarise(n = sum(distance))
 ```
 
 `r EndAnswer()`
