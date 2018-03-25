@@ -14,7 +14,13 @@ library(stringr)
 
 ### Exercise 1 {.exercise}
 
-> In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What **stringr** function are they equivalent to? How do the functions differ in their handling of NA?
+
+
+In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What **stringr** function are they equivalent to? How do the functions differ in their handling of NA?
+
+
+
+
 
 The function `paste` separates strings by spaces by default, while `paste0` does not separate strings with spaces by default.
 
@@ -48,15 +54,31 @@ paste0("foo", NA)
 #> [1] "fooNA"
 ```
 
+
+
 ### Exercise 2 {.exercise}
 
-> In your own words, describe the difference between the `sep` and `collapse` arguments to `str_c()`.
+
+
+In your own words, describe the difference between the `sep` and `collapse` arguments to `str_c()`.
+
+
+
+
 
 The `sep` argument is the string inserted between arguments to `str_c`, while `collapse` is the string used to separate any elements of the character vector into a character vector of length one.
 
+
+
 ### Exercise 3 {.exercise}
 
-> Use `str_length()` and `str_sub()` to extract the middle character from a string. What will you do if the string has an even number of characters?
+
+
+Use `str_length()` and `str_sub()` to extract the middle character from a string. What will you do if the string has an even number of characters?
+
+
+
+
 
 The following function extracts the middle character. If the string has an even number of characters the choice is arbitrary.
 We choose to select $\lceil n / 2 \rceil$, because that case works even if the string is only of length one.
@@ -70,16 +92,32 @@ str_sub(x, m, m)
 #> [1] "a" "b" "b" "c" "c"
 ```
 
+
+
 ### Exercise 4 {.exercise}
 
-> What does `str_wrap()` do? When might you want to use it?
+
+
+What does `str_wrap()` do? When might you want to use it?
+
+
+
+
 
 The function `str_wrap` wraps text so that it fits within a certain width.
 This is useful for wrapping long strings of text to be typeset.
 
+
+
 ### Exercise 5 {.exercise}
 
-> What does `str_trim()` do? What’s the opposite of `str_trim()`?
+
+
+What does `str_trim()` do? What’s the opposite of `str_trim()`?
+
+
+
+
 
 The function `str_trim` trims the whitespace from a string.
 
@@ -104,9 +142,17 @@ str_pad("abc", 4, side = "left")
 #> [1] " abc"
 ```
 
+
+
 ### Exercise 6 {.exercise}
 
-> Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
+
+
+Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
+
+
+
+
 
 See the Chapter [Functions] for more details on writing R functions.
 
@@ -131,21 +177,37 @@ str_commasep(c("a", "b", "c"))
 #> [1] "a, b, and c"
 ```
 
+
+
 ## Matching Patterns and Regular Expressions
 
 ### Basic Matches
 
 #### Exercise 1 {.exercise}
 
-> Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
+
+
+Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
+
+
+
+
 
 - `"\"`: This will escape the next character in the R string.
 - `"\\"`: This will resolve to `\` in the regular expression, which will escape the next character in the regular expression.
 - `"\\\"`: The first two backslashes will resolve to a literal backslash in the regular expression, the third will escape the next character. So in the regular expression, this will escape some escaped character.
 
+
+
 #### Exercise 2 {.exercise}
 
-> How would you match the sequence `"'\` ?
+
+
+How would you match the sequence `"'\` ?
+
+
+
+
 
 
 ```r
@@ -154,11 +216,15 @@ str_view("\"'\\", "\"'\\\\")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-10-1} 
-
 #### Exercise 3 {.exercise}
 
-> What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
+
+
+What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
+
+
+
+
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
@@ -168,20 +234,13 @@ str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
 ```
 
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-11-1} 
-
-
 ```r
-x < c("apple", "banana", "pear")
-#> Warning in x < c("apple", "banana", "pear"): longer object length is not a
-#> multiple of shorter object length
-str_view(x, "^a")
+x <- c("apple", "banana", "pear")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-12-1} 
+```r
+str_view(x, "^a")
+```
 
 
 ```r
@@ -189,18 +248,13 @@ str_view(x, "a$")
 ```
 
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-13-1} 
-
-
 ```r
 x <- c("apple pie", "apple", "apple cake")
-str_view(x, "apple")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-14-1} 
+```r
+str_view(x, "apple")
+```
 
 
 ```r
@@ -209,13 +263,17 @@ str_view(x, "^apple$")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-15-1} 
-
 ### Anchors
 
 #### Exercise 1 {.exercise}
 
-> How would you match the literal string `"$^$"`?
+
+
+How would you match the literal string `"$^$"`?
+
+
+
+
 
 
 ```r
@@ -224,11 +282,15 @@ str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-16-1} 
-
 #### Exercise 2 {.exercise}
 
-> Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
+
+
+Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
+
+
+
+
 
 >  1. Start with “y”.
 >  2. End with “x”
@@ -244,26 +306,14 @@ str_view(stringr::words, "^y", match =TRUE)
 ```
 
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-17-1} 
-
-
 ```r
 str_view(stringr::words, "x$", match = TRUE)
 ```
 
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-18-1} 
-
-
 ```r
 str_view(stringr::words, "^...$", match = TRUE)
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-19-1} 
 
 A simpler way, shown later is 
 
@@ -272,23 +322,23 @@ str_view(stringr::words, "^.{3}$", match = TRUE)
 ```
 
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-20-1} 
-
-
 ```r
 str_view(stringr::words, ".......", match = TRUE)
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-21-1} 
-
 ### Character classes and alternatives
 
 #### Exercise 1 {.exercise}
 
-> Create regular expressions to find all words that:
+
+
+Create regular expressions to find all words that:
+
+
+
+
 >
 > 1.  Start with a vowel.
 > 2.  That only contain consonants. (Hint: thinking about matching “not”-vowels.)
@@ -301,19 +351,11 @@ Words starting with vowels
 str_view(stringr::words, "^[aeiou]", match = TRUE)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-22-1} 
-
 Words that contain only consonants
 
 ```r
 str_view(stringr::words, "^[^aeiou]+$", match=TRUE)
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-23-1} 
 This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
 
 Words that end with `ed` but not with `eed`. This handles the special case of "ed", as well as words with length > 2.
@@ -321,10 +363,6 @@ Words that end with `ed` but not with `eed`. This handles the special case of "e
 ```r
 str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-24-1} 
 
 Words ending in `ing` or `ise`:
 
@@ -334,11 +372,15 @@ str_view(stringr::words, "i(ng|se)$", match = TRUE)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-25-1} 
-
 #### Exercise 2 {.exercise}
 
-> Empirically verify the rule ``i before e except after c''.
+
+
+Empirically verify the rule ``i before e except after c''.
+
+
+
+
 
 Using only what has been introduced thus far: 
 
@@ -346,17 +388,9 @@ Using only what has been introduced thus far:
 str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-26-1} 
-
 ```r
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-27-1} 
 
 Using `str_detect` we can count the number of words that follow these rules:
 
@@ -365,9 +399,17 @@ sum(str_detect(stringr::words, "(cei|[^c]ie)"))
 sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 ```
 
+
+
 #### Exercise 3 {.exercise}
 
-> Is ``q'' always followed by a ``u''?
+
+
+Is ``q'' always followed by a ``u''?
+
+
+
+
 
 In the `stringr::words` dataset, yes. In the full English language, no.
 
@@ -377,11 +419,15 @@ str_view(stringr::words, "q[^u]", match = TRUE)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-29-1} 
-
 #### Exercise 4 {.exercise}
 
-> Write a regular expression that matches a word if it’s probably written in British English, not American English.
+
+
+Write a regular expression that matches a word if it’s probably written in British English, not American English.
+
+
+
+
 
 In the general case, this is hard, and could require a dictionary.
 But, there are a few heuristics to consider that would account for some common cases: British English tends to use the following:
@@ -396,9 +442,17 @@ The regex `ou|ise^|ae|oe|yse^` would match these.
 There are other [spelling differences between American and British English] (https://en.wikipedia.org/wiki/American_and_British_English_spelling_differences) but they are not patterns amenable to regular expressions.
 It would require a dictionary with differences in spellings for different words.
 
+
+
 #### Exercise 5 {.exercise}
 
-> Create a regular expression that will match telephone numbers as commonly written in your country.
+
+
+Create a regular expression that will match telephone numbers as commonly written in your country.
+
+
+
+
 
 The answer to this will vary by country.
 
@@ -408,19 +462,11 @@ For the United States, phone numbers have a format like `123-456-7890`.
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-30-1} 
 or 
 
 ```r
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-31-1} 
 
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
 
@@ -428,18 +474,22 @@ This regular expression can be simplified with the `{m,n}` regular expression mo
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-32-1} 
-
 Note that this pattern doesn't account for phone numbers that are invalid because of unassigned area code, or special numbers like 911, or extensions. See the Wikipedia page for the [North American Numbering Plan](https://en.wikipedia.org/wiki/North_American_Numbering_Plan) for more information on the complexities of US phone numbers, and [this Stack Overflow question](http://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation) for a discussion of using a regex for phone number validation.
+
+
 
 
 ### Repetition
 
 #### Exercise 1 {.exercise}
 
-> Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
+
+
+Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
+
+
+
+
 
 ----- ---------  ----------------------------------
 `-`   `{,1}`     Match at most 1
@@ -451,13 +501,20 @@ The `*` pattern has no `{m,n}` equivalent since there is no upper bound on the n
 
 ```r
 str_view("abcd", ".{,}")
-#> Error in stri_locate_first_regex(string, pattern, opts_regex = opts(pattern)): Error in {min,max} interval. (U_REGEX_BAD_INTERVAL)
 ```
+
+
 
 
 #### Exercise 2 {.exercise}
 
-> Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
+
+
+Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
+
+
+
+
 >
 > 1.  `^.*$`
 > 2.  `"\\{.+\\}"`
@@ -478,9 +535,17 @@ Examples:
 - `\d{4}-\d{2}-\d{2}`: `2018-01-11`
 - `"\\\\{4}"`: `"\\\\\\\\"` (Backslashes in an R character vector need to be escaped.)
 
+
+
 #### Exercise 3 {.exercise}
 
-> Create regular expressions to find all words that:
+
+
+Create regular expressions to find all words that:
+
+
+
+
 >
 > 1. Start with three consonants. 
 > 2. Have three or more vowels in a row.
@@ -492,19 +557,11 @@ A regex to find all words starting with three consonants
 str_view(words, "^[^aeiou]{3}")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-34-1} 
-
 A regex to find three or more vowels in a row:
 
 ```r
 str_view(words, "[aeiou]{3,}")
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-35-1} 
 
 Two or more vowel-consonant pairs in a row.
 
@@ -512,22 +569,34 @@ Two or more vowel-consonant pairs in a row.
 str_view(words, "([aeiou][^aeiou]){2,}")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-36-1} 
-
   
+
+
 #### Exercise 4 {.exercise}
 
-> Solve the beginner regexp crosswords at https://regexcrossword.com/challenges/
+
+
+Solve the beginner regexp crosswords at https://regexcrossword.com/challenges/
+
+
+
+
 
 Exercise left to reader. That site validates its solutions, so they aren't repeated here.
+
+
 
 ### Grouping and backreferences
 
 #### Exercise 1 {.exercise}
 
-> Describe, in words, what these expressions will match:
+
+
+Describe, in words, what these expressions will match:
+
+
+
+
 >
 > 1.  `(.)\1\1` :
 > 2.  `"(.)(.)\\2\\1"`:
@@ -542,9 +611,17 @@ Exercise left to reader. That site validates its solutions, so they aren't repea
 4.  `"(.).\\1.\\1"`: A character followed by any character, the original character, any other character, the original character again. E.g. `"abaca"`, `"b8b.b"`.
 5.  `"(.)(.)(.).*\\3\\2\\1"` Three characters followed by zero or more characters of any kind followed by the same three characters but in reverse order. E.g. `"abcsgasgddsadgsdgcba"` or `"abccba"` or `"abc1cba"`.
   
+
+
 #### Exercise 2 {.exercise}
 
-> Construct regular expressions to match words that:
+
+
+Construct regular expressions to match words that:
+
+
+
+
 >
 > 1. Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
 > 2. Contain a repeated pair of letters (e.g. ``church'' contains ``ch'' repeated twice.)
@@ -557,10 +634,6 @@ Start and end with the same character. Assuming the word is more than one charac
 str_view(words, "^(.).*\\1$")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-37-1} 
-
 Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.):
 
 I'll consider several patterns with varying levels of generality.
@@ -569,19 +642,11 @@ This pattern checks for any pair of repeated characters:
 ```r
 str_view(words, "(..).*\\1")
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-38-1} 
 This pattern is checks for any pair of repeated "letters":
 
 ```r
 str_view(words, "([A-Za-z][A-Za-z]).*\\1")
 ```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-39-1} 
 
 
 Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
@@ -598,6 +663,8 @@ str_subset(str_to_lower(words), "([a-z]).*\\1.*\\1")
 The `\\1` is used to refer back to the first group (`(.)`) so that whatever letter is matched by `[A-Za-z]` is again matched.
 
 
+
+
 ## Tools
 
 ### Detect matches
@@ -608,7 +675,13 @@ No exercises
 
 #### Exercise 1 {.exercise}
 
-> For each of the following challenges, try solving it by using both a single regular expression, and a combination of multiple `str_detect()` calls.
+
+
+For each of the following challenges, try solving it by using both a single regular expression, and a combination of multiple `str_detect()` calls.
+
+
+
+
 
   1. Find all words that start or end with x.
   2. Find all words that start with a vowel and end with a consonant.
@@ -617,6 +690,8 @@ No exercises
 Words that start or end with `x`?
 
 ```r
+
+
 # one regex
 words[str_detect(words, "^x|x$")]
 #> [1] "box" "sex" "six" "tax"
@@ -674,7 +749,13 @@ str_subset("aseiouds", pattern)
 
 #### Exercise 2 {.exercise}
 
-> What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
+
+
+What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
+
+
+
+
 
 
 ```r
@@ -683,12 +764,20 @@ words[which(prop_vowels == max(prop_vowels))]
 #> [1] "a"
 ```
 
+
+
 ### Extract Matches
 
 
 #### Exercise 1 {.exercise}
 
-> In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.
+
+
+In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.
+
+
+
+
 
 This was the original color match pattern:
 
@@ -709,21 +798,26 @@ colour_match2
 
 ```r
 more2 <- sentences[str_count(sentences, colour_match) > 1]
+```
+
+```r
 str_view_all(more2, colour_match2, match = TRUE)
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{strings_files/figure-latex/unnamed-chunk-48-1} 
-
 
 #### Exercise 2 {.exercise}
 
-> From the Harvard sentences data, extract:
->
-> 1. The first word from each sentence.
-> 2. All words ending in `ing`.
-> 3. All plurals.
+
+
+From the Harvard sentences data, extract:
+
+1. The first word from each sentence.
+2. All words ending in `ing`.
+3. All plurals.
+
+
 
 The first word in each sentence requires defining what a word is. I'll consider a word any contiguous 
 
@@ -750,12 +844,20 @@ unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b"))) %>%
 #> [1] "planks" "days"   "bowls"  "lemons" "makes"  "hogs"
 ```
 
+
+
 ### Grouped Matches
 
 
 #### Exercise 1 {.exercise}
 
-> Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
+
+
+Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
+
+
+
+
 
 I'll use the same following "word" pattern as used above
 
@@ -775,9 +877,17 @@ sentences[str_detect(sentences, numword)] %>%
 ```
 
 
+
+
 #### Exercise 2 {.exercise}
 
-> Find all contractions. Separate out the pieces before and after the apostrophe.
+
+
+Find all contractions. Separate out the pieces before and after the apostrophe.
+
+
+
+
 
 
 ```r
@@ -790,12 +900,21 @@ sentences %>%
 #> [11] "don't"      "queen's"    "don't"      "pirate's"   "neighbor's"
 ```
 
+
+
 ### Replacing Matches
 
 
 #### Exercise 1 {.exercise}
 
-> Replace all forward slashes in a string with backslashes.
+
+
+Replace all forward slashes in a string with backslashes.
+
+
+
+
+
 
 ```r
 backslashed <- str_replace_all("past/present/future", "\\/", "\\\\")
@@ -803,17 +922,33 @@ writeLines(backslashed)
 #> past\present\future
 ```
 
+
+
 #### Exercise 2 {.exercise}
 
-> Implement a simple version of `str_to_lower()` using `replace_all()`.
+
+
+Implement a simple version of `str_to_lower()` using `replace_all()`.
+
+
+
+
 
 ```r
 lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "F"="f", "G"="g", "H"="h", "I"="i", "J"="j", "K"="k", "L"="l", "M"="m", "N"="n", "O"="o", "P"="p", "Q"="q", "R"="r", "S"="s", "T"="t", "U"="u", "V"="v", "W"="w", "X"="x", "Y"="y", "Z"="z"))
 ```
 
+
+
 #### Exercise 3 {.exercise}
 
-> Switch the first and last letters in `words`. Which of those strings are still words?
+
+
+Switch the first and last letters in `words`. Which of those strings are still words?
+
+
+
+
 
 First, make a vector of all the words with first and last letters swapped,
 
@@ -835,11 +970,19 @@ intersect(swapped,words)
 #> [41] "transport"  "treat"      "trust"      "window"     "yesterday"
 ```
 
+
+
 ### Splitting
 
 #### Exercise 1 {.exercise}
 
-> Split up a string like `"apples, pears, and bananas"` into individual components.
+
+
+Split up a string like `"apples, pears, and bananas"` into individual components.
+
+
+
+
 
 
 ```r
@@ -849,15 +992,31 @@ str_split(x, ", +(and +)?")[[1]]
 ```
 
 
+
+
 #### Exercise 2 {.exercise}
 
-> Why is it better to split up by `boundary("word")` than `" "`?
+
+
+Why is it better to split up by `boundary("word")` than `" "`?
+
+
+
+
 
 Splitting by `boundary("word")` splits on punctuation and not just whitespace.
 
+
+
 #### Exercise 3 {.exercise}
 
-> What does splitting with an empty string `("")` do? Experiment, and then read the documentation.
+
+
+What does splitting with an empty string `("")` do? Experiment, and then read the documentation.
+
+
+
+
 
 
 ```r
@@ -866,6 +1025,8 @@ str_split("ab. cd|agt", "")[[1]]
 ```
 
 It splits the string into individual characters.
+
+
 
 ### Find matches
 
@@ -876,7 +1037,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
+
+
+How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
+
+
+
+
 
 
 ```r
@@ -886,9 +1053,17 @@ str_subset(c("a\\b", "ab"), fixed("\\"))
 #> [1] "a\\b"
 ```
 
+
+
 ### Exercise 2 {.exercise}
 
-> What are the five most common words in sentences?
+
+
+What are the five most common words in sentences?
+
+
+
+
 
 
 ```r
@@ -911,6 +1086,8 @@ str_extract_all(sentences, boundary("word")) %>%
 #> 5 and     118
 ```
 
+
+
 ## Other uses of regular expressions
 
 No exercises
@@ -920,7 +1097,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> Find the **stringi** functions that:
+
+
+Find the **stringi** functions that:
+
+
+
+
 
 > 1. Count the number of words. `stri_count_words`
 > 2. Find duplicated strings. `stri_duplicated`
@@ -931,8 +1114,18 @@ No exercises
 3. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
 
 
+
+
 ### Exercise 2 {.exercise}
 
-> How do you control the language that `stri_sort()` uses for sorting?
+
+
+How do you control the language that `stri_sort()` uses for sorting?
+
+
+
+
 
 Use the `locale` argument to the `opts_collator` argument.
+
+

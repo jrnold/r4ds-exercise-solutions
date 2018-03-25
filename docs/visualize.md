@@ -1,5 +1,4 @@
 
-
 ---
 output: html_document
 editor_options: 
@@ -20,7 +19,13 @@ No exercises.
 
 ### Exercise 1. {.exercise}
 
-> Run `ggplot(data = mpg)` what do you see?
+
+
+Run `ggplot(data = mpg)` what do you see?
+
+
+
+
 
 
 ```r
@@ -29,13 +34,21 @@ ggplot(data = mpg)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 An empty plot. The background of the plot is created by `ggplot()`, but nothing else is displayed.
 
+
+
 ### Exercise 2. {.exercise}
 
-> How many rows are in `mtcars`? How many columns?
+
+
+How many rows are in `mtcars`? How many columns?
+
+
+
+
 
 There are 32 rows and 11 columns in the the `mtcars` data frame.
 
@@ -65,9 +78,17 @@ glimpse(mtcars)
 ```
 
 
+
+
 ### Exercise 3. {.exercise}
 
-> What does the `drv` variable describe? Read the help for `?mpg` to find out.
+
+
+What does the `drv` variable describe? Read the help for `?mpg` to find out.
+
+
+
+
 
 
 ```r
@@ -82,9 +103,17 @@ The `drv` variable takes the following values
 - `"4"`  four-wheel drive
 -------- ------------------
 
+
+
 ### Exercise 4. {.exercise}
 
-> Make a scatter plot of `hwy` vs `cyl`
+
+
+Make a scatter plot of `hwy` vs `cyl`
+
+
+
+
 
 
 ```r
@@ -94,11 +123,15 @@ ggplot(mpg, aes(x = hwy, y = cyl)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-7-1} \end{center}
+
+
 
 ### Exercise 5. {.exercise}
 
-> What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
+
+What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
+
 
 
 ```r
@@ -108,7 +141,7 @@ ggplot(mpg, aes(x = class, y = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 A scatter plot is not a useful way to plot these variables, since both `drv` and `class` are factor variables taking a limited number of values.
 
@@ -132,7 +165,8 @@ Later chapters discuss means to deal with this, including alternative plots and 
 
 ### Exercise 1. {.exercise}
 
-> What’s gone wrong with this code? Why are the points not blue?
+::::question
+What’s gone wrong with this code? Why are the points not blue?
 
 
 ```r
@@ -142,17 +176,21 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-10-1} \end{center}
+
 
 Since `color = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
 The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `color = 1:234` or `color = 1` would be interpreted by `aes()`.
 
 ### Exercise 2. {.exercise}
 
-> Which variables in `mpg` are categorical? 
-> Which variables are continuous?
-> (Hint: type `?mpg` to read the documentation for the dataset).
-> How can you see this information when you run `mpg`?
+
+Which variables in `mpg` are categorical? 
+Which variables are continuous?
+(Hint: type `?mpg` to read the documentation for the dataset).
+How can you see this information when you run `mpg`?
+
+
 
 
 ```r
@@ -196,8 +234,14 @@ glimpse(mpg)
 
 ### Exercise 3. {.exercise}
 
-> Map a continuous variable to color, size, and shape. 
-> How do these aesthetics behave differently for categorical vs. continuous variables?
+
+
+Map a continuous variable to color, size, and shape. 
+How do these aesthetics behave differently for categorical vs. continuous variables?
+
+
+
+
 
 The variable `cty`, city highway miles per gallon, is a continuous variable:
 
@@ -208,7 +252,7 @@ ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-15-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 Instead of using discrete colors, the continuous variable uses a scale that varies from a light to dark blue color.
 
@@ -220,7 +264,7 @@ ggplot(mpg, aes(x = displ, y = hwy, size = cty)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 When mapped to size, the sizes of the points vary continuously with respect to the size (although the legend shows a few representative values)
 
@@ -233,7 +277,7 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = cty)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 When a continuous value is mapped to shape, it gives an error.
 Though we could split a continuous variable into discrete categories and use a shape aesthetic, this would conceptually not make sense.
@@ -241,9 +285,17 @@ A continuous numeric variable is ordered, but shapes have no natural order.
 It is clear that smaller points correspond to smaller values, or once the color scale is given, which colors correspond to larger or smaller values. But it is not clear whether a square is greater or less than a circle.
 
 
+
+
 ### Exercise 4. {.exercise}
 
-> What happens if you map the same variable to multiple aesthetics?
+
+
+What happens if you map the same variable to multiple aesthetics?
+
+
+
+
 
 
 ```r
@@ -253,16 +305,24 @@ ggplot(mpg, aes(x = displ, y = hwy, color = hwy, size = displ)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 In the above plot, `hwy` is mapped to both location on the y-axis and color, and `displ` is mapped to both location on the x-axis and size.
 The code works and produces a plot, even if it is a bad one. 
 Mapping a single variable to multiple aesthetics is redundant. 
 Because it is redundant information, in most cases avoid mapping a single variable to multiple aesthetics.
 
+
+
 ### Exercise 5. {.exercise}
 
-> What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`)
+
+
+What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`)
+
+
+
+
 
 The following example is given in `?geom_point`:
 
@@ -277,9 +337,17 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 Stroke changes the color of the border for shapes (22-24).
 
+
+
 ### Exercise 6. {.exercise}
 
-> What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
+
+
+What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
+
+
+
+
 
 
 ```r
@@ -296,6 +364,8 @@ It will create a temporary variable which takes values from  the result of the e
 In this case, it is logical variable which is `TRUE` or `FALSE`.
 This also explains exercise 1, `color = "blue"` created a categorical variable that only had one category: "blue".
 
+
+
 ## Common problems
 
 No exercises
@@ -304,7 +374,13 @@ No exercises
 
 ### Exercise 1. {.exercise}
 
-> What happens if you facet on a continuous variable?
+
+
+What happens if you facet on a continuous variable?
+
+
+
+
 
 Let's see.
 
@@ -320,9 +396,17 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 It converts the continuous variable to a factor and creates facets for **all** unique values of it.
 
+
+
 ### Exercise 2. {.exercise}
 
-> What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
+
+
+What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
+
+
+
+
 
 They are cells in which there are no values of the combination of `drv` and `cyl`. 
 
@@ -334,13 +418,21 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-19-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The locations in the above plot without points are the same cells in `facet_grid(drv ~ cyl)` that have no points.
 
+
+
 ### Exercise 3. {.exercise}
 
-> What plots does the following code make? What does `.` do?
+
+
+What plots does the following code make? What does `.` do?
+
+
+
+
 
 The symbol `.` ignores that dimension for faceting.
 
@@ -367,34 +459,66 @@ ggplot(data = mpg) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/ex.3.5.1.4.b-1} \end{center}
 
+
+
 ### Exercise 5. {.exercise}
 
-> Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
+
+
+Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
+
+
+
+
 
 The arguments `nrow` (`ncol`) determines the number of rows (columns) to use when laying out the facets. 
 It is necessary since `facet_wrap` only facets on one variable. 
 These arguments are unnecessary for `facet_grid` since the number of rows and columns are determined by the number of unique values of the variables specified.
 
+
+
 ### Exercise 6. {.exercise}
 
-> When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
+
+
+When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
+
+
+
+
 
 You should put the variable with more unique levels in the columns if the plot is laid out landscape. 
 It is easier to compare relative levels of y by scanning horizontally, so it may be easier to visually compare these levels. *I'm actually not sure about the correct answer to this*.
+
+
 
 ## Geometric Objects
 
 ### Exercise 1. {.exercise}
 
-> What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+
+
+What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+
+
+
+
 
 - line chart: `geom_line`
 - boxplot: `geom_boxplot`
 - histogram: `geom_hist`
 
+
+
 ### Exercise 2. {.exercise}
 
-> Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+
+
+Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+
+
+
+
 
 
 ```r
@@ -417,13 +541,21 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-21-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-20-1} \end{center}
+
+
 
 
 ### Exercise 3. {.exercise}
 
-> What does `show.legend = FALSE` do? What happens if you remove it?
-> Why do you think I used it earlier in the chapter?
+
+
+What does `show.legend = FALSE` do? What happens if you remove it?
+Why do you think I used it earlier in the chapter?
+
+
+
+
 
 Show legend hides the legend box. In this code, without show legend, there is a legend.
 
@@ -437,7 +569,7 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-21-1} \end{center}
 But there is no legend in this code:
 
 ```r
@@ -451,7 +583,7 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 In the example earlier in the chapter,
 
@@ -474,15 +606,23 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-2} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-2} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-3} \end{center}
 the legend is suppressed because there are three plots, and adding a legend that only appears in the last one would make the presentation asymmetric.
 Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a `group` aesthetic, and using a `color` aesthetic (with implicit grouping). 
 In that example, the legend isn't necessary since looking up the values associated with each color isn't necessary to make that point.
 
 
+
+
 ### Exercise 4. {.exercise}
 
-> What does the `se` argument to `geom_smooth()` do?
+
+
+What does the `se` argument to `geom_smooth()` do?
+
+
+
+
 
 It adds standard error bands to the lines.
 
@@ -496,7 +636,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-25-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 By default `se = TRUE`:
 
@@ -510,12 +650,20 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-26-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-25-1} \end{center}
+
+
 
 
 ### Exercise 5. {.exercise}
 
-> Will these two graphs look different? Why/why not?
+
+
+Will these two graphs look different? Why/why not?
+
+
+
+
 
 No. Because both `geom_point` and `geom_smooth` use the same data and mappings. They will inherit those options from the `ggplot` object, and thus don't need to specified again (or twice).
 
@@ -529,7 +677,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-27-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 
 ```r
@@ -541,12 +689,20 @@ ggplot() +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-28-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-27-1} \end{center}
+
+
 
 
 ### Exercise 6. {.exercise}
 
-> Recreate the R code necessary to generate the following graphs.
+
+
+Recreate the R code necessary to generate the following graphs.
+
+
+
+
 
 
 ```r
@@ -558,7 +714,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-29-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 
 ```r
@@ -570,7 +726,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-30-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 
 ```r
@@ -582,7 +738,7 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-31-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 
 ```r
@@ -594,7 +750,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-32-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 
 ```r
@@ -606,7 +762,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-33-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 
 ```r
@@ -616,14 +772,22 @@ ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-34-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-33-1} \end{center}
+
+
 
 
 ## Statistical Transformations
 
 ### Exercise 1. {.exercise}
 
-> What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
+
+
+What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
+
+
+
+
 
 The default geom for [`stat_summary`](http://docs.ggplot2.org/current/stat_summary.html) is `geom_pointrange` (see the `stat`) argument.
 
@@ -640,7 +804,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 The default message says that `stat_summary` uses the `mean` and `sd` to calculate the point, and range of the line. So lets use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
 
@@ -657,28 +821,52 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-36-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
+
+
 
 
 ### Exercise 2. {.exercise}
 
-> What does `geom_col()` do? How is it different to `geom_bar()`?
+
+
+What does `geom_col()` do? How is it different to `geom_bar()`?
+
+
+
+
 
 `geom_col` differs from `geom_bar` in its default stat. `geom_col` has uses the `identity` stat. So it expects that a variable already exists for the height of the bars. 
 `geom_bar` uses the `count` stat, and so will count observations in groups in order to generate the variable to use for the height of the bars.
 
 
+
+
 ### Exercise 3. {.exercise}
 
-> Most geoms and stats come in pairs that are almost always used in concert. 
-> Read through the documentation and make a list of all the pairs. 
-> What do they have in common?
+
+
+Most geoms and stats come in pairs that are almost always used in concert. 
+Read through the documentation and make a list of all the pairs. 
+What do they have in common?
+
+
+
+
 
 See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
+
+
 ### Exercise 4. {.exercise}
 
-> What variables does `stat_smooth()` compute? What parameters control its behavior?
+
+
+What variables does `stat_smooth()` compute? What parameters control its behavior?
+
+
+
+
 
 `stat_smooth` calculates
 
@@ -689,10 +877,18 @@ See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
 There's parameters such as `method` which determines which method is used to calculate the predictions and confidence interval, and some other arguments that are passed to that.
 
+
+
 ### Exercise 5. {.exercise}
 
-> In our proportion bar chart, we need to set `group = 1` Why? 
-> In other words what is the problem with these two graphs?
+
+
+In our proportion bar chart, we need to set `group = 1` Why? 
+In other words what is the problem with these two graphs?
+
+
+
+
 
 If `group` is not set to 1, then all the bars have `prop == 1`. 
 The function `geom_bar` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group. 
@@ -705,7 +901,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 The problem with these two plots is that the proportions are calculated within the groups.
 
@@ -719,7 +915,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-2} \end{center}
 
 This is more likely what was intended:
 
@@ -733,14 +929,22 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-2} \end{center}
+
+
 
 ## Position Adjustments
 
 ### Exercise 1. {.exercise}
 
-> What is the problem with this plot? 
-> How could you improve it?
+
+
+What is the problem with this plot? 
+How could you improve it?
+
+
+
+
 
 There is overplotting because there are multiple observations for each combination of `cty` and `hwy`.
 
@@ -751,7 +955,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-40-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-1} \end{center}
 I'd fix it by using a jitter position adjustment.
 
 ```r
@@ -761,11 +965,19 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-41-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-40-1} \end{center}
+
+
 
 ### Exercise 2. {.exercise}
 
-> What parameters to `geom_jitter()` control the amount of jittering?
+
+
+What parameters to `geom_jitter()` control the amount of jittering?
+
+
+
+
 
 From the [position_jitter](http://docs.ggplot2.org/current/position_jitter.html) documentation, there are two arguments to jitter: `width` and `height`, which control the amount of vertical and horizontal jitter. 
 
@@ -778,7 +990,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-42-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 Way too much vertical jitter
 
@@ -789,7 +1001,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 Only horizontal jitter:
 
@@ -800,7 +1012,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-44-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 Way too much horizontal jitter:
 
@@ -811,17 +1023,33 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-45-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-44-1} \end{center}
+
+
 
 ### Exercise 3. {.exercise}
 
-> Compare and contrast `geom_jitter()` with `geom_count()`.
+
+
+Compare and contrast `geom_jitter()` with `geom_count()`.
+
+
+
+
 
 **TODO**
 
+
+
 ### Exercise 4. {.exercise}
 
-> What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the mpg dataset that demonstrates it.
+
+
+What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the mpg dataset that demonstrates it.
+
+
+
+
 
 The default position for `geom_boxplot` is `position_dodge` (see its [docs](http://docs.ggplot2.org/current/geom_boxplot.html)).
 
@@ -834,7 +1062,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-46-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 
 ```r
@@ -844,7 +1072,9 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-47-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-46-1} \end{center}
+
+
 
 ## Coordinate Systems
 
@@ -862,7 +1092,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-48-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-47-1} \end{center}
 
 See the documentation for [coord_polar](http://docs.ggplot2.org/current/coord_polar.html) for an example of making a pie chart. In particular, `theta = "y"`, meaning that the angle of the chart is the `y` variable has to be specified.
 
@@ -875,7 +1105,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-49-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-48-1} \end{center}
 
 If `theta = "y"` is not specified, then you get a bull’s-eye chart
 
@@ -887,7 +1117,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-50-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 If you had a multiple stacked bar chart, like,
 
@@ -898,7 +1128,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-51-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
 you end up with a multi-doughnut chart
 
@@ -910,12 +1140,18 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-52-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-51-1} \end{center}
 
 
 ### Exercise 2. {.exercise}
 
-> What does `labs()` do? Read the documentation.
+
+
+What does `labs()` do? Read the documentation.
+
+
+
+
 
 The `labs` function adds labels for different scales and the title of the plot.
 
@@ -929,21 +1165,37 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-53-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-52-1} \end{center}
+
+
 
 ### Exercise 3. {.exercise}
 
-> What’s the difference between `coord_quickmap()` and `coord_map()`?
+
+
+What’s the difference between `coord_quickmap()` and `coord_map()`?
+
+
+
+
 
 See the [docs](http://docs.ggplot2.org/current/coord_quickmap.html):
 
 - `coord_map` uses a 2D projection: by default the Mercator project of the sphere to the plot. But this requires transforming all geoms.
 - `coord_quickmap` uses a approximate, but faster, map projection using the lat/long ratio as an approximation. This is "quick" because the shapes don't need to be transformed.
 
+
+
 ### Exercise 4. {.exercise}
 
-> What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important? 
-> What does `geom_abline()` do?
+
+
+What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important? 
+What does `geom_abline()` do?
+
+
+
+
 
 The coordinates `coord_fixed` ensures that the `abline` is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.
 
@@ -957,7 +1209,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-54-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 If we didn't include geom_point, then the line is no longer at 45 degrees:
 
@@ -969,7 +1221,9 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-55-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-54-1} \end{center}
+
+
 
 ## The Layered Grammar of Graphics
 

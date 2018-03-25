@@ -20,37 +20,75 @@ library("datamodelr")
 
 ### Exercise 1 {.exercise}
 
-> Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
+
+
+Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
+
+
+
+
 
 - `flights` table: `origin` and `dest`
 - `airports` table: longitude and latitude variables
 - We would merge the `flights` with airports twice: once to get the location of the `origin` airport, and once to get the location of the `dest` airport.
 
+
+
 ### Exercise 2 {.exercise}
 
-> I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
+
+
+I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
+
+
+
+
 
 The variable `origin` in `weather` is matched with `faa` in `airports`.
 
+
+
 ### Exercise 3 {.exercise}
 
-> weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
+
+
+weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
+
+
+
+
 
 `year`, `month`, `day`, `hour`, `origin` in `weather` would be matched to `year`, `month`, `day`, `hour`, `dest` in `flight` (though it should use the arrival date-time values for `dest` if possible).
 
+
+
 ### Exercise 4 {.exercise}
 
-> We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
+
+
+We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
+
+
+
+
 
 I would add a table of special dates.
 The primary key would be date.
 It would match to the `year`, `month`, `day` columns of `flights.
 
+
+
 ## Keys
 
 ### Exercise 1 {.exercise}
 
-> Add a surrogate key to flights.
+
+
+Add a surrogate key to flights.
+
+
+
+
 
 I add the column `flight_id` as a surrogate key. 
 I sort the data prior to making the key, even though it is not strictly necessary, so the order of the rows has some meaning.
@@ -85,15 +123,23 @@ flights %>%
 ```
 
 
+
+
 ### Exercise 2 {.exercise}
 
-> Identify the keys in the following datasets
-> 
-> 1. `Lahman::Batting`
-> 2. `babynames::babynames`
-> 3. `nasaweather::atmos`
-> 4. `fueleconomy::vehicles`
-> 5. `ggplot2::diamonds`
+
+
+Identify the keys in the following datasets
+
+1. `Lahman::Batting`
+2. `babynames::babynames`
+3. `nasaweather::atmos`
+4. `fueleconomy::vehicles`
+5. `ggplot2::diamonds`
+
+
+
+
 >
 > (You might need to install some packages and read some documentation.)
 
@@ -147,6 +193,8 @@ ggplot2::diamonds %>%
 nrow(ggplot2::diamonds)
 #> [1] 53940
 ```
+
+
 
 
 ### Exercise 4 {.exercise} 
@@ -234,7 +282,13 @@ flights2 <- flights %>%
 
 ### Exercise 1 {.exercise}
 
-> Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
+
+
+Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
+
+
+
+
 
 
 ```r
@@ -280,9 +334,17 @@ avg_dest_delays %>%
 
 You might want to use the size or color of the points to display the average delay for each airport.
 
+
+
 ### Exercise 2 {.exercise}
 
-> Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
+
+
+Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
+
+
+
+
 
 
 ```r
@@ -293,12 +355,12 @@ flights %>%
 #> # A tibble: 6 x 33
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515      2.00      830
-#> 2  2013     1     1      533            529      4.00      850
-#> 3  2013     1     1      542            540      2.00      923
-#> 4  2013     1     1      544            545     -1.00     1004
-#> 5  2013     1     1      554            600     -6.00      812
-#> 6  2013     1     1      554            558     -4.00      740
+#> 1  2013     1     1      517            515        2.      830
+#> 2  2013     1     1      533            529        4.      850
+#> 3  2013     1     1      542            540        2.      923
+#> 4  2013     1     1      544            545       -1.     1004
+#> 5  2013     1     1      554            600       -6.      812
+#> 6  2013     1     1      554            558       -4.      740
 #> # ... with 26 more variables: sched_arr_time <int>, arr_delay <dbl>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
@@ -308,9 +370,17 @@ flights %>%
 ```
 
 
+
+
 ### Exercise 3 {.exercise}
 
-> Is there a relationship between the age of a plane and its delays?
+
+
+Is there a relationship between the age of a plane and its delays?
+
+
+
+
 
 Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
 This could be due to choices about how airlines allocate planes to airports.
@@ -338,9 +408,17 @@ flights %>%
 \begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 
+
+
 ### Exercise 4 {.exercise}
 
-> What weather conditions make it more likely to see a delay?
+
+
+What weather conditions make it more likely to see a delay?
+
+
+
+
 
 Almost any amount or precipitation is associated with a delay, though not as strong a trend after 0.02 in as one would expect
 
@@ -366,9 +444,17 @@ flight_weather %>%
 
 
 
+
+
 ### Exercise 5 {.exercise}
 
-> What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+
+
+What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+
+
+
+
 
 There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series))
 
@@ -395,11 +481,19 @@ flights %>%
 \begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 
+
+
 ## Filtering Joins
 
 ### Exercise 1 {.exercise}
 
-> What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+
+
+What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+
+
+
+
 
 American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
 
@@ -419,9 +513,17 @@ flights %>%
 #> # ... with 4 more rows
 ```
 
+
+
 ### Exercise 2 {.exercise}
 
-> Filter flights to only show flights with planes that have flown at least 100 flights.
+
+
+Filter flights to only show flights with planes that have flown at least 100 flights.
+
+
+
+
 
 
 ```r
@@ -436,12 +538,12 @@ flights %>%
 #> # A tibble: 229,202 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515      2.00      830
-#> 2  2013     1     1      533            529      4.00      850
-#> 3  2013     1     1      544            545     -1.00     1004
-#> 4  2013     1     1      554            558     -4.00      740
-#> 5  2013     1     1      555            600     -5.00      913
-#> 6  2013     1     1      557            600     -3.00      709
+#> 1  2013     1     1      517            515        2.      830
+#> 2  2013     1     1      533            529        4.      850
+#> 3  2013     1     1      544            545       -1.     1004
+#> 4  2013     1     1      554            558       -4.      740
+#> 5  2013     1     1      555            600       -5.      913
+#> 6  2013     1     1      557            600       -3.      709
 #> # ... with 2.292e+05 more rows, and 12 more variables:
 #> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
 #> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
@@ -449,9 +551,17 @@ flights %>%
 ```
 
 
+
+
 ### Exercise 3 {.exercise}
 
-> Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
+
+
+Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
+
+
+
+
 
 The table `fueleconomy::common` identifies vehicles by `make` and `model`:
 
@@ -497,9 +607,17 @@ fueleconomy::vehicles %>%
 ```
 
 
+
+
 ### Exercise 3 {.exercise}
 
-> Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
+
+
+Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
+
+
+
+
 
 
 ```r
@@ -512,27 +630,43 @@ flights %>%
 #> # Groups:   year, month [12]
 #>    year month   day total_24 total_48
 #>   <int> <int> <int>    <dbl>    <dbl>
-#> 1  2013     7    23    80641   175419
-#> 2  2013     3     8   135264   167530
-#> 3  2013     6    25    80434   166649
-#> 4  2013     8     9    72866   165287
-#> 5  2013     6    28    81389   157910
-#> 6  2013     7    10    97120   157396
+#> 1  2013     7    23   80641.  175419.
+#> 2  2013     3     8  135264.  167530.
+#> 3  2013     6    25   80434.  166649.
+#> 4  2013     8     9   72866.  165287.
+#> 5  2013     6    28   81389.  157910.
+#> 6  2013     7    10   97120.  157396.
 #> # ... with 359 more rows
 ```
 
+
+
 ### Exercise 4 {.exercise}
 
-> What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
+
+
+What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
+
+
+
+
 
 `anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.
 
 `anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that don't have a flight in the data, meaning that there were no flights to that airport **from** New York in 2013.
 
 
+
+
 ### Exercise 5 {.exercise}
 
-> You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
+
+
+You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
+
+
+
+
 
 There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
 It should be the case that an airplane is associated with only airline at a given time, though may 
@@ -559,6 +693,8 @@ Even if there were none, the substantive reasons why an airplane *could* have mo
 It is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship.
 Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks.
 There is rarely a substitute for understanding the data which you are using as an analyst.
+
+
 
 ## Join problems
 

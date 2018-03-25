@@ -6,12 +6,12 @@
 
 ```r
 library("tidyverse")
-#> -- Attaching packages -------------------------------------- tidyverse 1.2.1 --
-#> √ ggplot2 2.2.1          √ purrr   0.2.4     
-#> √ tibble  1.4.2          √ dplyr   0.7.4.9000
-#> √ tidyr   0.8.0          √ stringr 1.2.0     
-#> √ readr   1.1.1          √ forcats 0.2.0
-#> -- Conflicts ----------------------------------------- tidyverse_conflicts() --
+#> -- Attaching packages -------------------------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 2.2.1     √ purrr   0.2.4
+#> √ tibble  1.4.2     √ dplyr   0.7.4
+#> √ tidyr   0.8.0     √ stringr 1.3.0
+#> √ readr   1.1.1     √ forcats 0.3.0
+#> -- Conflicts ----------------------------------------------------- tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 library("modelr")
@@ -30,8 +30,14 @@ library("lubridate")
 
 #### Exercise 1  {.exercise}
 
-> Create one plot on the fuel economy data with customized `title`,
-> `subtitle`, `caption`, `x`, `y`, and `colour` labels.
+
+
+Create one plot on the fuel economy data with customized `title`,
+`subtitle`, `caption`, `x`, `y`, and `colour` labels.
+
+
+
+
 
 
 ```r
@@ -53,10 +59,18 @@ ggplot(data = mpg,
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 
+
+
 ### Exercise 3 {.exercise}
 
-> The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines. 
-> Use your modeling tools to fit and display
+
+
+The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines. 
+Use your modeling tools to fit and display
+
+
+
+
 a better model.
 
 
@@ -97,11 +111,21 @@ mpg %>%
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
+
+
 #### Exercise 3 
 
-> Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
+
+
+Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
+
+
+
+
 
 This exercise is by is intrinsically left to readers.
+
+
 
 ## Annotations
 
@@ -109,7 +133,13 @@ This exercise is by is intrinsically left to readers.
 
 #### Exercise 1 {.exercise}
 
-> Use `geom_text()` with infinite positions to place text at the four corners of the plot.
+
+
+Use `geom_text()` with infinite positions to place text at the four corners of the plot.
+
+
+
+
 
 I can use similar code as the example in the text.
 However, I need to use `vjust` and `hjust` in order for the text to appear in the plot, and these need to be different for each corner.
@@ -134,9 +164,17 @@ ggplot(mpg, aes(displ, hwy)) +
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 
+
+
 #### Exercise 2 {.exercise}
 
-> Read the documentation for `annotate()`. How can you use it to add a text label to a plot without having to create a tibble?
+
+
+Read the documentation for `annotate()`. How can you use it to add a text label to a plot without having to create a tibble?
+
+
+
+
 
 With annotate you use what would be aesthetic mappings directly as arguments:
 
@@ -152,12 +190,20 @@ ggplot(mpg, aes(displ, hwy)) +
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 
+
+
 #### Exercise 3 {.exercise}
 
-> How do labels with `geom_text()` interact with faceting? 
-> How can you add a label to a single facet?
-> How can you put a different label in each facet?
-> (Hint: think about the underlying data.)
+
+
+How do labels with `geom_text()` interact with faceting? 
+How can you add a label to a single facet?
+How can you put a different label in each facet?
+(Hint: think about the underlying data.)
+
+
+
+
 
 If the facet variable is not specified, the text is drawn in all facets.
 
@@ -222,19 +268,35 @@ ggplot(mpg, aes(displ, hwy)) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
+
+
 #### Exercise 4 {.exercise}
 
-> What arguments to `geom_label()` control the appearance of the background box?
+
+
+What arguments to `geom_label()` control the appearance of the background box?
+
+
+
+
 
 - `label.padding`: padding around label
 - `label.r`: amount of rounding in the corners
 - `label.size`: size of label border
 
 
+
+
 #### Exercise 5 {.exercise}
 
-> What are the four arguments to `arrow()`? How do they work? 
-> Create a series of plots that demonstrate the most important options.
+
+
+What are the four arguments to `arrow()`? How do they work? 
+Create a series of plots that demonstrate the most important options.
+
+
+
+
 
 The four arguments are: (from the help for [arrow](https://www.rdocumentation.org/packages/grid/versions/3.3.2/topics/arrow))
 - `angle` : angle of arrow head
@@ -243,13 +305,21 @@ The four arguments are: (from the help for [arrow](https://www.rdocumentation.or
 - `type`: `"open"` or `"close"`: whether the arrow head is a closed or open triangle
 
 
+
+
 ## Scales
 
 ### Exercises
 
 #### Exercise 1 {.exercise}
 
-> Why doesn’t the following code override the default scale?
+
+
+Why doesn’t the following code override the default scale?
+
+
+
+
 
 
 ```r
@@ -282,10 +352,18 @@ ggplot(df, aes(x, y)) +
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 
+
+
 #### Exercise 2 {.exercise}
 
-> The first argument to every scale is the label for the scale.
-> It is equivalent to using the `labs` function.
+
+
+The first argument to every scale is the label for the scale.
+It is equivalent to using the `labs` function.
+
+
+
+
 
 
 ```r
@@ -319,9 +397,17 @@ ggplot(mpg, aes(displ, hwy)) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
+
+
 #### Exercise 3 {.exercise}
 
-> Change the display of the presidential terms by:
+
+
+Change the display of the presidential terms by:
+
+
+
+
 
 >    1. Combining the two variants shown above.
 >    2. Improving the display of the y axis.
@@ -352,9 +438,17 @@ presidential %>%
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
+
+
 #### Exercise 4 {.exercise}
 
-> Use `override.aes` to make the legend on the following plot easier to see.
+
+
+Use `override.aes` to make the legend on the following plot easier to see.
+
+
+
+
 
 
 ```r
@@ -378,4 +472,6 @@ ggplot(diamonds, aes(carat, price)) +
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-17-1} \end{center}
+
+
 

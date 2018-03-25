@@ -12,7 +12,13 @@ library(stringr)
 
 ### Exercise 1 {.exercise}
 
-> In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What **stringr** function are they equivalent to? How do the functions differ in their handling of NA?
+
+`r BeginQuestion()`
+In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What **stringr** function are they equivalent to? How do the functions differ in their handling of NA?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The function `paste` separates strings by spaces by default, while `paste0` does not separate strings with spaces by default.
 
@@ -37,15 +43,31 @@ paste("foo", NA)
 paste0("foo", NA)
 ```
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> In your own words, describe the difference between the `sep` and `collapse` arguments to `str_c()`.
+
+`r BeginQuestion()`
+In your own words, describe the difference between the `sep` and `collapse` arguments to `str_c()`.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The `sep` argument is the string inserted between arguments to `str_c`, while `collapse` is the string used to separate any elements of the character vector into a character vector of length one.
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> Use `str_length()` and `str_sub()` to extract the middle character from a string. What will you do if the string has an even number of characters?
+
+`r BeginQuestion()`
+Use `str_length()` and `str_sub()` to extract the middle character from a string. What will you do if the string has an even number of characters?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The following function extracts the middle character. If the string has an even number of characters the choice is arbitrary.
 We choose to select $\lceil n / 2 \rceil$, because that case works even if the string is only of length one.
@@ -57,16 +79,32 @@ m <- ceiling(L / 2)
 str_sub(x, m, m)
 ```
 
+`r EndAnswer()`
+
 ### Exercise 4 {.exercise}
 
-> What does `str_wrap()` do? When might you want to use it?
+
+`r BeginQuestion()`
+What does `str_wrap()` do? When might you want to use it?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The function `str_wrap` wraps text so that it fits within a certain width.
 This is useful for wrapping long strings of text to be typeset.
 
+`r EndAnswer()`
+
 ### Exercise 5 {.exercise}
 
-> What does `str_trim()` do? What’s the opposite of `str_trim()`?
+
+`r BeginQuestion()`
+What does `str_trim()` do? What’s the opposite of `str_trim()`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The function `str_trim` trims the whitespace from a string.
 ```{r}
@@ -83,9 +121,17 @@ str_pad("abc", 4, side = "right")
 str_pad("abc", 4, side = "left")
 ```
 
+`r EndAnswer()`
+
 ### Exercise 6 {.exercise}
 
-> Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
+
+`r BeginQuestion()`
+Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 See the Chapter [Functions] for more details on writing R functions.
 
@@ -105,67 +151,111 @@ str_commasep(c("a", "b"))
 str_commasep(c("a", "b", "c"))
 ```
 
+`r EndAnswer()`
+
 ## Matching Patterns and Regular Expressions
 
 ### Basic Matches
 
 #### Exercise 1 {.exercise}
 
-> Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
+
+`r BeginQuestion()`
+Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 - `"\"`: This will escape the next character in the R string.
 - `"\\"`: This will resolve to `\` in the regular expression, which will escape the next character in the regular expression.
 - `"\\\"`: The first two backslashes will resolve to a literal backslash in the regular expression, the third will escape the next character. So in the regular expression, this will escape some escaped character.
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> How would you match the sequence `"'\` ?
 
-```{r results='hide'}
+`r BeginQuestion()`
+How would you match the sequence `"'\` ?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
+
+```{r eval=is_html}
 str_view("\"'\\", "\"'\\\\")
 ```
 
+`r EndAnswer()`
+
 #### Exercise 3 {.exercise}
 
-> What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
+
+`r BeginQuestion()`
+What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
 ```
 
-```{r results='hide'}
-x < c("apple", "banana", "pear")
+```{r}
+x <- c("apple", "banana", "pear")
+```
+```{r eval=is_html}
 str_view(x, "^a")
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(x, "a$")
 ```
 
-```{r results='hide'}
+```{r}
 x <- c("apple pie", "apple", "apple cake")
+```
+```{r eval=is_html}
 str_view(x, "apple")
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(x, "^apple$")
 ```
+
+`r EndAnswer()`
 
 ### Anchors
 
 #### Exercise 1 {.exercise}
 
-> How would you match the literal string `"$^$"`?
 
-```{r results='hide'}
+`r BeginQuestion()`
+How would you match the literal string `"$^$"`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
+
+```{r eval=is_html}
 str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 ```
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
+
+`r BeginQuestion()`
+Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 >  1. Start with “y”.
 >  2. End with “x”
@@ -175,32 +265,35 @@ str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 > Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
 
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^y", match =TRUE)
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "x$", match = TRUE)
 ```
 
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^...$", match = TRUE)
 ```
 
-A simpler way, shown later is
-```{r results='hide'}
-str_view(stringr::words, "^.{3}$", match = TRUE)
-```
-
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, ".......", match = TRUE)
 ```
+
+`r EndAnswer()`
 
 ### Character classes and alternatives
 
 #### Exercise 1 {.exercise}
 
-> Create regular expressions to find all words that:
+
+`r BeginQuestion()`
+Create regular expressions to find all words that:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 >
 > 1.  Start with a vowel.
 > 2.  That only contain consonants. (Hint: thinking about matching “not”-vowels.)
@@ -208,56 +301,80 @@ str_view(stringr::words, ".......", match = TRUE)
 > 4.  End with `ing` or `ise`.
 
 Words starting with vowels
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^[aeiou]", match = TRUE)
 ```
 
 Words that contain only consonants
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^[^aeiou]+$", match=TRUE)
 ```
 This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
 
 Words that end with `ed` but not with `eed`. This handles the special case of "ed", as well as words with length > 2.
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
 ```
 
 Words ending in `ing` or `ise`:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "i(ng|se)$", match = TRUE)
 ```
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> Empirically verify the rule ``i before e except after c''.
+
+`r BeginQuestion()`
+Empirically verify the rule ``i before e except after c''.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 Using only what has been introduced thus far:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 ```
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
 
 Using `str_detect` we can count the number of words that follow these rules:
-```{r results='hide'}
+```{r eval=is_html}
 sum(str_detect(stringr::words, "(cei|[^c]ie)"))
 sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 ```
 
+`r EndAnswer()`
+
 #### Exercise 3 {.exercise}
 
-> Is ``q'' always followed by a ``u''?
+
+`r BeginQuestion()`
+Is ``q'' always followed by a ``u''?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 In the `stringr::words` dataset, yes. In the full English language, no.
-```{r results='hide'}
+```{r eval=is_html}
 str_view(stringr::words, "q[^u]", match = TRUE)
 ```
 
+`r EndAnswer()`
+
 #### Exercise 4 {.exercise}
 
-> Write a regular expression that matches a word if it’s probably written in British English, not American English.
+
+`r BeginQuestion()`
+Write a regular expression that matches a word if it’s probably written in British English, not American English.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 In the general case, this is hard, and could require a dictionary.
 But, there are a few heuristics to consider that would account for some common cases: British English tends to use the following:
@@ -272,35 +389,51 @@ The regex `ou|ise^|ae|oe|yse^` would match these.
 There are other [spelling differences between American and British English] (https://en.wikipedia.org/wiki/American_and_British_English_spelling_differences) but they are not patterns amenable to regular expressions.
 It would require a dictionary with differences in spellings for different words.
 
+`r EndAnswer()`
+
 #### Exercise 5 {.exercise}
 
-> Create a regular expression that will match telephone numbers as commonly written in your country.
+
+`r BeginQuestion()`
+Create a regular expression that will match telephone numbers as commonly written in your country.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The answer to this will vary by country.
 
 For the United States, phone numbers have a format like `123-456-7890`.
-```{r results='hide'}
+```{r eval=is_html}
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
 or
-```{r results='hide'}
+```{r eval=is_html}
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
-```{r results='hide'}
+```{r eval=is_html}
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 
 Note that this pattern doesn't account for phone numbers that are invalid because of unassigned area code, or special numbers like 911, or extensions. See the Wikipedia page for the [North American Numbering Plan](https://en.wikipedia.org/wiki/North_American_Numbering_Plan) for more information on the complexities of US phone numbers, and [this Stack Overflow question](http://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation) for a discussion of using a regex for phone number validation.
 
 
+`r EndAnswer()`
+
 ### Repetition
 
 #### Exercise 1 {.exercise}
 
-> Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
+
+`r BeginQuestion()`
+Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ----- ---------  ----------------------------------
 `-`   `{,1}`     Match at most 1
@@ -309,14 +442,22 @@ Note that this pattern doesn't account for phone numbers that are invalid becaus
 ----- ---------  ----------------------------------
 
 The `*` pattern has no `{m,n}` equivalent since there is no upper bound on the number of matches. The expected pattern `{,}` is not valid.
-```{r error=TRUE,results='hide'}
+```{r error=TRUE,eval=is_html}
 str_view("abcd", ".{,}")
 ```
 
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
+
+`r BeginQuestion()`
+Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 >
 > 1.  `^.*$`
 > 2.  `"\\{.+\\}"`
@@ -337,41 +478,65 @@ Examples:
 - `\d{4}-\d{2}-\d{2}`: `2018-01-11`
 - `"\\\\{4}"`: `"\\\\\\\\"` (Backslashes in an R character vector need to be escaped.)
 
+`r EndAnswer()`
+
 #### Exercise 3 {.exercise}
 
-> Create regular expressions to find all words that:
+
+`r BeginQuestion()`
+Create regular expressions to find all words that:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 >
 > 1. Start with three consonants.
 > 2. Have three or more vowels in a row.
 > 3. Have two or more vowel-consonant pairs in a row.
 
 A regex to find all words starting with three consonants
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "^[^aeiou]{3}")
 ```
 
 A regex to find three or more vowels in a row:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "[aeiou]{3,}")
 ```
 
 Two or more vowel-consonant pairs in a row.
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "([aeiou][^aeiou]){2,}")
 ```
 
 
+`r EndAnswer()`
+
 #### Exercise 4 {.exercise}
 
-> Solve the beginner regexp crosswords at https://regexcrossword.com/challenges/
+
+`r BeginQuestion()`
+Solve the beginner regexp crosswords at https://regexcrossword.com/challenges/
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 Exercise left to reader. That site validates its solutions, so they aren't repeated here.
+
+`r EndAnswer()`
 
 ### Grouping and backreferences
 
 #### Exercise 1 {.exercise}
 
-> Describe, in words, what these expressions will match:
+
+`r BeginQuestion()`
+Describe, in words, what these expressions will match:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 >
 > 1.  `(.)\1\1` :
 > 2.  `"(.)(.)\\2\\1"`:
@@ -386,9 +551,17 @@ Exercise left to reader. That site validates its solutions, so they aren't repea
 4.  `"(.).\\1.\\1"`: A character followed by any character, the original character, any other character, the original character again. E.g. `"abaca"`, `"b8b.b"`.
 5.  `"(.)(.)(.).*\\3\\2\\1"` Three characters followed by zero or more characters of any kind followed by the same three characters but in reverse order. E.g. `"abcsgasgddsadgsdgcba"` or `"abccba"` or `"abc1cba"`.
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> Construct regular expressions to match words that:
+
+`r BeginQuestion()`
+Construct regular expressions to match words that:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 >
 > 1. Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
 > 2. Contain a repeated pair of letters (e.g. ``church'' contains ``ch'' repeated twice.)
@@ -396,7 +569,7 @@ Exercise left to reader. That site validates its solutions, so they aren't repea
 
 
 Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "^(.).*\\1$")
 ```
 
@@ -404,11 +577,11 @@ Contain a repeated pair of letters (e.g. “church” contains “ch” repeated
 
 I'll consider several patterns with varying levels of generality.
 This pattern checks for any pair of repeated characters:
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "(..).*\\1")
 ```
 This pattern is checks for any pair of repeated "letters":
-```{r results='hide'}
+```{r eval=is_html}
 str_view(words, "([A-Za-z][A-Za-z]).*\\1")
 ```
 
@@ -421,6 +594,8 @@ str_subset(str_to_lower(words), "([a-z]).*\\1.*\\1")
 The `\\1` is used to refer back to the first group (`(.)`) so that whatever letter is matched by `[A-Za-z]` is again matched.
 
 
+`r EndAnswer()`
+
 ## Tools
 
 ### Detect matches
@@ -431,7 +606,13 @@ No exercises
 
 #### Exercise 1 {.exercise}
 
-> For each of the following challenges, try solving it by using both a single regular expression, and a combination of multiple `str_detect()` calls.
+
+`r BeginQuestion()`
+For each of the following challenges, try solving it by using both a single regular expression, and a combination of multiple `str_detect()` calls.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
   1. Find all words that start or end with x.
   2. Find all words that start with a vowel and end with a consonant.
@@ -439,6 +620,8 @@ No exercises
 
 Words that start or end with `x`?
 ```{r}
+
+
 # one regex
 words[str_detect(words, "^x|x$")]
 # split regex into parts
@@ -482,23 +665,37 @@ To check that it works,
 ```{r}
 str_subset("aseiouds", pattern)
 ```
-
+`r EndAnswer()`
 
 #### Exercise 2 {.exercise}
 
-> What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
+
+`r BeginQuestion()`
+What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 prop_vowels <- str_count(words, "[aeiou]") / str_length(words)
 words[which(prop_vowels == max(prop_vowels))]
 ```
 
+`r EndAnswer()`
+
 ### Extract Matches
 
 
 #### Exercise 1 {.exercise}
 
-> In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.
+
+`r BeginQuestion()`
+In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 This was the original color match pattern:
 ```{r}
@@ -513,20 +710,28 @@ colour_match2 <- str_c("\\b(", str_c(colours, collapse = "|"), ")\\b")
 colour_match2
 ```
 
-```{r results='hide'}
+```{r}
 more2 <- sentences[str_count(sentences, colour_match) > 1]
+```
+```{r eval=is_html}
 str_view_all(more2, colour_match2, match = TRUE)
 ```
 
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> From the Harvard sentences data, extract:
->
-> 1. The first word from each sentence.
-> 2. All words ending in `ing`.
-> 3. All plurals.
 
+`r BeginQuestion()`
+From the Harvard sentences data, extract:
+
+1. The first word from each sentence.
+2. All words ending in `ing`.
+3. All plurals.
+`r EndQuestion()`
+
+`r BeginAnswer()`
 The first word in each sentence requires defining what a word is. I'll consider a word any contiguous
 ```{r}
 str_extract(sentences, "[a-zA-X]+") %>% head()
@@ -549,12 +754,20 @@ unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b"))) %>%
   head()
 ```
 
+`r EndAnswer()`
+
 ### Grouped Matches
 
 
 #### Exercise 1 {.exercise}
 
-> Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
+
+`r BeginQuestion()`
+Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 I'll use the same following "word" pattern as used above
 ```{r}
@@ -564,9 +777,17 @@ sentences[str_detect(sentences, numword)] %>%
 ```
 
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> Find all contractions. Separate out the pieces before and after the apostrophe.
+
+`r BeginQuestion()`
+Find all contractions. Separate out the pieces before and after the apostrophe.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 contraction <- "([A-Za-z]+)'([A-Za-z]+)"
@@ -575,27 +796,52 @@ sentences %>%
   str_extract(contraction)
 ```
 
+`r EndAnswer()`
+
 ### Replacing Matches
 
 
 #### Exercise 1 {.exercise}
 
-> Replace all forward slashes in a string with backslashes.
+
+`r BeginQuestion()`
+Replace all forward slashes in a string with backslashes.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
+
 ```{r}
 backslashed <- str_replace_all("past/present/future", "\\/", "\\\\")
 writeLines(backslashed)
 ```
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> Implement a simple version of `str_to_lower()` using `replace_all()`.
+
+`r BeginQuestion()`
+Implement a simple version of `str_to_lower()` using `replace_all()`.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 ```{r}
 lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "F"="f", "G"="g", "H"="h", "I"="i", "J"="j", "K"="k", "L"="l", "M"="m", "N"="n", "O"="o", "P"="p", "Q"="q", "R"="r", "S"="s", "T"="t", "U"="u", "V"="v", "W"="w", "X"="x", "Y"="y", "Z"="z"))
 ```
 
+`r EndAnswer()`
+
 #### Exercise 3 {.exercise}
 
-> Switch the first and last letters in `words`. Which of those strings are still words?
+
+`r BeginQuestion()`
+Switch the first and last letters in `words`. Which of those strings are still words?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 First, make a vector of all the words with first and last letters swapped,
 ```{r}
@@ -606,11 +852,19 @@ Next, find what of "swapped" is also in the original list using the function `in
 intersect(swapped,words)
 ```
 
+`r EndAnswer()`
+
 ### Splitting
 
 #### Exercise 1 {.exercise}
 
-> Split up a string like `"apples, pears, and bananas"` into individual components.
+
+`r BeginQuestion()`
+Split up a string like `"apples, pears, and bananas"` into individual components.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 x <- c("apples, pears, and bananas")
@@ -618,21 +872,39 @@ str_split(x, ", +(and +)?")[[1]]
 ```
 
 
+`r EndAnswer()`
+
 #### Exercise 2 {.exercise}
 
-> Why is it better to split up by `boundary("word")` than `" "`?
+
+`r BeginQuestion()`
+Why is it better to split up by `boundary("word")` than `" "`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 Splitting by `boundary("word")` splits on punctuation and not just whitespace.
 
+`r EndAnswer()`
+
 #### Exercise 3 {.exercise}
 
-> What does splitting with an empty string `("")` do? Experiment, and then read the documentation.
+
+`r BeginQuestion()`
+What does splitting with an empty string `("")` do? Experiment, and then read the documentation.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 str_split("ab. cd|agt", "")[[1]]
 ```
 
 It splits the string into individual characters.
+
+`r EndAnswer()`
 
 ### Find matches
 
@@ -643,16 +915,30 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
+
+`r BeginQuestion()`
+How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 str_subset(c("a\\b", "ab"), "\\\\")
 str_subset(c("a\\b", "ab"), fixed("\\"))
 ```
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> What are the five most common words in sentences?
+
+`r BeginQuestion()`
+What are the five most common words in sentences?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 str_extract_all(sentences, boundary("word")) %>%
@@ -665,6 +951,8 @@ str_extract_all(sentences, boundary("word")) %>%
   head(5)
 ```
 
+`r EndAnswer()`
+
 ## Other uses of regular expressions
 
 No exercises
@@ -674,7 +962,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> Find the **stringi** functions that:
+
+`r BeginQuestion()`
+Find the **stringi** functions that:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 > 1. Count the number of words. `stri_count_words`
 > 2. Find duplicated strings. `stri_duplicated`
@@ -685,8 +979,17 @@ No exercises
 3. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
 
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> How do you control the language that `stri_sort()` uses for sorting?
+
+`r BeginQuestion()`
+How do you control the language that `stri_sort()` uses for sorting?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 Use the `locale` argument to the `opts_collator` argument.
+`r EndAnswer()`

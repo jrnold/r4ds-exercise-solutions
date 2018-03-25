@@ -20,13 +20,18 @@ No exercises
 
 ### Exercise 1 {.exercise} 
 
-> Go to the RStudio Tips twitter account, https://twitter.com/rstudiotips and find one tip that looks interesting. Practice using it!
+
+Go to the RStudio Tips twitter account, https://twitter.com/rstudiotips and find one tip that looks interesting. Practice using it!
+
 
 This is by its very nature left to the reader.
 
 ### Exercise 2 {.exercise} 
 
-> What other common mistakes will RStudio diagnostics report? Read https://support.rstudio.com/hc/en-us/articles/205753617-Code-Diagnostics to find out.
+
+What other common mistakes will RStudio diagnostics report? 
+Read <https://support.rstudio.com/hc/en-us/articles/205753617-Code-Diagnostics> to find out.
+
 
 The user should read that help page. However, to preview its contents, some other diagnostics for R code include:
 

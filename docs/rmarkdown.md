@@ -13,20 +13,42 @@ editor_options:
 
 #### Exercise 1 {.exercise}
 
-> Create a new notebook using *File > New File > R Notebook*. Read the instructions. Practice running the chunks. Verify that you can modify the code, re-run it, and see modified output.
+
+
+Create a new notebook using *File > New File > R Notebook*. Read the instructions. Practice running the chunks. Verify that you can modify the code, re-run it, and see modified output.
+
+
+
+
 
 This exercise is left to the reader.
 
+
+
 #### Exercise 2 {.exercise}
 
->  Create a new R Markdown document with *File > New File > R Markdown ...* Knit it by clicking the appropriate button. Knit it by using the appropriate keyboard short cut. Verify that you can modify the input and see the output update.
+
+
+Create a new R Markdown document with *File > New File > R Markdown ...* Knit it by clicking the appropriate button. Knit it by using the appropriate keyboard short cut. Verify that you can modify the input and see the output update.
+
+
+
+
 
 This exercise is mostly left to the reader.
 Recall that the keyboard shortcut to knit a file is `Cmd/Ctrl + Alt + I`.
 
+
+
 #### Exercise 3 {.exercise}
 
-> Compare and contrast the R notebook and R markdown files you created above. How are the outputs similar? How are they different? How are the inputs similar? How are they different? What happens if you copy the YAML header from one to the other?
+
+
+Compare and contrast the R notebook and R markdown files you created above. How are the outputs similar? How are they different? How are the inputs similar? How are they different? What happens if you copy the YAML header from one to the other?
+
+
+
+
 
 R notebook files show the output inside the editor, while hiding the console. R markdown files shows the output inside the console, and does not show output inside the editor.
 They differ in the value of `output` in their YAML headers. 
@@ -69,11 +91,21 @@ This is because the RStudio IDE when opening and the **rmarkdown** package when 
 value of the `output` key in the YAML header, to determine what type of document it is.
 
 
+
+
 #### Exercise 4 {.exercise}
 
-> Create one new R Markdown document for each of the three built-in formats: HTML, PDF and Word. Knit each of the three documents. How does the output differ? How does the input differ? (You may need to install LaTeX in order to build the PDF output — RStudio will prompt you if this is necessary.)
+
+
+Create one new R Markdown document for each of the three built-in formats: HTML, PDF and Word. Knit each of the three documents. How does the output differ? How does the input differ? (You may need to install LaTeX in order to build the PDF output — RStudio will prompt you if this is necessary.)
+
+
+
+
 
 They produce different outputs, both in the final documents and intermediate files (notably the type of plots produced). The only difference in the inputs is the value of `output` in the YAML header: `word_document` for Word documents, `pdf_document` for PDF documents, and `html_document` for HTML documents.
+
+
 
 
 ## Text formatting with R Markdown
@@ -81,13 +113,27 @@ They produce different outputs, both in the final documents and intermediate fil
 
 ### Exercise 1 {.exercise}
 
-> Practice what you’ve learned by creating a brief CV. The title should be your name, and you should include headings for (at least) education or employment. Each of the sections should include a bulleted list of jobs/degrees. Highlight the year in bold.
+
+
+Practice what you’ve learned by creating a brief CV. The title should be your name, and you should include headings for (at least) education or employment. Each of the sections should include a bulleted list of jobs/degrees. Highlight the year in bold.
+
+
+
+
 
 **TODO**
 
+
+
 ### Exercise 2 {.exercise}
 
->   Using the R Markdown quick reference, figure out how to:
+
+
+Using the R Markdown quick reference, figure out how to:
+
+
+
+
 >
 >    1. Add a footnote.
 >    2. Add a horizontal rule.
@@ -114,11 +160,21 @@ a YAML block if it is at the start of the document.
   
 ```
   
+
+
 ### Exercise 3 {.exercise}
   
-> Copy and paste the contents of `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown> in to a local R markdown document. Check that you can run it, then add text after the frequency polygon that describes its most striking features.
+
+
+Copy and paste the contents of `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown> in to a local R markdown document. Check that you can run it, then add text after the frequency polygon that describes its most striking features.
+
+
+
+
 
 For an example R markdown document, see the exercises in the next section.
+
+
 
 ##  Code Chunks
 
@@ -168,17 +224,39 @@ Exercises 1--3 are answered in ...
 
 ### Exercise 1 {.exercise}
 
-> Add a section that explores how diamond sizes vary by cut, color, and clarity. Assume you’re writing a report for someone who doesn’t know R, and instead of setting `echo = FALSE` on each chunk, set a global option.
+
+
+Add a section that explores how diamond sizes vary by cut, color, and clarity. Assume you’re writing a report for someone who doesn’t know R, and instead of setting `echo = FALSE` on each chunk, set a global option.
+
+
+
+
+
+
 
 ### Exercise 2 {.exercise}
 
-> Download `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown>. Add a section that describes the largest 20 diamonds, including a table that displays their most important attributes.
+
+
+Download `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown>. Add a section that describes the largest 20 diamonds, including a table that displays their most important attributes.
+
+
+
+
 
 For the this, I use `arrange()` and `slice()` to select the largest twenty diamonds, and `knitr::kable()` to produce a formatted table.
 
+
+
 ### Exercise 3 {.exercise}
 
-> Modify `diamonds-sizes.Rmd` to use comma() to produce nicely formatted output. Also include the percentage of diamonds that are larger than 2.5 carats.
+
+
+Modify `diamonds-sizes.Rmd` to use comma() to produce nicely formatted output. Also include the percentage of diamonds that are larger than 2.5 carats.
+
+
+
+
 
 I moved the computation of the number larger and percent of diamonds larger than 2.5 carats into a code chunk.
 I find that it is best to keep inline R expressions simple, usually consisting of an object and a formatting function. 
@@ -229,3 +307,5 @@ cat(readr::read_file("rmarkdown/caching.Rmd"))
 #> If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
 #> and the same as the first time the document was run with caching.
 ```
+
+

@@ -1,20 +1,3 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
-
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  out.width = "70%",
-  fig.align = 'center',
-  fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-```
 ---
 output: html_document
 editor_options: 
@@ -34,7 +17,13 @@ No exercises.
 
 ### Exercise 1. {.exercise}
 
-> Run `ggplot(data = mpg)` what do you see?
+
+`r BeginQuestion()`
+Run `ggplot(data = mpg)` what do you see?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 ggplot(data = mpg)
@@ -42,9 +31,17 @@ ggplot(data = mpg)
 
 An empty plot. The background of the plot is created by `ggplot()`, but nothing else is displayed.
 
+`r EndAnswer()`
+
 ### Exercise 2. {.exercise}
 
-> How many rows are in `mtcars`? How many columns?
+
+`r BeginQuestion()`
+How many rows are in `mtcars`? How many columns?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 There are `r nrow(mtcars)` rows and `r ncol(mtcars)` columns in the the `mtcars` data frame.
 ```{r}
@@ -57,9 +54,17 @@ glimpse(mtcars)
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 3. {.exercise}
 
-> What does the `drv` variable describe? Read the help for `?mpg` to find out.
+
+`r BeginQuestion()`
+What does the `drv` variable describe? Read the help for `?mpg` to find out.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r eval=FALSE}
 ?mpg
@@ -73,18 +78,30 @@ The `drv` variable takes the following values
 - `"4"`  four-wheel drive
 -------- ------------------
 
+`r EndAnswer()`
+
 ### Exercise 4. {.exercise}
 
-> Make a scatter plot of `hwy` vs `cyl`
+
+`r BeginQuestion()`
+Make a scatter plot of `hwy` vs `cyl`
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 ggplot(mpg, aes(x = hwy, y = cyl)) +
   geom_point()
 ```
 
+`r EndAnswer()`
+
 ### Exercise 5. {.exercise}
 
-> What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
+`r BeginQuestion()`
+What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
+`r EndQuestion()`
 
 ```{r}
 ggplot(mpg, aes(x = class, y = drv)) +
@@ -102,24 +119,29 @@ Later chapters discuss means to deal with this, including alternative plots and 
 
 ### Exercise 1. {.exercise}
 
-> What’s gone wrong with this code? Why are the points not blue?
+::::question
+What’s gone wrong with this code? Why are the points not blue?
 
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
 ```
+`r EndQuestion()`
 
 Since `color = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
 The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `color = 1:234` or `color = 1` would be interpreted by `aes()`.
 
 ### Exercise 2. {.exercise}
 
-> Which variables in `mpg` are categorical? 
-> Which variables are continuous?
-> (Hint: type `?mpg` to read the documentation for the dataset).
-> How can you see this information when you run `mpg`?
+`r BeginQuestion()`
+Which variables in `mpg` are categorical? 
+Which variables are continuous?
+(Hint: type `?mpg` to read the documentation for the dataset).
+How can you see this information when you run `mpg`?
 
-```{r}
+`r EndQuestion()`
+
+```{r eval=FALSE}
 ?mpg
 ```
 
@@ -135,8 +157,14 @@ glimpse(mpg)
 
 ### Exercise 3. {.exercise}
 
-> Map a continuous variable to color, size, and shape. 
-> How do these aesthetics behave differently for categorical vs. continuous variables?
+
+`r BeginQuestion()`
+Map a continuous variable to color, size, and shape. 
+How do these aesthetics behave differently for categorical vs. continuous variables?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The variable `cty`, city highway miles per gallon, is a continuous variable:
 ```{r}
@@ -164,9 +192,17 @@ A continuous numeric variable is ordered, but shapes have no natural order.
 It is clear that smaller points correspond to smaller values, or once the color scale is given, which colors correspond to larger or smaller values. But it is not clear whether a square is greater or less than a circle.
 
 
+`r EndAnswer()`
+
 ### Exercise 4. {.exercise}
 
-> What happens if you map the same variable to multiple aesthetics?
+
+`r BeginQuestion()`
+What happens if you map the same variable to multiple aesthetics?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy, color = hwy, size = displ)) +
@@ -178,9 +214,17 @@ The code works and produces a plot, even if it is a bad one.
 Mapping a single variable to multiple aesthetics is redundant. 
 Because it is redundant information, in most cases avoid mapping a single variable to multiple aesthetics.
 
+`r EndAnswer()`
+
 ### Exercise 5. {.exercise}
 
-> What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`)
+
+`r BeginQuestion()`
+What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`)
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The following example is given in `?geom_point`:
 ```{r ex.3.3.1.5}
@@ -190,9 +234,17 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 Stroke changes the color of the border for shapes (22-24).
 
+`r EndAnswer()`
+
 ### Exercise 6. {.exercise}
 
-> What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
+
+`r BeginQuestion()`
+What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r ex.3.3.1.6}
 ggplot(mpg, aes(x = displ, y = hwy, colour = displ < 5)) + 
@@ -204,6 +256,8 @@ It will create a temporary variable which takes values from  the result of the e
 In this case, it is logical variable which is `TRUE` or `FALSE`.
 This also explains exercise 1, `color = "blue"` created a categorical variable that only had one category: "blue".
 
+`r EndAnswer()`
+
 ## Common problems
 
 No exercises
@@ -212,7 +266,13 @@ No exercises
 
 ### Exercise 1. {.exercise}
 
-> What happens if you facet on a continuous variable?
+
+`r BeginQuestion()`
+What happens if you facet on a continuous variable?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 Let's see.
 ```{r ex.3.5.1.1}
@@ -223,9 +283,17 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 It converts the continuous variable to a factor and creates facets for **all** unique values of it.
 
+`r EndAnswer()`
+
 ### Exercise 2. {.exercise}
 
-> What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
+
+`r BeginQuestion()`
+What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 They are cells in which there are no values of the combination of `drv` and `cyl`. 
 
@@ -236,9 +304,17 @@ ggplot(data = mpg) +
 
 The locations in the above plot without points are the same cells in `facet_grid(drv ~ cyl)` that have no points.
 
+`r EndAnswer()`
+
 ### Exercise 3. {.exercise}
 
-> What plots does the following code make? What does `.` do?
+
+`r BeginQuestion()`
+What plots does the following code make? What does `.` do?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The symbol `.` ignores that dimension for faceting.
 
@@ -255,34 +331,66 @@ ggplot(data = mpg) +
   facet_grid(. ~ cyl)
 ```
 
+`r EndAnswer()`
+
 ### Exercise 5. {.exercise}
 
-> Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
+
+`r BeginQuestion()`
+Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The arguments `nrow` (`ncol`) determines the number of rows (columns) to use when laying out the facets. 
 It is necessary since `facet_wrap` only facets on one variable. 
 These arguments are unnecessary for `facet_grid` since the number of rows and columns are determined by the number of unique values of the variables specified.
 
+`r EndAnswer()`
+
 ### Exercise 6. {.exercise}
 
-> When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
+
+`r BeginQuestion()`
+When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 You should put the variable with more unique levels in the columns if the plot is laid out landscape. 
 It is easier to compare relative levels of y by scanning horizontally, so it may be easier to visually compare these levels. *I'm actually not sure about the correct answer to this*.
+
+`r EndAnswer()`
 
 ## Geometric Objects
 
 ### Exercise 1. {.exercise}
 
-> What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+
+`r BeginQuestion()`
+What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 - line chart: `geom_line`
 - boxplot: `geom_boxplot`
 - histogram: `geom_hist`
 
+`r EndAnswer()`
+
 ### Exercise 2. {.exercise}
 
-> Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+
+`r BeginQuestion()`
+Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r eval=FALSE}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
@@ -301,10 +409,18 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 3. {.exercise}
 
-> What does `show.legend = FALSE` do? What happens if you remove it?
-> Why do you think I used it earlier in the chapter?
+
+`r BeginQuestion()`
+What does `show.legend = FALSE` do? What happens if you remove it?
+Why do you think I used it earlier in the chapter?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 Show legend hides the legend box. In this code, without show legend, there is a legend.
 ```{r}
@@ -341,9 +457,17 @@ Additionally, the purpose of this plot is to illustrate the difference between n
 In that example, the legend isn't necessary since looking up the values associated with each color isn't necessary to make that point.
 
 
+`r EndAnswer()`
+
 ### Exercise 4. {.exercise}
 
-> What does the `se` argument to `geom_smooth()` do?
+
+`r BeginQuestion()`
+What does the `se` argument to `geom_smooth()` do?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 It adds standard error bands to the lines.
 
@@ -362,9 +486,17 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 5. {.exercise}
 
-> Will these two graphs look different? Why/why not?
+
+`r BeginQuestion()`
+Will these two graphs look different? Why/why not?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 No. Because both `geom_point` and `geom_smooth` use the same data and mappings. They will inherit those options from the `ggplot` object, and thus don't need to specified again (or twice).
 
@@ -381,9 +513,17 @@ ggplot() +
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 6. {.exercise}
 
-> Recreate the R code necessary to generate the following graphs.
+
+`r BeginQuestion()`
+Recreate the R code necessary to generate the following graphs.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -421,11 +561,19 @@ ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
 ```
 
 
+`r EndAnswer()`
+
 ## Statistical Transformations
 
 ### Exercise 1. {.exercise}
 
-> What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
+
+`r BeginQuestion()`
+What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The default geom for [`stat_summary`](http://docs.ggplot2.org/current/stat_summary.html) is `geom_pointrange` (see the `stat`) argument.
 
@@ -451,25 +599,49 @@ ggplot(data = diamonds) +
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 2. {.exercise}
 
-> What does `geom_col()` do? How is it different to `geom_bar()`?
+
+`r BeginQuestion()`
+What does `geom_col()` do? How is it different to `geom_bar()`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 `geom_col` differs from `geom_bar` in its default stat. `geom_col` has uses the `identity` stat. So it expects that a variable already exists for the height of the bars. 
 `geom_bar` uses the `count` stat, and so will count observations in groups in order to generate the variable to use for the height of the bars.
 
 
+`r EndAnswer()`
+
 ### Exercise 3. {.exercise}
 
-> Most geoms and stats come in pairs that are almost always used in concert. 
-> Read through the documentation and make a list of all the pairs. 
-> What do they have in common?
+
+`r BeginQuestion()`
+Most geoms and stats come in pairs that are almost always used in concert. 
+Read through the documentation and make a list of all the pairs. 
+What do they have in common?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
+`r EndAnswer()`
+
 ### Exercise 4. {.exercise}
 
-> What variables does `stat_smooth()` compute? What parameters control its behavior?
+
+`r BeginQuestion()`
+What variables does `stat_smooth()` compute? What parameters control its behavior?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 `stat_smooth` calculates
 
@@ -480,10 +652,18 @@ See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
 There's parameters such as `method` which determines which method is used to calculate the predictions and confidence interval, and some other arguments that are passed to that.
 
+`r EndAnswer()`
+
 ### Exercise 5. {.exercise}
 
-> In our proportion bar chart, we need to set `group = 1` Why? 
-> In other words what is the problem with these two graphs?
+
+`r BeginQuestion()`
+In our proportion bar chart, we need to set `group = 1` Why? 
+In other words what is the problem with these two graphs?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 If `group` is not set to 1, then all the bars have `prop == 1`. 
 The function `geom_bar` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group. 
@@ -512,12 +692,20 @@ ggplot(data = diamonds) +
 
 ```
 
+`r EndAnswer()`
+
 ## Position Adjustments
 
 ### Exercise 1. {.exercise}
 
-> What is the problem with this plot? 
-> How could you improve it?
+
+`r BeginQuestion()`
+What is the problem with this plot? 
+How could you improve it?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 There is overplotting because there are multiple observations for each combination of `cty` and `hwy`.
 ```{r}
@@ -530,9 +718,17 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = "jitter")
 ```
 
+`r EndAnswer()`
+
 ### Exercise 2. {.exercise}
 
-> What parameters to `geom_jitter()` control the amount of jittering?
+
+`r BeginQuestion()`
+What parameters to `geom_jitter()` control the amount of jittering?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 From the [position_jitter](http://docs.ggplot2.org/current/position_jitter.html) documentation, there are two arguments to jitter: `width` and `height`, which control the amount of vertical and horizontal jitter. 
 
@@ -560,15 +756,31 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(height = 0, width = 20))
 ```
 
+`r EndAnswer()`
+
 ### Exercise 3. {.exercise}
 
-> Compare and contrast `geom_jitter()` with `geom_count()`.
+
+`r BeginQuestion()`
+Compare and contrast `geom_jitter()` with `geom_count()`.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 **TODO**
 
+`r EndAnswer()`
+
 ### Exercise 4. {.exercise}
 
-> What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the mpg dataset that demonstrates it.
+
+`r BeginQuestion()`
+What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the mpg dataset that demonstrates it.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The default position for `geom_boxplot` is `position_dodge` (see its [docs](http://docs.ggplot2.org/current/geom_boxplot.html)).
 
@@ -582,6 +794,8 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
   geom_boxplot(position = "identity")
 ```
+
+`r EndAnswer()`
 
 ## Coordinate Systems
 
@@ -627,7 +841,13 @@ ggplot(data = diamonds) +
 
 ### Exercise 2. {.exercise}
 
-> What does `labs()` do? Read the documentation.
+
+`r BeginQuestion()`
+What does `labs()` do? Read the documentation.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The `labs` function adds labels for different scales and the title of the plot.
 
@@ -638,19 +858,35 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
   labs(y = "Highway MPG", x = "", title = "Highway MPG by car class")
 ```
 
+`r EndAnswer()`
+
 ### Exercise 3. {.exercise}
 
-> What’s the difference between `coord_quickmap()` and `coord_map()`?
+
+`r BeginQuestion()`
+What’s the difference between `coord_quickmap()` and `coord_map()`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 See the [docs](http://docs.ggplot2.org/current/coord_quickmap.html):
 
 - `coord_map` uses a 2D projection: by default the Mercator project of the sphere to the plot. But this requires transforming all geoms.
 - `coord_quickmap` uses a approximate, but faster, map projection using the lat/long ratio as an approximation. This is "quick" because the shapes don't need to be transformed.
 
+`r EndAnswer()`
+
 ### Exercise 4. {.exercise}
 
-> What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important? 
-> What does `geom_abline()` do?
+
+`r BeginQuestion()`
+What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important? 
+What does `geom_abline()` do?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The coordinates `coord_fixed` ensures that the `abline` is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.
 
@@ -667,6 +903,8 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point() + 
   geom_abline()
 ```
+
+`r EndAnswer()`
 
 ## The Layered Grammar of Graphics
 

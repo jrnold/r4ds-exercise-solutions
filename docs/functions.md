@@ -15,15 +15,21 @@ library("lubridate")
 
 ### Exercise 1 {.exercise} 
 
-> Why is TRUE not a parameter to `rescale01()`? 
-> What would happen if `x` contained a single missing value, and `na.rm` was `FALSE`?
+
+
+Why is TRUE not a parameter to `rescale01()`? 
+What would happen if `x` contained a single missing value, and `na.rm` was `FALSE`?
+
+
+
+
 
 First, note that by a a single missing value, this means that the vector `x` has at least one element equal to `NA`.
 
 If there were any `NA` values, and `na.rm = FALSE`, then the function would 
 return `NA`.
 
-I can confirm this by testing a function that allows for `na.rm` as an argument:
+I can confirm this by testing a function that allows for `na.rm` as an argument
 
 ```r
 rescale01_alt <- function(x, finite = TRUE) {
@@ -36,10 +42,18 @@ rescale01_alt(c(NA, 1:5), finite = TRUE)
 #> [1]   NA 0.00 0.25 0.50 0.75 1.00
 ```
 
+
+
 ### Exercise 2 {.exercise}
 
-> In the second variant of `rescale01()`, infinite values are left unchanged. 
-> Rewrite `rescale01()` so that `-Inf` is mapped to 0, and `Inf` is mapped to 1.
+
+
+In the second variant of `rescale01()`, infinite values are left unchanged. 
+Rewrite `rescale01()` so that `-Inf` is mapped to 0, and `Inf` is mapped to 1.
+
+
+
+
 
 
 ```r
@@ -55,6 +69,8 @@ rescale01(c(Inf, -Inf, 0:5, NA))
 #> [1] 1.0 0.0 0.0 0.2 0.4 0.6 0.8 1.0  NA
 ```
 
+
+
 ### Exercise 3 {.exercise}
 
  Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
@@ -69,7 +85,7 @@ sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 ```
 
 
-This function calculates the proportion of `NA` values in a vector:
+This function calculates the proportion of `NA` values in a vector
 
 ```r
 prop_na <- function(x) {
@@ -93,7 +109,7 @@ sum(y)
 ```
 
 This function calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values). 
-The coefficient of variation is the standard deviation divided by the mean:
+The coefficient of variation is the standard deviation divided by the mean
 
 ```r
 coef_variation <- function(x) {
@@ -105,7 +121,13 @@ coef_variation(runif(10))
 
 ### Exercise 4
 
-> Follow <http://nicercode.github.io/intro/writing-functions.html> to write your own functions to compute the variance and skew of a numeric vector.
+
+
+Follow <http://nicercode.github.io/intro/writing-functions.html> to write your own functions to compute the variance and skew of a numeric vector.
+
+
+
+
 
 **Note** The math in <https://nicercode.github.io/intro/writing-functions.html> seems not to be rendering, but I'll write functions for the variance and skewness.
 
@@ -163,9 +185,17 @@ both_na(c(NA, NA,  1, 2, NA, NA, 1),
 #> [1] 3
 ```
 
+
+
 ### Exercise 6 {.exercise}
 
->  What do the following functions do? Why are they useful even though they are so short?
+
+
+What do the following functions do? Why are they useful even though they are so short?
+
+
+
+
 
 
 ```r
@@ -177,12 +207,45 @@ The function `is_directory` checks whether the path in `x` is a directory.
 The function `is_readable` checks whether the path in `x` is readable, meaning that the file exists and the user has permission to open it.
 These functions are useful even though they are short because their names make it much clearer what the code is doing.
 
+
+
 ### Exercise 7 {.exercise}
 
-> Read the complete lyrics to “Little Bunny Foo Foo”. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
 
-<!-- This could probably be done cleaner, but here's one version. -->
+Read the complete lyrics to ``Little Bunny Foo Foo''. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
 
+
+The lyrics of one of the [most common versions](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) of this song are
+
+
+
+Little bunny Foo Foo
+Hopping through the forest
+Scooping up the field mice
+And bopping them on the head
+
+Down came the Good Fairy, and she said
+"Little bunny Foo Foo
+I don't want to see you
+Scooping up the field mice
+
+And bopping them on the head.
+I'll give you three chances,
+And if you don't stop, I'll turn you into a GOON!"
+And the next day...
+
+
+
+
+
+The verses repeat with one chance fewer each time.
+When there are no chances left, the Good Fairy says
+
+> "I gave you three chances, and you didn't stop; so...."
+> POOF. She turned him into a GOON!
+> And the moral of this story is: *hare today, goon tomorrow.*
+
+Here's one way of writing this
 ```r
 threat <- function(chances) {
   give_chances(from = Good_Fairy,
@@ -191,7 +254,7 @@ threat <- function(chances) {
                condition = "Don't behave",
                consequence = turn_into_goon)  
 }
-  
+
 lyric <- function() {
   foo_foo %>%
     hop(through = forest) %>%
@@ -218,12 +281,20 @@ turn_into_goon(Good_Fairy, foo_foo)
 ```
 
 
+
+
 ## Functions are for humans and computers
 
 
 ### Exercise 1 {.exercise}
 
-> Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
+
+
+Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
+
+
+
+
 
 
 ```r
@@ -249,7 +320,7 @@ f1(c("str_c", "str_foo", "abc"), "str_")
 ```
 A better name for `f1` is `has_prefix()`
 
-The function `f2` drops the last element:
+The function `f2` drops the last element
 
 ```r
 f2(1:3)
@@ -269,15 +340,31 @@ f3(1:3, 4)
 ```
 This is a harder one to name. I would say something like `recycle` (R's name for this behavior), or `epxand`.
 
+
+
 ### Exercise 2 {.exercise}
 
->  Take a function that you’ve written recently and spend 5 minutes brainstorming a better name for it and its arguments.
+
+
+Take a function that you’ve written recently and spend 5 minutes brainstorming a better name for it and its arguments.
+
+
+
+
 
 Answer left to the reader.
 
+
+
 ### Exercise 3 {.exercise}
 
->  Compare and contrast `rnorm()` and `MASS::mvrnorm()`. How could you make them more consistent?
+
+
+Compare and contrast `rnorm()` and `MASS::mvrnorm()`. How could you make them more consistent?
+
+
+
+
 
 *You can ignore*
 
@@ -290,26 +377,50 @@ In general, it is better to be consistent with more widely used functions, e.g. 
 However, while `mean` is correct in the multivariate case, `sd` does not make sense in the multivariate case. 
 Both functions an internally consistent though; it would be bad to have `mu` and `sd` or `mean` and `Sigma`.
 
+
+
 ### Exercise 4 {.exercise}
 
->   Make a case for why `norm_r()`, `norm_d()` etc would be better than `rnorm()`, `dnorm()`. Make a case for the opposite.
+
+
+Make a case for why `norm_r()`, `norm_d()` etc would be better than `rnorm()`, `dnorm()`. Make a case for the opposite.
+
+
+
+
 
 If named `norm_r` and `norm_d`, it groups the family of functions related to the normal distribution.
 If named `rnorm`, and `dnorm`, functions related to are grouped into families by the action they perform. `r*` functions always sample from distributions: `rnorm`, `rbinom`, `runif`, `rexp`. `d*` functions calculate the probability density or mass of a distribution: `dnorm`, `dbinom`, `dunif`, `dexp`.
+
+
 
 
 ## Conditional execution
 
 ### Exercise 1 {.exercise} 
 
-> What’s the difference between `if` and `ifelse()`? > Carefully read the help and construct three examples that illustrate the key differences.
+
+
+What’s the difference between `if` and `ifelse()`? > Carefully read the help and construct three examples that illustrate the key differences.
+
+
+
+
 
 The keyword `if` tests a single condition, while `ifelse` tests each element.
 
 
+
+
 ### Exercise 2 {.exercise}
 
->  Write a greeting function that says “good morning”, “good afternoon”, or “good evening”, depending on the time of day. (Hint: use a time argument that defaults to `lubridate::now()`. That will make it easier to test your function.)
+
+
+Write a greeting function that says “good morning”, “good afternoon”, or “good evening”, depending on the time of day. (Hint: use a time argument that defaults to `lubridate::now()`. That will make it easier to test your function.)
+
+
+
+
 
 
 ```r
@@ -326,7 +437,7 @@ greet <- function(time = lubridate::now()) {
   }
 } 
 greet()
-#> [1] "good afternoon"
+#> [1] "good evening"
 greet(ymd_h("2017-01-08:05"))
 #> [1] "good morning"
 greet(ymd_h("2017-01-08:13"))
@@ -335,9 +446,17 @@ greet(ymd_h("2017-01-08:20"))
 #> [1] "good evening"
 ```
 
+
+
 ### Exercise 3 {.exercise}
 
->  Implement a `fizzbuzz` function. It takes a single number as input. If the number is divisible by three, it returns “fizz”. If it’s divisible by five it returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”. Otherwise, it returns the number. Make sure you first write working code before you create the function.
+
+
+Implement a `fizzbuzz` function. It takes a single number as input. If the number is divisible by three, it returns “fizz”. If it’s divisible by five it returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”. Otherwise, it returns the number. Make sure you first write working code before you create the function.
+
+
+
+
 
 
 ```r
@@ -363,9 +482,17 @@ fizzbuzz(15)
 fizzbuzz(2)
 ```
 
+
+
 ### Exercise 4 {.exercise}
 
->  How could you use `cut()` to simplify this set of nested if-else statements?
+
+
+How could you use `cut()` to simplify this set of nested if-else statements?
+
+
+
+
 
 
 ```r
@@ -393,7 +520,7 @@ cut(temp, c(-Inf, 0, 10, 20, 30, Inf), right = TRUE,
 #> Levels: freezing cold cool warm hot
 ```
 
-To have intervals open on the left (using `<`), I change the argument to `right = FALSE`:
+To have intervals open on the left (using `<`), I change the argument to `right = FALSE`
 
 ```r
 temp <- seq(-10, 50, by = 5)
@@ -407,9 +534,17 @@ cut(temp, c(-Inf, 0, 10, 20, 30, Inf), right = FALSE,
 Two advantages of using `cut` is that it works on vectors, whereas `if` only works on a single value (I already demonstrated this above),
 and that to change comparisons I only needed to change the argument to `right`, but I would have had to change four operators in the `if` expression.
 
+
+
 ### Exercise 5 {.exercise}
 
->  What happens if you use `switch()` with numeric values?
+
+
+What happens if you use `switch()` with numeric values?
+
+
+
+
 
 It selects that number argument from `...`.
 
@@ -420,9 +555,17 @@ switch(2, "one", "two", "three")
 ```
 
 
+
+
 ### Exercise 6 {.exercise}
 
-> What does this `switch()` call do? What happens if `x` is `"e"`?
+
+
+What does this `switch()` call do? What happens if `x` is `"e"`?
+
+
+
+
 
 It will return the `"ab"` for `a` or `b`, `"cd"` for `c` or `d`, an `NULL` for `e`. It returns the first non-missing value for the first name it matches.
 
@@ -458,14 +601,22 @@ switcheroo("d")
 switcheroo("e")
 ```
 
+
+
 ## Function arguments
 
 
 ### Exercise 1 {.exercise}
 
-> What does `commas(letters, collapse = "-")` do? Why?
 
-The `commas` function in the chapter is defined as,
+
+What does `commas(letters, collapse = "-")` do? Why?
+
+
+
+
+
+The `commas` function in the chapter is defined as
 
 ```r
 commas <- function(...) {
@@ -479,18 +630,38 @@ When `commas()` is given a collapse argument, it throws an error.
 commas(letters, collapse = "-")
 #> Error in stringr::str_c(..., collapse = ", "): formal argument "collapse" matched by multiple actual arguments
 ```
-The argument `collapse` is passed to `str_c` as part of `...`.
-This expands to
+This is because when the argument `collapse` is given to `commas`, it 
+is passed to `str_c` as part of `...`.
+In other words, the previous code is equivalent to
 
 ```r
 str_c(letters, collapse = "-", collapse = ", ")
 ```
 However, it is an error to give the same named argument to a function twice.
 
+One way to allow the user to override the separator in `commas` is to add a `collapse`
+argument to the function.
+
+```r
+commas <- function(..., collapse = ", ") {
+  stringr::str_c(..., collapse = collapse)
+}
+```
+
+
+
+
+
 ### Exercise 2 {.exercise}
 
-> It’d be nice if you could supply multiple characters to the pad argument, e.g. `rule("Title", pad = "-+")`. 
-> Why doesn’t this currently work? How could you fix it?
+
+
+It’d be nice if you could supply multiple characters to the pad argument, e.g. `rule("Title", pad = "-+")`. 
+Why doesn’t this currently work? How could you fix it?
+
+
+
+
 
 
 ```r
@@ -533,20 +704,38 @@ rule("Important output", pad = "-+-")
 #> Important output -+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-
 ```
 
+
+
 ### Exercise 3 {.exercise}
 
-> What does the `trim` argument to `mean()` do? When might you use it?
+
+
+What does the `trim` argument to `mean()` do? When might you use it?
+
+
+
+
 
 The `trim` arguments trims a fraction of observations from each end of the vector (meaning the range) before calculating the mean.
 This is useful for calculating a measure of central tendency that is robust to outliers.
 
+
+
 ### Exercise 4 {.exercise}
 
->  The default value for the `method` argument to `cor()` is `c("pearson", "kendall", "spearman")`. 
-> What does that mean? What value is used by default?
+
+
+The default value for the `method` argument to `cor()` is `c("pearson", "kendall", "spearman")`. 
+What does that mean? What value is used by default?
+
+
+
+
 
 It means that the `method` argument can take one of those three values. 
 The first value, `"pearson"`, is used by default.
+
+
 
 ## Environment 
 

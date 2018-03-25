@@ -13,7 +13,13 @@ library(tidyverse)
 
 ### Exercise 1 {.exercise}
 
-> Using prose, describe how the variables and observations are organized in each of the sample tables.
+
+
+Using prose, describe how the variables and observations are organized in each of the sample tables.
+
+
+
+
 
 In `table1` each row is a (country, year) with variables `cases` and `population`.
 
@@ -83,9 +89,17 @@ table4b
 #> 3 China       1272915272 1280428583
 ```
 
+
+
 ### Exercise 2 {.exercise}
 
-> Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
+
+
+Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
+
+
+
+
 >
 >  1.  Extract the number of TB cases per country per year.
 >  2.  Extract the matching population per country per year.
@@ -125,9 +139,9 @@ tibble(country = table4a[["country"]],
 #> # A tibble: 3 x 3
 #>   country        `1999` `2000`
 #>   <chr>           <dbl>  <dbl>
-#> 1 Afghanistan 0.0000373   1.00
-#> 2 Brazil      0.000219    1.00
-#> 3 China       0.000167    1.00
+#> 1 Afghanistan 0.0000373     1.
+#> 2 Brazil      0.000219      1.
+#> 3 China       0.000167      1.
 ```
 or 
 
@@ -139,18 +153,26 @@ tibble(country = rep(table4a[["country"]], 2),
 #> # A tibble: 6 x 3
 #>   country      year      rate
 #>   <chr>       <dbl>     <dbl>
-#> 1 Afghanistan  1999 0.0000373
-#> 2 Brazil       1999 0.000219 
-#> 3 China        1999 0.000167 
-#> 4 Afghanistan  2000 1.00     
-#> 5 Brazil       2000 1.00     
-#> 6 China        2000 1.00
+#> 1 Afghanistan 1999. 0.0000373
+#> 2 Brazil      1999. 0.000219 
+#> 3 China       1999. 0.000167 
+#> 4 Afghanistan 2000. 1.00     
+#> 5 Brazil      2000. 1.00     
+#> 6 China       2000. 1.00
 ```
+
+
 
 
 ### Exercise 3 {.exercise}
 
-> Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
+
+
+Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
+
+
+
+
 
 First, I needed to filter the tibble to only include those rows that represented the "cases" variable.
 
@@ -167,6 +189,8 @@ table2 %>%
 \begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 
+
+
 ## Spreading and Gathering
 
 This code is reproduced from the chapter because it is needed by the exercises:
@@ -181,8 +205,14 @@ tidy4b <- table4b %>%
 
 ### Exercise 1 {.exercise}
 
-> Why are `gather()` and `spread()` not perfectly symmetrical?
-> Carefully consider the following example:
+
+
+Why are `gather()` and `spread()` not perfectly symmetrical?
+Carefully consider the following example:
+
+
+
+
 
 
 ```r
@@ -197,10 +227,10 @@ stocks %>%
 #> # A tibble: 4 x 3
 #>    half year  return
 #>   <dbl> <chr>  <dbl>
-#> 1  1.00 2015   1.88 
-#> 2  2.00 2015   0.590
-#> 3  1.00 2016   0.920
-#> 4  2.00 2016   0.170
+#> 1    1. 2015   1.88 
+#> 2    2. 2015   0.590
+#> 3    1. 2016   0.920
+#> 4    2. 2016   0.170
 ```
 
 The functions `spread` and `gather` are not perfectly symmetrical because column type information is not transferred between them. 
@@ -217,15 +247,23 @@ stocks %>%
 #> # A tibble: 4 x 3
 #>    half  year return
 #>   <dbl> <int>  <dbl>
-#> 1  1.00  2015  1.88 
-#> 2  2.00  2015  0.590
-#> 3  1.00  2016  0.920
-#> 4  2.00  2016  0.170
+#> 1    1.  2015  1.88 
+#> 2    2.  2015  0.590
+#> 3    1.  2016  0.920
+#> 4    2.  2016  0.170
 ```
+
+
 
 ### Exercise 2 {.exercise}
 
-> Why does this code fail?
+
+
+Why does this code fail?
+
+
+
+
 
 
 ```r
@@ -252,9 +290,17 @@ table4a %>%
 #> 6 China       2000  213766
 ```
 
+
+
 ### Exercise 3 {.exercise}
 
-> Why does spreading this tibble fail? How could you add a new column to fix the problem?
+
+
+Why does spreading this tibble fail? How could you add a new column to fix the problem?
+
+
+
+
 
 
 ```r
@@ -299,15 +345,23 @@ spread(people, key, value)
 #> # A tibble: 3 x 4
 #>   name              obs   age height
 #>   <chr>           <dbl> <dbl>  <dbl>
-#> 1 Jessica Cordero  1.00  37.0    156
-#> 2 Phillip Woods    1.00  45.0    186
-#> 3 Phillip Woods    2.00  50.0     NA
+#> 1 Jessica Cordero    1.   37.   156.
+#> 2 Phillip Woods      1.   45.   186.
+#> 3 Phillip Woods      2.   50.    NA
 ```
+
+
 
 
 ### Exercise 4 {.exercise}
 
-> Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
+
+
+Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
+
+
+
+
 
 
 ```r
@@ -333,18 +387,26 @@ gather(preg, sex, count, male, female) %>%
 #> # A tibble: 4 x 3
 #>   pregnant count female
 #>   <lgl>    <dbl> <lgl> 
-#> 1 T         NA   F     
-#> 2 F         20.0 F     
-#> 3 T         10.0 T     
-#> 4 F         12.0 T
+#> 1 TRUE       NA  FALSE 
+#> 2 FALSE      20. FALSE 
+#> 3 TRUE       10. TRUE  
+#> 4 FALSE      12. TRUE
 ```
 Converting `pregnant` and `female` from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.
+
+
 
 ## Separating and Uniting
 
 ### Exercise 1 {.exercise}
 
-> What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
+
+
+What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
+
+
+
+
 
 
 ```r
@@ -456,19 +518,37 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 #> 3 f     g     i
 ```
 
+
+
 ### Exercise 2 {.exercise}
 
-> Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
+
+
+Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
+
+
+
+
 
 You would set it to `FALSE` if you want to create a new variable, but keep the old one.
 
+
+
 ### Exercise 3 {.exercise}
 
-> Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
+
+
+Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
+
+
+
+
 
 The function `extract` uses a regular expression to find groups and split into columns.
 In `unite` it is unambiguous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the `sep`.
 In `separate`, it is one to many, and there are multiple ways to split the character string.
+
+
 
 
 ## Missing Values
@@ -476,7 +556,13 @@ In `separate`, it is one to many, and there are multiple ways to split the chara
 
 ### Exercise 1 {.exercise}
 
-> Compare and contrast the `fill` arguments to `spread()` and `complete()`.
+
+
+Compare and contrast the `fill` arguments to `spread()` and `complete()`.
+
+
+
+
 
 
 ```r
@@ -491,11 +577,21 @@ In `spread`, the fill argument explicitly sets the value to replace `NA`s.
 In `complete`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
 Also, both cases replace both implicit and explicit missing values.
 
+
+
 ### Exercise 2 {.exercise}
 
-> What does the direction argument to `fill()` do?
+
+
+What does the direction argument to `fill()` do?
+
+
+
+
 
 With `fill`, it determines whether `NA` values should be replaced by the previous non-missing value (`"down"`) or the next non-missing value (`"up"`).
+
+
 
 
 
@@ -576,7 +672,13 @@ who5
 
 ### Exercise 1 {.exercise}
 
-> In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
+
+
+In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
+
+
+
+
 
 Perhaps? I would need to know more about the data generation process. 
 There are zero's in the data, which means they may explicitly be indicating no cases.
@@ -603,20 +705,28 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
 #> # Groups:   country, year [3,484]
 #>   country      year missing
 #>   <chr>       <int> <lgl>  
-#> 1 Afghanistan  1997 F      
-#> 2 Afghanistan  1998 F      
-#> 3 Afghanistan  1999 F      
-#> 4 Afghanistan  2000 F      
-#> 5 Afghanistan  2001 F      
-#> 6 Afghanistan  2002 F      
+#> 1 Afghanistan  1997 FALSE  
+#> 2 Afghanistan  1998 FALSE  
+#> 3 Afghanistan  1999 FALSE  
+#> 4 Afghanistan  2000 FALSE  
+#> 5 Afghanistan  2001 FALSE  
+#> 6 Afghanistan  2002 FALSE  
 #> # ... with 6,962 more rows
 ```
 
 
 
+
+
 ### Exercise 2 {.exercise}
 
-> What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+
+
+What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+
+
+
+
 
 `separate` emits the warning "too few values", and if we check the 
 rows for keys beginning with `"newrel_"`, we see that `sexage` is messing, 
@@ -643,9 +753,17 @@ filter(who3a, new == "newrel") %>% head()
 ```
 
 
+
+
 ### Exercise 3 {.exercise}
 
-> I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
+
+
+I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
+
+
+
+
 
 
 ```r
@@ -659,9 +777,17 @@ select(who3, country, iso2, iso3) %>%
 ```
 
 
+
+
 ### Exercise 4 {.exercise}
 
-> For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
+
+
+For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
+
+
+
+
 
 
 ```r
@@ -682,6 +808,8 @@ who5 %>%
 
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.
+
+
 
 
 ## Non-Tidy Data

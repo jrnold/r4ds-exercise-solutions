@@ -28,7 +28,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
+
+
+How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
+
+
+
+
 
 
 ```r
@@ -82,9 +88,17 @@ class(as_tibble(mtcars))
 
 Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
 
+
+
 ### Exercise 2 {.exercise}
 
-> Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
+
+
+Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
+
+
+
+
 
 
 ```r
@@ -115,27 +129,43 @@ tbl[, c("abc", "xyz")]
 #> # A tibble: 1 x 2
 #>     abc xyz  
 #>   <dbl> <fct>
-#> 1  1.00 a
+#> 1    1. a
 ```
 
 Using `$` a data.frame will partially complete the column. So even though we wrote `df$x` it returned `df$xyz`. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.
 
 With data.frames, with `[` the type of object that is returned differs on the number of columns. If it is one column, it won't return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did `df[ , vars]` where `vars` was a variable. Then you what that code does depends on `length(vars)` and you'd have to write code to account for those situations or risk bugs.
 
+
+
 ### Exercise 3 {.exercise}
 
-> If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
+
+
+If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
+
+
+
+
 
 You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign, because `df$var` would look for a column named `var`. 
 
+
+
 ### Exercise 4 {.exercise}
 
-> Practice referring to non-syntactic names in the following data frame by:
-> 
->    1. Extracting the variable called 1.
->    2. Plotting a scatterplot of 1 vs 2.
->    3. Creating a new column called 3 which is 2 divided by 1.
->    4. Renaming the columns to one, two and three.
+
+
+Practice referring to non-syntactic names in the following data frame by:
+
+1. Extracting the variable called 1.
+2. Plotting a scatterplot of 1 vs 2.
+3. Creating a new column called 3 which is 2 divided by 1.
+4. Renaming the columns to one, two and three.
+
+
+
+
 
 
 
@@ -194,9 +224,17 @@ glimpse(annoying)
 #> $ three <dbl> 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97
 ```
 
+
+
 ### Exercise 5 {.exercise}
 
-> What does `tibble::enframe()` do? When might you use it?
+
+
+What does `tibble::enframe()` do? When might you use it?
+
+
+
+
 
 It converts named vectors to a data frame with names and values
 
@@ -210,15 +248,23 @@ enframe(c(a = 1, b = 2, c = 3))
 #> # A tibble: 3 x 2
 #>   name  value
 #>   <chr> <dbl>
-#> 1 a      1.00
-#> 2 b      2.00
-#> 3 c      3.00
+#> 1 a        1.
+#> 2 b        2.
+#> 3 c        3.
 ```
+
+
 
 
 ### Exercise 6 {.exercise}
 
-> What option controls how many additional column names are printed at the footer of a tibble?
+
+
+What option controls how many additional column names are printed at the footer of a tibble?
+
+
+
+
 
 The print function for tibbles is in `print.tbl_df`:
 
@@ -226,5 +272,7 @@ The print function for tibbles is in `print.tbl_df`:
 ?print.tbl_df
 ```
 The option `n_extra` determines the number of extra columns to print information for.
+
+
 
 

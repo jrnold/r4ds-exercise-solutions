@@ -23,13 +23,14 @@ No exercises
 ### Exercise 1 {.exercise} 
 
 
-> Why does this code not work?
+Why does this code not work?
 
 ```r
 my_variable <- 10
 my_varıable
 #> Error in eval(expr, envir, enclos): object 'my_varıable' not found
 ```
+
 
 The variable being printed is `my_varıable`, not `my_variable`:
 the seventh character is "ı" ("LATIN SMALL LETTER DOTLESS I"), not "i". 
@@ -42,17 +43,19 @@ This is usually because you either (1) forgot to define the function (or had an 
 
 ### Exercise 2 {.exercise}
 
-> Tweak each of the following R commands so that they run correctly:
+
+Tweak each of the following R commands so that they run correctly:
+
 
 
 ```r
-library(tidyverse)
-#> -- Attaching packages -------------------------------------- tidyverse 1.2.1 --
-#> √ ggplot2 2.2.1          √ purrr   0.2.4     
-#> √ tibble  1.4.2          √ dplyr   0.7.4.9000
-#> √ tidyr   0.8.0          √ stringr 1.2.0     
-#> √ readr   1.1.1          √ forcats 0.2.0
-#> -- Conflicts ----------------------------------------- tidyverse_conflicts() --
+library("tidyverse")
+#> -- Attaching packages -------------------------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 2.2.1     √ purrr   0.2.4
+#> √ tibble  1.4.2     √ dplyr   0.7.4
+#> √ tidyr   0.8.0     √ stringr 1.3.0
+#> √ readr   1.1.1     √ forcats 0.3.0
+#> -- Conflicts ----------------------------------------------------- tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 
@@ -118,12 +121,12 @@ filter(diamonds, carat > 3)
 #> # A tibble: 32 x 10
 #>   carat cut     color clarity depth table price     x     y     z
 #>   <dbl> <ord>   <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
-#> 1  3.01 Premium I     I1       62.7  58.0  8040  9.10  8.97  5.67
-#> 2  3.11 Fair    J     I1       65.9  57.0  9823  9.15  9.02  5.98
-#> 3  3.01 Premium F     I1       62.2  56.0  9925  9.24  9.13  5.73
-#> 4  3.05 Premium E     I1       60.9  58.0 10453  9.26  9.25  5.66
-#> 5  3.02 Fair    I     I1       65.2  56.0 10577  9.11  9.02  5.91
-#> 6  3.01 Fair    H     I1       56.1  62.0 10761  9.54  9.38  5.31
+#> 1  3.01 Premium I     I1       62.7   58.  8040  9.10  8.97  5.67
+#> 2  3.11 Fair    J     I1       65.9   57.  9823  9.15  9.02  5.98
+#> 3  3.01 Premium F     I1       62.2   56.  9925  9.24  9.13  5.73
+#> 4  3.05 Premium E     I1       60.9   58. 10453  9.26  9.25  5.66
+#> 5  3.02 Fair    I     I1       65.2   56. 10577  9.11  9.02  5.91
+#> 6  3.01 Fair    H     I1       56.1   62. 10761  9.54  9.38  5.31
 #> # ... with 26 more rows
 ```
 
@@ -132,8 +135,9 @@ Since `diamonds` includes the variable `carat` and the code works, that appears 
 
 ### Exercise 3 {.exercise}
 
-> Press *Alt + Shift + K*. What happens? How can you get to the same place using the menus?
+
+Press *Alt + Shift + K*. What happens? How can you get to the same place using the menus?
+
 
 This gives a menu with keyboard shortcuts. This can be found in the menu under `Tools -> Keyboard Shortcuts Help`.
-
 

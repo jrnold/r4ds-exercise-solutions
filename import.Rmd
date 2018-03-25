@@ -15,7 +15,13 @@ library("tidyverse")
 
 ### Exercise 1 {.exercise}
 
->  What function would you use to read a file where fields were separated with
+
+`r BeginQuestion()`
+What function would you use to read a file where fields were separated with
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 “|”?
 
 I'd use `read_delim` with `delim="|"`:
@@ -24,9 +30,17 @@ read_delim(file, delim = "|")
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
+
+`r BeginQuestion()`
+Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 They have the following arguments in common:
 ```{r}
@@ -41,18 +55,34 @@ union(names(formals(read_csv)), names(formals(read_tsv)))
 - `guess_max` sets how many rows to use when guessing the column type
 - `progress` determines whether a progress bar is shown.
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> What are the most important arguments to `read_fwf()`?
+
+`r BeginQuestion()`
+What are the most important arguments to `read_fwf()`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The most important argument to `read_fwf` which reads "fixed-width formats", is `col_positions` which tells the function where data columns begin and end.
 
+`r EndAnswer()`
+
 ### Exercise 4 {.exercise}
 
-> Sometimes strings in a CSV file contain commas. 
-> To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`. 
-> By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead. 
-> What arguments do you need to specify to read the following text into a data frame?
+
+`r BeginQuestion()`
+Sometimes strings in a CSV file contain commas. 
+To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`. 
+By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead. 
+What arguments do you need to specify to read the following text into a data frame?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```
 "x,y\n1,'a,b'"
@@ -65,10 +95,18 @@ read_delim(x, ",", quote = "'")
 
 
 
+`r EndAnswer()`
+
 ### Exercise 6 {.exercise}
 
-> Identify what is wrong with each of the following inline CSV files. 
-> What happens when you run the code?
+
+`r BeginQuestion()`
+Identify what is wrong with each of the following inline CSV files. 
+What happens when you run the code?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 read_csv("a,b\n1,2,3\n4,5,6")
@@ -108,12 +146,20 @@ read_csv2("a;b\n1;3")
 
 
   
+`r EndAnswer()`
+
 ## Parsing a vector
 
 
 ### Exercise 1 {.exercise}
 
-> What are the most important arguments to `locale()`?
+
+`r BeginQuestion()`
+What are the most important arguments to `locale()`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The locale broadly controls the following:
 
@@ -123,11 +169,19 @@ The locale broadly controls the following:
 - encoding: `encoding`
 
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> What happens if you try and set `decimal_mark` and `grouping_mark` to the same character?
-> What happens to the default value of `grouping_mark` when you set `decimal_mark` to `","`? 
-> What happens to the default value of `decimal_mark` when you set the `grouping_mark` to `"."`?
+
+`r BeginQuestion()`
+What happens if you try and set `decimal_mark` and `grouping_mark` to the same character?
+What happens to the default value of `grouping_mark` when you set `decimal_mark` to `","`? 
+What happens to the default value of `decimal_mark` when you set the `grouping_mark` to `"."`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 If the decimal and grouping marks are set to the same character, `locale` throws an error:
 ```{r error=TRUE}
@@ -145,11 +199,19 @@ locale(grouping_mark = ",")
 
 
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> I didn’t discuss the `date_format` and `time_format` options to `locale()`. 
-> What do they do? 
-> Construct an example that shows when they might be useful.
+
+`r BeginQuestion()`
+I didn’t discuss the `date_format` and `time_format` options to `locale()`. 
+What do they do? 
+Construct an example that shows when they might be useful.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 They provide default date and time formats. 
 The [readr vignette](https://cran.r-project.org/web/packages/readr/vignettes/locales.html) discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM
@@ -166,26 +228,50 @@ Apparently the time format is not used for anything, but the date format is used
 
 
 
+`r EndAnswer()`
+
 ### Exercise 4 {.exercise}
 
-> If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
+
+`r BeginQuestion()`
+If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 ?locale
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 5 {.exercise}
 
-> What’s the difference between `read_csv()` and `read_csv2()`?
+
+`r BeginQuestion()`
+What’s the difference between `read_csv()` and `read_csv2()`?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The delimiter. The function `read_csv` uses a comma, while `read_csv2` uses a semi-colon (`;`). Using a semi-colon is useful when commas are used as the decimal point (as in Europe).
 
+`r EndAnswer()`
+
 ### Exercise 6 {.exercise}
 
-> What are the most common encodings used in Europe? 
-> What are the most common encodings used in Asia? 
-> Do some googling to find out. 
+
+`r BeginQuestion()`
+What are the most common encodings used in Europe? 
+What are the most common encodings used in Asia? 
+Do some googling to find out. 
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 UTF-8 is standard now, and ASCII has been around forever.
 
@@ -226,9 +312,17 @@ Some program that identify the encoding of text are:
 - [iconv](https://en.wikipedia.org/wiki/Iconv)
 - [chardet](https://github.com/chardet/chardet) (Python)
 
+`r EndAnswer()`
+
 ### Exercise 7 {.exercise}
 
-> Generate the correct format string to parse each of the following dates and times:
+
+`r BeginQuestion()`
+Generate the correct format string to parse each of the following dates and times:
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 d1 <- "January 1, 2010"
@@ -253,6 +347,8 @@ The time `t2` uses real seconds,
 ```{r}
 parse_time(t2, "%H:%M:%OS %p")
 ```
+
+`r EndAnswer()`
 
 ## Parsing a file
 

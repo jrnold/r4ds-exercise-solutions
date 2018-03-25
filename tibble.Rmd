@@ -26,7 +26,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-> How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
+
+`r BeginQuestion()`
+How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 mtcars
@@ -42,9 +48,17 @@ class(as_tibble(mtcars))
 
 Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
 
+`r EndAnswer()`
+
 ### Exercise 2 {.exercise}
 
-> Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
+
+`r BeginQuestion()`
+Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 ```{r}
 df <- data.frame(abc = 1, xyz = "a")
@@ -64,20 +78,36 @@ Using `$` a data.frame will partially complete the column. So even though we wro
 
 With data.frames, with `[` the type of object that is returned differs on the number of columns. If it is one column, it won't return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did `df[ , vars]` where `vars` was a variable. Then you what that code does depends on `length(vars)` and you'd have to write code to account for those situations or risk bugs.
 
+`r EndAnswer()`
+
 ### Exercise 3 {.exercise}
 
-> If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
+
+`r BeginQuestion()`
+If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign, because `df$var` would look for a column named `var`. 
 
+`r EndAnswer()`
+
 ### Exercise 4 {.exercise}
 
-> Practice referring to non-syntactic names in the following data frame by:
-> 
->    1. Extracting the variable called 1.
->    2. Plotting a scatterplot of 1 vs 2.
->    3. Creating a new column called 3 which is 2 divided by 1.
->    4. Renaming the columns to one, two and three.
+
+`r BeginQuestion()`
+Practice referring to non-syntactic names in the following data frame by:
+
+1. Extracting the variable called 1.
+2. Plotting a scatterplot of 1 vs 2.
+3. Creating a new column called 3 which is 2 divided by 1.
+4. Renaming the columns to one, two and three.
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 
 ```{r}
@@ -118,9 +148,17 @@ annoying <- rename(annoying, one = `1`, two = `2`, three = `3`)
 glimpse(annoying)
 ```
 
+`r EndAnswer()`
+
 ### Exercise 5 {.exercise}
 
-> What does `tibble::enframe()` do? When might you use it?
+
+`r BeginQuestion()`
+What does `tibble::enframe()` do? When might you use it?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 It converts named vectors to a data frame with names and values
 ```{r eval=FALSE}
@@ -132,9 +170,17 @@ enframe(c(a = 1, b = 2, c = 3))
 ```
 
 
+`r EndAnswer()`
+
 ### Exercise 6 {.exercise}
 
-> What option controls how many additional column names are printed at the footer of a tibble?
+
+`r BeginQuestion()`
+What option controls how many additional column names are printed at the footer of a tibble?
+`r EndQuestion()`
+
+
+`r BeginAnswer()`
 
 The print function for tibbles is in `print.tbl_df`:
 ```{r eval=FALSE}
@@ -142,4 +188,6 @@ The print function for tibbles is in `print.tbl_df`:
 ```
 The option `n_extra` determines the number of extra columns to print information for.
 
+
+`r EndAnswer()`
 
