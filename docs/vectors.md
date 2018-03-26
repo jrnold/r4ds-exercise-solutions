@@ -6,12 +6,12 @@
 
 ```r
 library("tidyverse")
-#> -- Attaching packages -------------------------------------------------- tidyverse 1.2.1 --
-#> √ ggplot2 2.2.1     √ purrr   0.2.4
-#> √ tibble  1.4.2     √ dplyr   0.7.4
-#> √ tidyr   0.8.0     √ stringr 1.3.0
-#> √ readr   1.1.1     √ forcats 0.3.0
-#> -- Conflicts ----------------------------------------------------- tidyverse_conflicts() --
+#> -- Attaching packages --------------------------------------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 2.2.1          √ purrr   0.2.4     
+#> √ tibble  1.4.2          √ dplyr   0.7.4.9000
+#> √ tidyr   0.8.0          √ stringr 1.2.0     
+#> √ readr   1.1.1          √ forcats 0.3.0
+#> -- Conflicts ------------------------------------------------------------------ tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 ```
@@ -67,9 +67,8 @@ The source for `dplyr::near` is:
 
 ```r
 dplyr::near
-#> function (x, y, tol = .Machine$double.eps^0.5) 
-#> {
-#>     abs(x - y) < tol
+#> function(x, y, tol = .Machine$double.eps ^ 0.5) {
+#>   abs(x - y) < tol
 #> }
 #> <environment: namespace:dplyr>
 ```
@@ -301,17 +300,16 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fe7646b9478>
+#> <bytecode: 0x7fe0b8a92958>
 #> <environment: namespace:stats>
 ```
 
 ```r
 purrr::set_names
-#> function (x, nm = x, ...) 
-#> {
-#>     set_names_impl(x, x, nm, ...)
+#> function(x, nm = x, ...) {
+#>   set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fe7659540a8>
+#> <bytecode: 0x7fe0b9952110>
 #> <environment: namespace:rlang>
 ```
 
@@ -581,11 +579,11 @@ tibble(x = 1, y = 1:5)
 #> # A tibble: 5 x 2
 #>       x     y
 #>   <dbl> <int>
-#> 1    1.     1
-#> 2    1.     2
-#> 3    1.     3
-#> 4    1.     4
-#> 5    1.     5
+#> 1  1.00     1
+#> 2  1.00     2
+#> 3  1.00     3
+#> 4  1.00     4
+#> 5  1.00     5
 ```
 
 However, if I try to create a tibble with two vectors of different lengths (other than one), the `tibble` function throws an error.
@@ -627,6 +625,7 @@ tibble(x = 1:3, y = list("a", 1, list(1:3)))
 
 It works! I even used a list with heterogeneous types and there wasn't an issue. 
 In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
+
 
 
 

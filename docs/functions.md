@@ -17,6 +17,7 @@ library("lubridate")
 
 
 
+
 Why is TRUE not a parameter to `rescale01()`? 
 What would happen if `x` contained a single missing value, and `na.rm` was `FALSE`?
 
@@ -29,7 +30,7 @@ First, note that by a a single missing value, this means that the vector `x` has
 If there were any `NA` values, and `na.rm = FALSE`, then the function would 
 return `NA`.
 
-I can confirm this by testing a function that allows for `na.rm` as an argument
+I can confirm this by testing a function that allows for `na.rm` as an argument,
 
 ```r
 rescale01_alt <- function(x, finite = TRUE) {
@@ -44,12 +45,16 @@ rescale01_alt(c(NA, 1:5), finite = TRUE)
 
 
 
+
+
 ### Exercise 2 {.exercise}
+
 
 
 
 In the second variant of `rescale01()`, infinite values are left unchanged. 
 Rewrite `rescale01()` so that `-Inf` is mapped to 0, and `Inf` is mapped to 1.
+
 
 
 
@@ -73,7 +78,13 @@ rescale01(c(Inf, -Inf, 0:5, NA))
 
 ### Exercise 3 {.exercise}
 
+
+
  Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
+ 
+
+ 
+
 
 
 ```r
@@ -85,7 +96,7 @@ sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 ```
 
 
-This function calculates the proportion of `NA` values in a vector
+This function calculates the proportion of `NA` values in a vector,
 
 ```r
 prop_na <- function(x) {
@@ -119,11 +130,15 @@ coef_variation(runif(10))
 #> [1] 0.672
 ```
 
+
+
 ### Exercise 4
 
 
 
+
 Follow <http://nicercode.github.io/intro/writing-functions.html> to write your own functions to compute the variance and skew of a numeric vector.
+
 
 
 
@@ -170,7 +185,17 @@ skewness(rgamma(10, 1, 1))
 #> [1] 1.56
 ```
 
-5. Write `both_na()`, a function that takes two vectors of the same length and returns the number of positions that have an `NA` in both vectors.
+
+
+#### Exercise 5 {.exercise}
+
+
+
+Write `both_na()`, a function that takes two vectors of the same length and returns the number of positions that have an `NA` in both vectors.
+
+
+
+
 
 
 ```r
@@ -212,12 +237,13 @@ These functions are useful even though they are short because their names make i
 ### Exercise 7 {.exercise}
 
 
+
 Read the complete lyrics to ``Little Bunny Foo Foo''. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
 
 
+
+
 The lyrics of one of the [most common versions](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) of this song are
-
-
 
 Little bunny Foo Foo
 Hopping through the forest
@@ -233,10 +259,6 @@ And bopping them on the head.
 I'll give you three chances,
 And if you don't stop, I'll turn you into a GOON!"
 And the next day...
-
-
-
-
 
 The verses repeat with one chance fewer each time.
 When there are no chances left, the Good Fairy says
@@ -437,7 +459,7 @@ greet <- function(time = lubridate::now()) {
   }
 } 
 greet()
-#> [1] "good evening"
+#> [1] "good afternoon"
 greet(ymd_h("2017-01-08:05"))
 #> [1] "good morning"
 greet(ymd_h("2017-01-08:13"))
@@ -520,7 +542,7 @@ cut(temp, c(-Inf, 0, 10, 20, 30, Inf), right = TRUE,
 #> Levels: freezing cold cool warm hot
 ```
 
-To have intervals open on the left (using `<`), I change the argument to `right = FALSE`
+To have intervals open on the left (using `<`), I change the argument to `right = FALSE`,
 
 ```r
 temp <- seq(-10, 50, by = 5)
@@ -540,7 +562,9 @@ and that to change comparisons I only needed to change the argument to `right`, 
 
 
 
+
 What happens if you use `switch()` with numeric values?
+
 
 
 
@@ -656,8 +680,10 @@ commas <- function(..., collapse = ", ") {
 
 
 
+
 It’d be nice if you could supply multiple characters to the pad argument, e.g. `rule("Title", pad = "-+")`. 
 Why doesn’t this currently work? How could you fix it?
+
 
 
 
@@ -740,4 +766,5 @@ The first value, `"pearson"`, is used by default.
 ## Environment 
 
 No Exercises
+
 

@@ -181,7 +181,7 @@ daily %>%
 #> # A tibble: 3 x 5
 #>   date           n wday  term  resid
 #>   <date>     <int> <ord> <fct> <dbl>
-#> 1 2013-11-30   857 Sat   fall  112. 
+#> 1 2013-11-30   857 Sat   fall  112  
 #> 2 2013-12-01   987 Sun   fall   95.5
 #> 3 2013-12-28   814 Sat   fall   69.4
 ```
@@ -306,12 +306,12 @@ daily %>%
 #> # A tibble: 20 x 3
 #>   date       wday  resid
 #>   <date>     <ord> <dbl>
-#> 1 2013-11-28 Thu   -332.
-#> 2 2013-11-29 Fri   -306.
-#> 3 2013-12-25 Wed   -244.
-#> 4 2013-07-04 Thu   -229.
-#> 5 2013-12-24 Tue   -190.
-#> 6 2013-12-31 Tue   -175.
+#> 1 2013-11-28 Thu    -332
+#> 2 2013-11-29 Fri    -306
+#> 3 2013-12-25 Wed    -244
+#> 4 2013-07-04 Thu    -229
+#> 5 2013-12-24 Tue    -190
+#> 6 2013-12-31 Tue    -175
 #> # ... with 14 more rows
 ```
 
@@ -422,6 +422,7 @@ ggplot(daily, aes(monday_first(wday), n)) +
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-16-1} \end{center}
+
 
 
 

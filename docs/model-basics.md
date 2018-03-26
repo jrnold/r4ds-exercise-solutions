@@ -1,7 +1,7 @@
 
 ---
 output: html_document
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 # Model Basics
@@ -18,7 +18,8 @@ options(na.action = na.warn)
 
 The option `na.action` determines how missing values are handled.
 It is a function.
-`na.warn` sets it so that there is a warning if there are any missing values (by default, R will just silently drop them).
+`na.warn` sets it so that there is a warning if there are any missing values.
+If it is not set (the default), R will silently drop them.
 
 ## A simple model
 
@@ -57,7 +58,7 @@ and plot using code similar to that in the chapter:
 There appear to be a few outliers in this data.
 You can re-rerun this a couple times to see if this hold.
 
-We can also do this slightly more systematically. 
+We can also do this slightly more systematically.
 We will simulate this several times using `purrr` and plot the line using `geom_smooth`:
 
 
@@ -74,7 +75,7 @@ sims <- map_df(1:12, simt)
 
 ggplot(sims, aes(x = x, y = y)) +
   geom_point() +
-  geom_smooth(method = "lm", color = "red") +
+  geom_smooth(method = "lm", colour = "red") +
   facet_wrap(~ .id, ncol = 4)
 ```
 
@@ -82,7 +83,7 @@ ggplot(sims, aes(x = x, y = y)) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
-What if we did the same things with normal distributions? 
+What if we did the same things with normal distributions?
 
 ```r
 sim_norm <- function(i) {
@@ -97,14 +98,14 @@ simdf_norm <- map_df(1:12, sim_norm)
 
 ggplot(simdf_norm, aes(x = x, y = y)) +
   geom_point() +
-  geom_smooth(method = "lm", color = "red") +
+  geom_smooth(method = "lm", colour = "red") +
   facet_wrap(~ .id, ncol = 4)
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-6-1} \end{center}
-There are not large outliers, and the slopes are more similar. 
+There are not large outliers, and the slopes are more similar.
 
 The reason for this is that the Student's $t$-distribution, from which we sample with `rt` has fatter tails than the normal distribution (`rnorm`), which means is assigns larger probability to values further from the center of the distribution.
 
@@ -112,8 +113,8 @@ The reason for this is that the Student's $t$-distribution, from which we sample
 tibble(
   x = seq(-5, 5, length.out = 100),
   normal = dnorm(x),
-  student_t = dt(x, df = 2) 
-) %>% 
+  student_t = dt(x, df = 2)
+) %>%
   gather(distribution, density, -x) %>%
   ggplot(aes(x = x, y = density, colour = distribution)) +
   geom_line()
@@ -268,7 +269,7 @@ Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a s
 
 
 
-I'll use `add_predictions` and `add_residuals` to add the predictions and residuals from a loess regression to the `sim1` data. 
+I'll use `add_predictions` and `add_residuals` to add the predictions and residuals from a loess regression to the `sim1` data.
 
 
 ```r
@@ -280,17 +281,16 @@ grid_loess <- sim1 %>%
 
 sim1 <- sim1 %>%
   add_residuals(sim1_lm) %>%
-  add_predictions(sim1_lm) %>% 
+  add_predictions(sim1_lm) %>%
   add_residuals(sim1_loess, var = "resid_loess") %>%
   add_predictions(sim1_loess, var = "pred_loess")
-  
 ```
 
-This plots the loess predictions. 
+This plots the loess predictions.
 The loess produces a nonlinear, smooth line through the data.
 
 ```r
-plot_sim1_loess <- 
+plot_sim1_loess <-
   ggplot(sim1, aes(x = x, y = y)) +
   geom_point() +
   geom_line(aes(x = x, y = pred), data = grid_loess, colour = "red")
@@ -312,7 +312,7 @@ plot_sim1_loess +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
-We can plot the residuals (red), and compare them to the residuals from `lm` (black). 
+We can plot the residuals (red), and compare them to the residuals from `lm` (black).
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven't considered the uncertainty of these estimates).
 
 
@@ -332,7 +332,6 @@ ggplot(sim1, aes(x = x)) +
 ### Exercise 2 {.exercise}
 
 
-
 `add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`. 
 How do these three functions differ?
 
@@ -346,8 +345,8 @@ Taking the `sim1_mod` example,
 
 ```r
 sim1_mod <- lm(y ~ x, data = sim1)
-grid <- sim1 %>% 
-  data_grid(x) 
+grid <- sim1 %>%
+  data_grid(x)
 ```
 
 The function `add_predictions` adds only a single model at a time.
@@ -373,7 +372,7 @@ stacking the results and adding a column with the model name,
 
 ```r
 grid %>%
-  gather_predictions(sim1_mod, sim1_loess) 
+  gather_predictions(sim1_mod, sim1_loess)
 #> # A tibble: 20 x 3
 #>   model        x  pred
 #>   <chr>    <int> <dbl>
@@ -428,7 +427,6 @@ grid %>%
 ### Exercise 3 {.exercise}
 
 
-
 What does `geom_ref_line()` do? What package does it come from? 
 Why is displaying a reference line in plots showing residuals useful and important?
 
@@ -448,7 +446,6 @@ A zero reference line makes it easier to judge these characteristics visually.
 ### Exercise 4 {.exercise}
 
 
-
 Why might you want to look at a frequency polygon of absolute residuals? 
 What are the pros and cons compared to looking at the raw residuals?
 
@@ -462,10 +459,10 @@ The model assumes the the residuals have mean zero, and using the absolute value
 ```r
 sim1_mod <- lm(y ~ x, data = sim1)
 
-sim1 <- sim1 %>% 
+sim1 <- sim1 %>%
   add_residuals(sim1_mod)
 
-ggplot(sim1, aes(x = abs(resid))) + 
+ggplot(sim1, aes(x = abs(resid))) +
   geom_freqpoly(binwidth = 0.5)
 ```
 
@@ -473,7 +470,7 @@ ggplot(sim1, aes(x = abs(resid))) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
-However, using the absolute values of residuals throws away information about the sign, meaning that the 
+However, using the absolute values of residuals throws away information about the sign, meaning that the
 frequency polygon cannot show whether the model systematically over- or under-estimates the residuals.
 
 
@@ -486,9 +483,9 @@ frequency polygon cannot show whether the model systematically over- or under-es
 ### Exercise 1 {.exercise}
 
 
-
 What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation? 
 What happens to the predictions?
+
 
 
 
@@ -507,8 +504,8 @@ mod2 <- lm(y ~ x, data = sim2)
 The predictions are exactly the same in the models with and without an intercept:
 
 ```r
-grid <- sim2 %>% 
-  data_grid(x) %>% 
+grid <- sim2 %>%
+  data_grid(x) %>%
   spread_predictions(mod2, mod2a)
 grid
 #> # A tibble: 4 x 3
@@ -534,7 +531,7 @@ Why is `*` a good shorthand for interaction?
 
 
 
-For `x1 * x2` when `x2` is a categorical variable produces indicator variables `x2b`, `x2c`, `x2d` and 
+For `x1 * x2` when `x2` is a categorical variable produces indicator variables `x2b`, `x2c`, `x2d` and
 variables `x1:x2b`, `x1:x2c`, and `x1:x2d` which are the products of `x1` and `x2*` variables:
 
 ```r
@@ -543,12 +540,12 @@ x3
 #> # A tibble: 120 x 8
 #>   `(Intercept)`    x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`
 #>           <dbl> <dbl> <dbl> <dbl> <dbl>    <dbl>    <dbl>    <dbl>
-#> 1            1.    1.    0.    0.    0.       0.       0.       0.
-#> 2            1.    1.    0.    0.    0.       0.       0.       0.
-#> 3            1.    1.    0.    0.    0.       0.       0.       0.
-#> 4            1.    1.    1.    0.    0.       1.       0.       0.
-#> 5            1.    1.    1.    0.    0.       1.       0.       0.
-#> 6            1.    1.    1.    0.    0.       1.       0.       0.
+#> 1          1.00  1.00  0        0     0     0           0        0
+#> 2          1.00  1.00  0        0     0     0           0        0
+#> 3          1.00  1.00  0        0     0     0           0        0
+#> 4          1.00  1.00  1.00     0     0     1.00        0        0
+#> 5          1.00  1.00  1.00     0     0     1.00        0        0
+#> 6          1.00  1.00  1.00     0     0     1.00        0        0
 #> # ... with 114 more rows
 ```
 We can confirm that the variables `x1:x2b` is the product of `x1` and `x2b`,
@@ -575,12 +572,12 @@ x4
 #> # A tibble: 300 x 4
 #>   `(Intercept)`    x1     x2 `x1:x2`
 #>           <dbl> <dbl>  <dbl>   <dbl>
-#> 1            1.   -1. -1.00    1.00 
-#> 2            1.   -1. -1.00    1.00 
-#> 3            1.   -1. -1.00    1.00 
-#> 4            1.   -1. -0.778   0.778
-#> 5            1.   -1. -0.778   0.778
-#> 6            1.   -1. -0.778   0.778
+#> 1          1.00 -1.00 -1.00    1.00 
+#> 2          1.00 -1.00 -1.00    1.00 
+#> 3          1.00 -1.00 -1.00    1.00 
+#> 4          1.00 -1.00 -0.778   0.778
+#> 5          1.00 -1.00 -0.778   0.778
+#> 6          1.00 -1.00 -0.778   0.778
 #> # ... with 294 more rows
 ```
 Confirm that `x1:x2` is the product of the `x1` and `x2`,
@@ -635,12 +632,12 @@ model_matrix_mod1(sim3)
 #> # A tibble: 120 x 7
 #>      x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`
 #>   <int> <dbl> <dbl> <dbl>    <dbl>    <dbl>    <dbl>
-#> 1     1    0.    0.    0.       0.       0.       0.
-#> 2     1    0.    0.    0.       0.       0.       0.
-#> 3     1    0.    0.    0.       0.       0.       0.
-#> 4     1    1.    0.    0.       1.       0.       0.
-#> 5     1    1.    0.    0.       1.       0.       0.
-#> 6     1    1.    0.    0.       1.       0.       0.
+#> 1     1  0        0     0     0           0        0
+#> 2     1  0        0     0     0           0        0
+#> 3     1  0        0     0     0           0        0
+#> 4     1  1.00     0     0     1.00        0        0
+#> 5     1  1.00     0     0     1.00        0        0
+#> 6     1  1.00     0     0     1.00        0        0
 #> # ... with 114 more rows
 ```
 
@@ -655,12 +652,12 @@ model_matrix_mod2(sim4)
 #> # A tibble: 300 x 3
 #>      x1     x2 `x1:x2`
 #>   <dbl>  <dbl>   <dbl>
-#> 1   -1. -1.00    1.00 
-#> 2   -1. -1.00    1.00 
-#> 3   -1. -1.00    1.00 
-#> 4   -1. -0.778   0.778
-#> 5   -1. -0.778   0.778
-#> 6   -1. -0.778   0.778
+#> 1 -1.00 -1.00    1.00 
+#> 2 -1.00 -1.00    1.00 
+#> 3 -1.00 -1.00    1.00 
+#> 4 -1.00 -0.778   0.778
+#> 5 -1.00 -0.778   0.778
+#> 6 -1.00 -0.778   0.778
 #> # ... with 294 more rows
 ```
 
@@ -699,7 +696,6 @@ model_matrix_mod2 <- function(x1, x2) {
 ### Exercise 4 {.exercise}
 
 
-
 For `sim4`, which of `mod1` and `mod2` is better? 
 I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle. 
 Can you come up with a plot to support my claim?
@@ -724,7 +720,7 @@ Frequency plots of both the residuals,
 
 ```r
 
-ggplot(sim4_mods, aes(x = resid, color = model)) +
+ggplot(sim4_mods, aes(x = resid, colour = model)) +
   geom_freqpoly(binwidth = 0.5) +
   geom_rug()
 ```
@@ -735,7 +731,7 @@ ggplot(sim4_mods, aes(x = resid, color = model)) +
 and the absolute values of the residuals,
 
 ```r
-ggplot(sim4_mods, aes(x = abs(resid), color = model)) +
+ggplot(sim4_mods, aes(x = abs(resid), colour = model)) +
   geom_freqpoly(binwidth = 0.5) +
   geom_rug()
 ```

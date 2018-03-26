@@ -39,3 +39,4 @@ The user should read that help page. However, to preview its contents, some othe
 2. Warn if a variable is not defined
 3. Warn if a variable is defined but not used
 4. Style diagnostics to ensure the code conforms to the [tidyverse style guide](http://adv-r.had.co.nz/Style.html).
+

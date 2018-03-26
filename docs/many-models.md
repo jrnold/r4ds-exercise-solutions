@@ -8,12 +8,12 @@
 ```r
 library("modelr")
 library("tidyverse")
-#> -- Attaching packages -------------------------------------------------- tidyverse 1.2.1 --
-#> √ ggplot2 2.2.1     √ purrr   0.2.4
-#> √ tibble  1.4.2     √ dplyr   0.7.4
-#> √ tidyr   0.8.0     √ stringr 1.3.0
-#> √ readr   1.1.1     √ forcats 0.3.0
-#> -- Conflicts ----------------------------------------------------- tidyverse_conflicts() --
+#> -- Attaching packages --------------------------------------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 2.2.1          √ purrr   0.2.4     
+#> √ tibble  1.4.2          √ dplyr   0.7.4.9000
+#> √ tidyr   0.8.0          √ stringr 1.2.0     
+#> √ readr   1.1.1          √ forcats 0.3.0
+#> -- Conflicts ------------------------------------------------------------------ tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 library("gapminder")
@@ -171,12 +171,12 @@ mtcars %>%
 #> # A tibble: 15 x 2
 #>     cyl     q
 #>   <dbl> <dbl>
-#> 1    4.  21.4
-#> 2    4.  22.8
-#> 3    4.  26.0
-#> 4    4.  30.4
-#> 5    4.  33.9
-#> 6    6.  17.8
+#> 1  4.00  21.4
+#> 2  4.00  22.8
+#> 3  4.00  26.0
+#> 4  4.00  30.4
+#> 5  4.00  33.9
+#> 6  6.00  17.8
 #> # ... with 9 more rows
 ```
 
@@ -214,9 +214,9 @@ mtcars %>%
 #> # A tibble: 3 x 11
 #>     cyl mpg        disp   hp     drat  wt    qsec  vs    am    gear  carb 
 #>   <dbl> <list>     <list> <list> <lis> <lis> <lis> <lis> <lis> <lis> <lis>
-#> 1    4. <dbl [11]> <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~
-#> 2    6. <dbl [7]>  <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~
-#> 3    8. <dbl [14]> <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~
+#> 1  4.00 <dbl [11]> <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~
+#> 2  6.00 <dbl [7]>  <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~
+#> 3  8.00 <dbl [14]> <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~
 ```
 
 It creates a data frame in which each row corresponds to a value of `cyl`, 
@@ -268,5 +268,6 @@ The common types of vectors in data frames are:
 - `factor`
 
 All of the common types of vectors in data frames are atomic. Lists are not atomic (they can contain other lists and other vectors).
+
 
 

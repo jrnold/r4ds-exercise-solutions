@@ -109,7 +109,7 @@ The `drv` variable takes the following values
 
 
 
-Make a scatter plot of `hwy` vs `cyl`
+Make a scatter plot of `hwy` vs `cyl`.
 
 
 
@@ -131,6 +131,7 @@ ggplot(mpg, aes(x = hwy, y = cyl)) +
 
 
 What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
+
 
 
 
@@ -161,17 +162,18 @@ count(mpg, drv, class)
 The scatter plot cannot show which are overlapping or not. 
 Later chapters discuss means to deal with this, including alternative plots and jittering the points so they don't overlap.
 
+
 ## Aesthetic mappings
 
 ### Exercise 1. {.exercise}
 
-::::question
+
 What’s gone wrong with this code? Why are the points not blue?
 
 
 ```r
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+  geom_point(mapping = aes(x = displ, y = hwy, colour = "blue"))
 ```
 
 
@@ -179,8 +181,8 @@ ggplot(data = mpg) +
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 
-Since `color = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
-The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `color = 1:234` or `color = 1` would be interpreted by `aes()`.
+Since `colour = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
+The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `colour = 1:234` or `colour = 1` would be interpreted by `aes()`.
 
 ### Exercise 2. {.exercise}
 
@@ -189,6 +191,8 @@ Which variables in `mpg` are categorical?
 Which variables are continuous?
 (Hint: type `?mpg` to read the documentation for the dataset).
 How can you see this information when you run `mpg`?
+
+
 
 
 
@@ -246,7 +250,7 @@ How do these aesthetics behave differently for categorical vs. continuous variab
 The variable `cty`, city highway miles per gallon, is a continuous variable:
 
 ```r
-ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
+ggplot(mpg, aes(x = displ, y = hwy, colour = cty)) +
   geom_point()
 ```
 
@@ -299,7 +303,7 @@ What happens if you map the same variable to multiple aesthetics?
 
 
 ```r
-ggplot(mpg, aes(x = displ, y = hwy, color = hwy, size = displ)) +
+ggplot(mpg, aes(x = displ, y = hwy, colour = hwy, size = displ)) +
   geom_point()
 ```
 
@@ -362,7 +366,7 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = displ < 5)) +
 Aesthetics can also be mapped to expressions (code like `displ < 5`). 
 It will create a temporary variable which takes values from  the result of the expression.
 In this case, it is logical variable which is `TRUE` or `FALSE`.
-This also explains exercise 1, `color = "blue"` created a categorical variable that only had one category: "blue".
+This also explains exercise 1, `colour = "blue"` created a categorical variable that only had one category: "blue".
 
 
 
@@ -522,7 +526,7 @@ Run this code in your head and predict what the output will look like. Then, run
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + 
   geom_point() + 
   geom_smooth(se = FALSE)
 ```
@@ -533,7 +537,7 @@ There will be a smooth line, without standard errors, fit through each `drv` gro
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + 
   geom_point() + 
   geom_smooth(se = FALSE)
 #> `geom_smooth()` using method = 'loess'
@@ -562,7 +566,7 @@ Show legend hides the legend box. In this code, without show legend, there is a 
 ```r
 ggplot(data = mpg) +
   geom_smooth(
-    mapping = aes(x = displ, y = hwy, color = drv),
+    mapping = aes(x = displ, y = hwy, colour = drv),
   )
 #> `geom_smooth()` using method = 'loess'
 ```
@@ -575,7 +579,7 @@ But there is no legend in this code:
 ```r
 ggplot(data = mpg) +
   geom_smooth(
-    mapping = aes(x = displ, y = hwy, color = drv),
+    mapping = aes(x = displ, y = hwy, colour = drv),
     show.legend = FALSE
   )
 #> `geom_smooth()` using method = 'loess'
@@ -598,7 +602,7 @@ ggplot(data = mpg) +
     
 ggplot(data = mpg) +
   geom_smooth(
-    mapping = aes(x = displ, y = hwy, color = drv),
+    mapping = aes(x = displ, y = hwy, colour = drv),
     show.legend = FALSE
   )
 #> `geom_smooth()` using method = 'loess'
@@ -628,7 +632,7 @@ It adds standard error bands to the lines.
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + 
   geom_point() + 
   geom_smooth(se = TRUE)
 #> `geom_smooth()` using method = 'loess'
@@ -642,7 +646,7 @@ By default `se = TRUE`:
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + 
   geom_point() + 
   geom_smooth()
 #> `geom_smooth()` using method = 'loess'
@@ -767,7 +771,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ```r
 ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
-  geom_point(color = "white", shape = 21)
+  geom_point(colour = "white", shape = 21)
 ```
 
 
@@ -1053,10 +1057,10 @@ What’s the default position adjustment for `geom_boxplot()`? Create a visualiz
 
 The default position for `geom_boxplot` is `position_dodge` (see its [docs](http://docs.ggplot2.org/current/geom_boxplot.html)).
 
-When we add `color = class` to the box plot, the different classes within `drv` are placed side by side, i.e. dodged. If it was `position_identity`, they would be overlapping.
+When we add `colour = class` to the box plot, the different classes within `drv` are placed side by side, i.e. dodged. If it was `position_identity`, they would be overlapping.
 
 ```r
-ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
+ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
   geom_boxplot()
 ```
 
@@ -1066,7 +1070,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 
 
 ```r
-ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
+ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
   geom_boxplot(position = "identity")
 ```
 
@@ -1081,7 +1085,10 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 
 ### Exercise 1. {.exercise}
 
->Turn a stacked bar chart into a pie chart using `coord_polar()`.
+
+Turn a stacked bar chart into a pie chart using `coord_polar()`.
+
+
 
 This is a stacked bar chart with a single category
 
@@ -1119,7 +1126,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
-If you had a multiple stacked bar chart, like,
+If you had a multiple stacked bar chart,
 
 ```r
 ggplot(data = diamonds) + 
@@ -1130,7 +1137,7 @@ ggplot(data = diamonds) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
-you end up with a multi-doughnut chart
+and apply polar coordinates to it, you end up with a multi-doughnut chart,
 
 ```r
 ggplot(data = diamonds) + 
@@ -1141,6 +1148,7 @@ ggplot(data = diamonds) +
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-51-1} \end{center}
+
 
 
 ### Exercise 2. {.exercise}
@@ -1228,3 +1236,4 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 ## The Layered Grammar of Graphics
 
 No exercises
+

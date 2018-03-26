@@ -17,7 +17,15 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 is_html <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
 
+# keep track of the current state
+STATE <- NULL
+
 BeginQuestion <- function() {
+  if (!is.null(STATE)) {
+    message(glue::glue("Starting Question block when STATE = {STATE}"))
+    stop()
+  }
+  STATE <<- "Question"
   if (is_html) {
     "<div class='question'>"
   } else {
@@ -25,6 +33,11 @@ BeginQuestion <- function() {
   }
 }
 EndQuestion <- function() {
+  if (is.null(STATE) || !STATE %in% "Question") {
+    message(glue::glue("Ending Question block when STATE = {STATE}"))
+    stop()
+  }
+  STATE <<- NULL
   if (is_html) {
     "</div>"
   } else {
@@ -33,6 +46,11 @@ EndQuestion <- function() {
 }
 
 BeginAnswer <- function() {
+  if (!is.null(STATE)) {
+    message(glue::glue("Starting Answer block when STATE = {STATE}"))
+    stop()
+  }
+  STATE <<- "Answer"
   if (is_html) {
     "<div class='answer'>"
   } else {
@@ -40,11 +58,14 @@ BeginAnswer <- function() {
   }
 }
 EndAnswer <- function() {
+  if (is.null(STATE) || !STATE %in% "Answer") {
+    message(glue::glue("Ending Answer block when STATE = {STATE}"))
+    stop()
+  }
+  STATE <<- NULL
   if (is_html) {
     "</div>"
   } else {
     # "\\end{answer}"
   }
 }
-
-

@@ -250,7 +250,7 @@ ggplot(diamonds) +
 
 ## Missing Values
 
-### Exercise 1 {.exercise} 
+### Exercise 1 {.exercise}
 
 
 
@@ -277,7 +277,7 @@ ggplot(diamonds2, aes(x = y)) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-In `geom_bar`, `NA` is treated as another category. This is because the `x` aesthetic in `geom_bar` should be a discrete (categorical) variable, and missing values are just another category.
+In `geom_bar`, `NA` is treated as another category. The `x` aesthetic in `geom_bar` requires a discrete (categorical) variable, and missing values act like another category.
 
 ```r
 diamonds %>%
@@ -296,7 +296,7 @@ Since the numeric value of the `NA` observations is unknown, they cannot be plac
 
 
 
-### Exercise 2 {.exercise} 
+### Exercise 2 {.exercise}
 
 
 
@@ -357,7 +357,7 @@ nycflights13::flights %>%
 
 
 
-What variable in the diamonds dataset is most important for predicting the price of a diamond? > How is that variable correlated with 
+What variable in the diamonds dataset is most important for predicting the price of a diamond? > How is that variable correlated with
 Why does the combination of those two relationships lead to lower quality diamonds being more expensive?
 
 
@@ -416,8 +416,8 @@ ggplot(data = mpg) +
 
 
 One problem with box plots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of ``outlying values''.
-One approach to remedy this problem is the letter value plot. 
-Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut. 
+One approach to remedy this problem is the letter value plot.
+Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut.
 What do you learn?
 
 
@@ -452,7 +452,7 @@ ggplot(diamonds, aes(x = cut, y = price)) +
 
 
 
-Compare and contrast `geom_violin()` with a faceted `geom_histogram()`, or a colored `geom_freqpoly()`. 
+Compare and contrast `geom_violin()` with a faceted `geom_histogram()`, or a colored `geom_freqpoly()`.
 What are the pros and cons of each method?
 
 
@@ -512,7 +512,7 @@ The violin plot was first described in
 
 
 If you have a small dataset, it's sometimes useful to use `geom_jitter()` to see the relationship between a continuous and categorical variable.
-The **ggbeeswarm** package provides a number of methods similar to `geom_jitter()`. 
+The **ggbeeswarm** package provides a number of methods similar to `geom_jitter()`.
 List them and briefly describe what each one does.
 
 
@@ -658,8 +658,8 @@ However, using the default limits of the minimum and maximum values makes it eas
 
 
 
-Use `geom_tile()` together with **dplyr** to explore how average flight delays vary by destination and month of year. 
-What makes the plot difficult to read? 
+Use `geom_tile()` together with **dplyr** to explore how average flight delays vary by destination and month of year.
+What makes the plot difficult to read?
 How could you improve it?
 
 
@@ -750,8 +750,8 @@ Another justification, for switching the order is that the larger numbers are at
 
 
 
-Instead of summarizing the conditional distribution with a box plot, you could use a frequency polygon. 
-What do you need to consider when using `cut_width()` vs `cut_number()`? 
+Instead of summarizing the conditional distribution with a box plot, you could use a frequency polygon.
+What do you need to consider when using `cut_width()` vs `cut_number()`?
 How does that impact a visualization of
 
 
@@ -858,7 +858,7 @@ ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
 
 
 
-How does the price distribution of very large diamonds compare to small diamonds. 
+How does the price distribution of very large diamonds compare to small diamonds.
 Is it as you expect, or does it surprise you?
 
 
@@ -882,7 +882,7 @@ Combine two of the techniques you've learned to visualize the combined distribut
 
 
 There's lots of options to try, so readers may prodocue a variety of solutions.
-Here's a couple that I tried. 
+Here's a couple that I tried.
 
 
 ```r
@@ -899,7 +899,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 
 ```r
-ggplot(diamonds, aes(x = cut_number(carat, 5), y = price, color = cut)) +
+ggplot(diamonds, aes(x = cut_number(carat, 5), y = price, colour = cut)) +
   geom_boxplot()
 ```
 
@@ -909,7 +909,7 @@ ggplot(diamonds, aes(x = cut_number(carat, 5), y = price, color = cut)) +
 
 
 ```r
-ggplot(diamonds, aes(color = cut_number(carat, 5), y = price, x = cut)) +
+ggplot(diamonds, aes(colour = cut_number(carat, 5), y = price, x = cut)) +
   geom_boxplot()
 ```
 
@@ -923,7 +923,7 @@ ggplot(diamonds, aes(color = cut_number(carat, 5), y = price, x = cut)) +
 
 
 
-Two dimensional plots reveal outliers that are not visible in one dimensional plots. 
+Two dimensional plots reveal outliers that are not visible in one dimensional plots.
 For example, some points in the plot below have an unusual combination of `x` and `y` values, which makes the points outliers even though their `x` and `y` values appear normal when examined separately.
 
 
@@ -962,3 +962,4 @@ No exercises
 ## Learning more
 
 No exercises.
+

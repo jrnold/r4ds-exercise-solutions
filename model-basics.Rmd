@@ -66,7 +66,7 @@ sims <- map_df(1:12, simt)
 
 ggplot(sims, aes(x = x, y = y)) +
   geom_point() +
-  geom_smooth(method = "lm", color = "red") +
+  geom_smooth(method = "lm", colour = "red") +
   facet_wrap(~ .id, ncol = 4)
 
 ```
@@ -85,7 +85,7 @@ simdf_norm <- map_df(1:12, sim_norm)
 
 ggplot(simdf_norm, aes(x = x, y = y)) +
   geom_point() +
-  geom_smooth(method = "lm", color = "red") +
+  geom_smooth(method = "lm", colour = "red") +
   facet_wrap(~ .id, ncol = 4)
 
 ```
@@ -278,11 +278,6 @@ ggplot(sim1, aes(x = x)) +
 
 ### Exercise 2 {.exercise}
 
-<<<<<<< HEAD
-> `add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`.
-> How do these three functions differ?
-=======
-
 `r BeginQuestion()`
 `add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`. 
 How do these three functions differ?
@@ -290,7 +285,6 @@ How do these three functions differ?
 
 
 `r BeginAnswer()`
->>>>>>> 672354d4951c4bb7f9939c3259a94d5113777787
 
 The functions `gather_predictions` and `spread_predictions` allow for adding predictions from multiple models at once.
 
@@ -334,11 +328,6 @@ grid %>%
 
 ### Exercise 3 {.exercise}
 
-<<<<<<< HEAD
-> What does `geom_ref_line()` do? What package does it come from?
-> Why is displaying a reference line in plots showing residuals useful and important?
-=======
-
 `r BeginQuestion()`
 What does `geom_ref_line()` do? What package does it come from? 
 Why is displaying a reference line in plots showing residuals useful and important?
@@ -346,7 +335,6 @@ Why is displaying a reference line in plots showing residuals useful and importa
 
 
 `r BeginAnswer()`
->>>>>>> 672354d4951c4bb7f9939c3259a94d5113777787
 
 The geom `geom_ref_line()` adds as reference line to a plot.
 It is equivalent to running `geom_hline` or `geom_vline` with default settings that are useful for visualizing models.
@@ -359,11 +347,6 @@ A zero reference line makes it easier to judge these characteristics visually.
 
 ### Exercise 4 {.exercise}
 
-<<<<<<< HEAD
-> Why might you want to look at a frequency polygon of absolute residuals?
-> What are the pros and cons compared to looking at the raw residuals?
-=======
-
 `r BeginQuestion()`
 Why might you want to look at a frequency polygon of absolute residuals? 
 What are the pros and cons compared to looking at the raw residuals?
@@ -371,7 +354,6 @@ What are the pros and cons compared to looking at the raw residuals?
 
 
 `r BeginAnswer()`
->>>>>>> 672354d4951c4bb7f9939c3259a94d5113777787
 
 Showing the absolute values of the residuals makes it easier to view the spread of the residuals.
 The model assumes the the residuals have mean zero, and using the absolute values of the residuals effectively doubles the number of residuals.
@@ -398,11 +380,6 @@ frequency polygon cannot show whether the model systematically over- or under-es
 
 ### Exercise 1 {.exercise}
 
-<<<<<<< HEAD
-> What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation?
-> What happens to the predictions?
-=======
-
 `r BeginQuestion()`
 What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation? 
 What happens to the predictions?
@@ -410,7 +387,7 @@ What happens to the predictions?
 
 
 `r BeginAnswer()`
->>>>>>> 672354d4951c4bb7f9939c3259a94d5113777787
+
 
 To run a model without an intercept, add `- 1` or `+ 0` to the right-hand-side o f the formula:
 ```{r}
@@ -433,10 +410,6 @@ grid
 
 ### Exercise 2 {.exercise}
 
-<<<<<<< HEAD
-> Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`.
-> Why is `*` a good shorthand for interaction?
-=======
 
 `r BeginQuestion()`
 Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`. 
@@ -445,7 +418,6 @@ Why is `*` a good shorthand for interaction?
 
 
 `r BeginAnswer()`
->>>>>>> 672354d4951c4bb7f9939c3259a94d5113777787
 
 For `x1 * x2` when `x2` is a categorical variable produces indicator variables `x2b`, `x2c`, `x2d` and
 variables `x1:x2b`, `x1:x2c`, and `x1:x2d` which are the products of `x1` and `x2*` variables:
@@ -556,12 +528,6 @@ model_matrix_mod2 <- function(x1, x2) {
 
 ### Exercise 4 {.exercise}
 
-<<<<<<< HEAD
-> For `sim4`, which of `mod1` and `mod2` is better?
-> I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle.
-> Can you come up with a plot to support my claim?
-=======
-
 `r BeginQuestion()`
 For `sim4`, which of `mod1` and `mod2` is better? 
 I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle. 
@@ -570,7 +536,6 @@ Can you come up with a plot to support my claim?
 
 
 `r BeginAnswer()`
->>>>>>> 672354d4951c4bb7f9939c3259a94d5113777787
 
 Estimate models `mod1` and `mod2` on `sim4`,
 ```{r}
@@ -585,14 +550,14 @@ sim4_mods <- gather_residuals(sim4, mod1, mod2)
 Frequency plots of both the residuals,
 ```{r}
 
-ggplot(sim4_mods, aes(x = resid, color = model)) +
+ggplot(sim4_mods, aes(x = resid, colour = model)) +
   geom_freqpoly(binwidth = 0.5) +
   geom_rug()
 
 ```
 and the absolute values of the residuals,
 ```{r}
-ggplot(sim4_mods, aes(x = abs(resid), color = model)) +
+ggplot(sim4_mods, aes(x = abs(resid), colour = model)) +
   geom_freqpoly(binwidth = 0.5) +
   geom_rug()
 ```

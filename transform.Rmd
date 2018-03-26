@@ -539,6 +539,8 @@ Variation is worse than consistency; if I know the plane will always arrive 10 m
 So I'd try something that calculates the expected time of the flight, and then aggregates over any delays from that time. I would ignore any early arrival times.
 A better ranking would also consider cancellations, and need a way to convert them to a delay time (perhaps using the arrival time of the next flight to the same destination).
 
+**TOOD: Answer this**
+
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
@@ -551,11 +553,26 @@ Come up with another approach that will give you the same output as `not_cancell
 
 `r BeginAnswer()`
 
-Count will group a dataset on the given variable and then determine the number of instances within each group. The easiest way to do this is to `group_by` the given variable and then find the length of each group.  To make it match `count()`, the value should go in a new column `n`.
+The data frame `not_cancelled` is defined in the chapter as,
+```{r not_cancelled}
+not_cancelled <- flights %>%
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+```
+
+Count will group a dataset on the given variable and then determine the number of instances within each group.
+This can be done by by first grouping by the given variable, and then finding the number of observations in each group.
+The number of observations in each group can be found by calling the `length()` function on any variable.
+To make the result match `count()`, the value should go in a new column `n`.
 ```{r}
 not_cancelled %>%
   group_by(dest) %>%
   summarise(n = length(dest))
+```
+A more concise way to get the number of observations in a data frame, or a group, is the function `n()`,
+```{r}
+not_cancelled %>%
+  group_by(dest) %>%
+  summarise(n = n())
 ```
 
 For a weighted count, take the sum of the weight variable in each group.
@@ -564,6 +581,24 @@ not_cancelled %>%
   group_by(tailnum) %>%
   summarise(n = sum(distance))
 ```
+
+
+Alternatively, we could have used `group_by` followed by `tally()`,
+since `count()` itself is a shortcut for calling `group_by()` then `tally()`,
+```{r}
+not_cancelled %>%
+  group_by(tailnum) %>%
+  tally()
+```
+and
+```{r}
+not_cancelled %>%
+  group_by(tailnum) %>%
+  tally(distance)
+```
+
+
+
 
 `r EndAnswer()`
 
@@ -717,7 +752,6 @@ Which plane (`tailnum`) has the worst on-time record?
 flights %>%
   group_by(tailnum) %>%
   summarise(arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
-  ungroup() %>%
   filter(rank(desc(arr_delay)) <= 1)
 
 ```
@@ -740,7 +774,6 @@ Let's group by hour. The earlier the better to fly. This is intuitive as delays 
 flights %>%
   group_by(hour) %>%
   summarise(arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
-  ungroup() %>%
   arrange(arr_delay)
 
 ```

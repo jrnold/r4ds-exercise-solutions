@@ -315,12 +315,6 @@ str_view(stringr::words, "x$", match = TRUE)
 str_view(stringr::words, "^...$", match = TRUE)
 ```
 
-A simpler way, shown later is 
-
-```r
-str_view(stringr::words, "^.{3}$", match = TRUE)
-```
-
 
 ```r
 str_view(stringr::words, ".......", match = TRUE)
@@ -382,7 +376,7 @@ Empirically verify the rule ``i before e except after c''.
 
 
 
-Using only what has been introduced thus far: 
+Using only what has been introduced thus far:
 
 ```r
 str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
@@ -462,7 +456,7 @@ For the United States, phone numbers have a format like `123-456-7890`.
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
-or 
+or
 
 ```r
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
@@ -522,12 +516,12 @@ Describe in words what these regular expressions match: (read carefully to see i
 > 4.  `"\\\\{4}"`
 
 
--------------------- ---------------------------------------------------------------------------------------------------------------------------------------------------- 
+-------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------
 `^.*$`               Any string
 `"\\{.+\\}"`         Any string with curly braces surrounding at least one character.
 `\d{4}-\d{2}-\d{2}`  Four digits followed by a hyphen, followed by two digits followed by a hyphen, followed by another two digits. This is a regular expression that can match dates formatted like "YYYY-MM-DD" ("%Y-%m-%d").
  `"\\\\{4}"`         This resolves to the regular expression `\\{4}`, which is four backslashes.
- 
+
 Examples:
 
 - `^.*$`: `c("dog", "$1.23", "lorem ipsum")`
@@ -547,10 +541,10 @@ Create regular expressions to find all words that:
 
 
 >
-> 1. Start with three consonants. 
+> 1. Start with three consonants.
 > 2. Have three or more vowels in a row.
 > 3. Have two or more vowel-consonant pairs in a row.
-  
+
 A regex to find all words starting with three consonants
 
 ```r
@@ -569,7 +563,7 @@ Two or more vowel-consonant pairs in a row.
 str_view(words, "([aeiou][^aeiou]){2,}")
 ```
 
-  
+
 
 
 #### Exercise 4 {.exercise}
@@ -603,14 +597,14 @@ Describe, in words, what these expressions will match:
 > 3.  `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
 > 4.  `"(.).\\1.\\1"`:
 > 5.  `"(.)(.)(.).*\\3\\2\\1"`
-  
-  
+
+
 1.  `(.)\1\1` : The same character appearing three times in a row. E.g. `"aaa"`
 2.  `"(.)(.)\\2\\1"`: A pair of characters followed by the same pair of characters in reversed order. E.g. `"abba"`.
 3.  `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
 4.  `"(.).\\1.\\1"`: A character followed by any character, the original character, any other character, the original character again. E.g. `"abaca"`, `"b8b.b"`.
 5.  `"(.)(.)(.).*\\3\\2\\1"` Three characters followed by zero or more characters of any kind followed by the same three characters but in reverse order. E.g. `"abcsgasgddsadgsdgcba"` or `"abccba"` or `"abc1cba"`.
-  
+
 
 
 #### Exercise 2 {.exercise}
@@ -650,7 +644,7 @@ str_view(words, "([A-Za-z][A-Za-z]).*\\1")
 
 
 Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
-  
+
 
 ```r
 str_subset(str_to_lower(words), "([a-z]).*\\1.*\\1")
@@ -669,7 +663,7 @@ The `\\1` is used to refer back to the first group (`(.)`) so that whatever lett
 
 ### Detect matches
 
-No exercises 
+No exercises
 
 ### Exercises
 
@@ -686,7 +680,7 @@ For each of the following challenges, try solving it by using both a single regu
   1. Find all words that start or end with x.
   2. Find all words that start with a vowel and end with a consonant.
   3. Are there any words that contain at least one of each different vowel?
-  
+
 Words that start or end with `x`?
 
 ```r
@@ -715,10 +709,10 @@ words[start_with_vowel & end_with_consonant] %>% head()
 ```
 
 Words that contain at least one of each vowel.
-I can't think of a good way of doing this without doing a regex of the permutations: 
+I can't think of a good way of doing this without doing a regex of the permutations:
 
 ```r
-pattern <- 
+pattern <-
   cross_n(rerun(5, c("a", "e", "i", "o", "u")),
         .filter = function(...) {
           x <- as.character(unlist(list(...)))
@@ -785,7 +779,7 @@ This was the original color match pattern:
 colours <- c("red", "orange", "yellow", "green", "blue", "purple")
 colour_match <- str_c(colours, collapse = "|")
 ```
-It matches "flickered" because it matches "red". 
+It matches "flickered" because it matches "red".
 The problem is that the previous pattern will match any word with the name of a color inside it. We want to only match colors in which the entire word is the name of the color.
 We can do this by adding a `\b` (to indicate a word boundary) before and after the pattern:
 
@@ -819,7 +813,7 @@ From the Harvard sentences data, extract:
 
 
 
-The first word in each sentence requires defining what a word is. I'll consider a word any contiguous 
+The first word in each sentence requires defining what a word is. I'll consider a word any contiguous
 
 ```r
 str_extract(sentences, "[a-zA-X]+") %>% head()
@@ -836,7 +830,10 @@ unique(unlist(str_extract_all(sentences[sentences_with_ing], pattern))) %>%
 #> [1] "spring"  "evening" "morning" "winding" "living"  "king"
 ```
 
-All plurals. To do this correct requires linguistic information. But if we just want to say any word ending in an "s" is plural (and with more than 3 characters to remove as, is, gas, etc.)
+All plurals. This cannot be done correctly with regular expressions alone.
+It would require morphological inforation about words in the language.
+See [WordNet](https://cran.r-project.org/web/packages/wordnet/index.html) for a resource that would do that.
+However, identifying words that end in an "s" and with more than three characters in order to remove "as", "is", "gas", etc., will provide a reasonable approximation.
 
 ```r
 unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b"))) %>%
@@ -1004,7 +1001,31 @@ Why is it better to split up by `boundary("word")` than `" "`?
 
 
 
-Splitting by `boundary("word")` splits on punctuation and not just whitespace.
+Splitting by `boundary("word")` is a more intelligent means of splitting up a string into words.
+It will recognize non-space punctation that splits words, and also remove that punctuation from words.
+You can read the set of rules that are used to determine word boundaries on the [ICU website](http://userguide.icu-project.org/boundaryanalysis).
+
+Consider this sentence from the official [Unicode Report on word boundaries](http://www.unicode.org/reports/tr29/#Word_Boundaries),
+
+```r
+sentence <- "The quick (“brown”) fox can’t jump 32.3 feet, right?"
+```
+Splitting the string on spaces considers will group the punctuation with the words,
+
+```r
+str_split(sentence, " ")
+#> [[1]]
+#> [1] "The"       "quick"     "(“brown”)" "fox"       "can’t"     "jump"     
+#> [7] "32.3"      "feet,"     "right?"
+```
+However, splitting the string using `boundary("word")` correctly removes punctuation, while not
+separating "32.2" and "can't",
+
+```r
+str_split(sentence, boundary("word"))
+#> [[1]]
+#> [1] "The"   "quick" "brown" "fox"   "can’t" "jump"  "32.3"  "feet"  "right"
+```
 
 
 

@@ -15,10 +15,11 @@ library("lubridate")
 
 
 `r BeginQuestion()`
+
 Why is TRUE not a parameter to `rescale01()`? 
 What would happen if `x` contained a single missing value, and `na.rm` was `FALSE`?
-`r EndQuestion()`
 
+`r EndQuestion()`
 
 `r BeginAnswer()`
 
@@ -27,7 +28,7 @@ First, note that by a a single missing value, this means that the vector `x` has
 If there were any `NA` values, and `na.rm = FALSE`, then the function would 
 return `NA`.
 
-I can confirm this by testing a function that allows for `na.rm` as an argument`r EndQuestion()`
+I can confirm this by testing a function that allows for `na.rm` as an argument,
 ```{r}
 rescale01_alt <- function(x, finite = TRUE) {
   rng <- range(x, na.rm = finite, finite = finite)
@@ -39,12 +40,16 @@ rescale01_alt(c(NA, 1:5), finite = TRUE)
 
 `r EndAnswer()`
 
+
+
 ### Exercise 2 {.exercise}
 
 
 `r BeginQuestion()`
+
 In the second variant of `rescale01()`, infinite values are left unchanged. 
 Rewrite `rescale01()` so that `-Inf` is mapped to 0, and `Inf` is mapped to 1.
+
 `r EndQuestion()`
 
 
@@ -66,7 +71,13 @@ rescale01(c(Inf, -Inf, 0:5, NA))
 
 ### Exercise 3 {.exercise}
 
+`r BeginQuestion()`
+
  Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
+ 
+`r EndQuestion()`
+ 
+`r BeginAnswer()`
 
 ```{r eval=FALSE}
 mean(is.na(x))
@@ -77,7 +88,7 @@ sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 ```
 
 
-This function calculates the proportion of `NA` values in a vector`r EndQuestion()`
+This function calculates the proportion of `NA` values in a vector,
 ```{r}
 prop_na <- function(x) {
   mean(is.na(x))
@@ -96,7 +107,7 @@ sum(y)
 ```
 
 This function calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values). 
-The coefficient of variation is the standard deviation divided by the mean`r EndQuestion()`
+The coefficient of variation is the standard deviation divided by the mean
 ```{r}
 coef_variation <- function(x) {
   sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
@@ -104,11 +115,15 @@ coef_variation <- function(x) {
 coef_variation(runif(10))
 ```
 
+`r EndAnswer()`
+
 ### Exercise 4
 
 
 `r BeginQuestion()`
+
 Follow <http://nicercode.github.io/intro/writing-functions.html> to write your own functions to compute the variance and skew of a numeric vector.
+
 `r EndQuestion()`
 
 
@@ -150,7 +165,17 @@ skewness <- function(x) {
 skewness(rgamma(10, 1, 1))
 ```
 
-5. Write `both_na()`, a function that takes two vectors of the same length and returns the number of positions that have an `NA` in both vectors.
+`r EndAnswer()`
+
+#### Exercise 5 {.exercise}
+
+`r BeginQuestion()`
+
+Write `both_na()`, a function that takes two vectors of the same length and returns the number of positions that have an `NA` in both vectors.
+
+`r EndQuestion()`
+
+`r BeginAnswer()`
 
 ```{r}
 both_na <- function(x, y) {
@@ -188,13 +213,14 @@ These functions are useful even though they are short because their names make i
 ### Exercise 7 {.exercise}
 
 `r BeginQuestion()`
+
 Read the complete lyrics to ``Little Bunny Foo Foo''. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
+
 `r EndQuestion()`
 
-The lyrics of one of the [most common versions](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) of this song are`r EndQuestion()`
+`r BeginAnswer()`
+The lyrics of one of the [most common versions](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) of this song are
 
-
-`r BeginQuestion()`
 Little bunny Foo Foo
 Hopping through the forest
 Scooping up the field mice
@@ -209,10 +235,6 @@ And bopping them on the head.
 I'll give you three chances,
 And if you don't stop, I'll turn you into a GOON!"
 And the next day...
-`r EndQuestion()`
-
-
-`r BeginAnswer()`
 
 The verses repeat with one chance fewer each time.
 When there are no chances left, the Good Fairy says
@@ -221,7 +243,7 @@ When there are no chances left, the Good Fairy says
 > POOF. She turned him into a GOON!
 > And the moral of this story is: *hare today, goon tomorrow.*
 
-Here's one way of writing this`r EndQuestion()`
+Here's one way of writing this
 ```r
 threat <- function(chances) {
   give_chances(from = Good_Fairy,
@@ -293,7 +315,7 @@ f1(c("str_c", "str_foo", "abc"), "str_")
 ```
 A better name for `f1` is `has_prefix()`
 
-The function `f2` drops the last element`r EndQuestion()`
+The function `f2` drops the last element
 ```{r}
 f2(1:3)
 f2(1:2)
@@ -473,7 +495,7 @@ cut(temp, c(-Inf, 0, 10, 20, 30, Inf), right = TRUE,
     labels = c("freezing", "cold", "cool", "warm", "hot"))
 ```
 
-To have intervals open on the left (using `<`), I change the argument to `right = FALSE``r EndQuestion()`
+To have intervals open on the left (using `<`), I change the argument to `right = FALSE`,
 ```{r}
 temp <- seq(-10, 50, by = 5)
 cut(temp, c(-Inf, 0, 10, 20, 30, Inf), right = FALSE,
@@ -489,7 +511,9 @@ and that to change comparisons I only needed to change the argument to `right`, 
 
 
 `r BeginQuestion()`
+
 What happens if you use `switch()` with numeric values?
+
 `r EndQuestion()`
 
 
@@ -592,8 +616,10 @@ commas <- function(..., collapse = ", ") {
 
 
 `r BeginQuestion()`
+
 It’d be nice if you could supply multiple characters to the pad argument, e.g. `rule("Title", pad = "-+")`. 
 Why doesn’t this currently work? How could you fix it?
+
 `r EndQuestion()`
 
 

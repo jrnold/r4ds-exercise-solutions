@@ -451,3 +451,4 @@ gss_cat %>%
 \begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 
+

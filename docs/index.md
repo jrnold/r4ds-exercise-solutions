@@ -19,3 +19,4 @@ This contains my exercise solutions for Hadley Wickham and Garret Grolemund, [R 
 
 The text of this work is licensed under the [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 The R Code in this work is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
