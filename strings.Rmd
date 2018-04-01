@@ -436,16 +436,10 @@ Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
 `r BeginAnswer()`
 
 ----- ---------  ----------------------------------
-`-`   `{,1}`     Match at most 1
+`?`   `{0,1}`    Match at most 1
 `+`   `{1,}`     Match one or more
-`*`   None       No equivalent
+`*`   `{0,}`     0 or more
 ----- ---------  ----------------------------------
-
-The `*` pattern has no `{m,n}` equivalent since there is no upper bound on the number of matches. The expected pattern `{,}` is not valid.
-```{r error=TRUE,eval=is_html}
-str_view("abcd", ".{,}")
-```
-
 
 `r EndAnswer()`
 
