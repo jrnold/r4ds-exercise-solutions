@@ -10,10 +10,6 @@ library("nycflights13")
 The package datamodelr is used to draw database schema:
 ```{r}
 library("datamodelr")
-```
-
-
-## nycflights13
 
 ### Exercise 1 {.exercise}
 
@@ -517,7 +513,7 @@ You might expect that there’s an implicit relationship between plane and airli
 There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
 However, even though that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
 Let's check:
-```{r}
+```{r mulit_carrier_planes}
 multi_carrier_planes <-
   flights %>% 
   filter(!is.na(tailnum)) %>%
@@ -527,23 +523,25 @@ multi_carrier_planes <-
 multi_carrier_planes
 ```
 There are `r nrow(multi_carrier_planes)` airplanes in this dataset that have had more than one carrier. 
-Even if there were none, the substantive reasons why an airplane *could* have more than one carrier would hold. 
 
-To see which carriers these planes have been associated, we can filter the `flights` by `tailnum` in `multi_carrier_planes`, pull out the unique combinations of `tailnum` and `carrier`:
-```{r}
-multi_carrier_planes_with_carrier <- 
+To see which carriers these planes have been associated, filter the `flights` by `tailnum` in `multi_carrier_planes`, and extract the unique combinations of `tailnum` and `carrier`.
+```{r multi_carrier_planes_with_carrier}
+multi_carrier_planes <- 
   flights %>%
   semi_join(multi_carrier_planes, by = "tailnum") %>%
   select(tailnum, carrier) %>%
   distinct() %>%
   arrange(tailnum)
-mutli_carrier_planes_with_carrier
+multi_carrier_planes
 ```
 
-Finally, we should cross-reference the `carrier` codes with the associated airline in `airlines` if we want to look into this further. The following code will mark each `tailnum` - `carrier` combination with `carrier_num` to indicate the first carrier it belonged to, the second, etc. Then it replaces the carrier codes with the airline names and spreads the data into a human-readable table.
-```{r}
-carrier_transfer_table <-
-  multi_carrier_planes_with_carrier %>%
+The names of airlines are easier to understand than the two-letter carrier codes.
+Join the multi-airline table with the associated airline in `airlines` using the `carrier` column.
+The spread the data so it has columns `carrier_1`, `carrier_2`, and so on.
+This is not tidy but is more readble and easier to display.
+```{r carrier_transfer_tbl}
+carrier_transfer_tbl <-
+  multi_carrier_planes %>%
   group_by(tailnum) %>%
   mutate(
     carrier_num = seq_along(tailnum),
@@ -552,12 +550,8 @@ carrier_transfer_table <-
   left_join(airlines, by = "carrier") %>%
   select(-carrier) %>%
   spread(carrier_num, name)
-carrier_transfer_table
+carrier_transfer_tbl
 ```
-
-Remember, it is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship.
-Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks.
-There is rarely a substitute for understanding the data which you are using as an analyst.
 
 `r EndAnswer()`
 
