@@ -515,23 +515,47 @@ You might expect that there’s an implicit relationship between plane and airli
 `r BeginAnswer()`
 
 There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
-It should be the case that an airplane is associated with only airline at a given time, though may 
 However, even though that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
 Let's check:
 ```{r}
-airplane_multi_carrier <- 
-  flights %>%
-  group_by(tailnum, carrier) %>%
-  count() %>%
-  filter(n() > 1) %>%
-  select(tailnum) %>%
-  distinct()
-airplane_multi_carrier
+multi_carrier_planes <-
+  flights %>% 
+  filter(!is.na(tailnum)) %>%
+  count(tailnum, carrier) %>%
+  count(tailnum) %>%
+  filter(nn > 1)
+multi_carrier_planes
 ```
-There are `r nrow(airplane_multi_carrier)` airplanes in this dataset that have had more than one carrier.
+There are `r nrow(multi_carrier_planes)` airplanes in this dataset that have had more than one carrier. 
 Even if there were none, the substantive reasons why an airplane *could* have more than one carrier would hold. 
 
-It is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship.
+To see which carriers these planes have been associated, we can filter the `flights` by `tailnum` in `multi_carrier_planes`, pull out the unique combinations of `tailnum` and `carrier`:
+```{r}
+multi_carrier_planes_with_carrier <- 
+  flights %>%
+  semi_join(multi_carrier_planes, by = "tailnum") %>%
+  select(tailnum, carrier) %>%
+  distinct() %>%
+  arrange(tailnum)
+mutli_carrier_planes_with_carrier
+```
+
+Finally, we should cross-reference the `carrier` codes with the associated airline in `airlines` if we want to look into this further. The following code will mark each `tailnum` - `carrier` combination with `carrier_num` to indicate the first carrier it belonged to, the second, etc. Then it replaces the carrier codes with the airline names and spreads the data into a human-readable table.
+```{r}
+carrier_transfer_table <-
+  multi_carrier_planes_with_carrier %>%
+  group_by(tailnum) %>%
+  mutate(
+    carrier_num = seq_along(tailnum),
+    carrier_num = paste0("carrier_", carrier_num)
+  ) %>%
+  left_join(airlines, by = "carrier") %>%
+  select(-carrier) %>%
+  spread(carrier_num, name)
+carrier_transfer_table
+```
+
+Remember, it is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship.
 Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks.
 There is rarely a substitute for understanding the data which you are using as an analyst.
 
