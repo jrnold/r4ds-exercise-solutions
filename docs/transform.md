@@ -973,7 +973,7 @@ Variation is worse than consistency; if I know the plane will always arrive 10 m
 So I'd try something that calculates the expected time of the flight, and then aggregates over any delays from that time. I would ignore any early arrival times.
 A better ranking would also consider cancellations, and need a way to convert them to a delay time (perhaps using the arrival time of the next flight to the same destination).
 
-**TOOD: Answer this**
+**TODO: Answer this**
 
 </div>
 

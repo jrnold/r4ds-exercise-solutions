@@ -15,9 +15,6 @@ The package datamodelr is used to draw database schema:
 library("datamodelr")
 ```
 
-
-## nycflights13
-
 ### Exercise 1 {.exercise}
 
 
@@ -653,30 +650,81 @@ You might expect that there’s an implicit relationship between plane and airli
 <div class='answer'>
 
 There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
-It should be the case that an airplane is associated with only airline at a given time, though may 
 However, even though that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
 Let's check:
 
 ```r
-airplane_multi_carrier <- 
-  flights %>%
-  group_by(tailnum, carrier) %>%
-  count() %>%
-  filter(n() > 1) %>%
-  select(tailnum) %>%
-  distinct()
-#> Adding missing grouping variables: `carrier`
-airplane_multi_carrier
-#> # A tibble: 0 x 2
-#> # Groups:   tailnum, carrier [0]
-#> # ... with 2 variables: carrier <chr>, tailnum <chr>
+multi_carrier_planes <-
+  flights %>% 
+  filter(!is.na(tailnum)) %>%
+  count(tailnum, carrier) %>%
+  count(tailnum) %>%
+  filter(nn > 1)
+multi_carrier_planes
+#> # A tibble: 17 x 2
+#>   tailnum    nn
+#>   <chr>   <int>
+#> 1 N146PQ      2
+#> 2 N153PQ      2
+#> 3 N176PQ      2
+#> 4 N181PQ      2
+#> 5 N197PQ      2
+#> 6 N200PQ      2
+#> # ... with 11 more rows
 ```
-There are 0 airplanes in this dataset that have had more than one carrier.
-Even if there were none, the substantive reasons why an airplane *could* have more than one carrier would hold. 
+There are 17 airplanes in this dataset that have had more than one carrier. 
 
-It is quite possible that we could have looked at the data, seen that each airplane only has one carrier, not thought much about it, and proceeded with some analysis that implicitly or explicitly relies on that one-to-one relationship.
-Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks.
-There is rarely a substitute for understanding the data which you are using as an analyst.
+To see which carriers these planes have been associated, filter the `flights` by `tailnum` in `multi_carrier_planes`, and extract the unique combinations of `tailnum` and `carrier`.
+
+```r
+multi_carrier_planes <- 
+  flights %>%
+  semi_join(multi_carrier_planes, by = "tailnum") %>%
+  select(tailnum, carrier) %>%
+  distinct() %>%
+  arrange(tailnum)
+multi_carrier_planes
+#> # A tibble: 34 x 2
+#>   tailnum carrier
+#>   <chr>   <chr>  
+#> 1 N146PQ  9E     
+#> 2 N146PQ  EV     
+#> 3 N153PQ  9E     
+#> 4 N153PQ  EV     
+#> 5 N176PQ  9E     
+#> 6 N176PQ  EV     
+#> # ... with 28 more rows
+```
+
+The names of airlines are easier to understand than the two-letter carrier codes.
+Join the multi-airline table with the associated airline in `airlines` using the `carrier` column.
+The spread the data so it has columns `carrier_1`, `carrier_2`, and so on.
+This is not tidy, but it is more easier to display.
+
+```r
+carrier_transfer_tbl <-
+  multi_carrier_planes %>%
+  group_by(tailnum) %>%
+  mutate(
+    carrier_num = seq_along(tailnum),
+    carrier_num = paste0("carrier_", carrier_num)
+  ) %>%
+  left_join(airlines, by = "carrier") %>%
+  select(-carrier) %>%
+  spread(carrier_num, name)
+carrier_transfer_tbl
+#> # A tibble: 17 x 3
+#> # Groups:   tailnum [17]
+#>   tailnum carrier_1         carrier_2               
+#>   <chr>   <chr>             <chr>                   
+#> 1 N146PQ  Endeavor Air Inc. ExpressJet Airlines Inc.
+#> 2 N153PQ  Endeavor Air Inc. ExpressJet Airlines Inc.
+#> 3 N176PQ  Endeavor Air Inc. ExpressJet Airlines Inc.
+#> 4 N181PQ  Endeavor Air Inc. ExpressJet Airlines Inc.
+#> 5 N197PQ  Endeavor Air Inc. ExpressJet Airlines Inc.
+#> 6 N200PQ  Endeavor Air Inc. ExpressJet Airlines Inc.
+#> # ... with 11 more rows
+```
 
 </div>
 

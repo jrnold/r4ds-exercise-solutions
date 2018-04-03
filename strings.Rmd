@@ -752,7 +752,7 @@ unique(unlist(str_extract_all(sentences[sentences_with_ing], pattern))) %>%
 ```
 
 All plurals. This cannot be done correctly with regular expressions alone.
-It would require morphological inforation about words in the language.
+It would require morphological information about words in the language.
 See [WordNet](https://cran.r-project.org/web/packages/wordnet/index.html) for a resource that would do that.
 However, identifying words that end in an "s" and with more than three characters in order to remove "as", "is", "gas", etc., will provide a reasonable approximation.
 ```{r}
@@ -890,9 +890,9 @@ Why is it better to split up by `boundary("word")` than `" "`?
 
 `r BeginAnswer()`
 
-Splitting by `boundary("word")` is a more intelligent means of splitting up a string into words.
-It will recognize non-space punctation that splits words, and also remove that punctuation from words.
-You can read the set of rules that are used to determine word boundaries on the [ICU website](http://userguide.icu-project.org/boundaryanalysis).
+Splitting by `boundary("word")` is a more sophisticated method to split a string into words.
+It recognizes non-space punctuation that splits words, and also removes punctuation while retaining internal non-letter characters that are parts of the word, e.g., "can't"
+See the [ICU website](http://userguide.icu-project.org/boundaryanalysis) for a description of the set of rules that are used to determine word boundaries.
 
 Consider this sentence from the official [Unicode Report on word boundaries](http://www.unicode.org/reports/tr29/#Word_Boundaries),
 ```{r}

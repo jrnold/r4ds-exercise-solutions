@@ -366,17 +366,17 @@ ggplot(mpg, aes(displ, hwy)) +
 
 <div class='question'>
 Change the display of the presidential terms by:
+
+1.  Combining the two variants shown above.
+2.  Improving the display of the y axis.
+3.  Labeling each term with the name of the president.
+4.  Adding informative plot labels.
+5.  Placing breaks every 4 years (this is trickier than it seems!).
+
 </div>
 
 
 <div class='answer'>
-
->    1. Combining the two variants shown above.
->    2. Improving the display of the y axis.
->    3. Labelling each term with the name of the president.
->    4. Adding informative plot labels.
->    5. Placing breaks every 4 years (this is trickier than it seems!).
-
 
 ```r
 years <- lubridate::make_date(seq(year(min(presidential$start)),
