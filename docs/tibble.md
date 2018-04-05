@@ -29,12 +29,12 @@ No exercises
 ### Exercise 1 {.exercise}
 
 
-
+<div class='question'>
 How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -88,17 +88,17 @@ class(as_tibble(mtcars))
 
 Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
 
-
+</div>
 
 ### Exercise 2 {.exercise}
 
 
-
+<div class='question'>
 Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -136,36 +136,36 @@ Using `$` a data.frame will partially complete the column. So even though we wro
 
 With data.frames, with `[` the type of object that is returned differs on the number of columns. If it is one column, it won't return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did `df[ , vars]` where `vars` was a variable. Then you what that code does depends on `length(vars)` and you'd have to write code to account for those situations or risk bugs.
 
-
+</div>
 
 ### Exercise 3 {.exercise}
 
 
-
+<div class='question'>
 If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
+</div>
 
 
-
-
+<div class='answer'>
 
 You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign, because `df$var` would look for a column named `var`. 
 
-
+</div>
 
 ### Exercise 4 {.exercise}
 
 
-
+<div class='question'>
 Practice referring to non-syntactic names in the following data frame by:
 
 1. Extracting the variable called 1.
 2. Plotting a scatterplot of 1 vs 2.
 3. Creating a new column called 3 which is 2 divided by 1.
 4. Renaming the columns to one, two and three.
+</div>
 
 
-
-
+<div class='answer'>
 
 
 
@@ -196,9 +196,7 @@ ggplot(annoying, aes(x = `1`, y = `2`)) +
   geom_point()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{tibble_files/figure-latex/unnamed-chunk-11-1} \end{center}
+<img src="tibble_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
 A new column `3` with is `2` divided by `1`:
 
@@ -224,17 +222,17 @@ glimpse(annoying)
 #> $ three <dbl> 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97
 ```
 
-
+</div>
 
 ### Exercise 5 {.exercise}
 
 
-
+<div class='question'>
 What does `tibble::enframe()` do? When might you use it?
+</div>
 
 
-
-
+<div class='answer'>
 
 It converts named vectors to a data frame with names and values
 
@@ -254,17 +252,17 @@ enframe(c(a = 1, b = 2, c = 3))
 ```
 
 
-
+</div>
 
 ### Exercise 6 {.exercise}
 
 
-
+<div class='question'>
 What option controls how many additional column names are printed at the footer of a tibble?
+</div>
 
 
-
-
+<div class='answer'>
 
 The print function for tibbles is in `print.tbl_df`:
 
@@ -274,6 +272,6 @@ The print function for tibbles is in `print.tbl_df`:
 The option `n_extra` determines the number of extra columns to print information for.
 
 
-
+</div>
 
 

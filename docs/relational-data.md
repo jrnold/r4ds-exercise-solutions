@@ -21,74 +21,74 @@ library("datamodelr")
 ### Exercise 1 {.exercise}
 
 
-
+<div class='question'>
 Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
+</div>
 
 
-
-
+<div class='answer'>
 
 - `flights` table: `origin` and `dest`
 - `airports` table: longitude and latitude variables
 - We would merge the `flights` with airports twice: once to get the location of the `origin` airport, and once to get the location of the `dest` airport.
 
-
+</div>
 
 ### Exercise 2 {.exercise}
 
 
-
+<div class='question'>
 I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
+</div>
 
 
-
-
+<div class='answer'>
 
 The variable `origin` in `weather` is matched with `faa` in `airports`.
 
-
+</div>
 
 ### Exercise 3 {.exercise}
 
 
-
+<div class='question'>
 weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
+</div>
 
 
-
-
+<div class='answer'>
 
 `year`, `month`, `day`, `hour`, `origin` in `weather` would be matched to `year`, `month`, `day`, `hour`, `dest` in `flight` (though it should use the arrival date-time values for `dest` if possible).
 
-
+</div>
 
 ### Exercise 4 {.exercise}
 
 
-
+<div class='question'>
 We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
+</div>
 
 
-
-
+<div class='answer'>
 
 I would add a table of special dates.
 The primary key would be date.
 It would match to the `year`, `month`, `day` columns of `flights.
 
-
+</div>
 
 ## Keys
 
 ### Exercise 1 {.exercise}
 
 
-
+<div class='question'>
 Add a surrogate key to flights.
+</div>
 
 
-
-
+<div class='answer'>
 
 I add the column `flight_id` as a surrogate key. 
 I sort the data prior to making the key, even though it is not strictly necessary, so the order of the rows has some meaning.
@@ -123,12 +123,12 @@ flights %>%
 ```
 
 
-
+</div>
 
 ### Exercise 2 {.exercise}
 
 
-
+<div class='question'>
 Identify the keys in the following datasets
 
 1. `Lahman::Batting`
@@ -136,10 +136,10 @@ Identify the keys in the following datasets
 3. `nasaweather::atmos`
 4. `fueleconomy::vehicles`
 5. `ggplot2::diamonds`
+</div>
 
 
-
-
+<div class='answer'>
 >
 > (You might need to install some packages and read some documentation.)
 
@@ -195,7 +195,7 @@ nrow(ggplot2::diamonds)
 ```
 
 
-
+</div>
 
 ### Exercise 4 {.exercise} 
 
@@ -283,12 +283,12 @@ flights2 <- flights %>%
 ### Exercise 1 {.exercise}
 
 
-
+<div class='question'>
 Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -305,9 +305,7 @@ airports %>%
 #>     map
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-13-1} \end{center}
+<img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 (Don’t worry if you don’t understand what `semi_join()` does — you’ll learn about it next.)
 
@@ -327,24 +325,22 @@ avg_dest_delays %>%
     coord_quickmap()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-14-1} \end{center}
+<img src="relational-data_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 You might want to use the size or color of the points to display the average delay for each airport.
 
-
+</div>
 
 ### Exercise 2 {.exercise}
 
 
-
+<div class='question'>
 Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -370,17 +366,17 @@ flights %>%
 ```
 
 
-
+</div>
 
 ### Exercise 3 {.exercise}
 
 
-
+<div class='question'>
 Is there a relationship between the age of a plane and its delays?
+</div>
 
 
-
-
+<div class='answer'>
 
 Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
 This could be due to choices about how airlines allocate planes to airports.
@@ -403,22 +399,20 @@ flights %>%
 #> Warning: Removed 1 rows containing missing values (geom_path).
 ```
 
+<img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-16-1} \end{center}
-
-
-
+</div>
 
 ### Exercise 4 {.exercise}
 
 
-
+<div class='question'>
 What weather conditions make it more likely to see a delay?
+</div>
 
 
-
-
+<div class='answer'>
 
 Almost any amount or precipitation is associated with a delay, though not as strong a trend after 0.02 in as one would expect
 
@@ -438,23 +432,21 @@ flight_weather %>%
     geom_line() + geom_point()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-17-1} \end{center}
-
+<img src="relational-data_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
+</div>
 
 ### Exercise 5 {.exercise}
 
 
-
+<div class='question'>
 What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+</div>
 
 
-
-
+<div class='answer'>
 
 There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series))
 
@@ -476,24 +468,22 @@ flights %>%
 #> Warning: Removed 3 rows containing missing values (geom_point).
 ```
 
+<img src="relational-data_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-18-1} \end{center}
-
-
-
+</div>
 
 ## Filtering Joins
 
 ### Exercise 1 {.exercise}
 
 
-
+<div class='question'>
 What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+</div>
 
 
-
-
+<div class='answer'>
 
 American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
 
@@ -513,17 +503,17 @@ flights %>%
 #> # ... with 4 more rows
 ```
 
-
+</div>
 
 ### Exercise 2 {.exercise}
 
 
-
+<div class='question'>
 Filter flights to only show flights with planes that have flown at least 100 flights.
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -551,17 +541,17 @@ flights %>%
 ```
 
 
-
+</div>
 
 ### Exercise 3 {.exercise}
 
 
-
+<div class='question'>
 Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
+</div>
 
 
-
-
+<div class='answer'>
 
 The table `fueleconomy::common` identifies vehicles by `make` and `model`:
 
@@ -597,27 +587,27 @@ fueleconomy::vehicles %>%
 #> # A tibble: 14,531 x 12
 #>      id make  model   year class trans drive   cyl displ fuel    hwy   cty
 #>   <int> <chr> <chr>  <int> <chr> <chr> <chr> <int> <dbl> <chr> <int> <int>
-#> 1  1833 Acura Integ~  1986 Subc~ Auto~ Fron~     4  1.60 Regu~    28    22
-#> 2  1834 Acura Integ~  1986 Subc~ Manu~ Fron~     4  1.60 Regu~    28    23
-#> 3  3037 Acura Integ~  1987 Subc~ Auto~ Fron~     4  1.60 Regu~    28    22
-#> 4  3038 Acura Integ~  1987 Subc~ Manu~ Fron~     4  1.60 Regu~    28    23
-#> 5  4183 Acura Integ~  1988 Subc~ Auto~ Fron~     4  1.60 Regu~    27    22
-#> 6  4184 Acura Integ~  1988 Subc~ Manu~ Fron~     4  1.60 Regu~    28    23
+#> 1  1833 Acura Integ…  1986 Subc… Auto… Fron…     4  1.60 Regu…    28    22
+#> 2  1834 Acura Integ…  1986 Subc… Manu… Fron…     4  1.60 Regu…    28    23
+#> 3  3037 Acura Integ…  1987 Subc… Auto… Fron…     4  1.60 Regu…    28    22
+#> 4  3038 Acura Integ…  1987 Subc… Manu… Fron…     4  1.60 Regu…    28    23
+#> 5  4183 Acura Integ…  1988 Subc… Auto… Fron…     4  1.60 Regu…    27    22
+#> 6  4184 Acura Integ…  1988 Subc… Manu… Fron…     4  1.60 Regu…    28    23
 #> # ... with 1.452e+04 more rows
 ```
 
 
-
+</div>
 
 ### Exercise 3 {.exercise}
 
 
-
+<div class='question'>
 Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -639,34 +629,34 @@ flights %>%
 #> # ... with 359 more rows
 ```
 
-
+</div>
 
 ### Exercise 4 {.exercise}
 
 
-
+<div class='question'>
 What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
+</div>
 
 
-
-
+<div class='answer'>
 
 `anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.
 
 `anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that don't have a flight in the data, meaning that there were no flights to that airport **from** New York in 2013.
 
 
-
+</div>
 
 ### Exercise 5 {.exercise}
 
 
-
+<div class='question'>
 You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
+</div>
 
 
-
-
+<div class='answer'>
 
 There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
 It should be the case that an airplane is associated with only airline at a given time, though may 
@@ -694,7 +684,7 @@ It is quite possible that we could have looked at the data, seen that each airpl
 Then we apply our analysis to a larger set of data where that one-to-one relationship no longer holds, and it breaks.
 There is rarely a substitute for understanding the data which you are using as an analyst.
 
-
+</div>
 
 ## Join problems
 

@@ -26,12 +26,12 @@ If it is not set (the default), R will silently drop them.
 ### Exercise 1 {.exercise}
 
 
-
+<div class='question'>
 One downside of the linear model is that it is sensitive to unusual values because the distance incorporates a squared term. Fit a linear model to the simulated data below, and visualize the results. Rerun a few times to generate different simulated datasets. What do you notice about the model?
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -49,9 +49,7 @@ ggplot(sim1a, aes(x = x, y = y)) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
 
 To re-run this a few times using `purrr`,
 and plot using code similar to that in the chapter:
@@ -79,9 +77,7 @@ ggplot(sims, aes(x = x, y = y)) +
   facet_wrap(~ .id, ncol = 4)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-5-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
 What if we did the same things with normal distributions?
 
@@ -102,9 +98,7 @@ ggplot(simdf_norm, aes(x = x, y = y)) +
   facet_wrap(~ .id, ncol = 4)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-6-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 There are not large outliers, and the slopes are more similar.
 
 The reason for this is that the Student's $t$-distribution, from which we sample with `rt` has fatter tails than the normal distribution (`rnorm`), which means is assigns larger probability to values further from the center of the distribution.
@@ -120,9 +114,7 @@ tibble(
   geom_line()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-7-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
 For a normal distribution with mean zero and standard deviation one, the probability of being greater than 2 is,
 
@@ -138,17 +130,17 @@ pt(2, df = 2, lower.tail = FALSE)
 ```
 
 
-
+</div>
 
 ### Exercise 2 {.exercise}
 
 
-
+<div class='question'>
 One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -191,17 +183,17 @@ In practice, you would not use a `optim` to fit this model, you would you an exi
 See the `MASS` package's `rlm` and `lqs` functions for more information and functions to fit robust and resistant linear models.
 
 
-
+</div>
 
 ### Exercise 3 {.exercise}
 
 
-
+<div class='question'>
 One challenge with performing numerical optimization is that it’s only guaranteed to find a local optimum. What’s the problem with optimizing a three parameter model like this?
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -254,7 +246,7 @@ Problem is that due to finite iterations, numerically these converge:
 -->
 
 
-
+</div>
 
 ## Visualizing Models
 
@@ -262,12 +254,12 @@ Problem is that due to finite iterations, numerically these converge:
 ### Exercise 1 {.exercise}
 
 
-
+<div class='question'>
 Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on `sim1` using `loess()` instead of `lm()`. How does the result compare to `geom_smooth()`?
+</div>
 
 
-
-
+<div class='answer'>
 
 I'll use `add_predictions` and `add_residuals` to add the predictions and residuals from a loess regression to the `sim1` data.
 
@@ -297,9 +289,7 @@ plot_sim1_loess <-
 plot_sim1_loess
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-20-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 The predictions of loess are the same as the default method for `geom_smooth` because `geom_smooth()` uses `loess()` by default; the message even tells us that.
 
@@ -308,9 +298,7 @@ plot_sim1_loess +
   geom_smooth(method = "loess", colour = "blue", se = FALSE, alpha = 0.20)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-21-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
 
 We can plot the residuals (red), and compare them to the residuals from `lm` (black).
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven't considered the uncertainty of these estimates).
@@ -323,21 +311,19 @@ ggplot(sim1, aes(x = x)) +
   geom_point(aes(y = resid_loess), colour = "red")
 ```
 
+<img src="model-basics_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-22-1} \end{center}
-
-
+</div>
 
 ### Exercise 2 {.exercise}
 
-
+<div class='question'>
 `add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`. 
 How do these three functions differ?
+</div>
 
 
-
-
+<div class='answer'>
 
 The functions `gather_predictions` and `spread_predictions` allow for adding predictions from multiple models at once.
 
@@ -422,17 +408,17 @@ grid %>%
 
 
 
-
+</div>
 
 ### Exercise 3 {.exercise}
 
-
+<div class='question'>
 What does `geom_ref_line()` do? What package does it come from? 
 Why is displaying a reference line in plots showing residuals useful and important?
+</div>
 
 
-
-
+<div class='answer'>
 
 The geom `geom_ref_line()` adds as reference line to a plot.
 It is equivalent to running `geom_hline` or `geom_vline` with default settings that are useful for visualizing models.
@@ -441,17 +427,17 @@ A zero reference line makes it easier to judge these characteristics visually.
 
 
 
-
+</div>
 
 ### Exercise 4 {.exercise}
 
-
+<div class='question'>
 Why might you want to look at a frequency polygon of absolute residuals? 
 What are the pros and cons compared to looking at the raw residuals?
+</div>
 
 
-
-
+<div class='answer'>
 
 Showing the absolute values of the residuals makes it easier to view the spread of the residuals.
 The model assumes the the residuals have mean zero, and using the absolute values of the residuals effectively doubles the number of residuals.
@@ -466,29 +452,27 @@ ggplot(sim1, aes(x = abs(resid))) +
   geom_freqpoly(binwidth = 0.5)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-28-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
 
 However, using the absolute values of residuals throws away information about the sign, meaning that the
 frequency polygon cannot show whether the model systematically over- or under-estimates the residuals.
 
 
 
-
+</div>
 
 ## Formulas and Model Families
 
 
 ### Exercise 1 {.exercise}
 
-
+<div class='question'>
 What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation? 
 What happens to the predictions?
+</div>
 
 
-
-
+<div class='answer'>
 
 
 To run a model without an intercept, add `- 1` or `+ 0` to the right-hand-side o f the formula:
@@ -518,18 +502,18 @@ grid
 ```
 
 
-
+</div>
 
 ### Exercise 2 {.exercise}
 
 
-
+<div class='question'>
 Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`. 
 Why is `*` a good shorthand for interaction?
+</div>
 
 
-
-
+<div class='answer'>
 
 For `x1 * x2` when `x2` is a categorical variable produces indicator variables `x2b`, `x2c`, `x2d` and
 variables `x1:x2b`, `x1:x2c`, and `x1:x2d` which are the products of `x1` and `x2*` variables:
@@ -592,18 +576,18 @@ The asterisk `*` is good shorthand for an interaction since an interaction betwe
 terms for `x1`, `x2`, and the product of `x1` and `x2`.
 
 
-
+</div>
 
 ### Exercise 3 {.exercise}
 
 
-
+<div class='question'>
 Using the basic principles, convert the formulas in the following two models into functions.
 (Hint: start by converting the categorical variable into 0-1 variables.)
+</div>
 
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -691,18 +675,18 @@ model_matrix_mod2 <- function(x1, x2) {
 ```
 
 
-
+</div>
 
 ### Exercise 4 {.exercise}
 
-
+<div class='question'>
 For `sim4`, which of `mod1` and `mod2` is better? 
 I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle. 
 Can you come up with a plot to support my claim?
+</div>
 
 
-
-
+<div class='answer'>
 
 Estimate models `mod1` and `mod2` on `sim4`,
 
@@ -725,9 +709,7 @@ ggplot(sim4_mods, aes(x = resid, colour = model)) +
   geom_rug()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-45-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
 and the absolute values of the residuals,
 
 ```r
@@ -736,9 +718,7 @@ ggplot(sim4_mods, aes(x = abs(resid), colour = model)) +
   geom_rug()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-46-1} \end{center}
+<img src="model-basics_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
 does not show much difference in the residuals between the models.
 However, `mod2` appears to have fewer residuals in the tails of the distribution between 2.5 and 5 (although the most extreme residuals are from `mod2`.
 
@@ -758,7 +738,7 @@ The standard deviation of the residuals of `mod2` is smaller than that of `mod1`
 
 
 
-
+</div>
 
 ## Missing values
 
