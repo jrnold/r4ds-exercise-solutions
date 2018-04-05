@@ -61,7 +61,8 @@ Find all flights that
 
 <div class='answer'>
 
-*Had an arrival delay of two or more hours* Since delay is in minutes, we are looking for flights where `arr_delay > 120`:
+*Had an arrival delay of two or more hours:* Since delay is in minutes, find 
+flights whose arrival was delayed more than 120 minutes.
 
 ```r
 filter(flights, arr_delay > 120)
@@ -99,8 +100,12 @@ filter(flights, dest %in% c("IAH", "HOU"))
 #> #   minute <dbl>, time_hour <dttm>
 ```
 
-*Were operated by United, American, or Delta* The variable `carrier` has the airline, but it is in two-digit carrier codes. 
-However, we can look it up in the `airlines` dataset.
+*Were operated by United, American, or Delta* In the `flights` dataset, 
+the column `carrier` indicates the airline, but it uses two-character carrier codes.
+We can find the carrier codes for the airlines in the `airlines` dataset.
+Since the carrier code dataset only has 16 rows, and the names
+of the airlines in that datasest are not exactly "United", "American", or "Delta",
+it is easiest to manually lookup their carrier codes in that data.
 
 ```r
 airlines
@@ -115,8 +120,8 @@ airlines
 #> 6 EV      ExpressJet Airlines Inc.
 #> # ... with 10 more rows
 ```
-Since there are only 16 rows, its not even worth filtering.
-Delta is `DL`, American is `AA`, and United is `UA`:
+The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`. 
+Using these carriers codes, we check whether `carrier` is one of those.
 
 ```r
 filter(flights, carrier %in% c("AA", "DL", "UA"))
@@ -138,7 +143,7 @@ filter(flights, carrier %in% c("AA", "DL", "UA"))
 *Departed in summer (July, August, and September)* The variable `month` has the month, and it is numeric.
 
 ```r
-filter(flights, between(month, 7, 9))
+filter(flights, month >= 7, month <= 9)
 #> # A tibble: 86,326 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
@@ -193,7 +198,7 @@ filter(flights, !is.na(dep_delay),
 #> #   minute <dbl>, time_hour <dttm>
 ```
 
-*Departed between midnight and 6am (inclusive)*.
+*Departed between midnight and 6am (inclusive)*. Note that in `dep_time`, midnight is `2400`, not `0`.
 
 ```r
 filter(flights, dep_time <= 600 | dep_time == 2400)
@@ -225,6 +230,27 @@ Another useful **dplyr** filtering helper is `between()`. What does it do? Can y
 <div class='answer'>
 
 `between(x, left, right)` is equivalent to `x >= left & x <= right`.
+
+Of the answers in the previous question, 
+
+```r
+filter(flights, between(month, 7, 9))
+#> # A tibble: 86,326 x 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
+#> 1  2013     7     1        1           2029    212         236
+#> 2  2013     7     1        2           2359      3.00      344
+#> 3  2013     7     1       29           2245    104         151
+#> 4  2013     7     1       43           2130    193         322
+#> 5  2013     7     1       44           2150    174         300
+#> 6  2013     7     1       46           2051    235         304
+#> # ... with 8.632e+04 more rows, and 12 more variables:
+#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
+#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
+#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+```
+
+
 
 </div>
 
@@ -952,7 +978,7 @@ Variation is worse than consistency; if I know the plane will always arrive 10 m
 So I'd try something that calculates the expected time of the flight, and then aggregates over any delays from that time. I would ignore any early arrival times.
 A better ranking would also consider cancellations, and need a way to convert them to a delay time (perhaps using the arrival time of the next flight to the same destination).
 
-**TOOD: Answer this**
+**TODO: Answer this**
 
 </div>
 
@@ -1130,7 +1156,7 @@ ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
 #> `geom_smooth()` using method = 'loess'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="transform_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 </div>
@@ -1397,7 +1423,7 @@ flights %>%
 #> `geom_smooth()` using method = 'gam'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-56-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="transform_files/figure-html/unnamed-chunk-57-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 </div>

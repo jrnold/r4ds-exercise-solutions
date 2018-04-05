@@ -387,12 +387,13 @@ ggplot(data = mpg) +
 
 #### Exercise 4 {.exercise}
 
-
 <div class='question'>
+
 One problem with box plots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of ``outlying values''.
 One approach to remedy this problem is the letter value plot.
 Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut.
 What do you learn?
+
 </div>
 
 
@@ -813,8 +814,8 @@ Combine two of the techniques you've learned to visualize the combined distribut
 
 <div class='answer'>
 
-There's lots of options to try, so readers may prodocue a variety of solutions.
-Here's a couple that I tried.
+There are many options to try, so your solutions may vary from mine.
+Here are a few options that I tried.
 
 
 ```r

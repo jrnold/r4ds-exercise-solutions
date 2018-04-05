@@ -268,11 +268,10 @@ all.equal(cumsum(x),out)
 <div class='question'>
 Combine your function writing and for loop skills:
 
-1. Write a for loop that `prints()` the lyrics to the children's song  "Alice the camel".
-1. Convert the nursery rhyme "ten in the bed" to a function. Generalise it to any number of people in any sleeping structure.
-1. Convert the song "99 bottles of beer on the wall" to a function.
-Generalise to any number of any vessel containing any liquid on 
-surface.
+1.   Write a for loop that `prints()` the lyrics to the children's song  "Alice the camel".
+1.   Convert the nursery rhyme "ten in the bed" to a function. Generalize it to any number of people in any sleeping structure.
+1.   Convert the song "99 bottles of beer on the wall" to a function.
+Generalize to any number of any vessel containing any liquid on  surface.
 </div>
     
 <div class='answer'>
@@ -905,7 +904,7 @@ map(c(-10, 0, 10, 100), rnorm, n = 10)
 
 </div>
 
-### Exercise 2 {.exericse}  
+### Exercise 2 {.exercise}  
 
 
 

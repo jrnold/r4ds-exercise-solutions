@@ -487,7 +487,7 @@ But, there are a few heuristics to consider that would account for some common c
 - ends in `ise` instead of `ize`
 - ends in `yse`
 
-The regex `ou|ise^|ae|oe|yse^` would match these.
+The regex `ou|ise$|ae|oe|yse$` would match these.
 
 There are other [spelling differences between American and British English] (https://en.wikipedia.org/wiki/American_and_British_English_spelling_differences) but they are not patterns amenable to regular expressions.
 It would require a dictionary with differences in spellings for different words.
@@ -551,20 +551,46 @@ Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
 <div class='answer'>
 
 ----- ---------  ----------------------------------
-`-`   `{,1}`     Match at most 1
-`+`   `{1,}`     Match one or more
-`*`   None       No equivalent
+`?`   `{0,1}`    Match at most 1
+`+`   `{1,}`     Match 1 or more
+`*`   `{0,}`     Match 0 or more
 ----- ---------  ----------------------------------
 
-The `*` pattern has no `{m,n}` equivalent since there is no upper bound on the number of matches. The expected pattern `{,}` is not valid.
+For example, let's repeat the let's rewrite the `?`, `+`, and `*` examples using `{,}`.
 
 ```r
-str_view("abcd", ".{,}")
-#> Error in stri_locate_first_regex(string, pattern, opts_regex = opts(pattern)): Error in {min,max} interval. (U_REGEX_BAD_INTERVAL)
+x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
+str_view(x, "CC?")
 ```
+
+<!--html_preserve--><div id="htmlwidget-14d5992801777f4abbc5" style="width:960px;height:auto;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-14d5992801777f4abbc5">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+```r
+str_view(x, "CC{0,1}")
+```
+
+<!--html_preserve--><div id="htmlwidget-df2c08526632671063f9" style="width:960px;height:auto;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-df2c08526632671063f9">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+```r
+str_view(x, "CC+")
+```
+
+<!--html_preserve--><div id="htmlwidget-4aadbc32fbbd0d87b2b0" style="width:960px;height:auto;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4aadbc32fbbd0d87b2b0">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+```r
+str_view(x, "CC{1,}")
+```
+
+<!--html_preserve--><div id="htmlwidget-07394da27a6eb4f22e37" style="width:960px;height:auto;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-07394da27a6eb4f22e37">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 </div>
+
+
 
 #### Exercise 2 {.exercise}
 
@@ -918,7 +944,7 @@ unique(unlist(str_extract_all(sentences[sentences_with_ing], pattern))) %>%
 ```
 
 All plurals. This cannot be done correctly with regular expressions alone.
-It would require morphological inforation about words in the language.
+It would require morphological information about words in the language.
 See [WordNet](https://cran.r-project.org/web/packages/wordnet/index.html) for a resource that would do that.
 However, identifying words that end in an "s" and with more than three characters in order to remove "as", "is", "gas", etc., will provide a reasonable approximation.
 
@@ -1088,9 +1114,9 @@ Why is it better to split up by `boundary("word")` than `" "`?
 
 <div class='answer'>
 
-Splitting by `boundary("word")` is a more intelligent means of splitting up a string into words.
-It will recognize non-space punctation that splits words, and also remove that punctuation from words.
-You can read the set of rules that are used to determine word boundaries on the [ICU website](http://userguide.icu-project.org/boundaryanalysis).
+Splitting by `boundary("word")` is a more sophisticated method to split a string into words.
+It recognizes non-space punctuation that splits words, and also removes punctuation while retaining internal non-letter characters that are parts of the word, e.g., "can't"
+See the [ICU website](http://userguide.icu-project.org/boundaryanalysis) for a description of the set of rules that are used to determine word boundaries.
 
 Consider this sentence from the official [Unicode Report on word boundaries](http://www.unicode.org/reports/tr29/#Word_Boundaries),
 
