@@ -7,7 +7,7 @@ editor_options:
 
 ## Introduction
 
-```{r message=FALSE}
+```{r message=FALSE,cache=FALSE}
 library("nycflights13")
 library("tidyverse")
 ```
@@ -23,6 +23,7 @@ glimpse(flights)
 `r BeginQuestion()`
 Find all flights that
 
+<<<<<<< HEAD
 1.  Had an arrival delay of two or more hours
 1.  Flew to Houston (IAH or HOU)
 1.  Were operated by United, American, or Delta
@@ -30,38 +31,51 @@ Find all flights that
 1.  Arrived more than two hours late, but didn’t leave late
 1.  Were delayed by at least an hour, but made up over 30 minutes in flight
 1.  Departed between midnight and 6am (inclusive)
+=======
+1. Had an arrival delay of two or more hours
+2. Flew to Houston (IAH or HOU)
+3. Were operated by United, American, or Delta
+4. Departed in summer (July, August, and September)
+5. Arrived more than two hours late, but didn’t leave late
+6. Were delayed by at least an hour, but made up over 30 minutes in flight
+7. Departed between midnight and 6am (inclusive)
+
+`r EndQuestion()`
+>>>>>>> 1ce03cda004c2ec5f75313d69529e4f76fb269f4
 
 `r EndQuestion()`
 
 `r BeginAnswer()`
 
-*Had an arrival delay of two or more hours* Since delay is in minutes, we are looking
-for flights where `arr_delay > 120`:
+*Had an arrival delay of two or more hours:* Since delay is in minutes, find 
+flights whose arrival was delayed more than 120 minutes.
 ```{r}
-flights %>%
-  filter(arr_delay > 120)
+filter(flights, arr_delay > 120)
 ```
 
 *Flew to Houston (IAH or HOU)*:
 ```{r}
-flights %>%
-  filter(dest %in% c("IAH", "HOU"))
+filter(flights, dest %in% c("IAH", "HOU"))
 ```
 
-*Were operated by United, American, or Delta* The variable `carrier` has the airline: but it is in two-digit carrier codes. However, we can look it up in the `airlines`
-dataset.
+*Were operated by United, American, or Delta* In the `flights` dataset, 
+the column `carrier` indicates the airline, but it uses two-character carrier codes.
+We can find the carrier codes for the airlines in the `airlines` dataset.
+Since the carrier code dataset only has `r nrow(airlines)` rows, and the names
+of the airlines in that datasest are not exactly "United", "American", or "Delta",
+it is easiest to manually lookup their carrier codes in that data.
 ```{r}
 airlines
 ```
-Since there are only 16 rows, its not even worth filtering.
-Delta is `DL`, American is `AA`, and United is `UA`:
+The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`. 
+Using these carriers codes, we check whether `carrier` is one of those.
 ```{r}
 filter(flights, carrier %in% c("AA", "DL", "UA"))
 ```
 
 *Departed in summer (July, August, and September)* The variable `month` has the month, and it is numeric.
 ```{r}
-filter(flights, between(month, 7, 9))
+filter(flights, month >= 7, month <= 9)
 ```
 
 *Arrived more than two hours late, but didn’t leave late*
@@ -71,17 +85,21 @@ filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
 
 *Were delayed by at least an hour, but made up over 30 minutes in flight*
 ```{r}
-filter(flights, !is.na(dep_delay), dep_delay >= 60, dep_delay-arr_delay > 30)
+filter(flights, !is.na(dep_delay), 
+       dep_delay >= 60, dep_delay - arr_delay > 30)
 ```
 
-*Departed between midnight and 6am (inclusive)*.
+*Departed between midnight and 6am (inclusive)*. Note that in `dep_time`, midnight is `2400`, not `0`.
 ```{r}
-filter(flights, dep_time <=600 | dep_time == 2400)
+filter(flights, dep_time <= 600 | dep_time == 2400)
 ```
+<<<<<<< HEAD
 or using `between` (see next question)
 ```{r}
 filter(flights, between(dep_time, 0, 600))
 ```
+=======
+>>>>>>> 1ce03cda004c2ec5f75313d69529e4f76fb269f4
 
 `r EndAnswer()`
 
@@ -93,8 +111,14 @@ Another useful **dplyr** filtering helper is `between()`. What does it do? Can y
 
 `r BeginAnswer()`
 
-`between(x, left, right)` is equivalent to `x >= left & x <= right`. I already
-used it in 1.4.
+`between(x, left, right)` is equivalent to `x >= left & x <= right`.
+
+Of the answers in the previous question, 
+```{r}
+filter(flights, between(month, 7, 9))
+```
+
+
 
 `r EndAnswer()`
 

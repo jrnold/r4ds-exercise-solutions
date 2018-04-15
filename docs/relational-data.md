@@ -295,6 +295,11 @@ airports %>%
     borders("state") +
     geom_point() +
     coord_quickmap()
+#> 
+#> Attaching package: 'maps'
+#> The following object is masked from 'package:purrr':
+#> 
+#>     map
 ```
 
 <img src="relational-data_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
@@ -343,12 +348,12 @@ flights %>%
 #> # A tibble: 6 x 33
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515        2.      830
-#> 2  2013     1     1      533            529        4.      850
-#> 3  2013     1     1      542            540        2.      923
-#> 4  2013     1     1      544            545       -1.     1004
-#> 5  2013     1     1      554            600       -6.      812
-#> 6  2013     1     1      554            558       -4.      740
+#> 1  2013     1     1      517            515      2.00      830
+#> 2  2013     1     1      533            529      4.00      850
+#> 3  2013     1     1      542            540      2.00      923
+#> 4  2013     1     1      544            545     -1.00     1004
+#> 5  2013     1     1      554            600     -6.00      812
+#> 6  2013     1     1      554            558     -4.00      740
 #> # ... with 26 more variables: sched_arr_time <int>, arr_delay <dbl>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
@@ -446,6 +451,7 @@ The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest,
 
 ```r
 library(viridis)
+#> Loading required package: viridisLite
 flights %>%
   filter(year == 2013, month == 6, day == 13) %>%
   group_by(dest) %>%
@@ -519,12 +525,12 @@ flights %>%
 #> # A tibble: 229,202 x 19
 #>    year month   day dep_time sched_dep_time dep_delay arr_time
 #>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515        2.      830
-#> 2  2013     1     1      533            529        4.      850
-#> 3  2013     1     1      544            545       -1.     1004
-#> 4  2013     1     1      554            558       -4.      740
-#> 5  2013     1     1      555            600       -5.      913
-#> 6  2013     1     1      557            600       -3.      709
+#> 1  2013     1     1      517            515      2.00      830
+#> 2  2013     1     1      533            529      4.00      850
+#> 3  2013     1     1      544            545     -1.00     1004
+#> 4  2013     1     1      554            558     -4.00      740
+#> 5  2013     1     1      555            600     -5.00      913
+#> 6  2013     1     1      557            600     -3.00      709
 #> # ... with 2.292e+05 more rows, and 12 more variables:
 #> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
 #> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
@@ -611,12 +617,12 @@ flights %>%
 #> # Groups:   year, month [12]
 #>    year month   day total_24 total_48
 #>   <int> <int> <int>    <dbl>    <dbl>
-#> 1  2013     7    23   80641.  175419.
-#> 2  2013     3     8  135264.  167530.
-#> 3  2013     6    25   80434.  166649.
-#> 4  2013     8     9   72866.  165287.
-#> 5  2013     6    28   81389.  157910.
-#> 6  2013     7    10   97120.  157396.
+#> 1  2013     7    23    80641   175419
+#> 2  2013     3     8   135264   167530
+#> 3  2013     6    25    80434   166649
+#> 4  2013     8     9    72866   165287
+#> 5  2013     6    28    81389   157910
+#> 6  2013     7    10    97120   157396
 #> # ... with 359 more rows
 ```
 

@@ -129,7 +129,7 @@ tbl[, c("abc", "xyz")]
 #> # A tibble: 1 x 2
 #>     abc xyz  
 #>   <dbl> <fct>
-#> 1    1. a
+#> 1  1.00 a
 ```
 
 Using `$` a data.frame will partially complete the column. So even though we wrote `df$x` it returned `df$xyz`. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.
@@ -246,9 +246,9 @@ enframe(c(a = 1, b = 2, c = 3))
 #> # A tibble: 3 x 2
 #>   name  value
 #>   <chr> <dbl>
-#> 1 a        1.
-#> 2 b        2.
-#> 3 c        3.
+#> 1 a      1.00
+#> 2 b      2.00
+#> 3 c      3.00
 ```
 
 
