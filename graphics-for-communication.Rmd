@@ -14,18 +14,16 @@ library("lubridate")
 
 #### Exercise 1  {.exercise}
 
-
 `r BeginQuestion()`
 Create one plot on the fuel economy data with customized `title`,
 `subtitle`, `caption`, `x`, `y`, and `colour` labels.
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
 ```{r}
 ggplot(data = mpg,
-       mapping = aes(x = reorder(class, hwy, median), y = hwy)) + 
+       mapping = aes(x = reorder(class, hwy, median), y = hwy)) +
   geom_boxplot() +
   coord_flip() +
   labs(
@@ -37,17 +35,14 @@ ggplot(data = mpg,
   )
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
-The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines. 
+The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines.
 Use your modeling tools to fit and display
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 a better model.
@@ -62,7 +57,6 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
     caption = "Data from fueleconomy.gov"
   )
 ```
-
 
 ```{r}
 mod <- lm(hwy ~ class, data = mpg)
@@ -82,13 +76,11 @@ mpg %>%
 
 `r EndAnswer()`
 
-#### Exercise 3 
-
+#### Exercise 3
 
 `r BeginQuestion()`
 Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -102,11 +94,9 @@ This exercise is by is intrinsically left to readers.
 
 #### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Use `geom_text()` with infinite positions to place text at the four corners of the plot.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -127,16 +117,13 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_text(aes(label = label, vjust = vjust, hjust = hjust), data = label)
 ```
 
-
 `r EndAnswer()`
 
 #### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Read the documentation for `annotate()`. How can you use it to add a text label to a plot without having to create a tibble?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -144,23 +131,20 @@ With annotate you use what would be aesthetic mappings directly as arguments:
 ```{r}
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  annotate("text", x = Inf, y = Inf, 
+  annotate("text", x = Inf, y = Inf,
            label = "Increasing engine size is \nrelated to decreasing fuel economy.", vjust = "top", hjust = "right")
 ```
-
 
 `r EndAnswer()`
 
 #### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
-How do labels with `geom_text()` interact with faceting? 
+How do labels with `geom_text()` interact with faceting?
 How can you add a label to a single facet?
 How can you put a different label in each facet?
 (Hint: think about the underlying data.)
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -195,7 +179,6 @@ ggplot(mpg, aes(displ, hwy)) +
   facet_wrap(~ class)
 ```
 
-
 To draw labels in different plots, simply have the facetting variable(s):
 ```{r}
 label <- tibble(
@@ -216,38 +199,33 @@ ggplot(mpg, aes(displ, hwy)) +
 
 #### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 What arguments to `geom_label()` control the appearance of the background box?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
-- `label.padding`: padding around label
-- `label.r`: amount of rounding in the corners
-- `label.size`: size of label border
-
+-   `label.padding`: padding around label
+-   `label.r`: amount of rounding in the corners
+-   `label.size`: size of label border
 
 `r EndAnswer()`
 
 #### Exercise 5 {.exercise}
 
-
 `r BeginQuestion()`
-What are the four arguments to `arrow()`? How do they work? 
+What are the four arguments to `arrow()`? How do they work?
 Create a series of plots that demonstrate the most important options.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
 The four arguments are: (from the help for [arrow](https://www.rdocumentation.org/packages/grid/versions/3.3.2/topics/arrow))
-- `angle` : angle of arrow head
-- `length` : length of the arrow head
-- `ends`: ends of the line to draw arrow head
-- `type`: `"open"` or `"close"`: whether the arrow head is a closed or open triangle
 
+-   `angle` : angle of arrow head
+-   `length` : length of the arrow head
+-   `ends`: ends of the line to draw arrow head
+-   `type`: `"open"` or `"close"`: whether the arrow head is a closed or open triangle
 
 `r EndAnswer()`
 
@@ -257,11 +235,9 @@ The four arguments are: (from the help for [arrow](https://www.rdocumentation.or
 
 #### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Why doesn’t the following code override the default scale?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -285,17 +261,14 @@ ggplot(df, aes(x, y)) +
   coord_fixed()
 ```
 
-
 `r EndAnswer()`
 
 #### Exercise 2 {.exercise}
-
 
 `r BeginQuestion()`
 The first argument to every scale is the label for the scale.
 It is equivalent to using the `labs` function.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -314,7 +287,7 @@ ggplot(mpg, aes(displ, hwy)) +
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(colour = class)) +
   geom_smooth(se = FALSE) +
-  scale_x_continuous("Engine displacement (L)") + 
+  scale_x_continuous("Engine displacement (L)") +
   scale_y_continuous("Highway fuel economy (mpg)") +
   scale_colour_discrete("Car type")
 ```
@@ -323,18 +296,16 @@ ggplot(mpg, aes(displ, hwy)) +
 
 #### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Change the display of the presidential terms by:
 
 1.  Combining the two variants shown above.
-2.  Improving the display of the y axis.
-3.  Labeling each term with the name of the president.
-4.  Adding informative plot labels.
-5.  Placing breaks every 4 years (this is trickier than it seems!).
+1.  Improving the display of the y axis.
+1.  Labeling each term with the name of the president.
+1.  Adding informative plot labels.
+1.  Placing breaks every 4 years (this is trickier than it seems!).
 
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 ```{r}
@@ -359,11 +330,9 @@ presidential %>%
 
 #### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 Use `override.aes` to make the legend on the following plot easier to see.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -381,4 +350,3 @@ ggplot(diamonds, aes(carat, price)) +
 ```
 
 `r EndAnswer()`
-

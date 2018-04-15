@@ -152,9 +152,9 @@ Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
 
 `r BeginAnswer()`
 
-- `"\"`: This will escape the next character in the R string.
-- `"\\"`: This will resolve to `\` in the regular expression, which will escape the next character in the regular expression.
-- `"\\\"`: The first two backslashes will resolve to a literal backslash in the regular expression, the third will escape the next character. So in the regular expression, this will escape some escaped character.
+-   `"\"`: This will escape the next character in the R string.
+-   `"\\"`: This will resolve to `\` in the regular expression, which will escape the next character in the regular expression.
+-   `"\\\"`: The first two backslashes will resolve to a literal backslash in the regular expression, the third will escape the next character. So in the regular expression, this will escape some escaped character.
 
 `r EndAnswer()`
 
@@ -242,7 +242,6 @@ Since this list is long, you might want to use the match argument to `str_view()
 
 `r BeginAnswer()`
 
-
 ```{r eval=is_html}
 str_view(stringr::words, "^y", match =TRUE)
 ```
@@ -266,15 +265,17 @@ str_view(stringr::words, ".......", match = TRUE)
 #### Exercise 1 {.exercise}
 
 `r BeginQuestion()`
+
 Create regular expressions to find all words that:
+
+1.  Start with a vowel.
+1.  That only contain consonants. (Hint: thinking about matching “not”-vowels.)
+1.  End with `ed`, but not with `eed`.
+1.  End with `ing` or `ise`.
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
->
-> 1.  Start with a vowel.
-> 2.  That only contain consonants. (Hint: thinking about matching “not”-vowels.)
-> 3.  End with `ed`, but not with `eed`.
-> 4.  End with `ing` or `ise`.
 
 Words starting with vowels
 ```{r eval=is_html}
@@ -282,17 +283,21 @@ str_view(stringr::words, "^[aeiou]", match = TRUE)
 ```
 
 Words that contain only consonants
+
 ```{r eval=is_html}
 str_view(stringr::words, "^[^aeiou]+$", match=TRUE)
 ```
+
 This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
 
-Words that end with `ed` but not with `eed`. This handles the special case of "ed", as well as words with length > 2.
+Words that end with "-ed" but not ending in "-eed". This handles the special case of "-ed", as well as words with a length great than two.
+
 ```{r eval=is_html}
 str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
 ```
 
 Words ending in `ing` or `ise`:
+
 ```{r eval=is_html}
 str_view(stringr::words, "i(ng|se)$", match = TRUE)
 ```
@@ -302,15 +307,19 @@ str_view(stringr::words, "i(ng|se)$", match = TRUE)
 #### Exercise 2 {.exercise}
 
 `r BeginQuestion()`
+
 Empirically verify the rule ``i before e except after c''.
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
 
 Using only what has been introduced thus far:
+
 ```{r eval=is_html}
 str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 ```
+
 ```{r eval=is_html}
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
@@ -349,10 +358,10 @@ Write a regular expression that matches a word if it’s probably written in Bri
 In the general case, this is hard, and could require a dictionary.
 But, there are a few heuristics to consider that would account for some common cases: British English tends to use the following:
 
-- "ou" instead of "o"
-- use of "ae" and "oe" instead of "a" and "o"
-- ends in `ise` instead of `ize`
-- ends in `yse`
+-   "ou" instead of "o"
+-   use of "ae" and "oe" instead of "a" and "o"
+-   ends in `ise` instead of `ize`
+-   ends in `yse`
 
 The regex `ou|ise$|ae|oe|yse$` would match these.
 
@@ -386,7 +395,13 @@ This regular expression can be simplified with the `{m,n}` regular expression mo
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 
-Note that this pattern doesn't account for phone numbers that are invalid because of unassigned area code, or special numbers like 911, or extensions. See the Wikipedia page for the [North American Numbering Plan](https://en.wikipedia.org/wiki/North_American_Numbering_Plan) for more information on the complexities of US phone numbers, and [this Stack Overflow question](http://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation) for a discussion of using a regex for phone number validation.
+Note that this pattern doesn't account for phone numbers that are invalid
+because of unassigned area code, or special numbers like 911, or extensions.
+See the Wikipedia page for the [North American Numbering
+Plan](https://en.wikipedia.org/wiki/North_American_Numbering_Plan) for more
+information on the complexities of US phone numbers, and [this Stack Overflow
+question](http://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation)
+for a discussion of using a regex for phone number validation.
 
 `r EndAnswer()`
 
@@ -400,11 +415,9 @@ Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
 
 `r BeginAnswer()`
 
------ ---------  ----------------------------------
-`?`   `{0,1}`    Match at most 1
-`+`   `{1,}`     Match 1 or more
-`*`   `{0,}`     Match 0 or more
------ ---------  ----------------------------------
+| `?`  | `{0,1}` | Match at most 1
+| `+`  | `{1,}`  | Match 1 or more
+| `*`  | `{0,}`  | Match 0 or more
 
 For example, let's repeat the let's rewrite the `?`, `+`, and `*` examples using `{,}`.
 ```{r eval=is_html}
@@ -421,27 +434,28 @@ str_view(x, "CC{1,}")
 
 `r BeginQuestion()`
 Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
+
+1.  `^.*$`
+1.  `"\\{.+\\}"`
+1.  `\d{4}-\d{2}-\d{2}`
+1.  `"\\\\{4}"`
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
->
-> 1.  `^.*$`
-> 2.  `"\\{.+\\}"`
-> 3.  `\d{4}-\d{2}-\d{2}`
-> 4.  `"\\\\{4}"`
 
--------------------- ----------------------------------------------------------------------------------------------------------------------------------------------------
-`^.*$`               Any string
-`"\\{.+\\}"`         Any string with curly braces surrounding at least one character.
-`\d{4}-\d{2}-\d{2}`  Four digits followed by a hyphen, followed by two digits followed by a hyphen, followed by another two digits. This is a regular expression that can match dates formatted like "YYYY-MM-DD" ("%Y-%m-%d").
- `"\\\\{4}"`         This resolves to the regular expression `\\{4}`, which is four backslashes.
+1.  `^.*$` will match any string. For example: `^.*$`: `c("dog", "$1.23", "lorem ipsum")`.
 
-Examples:
+1.  `"\\{.+\\}"` will match any string with curly braces surrounding at least one character.
+    For example: `"\\{.+\\}"`: `c("{a}", "{abc}")`.
 
-- `^.*$`: `c("dog", "$1.23", "lorem ipsum")`
-- `"\\{.+\\}"`: `c("{a}", "{abc}")`
-- `\d{4}-\d{2}-\d{2}`: `2018-01-11`
-- `"\\\\{4}"`: `"\\\\\\\\"` (Backslashes in an R character vector need to be escaped.)
+1.  `\d{4}-\d{2}-\d{2}` will match four digits followed by a hyphen, followed by
+     two digits followed by a hyphen, followed by another two digits.
+     This is a regular expression that can match dates formatted like "YYYY-MM-DD" ("%Y-%m-%d").
+     For example: `\d{4}-\d{2}-\d{2}`: `2018-01-11`
+
+1.  `"\\\\{4}"` is `\\{4}`, which will match four backslashes.
+    For example: `"\\\\{4}"`: `"\\\\\\\\"`.
 
 `r EndAnswer()`
 
@@ -449,13 +463,14 @@ Examples:
 
 `r BeginQuestion()`
 Create regular expressions to find all words that:
+
+1.  Start with three consonants.
+1.  Have three or more vowels in a row.
+1.  Have two or more vowel-consonant pairs in a row.
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
->
-> 1. Start with three consonants.
-> 2. Have three or more vowels in a row.
-> 3. Have two or more vowel-consonant pairs in a row.
 
 A regex to find all words starting with three consonants
 ```{r eval=is_html}
@@ -477,7 +492,7 @@ str_view(words, "([aeiou][^aeiou]){2,}")
 #### Exercise 4 {.exercise}
 
 `r BeginQuestion()`
-Solve the beginner regexp crosswords at https://regexcrossword.com/challenges/
+Solve the beginner regexp crosswords at <https://regexcrossword.com/challenges/>
 `r EndQuestion()`
 
 `r BeginAnswer()`
@@ -492,15 +507,16 @@ Exercise left to reader. That site validates its solutions, so they aren't repea
 
 `r BeginQuestion()`
 Describe, in words, what these expressions will match:
+
+1.  `(.)\1\1` :
+1.  `"(.)(.)\\2\\1"`:
+1.  `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
+1.  `"(.).\\1.\\1"`:
+1.  `"(.)(.)(.).*\\3\\2\\1"`
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
->
-> 1.  `(.)\1\1` :
-> 2.  `"(.)(.)\\2\\1"`:
-> 3.  `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
-> 4.  `"(.).\\1.\\1"`:
-> 5.  `"(.)(.)(.).*\\3\\2\\1"`
 
 1.  `(.)\1\1` : The same character appearing three times in a row. E.g. `"aaa"`
 1.  `"(.)(.)\\2\\1"`: A pair of characters followed by the same pair of characters in reversed order. E.g. `"abba"`.
@@ -514,13 +530,14 @@ Describe, in words, what these expressions will match:
 
 `r BeginQuestion()`
 Construct regular expressions to match words that:
+
+1.  Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
+1.  Contain a repeated pair of letters (e.g. ``church'' contains ``ch'' repeated twice.)
+1.  Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
->
-> 1. Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
-> 2. Contain a repeated pair of letters (e.g. ``church'' contains ``ch'' repeated twice.)
-> 3. Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
 
 Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`:
 ```{r eval=is_html}
@@ -667,11 +684,13 @@ str_view_all(more2, colour_match2, match = TRUE)
 #### Exercise 2 {.exercise}
 
 `r BeginQuestion()`
+
 From the Harvard sentences data, extract:
 
 1.  The first word from each sentence.
 1.  All words ending in `ing`.
 1.  All plurals.
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
@@ -897,17 +916,29 @@ No exercises
 
 `r BeginQuestion()`
 Find the **stringi** functions that:
+
+1.  Count the number of words. `stri_count_words`
+
+1.  Find duplicated strings. `stri_duplicated`
+
+1.  Generate random text. There are several functions beginning with `stri_rand_`.
+    `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates
+    random strings, `stri_rand_shuffle` randomly shuffles the code points in the
+    text.
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
 
-> 1. Count the number of words. `stri_count_words`
-> 2. Find duplicated strings. `stri_duplicated`
-> 3. Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
-
 1.  Count the number of words. `stri_count_words`
+
 1.  Find duplicated strings. `stri_duplicated`
-1.  Generate random text. There are several functions beginning with `stri_rand_`. `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates random strings, `stri_rand_shuffle` randomly shuffles the code points in the text.
+
+1.  Generate random text. The *stringi* package contains several functions beginning with `stri_rand_`.
+
+    -   `stri_rand_lipsum` generates lorem ipsum text
+    -   `stri_rand_strings` generates random strings
+    -   `stri_rand_shuffle` randomly shuffles the code points (characters) in the text.
 
 `r EndAnswer()`
 

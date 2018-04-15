@@ -28,11 +28,9 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
 How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
 </div>
-
 
 <div class='answer'>
 
@@ -92,11 +90,9 @@ Tibbles will only print out a limited number of rows and show the class on top o
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
 </div>
-
 
 <div class='answer'>
 
@@ -129,44 +125,49 @@ tbl[, c("abc", "xyz")]
 #> # A tibble: 1 x 2
 #>     abc xyz  
 #>   <dbl> <fct>
-#> 1  1.00 a
+#> 1    1. a
 ```
 
-Using `$` a data.frame will partially complete the column. So even though we wrote `df$x` it returned `df$xyz`. This saves a few keystrokes, but can result in accidentally using a different variable than you thought you were using.
+Using `$` a data.frame will partially complete the column. So even though we
+wrote `df$x` it returned `df$xyz`. This saves a few keystrokes, but can result
+in accidentally using a different variable than you thought you were using.
 
-With data.frames, with `[` the type of object that is returned differs on the number of columns. If it is one column, it won't return a data.frame, but instead will return a vector. With more than one column, then it will return a data.frame. This is fine if you know what you are passing in, but suppose you did `df[ , vars]` where `vars` was a variable. Then you what that code does depends on `length(vars)` and you'd have to write code to account for those situations or risk bugs.
+With data.frames, with `[` the type of object that is returned differs on the
+number of columns. If it is one column, it won't return a data.frame, but
+instead will return a vector. With more than one column, then it will return a
+data.frame. This is fine if you know what you are passing in, but suppose you
+did `df[ , vars]` where `vars` was a variable. Then you what that code does
+depends on `length(vars)` and you'd have to write code to account for those
+situations or risk bugs.
 
 </div>
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
 If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
 </div>
 
-
 <div class='answer'>
 
-You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign, because `df$var` would look for a column named `var`. 
+You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign, because `df$var` would look for a column named `var`.
 
 </div>
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
+
 Practice referring to non-syntactic names in the following data frame by:
 
-1. Extracting the variable called 1.
-2. Plotting a scatterplot of 1 vs 2.
-3. Creating a new column called 3 which is 2 divided by 1.
-4. Renaming the columns to one, two and three.
+1.  Extracting the variable called 1.
+1.  Plotting a scatterplot of 1 vs 2.
+1.  Creating a new column called 3 which is 2 divided by 1.
+1.  Renaming the columns to one, two and three.
+
 </div>
 
-
 <div class='answer'>
-
 
 
 ```r
@@ -209,7 +210,6 @@ or
 annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
 ```
 
-
 Renaming the columns to `one`, `two`, and `three`:
 
 ```r
@@ -226,11 +226,9 @@ glimpse(annoying)
 
 ### Exercise 5 {.exercise}
 
-
 <div class='question'>
 What does `tibble::enframe()` do? When might you use it?
 </div>
-
 
 <div class='answer'>
 
@@ -246,21 +244,18 @@ enframe(c(a = 1, b = 2, c = 3))
 #> # A tibble: 3 x 2
 #>   name  value
 #>   <chr> <dbl>
-#> 1 a      1.00
-#> 2 b      2.00
-#> 3 c      3.00
+#> 1 a        1.
+#> 2 b        2.
+#> 3 c        3.
 ```
-
 
 </div>
 
 ### Exercise 6 {.exercise}
 
-
 <div class='question'>
 What option controls how many additional column names are printed at the footer of a tibble?
 </div>
-
 
 <div class='answer'>
 
@@ -271,7 +266,5 @@ The print function for tibbles is in `print.tbl_df`:
 ```
 The option `n_extra` determines the number of extra columns to print information for.
 
-
 </div>
-
 

@@ -6,22 +6,8 @@
 
 ```r
 library("tidyverse")
-#> ── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     
-#> ✔ tibble  1.4.2          ✔ dplyr   0.7.4.9000
-#> ✔ tidyr   0.8.0          ✔ stringr 1.2.0     
-#> ✔ readr   1.1.1          ✔ forcats 0.3.0
-#> ── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
 library("modelr")
 library("lubridate")
-#> Loading required package: methods
-#> 
-#> Attaching package: 'lubridate'
-#> The following object is masked from 'package:base':
-#> 
-#>     date
 ```
 
 ## Label
@@ -30,19 +16,17 @@ library("lubridate")
 
 #### Exercise 1  {.exercise}
 
-
 <div class='question'>
 Create one plot on the fuel economy data with customized `title`,
 `subtitle`, `caption`, `x`, `y`, and `colour` labels.
 </div>
-
 
 <div class='answer'>
 
 
 ```r
 ggplot(data = mpg,
-       mapping = aes(x = reorder(class, hwy, median), y = hwy)) + 
+       mapping = aes(x = reorder(class, hwy, median), y = hwy)) +
   geom_boxplot() +
   coord_flip() +
   labs(
@@ -56,17 +40,14 @@ ggplot(data = mpg,
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
-The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines. 
+The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines.
 Use your modeling tools to fit and display
 </div>
-
 
 <div class='answer'>
 a better model.
@@ -84,7 +65,6 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 ```
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
-
 
 
 ```r
@@ -107,13 +87,11 @@ mpg %>%
 
 </div>
 
-#### Exercise 3 
-
+#### Exercise 3
 
 <div class='question'>
 Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
 </div>
-
 
 <div class='answer'>
 
@@ -127,11 +105,9 @@ This exercise is by is intrinsically left to readers.
 
 #### Exercise 1 {.exercise}
 
-
 <div class='question'>
 Use `geom_text()` with infinite positions to place text at the four corners of the plot.
 </div>
-
 
 <div class='answer'>
 
@@ -155,16 +131,13 @@ ggplot(mpg, aes(displ, hwy)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 #### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Read the documentation for `annotate()`. How can you use it to add a text label to a plot without having to create a tibble?
 </div>
-
 
 <div class='answer'>
 
@@ -173,25 +146,22 @@ With annotate you use what would be aesthetic mappings directly as arguments:
 ```r
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  annotate("text", x = Inf, y = Inf, 
+  annotate("text", x = Inf, y = Inf,
            label = "Increasing engine size is \nrelated to decreasing fuel economy.", vjust = "top", hjust = "right")
 ```
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 #### Exercise 3 {.exercise}
 
-
 <div class='question'>
-How do labels with `geom_text()` interact with faceting? 
+How do labels with `geom_text()` interact with faceting?
 How can you add a label to a single facet?
 How can you put a different label in each facet?
 (Hint: think about the underlying data.)
 </div>
-
 
 <div class='answer'>
 
@@ -232,7 +202,6 @@ ggplot(mpg, aes(displ, hwy)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 To draw labels in different plots, simply have the facetting variable(s):
 
 ```r
@@ -256,38 +225,33 @@ ggplot(mpg, aes(displ, hwy)) +
 
 #### Exercise 4 {.exercise}
 
-
 <div class='question'>
 What arguments to `geom_label()` control the appearance of the background box?
 </div>
 
-
 <div class='answer'>
 
-- `label.padding`: padding around label
-- `label.r`: amount of rounding in the corners
-- `label.size`: size of label border
-
+-   `label.padding`: padding around label
+-   `label.r`: amount of rounding in the corners
+-   `label.size`: size of label border
 
 </div>
 
 #### Exercise 5 {.exercise}
 
-
 <div class='question'>
-What are the four arguments to `arrow()`? How do they work? 
+What are the four arguments to `arrow()`? How do they work?
 Create a series of plots that demonstrate the most important options.
 </div>
-
 
 <div class='answer'>
 
 The four arguments are: (from the help for [arrow](https://www.rdocumentation.org/packages/grid/versions/3.3.2/topics/arrow))
-- `angle` : angle of arrow head
-- `length` : length of the arrow head
-- `ends`: ends of the line to draw arrow head
-- `type`: `"open"` or `"close"`: whether the arrow head is a closed or open triangle
 
+-   `angle` : angle of arrow head
+-   `length` : length of the arrow head
+-   `ends`: ends of the line to draw arrow head
+-   `type`: `"open"` or `"close"`: whether the arrow head is a closed or open triangle
 
 </div>
 
@@ -297,11 +261,9 @@ The four arguments are: (from the help for [arrow](https://www.rdocumentation.or
 
 #### Exercise 1 {.exercise}
 
-
 <div class='question'>
 Why doesn’t the following code override the default scale?
 </div>
-
 
 <div class='answer'>
 
@@ -331,17 +293,14 @@ ggplot(df, aes(x, y)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 #### Exercise 2 {.exercise}
-
 
 <div class='question'>
 The first argument to every scale is the label for the scale.
 It is equivalent to using the `labs` function.
 </div>
-
 
 <div class='answer'>
 
@@ -365,7 +324,7 @@ ggplot(mpg, aes(displ, hwy)) +
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(colour = class)) +
   geom_smooth(se = FALSE) +
-  scale_x_continuous("Engine displacement (L)") + 
+  scale_x_continuous("Engine displacement (L)") +
   scale_y_continuous("Highway fuel economy (mpg)") +
   scale_colour_discrete("Car type")
 #> `geom_smooth()` using method = 'loess'
@@ -377,18 +336,16 @@ ggplot(mpg, aes(displ, hwy)) +
 
 #### Exercise 3 {.exercise}
 
-
 <div class='question'>
 Change the display of the presidential terms by:
 
 1.  Combining the two variants shown above.
-2.  Improving the display of the y axis.
-3.  Labeling each term with the name of the president.
-4.  Adding informative plot labels.
-5.  Placing breaks every 4 years (this is trickier than it seems!).
+1.  Improving the display of the y axis.
+1.  Labeling each term with the name of the president.
+1.  Adding informative plot labels.
+1.  Placing breaks every 4 years (this is trickier than it seems!).
 
 </div>
-
 
 <div class='answer'>
 
@@ -416,11 +373,9 @@ presidential %>%
 
 #### Exercise 4 {.exercise}
 
-
 <div class='question'>
 Use `override.aes` to make the legend on the following plot easier to see.
 </div>
-
 
 <div class='answer'>
 
@@ -444,5 +399,4 @@ ggplot(diamonds, aes(carat, price)) +
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
 </div>
-
 

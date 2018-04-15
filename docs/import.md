@@ -1,12 +1,12 @@
 
 ---
 output: html_document
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 # Data Import
 
-## Introduction 
+## Introduction
 
 
 ```r
@@ -17,11 +17,9 @@ library("tidyverse")
 
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
 What function would you use to read a file where fields were separated with
 </div>
-
 
 <div class='answer'>
 “|”?
@@ -32,16 +30,13 @@ I'd use `read_delim` with `delim="|"`:
 read_delim(file, delim = "|")
 ```
 
-
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
 </div>
-
 
 <div class='answer'>
 
@@ -54,23 +49,21 @@ union(names(formals(read_csv)), names(formals(read_tsv)))
 #> [11] "n_max"     "guess_max" "progress"
 ```
 
-- `col_names` and `col_types` are used to specify the column names and how to parse the columns
-- `locale` is important for determining things like the encoding and whether "." or "," is used as a decimal mark.
-- `na` and `quoted_na` control which strings are treated as missing values when parsing vectors
-- `trim_ws` trims whitespace before and after cells before parsing
-- `n_max` sets how many rows to read
-- `guess_max` sets how many rows to use when guessing the column type
-- `progress` determines whether a progress bar is shown.
+-   `col_names` and `col_types` are used to specify the column names and how to parse the columns
+-   `locale` is important for determining things like the encoding and whether "." or "," is used as a decimal mark.
+-   `na` and `quoted_na` control which strings are treated as missing values when parsing vectors
+-   `trim_ws` trims whitespace before and after cells before parsing
+-   `n_max` sets how many rows to read
+-   `guess_max` sets how many rows to use when guessing the column type
+-   `progress` determines whether a progress bar is shown.
 
 </div>
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
 What are the most important arguments to `read_fwf()`?
 </div>
-
 
 <div class='answer'>
 
@@ -80,14 +73,12 @@ The most important argument to `read_fwf` which reads "fixed-width formats", is 
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
-Sometimes strings in a CSV file contain commas. 
-To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`. 
-By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead. 
+Sometimes strings in a CSV file contain commas.
+To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`.
+By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead.
 What arguments do you need to specify to read the following text into a data frame?
 </div>
-
 
 <div class='answer'>
 
@@ -105,18 +96,14 @@ read_delim(x, ",", quote = "'")
 #> 1     1 a,b
 ```
 
-
-
 </div>
 
 ### Exercise 6 {.exercise}
 
-
 <div class='question'>
-Identify what is wrong with each of the following inline CSV files. 
+Identify what is wrong with each of the following inline CSV files.
 What happens when you run the code?
 </div>
-
 
 <div class='answer'>
 
@@ -172,9 +159,8 @@ read_csv("a,b\n1,2\na,b")
 #> 1 1     2    
 #> 2 a     b
 ```
-Both "a" and "b" are treated as character vectors since they contain non-numeric strings. 
+Both "a" and "b" are treated as character vectors since they contain non-numeric strings.
 This may have been intentional, or the author may have intended the values of the columns to be "1,2" and "a,b".
-
 
 
 ```r
@@ -196,42 +182,34 @@ read_csv2("a;b\n1;3")
 #> 1     1     3
 ```
 
-
-  
 </div>
 
 ## Parsing a vector
 
-
 ### Exercise 1 {.exercise}
-
 
 <div class='question'>
 What are the most important arguments to `locale()`?
 </div>
 
-
 <div class='answer'>
 
 The locale broadly controls the following:
 
-- date and time formats: `date_names`, `date_format`, and `time_format`
-- time_zone: `tz`
-- numbers: `decimal_mark`, `grouping_mark`
-- encoding: `encoding`
-
+-   date and time formats: `date_names`, `date_format`, and `time_format`
+-   time_zone: `tz`
+-   numbers: `decimal_mark`, `grouping_mark`
+-   encoding: `encoding`
 
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 What happens if you try and set `decimal_mark` and `grouping_mark` to the same character?
-What happens to the default value of `grouping_mark` when you set `decimal_mark` to `","`? 
+What happens to the default value of `grouping_mark` when you set `decimal_mark` to `","`?
 What happens to the default value of `decimal_mark` when you set the `grouping_mark` to `"."`?
 </div>
-
 
 <div class='answer'>
 
@@ -277,23 +255,19 @@ locale(grouping_mark = ",")
 #> AM/PM:  AM/PM
 ```
 
-
-
 </div>
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
-I didn’t discuss the `date_format` and `time_format` options to `locale()`. 
-What do they do? 
+I didn’t discuss the `date_format` and `time_format` options to `locale()`.
+What do they do?
 Construct an example that shows when they might be useful.
 </div>
 
-
 <div class='answer'>
 
-They provide default date and time formats. 
+They provide default date and time formats.
 The [readr vignette](https://cran.r-project.org/web/packages/readr/vignettes/locales.html) discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM
 
 ```r
@@ -322,17 +296,13 @@ parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
 ```
 Apparently the time format is not used for anything, but the date format is used for guessing column types.
 
-
-
 </div>
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
 If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
 </div>
-
 
 <div class='answer'>
 
@@ -341,16 +311,13 @@ If you live outside the US, create a new locale object that encapsulates the set
 ?locale
 ```
 
-
 </div>
 
 ### Exercise 5 {.exercise}
 
-
 <div class='question'>
 What’s the difference between `read_csv()` and `read_csv2()`?
 </div>
-
 
 <div class='answer'>
 
@@ -360,13 +327,11 @@ The delimiter. The function `read_csv` uses a comma, while `read_csv2` uses a se
 
 ### Exercise 6 {.exercise}
 
-
 <div class='question'>
-What are the most common encodings used in Europe? 
-What are the most common encodings used in Asia? 
-Do some googling to find out. 
+What are the most common encodings used in Europe?
+What are the most common encodings used in Asia?
+Do some googling to find out.
 </div>
-
 
 <div class='answer'>
 
@@ -375,49 +340,46 @@ UTF-8 is standard now, and ASCII has been around forever.
 For the European languages, there are separate encodings for Romance languages and Eastern European languages using Latin script, Cyrillic, Greek, Hebrew, Turkish: usually with separate ISO and Windows encoding standards.
 There is also Mac OS Roman.
 
-For Asian languages Arabic and Vietnamese have ISO and Windows standards. The other major Asian scripts have their own: 
+For Asian languages Arabic and Vietnamese have ISO and Windows standards. The other major Asian scripts have their own:
 
-- Japanese: JIS X 0208, Shift JIS, ISO-2022-JP
-- Chinese: GB 2312, GBK, GB 18030
-- Korean: KS X 1001, EUC-KR, ISO-2022-KR
+-   Japanese: JIS X 0208, Shift JIS, ISO-2022-JP
+-   Chinese: GB 2312, GBK, GB 18030
+-   Korean: KS X 1001, EUC-KR, ISO-2022-KR
 
-The list in the documentation for `stringi::stri_enc_detect` is pretty good since it supports the most common encodings:
+The list in the documentation for `stringi::stri_enc_detect` is a good list of encodings since it supports the most common encodings.
 
-- Western European Latin script languages: ISO-8859-1, Windows-1250 (also CP-1250 for code-point)
-- Eastern European Latin script languages: ISO-8859-2, Windows-1252 
-- Greek: ISO-8859-7
-- Turkish: ISO-8859-9, Windows-1254
-- Hebrew: ISO-8859-8, IBM424, Windows 1255
-- Russian: Windows 1251
-- Japanese: Shift JIS, ISO-2022-JP, EUC-JP
-- Korean: ISO-2022-KR, EUC-KR
-- Chinese: GB18030, ISO-2022-CN (Simplified), Big5 (Traditional)
-- Arabic: ISO-8859-6, IBM420, Windows 1256
+-   Western European Latin script languages: ISO-8859-1, Windows-1250 (also CP-1250 for code-point)
+-   Eastern European Latin script languages: ISO-8859-2, Windows-1252
+-   Greek: ISO-8859-7
+-   Turkish: ISO-8859-9, Windows-1254
+-   Hebrew: ISO-8859-8, IBM424, Windows 1255
+-   Russian: Windows 1251
+-   Japanese: Shift JIS, ISO-2022-JP, EUC-JP
+-   Korean: ISO-2022-KR, EUC-KR
+-   Chinese: GB18030, ISO-2022-CN (Simplified), Big5 (Traditional)
+-   Arabic: ISO-8859-6, IBM420, Windows 1256
 
+For more information on character encodings see the following sources.
 
-For more information on character encodings:
+-   The Wikipedia page [Character encoding](https://en.wikipedia.org/wiki/Character_encoding), has a good list of encodings.
+-   Unicode [CLDR](http://cldr.unicode.org/) project
+-   [What is the most common encoding of each language](http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language) (Stack Overflow)
+-   "What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text", <http://kunststube.net/encoding/>.
 
-- The Wikipedia page [Character encoding](https://en.wikipedia.org/wiki/Character_encoding), has a good list of encodings.
-- Unicode [CLDR](http://cldr.unicode.org/) project 
-- [What is the most common encoding of each language](http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language) (Stack Overflow)
-- "What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text
-", <http://kunststube.net/encoding/>.
+Programs that identify the encoding of text include
 
-Some program that identify the encoding of text are:
-
-- In R see `readr::guess_encoding` and the **stringi** package with `str_enc_detect`
-- [iconv](https://en.wikipedia.org/wiki/Iconv)
-- [chardet](https://github.com/chardet/chardet) (Python)
+-   `guess_encoding` in the **reader** package
+-   `str_enc_detect` in the **stringi** package
+-   [iconv](https://en.wikipedia.org/wiki/Iconv)
+-   [chardet](https://github.com/chardet/chardet) (Python)
 
 </div>
 
 ### Exercise 7 {.exercise}
 
-
 <div class='question'>
 Generate the correct format string to parse each of the following dates and times:
 </div>
-
 
 <div class='answer'>
 

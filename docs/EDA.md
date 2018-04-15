@@ -20,18 +20,15 @@ This will also use data from **nycflights13**,
 library("nycflights13")
 ```
 
-
 ## Questions
 
 ## Variation
 
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
 Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.
 </div>
-
 
 <div class='answer'>
 
@@ -53,23 +50,20 @@ diamonds %>%
 There several noticeable features of the distributions
 
 1.  They are right skewed, with most diamonds small, but a few very large ones.
-2.  There is an outlier in `y`, and `z` (see the rug)
-3.  All three distributions have a bimodality (perhaps due to some sort of threshold)
+1.  There is an outlier in `y`, and `z` (see the rug)
+1.  All three distributions have a bimodality (perhaps due to some sort of threshold)
 
 According to the documentation for `diamonds`:
 `x` is length, `y` is width, and `z` is depth.
 I don't know if I would have figured that out before; maybe if there was data on the type of cuts.
 
-
 </div>
 
-### Exercise 2.
-
+### Exercise 2
 
 <div class='question'>
 Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the `binwidth` and make sure you try a wide range of values.)
 </div>
-
 
 <div class='answer'>
 
@@ -117,7 +111,6 @@ diamonds %>%
 <img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-
 ```r
 diamonds %>%
   mutate(ending = price %% 1000) %>%
@@ -131,13 +124,11 @@ diamonds %>%
 
 </div>
 
-### Exercise 3.
-
+### Exercise 3
 
 <div class='question'>
 How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
 </div>
-
 
 <div class='answer'>
 
@@ -194,11 +185,9 @@ diamonds %>%
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
 Compare and contrast `coord_cartesian()` vs `xlim()` or `ylim()` when zooming in on a histogram. What happens if you leave `binwidth` unset? What happens if you try and zoom so only half a bar shows?
 </div>
-
 
 <div class='answer'>
 
@@ -229,19 +218,16 @@ ggplot(diamonds) +
 
 <img src="EDA_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 ## Missing Values
 
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
 What happens to missing values in a histogram?
 What happens to missing values in a bar chart? > Why is there a difference?
 </div>
-
 
 <div class='answer'>
 
@@ -273,16 +259,13 @@ diamonds %>%
 In a histogram, the `x` aesthetic variable needs to be numeric, and `stat_bin` groups the observations by ranges into bins.
 Since the numeric value of the `NA` observations is unknown, they cannot be placed in a particular bin, and are dropped.
 
-
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 What does `na.rm = TRUE` do in `mean()` and `sum()`?
 </div>
-
 
 <div class='answer'>
 
@@ -304,11 +287,9 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 
 #### Exercise 1 {.exercise}
 
-
 <div class='question'>
 Use what you've learned to improve the visualization of the departure times
 </div>
-
 
 <div class='answer'>
 of canceled vs. non-canceled flights.
@@ -333,12 +314,10 @@ nycflights13::flights %>%
 
 #### Exercise 2 {.exercise}
 
-
 <div class='question'>
 What variable in the diamonds dataset is most important for predicting the price of a diamond? > How is that variable correlated with
 Why does the combination of those two relationships lead to lower quality diamonds being more expensive?
 </div>
-
 
 <div class='answer'>
 
@@ -348,12 +327,10 @@ Why does the combination of those two relationships lead to lower quality diamon
 
 #### Exercise 3 {.exercise}
 
-
 <div class='question'>
 Install the **ggstance** package, and create a horizontal box plot.
 How does this compare to using `coord_flip()`?
 </div>
-
 
 <div class='answer'>
 
@@ -396,7 +373,6 @@ What do you learn?
 
 </div>
 
-
 <div class='answer'>
 How do you interpret the plots?
 
@@ -404,11 +380,11 @@ The boxes of the letter-value plot correspond to many more quantiles.
 They are useful for larger datasets because
 
 1.  larger datasets can give precise estimates of quantiles beyond the quartiles, and
-2.  in expectation, larger datasets should have more outliers (in absolute numbers).
+1.  in expectation, larger datasets should have more outliers (in absolute numbers).
 
 The letter-value plot is described in:
 
->  Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. "Letter-value plots: Boxplots for large data" <http://vita.had.co.nz/papers/letter-value-plot.pdf>
+> Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. "Letter-value plots: Boxplots for large data" <http://vita.had.co.nz/papers/letter-value-plot.pdf>
 
 
 ```r
@@ -423,12 +399,10 @@ ggplot(diamonds, aes(x = cut, y = price)) +
 
 #### Exercise 5 {.exercise}
 
-
 <div class='question'>
 Compare and contrast `geom_violin()` with a faceted `geom_histogram()`, or a colored `geom_freqpoly()`.
 What are the pros and cons of each method?
 </div>
-
 
 <div class='answer'>
 
@@ -437,7 +411,6 @@ The `geom_violin` and faceted `geom_histogram` have similar strengths and weakne
 It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
 However, since we can't easily compare the vertical values of the distribution, its difficult to look up which category has the highest density for a given price.
 All of these methods depend on tuning parameters to determine the level of smoothness of the distribution.
-
 
 
 ```r
@@ -458,7 +431,6 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 <img src="EDA_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-
 ```r
 ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
   geom_violin() +
@@ -469,20 +441,17 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
 
 The violin plot was first described in
 
->  Hintze JL, Nelson RD (1998). "Violin Plots: A Box Plot-Density Trace Synergism." The American Statistician, 52(2), 181–184
-
+> Hintze JL, Nelson RD (1998). "Violin Plots: A Box Plot-Density Trace Synergism." The American Statistician, 52(2), 181–184
 
 </div>
 
 #### Exercise 6 {.exercise}
-
 
 <div class='question'>
 If you have a small dataset, it's sometimes useful to use `geom_jitter()` to see the relationship between a continuous and categorical variable.
 The **ggbeeswarm** package provides a number of methods similar to `geom_jitter()`.
 List them and briefly describe what each one does.
 </div>
-
 
 <div class='answer'>
 
@@ -544,7 +513,6 @@ ggplot(data = mpg) +
 <img src="EDA_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-
 ```r
 ggplot(data = mpg) +
   geom_beeswarm(mapping = aes(x = reorder(class, hwy, FUN = median),
@@ -553,18 +521,15 @@ ggplot(data = mpg) +
 
 <img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 ### Two categorical variables
 
 #### Exercise 1 {.exercise}
 
-
 <div class='question'>
 How could you rescale the count dataset above to more clearly show the distribution of cut within color, or color within cut?
 </div>
-
 
 <div class='answer'>
 
@@ -607,13 +572,11 @@ However, using the default limits of the minimum and maximum values makes it eas
 
 #### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Use `geom_tile()` together with **dplyr** to explore how average flight delays vary by destination and month of year.
 What makes the plot difficult to read?
 How could you improve it?
 </div>
-
 
 <div class='answer'>
 
@@ -657,16 +620,13 @@ flights %>%
 
 <img src="EDA_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 #### Exercise 3 {.exercise}
 
-
 <div class='question'>
 Why is it slightly better to use `aes(x = color, y = cut)` rather than `aes(x = cut, y = color)` in the example above?
 </div>
-
 
 <div class='answer'>
 
@@ -686,20 +646,17 @@ diamonds %>%
 
 Another justification, for switching the order is that the larger numbers are at the top when `x = color` and `y = cut`, and that lowers the cognitive burden of interpreting the plot.
 
-
 </div>
 
 ### Two continuous variables
 
 #### Exercise 1 {.exercise}
 
-
 <div class='question'>
 Instead of summarizing the conditional distribution with a box plot, you could use a frequency polygon.
 What do you need to consider when using `cut_width()` vs `cut_number()`?
 How does that impact a visualization of
 </div>
-
 
 <div class='answer'>
 the 2d distribution of `carat` and `price`?
@@ -756,11 +713,9 @@ ggplot(data = diamonds,
 
 #### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Visualize the distribution of `carat`, partitioned by `price`.
 </div>
-
 
 <div class='answer'>
 
@@ -789,12 +744,10 @@ ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
 
 #### Exercise 3 {.exercise}
 
-
 <div class='question'>
 How does the price distribution of very large diamonds compare to small diamonds.
 Is it as you expect, or does it surprise you?
 </div>
-
 
 <div class='answer'>
 
@@ -806,11 +759,9 @@ Ex post, I would reason that above a certain size other factors such as cut, cla
 
 #### Exercise 4 {.exercise}
 
-
 <div class='question'>
 Combine two of the techniques you've learned to visualize the combined distribution of cut, carat, and price.
 </div>
-
 
 <div class='answer'>
 
@@ -848,12 +799,10 @@ ggplot(diamonds, aes(colour = cut_number(carat, 5), y = price, x = cut)) +
 
 #### Exercise 5 {.exercise}
 
-
 <div class='question'>
 Two dimensional plots reveal outliers that are not visible in one dimensional plots.
 For example, some points in the plot below have an unusual combination of `x` and `y` values, which makes the points outliers even though their `x` and `y` values appear normal when examined separately.
 </div>
-
 
 <div class='answer'>
 
@@ -872,7 +821,6 @@ In this case, there is a strong relationship between $x$ and $y$. The outliers i
 A binned plot would not reveal these outliers, and may lead us to conclude that the largest value of $x$ was an outlier even though it appears to fit the bivariate pattern well.
 
 The later chapter [Model Basics] discusses fitting models to bivariate data and plotting residuals, which would reveal this outliers.
-
 
 </div>
 

@@ -16,23 +16,19 @@ library("tidyverse")
 library("forcats")
 ```
 
-
 ## Creating Factors
 
 No exercises
 
 ## General Social Survey
 
-
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
-Explore the distribution of `rincome` (reported income). 
-What makes the default bar chart hard to understand? 
+Explore the distribution of `rincome` (reported income).
+What makes the default bar chart hard to understand?
 How could you improve the plot?
 </div>
-
 
 <div class='answer'>
 
@@ -70,17 +66,14 @@ rincome_plot +
 This is better, but it unintuitively goes from low to high. It would help if the
 scale is reversed. Also, if all the missing factors were differentiated.
 
-
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
-What is the most common `relig` in this survey? 
+What is the most common `relig` in this survey?
 What’s the most common `partyid`?
 </div>
-
 
 <div class='answer'>
 
@@ -110,18 +103,15 @@ gss_cat %>%
 #> 1 Independent  4119
 ```
 
-
 </div>
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
-Which `relig` does `denom` (denomination) apply to? 
-How can you find out with a table? 
+Which `relig` does `denom` (denomination) apply to?
+How can you find out with a table?
 How can you find out with a visualization?
 </div>
-
 
 <div class='answer'>
 
@@ -169,19 +159,16 @@ gss_cat %>%
 
 <img src="factors_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 ## Modifying factor order
 
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
-There are some suspiciously high numbers in `tvhours`. 
+There are some suspiciously high numbers in `tvhours`.
 Is the `mean` a good summary?
 </div>
-
 
 <div class='answer'>
 
@@ -210,11 +197,9 @@ And the hours of TV doesn't look that surprising to me.
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
 </div>
-
 
 <div class='answer'>
 
@@ -227,8 +212,13 @@ keep(gss_cat, is.factor) %>% names()
 
 There are five six categorical variables: `marital`, `race`, `rincome`, `partyid`, `relig`, `denom`.
 
-The ordering of marital is "somewhat principled". There is some sort of logic in that the levels are grouped "never married", married at some point (separated, divorced, widowed), and "married"; though it would seem that "Never Married", "Divorced", "Widowed", "Separated", "Married" might be more natural.
-I find that the question of ordering can be determined by the level of aggregation in a categorical variable, and there can be more "partially ordered" factors than one would expect.
+The ordering of marital is "somewhat principled". There is some sort of logic
+in that the levels are grouped "never married", married at some point
+(separated, divorced, widowed), and "married"; though it would seem that "Never
+Married", "Divorced", "Widowed", "Separated", "Married" might be more natural.
+I find that the question of ordering can be determined by the level of
+aggregation in a categorical variable, and there can be more "partially
+ordered" factors than one would expect.
 
 
 ```r
@@ -261,7 +251,12 @@ gss_cat %>%
 
 <img src="factors_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
-The levels of `rincome` are ordered in decreasing order of the income; however the placement of "No answer", "Don't know", and "Refused" before, and "Not applicable" after the income levels is arbitrary. It would be better to place all the missing income level categories either before or after all the known values.
+The levels of `rincome` are ordered in decreasing order of the income; however
+the placement of "No answer", "Don't know", and "Refused" before, and "Not
+applicable" after the income levels is arbitrary. It would be better to place
+all the missing income level categories either before or after all the known
+values.
+
 
 ```r
 levels(gss_cat$rincome)
@@ -311,7 +306,6 @@ levels(gss_cat$denom)
 #> [28] "Am bapt ch in usa"    "Am baptist asso"      "Not applicable"
 ```
 
-
 Ignoring "No answer", "Don't know", and "Other party", the levels of `partyid` are ordered from "Strong Republican"" to "Strong Democrat".
 
 ```r
@@ -322,35 +316,27 @@ levels(gss_cat$partyid)
 #> [10] "Strong democrat"
 ```
 
-
 </div>
 
 ### Exercise 3 {.exercise}
-
 
 <div class='question'>
 Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
 </div>
 
-
 <div class='answer'>
 
 Because that gives the level "Not applicable" an integer value of 1.
-
-
 
 </div>
 
 ## Modifying factor levels
 
-
 ### Exercise 1 {.exercise}
-
 
 <div class='question'>
 How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
 </div>
-
 
 <div class='answer'>
 
@@ -363,7 +349,6 @@ levels(gss_cat$partyid)
 #>  [7] "Independent"        "Ind,near dem"       "Not str democrat"  
 #> [10] "Strong democrat"
 ```
-
 
 
 ```r
@@ -382,21 +367,17 @@ gss_cat %>%
   geom_point() +
   geom_line() +
   labs(colour = "Party ID.")
-
 ```
 
 <img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
-
 
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 How could you collapse `rincome` into a small set of categories?
 </div>
-
 
 <div class='answer'>
 
@@ -430,5 +411,4 @@ gss_cat %>%
 
 <img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
 </div>
-
 

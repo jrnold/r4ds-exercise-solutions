@@ -11,21 +11,20 @@ The package **microbenchmark** is used for timing code
 library("microbenchmark")
 ```
 
-
 ## For Loops
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
-Write for loops to:
 
-1. Compute the mean of every column in `mtcars`.
-2. Determine the type of each column in `nycflights13::flights`.
-3. Compute the number of unique values in each column of `iris`.
-4. Generate 10 random normals for each of $\mu = -10$, 0, 10, and 100.
+Write for-loops to:
+
+1.  Compute the mean of every column in `mtcars`.
+1.  Determine the type of each column in `nycflights13::flights`.
+1.  Compute the number of unique values in each column of `iris`.
+1.  Generate 10 random normals for each of $\mu = -10$, 0, 10, and 100.
+
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -52,7 +51,6 @@ for (i in names(flights)) {
 }
 output
 ```
-
 
 ```{r}
 data(iris)
@@ -83,13 +81,11 @@ matrix(rnorm(n * length(mu), mean = mu), ncol = n)
 ```
 `r EndAnswer()`
 
-### Exercise 2 {.exercise} 
-
+### Exercise 2 {.exercise}
 
 `r BeginQuestion()`
 Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -107,7 +103,6 @@ stringr::str_c(letters, collapse = "")
 ```
 
 For this I'm going to rename the variable `sd` to something different because `sd` is the name of the function we want to use.
-
 
 ```{r}
 x <- sample(100)
@@ -129,7 +124,6 @@ the functions `mean` and `sum` already work with vectors:
 sqrt(sum((x - mean(x)) ^ 2) / (length(x) - 1))
 ```
 
-
 ```{r}
 x <- runif(100)
 out <- vector("numeric", length(x))
@@ -149,16 +143,19 @@ all.equal(cumsum(x),out)
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
+
 Combine your function writing and for loop skills:
 
-1.   Write a for loop that `prints()` the lyrics to the children's song  "Alice the camel".
-1.   Convert the nursery rhyme "ten in the bed" to a function. Generalize it to any number of people in any sleeping structure.
-1.   Convert the song "99 bottles of beer on the wall" to a function.
+1.  Write a for loop that `prints()` the lyrics to the children's song  "Alice the camel".
+
+1.  Convert the nursery rhyme "ten in the bed" to a function. Generalize it to any number of people in any sleeping structure.
+
+1.  Convert the song "99 bottles of beer on the wall" to a function.
 Generalize to any number of any vessel containing any liquid on  surface.
+
 `r EndQuestion()`
-    
+
 `r BeginAnswer()`
 The lyrics for ``Alice the Camel'' can be found at <http://www.kididdles.com/lyrics/a012.html>.
 
@@ -220,19 +217,16 @@ beer_bottles <- function(n) {
 beer_bottles(3)
 ```
 
-
 `r EndAnswer()`
 
-#### Exercise 4 {.exercise} 
-
+#### Exercise 4 {.exercise}
 
 `r BeginQuestion()`
 It's common to see for loops that don't preallocate the output and instead increase the length of a vector at each step:
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
-    
+
 ```{r, eval = FALSE}
 output <- vector("integer", 0)
 for (i in seq_along(x)) {
@@ -271,25 +265,21 @@ microbenchmark(add_to_vector_2(10000), times = 3)
 The pre-allocated vector is about **100** times faster!
 You may get different answers, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.
 
-
 `r EndAnswer()`
 
 ## For loop variations
 
-
-### Exercise 1 {.exercise} 
-
+### Exercise 1 {.exercise}
 
 `r BeginQuestion()`
 Imagine you have a directory full of CSV files that you want to read in.
-You have their paths in a vector, 
+You have their paths in a vector,
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 `files <- dir("data/", pattern = "\\.csv$", full.names = TRUE)`, and now
-want to read each one with `read_csv()`. Write the for loop that will 
-load them into a single data frame. 
+want to read each one with `read_csv()`. Write the for loop that will
+load them into a single data frame.
 
 I will pre-allocate a list, read each file as data frame into an element in that list.
 This creates a list of data frames.
@@ -302,18 +292,15 @@ for (fname in seq_along(files)) {
 df <- bind_rows(df)
 ```
 
-
 `r EndAnswer()`
 
-### Exercise 2 {.exercise} 
-
+### Exercise 2 {.exercise}
 
 `r BeginQuestion()`
 What happens if you use `for (nm in names(x))` and `x` has no names?
 What if only some of the elements are named?
 What if the names are not unique?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -333,7 +320,7 @@ Note that the length of `NULL` is zero:
 length(NULL)
 ```
 
-If there only some names, then we get an error if we try to access an element without a name. 
+If there only some names, then we get an error if we try to access an element without a name.
 However, oddly, `nm == ""` when there is no name.
 ```{r}
 x <- c(a = 1, 2, c = 3)
@@ -359,21 +346,17 @@ for (nm in names(x)) {
 }
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}  
 
-
-
 `r BeginQuestion()`
-Write a function that prints the mean of each numeric column in a data  frame, along with its name. 
+Write a function that prints the mean of each numeric column in a data  frame, along with its name.
 For example, `show_mean(iris)` would print:
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
-    
+
 ```{r, eval = FALSE}
 show_mean(iris)
 #> Sepal.Length: 5.84
@@ -381,7 +364,7 @@ show_mean(iris)
 #> Petal.Length: 3.76
 #> Petal.Width:  1.20
 ```
-    
+
 > (Extra challenge: what function did I use to make sure that the numbers lined up nicely, even though the variable names had different lengths?)
 
 There may be other functions to do this, but I'll use `str_pad`, and `str_length` to ensure that the space given to the variable names is the same.
@@ -404,18 +387,16 @@ show_mean(iris)
 
 `r EndAnswer()`
 
-### Exercise 4 {.exercise} 
-
+### Exercise 4 {.exercise}
 
 `r BeginQuestion()`
 What does this code do? How does it work?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
 ```{r}
-trans <- list( 
+trans <- list(
   disp = function(x) x * 0.0163871,
   am = function(x) {
     factor(x, labels = c("auto", "manual"))
@@ -430,8 +411,8 @@ for (var in names(trans)) {
 
 This code mutates the `disp` and `am` columns:
 
-- `disp` is  multiplied by 0.0163871
-- `am` is replaced by a factor variable.
+-   `disp` is  multiplied by 0.0163871
+-   `am` is replaced by a factor variable.
 
 The code works by looping over a named list of functions.
 It calls the named function in the list on the column of `mtcars` with the same name, and replaces the values of that column.
@@ -445,35 +426,28 @@ This applies the function to the column of `mtcars` with the same name
 trans[["disp"]](mtcars[["disp"]])
 ```
 
-
-
 `r EndAnswer()`
 
 ## For loops vs. functionals
 
-
 ### Exercise 1 {.exercise}
-
 
 `r BeginQuestion()`
 Read the documentation for `apply()`. In the 2d case, what two for loops does it generalize.
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
-It generalizes looping over the rows or columns of a matrix or data-frame. 
+It generalizes looping over the rows or columns of a matrix or data-frame.
 
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Adapt `col_summary()` so that it only applies to numeric columns.
 You might want to start with an `is_numeric()` function that returns a logical vector that has a `TRUE` corresponding to each numeric column.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -519,32 +493,30 @@ df <- tibble(
 col_summary2(df, mean)
 ```
 
-
 `r EndAnswer()`
 
 ## The map functions
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Write code that uses one of the map functions to:
 
-1. Compute the mean of every column in `mtcars`.
-1. Determine the type of each column in `nycflights13::flights`.
-1. Compute the number of unique values in each column of `iris`.
-1. Generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$.
+1.  Compute the mean of every column in `mtcars`.
+1.  Determine the type of each column in `nycflights13::flights`.
+1.  Compute the number of unique values in each column of `iris`.
+1.  Generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$.
+
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
-    
+
 To calculate the mean of every column in `mtcars`:
 ```{r}
 map_dbl(mtcars, mean)
 ```
 
-To calculate the type of every column in `nycflights13::flights`. 
+To calculate the type of every column in `nycflights13::flights`.
 ```{r}
 map(nycflights13::flights, class)
 ```
@@ -564,18 +536,13 @@ To generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$:
 map(c(-10, 0, 10, 100), rnorm, n = 10)
 ```
 
-
-
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}  
 
-
-
 `r BeginQuestion()`
 How can you create a single vector that for each column in a data frame indicates whether or not it's a factor?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -584,18 +551,15 @@ Use `map_lgl` with the function `is.factor`,
 map_lgl(mtcars, is.factor)
 ```
 
-
 `r EndAnswer()`
 
-### Exercise 3 {.exercise} 
-
+### Exercise 3 {.exercise}
 
 `r BeginQuestion()`
-What happens when you use the map functions on vectors that aren't lists? 
-What does `map(1:5, runif)` do? 
+What happens when you use the map functions on vectors that aren't lists?
+What does `map(1:5, runif)` do?
 Why?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -604,18 +568,15 @@ The function `map` applies the function to each element of the vector.
 map(1:5, runif)
 ```
 
-    
 `r EndAnswer()`
 
-### Exercise 4 {.exercise} 
-
+### Exercise 4 {.exercise}
 
 `r BeginQuestion()`
 What does `map(-2:2, rnorm, n = 5)` do? Why? >
 What does `map_dbl(-2:2, rnorm, n = 5)` do?
 Why?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -624,7 +585,7 @@ This takes samples of `n = 5` from normal distributions of means -2, -1, 0, 1, a
 map(-2:2, rnorm, n = 5)
 ```
 
-However, if we use `map_dbl` it throws an error. `map_dbl` expects the function 
+However, if we use `map_dbl` it throws an error. `map_dbl` expects the function
 to return a numeric vector of length one.
 ```{r error = TRUE}
 map_dbl(-2:2, rnorm, n = 5)
@@ -635,16 +596,13 @@ If we wanted a numeric vector, we could use `map` followed by `flatten_dbl`,
 flatten_dbl(map(-2:2, rnorm, n = 5))
 ```
 
-
 `r EndAnswer()`
 
-### Exercise 5 {.exercise} 
-
+### Exercise 5 {.exercise}
 
 `r BeginQuestion()`
-Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function. 
+Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -668,16 +626,13 @@ No exercises
 
 ## Other patterns of for loops
 
-
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
-Implement your own version of `every()` using a for loop. 
-Compare it with `purrr::every()`. 
+Implement your own version of `every()` using a for loop.
+Compare it with `purrr::every()`.
 What does purrr's version do that your version doesn't?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -701,17 +656,15 @@ every2(1:3, function(x) {x > 0})
 The function `purrr::every` does fancy things with `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.
 `r EndAnswer()`
 
-### Exercise 2 {.exercise} 
-
+### Exercise 2 {.exercise}
 
 `r BeginQuestion()`
 Create an enhanced `col_sum()` that applies a summary function to every numeric column in a data frame.
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
-**Note:** this question has a typo. It is referring to `col_summary`. 
+**Note:** this question has a typo. It is referring to `col_summary`.
 
 I will use `map` to apply the function to all the columns, and `keep` to only select numeric columns.
 ```{r}
@@ -724,12 +677,9 @@ col_sum2 <- function(df, f, ...) {
 col_sum2(iris, mean)
 ```
 
-
-
 `r EndAnswer()`
 
-### Exercise 3 {.exercise} 
-
+### Exercise 3 {.exercise}
 
 `r BeginQuestion()`
 Create possible base R equivalent of `col_sum()` is:
@@ -746,11 +696,10 @@ But it has a number of bugs as illustrated with the following inputs:
 
 ```{r, eval=FALSE}
 df <- tibble(
-  x = 1:3, 
+  x = 1:3,
   y = 3:1,
   z = c("a", "b", "c")
 )
-
 
 # OK
 col_sum3(df, mean)
@@ -760,13 +709,12 @@ col_sum3(df[1], mean)
 col_sum3(df[0], mean)
 ```
 
-What causes these bugs? 
+What causes these bugs?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 The problem is that `sapply` does not always return numeric vectors.
-If no columns are selected, instead of returning an empty numeric vector, it returns an empty list. 
+If no columns are selected, instead of returning an empty numeric vector, it returns an empty list.
 This causes an error since we can't use a list with `[`.
 ```{r}
 sapply(df[0], is.numeric)
@@ -778,4 +726,3 @@ sapply(df[1], is.numeric)
 sapply(df[1:2], is.numeric)
 ```
 `r EndAnswer()`
-

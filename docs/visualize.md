@@ -1,12 +1,12 @@
 
 ---
 output: html_document
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 # Visualize
 
-## Introduction 
+## Introduction
 
 
 ```r
@@ -19,11 +19,9 @@ No exercises.
 
 ### Exercise 1. {.exercise}
 
-
 <div class='question'>
 Run `ggplot(data = mpg)` what do you see?
 </div>
-
 
 <div class='answer'>
 
@@ -40,11 +38,9 @@ An empty plot. The background of the plot is created by `ggplot()`, but nothing 
 
 ### Exercise 2. {.exercise}
 
-
 <div class='question'>
 How many rows are in `mtcars`? How many columns?
 </div>
-
 
 <div class='answer'>
 
@@ -75,16 +71,13 @@ glimpse(mtcars)
 #> $ carb <dbl> 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, ...
 ```
 
-
 </div>
 
 ### Exercise 3. {.exercise}
 
-
 <div class='question'>
 What does the `drv` variable describe? Read the help for `?mpg` to find out.
 </div>
-
 
 <div class='answer'>
 
@@ -95,21 +88,17 @@ What does the `drv` variable describe? Read the help for `?mpg` to find out.
 
 The `drv` variable takes the following values
 
--------- ------------------
-- `"f"`  front-wheel drive
-- `"r"`  rear-wheel drive
-- `"4"`  four-wheel drive
--------- ------------------
+| `"f"` | front-wheel drive  |
+| `"r"` | rear-wheel drive   |
+| `"4"` | four-wheel drive   |
 
 </div>
 
 ### Exercise 4. {.exercise}
 
-
 <div class='question'>
 Make a scatter plot of `hwy` vs `cyl`.
 </div>
-
 
 <div class='answer'>
 
@@ -153,20 +142,20 @@ count(mpg, drv, class)
 #> 6 f     compact       35
 #> # ... with 6 more rows
 ```
-The scatter plot cannot show which are overlapping or not. 
+The scatter plot cannot show which are overlapping or not.
 Later chapters discuss means to deal with this, including alternative plots and jittering the points so they don't overlap.
 </div>
 
 ## Aesthetic mappings
 
-### Exercise 1. {.exercise}
+### Exercise 1 {.exercise}
 
 <div class='question'>
 What’s gone wrong with this code? Why are the points not blue?
 
 
 ```r
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, colour = "blue"))
 ```
 
@@ -176,10 +165,10 @@ ggplot(data = mpg) +
 Since `colour = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
 The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `colour = 1:234` or `colour = 1` would be interpreted by `aes()`.
 
-### Exercise 2. {.exercise}
+### Exercise 2 {.exercise}
 
 <div class='question'>
-Which variables in `mpg` are categorical? 
+Which variables in `mpg` are categorical?
 Which variables are continuous?
 (Hint: type `?mpg` to read the documentation for the dataset).
 How can you see this information when you run `mpg`?
@@ -228,14 +217,12 @@ glimpse(mpg)
 ```
 </div>
 
-### Exercise 3. {.exercise}
-
+### Exercise 3 {.exercise}
 
 <div class='question'>
-Map a continuous variable to color, size, and shape. 
+Map a continuous variable to color, size, and shape.
 How do these aesthetics behave differently for categorical vs. continuous variables?
 </div>
-
 
 <div class='answer'>
 
@@ -274,16 +261,13 @@ Though we could split a continuous variable into discrete categories and use a s
 A continuous numeric variable is ordered, but shapes have no natural order.
 It is clear that smaller points correspond to smaller values, or once the color scale is given, which colors correspond to larger or smaller values. But it is not clear whether a square is greater or less than a circle.
 
-
 </div>
 
-### Exercise 4. {.exercise}
-
+### Exercise 4 {.exercise}
 
 <div class='question'>
 What happens if you map the same variable to multiple aesthetics?
 </div>
-
 
 <div class='answer'>
 
@@ -296,19 +280,17 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = hwy, size = displ)) +
 <img src="visualize_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
 In the above plot, `hwy` is mapped to both location on the y-axis and color, and `displ` is mapped to both location on the x-axis and size.
-The code works and produces a plot, even if it is a bad one. 
-Mapping a single variable to multiple aesthetics is redundant. 
+The code works and produces a plot, even if it is a bad one.
+Mapping a single variable to multiple aesthetics is redundant.
 Because it is redundant information, in most cases avoid mapping a single variable to multiple aesthetics.
 
 </div>
 
-### Exercise 5. {.exercise}
-
+### Exercise 5 {.exercise}
 
 <div class='question'>
 What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`)
 </div>
-
 
 <div class='answer'>
 
@@ -327,23 +309,21 @@ Stroke changes the color of the border for shapes (22-24).
 
 ### Exercise 6. {.exercise}
 
-
 <div class='question'>
 What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
 </div>
-
 
 <div class='answer'>
 
 
 ```r
-ggplot(mpg, aes(x = displ, y = hwy, colour = displ < 5)) + 
+ggplot(mpg, aes(x = displ, y = hwy, colour = displ < 5)) +
   geom_point()
 ```
 
 <img src="visualize_files/figure-html/ex.3.3.1.6-1.png" width="70%" style="display: block; margin: auto;" />
 
-Aesthetics can also be mapped to expressions (code like `displ < 5`). 
+Aesthetics can also be mapped to expressions (code like `displ < 5`).
 It will create a temporary variable which takes values from  the result of the expression.
 In this case, it is logical variable which is `TRUE` or `FALSE`.
 This also explains exercise 1, `colour = "blue"` created a categorical variable that only had one category: "blue".
@@ -356,13 +336,11 @@ No exercises
 
 ## Facets
 
-### Exercise 1. {.exercise}
-
+### Exercise 1 {.exercise}
 
 <div class='question'>
 What happens if you facet on a continuous variable?
 </div>
-
 
 <div class='answer'>
 
@@ -370,7 +348,7 @@ Let's see.
 
 ```r
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() + 
+  geom_point() +
   facet_grid(. ~ cty)
 ```
 
@@ -380,21 +358,19 @@ It converts the continuous variable to a factor and creates facets for **all** u
 
 </div>
 
-### Exercise 2. {.exercise}
-
+### Exercise 2 {.exercise}
 
 <div class='question'>
 What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
 </div>
 
-
 <div class='answer'>
 
-They are cells in which there are no values of the combination of `drv` and `cyl`. 
+They are cells in which there are no values of the combination of `drv` and `cyl`.
 
 
 ```r
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = drv, y = cyl))
 ```
 
@@ -404,13 +380,11 @@ The locations in the above plot without points are the same cells in `facet_grid
 
 </div>
 
-### Exercise 3. {.exercise}
-
+### Exercise 3 {.exercise}
 
 <div class='question'>
 What plots does the following code make? What does `.` do?
 </div>
-
 
 <div class='answer'>
 
@@ -419,7 +393,7 @@ The symbol `.` ignores that dimension for faceting.
 This plot facets by values of `drv` on the y-axis:
 
 ```r
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy)) +
   facet_grid(drv ~ .)
 ```
@@ -428,7 +402,7 @@ ggplot(data = mpg) +
 This plot facets by values of `cyl` on the x-axis:
 
 ```r
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy)) +
   facet_grid(. ~ cyl)
 ```
@@ -437,69 +411,61 @@ ggplot(data = mpg) +
 
 </div>
 
-### Exercise 5. {.exercise}
-
+### Exercise 5 {.exercise}
 
 <div class='question'>
 Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
 </div>
 
-
 <div class='answer'>
 
-The arguments `nrow` (`ncol`) determines the number of rows (columns) to use when laying out the facets. 
-It is necessary since `facet_wrap` only facets on one variable. 
+The arguments `nrow` (`ncol`) determines the number of rows (columns) to use when laying out the facets.
+It is necessary since `facet_wrap` only facets on one variable.
 These arguments are unnecessary for `facet_grid` since the number of rows and columns are determined by the number of unique values of the variables specified.
 
 </div>
 
-### Exercise 6. {.exercise}
-
+### Exercise 6 {.exercise}
 
 <div class='question'>
 When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
 </div>
 
-
 <div class='answer'>
 
-You should put the variable with more unique levels in the columns if the plot is laid out landscape. 
+You should put the variable with more unique levels in the columns if the plot is laid out landscape.
 It is easier to compare relative levels of y by scanning horizontally, so it may be easier to visually compare these levels. *I'm actually not sure about the correct answer to this*.
 
 </div>
 
 ## Geometric Objects
 
-### Exercise 1. {.exercise}
-
+### Exercise 1 {.exercise}
 
 <div class='question'>
 What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
 </div>
 
-
 <div class='answer'>
 
-- line chart: `geom_line`
-- boxplot: `geom_boxplot`
-- histogram: `geom_hist`
+-   line chart: `geom_line`
+-   boxplot: `geom_boxplot`
+-   histogram: `geom_hist`
 
 </div>
 
-### Exercise 2. {.exercise}
-
+### Exercise 2 {.exercise}
 
 <div class='question'>
 Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
 </div>
 
-
 <div class='answer'>
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + 
-  geom_point() + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
+  geom_point() +
   geom_smooth(se = FALSE)
 ```
 
@@ -509,25 +475,22 @@ There will be a smooth line, without standard errors, fit through each `drv` gro
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + 
-  geom_point() + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
+  geom_point() +
   geom_smooth(se = FALSE)
 #> `geom_smooth()` using method = 'loess'
 ```
 
 <img src="visualize_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
-### Exercise 3. {.exercise}
-
+### Exercise 3 {.exercise}
 
 <div class='question'>
 What does `show.legend = FALSE` do? What happens if you remove it?
 Why do you think I used it earlier in the chapter?
 </div>
-
 
 <div class='answer'>
 
@@ -561,11 +524,11 @@ In the example earlier in the chapter,
 ggplot(data = mpg) +
   geom_smooth(mapping = aes(x = displ, y = hwy))
 #> `geom_smooth()` using method = 'loess'
-              
+
 ggplot(data = mpg) +
   geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
 #> `geom_smooth()` using method = 'loess'
-    
+
 ggplot(data = mpg) +
   geom_smooth(
     mapping = aes(x = displ, y = hwy, colour = drv),
@@ -576,19 +539,16 @@ ggplot(data = mpg) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-23-2.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-23-3.png" width="70%" style="display: block; margin: auto;" />
 the legend is suppressed because there are three plots, and adding a legend that only appears in the last one would make the presentation asymmetric.
-Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a `group` aesthetic, and using a `color` aesthetic (with implicit grouping). 
+Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a `group` aesthetic, and using a `color` aesthetic (with implicit grouping).
 In that example, the legend isn't necessary since looking up the values associated with each color isn't necessary to make that point.
-
 
 </div>
 
-### Exercise 4. {.exercise}
-
+### Exercise 4 {.exercise}
 
 <div class='question'>
 What does the `se` argument to `geom_smooth()` do?
 </div>
-
 
 <div class='answer'>
 
@@ -596,8 +556,8 @@ It adds standard error bands to the lines.
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + 
-  geom_point() + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
+  geom_point() +
   geom_smooth(se = TRUE)
 #> `geom_smooth()` using method = 'loess'
 ```
@@ -608,24 +568,21 @@ By default `se = TRUE`:
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + 
-  geom_point() + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
+  geom_point() +
   geom_smooth()
 #> `geom_smooth()` using method = 'loess'
 ```
 
 <img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
-### Exercise 5. {.exercise}
-
+### Exercise 5 {.exercise}
 
 <div class='question'>
 Will these two graphs look different? Why/why not?
 </div>
-
 
 <div class='answer'>
 
@@ -633,8 +590,8 @@ No. Because both `geom_point` and `geom_smooth` use the same data and mappings. 
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point() + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
   geom_smooth()
 #> `geom_smooth()` using method = 'loess'
 ```
@@ -643,24 +600,21 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 
 ```r
-ggplot() + 
-  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot() +
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
 #> `geom_smooth()` using method = 'loess'
 ```
 
 <img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
-### Exercise 6. {.exercise}
-
+### Exercise 6 {.exercise}
 
 <div class='question'>
 Recreate the R code necessary to generate the following graphs.
 </div>
-
 
 <div class='answer'>
 
@@ -722,27 +676,24 @@ ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 ## Statistical Transformations
 
-### Exercise 1. {.exercise}
-
+### Exercise 1 {.exercise}
 
 <div class='question'>
 What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
 </div>
 
-
 <div class='answer'>
 
 The default geom for [`stat_summary`](http://docs.ggplot2.org/current/stat_summary.html) is `geom_pointrange` (see the `stat`) argument.
 
-But, the default `stat` for [`geom_pointrange`](http://docs.ggplot2.org/current/geom_linerange.html) is `identity`, so use `geom_pointrange(stat = "summary")`. 
+But, the default `stat` for [`geom_pointrange`](http://docs.ggplot2.org/current/geom_linerange.html) is `identity`, so use `geom_pointrange(stat = "summary")`.
 
 ```r
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_pointrange(
     mapping = aes(x = cut, y = depth),
     stat = "summary",
@@ -755,7 +706,7 @@ ggplot(data = diamonds) +
 The default message says that `stat_summary` uses the `mean` and `sd` to calculate the point, and range of the line. So lets use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
 
 ```r
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_pointrange(
     mapping = aes(x = cut, y = depth),
     stat = "summary",
@@ -767,34 +718,28 @@ ggplot(data = diamonds) +
 
 <img src="visualize_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
 
-
 </div>
 
 ### Exercise 2. {.exercise}
-
 
 <div class='question'>
 What does `geom_col()` do? How is it different to `geom_bar()`?
 </div>
 
-
 <div class='answer'>
 
-`geom_col` differs from `geom_bar` in its default stat. `geom_col` has uses the `identity` stat. So it expects that a variable already exists for the height of the bars. 
+`geom_col` differs from `geom_bar` in its default stat. `geom_col` has uses the `identity` stat. So it expects that a variable already exists for the height of the bars.
 `geom_bar` uses the `count` stat, and so will count observations in groups in order to generate the variable to use for the height of the bars.
-
 
 </div>
 
 ### Exercise 3. {.exercise}
 
-
 <div class='question'>
-Most geoms and stats come in pairs that are almost always used in concert. 
-Read through the documentation and make a list of all the pairs. 
+Most geoms and stats come in pairs that are almost always used in concert.
+Read through the documentation and make a list of all the pairs.
 What do they have in common?
 </div>
-
 
 <div class='answer'>
 
@@ -804,20 +749,18 @@ See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
 ### Exercise 4. {.exercise}
 
-
 <div class='question'>
 What variables does `stat_smooth()` compute? What parameters control its behavior?
 </div>
-
 
 <div class='answer'>
 
 `stat_smooth` calculates
 
-- `y`: predicted value
-- `ymin`: lower value of the confidence interval
-- `ymax`: upper value of the confidence interval
-- `se`: standard error
+-   `y`: predicted value
+-   `ymin`: lower value of the confidence interval
+-   `ymax`: upper value of the confidence interval
+-   `se`: standard error
 
 There's parameters such as `method` which determines which method is used to calculate the predictions and confidence interval, and some other arguments that are passed to that.
 
@@ -825,21 +768,19 @@ There's parameters such as `method` which determines which method is used to cal
 
 ### Exercise 5. {.exercise}
 
-
 <div class='question'>
-In our proportion bar chart, we need to set `group = 1` Why? 
+In our proportion bar chart, we need to set `group = 1` Why?
 In other words what is the problem with these two graphs?
 </div>
 
-
 <div class='answer'>
 
-If `group` is not set to 1, then all the bars have `prop == 1`. 
-The function `geom_bar` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group. 
+If `group` is not set to 1, then all the bars have `prop == 1`.
+The function `geom_bar` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group.
 
 
 ```r
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop..))
 ```
 
@@ -848,10 +789,10 @@ ggplot(data = diamonds) +
 The problem with these two plots is that the proportions are calculated within the groups.
 
 ```r
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop..))
 
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
 ```
 
@@ -860,10 +801,10 @@ ggplot(data = diamonds) +
 This is more likely what was intended:
 
 ```r
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
 
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop.., group = color))
 ```
 
@@ -875,19 +816,17 @@ ggplot(data = diamonds) +
 
 ### Exercise 1. {.exercise}
 
-
 <div class='question'>
-What is the problem with this plot? 
+What is the problem with this plot?
 How could you improve it?
 </div>
-
 
 <div class='answer'>
 
 There is overplotting because there are multiple observations for each combination of `cty` and `hwy`.
 
 ```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point()
 ```
 
@@ -895,7 +834,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 I'd fix it by using a jitter position adjustment.
 
 ```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = "jitter")
 ```
 
@@ -905,20 +844,18 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 ### Exercise 2. {.exercise}
 
-
 <div class='question'>
 What parameters to `geom_jitter()` control the amount of jittering?
 </div>
 
-
 <div class='answer'>
 
-From the [position_jitter](http://docs.ggplot2.org/current/position_jitter.html) documentation, there are two arguments to jitter: `width` and `height`, which control the amount of vertical and horizontal jitter. 
+From the [position_jitter](http://docs.ggplot2.org/current/position_jitter.html) documentation, there are two arguments to jitter: `width` and `height`, which control the amount of vertical and horizontal jitter.
 
 No horizontal jitter
 
 ```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0))
 ```
 
@@ -927,7 +864,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 Way too much vertical jitter
 
 ```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0, height = 15))
 ```
 
@@ -936,7 +873,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 Only horizontal jitter:
 
 ```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(height = 0))
 ```
 
@@ -945,7 +882,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 Way too much horizontal jitter:
 
 ```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(height = 0, width = 20))
 ```
 
@@ -955,25 +892,21 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 ### Exercise 3. {.exercise}
 
-
 <div class='question'>
 Compare and contrast `geom_jitter()` with `geom_count()`.
 </div>
 
-
 <div class='answer'>
 
-**TODO**
+TODO
 
 </div>
 
 ### Exercise 4. {.exercise}
 
-
 <div class='question'>
 What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the mpg dataset that demonstrates it.
 </div>
-
 
 <div class='answer'>
 
@@ -1000,8 +933,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
 
 ## Coordinate Systems
 
-
-### Exercise 1. {.exercise}
+### Exercise 1 {.exercise}
 
 <div class='question'>
 Turn a stacked bar chart into a pie chart using `coord_polar()`.
@@ -1041,7 +973,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 If you had a multiple stacked bar chart,
 
 ```r
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
 ```
 
@@ -1050,7 +982,7 @@ ggplot(data = diamonds) +
 and apply polar coordinates to it, you end up with a multi-doughnut chart,
 
 ```r
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill") +
   coord_polar(theta = "y")
 ```
@@ -1059,13 +991,11 @@ ggplot(data = diamonds) +
 
 </div>
 
-### Exercise 2. {.exercise}
-
+### Exercise 2 {.exercise}
 
 <div class='question'>
 What does `labs()` do? Read the documentation.
 </div>
-
 
 <div class='answer'>
 
@@ -1073,7 +1003,7 @@ The `labs` function adds labels for different scales and the title of the plot.
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
   geom_boxplot() +
   coord_flip() +
   labs(y = "Highway MPG", x = "", title = "Highway MPG by car class")
@@ -1083,31 +1013,27 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 
 </div>
 
-### Exercise 3. {.exercise}
-
+### Exercise 3 {.exercise}
 
 <div class='question'>
 What’s the difference between `coord_quickmap()` and `coord_map()`?
 </div>
 
-
 <div class='answer'>
 
 See the [docs](http://docs.ggplot2.org/current/coord_quickmap.html):
 
-- `coord_map` uses a 2D projection: by default the Mercator project of the sphere to the plot. But this requires transforming all geoms.
-- `coord_quickmap` uses a approximate, but faster, map projection using the lat/long ratio as an approximation. This is "quick" because the shapes don't need to be transformed.
+-   `coord_map` uses a 2D projection: by default the Mercator project of the sphere to the plot. But this requires transforming all geoms.
+-   `coord_quickmap` uses a approximate, but faster, map projection using the lat/long ratio as an approximation. This is "quick" because the shapes don't need to be transformed.
 
 </div>
 
-### Exercise 4. {.exercise}
-
+### Exercise 4 {.exercise}
 
 <div class='question'>
-What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important? 
+What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important?
 What does `geom_abline()` do?
 </div>
-
 
 <div class='answer'>
 
@@ -1116,7 +1042,7 @@ The coordinates `coord_fixed` ensures that the `abline` is at a 45 degree angle,
 
 ```r
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point() + 
+  geom_point() +
   geom_abline() +
   coord_fixed()
 ```
@@ -1127,7 +1053,7 @@ If we didn't include geom_point, then the line is no longer at 45 degrees:
 
 ```r
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point() + 
+  geom_point() +
   geom_abline()
 ```
 

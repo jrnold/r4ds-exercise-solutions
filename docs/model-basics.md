@@ -4,8 +4,8 @@ output: html_document
 editor_options:
   chunk_output_type: console
 ---
-# Model Basics
 
+# Model Basics
 
 ## Prerequisites
 
@@ -25,11 +25,9 @@ If it is not set (the default), R will silently drop them.
 
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
 One downside of the linear model is that it is sensitive to unusual values because the distance incorporates a squared term. Fit a linear model to the simulated data below, and visualize the results. Rerun a few times to generate different simulated datasets. What do you notice about the model?
 </div>
-
 
 <div class='answer'>
 
@@ -129,16 +127,13 @@ pt(2, df = 2, lower.tail = FALSE)
 #> [1] 0.0918
 ```
 
-
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:
 </div>
-
 
 <div class='answer'>
 
@@ -182,16 +177,13 @@ best$par
 In practice, you would not use a `optim` to fit this model, you would you an existing implementation.
 See the `MASS` package's `rlm` and `lqs` functions for more information and functions to fit robust and resistant linear models.
 
-
 </div>
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
 One challenge with performing numerical optimization is that it’s only guaranteed to find a local optimum. What’s the problem with optimizing a three parameter model like this?
 </div>
-
 
 <div class='answer'>
 
@@ -245,19 +237,15 @@ Problem is that due to finite iterations, numerically these converge:
 
 -->
 
-
 </div>
 
 ## Visualizing Models
 
-
 ### Exercise 1 {.exercise}
-
 
 <div class='question'>
 Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on `sim1` using `loess()` instead of `lm()`. How does the result compare to `geom_smooth()`?
 </div>
-
 
 <div class='answer'>
 
@@ -318,10 +306,9 @@ ggplot(sim1, aes(x = x)) +
 ### Exercise 2 {.exercise}
 
 <div class='question'>
-`add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`. 
+`add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`.
 How do these three functions differ?
 </div>
-
 
 <div class='answer'>
 
@@ -406,17 +393,14 @@ grid %>%
 #> # ... with 4 more rows
 ```
 
-
-
 </div>
 
 ### Exercise 3 {.exercise}
 
 <div class='question'>
-What does `geom_ref_line()` do? What package does it come from? 
+What does `geom_ref_line()` do? What package does it come from?
 Why is displaying a reference line in plots showing residuals useful and important?
 </div>
-
 
 <div class='answer'>
 
@@ -425,17 +409,14 @@ It is equivalent to running `geom_hline` or `geom_vline` with default settings t
 Putting a reference line at zero for residuals is important because good models (generally) should have residuals centered at zero, with approximately the same variance (or distribution) over the support of x, and no correlation.
 A zero reference line makes it easier to judge these characteristics visually.
 
-
-
 </div>
 
 ### Exercise 4 {.exercise}
 
 <div class='question'>
-Why might you want to look at a frequency polygon of absolute residuals? 
+Why might you want to look at a frequency polygon of absolute residuals?
 What are the pros and cons compared to looking at the raw residuals?
 </div>
-
 
 <div class='answer'>
 
@@ -457,23 +438,18 @@ ggplot(sim1, aes(x = abs(resid))) +
 However, using the absolute values of residuals throws away information about the sign, meaning that the
 frequency polygon cannot show whether the model systematically over- or under-estimates the residuals.
 
-
-
 </div>
 
 ## Formulas and Model Families
 
-
 ### Exercise 1 {.exercise}
 
 <div class='question'>
-What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation? 
+What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation?
 What happens to the predictions?
 </div>
 
-
 <div class='answer'>
-
 
 To run a model without an intercept, add `- 1` or `+ 0` to the right-hand-side o f the formula:
 
@@ -501,17 +477,14 @@ grid
 #> 4 d      1.91  1.91
 ```
 
-
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
-Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`. 
+Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`.
 Why is `*` a good shorthand for interaction?
 </div>
-
 
 <div class='answer'>
 
@@ -524,12 +497,12 @@ x3
 #> # A tibble: 120 x 8
 #>   `(Intercept)`    x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`
 #>           <dbl> <dbl> <dbl> <dbl> <dbl>    <dbl>    <dbl>    <dbl>
-#> 1          1.00  1.00  0        0     0     0           0        0
-#> 2          1.00  1.00  0        0     0     0           0        0
-#> 3          1.00  1.00  0        0     0     0           0        0
-#> 4          1.00  1.00  1.00     0     0     1.00        0        0
-#> 5          1.00  1.00  1.00     0     0     1.00        0        0
-#> 6          1.00  1.00  1.00     0     0     1.00        0        0
+#> 1            1.    1.    0.    0.    0.       0.       0.       0.
+#> 2            1.    1.    0.    0.    0.       0.       0.       0.
+#> 3            1.    1.    0.    0.    0.       0.       0.       0.
+#> 4            1.    1.    1.    0.    0.       1.       0.       0.
+#> 5            1.    1.    1.    0.    0.       1.       0.       0.
+#> 6            1.    1.    1.    0.    0.       1.       0.       0.
 #> # ... with 114 more rows
 ```
 We can confirm that the variables `x1:x2b` is the product of `x1` and `x2b`,
@@ -556,12 +529,12 @@ x4
 #> # A tibble: 300 x 4
 #>   `(Intercept)`    x1     x2 `x1:x2`
 #>           <dbl> <dbl>  <dbl>   <dbl>
-#> 1          1.00 -1.00 -1.00    1.00 
-#> 2          1.00 -1.00 -1.00    1.00 
-#> 3          1.00 -1.00 -1.00    1.00 
-#> 4          1.00 -1.00 -0.778   0.778
-#> 5          1.00 -1.00 -0.778   0.778
-#> 6          1.00 -1.00 -0.778   0.778
+#> 1            1.   -1. -1.00    1.00 
+#> 2            1.   -1. -1.00    1.00 
+#> 3            1.   -1. -1.00    1.00 
+#> 4            1.   -1. -0.778   0.778
+#> 5            1.   -1. -0.778   0.778
+#> 6            1.   -1. -0.778   0.778
 #> # ... with 294 more rows
 ```
 Confirm that `x1:x2` is the product of the `x1` and `x2`,
@@ -571,21 +544,17 @@ all(x4[["x1"]] * x4[["x2"]] == x4[["x1:x2"]])
 #> [1] TRUE
 ```
 
-
 The asterisk `*` is good shorthand for an interaction since an interaction between `x1` and `x2` includes
 terms for `x1`, `x2`, and the product of `x1` and `x2`.
-
 
 </div>
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
 Using the basic principles, convert the formulas in the following two models into functions.
 (Hint: start by converting the categorical variable into 0-1 variables.)
 </div>
-
 
 <div class='answer'>
 
@@ -594,8 +563,6 @@ Using the basic principles, convert the formulas in the following two models int
 mod1 <- lm(y ~ x1 + x2, data = sim3)
 mod2 <- lm(y ~ x1 * x2, data = sim3)
 ```
-
-
 
 
 ```r
@@ -616,15 +583,14 @@ model_matrix_mod1(sim3)
 #> # A tibble: 120 x 7
 #>      x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`
 #>   <int> <dbl> <dbl> <dbl>    <dbl>    <dbl>    <dbl>
-#> 1     1  0        0     0     0           0        0
-#> 2     1  0        0     0     0           0        0
-#> 3     1  0        0     0     0           0        0
-#> 4     1  1.00     0     0     1.00        0        0
-#> 5     1  1.00     0     0     1.00        0        0
-#> 6     1  1.00     0     0     1.00        0        0
+#> 1     1    0.    0.    0.       0.       0.       0.
+#> 2     1    0.    0.    0.       0.       0.       0.
+#> 3     1    0.    0.    0.       0.       0.       0.
+#> 4     1    1.    0.    0.       1.       0.       0.
+#> 5     1    1.    0.    0.       1.       0.       0.
+#> 6     1    1.    0.    0.       1.       0.       0.
 #> # ... with 114 more rows
 ```
-
 
 
 ```r
@@ -636,15 +602,14 @@ model_matrix_mod2(sim4)
 #> # A tibble: 300 x 3
 #>      x1     x2 `x1:x2`
 #>   <dbl>  <dbl>   <dbl>
-#> 1 -1.00 -1.00    1.00 
-#> 2 -1.00 -1.00    1.00 
-#> 3 -1.00 -1.00    1.00 
-#> 4 -1.00 -0.778   0.778
-#> 5 -1.00 -0.778   0.778
-#> 6 -1.00 -0.778   0.778
+#> 1   -1. -1.00    1.00 
+#> 2   -1. -1.00    1.00 
+#> 3   -1. -1.00    1.00 
+#> 4   -1. -0.778   0.778
+#> 5   -1. -0.778   0.778
+#> 6   -1. -0.778   0.778
 #> # ... with 294 more rows
 ```
-
 
 A more general function for model `mod1` is:
 
@@ -674,17 +639,15 @@ model_matrix_mod2 <- function(x1, x2) {
 }
 ```
 
-
 </div>
 
 ### Exercise 4 {.exercise}
 
 <div class='question'>
-For `sim4`, which of `mod1` and `mod2` is better? 
-I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle. 
+For `sim4`, which of `mod1` and `mod2` is better?
+I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle.
 Can you come up with a plot to support my claim?
 </div>
-
 
 <div class='answer'>
 
@@ -735,8 +698,6 @@ sim4_mods %>%
 #> 2 mod2   2.07
 ```
 The standard deviation of the residuals of `mod2` is smaller than that of `mod1`.
-
-
 
 </div>
 
