@@ -1,6 +1,5 @@
 # Tidy Data
 
-
 ## Introduction
 
 ```{r message=FALSE}
@@ -11,11 +10,9 @@ library(tidyverse)
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Using prose, describe how the variables and observations are organized in each of the sample tables.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -46,20 +43,19 @@ table4b
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
+
+1.  Extract the number of TB cases per country per year.
+1.  Extract the matching population per country per year.
+1.  Divide cases by population, and multiply by 10000.
+1.  Store back in the appropriate place.
+
+Which representation is easiest to work with? Which is hardest? Why?
+
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
->
->  1.  Extract the number of TB cases per country per year.
->  2.  Extract the matching population per country per year.
->  3.  Divide cases by population, and multiply by 10000.
->  4.  Store back in the appropriate place.
-  
-Which representation is easiest to work with? Which is hardest? Why?
 
 Without using the join functions introduced in Ch 12:
 ```{r}
@@ -79,7 +75,7 @@ tibble(country = table4a[["country"]],
        `1999` = table4a[["1999"]] / table4b[["1999"]],
        `2000` = table4b[["2000"]] / table4b[["2000"]])
 ```
-or 
+or
 ```{r}
 tibble(country = rep(table4a[["country"]], 2),
        year = rep(c(1999, 2000), each = nrow(table4a)),
@@ -87,28 +83,24 @@ tibble(country = rep(table4a[["country"]], 2),
                   table4b[["2000"]] / table4b[["2000"]]))
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
-
 
 `r BeginQuestion()`
 Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
 First, I needed to filter the tibble to only include those rows that represented the "cases" variable.
 ```{r}
-table2 %>% 
+table2 %>%
   filter(type == "cases") %>%
-  ggplot(aes(year, count)) + 
-  geom_line(aes(group = country), colour = "grey50") + 
+  ggplot(aes(year, count)) +
+  geom_line(aes(group = country), colour = "grey50") +
   geom_point(aes(colour = country))
 ```
-
 
 `r EndAnswer()`
 
@@ -122,15 +114,12 @@ tidy4b <- table4b %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
 ```
 
-
 ### Exercise 1 {.exercise}
-
 
 `r BeginQuestion()`
 Why are `gather()` and `spread()` not perfectly symmetrical?
 Carefully consider the following example:
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -140,20 +129,20 @@ stocks <- tibble(
   half  = c(   1,    2,     1,    2),
   return = c(1.88, 0.59, 0.92, 0.17)
 )
-stocks %>% 
-  spread(year, return) %>% 
+stocks %>%
+  spread(year, return) %>%
   gather("year", "return", `2015`:`2016`)
 ```
 
-The functions `spread` and `gather` are not perfectly symmetrical because column type information is not transferred between them. 
-In the original table the column `year` was numeric, but after running `spread()` and `gather()` it is a character vector. 
+The functions `spread` and `gather` are not perfectly symmetrical because column type information is not transferred between them.
+In the original table the column `year` was numeric, but after running `spread()` and `gather()` it is a character vector.
 This is because variable names are always converted to a character vector by `gather()`.
 
-The `convert` argument tries to convert character vectors to the appropriate type. 
+The `convert` argument tries to convert character vectors to the appropriate type.
 In the background this uses the `type.convert` function.
 ```{r}
-stocks %>% 
-  spread(year, return) %>% 
+stocks %>%
+  spread(year, return) %>%
   gather("year", "return", `2015`:`2016`, convert = TRUE)
 ```
 
@@ -161,16 +150,14 @@ stocks %>%
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Why does this code fail?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
 ```{r error=TRUE}
-table4a %>% 
+table4a %>%
   gather(1999, 2000, key = "year", value = "cases")
 ```
 
@@ -178,7 +165,7 @@ The code fails because the column names `1999` and `2000` are not standard and t
 The tidyverse functions will interpret `1999` and `2000` without quotes as looking for the 1999th and 2000th column of the data frame.
 This will work:
 ```{r}
-table4a %>% 
+table4a %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
 ```
 
@@ -186,11 +173,9 @@ table4a %>%
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Why does spreading this tibble fail? How could you add a new column to fix the problem?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -227,16 +212,13 @@ people <- tribble(
 spread(people, key, value)
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -250,9 +232,9 @@ preg <- tribble(
 
 You need to gather it. The variables are:
 
-- pregnant: logical ("yes", "no")
-- female: logical
-- count: integer
+-   pregnant: logical ("yes", "no")
+-   female: logical
+-   count: integer
 
 ```{r}
 gather(preg, sex, count, male, female) %>%
@@ -268,19 +250,17 @@ Converting `pregnant` and `female` from character vectors to logical was not nec
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
 ```{r}
-tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"))
 
-tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
+tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
 ```
 
@@ -292,17 +272,17 @@ The `extra` argument tells `separate` what to do if there are too many pieces,
 and the `fill` argument if there aren't enough.
 
 ```{r}
-tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"))
 ```
 By default `separate` drops the extra values with a warning.
 ```{r}
-tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "drop")
 ```
 This produces the same result as above, dropping extra values, but without the warning.
 ```{r}
-tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "merge")
 ```
 In this, the extra values are not split, so `"f,g"` appears in column three.
@@ -310,19 +290,19 @@ In this, the extra values are not split, so `"f,g"` appears in column three.
 In this, one of the entries for column, `"d,e"`, has too few elements.
 The default for `fill` is similar to `separate`; it fills with missing values but emits a warning. In this, row 2 of column "three", is `NA`.
 ```{r}
-tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
+tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
 ```
 
 Alternative options for `fill` are `"right"`, to fill with missing values from the right, but without a warning
 ```{r}
-tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
+tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "right")
 ```
 The option `fill = "left"` also fills with missing values without a warning, but this time from the left side.
 Now, column "one" of row 2 will be missing, and the other values in that row are shifted over.
 ```{r}
-tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
+tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "left")
 ```
 
@@ -330,11 +310,9 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -344,11 +322,9 @@ You would set it to `FALSE` if you want to create a new variable, but keep the o
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -356,19 +332,15 @@ The function `extract` uses a regular expression to find groups and split into c
 In `unite` it is unambiguous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the `sep`.
 In `separate`, it is one to many, and there are multiple ways to split the character string.
 
-
 `r EndAnswer()`
 
 ## Missing Values
 
-
 ### Exercise 1 {.exercise}
-
 
 `r BeginQuestion()`
 Compare and contrast the `fill` arguments to `spread()` and `complete()`.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -387,17 +359,13 @@ Also, both cases replace both implicit and explicit missing values.
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 What does the direction argument to `fill()` do?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
 With `fill`, it determines whether `NA` values should be replaced by the previous non-missing value (`"down"`) or the next non-missing value (`"up"`).
-
-
 
 `r EndAnswer()`
 
@@ -441,15 +409,13 @@ who5
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
-Perhaps? I would need to know more about the data generation process. 
+Perhaps? I would need to know more about the data generation process.
 There are zero's in the data, which means they may explicitly be indicating no cases.
 ```{r}
 who1 %>%
@@ -457,7 +423,7 @@ who1 %>%
   nrow()
 ```
 
-So it appears that either a country has all its values in a year as non-missing if the WHO collected data for that country, or all its values are non-missing. 
+So it appears that either a country has all its values in a year as non-missing if the WHO collected data for that country, or all its values are non-missing.
 So it is okay to treat explicitly and implicitly missing values the same, and we don't lose any information by dropping them.
 ```{r}
 gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
@@ -470,22 +436,18 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
 
 ```
 
-
-
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
-
 
 `r BeginQuestion()`
 What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
-`separate` emits the warning "too few values", and if we check the 
-rows for keys beginning with `"newrel_"`, we see that `sexage` is messing, 
+`separate` emits the warning "too few values", and if we check the
+rows for keys beginning with `"newrel_"`, we see that `sexage` is messing,
 and `type = m014`.
 
 ```{r}
@@ -495,16 +457,13 @@ who3a <- who1 %>%
 filter(who3a, new == "newrel") %>% head()
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -516,16 +475,13 @@ select(who3, country, iso2, iso3) %>%
 
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -538,12 +494,10 @@ who5 %>%
   ggplot(aes(x = year, y = cases, group = country_sex, colour = sex)) +
   geom_line()
 
-  
 ```
 
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.
-
 
 `r EndAnswer()`
 
