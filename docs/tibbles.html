@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Science Solutions</title>
   <meta name="description" content="This contains the solutions to the exercises in the book, R for Data Science, by Garrett Grolemund and Hadley Wickham.">
-  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Science Solutions" />
   <meta property="og:type" content="book" />
@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.3.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -676,10 +673,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">9.6</span> Exercises</h2>
 <div id="exercise-1-18" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.1</span> Exercise 1</h3>
-<div class="question">
 <p>How can you tell if an object is a tibble? (Hint: try printing <code>mtcars</code>, which is a regular data frame).</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">mtcars</a>
 <a class="sourceLine" id="cb174-2" data-line-number="2"><span class="co">#&gt;                      mpg cyl  disp  hp drat   wt qsec vs am gear carb</span></a>
 <a class="sourceLine" id="cb174-3" data-line-number="3"><span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.62 16.5  0  1    4    4</span></a>
@@ -720,13 +714,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb176-2" data-line-number="2"><span class="co">#&gt; [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</span></a></code></pre></div>
 <p>Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class <code>&quot;tbl_df&quot;</code> and <code>&quot;tbl_&quot;</code> in addition to <code>&quot;data.frame&quot;</code>.</p>
 </div>
-</div>
 <div id="exercise-2-17" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.2</span> Exercise 2</h3>
-<div class="question">
 <p>Compare and contrast the following operations on a <code>data.frame</code> and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">abc =</span> <span class="dv">1</span>, <span class="dt">xyz =</span> <span class="st">&quot;a&quot;</span>)</a>
 <a class="sourceLine" id="cb177-2" data-line-number="2">df<span class="op">$</span>x</a>
 <a class="sourceLine" id="cb177-3" data-line-number="3"><span class="co">#&gt; [1] a</span></a>
@@ -762,19 +752,13 @@ did <code>df[ , vars]</code> where <code>vars</code> was a variable. Then you wh
 depends on <code>length(vars)</code> and you’d have to write code to account for those
 situations or risk bugs.</p>
 </div>
-</div>
 <div id="exercise-3-15" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.3</span> Exercise 3</h3>
-<div class="question">
 <p>If you have the name of a variable stored in an object, e.g. <code>var &lt;- &quot;mpg&quot;</code>, how can you extract the reference variable from a tibble?</p>
-</div>
-<div class="answer">
 <p>You can use the double bracket, like <code>df[[var]]</code>. You cannot use the dollar sign, because <code>df$var</code> would look for a column named <code>var</code>.</p>
-</div>
 </div>
 <div id="exercise-4-12" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.4</span> Exercise 4</h3>
-<div class="question">
 <p>Practice referring to non-syntactic names in the following data frame by:</p>
 <ol style="list-style-type: decimal">
 <li>Extracting the variable called 1.</li>
@@ -782,8 +766,6 @@ situations or risk bugs.</p>
 <li>Creating a new column called 3 which is 2 divided by 1.</li>
 <li>Renaming the columns to one, two and three.</li>
 </ol>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1">annoying &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb179-2" data-line-number="2">  <span class="st">`</span><span class="dt">1</span><span class="st">`</span> =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,</a>
 <a class="sourceLine" id="cb179-3" data-line-number="3">  <span class="st">`</span><span class="dt">2</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">1</span><span class="st">`</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(<span class="st">`</span><span class="dt">1</span><span class="st">`</span>))</a>
@@ -811,13 +793,9 @@ situations or risk bugs.</p>
 <a class="sourceLine" id="cb185-6" data-line-number="6"><span class="co">#&gt; $ two   &lt;dbl&gt; 0.60, 4.26, 3.56, 7.99, 10.62, 13.15, 12.18, 15.75, 17.7...</span></a>
 <a class="sourceLine" id="cb185-7" data-line-number="7"><span class="co">#&gt; $ three &lt;dbl&gt; 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97</span></a></code></pre></div>
 </div>
-</div>
 <div id="exercise-5-8" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.5</span> Exercise 5</h3>
-<div class="question">
 <p>What does <code>tibble::enframe()</code> do? When might you use it?</p>
-</div>
-<div class="answer">
 <p>It converts named vectors to a data frame with names and values</p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1">?tibble<span class="op">::</span>enframe</a></code></pre></div>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="kw">enframe</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>))</a>
@@ -828,17 +806,12 @@ situations or risk bugs.</p>
 <a class="sourceLine" id="cb187-6" data-line-number="6"><span class="co">#&gt; 2 b        2.</span></a>
 <a class="sourceLine" id="cb187-7" data-line-number="7"><span class="co">#&gt; 3 c        3.</span></a></code></pre></div>
 </div>
-</div>
 <div id="exercise-6-6" class="section level3 exercise">
 <h3><span class="header-section-number">9.6.6</span> Exercise 6</h3>
-<div class="question">
 <p>What option controls how many additional column names are printed at the footer of a tibble?</p>
-</div>
-<div class="answer">
 <p>The print function for tibbles is in <code>print.tbl_df</code>:</p>
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" data-line-number="1">?print.tbl_df</a></code></pre></div>
 <p>The option <code>n_extra</code> determines the number of extra columns to print information for.</p>
-</div>
 
 </div>
 </div>

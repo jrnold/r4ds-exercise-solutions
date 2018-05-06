@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Science Solutions</title>
   <meta name="description" content="This contains the solutions to the exercises in the book, R for Data Science, by Garrett Grolemund and Hadley Wickham.">
-  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Science Solutions" />
   <meta property="og:type" content="book" />
@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.3.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -661,21 +658,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.2</span> First Steps</h2>
 <div id="exercise-1." class="section level3 exercise">
 <h3><span class="header-section-number">3.2.1</span> Exercise 1.</h3>
-<div class="question">
 <p>Run <code>ggplot(data = mpg)</code> what do you see?</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg)</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>An empty plot. The background of the plot is created by <code>ggplot()</code>, but nothing else is displayed.</p>
 </div>
-</div>
 <div id="exercise-2." class="section level3 exercise">
 <h3><span class="header-section-number">3.2.2</span> Exercise 2.</h3>
-<div class="question">
 <p>How many rows are in <code>mtcars</code>? How many columns?</p>
-</div>
-<div class="answer">
 <p>There are 32 rows and 11 columns in the the <code>mtcars</code> data frame.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">nrow</span>(mtcars)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; [1] 32</span></a>
@@ -697,37 +687,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; $ gear &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, ...</span></a>
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, ...</span></a></code></pre></div>
 </div>
-</div>
 <div id="exercise-3." class="section level3 exercise">
 <h3><span class="header-section-number">3.2.3</span> Exercise 3.</h3>
-<div class="question">
 <p>What does the <code>drv</code> variable describe? Read the help for <code>?mpg</code> to find out.</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">?mpg</a></code></pre></div>
 <p>The <code>drv</code> variable takes the following values</p>
 <div class="line-block"><code>&quot;f&quot;</code> | front-wheel drive |<br />
 <code>&quot;r&quot;</code> | rear-wheel drive |<br />
 <code>&quot;4&quot;</code> | four-wheel drive |</div>
 </div>
-</div>
 <div id="exercise-4." class="section level3 exercise">
 <h3><span class="header-section-number">3.2.4</span> Exercise 4.</h3>
-<div class="question">
 <p>Make a scatter plot of <code>hwy</code> vs <code>cyl</code>.</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> hwy, <span class="dt">y =</span> cyl)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-5." class="section level3 exercise">
 <h3><span class="header-section-number">3.2.5</span> Exercise 5.</h3>
-<div class="question">
 <p>What happens if you make a scatter plot of <code>class</code> vs <code>drv</code>. Why is the plot not useful?</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> class, <span class="dt">y =</span> drv)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -747,29 +725,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Later chapters discuss means to deal with this, including alternative plots and jittering the points so they don’t overlap.</p>
 </div>
 </div>
-</div>
 <div id="aesthetic-mappings" class="section level2">
 <h2><span class="header-section-number">3.3</span> Aesthetic mappings</h2>
 <div id="exercise-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.3.1</span> Exercise 1</h3>
-<div class="question">
 <p>What’s gone wrong with this code? Why are the points not blue?</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>))</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
-</div>
 <p>Since <code>colour = &quot;blue&quot;</code> was included within the <code>mapping</code> argument, it was treated as an aesthetic (a mapping between a variable and a value).
 The expression, <code>color=&quot;blue&quot;</code>, treats <code>&quot;blue&quot;</code> as a variable with only one value: <code>&quot;blue&quot;</code>. If this is confusing, consider how <code>colour = 1:234</code> or <code>colour = 1</code> would be interpreted by <code>aes()</code>.</p>
 </div>
 <div id="exercise-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.3.2</span> Exercise 2</h3>
-<div class="question">
 <p>Which variables in <code>mpg</code> are categorical?
 Which variables are continuous?
 (Hint: type <code>?mpg</code> to read the documentation for the dataset).
 How can you see this information when you run <code>mpg</code>?</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">?mpg</a></code></pre></div>
 <p>When printing the data frame, this information is given at the top of each column within angled brackets. Categorical variables have a class of “character” (<code>&lt;chr&gt;</code>).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">mpg</a>
@@ -799,14 +771,10 @@ How can you see this information when you run <code>mpg</code>?</p>
 <a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; $ fl           &lt;chr&gt; &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;,...</span></a>
 <a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#&gt; $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compact&quot;, &quot;compact&quot;, &quot;comp...</span></a></code></pre></div>
 </div>
-</div>
 <div id="exercise-3" class="section level3 exercise">
 <h3><span class="header-section-number">3.3.3</span> Exercise 3</h3>
-<div class="question">
 <p>Map a continuous variable to color, size, and shape.
 How do these aesthetics behave differently for categorical vs. continuous variables?</p>
-</div>
-<div class="answer">
 <p>The variable <code>cty</code>, city highway miles per gallon, is a continuous variable:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> cty)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
@@ -825,13 +793,9 @@ Though we could split a continuous variable into discrete categories and use a s
 A continuous numeric variable is ordered, but shapes have no natural order.
 It is clear that smaller points correspond to smaller values, or once the color scale is given, which colors correspond to larger or smaller values. But it is not clear whether a square is greater or less than a circle.</p>
 </div>
-</div>
 <div id="exercise-4" class="section level3 exercise">
 <h3><span class="header-section-number">3.3.4</span> Exercise 4</h3>
-<div class="question">
 <p>What happens if you map the same variable to multiple aesthetics?</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> hwy, <span class="dt">size =</span> displ)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -840,26 +804,18 @@ The code works and produces a plot, even if it is a bad one.
 Mapping a single variable to multiple aesthetics is redundant.
 Because it is redundant information, in most cases avoid mapping a single variable to multiple aesthetics.</p>
 </div>
-</div>
 <div id="exercise-5" class="section level3 exercise">
 <h3><span class="header-section-number">3.3.5</span> Exercise 5</h3>
-<div class="question">
 <p>What does the stroke aesthetic do? What shapes does it work with? (Hint: use <code>?geom_point</code>)</p>
-</div>
-<div class="answer">
 <p>The following example is given in <code>?geom_point</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">stroke =</span> <span class="dv">5</span>)</a></code></pre></div>
 <p><img src="visualize_files/figure-html/ex.3.3.1.5-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Stroke changes the color of the border for shapes (22-24).</p>
 </div>
-</div>
 <div id="exercise-6." class="section level3 exercise">
 <h3><span class="header-section-number">3.3.6</span> Exercise 6.</h3>
-<div class="question">
 <p>What happens if you map an aesthetic to something other than a variable name, like <code>aes(colour = displ &lt; 5)</code>?</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> displ <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="visualize_files/figure-html/ex.3.3.1.6-1.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -867,7 +823,6 @@ Because it is redundant information, in most cases avoid mapping a single variab
 It will create a temporary variable which takes values from the result of the expression.
 In this case, it is logical variable which is <code>TRUE</code> or <code>FALSE</code>.
 This also explains exercise 1, <code>colour = &quot;blue&quot;</code> created a categorical variable that only had one category: “blue”.</p>
-</div>
 </div>
 </div>
 <div id="common-problems" class="section level2">
@@ -878,10 +833,7 @@ This also explains exercise 1, <code>colour = &quot;blue&quot;</code> created a 
 <h2><span class="header-section-number">3.5</span> Facets</h2>
 <div id="exercise-1-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.5.1</span> Exercise 1</h3>
-<div class="question">
 <p>What happens if you facet on a continuous variable?</p>
-</div>
-<div class="answer">
 <p>Let’s see.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
@@ -889,26 +841,18 @@ This also explains exercise 1, <code>colour = &quot;blue&quot;</code> created a 
 <p><img src="visualize_files/figure-html/ex.3.5.1.1-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>It converts the continuous variable to a factor and creates facets for <strong>all</strong> unique values of it.</p>
 </div>
-</div>
 <div id="exercise-2-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.5.2</span> Exercise 2</h3>
-<div class="question">
 <p>What do the empty cells in plot with <code>facet_grid(drv ~ cyl)</code> mean? How do they relate to this plot?</p>
-</div>
-<div class="answer">
 <p>They are cells in which there are no values of the combination of <code>drv</code> and <code>cyl</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> drv, <span class="dt">y =</span> cyl))</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The locations in the above plot without points are the same cells in <code>facet_grid(drv ~ cyl)</code> that have no points.</p>
 </div>
-</div>
 <div id="exercise-3-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.5.3</span> Exercise 3</h3>
-<div class="question">
 <p>What plots does the following code make? What does <code>.</code> do?</p>
-</div>
-<div class="answer">
 <p>The symbol <code>.</code> ignores that dimension for faceting.</p>
 <p>This plot facets by values of <code>drv</code> on the y-axis:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
@@ -921,50 +865,34 @@ This plot facets by values of <code>cyl</code> on the x-axis:</p>
 <a class="sourceLine" id="cb23-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>cyl)</a></code></pre></div>
 <p><img src="visualize_files/figure-html/ex.3.5.1.4.b-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-5-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.5.4</span> Exercise 5</h3>
-<div class="question">
 <p>Read <code>?facet_wrap</code>. What does <code>nrow</code> do? What does <code>ncol</code> do? What other options control the layout of the individual panels? Why doesn’t <code>facet_grid()</code> have <code>nrow</code> and <code>ncol</code> variables?</p>
-</div>
-<div class="answer">
 <p>The arguments <code>nrow</code> (<code>ncol</code>) determines the number of rows (columns) to use when laying out the facets.
 It is necessary since <code>facet_wrap</code> only facets on one variable.
 These arguments are unnecessary for <code>facet_grid</code> since the number of rows and columns are determined by the number of unique values of the variables specified.</p>
 </div>
-</div>
 <div id="exercise-6" class="section level3 exercise">
 <h3><span class="header-section-number">3.5.5</span> Exercise 6</h3>
-<div class="question">
 <p>When using <code>facet_grid()</code> you should usually put the variable with more unique levels in the columns. Why?</p>
-</div>
-<div class="answer">
 <p>You should put the variable with more unique levels in the columns if the plot is laid out landscape.
 It is easier to compare relative levels of y by scanning horizontally, so it may be easier to visually compare these levels. <em>I’m actually not sure about the correct answer to this</em>.</p>
-</div>
 </div>
 </div>
 <div id="geometric-objects" class="section level2">
 <h2><span class="header-section-number">3.6</span> Geometric Objects</h2>
 <div id="exercise-1-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.6.1</span> Exercise 1</h3>
-<div class="question">
 <p>What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?</p>
-</div>
-<div class="answer">
 <ul>
 <li>line chart: <code>geom_line</code></li>
 <li>boxplot: <code>geom_boxplot</code></li>
 <li>histogram: <code>geom_hist</code></li>
 </ul>
 </div>
-</div>
 <div id="exercise-2-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.6.2</span> Exercise 2</h3>
-<div class="question">
 <p>Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> drv)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb24-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
@@ -977,14 +905,10 @@ There will be a smooth line, without standard errors, fit through each <code>drv
 <a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-3-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.6.3</span> Exercise 3</h3>
-<div class="question">
 <p>What does <code>show.legend = FALSE</code> do? What happens if you remove it?
 Why do you think I used it earlier in the chapter?</p>
-</div>
-<div class="answer">
 <p>Show legend hides the legend box. In this code, without show legend, there is a legend.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
 <a class="sourceLine" id="cb26-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_smooth</span>(</a>
@@ -1020,13 +944,9 @@ the legend is suppressed because there are three plots, and adding a legend that
 Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a <code>group</code> aesthetic, and using a <code>color</code> aesthetic (with implicit grouping).
 In that example, the legend isn’t necessary since looking up the values associated with each color isn’t necessary to make that point.</p>
 </div>
-</div>
 <div id="exercise-4-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.6.4</span> Exercise 4</h3>
-<div class="question">
 <p>What does the <code>se</code> argument to <code>geom_smooth()</code> do?</p>
-</div>
-<div class="answer">
 <p>It adds standard error bands to the lines.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> drv)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
@@ -1040,13 +960,9 @@ In that example, the legend isn’t necessary since looking up the values associ
 <a class="sourceLine" id="cb30-4" data-line-number="4"><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-5-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.6.5</span> Exercise 5</h3>
-<div class="question">
 <p>Will these two graphs look different? Why/why not?</p>
-</div>
-<div class="answer">
 <p>No. Because both <code>geom_point</code> and <code>geom_smooth</code> use the same data and mappings. They will inherit those options from the <code>ggplot</code> object, and thus don’t need to specified again (or twice).</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb31-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
@@ -1059,13 +975,9 @@ In that example, the legend isn’t necessary since looking up the values associ
 <a class="sourceLine" id="cb32-4" data-line-number="4"><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39;</span></a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-6-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.6.6</span> Exercise 6</h3>
-<div class="question">
 <p>Recreate the R code necessary to generate the following graphs.</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb33-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)</a>
@@ -1096,15 +1008,11 @@ In that example, the legend isn’t necessary since looking up the values associ
 <p><img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-</div>
 <div id="statistical-transformations" class="section level2">
 <h2><span class="header-section-number">3.7</span> Statistical Transformations</h2>
 <div id="exercise-1-3" class="section level3 exercise">
 <h3><span class="header-section-number">3.7.1</span> Exercise 1</h3>
-<div class="question">
 <p>What is the default geom associated with <code>stat_summary()</code>? How could you rewrite the previous plot to use that geom function instead of the stat function?</p>
-</div>
-<div class="answer">
 <p>The default geom for <a href="http://docs.ggplot2.org/current/stat_summary.html"><code>stat_summary</code></a> is <code>geom_pointrange</code> (see the <code>stat</code>) argument.</p>
 <p>But, the default <code>stat</code> for <a href="http://docs.ggplot2.org/current/geom_linerange.html"><code>geom_pointrange</code></a> is <code>identity</code>, so use <code>geom_pointrange(stat = &quot;summary&quot;)</code>.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
@@ -1125,34 +1033,22 @@ In that example, the legend isn’t necessary since looking up the values associ
 <a class="sourceLine" id="cb40-8" data-line-number="8">  )</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-2.-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.7.2</span> Exercise 2.</h3>
-<div class="question">
 <p>What does <code>geom_col()</code> do? How is it different to <code>geom_bar()</code>?</p>
-</div>
-<div class="answer">
 <p><code>geom_col</code> differs from <code>geom_bar</code> in its default stat. <code>geom_col</code> has uses the <code>identity</code> stat. So it expects that a variable already exists for the height of the bars.
 <code>geom_bar</code> uses the <code>count</code> stat, and so will count observations in groups in order to generate the variable to use for the height of the bars.</p>
 </div>
-</div>
 <div id="exercise-3.-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.7.3</span> Exercise 3.</h3>
-<div class="question">
 <p>Most geoms and stats come in pairs that are almost always used in concert.
 Read through the documentation and make a list of all the pairs.
 What do they have in common?</p>
-</div>
-<div class="answer">
 <p>See the <a href="http://docs.ggplot2.org/current/">ggplot2 documentation</a></p>
-</div>
 </div>
 <div id="exercise-4.-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.7.4</span> Exercise 4.</h3>
-<div class="question">
 <p>What variables does <code>stat_smooth()</code> compute? What parameters control its behavior?</p>
-</div>
-<div class="answer">
 <p><code>stat_smooth</code> calculates</p>
 <ul>
 <li><code>y</code>: predicted value</li>
@@ -1162,14 +1058,10 @@ What do they have in common?</p>
 </ul>
 <p>There’s parameters such as <code>method</code> which determines which method is used to calculate the predictions and confidence interval, and some other arguments that are passed to that.</p>
 </div>
-</div>
 <div id="exercise-5.-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.7.5</span> Exercise 5.</h3>
-<div class="question">
 <p>In our proportion bar chart, we need to set <code>group = 1</code> Why?
 In other words what is the problem with these two graphs?</p>
-</div>
-<div class="answer">
 <p>If <code>group</code> is not set to 1, then all the bars have <code>prop == 1</code>.
 The function <code>geom_bar</code> assumes that the groups are equal to the <code>x</code> values, since the stat computes the counts within the group.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
@@ -1191,16 +1083,12 @@ The function <code>geom_bar</code> assumes that the groups are equal to the <cod
 <p><img src="visualize_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /><img src="visualize_files/figure-html/unnamed-chunk-38-2.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-</div>
 <div id="position-adjustments" class="section level2">
 <h2><span class="header-section-number">3.8</span> Position Adjustments</h2>
 <div id="exercise-1.-1" class="section level3 exercise">
 <h3><span class="header-section-number">3.8.1</span> Exercise 1.</h3>
-<div class="question">
 <p>What is the problem with this plot?
 How could you improve it?</p>
-</div>
-<div class="answer">
 <p>There is overplotting because there are multiple observations for each combination of <code>cty</code> and <code>hwy</code>.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb44-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
@@ -1210,13 +1098,9 @@ I’d fix it by using a jitter position adjustment.</p>
 <a class="sourceLine" id="cb45-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>)</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-2.-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.8.2</span> Exercise 2.</h3>
-<div class="question">
 <p>What parameters to <code>geom_jitter()</code> control the amount of jittering?</p>
-</div>
-<div class="answer">
 <p>From the <a href="http://docs.ggplot2.org/current/position_jitter.html">position_jitter</a> documentation, there are two arguments to jitter: <code>width</code> and <code>height</code>, which control the amount of vertical and horizontal jitter.</p>
 <p>No horizontal jitter</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
@@ -1235,22 +1119,14 @@ I’d fix it by using a jitter position adjustment.</p>
 <a class="sourceLine" id="cb49-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">20</span>))</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-3.-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.8.3</span> Exercise 3.</h3>
-<div class="question">
 <p>Compare and contrast <code>geom_jitter()</code> with <code>geom_count()</code>.</p>
-</div>
-<div class="answer">
 <p>TODO</p>
-</div>
 </div>
 <div id="exercise-4.-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.8.4</span> Exercise 4.</h3>
-<div class="question">
 <p>What’s the default position adjustment for <code>geom_boxplot()</code>? Create a visualization of the mpg dataset that demonstrates it.</p>
-</div>
-<div class="answer">
 <p>The default position for <code>geom_boxplot</code> is <code>position_dodge</code> (see its <a href="http://docs.ggplot2.org/current/geom_boxplot.html">docs</a>).</p>
 <p>When we add <code>colour = class</code> to the box plot, the different classes within <code>drv</code> are placed side by side, i.e. dodged. If it was <code>position_identity</code>, they would be overlapping.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="kw">aes</span>(<span class="dt">x =</span> drv, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> class)) <span class="op">+</span></a>
@@ -1261,15 +1137,11 @@ I’d fix it by using a jitter position adjustment.</p>
 <p><img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-</div>
 <div id="coordinate-systems" class="section level2">
 <h2><span class="header-section-number">3.9</span> Coordinate Systems</h2>
 <div id="exercise-1-4" class="section level3 exercise">
 <h3><span class="header-section-number">3.9.1</span> Exercise 1</h3>
-<div class="question">
 <p>Turn a stacked bar chart into a pie chart using <code>coord_polar()</code>.</p>
-</div>
-<div class="answer">
 <p>This is a stacked bar chart with a single category</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(<span class="dv">1</span>), <span class="dt">fill =</span> drv)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb52-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
@@ -1294,13 +1166,9 @@ I’d fix it by using a jitter position adjustment.</p>
 <a class="sourceLine" id="cb56-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_polar</span>(<span class="dt">theta =</span> <span class="st">&quot;y&quot;</span>)</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-2-3" class="section level3 exercise">
 <h3><span class="header-section-number">3.9.2</span> Exercise 2</h3>
-<div class="question">
 <p>What does <code>labs()</code> do? Read the documentation.</p>
-</div>
-<div class="answer">
 <p>The <code>labs</code> function adds labels for different scales and the title of the plot.</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> class, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
@@ -1308,27 +1176,19 @@ I’d fix it by using a jitter position adjustment.</p>
 <a class="sourceLine" id="cb57-4" data-line-number="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Highway MPG&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Highway MPG by car class&quot;</span>)</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-</div>
 <div id="exercise-3-3" class="section level3 exercise">
 <h3><span class="header-section-number">3.9.3</span> Exercise 3</h3>
-<div class="question">
 <p>What’s the difference between <code>coord_quickmap()</code> and <code>coord_map()</code>?</p>
-</div>
-<div class="answer">
 <p>See the <a href="http://docs.ggplot2.org/current/coord_quickmap.html">docs</a>:</p>
 <ul>
 <li><code>coord_map</code> uses a 2D projection: by default the Mercator project of the sphere to the plot. But this requires transforming all geoms.</li>
 <li><code>coord_quickmap</code> uses a approximate, but faster, map projection using the lat/long ratio as an approximation. This is “quick” because the shapes don’t need to be transformed.</li>
 </ul>
 </div>
-</div>
 <div id="exercise-4-2" class="section level3 exercise">
 <h3><span class="header-section-number">3.9.4</span> Exercise 4</h3>
-<div class="question">
 <p>What does the plot below tell you about the relationship between city and highway mpg? Why is <code>coord_fixed()</code> important?
 What does <code>geom_abline()</code> do?</p>
-</div>
-<div class="answer">
 <p>The coordinates <code>coord_fixed</code> ensures that the <code>abline</code> is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
@@ -1340,7 +1200,6 @@ What does <code>geom_abline()</code> do?</p>
 <a class="sourceLine" id="cb59-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb59-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_abline</span>()</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" /></p>
-</div>
 </div>
 </div>
 <div id="the-layered-grammar-of-graphics" class="section level2">

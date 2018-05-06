@@ -16,12 +16,12 @@ library("lubridate")
 
 #### Exercise 1  {.exercise}
 
-<div class='question'>
+
 Create one plot on the fuel economy data with customized `title`,
 `subtitle`, `caption`, `x`, `y`, and `colour` labels.
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -40,16 +40,16 @@ ggplot(data = mpg,
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
+
 The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines.
 Use your modeling tools to fit and display
-</div>
 
-<div class='answer'>
+
+
 a better model.
 
 
@@ -85,19 +85,19 @@ mpg %>%
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 #### Exercise 3
 
-<div class='question'>
-Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
-</div>
 
-<div class='answer'>
+Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
+
+
+
 
 This exercise is by is intrinsically left to readers.
 
-</div>
+
 
 ## Annotations
 
@@ -105,11 +105,11 @@ This exercise is by is intrinsically left to readers.
 
 #### Exercise 1 {.exercise}
 
-<div class='question'>
-Use `geom_text()` with infinite positions to place text at the four corners of the plot.
-</div>
 
-<div class='answer'>
+Use `geom_text()` with infinite positions to place text at the four corners of the plot.
+
+
+
 
 I can use similar code as the example in the text.
 However, I need to use `vjust` and `hjust` in order for the text to appear in the plot, and these need to be different for each corner.
@@ -131,15 +131,15 @@ ggplot(mpg, aes(displ, hwy)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 #### Exercise 2 {.exercise}
 
-<div class='question'>
-Read the documentation for `annotate()`. How can you use it to add a text label to a plot without having to create a tibble?
-</div>
 
-<div class='answer'>
+Read the documentation for `annotate()`. How can you use it to add a text label to a plot without having to create a tibble?
+
+
+
 
 With annotate you use what would be aesthetic mappings directly as arguments:
 
@@ -152,18 +152,18 @@ ggplot(mpg, aes(displ, hwy)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 #### Exercise 3 {.exercise}
 
-<div class='question'>
+
 How do labels with `geom_text()` interact with faceting?
 How can you add a label to a single facet?
 How can you put a different label in each facet?
 (Hint: think about the underlying data.)
-</div>
 
-<div class='answer'>
+
+
 
 If the facet variable is not specified, the text is drawn in all facets.
 
@@ -221,30 +221,30 @@ ggplot(mpg, aes(displ, hwy)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 #### Exercise 4 {.exercise}
 
-<div class='question'>
-What arguments to `geom_label()` control the appearance of the background box?
-</div>
 
-<div class='answer'>
+What arguments to `geom_label()` control the appearance of the background box?
+
+
+
 
 -   `label.padding`: padding around label
 -   `label.r`: amount of rounding in the corners
 -   `label.size`: size of label border
 
-</div>
+
 
 #### Exercise 5 {.exercise}
 
-<div class='question'>
+
 What are the four arguments to `arrow()`? How do they work?
 Create a series of plots that demonstrate the most important options.
-</div>
 
-<div class='answer'>
+
+
 
 The four arguments are: (from the help for [arrow](https://www.rdocumentation.org/packages/grid/versions/3.3.2/topics/arrow))
 
@@ -253,7 +253,7 @@ The four arguments are: (from the help for [arrow](https://www.rdocumentation.or
 -   `ends`: ends of the line to draw arrow head
 -   `type`: `"open"` or `"close"`: whether the arrow head is a closed or open triangle
 
-</div>
+
 
 ## Scales
 
@@ -261,11 +261,11 @@ The four arguments are: (from the help for [arrow](https://www.rdocumentation.or
 
 #### Exercise 1 {.exercise}
 
-<div class='question'>
-Why doesn’t the following code override the default scale?
-</div>
 
-<div class='answer'>
+Why doesn’t the following code override the default scale?
+
+
+
 
 
 ```r
@@ -293,16 +293,16 @@ ggplot(df, aes(x, y)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 #### Exercise 2 {.exercise}
 
-<div class='question'>
+
 The first argument to every scale is the label for the scale.
 It is equivalent to using the `labs` function.
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -332,11 +332,11 @@ ggplot(mpg, aes(displ, hwy)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 #### Exercise 3 {.exercise}
 
-<div class='question'>
+
 Change the display of the presidential terms by:
 
 1.  Combining the two variants shown above.
@@ -345,9 +345,9 @@ Change the display of the presidential terms by:
 1.  Adding informative plot labels.
 1.  Placing breaks every 4 years (this is trickier than it seems!).
 
-</div>
 
-<div class='answer'>
+
+
 
 ```r
 years <- lubridate::make_date(seq(year(min(presidential$start)),
@@ -369,15 +369,15 @@ presidential %>%
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 #### Exercise 4 {.exercise}
 
-<div class='question'>
-Use `override.aes` to make the legend on the following plot easier to see.
-</div>
 
-<div class='answer'>
+Use `override.aes` to make the legend on the following plot easier to see.
+
+
+
 
 
 ```r
@@ -398,5 +398,5 @@ ggplot(diamonds, aes(carat, price)) +
 
 <img src="graphics-for-communication_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 

@@ -22,7 +22,7 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Why does this code not work?
 
 ```r
@@ -30,7 +30,7 @@ my_variable <- 10
 my_varıable
 #> Error in eval(expr, envir, enclos): object 'my_varıable' not found
 ```
-</div>
+
 
 The variable being printed is `my_varıable`, not `my_variable`:
 the seventh character is "ı" ("LATIN SMALL LETTER DOTLESS I"), not "i".
@@ -54,9 +54,9 @@ object's name (either when using it or when you originally defined it).
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
+
 Tweak each of the following R commands so that they run correctly:
-</div>
+
 
 
 ```r
@@ -136,9 +136,9 @@ Since `diamonds` includes the variable `carat` and the code works, that appears 
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
+
 Press *Alt + Shift + K*. What happens? How can you get to the same place using the menus?
-</div>
+
 
 This gives a menu with keyboard shortcuts. This can be found in the menu under `Tools -> Keyboard Shortcuts Help`.
 

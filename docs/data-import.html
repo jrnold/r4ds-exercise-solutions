@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Science Solutions</title>
   <meta name="description" content="This contains the solutions to the exercises in the book, R for Data Science, by Garrett Grolemund and Hadley Wickham.">
-  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Science Solutions" />
   <meta property="og:type" content="book" />
@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.3.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -660,21 +657,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">10.2</span> Getting started</h2>
 <div id="exercise-1-19" class="section level3 exercise">
 <h3><span class="header-section-number">10.2.1</span> Exercise 1</h3>
-<div class="question">
 <p>What function would you use to read a file where fields were separated with</p>
-</div>
-<div class="answer">
 <p>“|”?</p>
 <p>I’d use <code>read_delim</code> with <code>delim=&quot;|&quot;</code>:</p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1"><span class="kw">read_delim</span>(file, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
 </div>
-</div>
 <div id="exercise-2-18" class="section level3 exercise">
 <h3><span class="header-section-number">10.2.2</span> Exercise 2</h3>
-<div class="question">
 <p>Apart from <code>file</code>, <code>skip</code>, and <code>comment</code>, what other arguments do <code>read_csv()</code> and <code>read_tsv()</code> have in common?</p>
-</div>
-<div class="answer">
 <p>They have the following arguments in common:</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">union</span>(<span class="kw">names</span>(<span class="kw">formals</span>(read_csv)), <span class="kw">names</span>(<span class="kw">formals</span>(read_tsv)))</a>
 <a class="sourceLine" id="cb191-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;file&quot;      &quot;col_names&quot; &quot;col_types&quot; &quot;locale&quot;    &quot;na&quot;       </span></a>
@@ -690,25 +680,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>progress</code> determines whether a progress bar is shown.</li>
 </ul>
 </div>
-</div>
 <div id="exercise-3-16" class="section level3 exercise">
 <h3><span class="header-section-number">10.2.3</span> Exercise 3</h3>
-<div class="question">
 <p>What are the most important arguments to <code>read_fwf()</code>?</p>
-</div>
-<div class="answer">
 <p>The most important argument to <code>read_fwf</code> which reads “fixed-width formats”, is <code>col_positions</code> which tells the function where data columns begin and end.</p>
-</div>
 </div>
 <div id="exercise-4-13" class="section level3 exercise">
 <h3><span class="header-section-number">10.2.4</span> Exercise 4</h3>
-<div class="question">
 <p>Sometimes strings in a CSV file contain commas.
 To prevent them from causing problems they need to be surrounded by a quoting character, like <code>&quot;</code> or <code>'</code>.
 By convention, <code>read_csv()</code> assumes that the quoting character will be <code>&quot;</code>, and if you want to change it you’ll need to use <code>read_delim()</code> instead.
 What arguments do you need to specify to read the following text into a data frame?</p>
-</div>
-<div class="answer">
 <pre><code>&quot;x,y\n1,&#39;a,b&#39;&quot;</code></pre>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1">x &lt;-<span class="st"> &quot;x,y</span><span class="ch">\n</span><span class="st">1,&#39;a,b&#39;&quot;</span></a>
 <a class="sourceLine" id="cb193-2" data-line-number="2"><span class="kw">read_delim</span>(x, <span class="st">&quot;,&quot;</span>, <span class="dt">quote =</span> <span class="st">&quot;&#39;&quot;</span>)</a>
@@ -717,14 +699,10 @@ What arguments do you need to specify to read the following text into a data fra
 <a class="sourceLine" id="cb193-5" data-line-number="5"><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span></a>
 <a class="sourceLine" id="cb193-6" data-line-number="6"><span class="co">#&gt; 1     1 a,b</span></a></code></pre></div>
 </div>
-</div>
 <div id="exercise-6-7" class="section level3 exercise">
 <h3><span class="header-section-number">10.2.5</span> Exercise 6</h3>
-<div class="question">
 <p>Identify what is wrong with each of the following inline CSV files.
 What happens when you run the code?</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,6&quot;</span>)</a>
 <a class="sourceLine" id="cb194-2" data-line-number="2"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
 <a class="sourceLine" id="cb194-3" data-line-number="3"><span class="co">#&gt; row # A tibble: 2 x 5 col     row col   expected  actual    file         expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        actual 1     1 &lt;NA&gt;  2 columns 3 columns literal data file 2     2 &lt;NA&gt;  2 columns 3 columns literal data</span></a>
@@ -776,15 +754,11 @@ This may have been intentional, or the author may have intended the values of th
 <a class="sourceLine" id="cb199-6" data-line-number="6"><span class="co">#&gt; 1     1     3</span></a></code></pre></div>
 </div>
 </div>
-</div>
 <div id="parsing-a-vector" class="section level2">
 <h2><span class="header-section-number">10.3</span> Parsing a vector</h2>
 <div id="exercise-1-20" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.1</span> Exercise 1</h3>
-<div class="question">
 <p>What are the most important arguments to <code>locale()</code>?</p>
-</div>
-<div class="answer">
 <p>The locale broadly controls the following:</p>
 <ul>
 <li>date and time formats: <code>date_names</code>, <code>date_format</code>, and <code>time_format</code></li>
@@ -793,19 +767,15 @@ This may have been intentional, or the author may have intended the values of th
 <li>encoding: <code>encoding</code></li>
 </ul>
 </div>
-</div>
 <div id="exercise-2-19" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.2</span> Exercise 2</h3>
-<div class="question">
 <p>What happens if you try and set <code>decimal_mark</code> and <code>grouping_mark</code> to the same character?
 What happens to the default value of <code>grouping_mark</code> when you set <code>decimal_mark</code> to <code>&quot;,&quot;</code>?
 What happens to the default value of <code>decimal_mark</code> when you set the <code>grouping_mark</code> to <code>&quot;.&quot;</code>?</p>
-</div>
-<div class="answer">
 <p>If the decimal and grouping marks are set to the same character, <code>locale</code> throws an error:</p>
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;.&quot;</span>, <span class="dt">grouping_mark =</span> <span class="st">&quot;.&quot;</span>)</a>
 <a class="sourceLine" id="cb200-2" data-line-number="2"><span class="co">#&gt; Error: `decimal_mark` and `grouping_mark` must be different</span></a></code></pre></div>
-<p>If the <code>decimal_mark</code> is set to the comma “<code>,&quot;</code>, then the grouping mark is set to the period <code>&quot;.&quot;</code>:</p>
+<p>If the <code>decimal_mark</code> is set to the comma &quot;<code>,&quot;</code>, then the grouping mark is set to the period <code>&quot;.&quot;</code>:</p>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;,&quot;</span>)</a>
 <a class="sourceLine" id="cb201-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
 <a class="sourceLine" id="cb201-3" data-line-number="3"><span class="co">#&gt; Numbers:  123.456,78</span></a>
@@ -834,15 +804,11 @@ What happens to the default value of <code>decimal_mark</code> when you set the 
 <a class="sourceLine" id="cb202-12" data-line-number="12"><span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span></a>
 <a class="sourceLine" id="cb202-13" data-line-number="13"><span class="co">#&gt; AM/PM:  AM/PM</span></a></code></pre></div>
 </div>
-</div>
 <div id="exercise-3-17" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.3</span> Exercise 3</h3>
-<div class="question">
 <p>I didn’t discuss the <code>date_format</code> and <code>time_format</code> options to <code>locale()</code>.
 What do they do?
 Construct an example that shows when they might be useful.</p>
-</div>
-<div class="answer">
 <p>They provide default date and time formats.
 The <a href="https://cran.r-project.org/web/packages/readr/vignettes/locales.html">readr vignette</a> discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">locale</span>()</a>
@@ -865,33 +831,21 @@ The <a href="https://cran.r-project.org/web/packages/readr/vignettes/locales.htm
 <a class="sourceLine" id="cb204-4" data-line-number="4"><span class="co">#&gt; [1] &quot;1979-10-14&quot;</span></a></code></pre></div>
 <p>Apparently the time format is not used for anything, but the date format is used for guessing column types.</p>
 </div>
-</div>
 <div id="exercise-4-14" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.4</span> Exercise 4</h3>
-<div class="question">
 <p>If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1">?locale</a></code></pre></div>
-</div>
 </div>
 <div id="exercise-5-9" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.5</span> Exercise 5</h3>
-<div class="question">
 <p>What’s the difference between <code>read_csv()</code> and <code>read_csv2()</code>?</p>
-</div>
-<div class="answer">
 <p>The delimiter. The function <code>read_csv</code> uses a comma, while <code>read_csv2</code> uses a semi-colon (<code>;</code>). Using a semi-colon is useful when commas are used as the decimal point (as in Europe).</p>
-</div>
 </div>
 <div id="exercise-6-8" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.6</span> Exercise 6</h3>
-<div class="question">
 <p>What are the most common encodings used in Europe?
 What are the most common encodings used in Asia?
 Do some googling to find out.</p>
-</div>
-<div class="answer">
 <p>UTF-8 is standard now, and ASCII has been around forever.</p>
 <p>For the European languages, there are separate encodings for Romance languages and Eastern European languages using Latin script, Cyrillic, Greek, Hebrew, Turkish: usually with separate ISO and Windows encoding standards.
 There is also Mac OS Roman.</p>
@@ -929,13 +883,9 @@ There is also Mac OS Roman.</p>
 <li><a href="https://github.com/chardet/chardet">chardet</a> (Python)</li>
 </ul>
 </div>
-</div>
 <div id="exercise-7-2" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.7</span> Exercise 7</h3>
-<div class="question">
 <p>Generate the correct format string to parse each of the following dates and times:</p>
-</div>
-<div class="answer">
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1">d1 &lt;-<span class="st"> &quot;January 1, 2010&quot;</span></a>
 <a class="sourceLine" id="cb206-2" data-line-number="2">d2 &lt;-<span class="st"> &quot;2015-Mar-07&quot;</span></a>
 <a class="sourceLine" id="cb206-3" data-line-number="3">d3 &lt;-<span class="st"> &quot;06-Jun-2017&quot;</span></a>
@@ -959,7 +909,6 @@ There is also Mac OS Roman.</p>
 <p>The time <code>t2</code> uses real seconds,</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">parse_time</span>(t2, <span class="st">&quot;%H:%M:%OS %p&quot;</span>)</a>
 <a class="sourceLine" id="cb208-2" data-line-number="2"><span class="co">#&gt; 23:15:10.12</span></a></code></pre></div>
-</div>
 </div>
 </div>
 <div id="parsing-a-file" class="section level2">

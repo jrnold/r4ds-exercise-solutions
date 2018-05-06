@@ -17,65 +17,65 @@ library("datamodelr")
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
-</div>
 
-<div class='answer'>
+Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
+
+
+
 
 -   `flights` table: `origin` and `dest`
 -   `airports` table: longitude and latitude variables
 -   join `flights` with `airports` twice. The first join adds the location of the origin airport (`origin`). The second join adds the location of destination airport (`dest`).
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
-</div>
 
-<div class='answer'>
+I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
+
+
+
 
 The variable `origin` in `weather` is matched with `faa` in `airports`.
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
-</div>
 
-<div class='answer'>
+weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
+
+
+
 
 `year`, `month`, `day`, `hour`, `origin` in `weather` would be matched to `year`, `month`, `day`, `hour`, `dest` in `flight` (though it should use the arrival date-time values for `dest` if possible).
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
-</div>
 
-<div class='answer'>
+We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
+
+
+
 
 I would add a table of special dates.
 The primary key would be date.
 It would match to the `year`, `month`, `day` columns of `flights.
 
-</div>
+
 
 ## Keys
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Add a surrogate key to flights.
-</div>
 
-<div class='answer'>
+Add a surrogate key to flights.
+
+
+
 
 I add the column `flight_id` as a surrogate key.
 I sort the data prior to making the key, even though it is not strictly necessary, so the order of the rows has some meaning.
@@ -109,11 +109,11 @@ flights %>%
 #> $ flight_id      <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ...
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
+
 Identify the keys in the following datasets
 
 1.  `Lahman::Batting`
@@ -124,9 +124,9 @@ Identify the keys in the following datasets
 
 (You might need to install some packages and read some documentation.)
 
-</div>
 
-<div class='answer'>
+
+
 
 The primary key for `Lahman::Batting` is `playerID`, `yearID`, `stint`. It is not simply `playerID`, `yearID` because players can have different stints in different leagues within the same year.
 
@@ -179,7 +179,7 @@ nrow(ggplot2::diamonds)
 #> [1] 53940
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
@@ -280,11 +280,11 @@ flights2 <- flights %>%
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
-</div>
 
-<div class='answer'>
+Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
+
+
+
 
 
 ```r
@@ -320,15 +320,15 @@ avg_dest_delays %>%
 
 You might want to use the size or color of the points to display the average delay for each airport.
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
-</div>
 
-<div class='answer'>
+Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
+
+
+
 
 
 ```r
@@ -353,15 +353,15 @@ flights %>%
 #> #   lon.y <dbl>, alt.y <int>, tz.y <dbl>, dst.y <chr>, tzone.y <chr>
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Is there a relationship between the age of a plane and its delays?
-</div>
 
-<div class='answer'>
+Is there a relationship between the age of a plane and its delays?
+
+
+
 
 Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
 This could be due to choices about how airlines allocate planes to airports.
@@ -386,15 +386,15 @@ flights %>%
 
 <img src="relational-data_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-What weather conditions make it more likely to see a delay?
-</div>
 
-<div class='answer'>
+What weather conditions make it more likely to see a delay?
+
+
+
 
 Almost any amount or precipitation is associated with a delay, though not as strong a trend after 0.02 in as one would expect
 
@@ -416,15 +416,15 @@ flight_weather %>%
 
 <img src="relational-data_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 ### Exercise 5 {.exercise}
 
-<div class='question'>
-What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
-</div>
 
-<div class='answer'>
+What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+
+
+
 
 There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series))
 
@@ -447,17 +447,17 @@ flights %>%
 
 <img src="relational-data_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 ## Filtering Joins
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
-</div>
 
-<div class='answer'>
+What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+
+
+
 
 American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
 
@@ -477,15 +477,15 @@ flights %>%
 #> # ... with 4 more rows
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Filter flights to only show flights with planes that have flown at least 100 flights.
-</div>
 
-<div class='answer'>
+Filter flights to only show flights with planes that have flown at least 100 flights.
+
+
+
 
 
 ```r
@@ -512,15 +512,15 @@ flights %>%
 #> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
-</div>
 
-<div class='answer'>
+Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
+
+
+
 
 The table `fueleconomy::common` identifies vehicles by `make` and `model`:
 
@@ -565,15 +565,15 @@ fueleconomy::vehicles %>%
 #> # ... with 1.452e+04 more rows
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
-</div>
 
-<div class='answer'>
+Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
+
+
+
 
 
 ```r
@@ -595,29 +595,29 @@ flights %>%
 #> # ... with 359 more rows
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
-</div>
 
-<div class='answer'>
+What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
+
+
+
 
 `anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.
 
 `anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that don't have a flight in the data, meaning that there were no flights to that airport **from** New York in 2013.
 
-</div>
+
 
 ### Exercise 5 {.exercise}
 
-<div class='question'>
-You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
-</div>
 
-<div class='answer'>
+You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
+
+
+
 
 There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
 However, even though that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
@@ -696,7 +696,7 @@ carrier_transfer_tbl
 #> # ... with 11 more rows
 ```
 
-</div>
+
 
 ## Join problems
 

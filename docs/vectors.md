@@ -16,11 +16,11 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
-</div>
 
-<div class='answer'>
+Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
+
+
+
 
 To find out, try the functions on a numeric vector that includes a number and the five special values (`NA`, `NaN`, `Inf`, `-Inf`).
 
@@ -38,15 +38,15 @@ However, since `is.infinite` only considers `Inf` and `-Inf` to be infinite, `!i
 
 So `NA` and `NaN` are neither finite or infinite. Mind blown.
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Read the source code for `dplyr::near()` (Hint: to see the source code, drop the ()). How does it work?
-</div>
 
-<div class='answer'>
+Read the source code for `dplyr::near()` (Hint: to see the source code, drop the ()). How does it work?
+
+
+
 
 The source for `dplyr::near` is:
 
@@ -62,15 +62,15 @@ dplyr::near
 Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, `tol`.
 By default the tolerance is set to the square root of `.Machine$double.eps`, which is the smallest floating point number that the computer can represent.
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use Google to do some research.
-</div>
 
-<div class='answer'>
+A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use Google to do some research.
+
+
+
 
 The help for `.Machine` describes some of this:
 
@@ -78,15 +78,15 @@ The help for `.Machine` describes some of this:
 
 The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) or IEEE 754 format uses a 64 bit vector, but
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
-</div>
 
-<div class='answer'>
+Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
+
+
+
 
 Broadly, could convert a double to an integer by truncating or rounding to the nearest integer.
 For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determining which integer value to go to.
@@ -145,15 +145,15 @@ In 1983, the Vancouver stock exchange adjusted its index from 524.811 to 1098.89
 
 Here's a [list](https://www.ma.utexas.edu/users/arbogast/misc/disasters.html) of a few more.
 
-</div>
+
 
 ### Exercise 5 {.exercise}
 
-<div class='question'>
-What functions from the **readr** package allow you to turn a string into logical, integer, and double vector?
-</div>
 
-<div class='answer'>
+What functions from the **readr** package allow you to turn a string into logical, integer, and double vector?
+
+
+
 
 The functions `parse_logical`, `parse_integer`, and `parse_number`.
 
@@ -177,17 +177,17 @@ parse_number(c("1.0", "3.5", "1,000", "NA"))
 
 Read the documentation of `read_number`. In order to ignore things like currency symbols and comma separators in number strings it ignores them using a heuristic.
 
-</div>
+
 
 ## Using atomic vectors
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-What does `mean(is.na(x))` tell you about a vector `x`? What about `sum(!is.finite(x))`?
-</div>
 
-<div class='answer'>
+What does `mean(is.na(x))` tell you about a vector `x`? What about `sum(!is.finite(x))`?
+
+
+
 
 The expression `mean(is.na(x))` calculates the proportion of missing values in a vector
 
@@ -204,15 +204,15 @@ mean(!is.finite(x))
 #> [1] 0.286
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Carefully read the documentation of `is.vector()`. What does it actually test for? Why does `is.atomic()` not agree with the definition of atomic vectors above?
-</div>
 
-<div class='answer'>
+Carefully read the documentation of `is.vector()`. What does it actually test for? Why does `is.atomic()` not agree with the definition of atomic vectors above?
+
+
+
 
 The function `is.vector` only checks whether the object has no attributes other than names. Thus a `list` is a vector:
 
@@ -248,15 +248,15 @@ is.atomic(x)
 #> [1] TRUE
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Compare and contrast `setNames()` with `purrr::set_names()`.
-</div>
 
-<div class='answer'>
+Compare and contrast `setNames()` with `purrr::set_names()`.
+
+
+
 
 These are simple functions, so we can simply print out their source code:
 
@@ -283,11 +283,11 @@ purrr::set_names
 
 From the code we can see that `set_names` adds a few sanity checks: `x` has to be a vector, and the lengths of the object and the names have to be the same.
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
+
 Create functions that take a vector as input and returns:
 
 1.  The last value. Should you use `[` or `[[`?
@@ -295,9 +295,9 @@ Create functions that take a vector as input and returns:
 1.  Every element except the last value.
 1.  Only even numbers (and no missing values).
 
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -361,15 +361,15 @@ even_numbers(-10:10)
 #>  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10
 ```
 
-</div>
+
 
 ### Exercise 5 {.exercise}
 
-<div class='question'>
-Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
-</div>
 
-<div class='answer'>
+Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
+
+
+
 
 They will treat missing values differently.
 
@@ -390,15 +390,15 @@ x <= 0
 `x <= 0` works slightly differently. If `x <= 0` returns `TRUE` or `FALSE` it works the same way.
 However, if the comparison generates a `NA`, then it will always keep that entry, but set it to `NA`. This is why the last two values of `x[x <= 0]` are `NA` rather than `c(NaN, NA)`.
 
-</div>
+
 
 ### Exercise 6 {.exercise}
 
-<div class='question'>
-What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?
-</div>
 
-<div class='answer'>
+What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?
+
+
+
 
 When you subset with positive integers that are larger than the length of the vector, `NA` values are returned for those integers larger than the length of the vector.
 
@@ -415,32 +415,32 @@ c(a = 1, 2)[["b"]]
 #> Error in c(a = 1, 2)[["b"]]: subscript out of bounds
 ```
 
-</div>
+
 
 ## Recursive Vectors (lists)
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Draw the following lists as nested sets:
 
 1.  `list(a, b, list(c, d), list(e, f))`
 1.  `list(list(list(list(list(list(a))))))`
 
-</div>
+
 
 TODO
 
-<div class='answer'>
-</div>
+
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-What happens if you subset a `tibble` as if you’re subsetting a list? What are the key differences between a list and a `tibble`?
-</div>
 
-<div class='answer'>
+What happens if you subset a `tibble` as if you’re subsetting a list? What are the key differences between a list and a `tibble`?
+
+
+
 
 Subsetting a `tibble` works the same way as a list; a data frame can be thought of as a list of columns.
 The key different between a list and a `tibble` is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.
@@ -468,7 +468,7 @@ x[1, ]
 #> 1     1     3
 ```
 
-</div>
+
 
 ## Attributes
 
@@ -478,11 +478,11 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-What does `hms::hms(3600)` return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?
-</div>
 
-<div class='answer'>
+What does `hms::hms(3600)` return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?
+
+
+
 
 
 ```r
@@ -513,15 +513,15 @@ attributes(x)
 #> [1] "hms"      "difftime"
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Try and make a tibble that has columns with different lengths. What happens?
-</div>
 
-<div class='answer'>
+Try and make a tibble that has columns with different lengths. What happens?
+
+
+
 
 If I try to create at tibble with a scalar and column of a different length there are no issues, and the scalar is repeated to the length of the longer vector.
 
@@ -544,15 +544,15 @@ tibble(x = 1:3, y = 1:4)
 #> Error: Column `x` must be length 1 or 4, not 3
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Based on the definition above, is it OK to have a list as a column of a tibble?
-</div>
 
-<div class='answer'>
+Based on the definition above, is it OK to have a list as a column of a tibble?
+
+
+
 
 If I didn't already know the answer, what I would do is try it out.
 From the above, the error message was about vectors having different lengths.
@@ -574,5 +574,5 @@ tibble(x = 1:3, y = list("a", 1, list(1:3)))
 It works! I even used a list with heterogeneous types and there wasn't an issue.
 In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
 
-</div>
+
 

@@ -79,11 +79,11 @@ by_country %>%
 
 #### Exercise 2
 
-<div class='question'>
-Explore other methods for visualizing the distribution of $R^2$ per continent. You might want to try the **ggbeeswarm** package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.
-</div>
 
-<div class='answer'>
+Explore other methods for visualizing the distribution of $R^2$ per continent. You might want to try the **ggbeeswarm** package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.
+
+
+
 
 See exercise 7.5.1.1.6 for more on **ggbeeswarm**
 
@@ -99,7 +99,7 @@ by_country %>%
 
 <img src="many-models_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 ## Creating list-columns
 
@@ -107,35 +107,35 @@ by_country %>%
 
 #### Exercise 1 {.exercise}
 
-<div class='question'>
-List all the functions that you can think of that take a atomic vector and return a list.
-</div>
 
-<div class='answer'>
+List all the functions that you can think of that take a atomic vector and return a list.
+
+
+
 
 E.g. Many of the **stringr** functions.
 
-</div>
+
 
 #### Exercise 2 {.exercise}
 
-<div class='question'>
-Brainstorm useful summary functions that, like `quantile()`, return multiple values.
-</div>
 
-<div class='answer'>
+Brainstorm useful summary functions that, like `quantile()`, return multiple values.
+
+
+
 
 Some examples of summary functions that return multiple values are `range` and `fivenum`.
 
-</div>
+
 
 #### Exercise 3 {.exercise}
 
-<div class='question'>
-What’s missing in the following data frame? How does `quantile()` return that missing piece? Why isn’t that helpful here?
-</div>
 
-<div class='answer'>
+What’s missing in the following data frame? How does `quantile()` return that missing piece? Why isn’t that helpful here?
+
+
+
 
 
 ```r
@@ -165,16 +165,16 @@ quantile(mtcars$mpg)
 
 Since the `unnest` function drops the names of the vector, they aren't useful here.
 
-</div>
+
 
 #### Exercise 4 {.exercise}
 
-<div class='question'>
+
 What does this code do?
 Why might might it be useful?
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -197,7 +197,7 @@ and each observation for each column (other than `cyl`) is a vector of all the v
 It seems like it should be useful to have all the observations of each variable for each group, but off the top of my head, I can't think of a specific use for this.
 But, it seems that it may do many things that `dplyr::do` does.
 
-</div>
+
 
 ## Simplifying list-columns
 
@@ -205,27 +205,27 @@ But, it seems that it may do many things that `dplyr::do` does.
 
 #### Exercise 1 {.exercise}
 
-<div class='question'>
-Why might the `lengths()` function be useful for creating atomic vector columns from list-columns?
-</div>
 
-<div class='answer'>
+Why might the `lengths()` function be useful for creating atomic vector columns from list-columns?
+
+
+
 
 The `lengths()` function gets the lengths of each element in a list.
 It could be useful for testing whether all elements in a list-column are the same length.
 You could get the maximum length to determine how many atomic vector columns to create.
 It is also a replacement for something like `map_int(x, length)` or `sapply(x, length)`.
 
-</div>
+
 
 #### Exercise 2 {.exercise}
 
-<div class='question'>
+
 List the most common types of vector found in a data frame.
 What makes lists different?
-</div>
 
-<div class='answer'>
+
+
 
 The common types of vectors in data frames are:
 
@@ -236,5 +236,5 @@ The common types of vectors in data frames are:
 -   `factor`
 
 All of the common types of vectors in data frames are atomic. Lists are not atomic (they can contain other lists and other vectors).
-</div>
+
 

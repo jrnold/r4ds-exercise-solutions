@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R for Data Science Solutions</title>
   <meta name="description" content="This contains the solutions to the exercises in the book, R for Data Science, by Garrett Grolemund and Hadley Wickham.">
-  <meta name="generator" content="bookdown 0.7.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="R for Data Science Solutions" />
   <meta property="og:type" content="book" />
@@ -46,9 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.3.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -655,8 +652,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="introduction-9" class="section level2">
 <h2><span class="header-section-number">14.1</span> Introduction</h2>
 <p>Functions and packages:</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
-<a class="sourceLine" id="cb343-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;forcats&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
+<a class="sourceLine" id="cb340-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;forcats&quot;</span>)</a></code></pre></div>
 </div>
 <div id="creating-factors" class="section level2">
 <h2><span class="header-section-number">14.2</span> Creating Factors</h2>
@@ -666,132 +663,113 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">14.3</span> General Social Survey</h2>
 <div id="exercise-1-43" class="section level3 exercise">
 <h3><span class="header-section-number">14.3.1</span> Exercise 1</h3>
-<div class="question">
 <p>Explore the distribution of <code>rincome</code> (reported income).
 What makes the default bar chart hard to understand?
 How could you improve the plot?</p>
-</div>
-<div class="answer">
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">rincome_plot &lt;-</a>
-<a class="sourceLine" id="cb344-2" data-line-number="2"><span class="st">  </span>gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb344-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(rincome)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb344-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_bar</span>()</a>
-<a class="sourceLine" id="cb344-5" data-line-number="5">rincome_plot</a></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1">rincome_plot &lt;-</a>
+<a class="sourceLine" id="cb341-2" data-line-number="2"><span class="st">  </span>gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb341-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(rincome)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb341-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_bar</span>()</a>
+<a class="sourceLine" id="cb341-5" data-line-number="5">rincome_plot</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The default bar chart labels are too squished to read.
 One solution is to change the angle of the labels,</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">rincome_plot <span class="op">+</span></a>
-<a class="sourceLine" id="cb345-2" data-line-number="2"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1">rincome_plot <span class="op">+</span></a>
+<a class="sourceLine" id="cb342-2" data-line-number="2"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>But that’s not natural either, because text is vertical, and we read horizontally.
 So with long labels, it is better to flip it.</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1">rincome_plot <span class="op">+</span></a>
-<a class="sourceLine" id="cb346-2" data-line-number="2"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1">rincome_plot <span class="op">+</span></a>
+<a class="sourceLine" id="cb343-2" data-line-number="2"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>This is better, but it unintuitively goes from low to high. It would help if the
 scale is reversed. Also, if all the missing factors were differentiated.</p>
 </div>
-</div>
 <div id="exercise-2-42" class="section level3 exercise">
 <h3><span class="header-section-number">14.3.2</span> Exercise 2</h3>
-<div class="question">
 <p>What is the most common <code>relig</code> in this survey?
 What’s the most common <code>partyid</code>?</p>
-</div>
-<div class="answer">
 <p>The most common <code>relig</code> is “Protestant”</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb347-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(relig) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb347-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>n) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb347-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb347-5" data-line-number="5"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb347-6" data-line-number="6"><span class="co">#&gt;   relig          n</span></a>
-<a class="sourceLine" id="cb347-7" data-line-number="7"><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb347-8" data-line-number="8"><span class="co">#&gt; 1 Protestant 10846</span></a></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb344-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(relig) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb344-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>n) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb344-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb344-5" data-line-number="5"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb344-6" data-line-number="6"><span class="co">#&gt;   relig          n</span></a>
+<a class="sourceLine" id="cb344-7" data-line-number="7"><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb344-8" data-line-number="8"><span class="co">#&gt; 1 Protestant 10846</span></a></code></pre></div>
 <p>The most common <code>partyid</code> is “Independent”</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb348-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(partyid) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb348-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>n) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb348-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb348-5" data-line-number="5"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb348-6" data-line-number="6"><span class="co">#&gt;   partyid         n</span></a>
-<a class="sourceLine" id="cb348-7" data-line-number="7"><span class="co">#&gt;   &lt;fct&gt;       &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb348-8" data-line-number="8"><span class="co">#&gt; 1 Independent  4119</span></a></code></pre></div>
-</div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb345-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(partyid) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb345-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>n) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb345-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb345-5" data-line-number="5"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb345-6" data-line-number="6"><span class="co">#&gt;   partyid         n</span></a>
+<a class="sourceLine" id="cb345-7" data-line-number="7"><span class="co">#&gt;   &lt;fct&gt;       &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb345-8" data-line-number="8"><span class="co">#&gt; 1 Independent  4119</span></a></code></pre></div>
 </div>
 <div id="exercise-4-24" class="section level3 exercise">
 <h3><span class="header-section-number">14.3.3</span> Exercise 4</h3>
-<div class="question">
 <p>Which <code>relig</code> does <code>denom</code> (denomination) apply to?
 How can you find out with a table?
 How can you find out with a visualization?</p>
-</div>
-<div class="answer">
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>denom)</a>
-<a class="sourceLine" id="cb349-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span></a>
-<a class="sourceLine" id="cb349-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span></a>
-<a class="sourceLine" id="cb349-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Presbyterian, merged&quot; &quot;Other presbyterian&quot;   &quot;United pres ch in us&quot;</span></a>
-<a class="sourceLine" id="cb349-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Presbyterian c in us&quot; &quot;Lutheran-dk which&quot;    &quot;Evangelical luth&quot;    </span></a>
-<a class="sourceLine" id="cb349-6" data-line-number="6"><span class="co">#&gt; [13] &quot;Other lutheran&quot;       &quot;Wi evan luth synod&quot;   &quot;Lutheran-mo synod&quot;   </span></a>
-<a class="sourceLine" id="cb349-7" data-line-number="7"><span class="co">#&gt; [16] &quot;Luth ch in america&quot;   &quot;Am lutheran&quot;          &quot;Methodist-dk which&quot;  </span></a>
-<a class="sourceLine" id="cb349-8" data-line-number="8"><span class="co">#&gt; [19] &quot;Other methodist&quot;      &quot;United methodist&quot;     &quot;Afr meth ep zion&quot;    </span></a>
-<a class="sourceLine" id="cb349-9" data-line-number="9"><span class="co">#&gt; [22] &quot;Afr meth episcopal&quot;   &quot;Baptist-dk which&quot;     &quot;Other baptists&quot;      </span></a>
-<a class="sourceLine" id="cb349-10" data-line-number="10"><span class="co">#&gt; [25] &quot;Southern baptist&quot;     &quot;Nat bapt conv usa&quot;    &quot;Nat bapt conv of am&quot; </span></a>
-<a class="sourceLine" id="cb349-11" data-line-number="11"><span class="co">#&gt; [28] &quot;Am bapt ch in usa&quot;    &quot;Am baptist asso&quot;      &quot;Not applicable&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>denom)</a>
+<a class="sourceLine" id="cb346-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span></a>
+<a class="sourceLine" id="cb346-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span></a>
+<a class="sourceLine" id="cb346-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Presbyterian, merged&quot; &quot;Other presbyterian&quot;   &quot;United pres ch in us&quot;</span></a>
+<a class="sourceLine" id="cb346-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Presbyterian c in us&quot; &quot;Lutheran-dk which&quot;    &quot;Evangelical luth&quot;    </span></a>
+<a class="sourceLine" id="cb346-6" data-line-number="6"><span class="co">#&gt; [13] &quot;Other lutheran&quot;       &quot;Wi evan luth synod&quot;   &quot;Lutheran-mo synod&quot;   </span></a>
+<a class="sourceLine" id="cb346-7" data-line-number="7"><span class="co">#&gt; [16] &quot;Luth ch in america&quot;   &quot;Am lutheran&quot;          &quot;Methodist-dk which&quot;  </span></a>
+<a class="sourceLine" id="cb346-8" data-line-number="8"><span class="co">#&gt; [19] &quot;Other methodist&quot;      &quot;United methodist&quot;     &quot;Afr meth ep zion&quot;    </span></a>
+<a class="sourceLine" id="cb346-9" data-line-number="9"><span class="co">#&gt; [22] &quot;Afr meth episcopal&quot;   &quot;Baptist-dk which&quot;     &quot;Other baptists&quot;      </span></a>
+<a class="sourceLine" id="cb346-10" data-line-number="10"><span class="co">#&gt; [25] &quot;Southern baptist&quot;     &quot;Nat bapt conv usa&quot;    &quot;Nat bapt conv of am&quot; </span></a>
+<a class="sourceLine" id="cb346-11" data-line-number="11"><span class="co">#&gt; [28] &quot;Am bapt ch in usa&quot;    &quot;Am baptist asso&quot;      &quot;Not applicable&quot;</span></a></code></pre></div>
 <p>From the context it is clear that <code>denom</code> refers to “Protestant” (and unsurprising given that it is the largest category in <code>freq</code>).
 Let’s filter out the non-responses, no answers, others, not-applicable, or
 no denomination, to leave only answers to denominations.
 After doing that, the only remaining responses are “Protestant”.</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb350-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>denom <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Other&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Not applicable&quot;</span>,</a>
-<a class="sourceLine" id="cb350-3" data-line-number="3">                       <span class="st">&quot;No denomination&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb350-4" data-line-number="4"><span class="st">  </span><span class="kw">count</span>(relig)</a>
-<a class="sourceLine" id="cb350-5" data-line-number="5"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb350-6" data-line-number="6"><span class="co">#&gt;   relig          n</span></a>
-<a class="sourceLine" id="cb350-7" data-line-number="7"><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb350-8" data-line-number="8"><span class="co">#&gt; 1 Protestant  7025</span></a></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb347-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>denom <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Other&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Not applicable&quot;</span>,</a>
+<a class="sourceLine" id="cb347-3" data-line-number="3">                       <span class="st">&quot;No denomination&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb347-4" data-line-number="4"><span class="st">  </span><span class="kw">count</span>(relig)</a>
+<a class="sourceLine" id="cb347-5" data-line-number="5"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb347-6" data-line-number="6"><span class="co">#&gt;   relig          n</span></a>
+<a class="sourceLine" id="cb347-7" data-line-number="7"><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb347-8" data-line-number="8"><span class="co">#&gt; 1 Protestant  7025</span></a></code></pre></div>
 <p>This is also clear in a scatter plot of <code>relig</code> vs. <code>denom</code> where the points are
 proportional to the size of the number of answers (since otherwise there would be overplotting).</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb351-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(relig, denom) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb351-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> relig, <span class="dt">y =</span> denom, <span class="dt">size =</span> n)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb351-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb351-5" data-line-number="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb348-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(relig, denom) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb348-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> relig, <span class="dt">y =</span> denom, <span class="dt">size =</span> n)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb348-5" data-line-number="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
-</div>
 </div>
 </div>
 <div id="modifying-factor-order" class="section level2">
 <h2><span class="header-section-number">14.4</span> Modifying factor order</h2>
 <div id="exercise-1-44" class="section level3 exercise">
 <h3><span class="header-section-number">14.4.1</span> Exercise 1</h3>
-<div class="question">
 <p>There are some suspiciously high numbers in <code>tvhours</code>.
 Is the <code>mean</code> a good summary?</p>
-</div>
-<div class="answer">
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="kw">summary</span>(gss_cat[[<span class="st">&quot;tvhours&quot;</span>]])</a>
-<a class="sourceLine" id="cb352-2" data-line-number="2"><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s </span></a>
-<a class="sourceLine" id="cb352-3" data-line-number="3"><span class="co">#&gt;       0       1       2       3       4      24   10146</span></a></code></pre></div>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb353-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tvhours)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb353-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> tvhours)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb353-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">summary</span>(gss_cat[[<span class="st">&quot;tvhours&quot;</span>]])</a>
+<a class="sourceLine" id="cb349-2" data-line-number="2"><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s </span></a>
+<a class="sourceLine" id="cb349-3" data-line-number="3"><span class="co">#&gt;       0       1       2       3       4      24   10146</span></a></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb350-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(tvhours)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb350-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> tvhours)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb350-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Whether the mean is the best summary depends on what you are using it for :-), i.e. your objective.
 But probably the median would be what most people prefer.
 And the hours of TV doesn’t look that surprising to me.</p>
 </div>
-</div>
 <div id="exercise-2-43" class="section level3 exercise">
 <h3><span class="header-section-number">14.4.2</span> Exercise 2</h3>
-<div class="question">
 <p>For each factor in <code>gss_cat</code> identify whether the order of the levels is arbitrary or principled.</p>
-</div>
-<div class="answer">
 <p>The following piece of code uses functions introduced in Ch 21, to print out the names of only the factors.</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="kw">keep</span>(gss_cat, is.factor) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">names</span>()</a>
-<a class="sourceLine" id="cb354-2" data-line-number="2"><span class="co">#&gt; [1] &quot;marital&quot; &quot;race&quot;    &quot;rincome&quot; &quot;partyid&quot; &quot;relig&quot;   &quot;denom&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1"><span class="kw">keep</span>(gss_cat, is.factor) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">names</span>()</a>
+<a class="sourceLine" id="cb351-2" data-line-number="2"><span class="co">#&gt; [1] &quot;marital&quot; &quot;race&quot;    &quot;rincome&quot; &quot;partyid&quot; &quot;relig&quot;   &quot;denom&quot;</span></a></code></pre></div>
 <p>There are five six categorical variables: <code>marital</code>, <code>race</code>, <code>rincome</code>, <code>partyid</code>, <code>relig</code>, <code>denom</code>.</p>
 <p>The ordering of marital is “somewhat principled”. There is some sort of logic
 in that the levels are grouped “never married”, married at some point
@@ -800,136 +778,123 @@ Married”, “Divorced”, “Widowed”, “Separated”, “Married” might 
 I find that the question of ordering can be determined by the level of
 aggregation in a categorical variable, and there can be more “partially
 ordered” factors than one would expect.</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1"><span class="kw">levels</span>(gss_cat[[<span class="st">&quot;marital&quot;</span>]])</a>
-<a class="sourceLine" id="cb355-2" data-line-number="2"><span class="co">#&gt; [1] &quot;No answer&quot;     &quot;Never married&quot; &quot;Separated&quot;     &quot;Divorced&quot;     </span></a>
-<a class="sourceLine" id="cb355-3" data-line-number="3"><span class="co">#&gt; [5] &quot;Widowed&quot;       &quot;Married&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb356-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> marital)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb356-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="kw">levels</span>(gss_cat[[<span class="st">&quot;marital&quot;</span>]])</a>
+<a class="sourceLine" id="cb352-2" data-line-number="2"><span class="co">#&gt; [1] &quot;No answer&quot;     &quot;Never married&quot; &quot;Separated&quot;     &quot;Divorced&quot;     </span></a>
+<a class="sourceLine" id="cb352-3" data-line-number="3"><span class="co">#&gt; [5] &quot;Widowed&quot;       &quot;Married&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb353-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> marital)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb353-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The ordering of race is principled in that the categories are ordered by count of observations in the data.</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>race)</a>
-<a class="sourceLine" id="cb357-2" data-line-number="2"><span class="co">#&gt; [1] &quot;Other&quot;          &quot;Black&quot;          &quot;White&quot;          &quot;Not applicable&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb358-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(race)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb358-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">drop =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb358-4" data-line-number="4"><span class="co">#&gt; Warning: Ignoring unknown parameters: drop</span></a></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>race)</a>
+<a class="sourceLine" id="cb354-2" data-line-number="2"><span class="co">#&gt; [1] &quot;Other&quot;          &quot;Black&quot;          &quot;White&quot;          &quot;Not applicable&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb355-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(race)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb355-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">drop =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb355-4" data-line-number="4"><span class="co">#&gt; Warning: Ignoring unknown parameters: drop</span></a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The levels of <code>rincome</code> are ordered in decreasing order of the income; however
 the placement of “No answer”, “Don’t know”, and “Refused” before, and “Not
 applicable” after the income levels is arbitrary. It would be better to place
 all the missing income level categories either before or after all the known
 values.</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>rincome)</a>
-<a class="sourceLine" id="cb359-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span></a>
-<a class="sourceLine" id="cb359-3" data-line-number="3"><span class="co">#&gt;  [5] &quot;$20000 - 24999&quot; &quot;$15000 - 19999&quot; &quot;$10000 - 14999&quot; &quot;$8000 to 9999&quot; </span></a>
-<a class="sourceLine" id="cb359-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;$7000 to 7999&quot;  &quot;$6000 to 6999&quot;  &quot;$5000 to 5999&quot;  &quot;$4000 to 4999&quot; </span></a>
-<a class="sourceLine" id="cb359-5" data-line-number="5"><span class="co">#&gt; [13] &quot;$3000 to 3999&quot;  &quot;$1000 to 2999&quot;  &quot;Lt $1000&quot;       &quot;Not applicable&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>rincome)</a>
+<a class="sourceLine" id="cb356-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span></a>
+<a class="sourceLine" id="cb356-3" data-line-number="3"><span class="co">#&gt;  [5] &quot;$20000 - 24999&quot; &quot;$15000 - 19999&quot; &quot;$10000 - 14999&quot; &quot;$8000 to 9999&quot; </span></a>
+<a class="sourceLine" id="cb356-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;$7000 to 7999&quot;  &quot;$6000 to 6999&quot;  &quot;$5000 to 5999&quot;  &quot;$4000 to 4999&quot; </span></a>
+<a class="sourceLine" id="cb356-5" data-line-number="5"><span class="co">#&gt; [13] &quot;$3000 to 3999&quot;  &quot;$1000 to 2999&quot;  &quot;Lt $1000&quot;       &quot;Not applicable&quot;</span></a></code></pre></div>
 <p>The levels of <code>relig</code> is arbitrary: there is no natural ordering, and they don’t appear to be ordered by stats within the dataset.</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>relig)</a>
-<a class="sourceLine" id="cb360-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;               &quot;Don&#39;t know&quot;             </span></a>
-<a class="sourceLine" id="cb360-3" data-line-number="3"><span class="co">#&gt;  [3] &quot;Inter-nondenominational&quot; &quot;Native american&quot;        </span></a>
-<a class="sourceLine" id="cb360-4" data-line-number="4"><span class="co">#&gt;  [5] &quot;Christian&quot;               &quot;Orthodox-christian&quot;     </span></a>
-<a class="sourceLine" id="cb360-5" data-line-number="5"><span class="co">#&gt;  [7] &quot;Moslem/islam&quot;            &quot;Other eastern&quot;          </span></a>
-<a class="sourceLine" id="cb360-6" data-line-number="6"><span class="co">#&gt;  [9] &quot;Hinduism&quot;                &quot;Buddhism&quot;               </span></a>
-<a class="sourceLine" id="cb360-7" data-line-number="7"><span class="co">#&gt; [11] &quot;Other&quot;                   &quot;None&quot;                   </span></a>
-<a class="sourceLine" id="cb360-8" data-line-number="8"><span class="co">#&gt; [13] &quot;Jewish&quot;                  &quot;Catholic&quot;               </span></a>
-<a class="sourceLine" id="cb360-9" data-line-number="9"><span class="co">#&gt; [15] &quot;Protestant&quot;              &quot;Not applicable&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb361-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(relig)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb361-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb361-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>relig)</a>
+<a class="sourceLine" id="cb357-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;               &quot;Don&#39;t know&quot;             </span></a>
+<a class="sourceLine" id="cb357-3" data-line-number="3"><span class="co">#&gt;  [3] &quot;Inter-nondenominational&quot; &quot;Native american&quot;        </span></a>
+<a class="sourceLine" id="cb357-4" data-line-number="4"><span class="co">#&gt;  [5] &quot;Christian&quot;               &quot;Orthodox-christian&quot;     </span></a>
+<a class="sourceLine" id="cb357-5" data-line-number="5"><span class="co">#&gt;  [7] &quot;Moslem/islam&quot;            &quot;Other eastern&quot;          </span></a>
+<a class="sourceLine" id="cb357-6" data-line-number="6"><span class="co">#&gt;  [9] &quot;Hinduism&quot;                &quot;Buddhism&quot;               </span></a>
+<a class="sourceLine" id="cb357-7" data-line-number="7"><span class="co">#&gt; [11] &quot;Other&quot;                   &quot;None&quot;                   </span></a>
+<a class="sourceLine" id="cb357-8" data-line-number="8"><span class="co">#&gt; [13] &quot;Jewish&quot;                  &quot;Catholic&quot;               </span></a>
+<a class="sourceLine" id="cb357-9" data-line-number="9"><span class="co">#&gt; [15] &quot;Protestant&quot;              &quot;Not applicable&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb358-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(relig)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb358-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb358-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The same goes for <code>denom</code>.</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>denom)</a>
-<a class="sourceLine" id="cb362-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span></a>
-<a class="sourceLine" id="cb362-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span></a>
-<a class="sourceLine" id="cb362-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Presbyterian, merged&quot; &quot;Other presbyterian&quot;   &quot;United pres ch in us&quot;</span></a>
-<a class="sourceLine" id="cb362-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Presbyterian c in us&quot; &quot;Lutheran-dk which&quot;    &quot;Evangelical luth&quot;    </span></a>
-<a class="sourceLine" id="cb362-6" data-line-number="6"><span class="co">#&gt; [13] &quot;Other lutheran&quot;       &quot;Wi evan luth synod&quot;   &quot;Lutheran-mo synod&quot;   </span></a>
-<a class="sourceLine" id="cb362-7" data-line-number="7"><span class="co">#&gt; [16] &quot;Luth ch in america&quot;   &quot;Am lutheran&quot;          &quot;Methodist-dk which&quot;  </span></a>
-<a class="sourceLine" id="cb362-8" data-line-number="8"><span class="co">#&gt; [19] &quot;Other methodist&quot;      &quot;United methodist&quot;     &quot;Afr meth ep zion&quot;    </span></a>
-<a class="sourceLine" id="cb362-9" data-line-number="9"><span class="co">#&gt; [22] &quot;Afr meth episcopal&quot;   &quot;Baptist-dk which&quot;     &quot;Other baptists&quot;      </span></a>
-<a class="sourceLine" id="cb362-10" data-line-number="10"><span class="co">#&gt; [25] &quot;Southern baptist&quot;     &quot;Nat bapt conv usa&quot;    &quot;Nat bapt conv of am&quot; </span></a>
-<a class="sourceLine" id="cb362-11" data-line-number="11"><span class="co">#&gt; [28] &quot;Am bapt ch in usa&quot;    &quot;Am baptist asso&quot;      &quot;Not applicable&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>denom)</a>
+<a class="sourceLine" id="cb359-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;            &quot;Don&#39;t know&quot;           &quot;No denomination&quot;     </span></a>
+<a class="sourceLine" id="cb359-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Other&quot;                &quot;Episcopal&quot;            &quot;Presbyterian-dk wh&quot;  </span></a>
+<a class="sourceLine" id="cb359-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Presbyterian, merged&quot; &quot;Other presbyterian&quot;   &quot;United pres ch in us&quot;</span></a>
+<a class="sourceLine" id="cb359-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Presbyterian c in us&quot; &quot;Lutheran-dk which&quot;    &quot;Evangelical luth&quot;    </span></a>
+<a class="sourceLine" id="cb359-6" data-line-number="6"><span class="co">#&gt; [13] &quot;Other lutheran&quot;       &quot;Wi evan luth synod&quot;   &quot;Lutheran-mo synod&quot;   </span></a>
+<a class="sourceLine" id="cb359-7" data-line-number="7"><span class="co">#&gt; [16] &quot;Luth ch in america&quot;   &quot;Am lutheran&quot;          &quot;Methodist-dk which&quot;  </span></a>
+<a class="sourceLine" id="cb359-8" data-line-number="8"><span class="co">#&gt; [19] &quot;Other methodist&quot;      &quot;United methodist&quot;     &quot;Afr meth ep zion&quot;    </span></a>
+<a class="sourceLine" id="cb359-9" data-line-number="9"><span class="co">#&gt; [22] &quot;Afr meth episcopal&quot;   &quot;Baptist-dk which&quot;     &quot;Other baptists&quot;      </span></a>
+<a class="sourceLine" id="cb359-10" data-line-number="10"><span class="co">#&gt; [25] &quot;Southern baptist&quot;     &quot;Nat bapt conv usa&quot;    &quot;Nat bapt conv of am&quot; </span></a>
+<a class="sourceLine" id="cb359-11" data-line-number="11"><span class="co">#&gt; [28] &quot;Am bapt ch in usa&quot;    &quot;Am baptist asso&quot;      &quot;Not applicable&quot;</span></a></code></pre></div>
 <p>Ignoring “No answer”, “Don’t know”, and “Other party”, the levels of <code>partyid</code> are ordered from “Strong Republican”&quot; to “Strong Democrat”.</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>partyid)</a>
-<a class="sourceLine" id="cb363-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span></a>
-<a class="sourceLine" id="cb363-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Strong republican&quot;  &quot;Not str republican&quot; &quot;Ind,near rep&quot;      </span></a>
-<a class="sourceLine" id="cb363-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span></a>
-<a class="sourceLine" id="cb363-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></a></code></pre></div>
-</div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>partyid)</a>
+<a class="sourceLine" id="cb360-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span></a>
+<a class="sourceLine" id="cb360-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Strong republican&quot;  &quot;Not str republican&quot; &quot;Ind,near rep&quot;      </span></a>
+<a class="sourceLine" id="cb360-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span></a>
+<a class="sourceLine" id="cb360-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-3-32" class="section level3 exercise">
 <h3><span class="header-section-number">14.4.3</span> Exercise 3</h3>
-<div class="question">
 <p>Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?</p>
-</div>
-<div class="answer">
 <p>Because that gives the level “Not applicable” an integer value of 1.</p>
-</div>
 </div>
 </div>
 <div id="modifying-factor-levels" class="section level2">
 <h2><span class="header-section-number">14.5</span> Modifying factor levels</h2>
 <div id="exercise-1-45" class="section level3 exercise">
 <h3><span class="header-section-number">14.5.1</span> Exercise 1</h3>
-<div class="question">
 <p>How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?</p>
-</div>
-<div class="answer">
 <p>To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>partyid)</a>
-<a class="sourceLine" id="cb364-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span></a>
-<a class="sourceLine" id="cb364-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Strong republican&quot;  &quot;Not str republican&quot; &quot;Ind,near rep&quot;      </span></a>
-<a class="sourceLine" id="cb364-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span></a>
-<a class="sourceLine" id="cb364-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb365-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">partyid =</span></a>
-<a class="sourceLine" id="cb365-3" data-line-number="3">           <span class="kw">fct_collapse</span>(partyid,</a>
-<a class="sourceLine" id="cb365-4" data-line-number="4">                        <span class="dt">other =</span> <span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Other party&quot;</span>),</a>
-<a class="sourceLine" id="cb365-5" data-line-number="5">                        <span class="dt">rep =</span> <span class="kw">c</span>(<span class="st">&quot;Strong republican&quot;</span>, <span class="st">&quot;Not str republican&quot;</span>),</a>
-<a class="sourceLine" id="cb365-6" data-line-number="6">                        <span class="dt">ind =</span> <span class="kw">c</span>(<span class="st">&quot;Ind,near rep&quot;</span>, <span class="st">&quot;Independent&quot;</span>, <span class="st">&quot;Ind,near dem&quot;</span>),</a>
-<a class="sourceLine" id="cb365-7" data-line-number="7">                        <span class="dt">dem =</span> <span class="kw">c</span>(<span class="st">&quot;Not str democrat&quot;</span>, <span class="st">&quot;Strong democrat&quot;</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb365-8" data-line-number="8"><span class="st">  </span><span class="kw">count</span>(year, partyid)  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb365-9" data-line-number="9"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb365-10" data-line-number="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb365-11" data-line-number="11"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> p,</a>
-<a class="sourceLine" id="cb365-12" data-line-number="12">             <span class="dt">colour =</span> <span class="kw">fct_reorder2</span>(partyid, year, p))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb365-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb365-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb365-15" data-line-number="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">colour =</span> <span class="st">&quot;Party ID.&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>partyid)</a>
+<a class="sourceLine" id="cb361-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;          &quot;Don&#39;t know&quot;         &quot;Other party&quot;       </span></a>
+<a class="sourceLine" id="cb361-3" data-line-number="3"><span class="co">#&gt;  [4] &quot;Strong republican&quot;  &quot;Not str republican&quot; &quot;Ind,near rep&quot;      </span></a>
+<a class="sourceLine" id="cb361-4" data-line-number="4"><span class="co">#&gt;  [7] &quot;Independent&quot;        &quot;Ind,near dem&quot;       &quot;Not str democrat&quot;  </span></a>
+<a class="sourceLine" id="cb361-5" data-line-number="5"><span class="co">#&gt; [10] &quot;Strong democrat&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" data-line-number="1">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb362-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">partyid =</span></a>
+<a class="sourceLine" id="cb362-3" data-line-number="3">           <span class="kw">fct_collapse</span>(partyid,</a>
+<a class="sourceLine" id="cb362-4" data-line-number="4">                        <span class="dt">other =</span> <span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Other party&quot;</span>),</a>
+<a class="sourceLine" id="cb362-5" data-line-number="5">                        <span class="dt">rep =</span> <span class="kw">c</span>(<span class="st">&quot;Strong republican&quot;</span>, <span class="st">&quot;Not str republican&quot;</span>),</a>
+<a class="sourceLine" id="cb362-6" data-line-number="6">                        <span class="dt">ind =</span> <span class="kw">c</span>(<span class="st">&quot;Ind,near rep&quot;</span>, <span class="st">&quot;Independent&quot;</span>, <span class="st">&quot;Ind,near dem&quot;</span>),</a>
+<a class="sourceLine" id="cb362-7" data-line-number="7">                        <span class="dt">dem =</span> <span class="kw">c</span>(<span class="st">&quot;Not str democrat&quot;</span>, <span class="st">&quot;Strong democrat&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb362-8" data-line-number="8"><span class="st">  </span><span class="kw">count</span>(year, partyid)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb362-9" data-line-number="9"><span class="st">  </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb362-10" data-line-number="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb362-11" data-line-number="11"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> p,</a>
+<a class="sourceLine" id="cb362-12" data-line-number="12">             <span class="dt">colour =</span> <span class="kw">fct_reorder2</span>(partyid, year, p))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb362-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb362-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb362-15" data-line-number="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">colour =</span> <span class="st">&quot;Party ID.&quot;</span>)</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
-</div>
 </div>
 <div id="exercise-2-44" class="section level3 exercise">
 <h3><span class="header-section-number">14.5.2</span> Exercise 2</h3>
-<div class="question">
 <p>How could you collapse <code>rincome</code> into a small set of categories?</p>
-</div>
-<div class="answer">
 <p>Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn’t want to use something like <code>fct_lump</code>.</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>rincome)</a>
-<a class="sourceLine" id="cb366-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span></a>
-<a class="sourceLine" id="cb366-3" data-line-number="3"><span class="co">#&gt;  [5] &quot;$20000 - 24999&quot; &quot;$15000 - 19999&quot; &quot;$10000 - 14999&quot; &quot;$8000 to 9999&quot; </span></a>
-<a class="sourceLine" id="cb366-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;$7000 to 7999&quot;  &quot;$6000 to 6999&quot;  &quot;$5000 to 5999&quot;  &quot;$4000 to 4999&quot; </span></a>
-<a class="sourceLine" id="cb366-5" data-line-number="5"><span class="co">#&gt; [13] &quot;$3000 to 3999&quot;  &quot;$1000 to 2999&quot;  &quot;Lt $1000&quot;       &quot;Not applicable&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)</a>
-<a class="sourceLine" id="cb367-2" data-line-number="2">gss_cat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb367-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rincome =</span></a>
-<a class="sourceLine" id="cb367-4" data-line-number="4">           <span class="kw">fct_collapse</span>(</a>
-<a class="sourceLine" id="cb367-5" data-line-number="5">             rincome,</a>
-<a class="sourceLine" id="cb367-6" data-line-number="6">             <span class="st">`</span><span class="dt">Unknown</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Refused&quot;</span>, <span class="st">&quot;Not applicable&quot;</span>),</a>
-<a class="sourceLine" id="cb367-7" data-line-number="7">             <span class="st">`</span><span class="dt">Lt $5000</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lt $1000&quot;</span>, <span class="kw">str_c</span>(<span class="st">&quot;$&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;1000&quot;</span>, <span class="st">&quot;3000&quot;</span>, <span class="st">&quot;4000&quot;</span>),</a>
-<a class="sourceLine" id="cb367-8" data-line-number="8">                                              <span class="st">&quot; to &quot;</span>, <span class="kw">c</span>(<span class="st">&quot;2999&quot;</span>, <span class="st">&quot;3999&quot;</span>, <span class="st">&quot;4999&quot;</span>))),</a>
-<a class="sourceLine" id="cb367-9" data-line-number="9">             <span class="st">`</span><span class="dt">$5000 to 10000</span><span class="st">`</span> =<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;$&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;5000&quot;</span>, <span class="st">&quot;6000&quot;</span>, <span class="st">&quot;7000&quot;</span>, <span class="st">&quot;8000&quot;</span>),</a>
-<a class="sourceLine" id="cb367-10" data-line-number="10">                                      <span class="st">&quot; to &quot;</span>, <span class="kw">c</span>(<span class="st">&quot;5999&quot;</span>, <span class="st">&quot;6999&quot;</span>, <span class="st">&quot;7999&quot;</span>, <span class="st">&quot;9999&quot;</span>))</a>
-<a class="sourceLine" id="cb367-11" data-line-number="11">           )) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb367-12" data-line-number="12"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> rincome)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb367-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb367-14" data-line-number="14"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" data-line-number="1"><span class="kw">levels</span>(gss_cat<span class="op">$</span>rincome)</a>
+<a class="sourceLine" id="cb363-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;No answer&quot;      &quot;Don&#39;t know&quot;     &quot;Refused&quot;        &quot;$25000 or more&quot;</span></a>
+<a class="sourceLine" id="cb363-3" data-line-number="3"><span class="co">#&gt;  [5] &quot;$20000 - 24999&quot; &quot;$15000 - 19999&quot; &quot;$10000 - 14999&quot; &quot;$8000 to 9999&quot; </span></a>
+<a class="sourceLine" id="cb363-4" data-line-number="4"><span class="co">#&gt;  [9] &quot;$7000 to 7999&quot;  &quot;$6000 to 6999&quot;  &quot;$5000 to 5999&quot;  &quot;$4000 to 4999&quot; </span></a>
+<a class="sourceLine" id="cb363-5" data-line-number="5"><span class="co">#&gt; [13] &quot;$3000 to 3999&quot;  &quot;$1000 to 2999&quot;  &quot;Lt $1000&quot;       &quot;Not applicable&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;stringr&quot;</span>)</a>
+<a class="sourceLine" id="cb364-2" data-line-number="2">gss_cat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb364-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rincome =</span></a>
+<a class="sourceLine" id="cb364-4" data-line-number="4">           <span class="kw">fct_collapse</span>(</a>
+<a class="sourceLine" id="cb364-5" data-line-number="5">             rincome,</a>
+<a class="sourceLine" id="cb364-6" data-line-number="6">             <span class="st">`</span><span class="dt">Unknown</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;No answer&quot;</span>, <span class="st">&quot;Don&#39;t know&quot;</span>, <span class="st">&quot;Refused&quot;</span>, <span class="st">&quot;Not applicable&quot;</span>),</a>
+<a class="sourceLine" id="cb364-7" data-line-number="7">             <span class="st">`</span><span class="dt">Lt $5000</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lt $1000&quot;</span>, <span class="kw">str_c</span>(<span class="st">&quot;$&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;1000&quot;</span>, <span class="st">&quot;3000&quot;</span>, <span class="st">&quot;4000&quot;</span>),</a>
+<a class="sourceLine" id="cb364-8" data-line-number="8">                                              <span class="st">&quot; to &quot;</span>, <span class="kw">c</span>(<span class="st">&quot;2999&quot;</span>, <span class="st">&quot;3999&quot;</span>, <span class="st">&quot;4999&quot;</span>))),</a>
+<a class="sourceLine" id="cb364-9" data-line-number="9">             <span class="st">`</span><span class="dt">$5000 to 10000</span><span class="st">`</span> =<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;$&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;5000&quot;</span>, <span class="st">&quot;6000&quot;</span>, <span class="st">&quot;7000&quot;</span>, <span class="st">&quot;8000&quot;</span>),</a>
+<a class="sourceLine" id="cb364-10" data-line-number="10">                                      <span class="st">&quot; to &quot;</span>, <span class="kw">c</span>(<span class="st">&quot;5999&quot;</span>, <span class="st">&quot;6999&quot;</span>, <span class="st">&quot;7999&quot;</span>, <span class="st">&quot;9999&quot;</span>))</a>
+<a class="sourceLine" id="cb364-11" data-line-number="11">           )) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb364-12" data-line-number="12"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> rincome)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb364-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb364-14" data-line-number="14"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
-</div>
 
 </div>
 </div>

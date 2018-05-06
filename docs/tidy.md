@@ -12,11 +12,11 @@ library(tidyverse)
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Using prose, describe how the variables and observations are organized in each of the sample tables.
-</div>
 
-<div class='answer'>
+Using prose, describe how the variables and observations are organized in each of the sample tables.
+
+
+
 
 In `table1` each row is a (country, year) with variables `cases` and `population`.
 
@@ -86,11 +86,11 @@ table4b
 #> 3 China       1272915272 1280428583
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
+
 Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
 
 1.  Extract the number of TB cases per country per year.
@@ -100,9 +100,9 @@ Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to per
 
 Which representation is easiest to work with? Which is hardest? Why?
 
-</div>
 
-<div class='answer'>
+
+
 
 Without using the join functions introduced in Ch 12:
 
@@ -157,15 +157,15 @@ tibble(country = rep(table4a[["country"]], 2),
 #> 6 China       2000. 1.00
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
-</div>
 
-<div class='answer'>
+Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
+
+
+
 
 First, I needed to filter the tibble to only include those rows that represented the "cases" variable.
 
@@ -179,7 +179,7 @@ table2 %>%
 
 <img src="tidy_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 ## Spreading and Gathering
 
@@ -194,12 +194,12 @@ tidy4b <- table4b %>%
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Why are `gather()` and `spread()` not perfectly symmetrical?
 Carefully consider the following example:
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -240,15 +240,15 @@ stocks %>%
 #> 4    2.  2016  0.170
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Why does this code fail?
-</div>
 
-<div class='answer'>
+Why does this code fail?
+
+
+
 
 
 ```r
@@ -275,15 +275,15 @@ table4a %>%
 #> 6 China       2000  213766
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Why does spreading this tibble fail? How could you add a new column to fix the problem?
-</div>
 
-<div class='answer'>
+Why does spreading this tibble fail? How could you add a new column to fix the problem?
+
+
+
 
 
 ```r
@@ -333,15 +333,15 @@ spread(people, key, value)
 #> 3 Phillip Woods      2.   50.    NA
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
-</div>
 
-<div class='answer'>
+Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
+
+
+
 
 
 ```r
@@ -374,17 +374,17 @@ gather(preg, sex, count, male, female) %>%
 ```
 Converting `pregnant` and `female` from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.
 
-</div>
+
 
 ## Separating and Uniting
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
-</div>
 
-<div class='answer'>
+What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
+
+
+
 
 
 ```r
@@ -496,43 +496,43 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 #> 3 f     g     i
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
-</div>
 
-<div class='answer'>
+Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
+
+
+
 
 You would set it to `FALSE` if you want to create a new variable, but keep the old one.
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
-</div>
 
-<div class='answer'>
+Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
+
+
+
 
 The function `extract` uses a regular expression to find groups and split into columns.
 In `unite` it is unambiguous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the `sep`.
 In `separate`, it is one to many, and there are multiple ways to split the character string.
 
-</div>
+
 
 ## Missing Values
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Compare and contrast the `fill` arguments to `spread()` and `complete()`.
-</div>
 
-<div class='answer'>
+Compare and contrast the `fill` arguments to `spread()` and `complete()`.
+
+
+
 
 
 ```r
@@ -547,19 +547,19 @@ In `spread`, the fill argument explicitly sets the value to replace `NA`s.
 In `complete`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
 Also, both cases replace both implicit and explicit missing values.
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-What does the direction argument to `fill()` do?
-</div>
 
-<div class='answer'>
+What does the direction argument to `fill()` do?
+
+
+
 
 With `fill`, it determines whether `NA` values should be replaced by the previous non-missing value (`"down"`) or the next non-missing value (`"up"`).
 
-</div>
+
 
 ## Case Study
 
@@ -638,11 +638,11 @@ who5
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
-</div>
 
-<div class='answer'>
+In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
+
+
+
 
 Perhaps? I would need to know more about the data generation process.
 There are zero's in the data, which means they may explicitly be indicating no cases.
@@ -678,15 +678,15 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
 #> # ... with 6,962 more rows
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
-</div>
 
-<div class='answer'>
+What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+
+
+
 
 `separate` emits the warning "too few values", and if we check the
 rows for keys beginning with `"newrel_"`, we see that `sexage` is messing,
@@ -712,15 +712,15 @@ filter(who3a, new == "newrel") %>% head()
 #> 6 Anguilla    AI    AIA    2013 newrel m014  <NA>       0
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
-</div>
 
-<div class='answer'>
+I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
+
+
+
 
 
 ```r
@@ -733,15 +733,15 @@ select(who3, country, iso2, iso3) %>%
 #> # ... with 3 variables: country <chr>, iso2 <chr>, iso3 <chr>
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
-</div>
 
-<div class='answer'>
+For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
+
+
+
 
 
 ```r
@@ -759,7 +759,7 @@ who5 %>%
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.
 
-</div>
+
 
 ## Non-Tidy Data
 

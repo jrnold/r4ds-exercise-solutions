@@ -24,13 +24,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Explore the distribution of `rincome` (reported income).
 What makes the default bar chart hard to understand?
 How could you improve the plot?
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -66,16 +66,16 @@ rincome_plot +
 This is better, but it unintuitively goes from low to high. It would help if the
 scale is reversed. Also, if all the missing factors were differentiated.
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
+
 What is the most common `relig` in this survey?
 What’s the most common `partyid`?
-</div>
 
-<div class='answer'>
+
+
 
 The most common `relig` is "Protestant"
 
@@ -103,17 +103,17 @@ gss_cat %>%
 #> 1 Independent  4119
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
+
 Which `relig` does `denom` (denomination) apply to?
 How can you find out with a table?
 How can you find out with a visualization?
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -159,18 +159,18 @@ gss_cat %>%
 
 <img src="factors_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 ## Modifying factor order
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 There are some suspiciously high numbers in `tvhours`.
 Is the `mean` a good summary?
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -193,15 +193,15 @@ Whether the mean is the best summary depends on what you are using it for :-), i
 But probably the median would be what most people prefer.
 And the hours of TV doesn't look that surprising to me.
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
-</div>
 
-<div class='answer'>
+For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
+
+
+
 
 The following piece of code uses functions introduced in Ch 21, to print out the names of only the factors.
 
@@ -316,29 +316,29 @@ levels(gss_cat$partyid)
 #> [10] "Strong democrat"
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
-</div>
 
-<div class='answer'>
+Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
+
+
+
 
 Because that gives the level "Not applicable" an integer value of 1.
 
-</div>
+
 
 ## Modifying factor levels
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
-</div>
 
-<div class='answer'>
+How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
+
+
+
 
 To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent
 
@@ -371,15 +371,15 @@ gss_cat %>%
 
 <img src="factors_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-How could you collapse `rincome` into a small set of categories?
-</div>
 
-<div class='answer'>
+How could you collapse `rincome` into a small set of categories?
+
+
+
 
 Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn't want to use something like `fct_lump`.
 
@@ -410,5 +410,5 @@ gss_cat %>%
 ```
 
 <img src="factors_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
-</div>
+
 
