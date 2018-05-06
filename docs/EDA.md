@@ -322,17 +322,44 @@ Why does the combination of those two relationships lead to lower quality diamon
 
 
 
-When looking at the effects of multiple variables on an outcome variable (here the price of a diamond), a common method is to use regression models. Regression has not been explicitly covered up to this point in the book, however, it is what is going on behind the scenes when using functions like `geom_line()` and `geom_smooth()`. These functions will compute regression models for the given data and variables, then these models are used to compute predicted values, which are plotted as a continuous line. Multiple regression is particularly powerful because it can show us which variables explain more of the data than others. However, staying true to the tutorial nature of the book, we can still explore the data without the use of regression analyses, it will just take a little bit more time.
+<!-- 
+  Cannot use regression, geom smooth because not introduced yet.
+  Cannot plot all variables with facet_wrap since that requires functions in the tidy chapter.s
+-->
+ 
+What are the general relationships of each variable with the price of the diamonds?
+I will consider the variables: `carat`, `clarity`, `color`, and `cut`.
+I ignore the dimensions of the diamond since `carat` measures size, and thus incorporates most of the information contained in these variables.
 
-First, what are the general relationships of each variable with the price of the diamonds?
+Both `price` and `carat` are continuous variables, so I will use scatterplot visualize their relationship.
 
 ```r
-ggplot(data = diamonds) +
-  geom_boxplot(mapping = aes(x = color, y = price))
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point()
+```
+
+<img src="EDA_files/figure-html/plot_diamond_carat_price-1.png" width="70%" style="display: block; margin: auto;" />
+However, since there is a large number of points in the data, I will use a boxplot by binning `carat` (as suggested in the chapter).
+
+```r
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) + 
+  geom_boxplot(mapping = aes(group = cut_width(carat, 0.1)))
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
-There appears to be a weak postive correlation with color.
+Note that the choice of the binning width is important, as if it were too large it would obscure any relationship, and if it were too small, the values in the bins could be too variable to reveal underlying trends.
+
+The variables `color` and `clarity` are ordered categorical variables.
+The chapter suggests visualizing a categorical and continuous variable using frequency polygons or boxplots.
+In this case, I will use a box plot since it will better show a relationship over the variables.
+
+
+```r
+ggplot(diamonds, aes(x = color, y = price)) +
+  geom_boxplot()
+```
+
+<img src="EDA_files/figure-html/plot_diamond_color_price-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -340,62 +367,31 @@ ggplot(data = diamonds) +
   geom_boxplot(mapping = aes(x = clarity, y = price))
 ```
 
+<img src="EDA_files/figure-html/plot_diamond_clarity_price-1.png" width="70%" style="display: block; margin: auto;" />
+
+There is a strong relationship between `carat` and `price`. 
+The is a weak positive relationship between `color` and `price`,
+and, surprisingly, a weak negative relationship between `clarity` and `price`.
+For both `clarity` and `color`, there is a large amount of variation within each category, which overwhelms the between category trend.
+Carat is clearly the best predictor of its price.
+
+Now that we have established that carat appears to be the best predictor of price, what is the relationship between it and cut? 
+Since this is an example of a continuous (carat) and categorical (cut) variable, it can be visualized with a box plot.
+
+
+```r
+ggplot(diamonds, aes(x = cut, y = carat)) +
+  geom_boxplot()
+```
+
 <img src="EDA_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
-There is a negative correlation with clarity, strangely, though it is also fairly weak.
 
+There is a lot of variability in the distribution of carat sizes within each cut category.
+There is a slight negative relationship between carat and cut.
+Noticeably, the largest carat diamonds have a cut of "Fair" (the lowest).
 
-```r
-ggplot(data = diamonds) +
-  geom_smooth(mapping = aes(x = depth, y = price))
-#> `geom_smooth()` using method = 'gam'
-```
-
-<img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
-The relationship between depth and price is strange, but there appears to be no large systematic trend.
-
-
-```r
-ggplot(data = diamonds) +
-  geom_smooth(mapping = aes(x = table, y = price))
-#> `geom_smooth()` using method = 'gam'
-```
-
-<img src="EDA_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
-Looking at table, there is a strong upward trend after about 70 on the table variable. However, the error around this trend (shaded area) suggests that it is not a very reliable slope. The true slope could be anywhere in the shaded areas.
-
-
-```r
-ggplot(data = diamonds) +
-  geom_smooth(mapping = aes(x = carat, y = price))
-#> `geom_smooth()` using method = 'gam'
-```
-
-<img src="EDA_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
-Finally, there is a strong positive correlation with carat, and the standard error is acceptably low. We can be reasonably sure that when carat increases, the price will also increase, and it appears to do so in a much more reliable fashion than the other variables.
-
-Now that we can be reasonably sure that carat is "most important for predicting the price of a diamond," we look at how it is correlated with cut:
-
-```r
-ggplot(data = diamonds) +
-  geom_density(mapping = aes(x = carat, color = cut))
-```
-
-<img src="EDA_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
-The "Fair" cuts seem to have a higher average carat count, though it is somewhat difficult to see on the density plot. A simple table can sometimes be easier to explore:
-
-```r
-diamonds %>%
-  group_by(cut) %>%
-  summarise(avg_carat = mean(carat, na.rm = TRUE))
-#> # A tibble: 5 x 2
-#>   cut       avg_carat
-#>   <ord>         <dbl>
-#> 1 Fair          1.05 
-#> 2 Good          0.849
-#> 3 Very Good     0.806
-#> 4 Premium       0.892
-#> 5 Ideal         0.703
-```
+This negative relationship can be due to the way in which diamonds are selected for sale.
+A larger diamond can be profitably sold with a lower quality cut, while a smaller diamond requires a better cut.
 
 
 
@@ -416,7 +412,7 @@ ggplot(data = mpg) +
   coord_flip()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 In this case the output looks the same, but in the aesthetics the `x` and `y` are flipped from the previous case.
 
@@ -427,7 +423,7 @@ ggplot(data = mpg) +
   geom_boxploth(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -462,7 +458,7 @@ ggplot(diamonds, aes(x = cut, y = price)) +
   geom_lv()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -487,7 +483,7 @@ ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) +
   geom_freqpoly(mapping = aes(colour = cut), binwidth = 500)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -497,7 +493,7 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -506,7 +502,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
   coord_flip()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
 
 The violin plot was first described in
 
@@ -539,7 +535,7 @@ ggplot(data = mpg) +
                                  y = hwy))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -549,7 +545,7 @@ ggplot(data = mpg) +
                    method = "tukey")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -559,7 +555,7 @@ ggplot(data = mpg) +
                    method = "tukeyDense")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -569,7 +565,7 @@ ggplot(data = mpg) +
                    method = "frowney")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -579,7 +575,7 @@ ggplot(data = mpg) +
                    method = "smiley")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -588,7 +584,7 @@ ggplot(data = mpg) +
                                  y = hwy))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -615,7 +611,7 @@ diamonds %>%
   scale_fill_viridis(limits = c(0, 1))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
 
 Similarly, to scale by the distribution of `color` within `cut`,
 
@@ -629,7 +625,7 @@ diamonds %>%
   scale_fill_viridis(limits = c(0, 1))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
 
 I add `limit = c(0, 1)` to put the color scale between (0, 1).
 These are the logical boundaries of proportions.
@@ -659,7 +655,7 @@ flights %>%
   labs(x = "Month", y = "Destination", fill = "Departure Delay")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
 
 There are several things that could be done to improve it,
 
@@ -687,7 +683,7 @@ flights %>%
   labs(x = "Month", y = "Destination", fill = "Departure Delay")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -711,7 +707,7 @@ diamonds %>%
     geom_tile(mapping = aes(fill = n))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
 
 Another justification, for switching the order is that the larger numbers are at the top when `x = color` and `y = cut`, and that lowers the cognitive burden of interpreting the plot.
 
@@ -741,7 +737,7 @@ ggplot(data = diamonds,
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
 Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
 
 ```r
@@ -753,7 +749,7 @@ ggplot(data = diamonds,
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
 Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
 
 ```r
@@ -764,7 +760,7 @@ ggplot(data = diamonds,
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
 Since there are equal numbers in each bin, the plot looks the same if density is used for the y aesthetic (although the values are on a different scale).
 
 ```r
@@ -776,7 +772,7 @@ ggplot(data = diamonds,
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -797,7 +793,7 @@ ggplot(diamonds, aes(x = cut_number(price, 10), y = carat)) +
   xlab("Price")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
 With a box plot, partitioning into an bins of \$2,000 with the width of the box determined by the number of observations. I use `boundary = 0` to ensure the first bin goes from \$0--\$2,000.
 
 ```r
@@ -807,7 +803,7 @@ ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
   xlab("Price")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -824,7 +820,7 @@ The distribution of very large diamonds is more variable.
 I am not surprised, since I knew little about diamond prices.
 After the fact, it does not seem surprising (as many thing do).
 I would guess that this is due to the way in which diamonds are selected for retail sales.
-Suppose that someone selling a diamond only finds it profitable to sell it if some combination size, cut, clarity, and color are above a certain threshhold.
+Suppose that someone selling a diamond only finds it profitable to sell it if some combination size, cut, clarity, and color are above a certain threshold.
 The smallest diamonds are only profitable to sell if they are exceptional in all the other factors (cut, clarity, and color), so the small diamonds sold have similar characteristics.
 However, larger diamonds may be profitable regardless of the values of the other factors.
 Thus we will observe large diamonds with a wider variety of cut, clarity, and color and thus more variability in prices.
@@ -850,7 +846,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
   scale_fill_viridis()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -858,7 +854,7 @@ ggplot(diamonds, aes(x = cut_number(carat, 5), y = price, colour = cut)) +
   geom_boxplot()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -866,7 +862,7 @@ ggplot(diamonds, aes(colour = cut_number(carat, 5), y = price, x = cut)) +
   geom_boxplot()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -886,7 +882,7 @@ ggplot(data = diamonds) +
   coord_cartesian(xlim = c(4, 11), ylim = c(4, 11))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="EDA_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
 
 Why is a scatterplot a better display than a binned plot for this case?
 

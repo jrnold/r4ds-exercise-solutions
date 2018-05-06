@@ -651,7 +651,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">10</span> Data Import</h1>
 <div id="introduction-5" class="section level2">
 <h2><span class="header-section-number">10.1</span> Introduction</h2>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2><span class="header-section-number">10.2</span> Getting started</h2>
@@ -660,16 +660,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>What function would you use to read a file where fields were separated with</p>
 <p>“|”?</p>
 <p>I’d use <code>read_delim</code> with <code>delim=&quot;|&quot;</code>:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1"><span class="kw">read_delim</span>(file, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="kw">read_delim</span>(file, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
 </div>
 <div id="exercise-2-18" class="section level3 exercise">
 <h3><span class="header-section-number">10.2.2</span> Exercise 2</h3>
 <p>Apart from <code>file</code>, <code>skip</code>, and <code>comment</code>, what other arguments do <code>read_csv()</code> and <code>read_tsv()</code> have in common?</p>
 <p>They have the following arguments in common:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">union</span>(<span class="kw">names</span>(<span class="kw">formals</span>(read_csv)), <span class="kw">names</span>(<span class="kw">formals</span>(read_tsv)))</a>
-<a class="sourceLine" id="cb191-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;file&quot;      &quot;col_names&quot; &quot;col_types&quot; &quot;locale&quot;    &quot;na&quot;       </span></a>
-<a class="sourceLine" id="cb191-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;quoted_na&quot; &quot;quote&quot;     &quot;comment&quot;   &quot;trim_ws&quot;   &quot;skip&quot;     </span></a>
-<a class="sourceLine" id="cb191-4" data-line-number="4"><span class="co">#&gt; [11] &quot;n_max&quot;     &quot;guess_max&quot; &quot;progress&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="kw">union</span>(<span class="kw">names</span>(<span class="kw">formals</span>(read_csv)), <span class="kw">names</span>(<span class="kw">formals</span>(read_tsv)))</a>
+<a class="sourceLine" id="cb196-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;file&quot;      &quot;col_names&quot; &quot;col_types&quot; &quot;locale&quot;    &quot;na&quot;       </span></a>
+<a class="sourceLine" id="cb196-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;quoted_na&quot; &quot;quote&quot;     &quot;comment&quot;   &quot;trim_ws&quot;   &quot;skip&quot;     </span></a>
+<a class="sourceLine" id="cb196-4" data-line-number="4"><span class="co">#&gt; [11] &quot;n_max&quot;     &quot;guess_max&quot; &quot;progress&quot;</span></a></code></pre></div>
 <ul>
 <li><code>col_names</code> and <code>col_types</code> are used to specify the column names and how to parse the columns</li>
 <li><code>locale</code> is important for determining things like the encoding and whether “.” or “,” is used as a decimal mark.</li>
@@ -692,66 +692,66 @@ To prevent them from causing problems they need to be surrounded by a quoting ch
 By convention, <code>read_csv()</code> assumes that the quoting character will be <code>&quot;</code>, and if you want to change it you’ll need to use <code>read_delim()</code> instead.
 What arguments do you need to specify to read the following text into a data frame?</p>
 <pre><code>&quot;x,y\n1,&#39;a,b&#39;&quot;</code></pre>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1">x &lt;-<span class="st"> &quot;x,y</span><span class="ch">\n</span><span class="st">1,&#39;a,b&#39;&quot;</span></a>
-<a class="sourceLine" id="cb193-2" data-line-number="2"><span class="kw">read_delim</span>(x, <span class="st">&quot;,&quot;</span>, <span class="dt">quote =</span> <span class="st">&quot;&#39;&quot;</span>)</a>
-<a class="sourceLine" id="cb193-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb193-4" data-line-number="4"><span class="co">#&gt;       x y    </span></a>
-<a class="sourceLine" id="cb193-5" data-line-number="5"><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb193-6" data-line-number="6"><span class="co">#&gt; 1     1 a,b</span></a></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1">x &lt;-<span class="st"> &quot;x,y</span><span class="ch">\n</span><span class="st">1,&#39;a,b&#39;&quot;</span></a>
+<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="kw">read_delim</span>(x, <span class="st">&quot;,&quot;</span>, <span class="dt">quote =</span> <span class="st">&quot;&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb198-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb198-4" data-line-number="4"><span class="co">#&gt;       x y    </span></a>
+<a class="sourceLine" id="cb198-5" data-line-number="5"><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb198-6" data-line-number="6"><span class="co">#&gt; 1     1 a,b</span></a></code></pre></div>
 </div>
 <div id="exercise-6-7" class="section level3 exercise">
 <h3><span class="header-section-number">10.2.5</span> Exercise 6</h3>
 <p>Identify what is wrong with each of the following inline CSV files.
 What happens when you run the code?</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,6&quot;</span>)</a>
-<a class="sourceLine" id="cb194-2" data-line-number="2"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
-<a class="sourceLine" id="cb194-3" data-line-number="3"><span class="co">#&gt; row # A tibble: 2 x 5 col     row col   expected  actual    file         expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        actual 1     1 &lt;NA&gt;  2 columns 3 columns literal data file 2     2 &lt;NA&gt;  2 columns 3 columns literal data</span></a>
-<a class="sourceLine" id="cb194-4" data-line-number="4"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
-<a class="sourceLine" id="cb194-5" data-line-number="5"><span class="co">#&gt;       a     b</span></a>
-<a class="sourceLine" id="cb194-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb194-7" data-line-number="7"><span class="co">#&gt; 1     1     2</span></a>
-<a class="sourceLine" id="cb194-8" data-line-number="8"><span class="co">#&gt; 2     4     5</span></a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,6&quot;</span>)</a>
+<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
+<a class="sourceLine" id="cb199-3" data-line-number="3"><span class="co">#&gt; row # A tibble: 2 x 5 col     row col   expected  actual    file         expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        actual 1     1 &lt;NA&gt;  2 columns 3 columns literal data file 2     2 &lt;NA&gt;  2 columns 3 columns literal data</span></a>
+<a class="sourceLine" id="cb199-4" data-line-number="4"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
+<a class="sourceLine" id="cb199-5" data-line-number="5"><span class="co">#&gt;       a     b</span></a>
+<a class="sourceLine" id="cb199-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb199-7" data-line-number="7"><span class="co">#&gt; 1     1     2</span></a>
+<a class="sourceLine" id="cb199-8" data-line-number="8"><span class="co">#&gt; 2     4     5</span></a></code></pre></div>
 <p>Only two columns are specified in the header “a” and “b”, but the rows have three columns, so the last column in dropped.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">1,2,3,4&quot;</span>)</a>
-<a class="sourceLine" id="cb195-2" data-line-number="2"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
-<a class="sourceLine" id="cb195-3" data-line-number="3"><span class="co">#&gt; row # A tibble: 2 x 5 col     row col   expected  actual    file         expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        actual 1     1 &lt;NA&gt;  3 columns 2 columns literal data file 2     2 &lt;NA&gt;  3 columns 4 columns literal data</span></a>
-<a class="sourceLine" id="cb195-4" data-line-number="4"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
-<a class="sourceLine" id="cb195-5" data-line-number="5"><span class="co">#&gt;       a     b     c</span></a>
-<a class="sourceLine" id="cb195-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb195-7" data-line-number="7"><span class="co">#&gt; 1     1     2    NA</span></a>
-<a class="sourceLine" id="cb195-8" data-line-number="8"><span class="co">#&gt; 2     1     2     3</span></a></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">1,2,3,4&quot;</span>)</a>
+<a class="sourceLine" id="cb200-2" data-line-number="2"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
+<a class="sourceLine" id="cb200-3" data-line-number="3"><span class="co">#&gt; row # A tibble: 2 x 5 col     row col   expected  actual    file         expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        actual 1     1 &lt;NA&gt;  3 columns 2 columns literal data file 2     2 &lt;NA&gt;  3 columns 4 columns literal data</span></a>
+<a class="sourceLine" id="cb200-4" data-line-number="4"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb200-5" data-line-number="5"><span class="co">#&gt;       a     b     c</span></a>
+<a class="sourceLine" id="cb200-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb200-7" data-line-number="7"><span class="co">#&gt; 1     1     2    NA</span></a>
+<a class="sourceLine" id="cb200-8" data-line-number="8"><span class="co">#&gt; 2     1     2     3</span></a></code></pre></div>
 <p>The numbers of columns in the data do not match the number of columns in the header (three).
 In row one, there are only two values, so column <code>c</code> is set to missing.
 In row two, there is an extra value, and that value is dropped.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n\&quot;</span><span class="st">1&quot;</span>)</a>
-<a class="sourceLine" id="cb196-2" data-line-number="2"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
-<a class="sourceLine" id="cb196-3" data-line-number="3"><span class="co">#&gt; row # A tibble: 2 x 5 col     row col   expected                     actual    file         expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                        &lt;chr&gt;     &lt;chr&gt;        actual 1     1 a     closing quote at end of file &quot;&quot;        literal data file 2     1 &lt;NA&gt;  2 columns                    1 columns literal data</span></a>
-<a class="sourceLine" id="cb196-4" data-line-number="4"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb196-5" data-line-number="5"><span class="co">#&gt;       a b    </span></a>
-<a class="sourceLine" id="cb196-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb196-7" data-line-number="7"><span class="co">#&gt; 1     1 &lt;NA&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n\&quot;</span><span class="st">1&quot;</span>)</a>
+<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
+<a class="sourceLine" id="cb201-3" data-line-number="3"><span class="co">#&gt; row # A tibble: 2 x 5 col     row col   expected                     actual    file         expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                        &lt;chr&gt;     &lt;chr&gt;        actual 1     1 a     closing quote at end of file &quot;&quot;        literal data file 2     1 &lt;NA&gt;  2 columns                    1 columns literal data</span></a>
+<a class="sourceLine" id="cb201-4" data-line-number="4"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb201-5" data-line-number="5"><span class="co">#&gt;       a b    </span></a>
+<a class="sourceLine" id="cb201-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb201-7" data-line-number="7"><span class="co">#&gt; 1     1 &lt;NA&gt;</span></a></code></pre></div>
 <p>It’s not clear what the intent was here.
 The opening quote <code>\\&quot;1</code> is dropped because it is not closed, and <code>a</code> is treated as an integer.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">a,b&quot;</span>)</a>
-<a class="sourceLine" id="cb197-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
-<a class="sourceLine" id="cb197-3" data-line-number="3"><span class="co">#&gt;   a     b    </span></a>
-<a class="sourceLine" id="cb197-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb197-5" data-line-number="5"><span class="co">#&gt; 1 1     2    </span></a>
-<a class="sourceLine" id="cb197-6" data-line-number="6"><span class="co">#&gt; 2 a     b</span></a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a,b</span><span class="ch">\n</span><span class="st">1,2</span><span class="ch">\n</span><span class="st">a,b&quot;</span>)</a>
+<a class="sourceLine" id="cb202-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
+<a class="sourceLine" id="cb202-3" data-line-number="3"><span class="co">#&gt;   a     b    </span></a>
+<a class="sourceLine" id="cb202-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb202-5" data-line-number="5"><span class="co">#&gt; 1 1     2    </span></a>
+<a class="sourceLine" id="cb202-6" data-line-number="6"><span class="co">#&gt; 2 a     b</span></a></code></pre></div>
 <p>Both “a” and “b” are treated as character vectors since they contain non-numeric strings.
 This may have been intentional, or the author may have intended the values of the columns to be “1,2” and “a,b”.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a;b</span><span class="ch">\n</span><span class="st">1;3&quot;</span>)</a>
-<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 1</span></a>
-<a class="sourceLine" id="cb198-3" data-line-number="3"><span class="co">#&gt;   `a;b`</span></a>
-<a class="sourceLine" id="cb198-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb198-5" data-line-number="5"><span class="co">#&gt; 1 1;3</span></a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">read_csv</span>(<span class="st">&quot;a;b</span><span class="ch">\n</span><span class="st">1;3&quot;</span>)</a>
+<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 1</span></a>
+<a class="sourceLine" id="cb203-3" data-line-number="3"><span class="co">#&gt;   `a;b`</span></a>
+<a class="sourceLine" id="cb203-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb203-5" data-line-number="5"><span class="co">#&gt; 1 1;3</span></a></code></pre></div>
 <p>The values are separated by “;” rather than “,”. Use <code>read_csv2</code> instead:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="kw">read_csv2</span>(<span class="st">&quot;a;b</span><span class="ch">\n</span><span class="st">1;3&quot;</span>)</a>
-<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="co">#&gt; Using &#39;,&#39; as decimal and &#39;.&#39; as grouping mark. Use read_delim() for more control.</span></a>
-<a class="sourceLine" id="cb199-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb199-4" data-line-number="4"><span class="co">#&gt;       a     b</span></a>
-<a class="sourceLine" id="cb199-5" data-line-number="5"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb199-6" data-line-number="6"><span class="co">#&gt; 1     1     3</span></a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1"><span class="kw">read_csv2</span>(<span class="st">&quot;a;b</span><span class="ch">\n</span><span class="st">1;3&quot;</span>)</a>
+<a class="sourceLine" id="cb204-2" data-line-number="2"><span class="co">#&gt; Using &#39;,&#39; as decimal and &#39;.&#39; as grouping mark. Use read_delim() for more control.</span></a>
+<a class="sourceLine" id="cb204-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb204-4" data-line-number="4"><span class="co">#&gt;       a     b</span></a>
+<a class="sourceLine" id="cb204-5" data-line-number="5"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb204-6" data-line-number="6"><span class="co">#&gt; 1     1     3</span></a></code></pre></div>
 </div>
 </div>
 <div id="parsing-a-vector" class="section level2">
@@ -773,36 +773,36 @@ This may have been intentional, or the author may have intended the values of th
 What happens to the default value of <code>grouping_mark</code> when you set <code>decimal_mark</code> to <code>&quot;,&quot;</code>?
 What happens to the default value of <code>decimal_mark</code> when you set the <code>grouping_mark</code> to <code>&quot;.&quot;</code>?</p>
 <p>If the decimal and grouping marks are set to the same character, <code>locale</code> throws an error:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;.&quot;</span>, <span class="dt">grouping_mark =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb200-2" data-line-number="2"><span class="co">#&gt; Error: `decimal_mark` and `grouping_mark` must be different</span></a></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1"><span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;.&quot;</span>, <span class="dt">grouping_mark =</span> <span class="st">&quot;.&quot;</span>)</a>
+<a class="sourceLine" id="cb205-2" data-line-number="2"><span class="co">#&gt; Error: `decimal_mark` and `grouping_mark` must be different</span></a></code></pre></div>
 <p>If the <code>decimal_mark</code> is set to the comma &quot;<code>,&quot;</code>, then the grouping mark is set to the period <code>&quot;.&quot;</code>:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;,&quot;</span>)</a>
-<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
-<a class="sourceLine" id="cb201-3" data-line-number="3"><span class="co">#&gt; Numbers:  123.456,78</span></a>
-<a class="sourceLine" id="cb201-4" data-line-number="4"><span class="co">#&gt; Formats:  %AD / %AT</span></a>
-<a class="sourceLine" id="cb201-5" data-line-number="5"><span class="co">#&gt; Timezone: UTC</span></a>
-<a class="sourceLine" id="cb201-6" data-line-number="6"><span class="co">#&gt; Encoding: UTF-8</span></a>
-<a class="sourceLine" id="cb201-7" data-line-number="7"><span class="co">#&gt; &lt;date_names&gt;</span></a>
-<a class="sourceLine" id="cb201-8" data-line-number="8"><span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span></a>
-<a class="sourceLine" id="cb201-9" data-line-number="9"><span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span></a>
-<a class="sourceLine" id="cb201-10" data-line-number="10"><span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span></a>
-<a class="sourceLine" id="cb201-11" data-line-number="11"><span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span></a>
-<a class="sourceLine" id="cb201-12" data-line-number="12"><span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span></a>
-<a class="sourceLine" id="cb201-13" data-line-number="13"><span class="co">#&gt; AM/PM:  AM/PM</span></a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;,&quot;</span>)</a>
+<a class="sourceLine" id="cb206-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
+<a class="sourceLine" id="cb206-3" data-line-number="3"><span class="co">#&gt; Numbers:  123.456,78</span></a>
+<a class="sourceLine" id="cb206-4" data-line-number="4"><span class="co">#&gt; Formats:  %AD / %AT</span></a>
+<a class="sourceLine" id="cb206-5" data-line-number="5"><span class="co">#&gt; Timezone: UTC</span></a>
+<a class="sourceLine" id="cb206-6" data-line-number="6"><span class="co">#&gt; Encoding: UTF-8</span></a>
+<a class="sourceLine" id="cb206-7" data-line-number="7"><span class="co">#&gt; &lt;date_names&gt;</span></a>
+<a class="sourceLine" id="cb206-8" data-line-number="8"><span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span></a>
+<a class="sourceLine" id="cb206-9" data-line-number="9"><span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span></a>
+<a class="sourceLine" id="cb206-10" data-line-number="10"><span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span></a>
+<a class="sourceLine" id="cb206-11" data-line-number="11"><span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span></a>
+<a class="sourceLine" id="cb206-12" data-line-number="12"><span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span></a>
+<a class="sourceLine" id="cb206-13" data-line-number="13"><span class="co">#&gt; AM/PM:  AM/PM</span></a></code></pre></div>
 <p>If the grouping mark is set to a period, then the decimal mark is set to a comma</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="kw">locale</span>(<span class="dt">grouping_mark =</span> <span class="st">&quot;,&quot;</span>)</a>
-<a class="sourceLine" id="cb202-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
-<a class="sourceLine" id="cb202-3" data-line-number="3"><span class="co">#&gt; Numbers:  123,456.78</span></a>
-<a class="sourceLine" id="cb202-4" data-line-number="4"><span class="co">#&gt; Formats:  %AD / %AT</span></a>
-<a class="sourceLine" id="cb202-5" data-line-number="5"><span class="co">#&gt; Timezone: UTC</span></a>
-<a class="sourceLine" id="cb202-6" data-line-number="6"><span class="co">#&gt; Encoding: UTF-8</span></a>
-<a class="sourceLine" id="cb202-7" data-line-number="7"><span class="co">#&gt; &lt;date_names&gt;</span></a>
-<a class="sourceLine" id="cb202-8" data-line-number="8"><span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span></a>
-<a class="sourceLine" id="cb202-9" data-line-number="9"><span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span></a>
-<a class="sourceLine" id="cb202-10" data-line-number="10"><span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span></a>
-<a class="sourceLine" id="cb202-11" data-line-number="11"><span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span></a>
-<a class="sourceLine" id="cb202-12" data-line-number="12"><span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span></a>
-<a class="sourceLine" id="cb202-13" data-line-number="13"><span class="co">#&gt; AM/PM:  AM/PM</span></a></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">locale</span>(<span class="dt">grouping_mark =</span> <span class="st">&quot;,&quot;</span>)</a>
+<a class="sourceLine" id="cb207-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
+<a class="sourceLine" id="cb207-3" data-line-number="3"><span class="co">#&gt; Numbers:  123,456.78</span></a>
+<a class="sourceLine" id="cb207-4" data-line-number="4"><span class="co">#&gt; Formats:  %AD / %AT</span></a>
+<a class="sourceLine" id="cb207-5" data-line-number="5"><span class="co">#&gt; Timezone: UTC</span></a>
+<a class="sourceLine" id="cb207-6" data-line-number="6"><span class="co">#&gt; Encoding: UTF-8</span></a>
+<a class="sourceLine" id="cb207-7" data-line-number="7"><span class="co">#&gt; &lt;date_names&gt;</span></a>
+<a class="sourceLine" id="cb207-8" data-line-number="8"><span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span></a>
+<a class="sourceLine" id="cb207-9" data-line-number="9"><span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span></a>
+<a class="sourceLine" id="cb207-10" data-line-number="10"><span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span></a>
+<a class="sourceLine" id="cb207-11" data-line-number="11"><span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span></a>
+<a class="sourceLine" id="cb207-12" data-line-number="12"><span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span></a>
+<a class="sourceLine" id="cb207-13" data-line-number="13"><span class="co">#&gt; AM/PM:  AM/PM</span></a></code></pre></div>
 </div>
 <div id="exercise-3-17" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.3</span> Exercise 3</h3>
@@ -811,30 +811,30 @@ What do they do?
 Construct an example that shows when they might be useful.</p>
 <p>They provide default date and time formats.
 The <a href="https://cran.r-project.org/web/packages/readr/vignettes/locales.html">readr vignette</a> discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">locale</span>()</a>
-<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
-<a class="sourceLine" id="cb203-3" data-line-number="3"><span class="co">#&gt; Numbers:  123,456.78</span></a>
-<a class="sourceLine" id="cb203-4" data-line-number="4"><span class="co">#&gt; Formats:  %AD / %AT</span></a>
-<a class="sourceLine" id="cb203-5" data-line-number="5"><span class="co">#&gt; Timezone: UTC</span></a>
-<a class="sourceLine" id="cb203-6" data-line-number="6"><span class="co">#&gt; Encoding: UTF-8</span></a>
-<a class="sourceLine" id="cb203-7" data-line-number="7"><span class="co">#&gt; &lt;date_names&gt;</span></a>
-<a class="sourceLine" id="cb203-8" data-line-number="8"><span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span></a>
-<a class="sourceLine" id="cb203-9" data-line-number="9"><span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span></a>
-<a class="sourceLine" id="cb203-10" data-line-number="10"><span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span></a>
-<a class="sourceLine" id="cb203-11" data-line-number="11"><span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span></a>
-<a class="sourceLine" id="cb203-12" data-line-number="12"><span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span></a>
-<a class="sourceLine" id="cb203-13" data-line-number="13"><span class="co">#&gt; AM/PM:  AM/PM</span></a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">locale</span>()</a>
+<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="co">#&gt; &lt;locale&gt;</span></a>
+<a class="sourceLine" id="cb208-3" data-line-number="3"><span class="co">#&gt; Numbers:  123,456.78</span></a>
+<a class="sourceLine" id="cb208-4" data-line-number="4"><span class="co">#&gt; Formats:  %AD / %AT</span></a>
+<a class="sourceLine" id="cb208-5" data-line-number="5"><span class="co">#&gt; Timezone: UTC</span></a>
+<a class="sourceLine" id="cb208-6" data-line-number="6"><span class="co">#&gt; Encoding: UTF-8</span></a>
+<a class="sourceLine" id="cb208-7" data-line-number="7"><span class="co">#&gt; &lt;date_names&gt;</span></a>
+<a class="sourceLine" id="cb208-8" data-line-number="8"><span class="co">#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),</span></a>
+<a class="sourceLine" id="cb208-9" data-line-number="9"><span class="co">#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)</span></a>
+<a class="sourceLine" id="cb208-10" data-line-number="10"><span class="co">#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May</span></a>
+<a class="sourceLine" id="cb208-11" data-line-number="11"><span class="co">#&gt;         (May), June (Jun), July (Jul), August (Aug), September</span></a>
+<a class="sourceLine" id="cb208-12" data-line-number="12"><span class="co">#&gt;         (Sep), October (Oct), November (Nov), December (Dec)</span></a>
+<a class="sourceLine" id="cb208-13" data-line-number="13"><span class="co">#&gt; AM/PM:  AM/PM</span></a></code></pre></div>
 <p>Examples from the <strong>readr</strong> vignette of parsing French dates</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1"><span class="kw">parse_date</span>(<span class="st">&quot;1 janvier 2015&quot;</span>, <span class="st">&quot;%d %B %Y&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="st">&quot;fr&quot;</span>))</a>
-<a class="sourceLine" id="cb204-2" data-line-number="2"><span class="co">#&gt; [1] &quot;2015-01-01&quot;</span></a>
-<a class="sourceLine" id="cb204-3" data-line-number="3"><span class="kw">parse_date</span>(<span class="st">&quot;14 oct. 1979&quot;</span>, <span class="st">&quot;%d %b %Y&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="st">&quot;fr&quot;</span>))</a>
-<a class="sourceLine" id="cb204-4" data-line-number="4"><span class="co">#&gt; [1] &quot;1979-10-14&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1"><span class="kw">parse_date</span>(<span class="st">&quot;1 janvier 2015&quot;</span>, <span class="st">&quot;%d %B %Y&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="st">&quot;fr&quot;</span>))</a>
+<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="co">#&gt; [1] &quot;2015-01-01&quot;</span></a>
+<a class="sourceLine" id="cb209-3" data-line-number="3"><span class="kw">parse_date</span>(<span class="st">&quot;14 oct. 1979&quot;</span>, <span class="st">&quot;%d %b %Y&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="st">&quot;fr&quot;</span>))</a>
+<a class="sourceLine" id="cb209-4" data-line-number="4"><span class="co">#&gt; [1] &quot;1979-10-14&quot;</span></a></code></pre></div>
 <p>Apparently the time format is not used for anything, but the date format is used for guessing column types.</p>
 </div>
 <div id="exercise-4-14" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.4</span> Exercise 4</h3>
 <p>If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1">?locale</a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1">?locale</a></code></pre></div>
 </div>
 <div id="exercise-5-9" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.5</span> Exercise 5</h3>
@@ -886,29 +886,29 @@ There is also Mac OS Roman.</p>
 <div id="exercise-7-2" class="section level3 exercise">
 <h3><span class="header-section-number">10.3.7</span> Exercise 7</h3>
 <p>Generate the correct format string to parse each of the following dates and times:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1">d1 &lt;-<span class="st"> &quot;January 1, 2010&quot;</span></a>
-<a class="sourceLine" id="cb206-2" data-line-number="2">d2 &lt;-<span class="st"> &quot;2015-Mar-07&quot;</span></a>
-<a class="sourceLine" id="cb206-3" data-line-number="3">d3 &lt;-<span class="st"> &quot;06-Jun-2017&quot;</span></a>
-<a class="sourceLine" id="cb206-4" data-line-number="4">d4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;August 19 (2015)&quot;</span>, <span class="st">&quot;July 1 (2015)&quot;</span>)</a>
-<a class="sourceLine" id="cb206-5" data-line-number="5">d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30, 2014</span></a>
-<a class="sourceLine" id="cb206-6" data-line-number="6">t1 &lt;-<span class="st"> &quot;1705&quot;</span></a>
-<a class="sourceLine" id="cb206-7" data-line-number="7">t2 &lt;-<span class="st"> &quot;11:15:10.12 PM&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">d1 &lt;-<span class="st"> &quot;January 1, 2010&quot;</span></a>
+<a class="sourceLine" id="cb211-2" data-line-number="2">d2 &lt;-<span class="st"> &quot;2015-Mar-07&quot;</span></a>
+<a class="sourceLine" id="cb211-3" data-line-number="3">d3 &lt;-<span class="st"> &quot;06-Jun-2017&quot;</span></a>
+<a class="sourceLine" id="cb211-4" data-line-number="4">d4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;August 19 (2015)&quot;</span>, <span class="st">&quot;July 1 (2015)&quot;</span>)</a>
+<a class="sourceLine" id="cb211-5" data-line-number="5">d5 &lt;-<span class="st"> &quot;12/30/14&quot;</span> <span class="co"># Dec 30, 2014</span></a>
+<a class="sourceLine" id="cb211-6" data-line-number="6">t1 &lt;-<span class="st"> &quot;1705&quot;</span></a>
+<a class="sourceLine" id="cb211-7" data-line-number="7">t2 &lt;-<span class="st"> &quot;11:15:10.12 PM&quot;</span></a></code></pre></div>
 <p>The correct formats are:</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">parse_date</span>(d1, <span class="st">&quot;%B %d, %Y&quot;</span>)</a>
-<a class="sourceLine" id="cb207-2" data-line-number="2"><span class="co">#&gt; [1] &quot;2010-01-01&quot;</span></a>
-<a class="sourceLine" id="cb207-3" data-line-number="3"><span class="kw">parse_date</span>(d2, <span class="st">&quot;%Y-%b-%d&quot;</span>)</a>
-<a class="sourceLine" id="cb207-4" data-line-number="4"><span class="co">#&gt; [1] &quot;2015-03-07&quot;</span></a>
-<a class="sourceLine" id="cb207-5" data-line-number="5"><span class="kw">parse_date</span>(d3, <span class="st">&quot;%d-%b-%Y&quot;</span>)</a>
-<a class="sourceLine" id="cb207-6" data-line-number="6"><span class="co">#&gt; [1] &quot;2017-06-06&quot;</span></a>
-<a class="sourceLine" id="cb207-7" data-line-number="7"><span class="kw">parse_date</span>(d4, <span class="st">&quot;%B %d (%Y)&quot;</span>)</a>
-<a class="sourceLine" id="cb207-8" data-line-number="8"><span class="co">#&gt; [1] &quot;2015-08-19&quot; &quot;2015-07-01&quot;</span></a>
-<a class="sourceLine" id="cb207-9" data-line-number="9"><span class="kw">parse_date</span>(d5, <span class="st">&quot;%m/%d/%y&quot;</span>)</a>
-<a class="sourceLine" id="cb207-10" data-line-number="10"><span class="co">#&gt; [1] &quot;2014-12-30&quot;</span></a>
-<a class="sourceLine" id="cb207-11" data-line-number="11"><span class="kw">parse_time</span>(t1, <span class="st">&quot;%H%M&quot;</span>)</a>
-<a class="sourceLine" id="cb207-12" data-line-number="12"><span class="co">#&gt; 17:05:00</span></a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">parse_date</span>(d1, <span class="st">&quot;%B %d, %Y&quot;</span>)</a>
+<a class="sourceLine" id="cb212-2" data-line-number="2"><span class="co">#&gt; [1] &quot;2010-01-01&quot;</span></a>
+<a class="sourceLine" id="cb212-3" data-line-number="3"><span class="kw">parse_date</span>(d2, <span class="st">&quot;%Y-%b-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb212-4" data-line-number="4"><span class="co">#&gt; [1] &quot;2015-03-07&quot;</span></a>
+<a class="sourceLine" id="cb212-5" data-line-number="5"><span class="kw">parse_date</span>(d3, <span class="st">&quot;%d-%b-%Y&quot;</span>)</a>
+<a class="sourceLine" id="cb212-6" data-line-number="6"><span class="co">#&gt; [1] &quot;2017-06-06&quot;</span></a>
+<a class="sourceLine" id="cb212-7" data-line-number="7"><span class="kw">parse_date</span>(d4, <span class="st">&quot;%B %d (%Y)&quot;</span>)</a>
+<a class="sourceLine" id="cb212-8" data-line-number="8"><span class="co">#&gt; [1] &quot;2015-08-19&quot; &quot;2015-07-01&quot;</span></a>
+<a class="sourceLine" id="cb212-9" data-line-number="9"><span class="kw">parse_date</span>(d5, <span class="st">&quot;%m/%d/%y&quot;</span>)</a>
+<a class="sourceLine" id="cb212-10" data-line-number="10"><span class="co">#&gt; [1] &quot;2014-12-30&quot;</span></a>
+<a class="sourceLine" id="cb212-11" data-line-number="11"><span class="kw">parse_time</span>(t1, <span class="st">&quot;%H%M&quot;</span>)</a>
+<a class="sourceLine" id="cb212-12" data-line-number="12"><span class="co">#&gt; 17:05:00</span></a></code></pre></div>
 <p>The time <code>t2</code> uses real seconds,</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">parse_time</span>(t2, <span class="st">&quot;%H:%M:%OS %p&quot;</span>)</a>
-<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="co">#&gt; 23:15:10.12</span></a></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">parse_time</span>(t2, <span class="st">&quot;%H:%M:%OS %p&quot;</span>)</a>
+<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="co">#&gt; 23:15:10.12</span></a></code></pre></div>
 </div>
 </div>
 <div id="parsing-a-file" class="section level2">

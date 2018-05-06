@@ -222,7 +222,6 @@ Exercises 1--3 are answered in this document.
 Add a section that explores how diamond sizes vary by cut, color, and clarity. Assume you’re writing a report for someone who doesn’t know R, and instead of setting `echo = FALSE` on each chunk, set a global option.
 
 
-
 ### Exercise 2 {.exercise}
 
 
