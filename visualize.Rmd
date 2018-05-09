@@ -491,8 +491,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  geom_smooth(mapping = aes(group = drv), se = FALSE)
+  geom_smooth(mapping = aes(group = drv), se = FALSE) +
+  geom_point()
 ```
 
 ```{r}
@@ -503,7 +503,7 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = drv)) +
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(colour = drv)) +
+  geom_point(aes(colour = drv)) +
   geom_smooth(se = FALSE)
 ```
 
@@ -514,11 +514,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 ```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-   geom_point(size = 10, color = "white") + 
-   geom_point(aes(color = drv), size = 4)
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+   geom_point(size = 4, color = "white") + 
+   geom_point(aes(colour = drv))
 ```
-
 `r EndAnswer()`
 
 ## Statistical Transformations
