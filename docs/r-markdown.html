@@ -810,44 +810,44 @@ Calculating those objects in a code chunk with the <code>include = FALSE</code> 
 <div id="exercise-4-42" class="section level3 exercise">
 <h3><span class="header-section-number">26.3.4</span> Exercise 4</h3>
 <p>Set up a network of chunks where <code>d</code> depends on <code>c</code> and <code>b</code>, and both <code>b</code> and <code>c</code> depend on <code>a</code>. Have each chunk print lubridate::now(), set cache = TRUE, then verify your understanding of caching.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">cat</span>(readr<span class="op">::</span><span class="kw">read_file</span>(<span class="st">&quot;rmarkdown/caching.Rmd&quot;</span>))</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; ---</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; title: &quot;Exercise 24.4.7.4&quot;</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; author: &quot;Jeffrey Arnold&quot;</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; date: &quot;2/1/2018&quot;</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; output: html_document</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; ---</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; ```{r setup, include=FALSE}</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; knitr::opts_chunk$set(echo = TRUE, cache = TRUE)</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; ```</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; The chunk `a` has no dependencies.</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; ```{r a}</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; print(lubridate::now())</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; x &lt;- 1</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; ```</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; The chunk `b` depends on `a`.</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; ```{r b, dependson = c(&quot;a&quot;)}</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; print(lubridate::now())</span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; y &lt;- x + 1</span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; ```</span></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; The chunk `c` depends on `a`.</span></a>
-<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt; ```{r c, dependson = c(&quot;a&quot;)}</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; print(lubridate::now())</span></a>
-<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; z &lt;- x * 2</span></a>
-<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; ```</span></a>
-<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt; The chunk `d` depends on `c` and `b`:</span></a>
-<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt; ```{r d, dependson = c(&quot;c&quot;, &quot;b&quot;)}</span></a>
-<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt; print(lubridate::now())</span></a>
-<a class="sourceLine" id="cb7-34" data-line-number="34"><span class="co">#&gt; w &lt;- y + z</span></a>
-<a class="sourceLine" id="cb7-35" data-line-number="35"><span class="co">#&gt; ```</span></a>
-<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-37" data-line-number="37"><span class="co">#&gt; If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,</span></a>
-<a class="sourceLine" id="cb7-38" data-line-number="38"><span class="co">#&gt; and the same as the first time the document was run with caching.</span></a></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb583-1" data-line-number="1"><span class="kw">cat</span>(readr<span class="op">::</span><span class="kw">read_file</span>(<span class="st">&quot;rmarkdown/caching.Rmd&quot;</span>))</a>
+<a class="sourceLine" id="cb583-2" data-line-number="2"><span class="co">#&gt; ---</span></a>
+<a class="sourceLine" id="cb583-3" data-line-number="3"><span class="co">#&gt; title: &quot;Exercise 24.4.7.4&quot;</span></a>
+<a class="sourceLine" id="cb583-4" data-line-number="4"><span class="co">#&gt; author: &quot;Jeffrey Arnold&quot;</span></a>
+<a class="sourceLine" id="cb583-5" data-line-number="5"><span class="co">#&gt; date: &quot;2/1/2018&quot;</span></a>
+<a class="sourceLine" id="cb583-6" data-line-number="6"><span class="co">#&gt; output: html_document</span></a>
+<a class="sourceLine" id="cb583-7" data-line-number="7"><span class="co">#&gt; ---</span></a>
+<a class="sourceLine" id="cb583-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb583-9" data-line-number="9"><span class="co">#&gt; ```{r setup, include=FALSE}</span></a>
+<a class="sourceLine" id="cb583-10" data-line-number="10"><span class="co">#&gt; knitr::opts_chunk$set(echo = TRUE, cache = TRUE)</span></a>
+<a class="sourceLine" id="cb583-11" data-line-number="11"><span class="co">#&gt; ```</span></a>
+<a class="sourceLine" id="cb583-12" data-line-number="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb583-13" data-line-number="13"><span class="co">#&gt; The chunk `a` has no dependencies.</span></a>
+<a class="sourceLine" id="cb583-14" data-line-number="14"><span class="co">#&gt; ```{r a}</span></a>
+<a class="sourceLine" id="cb583-15" data-line-number="15"><span class="co">#&gt; print(lubridate::now())</span></a>
+<a class="sourceLine" id="cb583-16" data-line-number="16"><span class="co">#&gt; x &lt;- 1</span></a>
+<a class="sourceLine" id="cb583-17" data-line-number="17"><span class="co">#&gt; ```</span></a>
+<a class="sourceLine" id="cb583-18" data-line-number="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb583-19" data-line-number="19"><span class="co">#&gt; The chunk `b` depends on `a`.</span></a>
+<a class="sourceLine" id="cb583-20" data-line-number="20"><span class="co">#&gt; ```{r b, dependson = c(&quot;a&quot;)}</span></a>
+<a class="sourceLine" id="cb583-21" data-line-number="21"><span class="co">#&gt; print(lubridate::now())</span></a>
+<a class="sourceLine" id="cb583-22" data-line-number="22"><span class="co">#&gt; y &lt;- x + 1</span></a>
+<a class="sourceLine" id="cb583-23" data-line-number="23"><span class="co">#&gt; ```</span></a>
+<a class="sourceLine" id="cb583-24" data-line-number="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb583-25" data-line-number="25"><span class="co">#&gt; The chunk `c` depends on `a`.</span></a>
+<a class="sourceLine" id="cb583-26" data-line-number="26"><span class="co">#&gt; ```{r c, dependson = c(&quot;a&quot;)}</span></a>
+<a class="sourceLine" id="cb583-27" data-line-number="27"><span class="co">#&gt; print(lubridate::now())</span></a>
+<a class="sourceLine" id="cb583-28" data-line-number="28"><span class="co">#&gt; z &lt;- x * 2</span></a>
+<a class="sourceLine" id="cb583-29" data-line-number="29"><span class="co">#&gt; ```</span></a>
+<a class="sourceLine" id="cb583-30" data-line-number="30"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb583-31" data-line-number="31"><span class="co">#&gt; The chunk `d` depends on `c` and `b`:</span></a>
+<a class="sourceLine" id="cb583-32" data-line-number="32"><span class="co">#&gt; ```{r d, dependson = c(&quot;c&quot;, &quot;b&quot;)}</span></a>
+<a class="sourceLine" id="cb583-33" data-line-number="33"><span class="co">#&gt; print(lubridate::now())</span></a>
+<a class="sourceLine" id="cb583-34" data-line-number="34"><span class="co">#&gt; w &lt;- y + z</span></a>
+<a class="sourceLine" id="cb583-35" data-line-number="35"><span class="co">#&gt; ```</span></a>
+<a class="sourceLine" id="cb583-36" data-line-number="36"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb583-37" data-line-number="37"><span class="co">#&gt; If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,</span></a>
+<a class="sourceLine" id="cb583-38" data-line-number="38"><span class="co">#&gt; and the same as the first time the document was run with caching.</span></a></code></pre></div>
 
 </div>
 </div>
@@ -889,6 +889,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

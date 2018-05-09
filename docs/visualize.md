@@ -631,8 +631,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ```r
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point() +
-  geom_smooth(mapping = aes(group = drv), se = FALSE)
+  geom_smooth(mapping = aes(group = drv), se = FALSE) +
+  geom_point()
 #> `geom_smooth()` using method = 'loess'
 ```
 
@@ -651,7 +651,7 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = drv)) +
 
 ```r
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(colour = drv)) +
+  geom_point(aes(colour = drv)) +
   geom_smooth(se = FALSE)
 #> `geom_smooth()` using method = 'loess'
 ```
@@ -670,12 +670,12 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 ```r
-ggplot(mpg, aes(x = displ, y = hwy, fill = drv)) +
-  geom_point(colour = "white", shape = 21)
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+   geom_point(size = 4, color = "white") + 
+   geom_point(aes(colour = drv))
 ```
 
 <img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
-
 
 
 ## Statistical Transformations
