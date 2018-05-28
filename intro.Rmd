@@ -7,14 +7,15 @@ without which these solutions would not exist---literally.
 
 This book was written in the open, with some people contributed pull requests to fix problems.
 Thank you to all who contributed via GitHub:
+
 ```{r}
 library(dplyr)
 # git --no-pager shortlog -ns > contribs.txt
 contribs <- readr::read_tsv("contribs.txt", col_names = c("n", "name"))
 
-contribs <- contribs %>% 
+contribs <- contribs %>%
   filter(!name %in% c("jrnold", "Jeffrey Arnold")) %>%
-  arrange(name) %>% 
+  arrange(name) %>%
   mutate(uname = ifelse(!grepl(" ", name), paste0("@", name), name))
 
 cat("Thanks go to all contributers in alphabetical order: ")

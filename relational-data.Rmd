@@ -14,27 +14,23 @@ library("datamodelr")
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
-- `flights` table: `origin` and `dest`
-- `airports` table: longitude and latitude variables
-- We would merge the `flights` with airports twice: once to get the location of the `origin` airport, and once to get the location of the `dest` airport.
+-   `flights` table: `origin` and `dest`
+-   `airports` table: longitude and latitude variables
+-   join `flights` with `airports` twice. The first join adds the location of the origin airport (`origin`). The second join adds the location of destination airport (`dest`).
 
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -44,11 +40,9 @@ The variable `origin` in `weather` is matched with `faa` in `airports`.
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -58,11 +52,9 @@ weather only contains information for the origin (NYC) airports. If it contained
 
 ### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -76,43 +68,39 @@ It would match to the `year`, `month`, `day` columns of `flights.
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Add a surrogate key to flights.
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
-I add the column `flight_id` as a surrogate key. 
+I add the column `flight_id` as a surrogate key.
 I sort the data prior to making the key, even though it is not strictly necessary, so the order of the rows has some meaning.
 ```{r}
-flights %>% 
+flights %>%
   arrange(year, month, day, sched_dep_time, carrier, flight) %>%
   mutate(flight_id = row_number()) %>%
   glimpse()
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Identify the keys in the following datasets
 
-1. `Lahman::Batting`
-2. `babynames::babynames`
-3. `nasaweather::atmos`
-4. `fueleconomy::vehicles`
-5. `ggplot2::diamonds`
+1.  `Lahman::Batting`
+1.  `babynames::babynames`
+1.  `nasaweather::atmos`
+1.  `fueleconomy::vehicles`
+1.  `ggplot2::diamonds`
+
+(You might need to install some packages and read some documentation.)
+
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
->
-> (You might need to install some packages and read some documentation.)
 
 The primary key for `Lahman::Batting` is `playerID`, `yearID`, `stint`. It is not simply `playerID`, `yearID` because players can have different stints in different leagues within the same year.
 ```{r}
@@ -149,40 +137,47 @@ fueleconomy::vehicles %>%
 There is no primary key for `ggplot2::diamonds`. Using all variables in the data frame, the number of distinct rows is less than the total number of rows, meaning no combination of variables uniquely identifies the observations.
 ```{r}
 ggplot2::diamonds %>%
-  distinct() %>% 
+  distinct() %>%
   nrow()
 nrow(ggplot2::diamonds)
 ```
 
-
 `r EndAnswer()`
 
-### Exercise 4 {.exercise} 
+### Exercise 4 {.exercise}
 
 Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
 
 Most flowchart or diagramming software can be used used to create database schema diagrams.
-For example, the diagrams in *R for Data Science* were created with [Gliffy](https://www.gliffy.com/). 
+For example, the diagrams in *R for Data Science* were created with [Gliffy](https://www.gliffy.com/).
 
 You can use anything to create these diagrams, but I'll use the R package [datamodelr](https://github.com/bergant/datamodelr) to programmatically create data models from R.
 
 For the `Batting`, `Master`, and `Salaries` tables:
 
-- `Master` 
-  - Primary keys: `playerID`
-- `Batting`
-  - Primary keys: `yearID`, `yearID`, `stint`
-  - Foreign Keys:
-    - `playerID` = `Master$playerID` (many-to-1)
-- `Salaries`:
-  - Primary keys: `yearID`, `teamID`, `playerID`
-  - Foreign Keys
-    - `playerID` = `Master$playerID` (many-to-1)
+-   `Master`
 
+    -   Primary keys: `playerID`
+
+-   `Batting`
+
+    -   Primary keys: `yearID`, `yearID`, `stint`
+
+    -   Foreign Keys:
+
+        -   `playerID` = `Master$playerID` (many-to-1)
+
+-   `Salaries`
+
+    -   Primary keys: `yearID`, `teamID`, `playerID`
+
+    -   Foreign Keys
+
+        -   `playerID` = `Master$playerID` (many-to-1)
 
 ```{r}
-dm1 <- dm_from_data_frames(list(Batting = Lahman::Batting, 
-                                Master = Lahman::Master, 
+dm1 <- dm_from_data_frames(list(Batting = Lahman::Batting,
+                                Master = Lahman::Master,
                                 Salaries = Lahman::Salaries)) %>%
   dm_set_key("Batting", c("playerID", "yearID", "stint")) %>%
   dm_set_key("Master", "playerID") %>%
@@ -197,17 +192,24 @@ dm_create_graph(dm1, rankdir = "LR", columnArrows = TRUE)
 
 For the `Master`, `Manager`, and `AwardsManagers` tables:
 
-- `Master` 
-  - Primary keys: `playerID`
-- `Managers`
-  - Primary keys: `yearID`, `teamID`, `inseason`
-  - Foreign Keys:
-    - `playerID` = `Master$playerID` (many-to-1)
-- `AwardsManagers`:
-    - `playerID` = `Master$playerID` (many-to-1)
+-   `Master`
+
+    -   Primary keys: `playerID`
+
+-   `Managers`
+
+    -   Primary keys: `yearID`, `teamID`, `inseason`
+
+    -   Foreign Keys:
+
+        -   `playerID` = `Master$playerID` (many-to-1)
+
+-   `AwardsManagers`:
+
+    -   `playerID` = `Master$playerID` (many-to-1)
 
 ```{r}
-dm2 <- dm_from_data_frames(list(Master = Lahman::Master, 
+dm2 <- dm_from_data_frames(list(Master = Lahman::Master,
                                 Managers = Lahman::Managers,
                                 AwardsManagers = Lahman::AwardsManagers)) %>%
   dm_set_key("Master", "playerID") %>%
@@ -227,8 +229,7 @@ The `teamID` variable references `Teams$teamID`, and `lgID` does not have its ow
 How would you characterize the relationship between the `Batting`, `Pitching`, and `Fielding` tables?
 
 The `Batting`, `Pitching`, and `Fielding` tables all have a primary key consisting of the `playerID`, `yearID`, and `stint` variables.
-They all have a 1-1 relationship to each other. 
-
+They all have a 1-1 relationship to each other.
 
 ## Mutating Joins
 
@@ -239,11 +240,9 @@ flights2 <- flights %>%
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -273,18 +272,15 @@ avg_dest_delays %>%
     coord_quickmap()
 ```
 
-
 You might want to use the size or color of the points to display the average delay for each airport.
 
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -295,23 +291,20 @@ flights %>%
   head()
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Is there a relationship between the age of a plane and its delays?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
 Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
 This could be due to choices about how airlines allocate planes to airports.
 ```{r}
-plane_ages <- 
+plane_ages <-
   planes %>%
   mutate(age = 2013 - year) %>%
   select(tailnum, age)
@@ -324,20 +317,16 @@ flights %>%
   ggplot(aes(x = age, y = delay)) +
   geom_point() +
   geom_line()
-  
-  
-```
 
+```
 
 `r EndAnswer()`
 
 ### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 What weather conditions make it more likely to see a delay?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -358,17 +347,13 @@ flight_weather %>%
     geom_line() + geom_point()
 ```
 
-
-
 `r EndAnswer()`
 
 ### Exercise 5 {.exercise}
 
-
 `r BeginQuestion()`
 What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -385,11 +370,10 @@ flights %>%
   ggplot(aes(y = lat, x = lon, size = delay, colour = delay)) +
   borders("state") +
   geom_point() +
-  coord_quickmap() + 
+  coord_quickmap() +
   scale_colour_viridis()
 
 ```
-
 
 `r EndAnswer()`
 
@@ -397,11 +381,9 @@ flights %>%
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -417,16 +399,14 @@ flights %>%
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Filter flights to only show flights with planes that have flown at least 100 flights.
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
 ```{r}
-planes_gt100 <- 
+planes_gt100 <-
   filter(flights) %>%
   group_by(tailnum) %>%
   count() %>%
@@ -437,16 +417,13 @@ flights %>%
 
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -461,16 +438,13 @@ fueleconomy::vehicles %>%
   semi_join(fueleconomy::common, by = c("make", "model"))
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -486,11 +460,9 @@ flights %>%
 
 ### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -498,16 +470,13 @@ What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What 
 
 `anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that don't have a flight in the data, meaning that there were no flights to that airport **from** New York in 2013.
 
-
 `r EndAnswer()`
 
 ### Exercise 5 {.exercise}
 
-
 `r BeginQuestion()`
 You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -516,18 +485,18 @@ However, even though that's a possibility, it doesn't necessarily mean that plan
 Let's check:
 ```{r mulit_carrier_planes}
 multi_carrier_planes <-
-  flights %>% 
+  flights %>%
   filter(!is.na(tailnum)) %>%
   count(tailnum, carrier) %>%
   count(tailnum) %>%
   filter(nn > 1)
 multi_carrier_planes
 ```
-There are `r nrow(multi_carrier_planes)` airplanes in this dataset that have had more than one carrier. 
+There are `r nrow(multi_carrier_planes)` airplanes in this dataset that have had more than one carrier.
 
 To see which carriers these planes have been associated, filter the `flights` by `tailnum` in `multi_carrier_planes`, and extract the unique combinations of `tailnum` and `carrier`.
 ```{r multi_carrier_planes_with_carrier}
-multi_carrier_planes <- 
+multi_carrier_planes <-
   flights %>%
   semi_join(multi_carrier_planes, by = "tailnum") %>%
   select(tailnum, carrier) %>%

@@ -9,7 +9,7 @@ if (!file.exists(.nojekyll)) {
 knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
-  cache = TRUE,
+  cache = FALSE, # TRUE,
   autodep = TRUE,
   out.width = "70%",
   fig.align = 'center',

@@ -6,32 +6,27 @@
 
 ```r
 library("tidyverse")
-#> ── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 2.2.1          ✔ purrr   0.2.4     
-#> ✔ tibble  1.4.2          ✔ dplyr   0.7.4.9000
-#> ✔ tidyr   0.8.0          ✔ stringr 1.2.0     
+#> ── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 2.2.1.9000     ✔ purrr   0.2.4     
+#> ✔ tibble  1.4.2          ✔ dplyr   0.7.5     
+#> ✔ tidyr   0.8.1          ✔ stringr 1.3.1     
 #> ✔ readr   1.1.1          ✔ forcats 0.3.0
-#> ── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 ```
-
 
 ## Vector Basics
 
 No exercises
 
-
 ## Important Types of Atomic Vector
 
-
 ### Exercise 1 {.exercise}
-
 
 <div class='question'>
 Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
 </div>
-
 
 <div class='answer'>
 
@@ -55,11 +50,9 @@ So `NA` and `NaN` are neither finite or infinite. Mind blown.
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Read the source code for `dplyr::near()` (Hint: to see the source code, drop the ()). How does it work?
 </div>
-
 
 <div class='answer'>
 
@@ -67,25 +60,24 @@ The source for `dplyr::near` is:
 
 ```r
 dplyr::near
-#> function(x, y, tol = .Machine$double.eps ^ 0.5) {
-#>   abs(x - y) < tol
+#> function (x, y, tol = .Machine$double.eps^0.5) 
+#> {
+#>     abs(x - y) < tol
 #> }
+#> <bytecode: 0x7fde55dc6330>
 #> <environment: namespace:dplyr>
 ```
 
-Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, `tol`. 
+Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, `tol`.
 By default the tolerance is set to the square root of `.Machine$double.eps`, which is the smallest floating point number that the computer can represent.
-
 
 </div>
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
 A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use Google to do some research.
 </div>
-
 
 <div class='answer'>
 
@@ -93,37 +85,34 @@ The help for `.Machine` describes some of this:
 
   As all current implementations of R use 32-bit integers and uses IEC 60559 floating-point (double precision) arithmetic,
 
-The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) or IEEE 754 format uses a 64 bit vector, but 
-
+The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) or IEEE 754 format uses a 64 bit vector, but
 
 </div>
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
 Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
 </div>
-
 
 <div class='answer'>
 
 Broadly, could convert a double to an integer by truncating or rounding to the nearest integer.
 For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determining which integer value to go to.
 
-methods                        0.5  -0.5  1.5  -1.5 
------------------------------- ---- ----- ---- -----
-towards zero:                  0    0     1    1 
-away from zero                 1    -1    2    -2
-largest towards $+\infty$)     1    0     2    -1
-smallest (towards $-\infty$)   0    -1    1    -2
-even                           0    0     2    -2
-odd                            1    -1    1    -1
+| methods                        | 0.5  | -0.5  | 1.5  | -1.5  |
+| ------------------------------ | ---- | ----- | ---- | ----- |
+| towards zero:                  | 0    | 0     | 1    | 1     |
+| away from zero                 | 1    | -1    | 2    | -2    |
+| largest towards $+\infty$)     | 1    | 0     | 2    | -1    |
+| smallest (towards $-\infty$)   | 0    | -1    | 1    | -2    |
+| even                           | 0    | 0     | 2    | -2    |
+| odd                            | 1    | -1    | 1    | -1    |
 
 See the Wikipedia article [IEEE floating point](https://en.wikipedia.org/wiki/IEEE_floating_point) for rounding rules.
 
 For rounding, R and many programming languages use the IEEE standard. This is "round to nearest, ties to even".
-This is not the same as what you 
+This is not the same as what you
 See the value of looking at the value of `.Machine$double.rounding` and its documentation.
 
 
@@ -144,10 +133,10 @@ round2(x, to_even = FALSE)
 
 The problem with the always rounding 0.5 up rule is that it is biased upwards. Rounding to nearest with ties towards even is
 not.
-Consider the sequence $-100.5, -99.5, \dots, 0, \dots, 99.5, 100.5$. 
-Its sum is 0. 
-It would be nice if rounding preserved that sum. 
-Using the "ties towards even", the sum is still zero. 
+Consider the sequence $-100.5, -99.5, \dots, 0, \dots, 99.5, 100.5$.
+Its sum is 0.
+It would be nice if rounding preserved that sum.
+Using the "ties towards even", the sum is still zero.
 However, the "ties towards $+\infty$" produces a non-zero number.
 
 ```r
@@ -165,17 +154,13 @@ In 1983, the Vancouver stock exchange adjusted its index from 524.811 to 1098.89
 
 Here's a [list](https://www.ma.utexas.edu/users/arbogast/misc/disasters.html) of a few more.
 
-
-
 </div>
 
 ### Exercise 5 {.exercise}
 
-
 <div class='question'>
 What functions from the **readr** package allow you to turn a string into logical, integer, and double vector?
 </div>
-
 
 <div class='answer'>
 
@@ -201,18 +186,15 @@ parse_number(c("1.0", "3.5", "1,000", "NA"))
 
 Read the documentation of `read_number`. In order to ignore things like currency symbols and comma separators in number strings it ignores them using a heuristic.
 
-
 </div>
 
 ## Using atomic vectors
 
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
 What does `mean(is.na(x))` tell you about a vector `x`? What about `sum(!is.finite(x))`?
 </div>
-
 
 <div class='answer'>
 
@@ -231,16 +213,13 @@ mean(!is.finite(x))
 #> [1] 0.286
 ```
 
-
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Carefully read the documentation of `is.vector()`. What does it actually test for? Why does `is.atomic()` not agree with the definition of atomic vectors above?
 </div>
-
 
 <div class='answer'>
 
@@ -278,16 +257,13 @@ is.atomic(x)
 #> [1] TRUE
 ```
 
-
 </div>
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
 Compare and contrast `setNames()` with `purrr::set_names()`.
 </div>
-
 
 <div class='answer'>
 
@@ -300,38 +276,37 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fd9b7019b20>
+#> <bytecode: 0x7fde534cc048>
 #> <environment: namespace:stats>
 ```
 
 ```r
 purrr::set_names
-#> function(x, nm = x, ...) {
-#>   set_names_impl(x, x, nm, ...)
+#> function (x, nm = x, ...) 
+#> {
+#>     set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fd9b9b84a68>
+#> <bytecode: 0x7fde55506828>
 #> <environment: namespace:rlang>
 ```
 
 From the code we can see that `set_names` adds a few sanity checks: `x` has to be a vector, and the lengths of the object and the names have to be the same.
 
-
 </div>
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
 Create functions that take a vector as input and returns:
+
+1.  The last value. Should you use `[` or `[[`?
+1.  The elements at even numbered positions.
+1.  Every element except the last value.
+1.  Only even numbers (and no missing values).
+
 </div>
 
-
 <div class='answer'>
->
->  1. The last value. Should you use [ or [[?
->  2 The elements at even numbered positions.
->  3. Every element except the last value.
->  4. Only even numbers (and no missing values).
 
 
 ```r
@@ -374,7 +349,6 @@ even_indices(letters)
 ```
 
 
-
 ```r
 not_last <- function(x) {
   if (length(x)) {
@@ -400,11 +374,9 @@ even_numbers(-10:10)
 
 ### Exercise 5 {.exercise}
 
-
 <div class='question'>
 Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
 </div>
-
 
 <div class='answer'>
 
@@ -424,19 +396,16 @@ x <= 0
 ```
 
 `-which(x > 0)` which calculates the indexes for any value that is `TRUE` and ignores `NA`. Thus is keeps `NA` and `NaN` because the comparison is not `TRUE`.
-`x <= 0` works slightly differently. If `x <= 0` returns `TRUE` or `FALSE` it works the same way. 
+`x <= 0` works slightly differently. If `x <= 0` returns `TRUE` or `FALSE` it works the same way.
 However, if the comparison generates a `NA`, then it will always keep that entry, but set it to `NA`. This is why the last two values of `x[x <= 0]` are `NA` rather than `c(NaN, NA)`.
-
 
 </div>
 
 ### Exercise 6 {.exercise}
 
-
 <div class='question'>
 What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?
 </div>
-
 
 <div class='answer'>
 
@@ -459,29 +428,26 @@ c(a = 1, 2)[["b"]]
 
 ## Recursive Vectors (lists)
 
-
 ### Exercise 1 {.exercise}
-
 
 <div class='question'>
 Draw the following lists as nested sets:
 
-1. `list(a, b, list(c, d), list(e, f))`
-2. `list(list(list(list(list(list(a))))))`
+1.  `list(a, b, list(c, d), list(e, f))`
+1.  `list(list(list(list(list(list(a))))))`
+
 </div>
 
-**TODO**
-  
+TODO
+
 <div class='answer'>
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 What happens if you subset a `tibble` as if you’re subsetting a list? What are the key differences between a list and a `tibble`?
 </div>
-
 
 <div class='answer'>
 
@@ -511,7 +477,6 @@ x[1, ]
 #> 1     1     3
 ```
 
-
 </div>
 
 ## Attributes
@@ -522,14 +487,11 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-
 <div class='question'>
 What does `hms::hms(3600)` return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?
 </div>
 
-
 <div class='answer'>
-
 
 
 ```r
@@ -553,22 +515,20 @@ The attributes is uses are `"units"` and `"class"`.
 
 ```r
 attributes(x)
-#> $units
-#> [1] "secs"
-#> 
 #> $class
 #> [1] "hms"      "difftime"
+#> 
+#> $units
+#> [1] "secs"
 ```
 
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Try and make a tibble that has columns with different lengths. What happens?
 </div>
-
 
 <div class='answer'>
 
@@ -579,11 +539,11 @@ tibble(x = 1, y = 1:5)
 #> # A tibble: 5 x 2
 #>       x     y
 #>   <dbl> <int>
-#> 1  1.00     1
-#> 2  1.00     2
-#> 3  1.00     3
-#> 4  1.00     4
-#> 5  1.00     5
+#> 1     1     1
+#> 2     1     2
+#> 3     1     3
+#> 4     1     4
+#> 5     1     5
 ```
 
 However, if I try to create a tibble with two vectors of different lengths (other than one), the `tibble` function throws an error.
@@ -593,22 +553,19 @@ tibble(x = 1:3, y = 1:4)
 #> Error: Column `x` must be length 1 or 4, not 3
 ```
 
-
 </div>
 
 ### Exercise 3 {.exercise}
-
 
 <div class='question'>
 Based on the definition above, is it OK to have a list as a column of a tibble?
 </div>
 
-
 <div class='answer'>
 
-If I didn't already know the answer, what I would do is try it out. 
+If I didn't already know the answer, what I would do is try it out.
 From the above, the error message was about vectors having different lengths.
-But there is nothing that prevents a tibble from having vectors of different types: doubles, character, integers, logical, factor, date. 
+But there is nothing that prevents a tibble from having vectors of different types: doubles, character, integers, logical, factor, date.
 The later are still atomic, but they have additional attributes.
 So, maybe there won't be an issue with a list vector as long as it is the same length.
 
@@ -623,9 +580,8 @@ tibble(x = 1:3, y = list("a", 1, list(1:3)))
 #> 3     3 <list [1]>
 ```
 
-It works! I even used a list with heterogeneous types and there wasn't an issue. 
+It works! I even used a list with heterogeneous types and there wasn't an issue.
 In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
 
 </div>
-
 

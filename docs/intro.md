@@ -9,6 +9,7 @@ without which these solutions would not exist---literally.
 This book was written in the open, with some people contributed pull requests to fix problems.
 Thank you to all who contributed via GitHub:
 
+
 ```r
 library(dplyr)
 #> 
@@ -27,15 +28,15 @@ contribs <- readr::read_tsv("contribs.txt", col_names = c("n", "name"))
 #>   name = col_character()
 #> )
 
-contribs <- contribs %>% 
+contribs <- contribs %>%
   filter(!name %in% c("jrnold", "Jeffrey Arnold")) %>%
-  arrange(name) %>% 
+  arrange(name) %>%
   mutate(uname = ifelse(!grepl(" ", name), paste0("@", name), name))
 
 cat("Thanks go to all contributers in alphabetical order: ")
 #> Thanks go to all contributers in alphabetical order:
 cat(paste0(contribs$uname, collapse = ", "))
-#> @A, Adam Blake, @Ben, James Clawson, Nick DeCoursin
+#> @A, Adam Blake, @Ben, James Clawson, Megan A. Jones, Nick DeCoursin
 cat(".\n")
 #> .
 ```

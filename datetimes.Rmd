@@ -1,6 +1,5 @@
 # Dates and Times
 
-
 ## Introduction
 
 ```{r message=FALSE}
@@ -17,25 +16,23 @@ make_datetime_100 <- function(year, month, day, time) {
   make_datetime(year, month, day, time %/% 100, time %% 100)
 }
 
-flights_dt <- flights %>% 
-  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+flights_dt <- flights %>%
+  filter(!is.na(dep_time), !is.na(arr_time)) %>%
   mutate(
     dep_time = make_datetime_100(year, month, day, dep_time),
     arr_time = make_datetime_100(year, month, day, arr_time),
     sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
     sched_arr_time = make_datetime_100(year, month, day, sched_arr_time)
-  ) %>% 
+  ) %>%
   select(origin, dest, ends_with("delay"), ends_with("time"))
 ```
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 What happens if you parse a string that
 contains invalid dates?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -57,12 +54,10 @@ It determines the time-zone of the date. Since different time-zones can have dif
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Use the appropriate **lubridate** function to
 parse each of the following dates:
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -79,12 +74,11 @@ d5 <- "12/30/14" # Dec 30, 2014
 mdy(d5)
 ```
 
-
 `r EndAnswer()`
 
 ## Date-Time Components
 
-The following code from the chapter is used 
+The following code from the chapter is used
 
 ```{r}
 sched_dep <- flights_dt %>%
@@ -96,15 +90,12 @@ sched_dep <- flights_dt %>%
 ```
 In the previous code, the difference between rounded and un-rounded dates provides the within-period time.
 
-
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
-How does the distribution of flight times 
+How does the distribution of flight times
 within a day change over the course of the year?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -146,12 +137,17 @@ flights_dt %>%
   select(dep_time_, dep_time, sched_dep_time, dep_delay)
 ```
 
-There exist discrepancies. It looks like there are mistakes in the dates.
-These are flights in which the actual departure time is on the *next* day relative to the scheduled departure time. We forgot to account for this when creating the date-times. The code would have had to check if the departure time is less than the scheduled departure time. Alternatively, simply adding the delay time is more robust because it will automatically account for crossing into the next day.
+There exist discrepancies. It looks like there are mistakes in the dates. These
+are flights in which the actual departure time is on the *next* day relative to
+the scheduled departure time. We forgot to account for this when creating the
+date-times. The code would have had to check if the departure time is less than
+the scheduled departure time. Alternatively, simply adding the delay time is
+more robust because it will automatically account for crossing into the next
+day.
 
 ### Exercise 3 {.exercise}
 
-Compare `air_time` with the duration between the departure and arrival. Explain your findings. 
+Compare `air_time` with the duration between the departure and arrival. Explain your findings.
 
 ```{r}
 flights_dt %>%
@@ -196,11 +192,11 @@ flights_dt %>%
 What makes the distribution of `diamonds$carat` and `flights$sched_dep_time` similar?
 
 ```{r}
-ggplot(diamonds, aes(x = carat)) + 
+ggplot(diamonds, aes(x = carat)) +
   geom_density()
 ```
 
-In both `carat` and `sched_dep_time` there are abnormally large numbers of values are at nice "human" numbers. In `sched_dep_time` it is at 00 and 30 minutes. In carats, it is at 0, 1/3, 1/2, 2/3, 
+In both `carat` and `sched_dep_time` there are abnormally large numbers of values are at nice "human" numbers. In `sched_dep_time` it is at 00 and 30 minutes. In carats, it is at 0, 1/3, 1/2, 2/3,
 
 ```{r}
 ggplot(diamonds, aes(x = carat %% 1 * 100)) +
@@ -230,7 +226,6 @@ flights_dt %>%
   geom_point()
 ```
 
-
 But if grouped in 10 minute intervals, there is a higher proportion of early flights during those minutes.
 
 ```{r}
@@ -243,24 +238,21 @@ flights_dt %>%
   geom_point()
 ```
 
-
 ## Time Spans
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
-Why is there `months()` but no `dmonths()`? 
+Why is there `months()` but no `dmonths()`?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
-There is no direct unambiguous value of months in seconds since months have differing numbers of days. 
+There is no direct unambiguous value of months in seconds since months have differing numbers of days.
 
-- 31 days: January, March, May, July, August, October
-- 30 days: April, Jun, September, November, December
-- 28 or 29 days: February
+-   31 days: January, March, May, July, August, October
+-   30 days: April, June, September, November, December
+-   28 or 29 days: February
 
 Though in the past, in the pre-computer era, for arithmetic convenience, bankers adopted a 360 day year with 30 day months.
 
@@ -268,11 +260,9 @@ Though in the past, in the pre-computer era, for arithmetic convenience, bankers
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
-Explain `days(overnight * 1)` to someone who has just started learning R. How does it work? 
+Explain `days(overnight * 1)` to someone who has just started learning R. How does it work?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -283,11 +273,9 @@ If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -302,16 +290,13 @@ I can do that by taking `today()` and truncating it to the year using `floor_dat
 floor_date(today(), unit = "year") + months(0:11)
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 Write a function that given your birthday (as a date), returns how old you are in years.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -326,11 +311,9 @@ age(ymd("1990-10-12"))
 
 ### Exercise 5 {.exercise}
 
-
 `r BeginQuestion()`
 Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -340,10 +323,8 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 (today() %--% (today() + years(1))) / months(1)
 ```
 
-
 `r EndAnswer()`
 
 ## Time Zones
 
-No exercises. 
-
+No exercises.

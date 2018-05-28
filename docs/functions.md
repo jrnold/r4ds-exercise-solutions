@@ -9,16 +9,13 @@ library("tidyverse")
 library("lubridate")
 ```
 
-
 ## When should you write a function?
 
-
-### Exercise 1 {.exercise} 
-
+### Exercise 1 {.exercise}
 
 <div class='question'>
 
-Why is TRUE not a parameter to `rescale01()`? 
+Why is TRUE not a parameter to `rescale01()`?
 What would happen if `x` contained a single missing value, and `na.rm` was `FALSE`?
 
 </div>
@@ -27,7 +24,7 @@ What would happen if `x` contained a single missing value, and `na.rm` was `FALS
 
 First, note that by a a single missing value, this means that the vector `x` has at least one element equal to `NA`.
 
-If there were any `NA` values, and `na.rm = FALSE`, then the function would 
+If there were any `NA` values, and `na.rm = FALSE`, then the function would
 return `NA`.
 
 I can confirm this by testing a function that allows for `na.rm` as an argument,
@@ -45,18 +42,14 @@ rescale01_alt(c(NA, 1:5), finite = TRUE)
 
 </div>
 
-
-
 ### Exercise 2 {.exercise}
-
 
 <div class='question'>
 
-In the second variant of `rescale01()`, infinite values are left unchanged. 
+In the second variant of `rescale01()`, infinite values are left unchanged.
 Rewrite `rescale01()` so that `-Inf` is mapped to 0, and `Inf` is mapped to 1.
 
 </div>
-
 
 <div class='answer'>
 
@@ -81,9 +74,9 @@ rescale01(c(Inf, -Inf, 0:5, NA))
 <div class='question'>
 
  Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
- 
+
 </div>
- 
+
 <div class='answer'>
 
 
@@ -95,7 +88,6 @@ x / sum(x, na.rm = TRUE)
 sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 ```
 
-
 This function calculates the proportion of `NA` values in a vector,
 
 ```r
@@ -106,7 +98,7 @@ prop_na(c(NA, 0, NA, 0, NA))
 #> [1] 0.6
 ```
 
-This function standardizes a function to its weight. If all elements of `x` are non-negative, this will ensure the vector sums to 1. 
+This function standardizes a function to its weight. If all elements of `x` are non-negative, this will ensure the vector sums to 1.
 
 ```r
 weights <- function(x) {
@@ -119,7 +111,7 @@ sum(y)
 #> [1] 1
 ```
 
-This function calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values). 
+This function calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values).
 The coefficient of variation is the standard deviation divided by the mean
 
 ```r
@@ -134,19 +126,17 @@ coef_variation(runif(10))
 
 ### Exercise 4
 
-
 <div class='question'>
 
 Follow <http://nicercode.github.io/intro/writing-functions.html> to write your own functions to compute the variance and skew of a numeric vector.
 
 </div>
 
-
 <div class='answer'>
 
 **Note** The math in <https://nicercode.github.io/intro/writing-functions.html> seems not to be rendering, but I'll write functions for the variance and skewness.
 
-The sample variance is defined as 
+The sample variance is defined as
 $$
 Var(x) = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar{x}) ^2
 $$
@@ -174,7 +164,7 @@ $$
 
 ```r
 skewness <- function(x) {
-  x <- x[!is.na(x)] 
+  x <- x[!is.na(x)]
   n <- length(x)
   m <- mean(x)
   m3 <- sum((x - m) ^ 3) / n
@@ -205,7 +195,7 @@ both_na <- function(x, y) {
 both_na(c(NA, NA,  1, 2),
         c(NA,  1, NA, 2))
 #> [1] 1
-both_na(c(NA, NA,  1, 2, NA, NA, 1), 
+both_na(c(NA, NA,  1, 2, NA, NA, 1),
         c(NA,  1, NA, 2, NA, NA, 1))
 #> [1] 3
 ```
@@ -214,11 +204,9 @@ both_na(c(NA, NA,  1, 2, NA, NA, 1),
 
 ### Exercise 6 {.exercise}
 
-
 <div class='question'>
 What do the following functions do? Why are they useful even though they are so short?
 </div>
-
 
 <div class='answer'>
 
@@ -282,9 +270,9 @@ lyric <- function() {
     hop(through = forest) %>%
     scoop(up = field_mouse) %>%
     bop(on = head)
-  
+
   down_came(Good_Fairy)
-  said(Good_Fairy, 
+  said(Good_Fairy,
       c("Little bunny Foo Foo",
         "I don't want to see you",
         "Scooping up the field mice",
@@ -299,22 +287,18 @@ lyric()
 threat(1)
 lyric()
 turn_into_goon(Good_Fairy, foo_foo)
-             
-```
 
+```
 
 </div>
 
 ## Functions are for humans and computers
 
-
 ### Exercise 1 {.exercise}
-
 
 <div class='question'>
 Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
 </div>
-
 
 <div class='answer'>
 
@@ -366,11 +350,9 @@ This is a harder one to name. I would say something like `recycle` (R's name for
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Take a function that you’ve written recently and spend 5 minutes brainstorming a better name for it and its arguments.
 </div>
-
 
 <div class='answer'>
 
@@ -380,67 +362,60 @@ Answer left to the reader.
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
 Compare and contrast `rnorm()` and `MASS::mvrnorm()`. How could you make them more consistent?
 </div>
 
-
 <div class='answer'>
 
-*You can ignore*
-
-`rnorm` samples from the univariate normal distribution, while `MASS::mvrnorm` samples from the multivariate normal distribution.
-The main arguments in `rnorm` are `n`, `mean`, `sd`.
-The main arguments is `MASS::mvrnorm` are `n`, `mu`, `Sigma`. 
-To be consistent they should have the same names.
-However, this is difficult. 
-In general, it is better to be consistent with more widely used functions, e.g. `rmvnorm` should follow the conventions of `rnorm`. 
-However, while `mean` is correct in the multivariate case, `sd` does not make sense in the multivariate case. 
-Both functions an internally consistent though; it would be bad to have `mu` and `sd` or `mean` and `Sigma`.
+`rnorm` samples from the univariate normal distribution, while `MASS::mvrnorm`
+samples from the multivariate normal distribution. The main arguments in
+`rnorm` are `n`, `mean`, `sd`. The main arguments is `MASS::mvrnorm` are `n`,
+`mu`, `Sigma`. To be consistent they should have the same names. However, this
+is difficult. In general, it is better to be consistent with more widely used
+functions, e.g. `rmvnorm` should follow the conventions of `rnorm`. However,
+while `mean` is correct in the multivariate case, `sd` does not make sense in
+the multivariate case. However, both functions an internally consistent.
+It would not be good practice to have `mu` and `sd` as arguments or `mean` and `Sigma` as arguments.
 
 </div>
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
 Make a case for why `norm_r()`, `norm_d()` etc would be better than `rnorm()`, `dnorm()`. Make a case for the opposite.
 </div>
 
-
 <div class='answer'>
 
-If named `norm_r` and `norm_d`, it groups the family of functions related to the normal distribution.
-If named `rnorm`, and `dnorm`, functions related to are grouped into families by the action they perform. `r*` functions always sample from distributions: `rnorm`, `rbinom`, `runif`, `rexp`. `d*` functions calculate the probability density or mass of a distribution: `dnorm`, `dbinom`, `dunif`, `dexp`.
-
+If named `norm_r` and `norm_d`, it groups the family of functions related to
+the normal distribution. If named `rnorm`, and `dnorm`, functions related to
+are grouped into families by the action they perform. `r*` functions always
+sample from distributions: `rnorm`, `rbinom`, `runif`, `rexp`. `d*` functions
+calculate the probability density or mass of a distribution: `dnorm`, `dbinom`,
+`dunif`, `dexp`.
 
 </div>
 
 ## Conditional execution
 
-### Exercise 1 {.exercise} 
-
+### Exercise 1 {.exercise}
 
 <div class='question'>
 What’s the difference between `if` and `ifelse()`? > Carefully read the help and construct three examples that illustrate the key differences.
 </div>
 
-
 <div class='answer'>
 
 The keyword `if` tests a single condition, while `ifelse` tests each element.
-
 
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 Write a greeting function that says “good morning”, “good afternoon”, or “good evening”, depending on the time of day. (Hint: use a time argument that defaults to `lubridate::now()`. That will make it easier to test your function.)
 </div>
-
 
 <div class='answer'>
 
@@ -448,7 +423,7 @@ Write a greeting function that says “good morning”, “good afternoon”, or
 ```r
 greet <- function(time = lubridate::now()) {
   hr <- hour(time)
-  # I don't know what to do about times after midnight, 
+  # I don't know what to do about times after midnight,
   # are they evening or morning?
   if (hr < 12) {
     print("good morning")
@@ -457,9 +432,9 @@ greet <- function(time = lubridate::now()) {
   } else {
     print("good evening")
   }
-} 
+}
 greet()
-#> [1] "good afternoon"
+#> [1] "good evening"
 greet(ymd_h("2017-01-08:05"))
 #> [1] "good morning"
 greet(ymd_h("2017-01-08:13"))
@@ -472,11 +447,15 @@ greet(ymd_h("2017-01-08:20"))
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
-Implement a `fizzbuzz` function. It takes a single number as input. If the number is divisible by three, it returns “fizz”. If it’s divisible by five it returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”. Otherwise, it returns the number. Make sure you first write working code before you create the function.
-</div>
 
+Implement a `fizzbuzz` function. It takes a single number as input. If the
+number is divisible by three, it returns “fizz”. If it’s divisible by five it
+returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”.
+Otherwise, it returns the number. Make sure you first write working code before
+you create the function.
+
+</div>
 
 <div class='answer'>
 
@@ -508,11 +487,9 @@ fizzbuzz(2)
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
 How could you use `cut()` to simplify this set of nested if-else statements?
 </div>
-
 
 <div class='answer'>
 
@@ -560,13 +537,11 @@ and that to change comparisons I only needed to change the argument to `right`, 
 
 ### Exercise 5 {.exercise}
 
-
 <div class='question'>
 
 What happens if you use `switch()` with numeric values?
 
 </div>
-
 
 <div class='answer'>
 
@@ -578,16 +553,13 @@ switch(2, "one", "two", "three")
 #> [1] "two"
 ```
 
-
 </div>
 
 ### Exercise 6 {.exercise}
 
-
 <div class='question'>
 What does this `switch()` call do? What happens if `x` is `"e"`?
 </div>
-
 
 <div class='answer'>
 
@@ -595,7 +567,7 @@ It will return the `"ab"` for `a` or `b`, `"cd"` for `c` or `d`, an `NULL` for `
 
 ```r
 x <- "e"
-switch(x, 
+switch(x,
   a = ,
   b = "ab",
   c = ,
@@ -607,7 +579,7 @@ Experiment, then carefully read the documentation.
 
 ```r
 switcheroo <- function(x) {
-  switch(x, 
+  switch(x,
   a = ,
   b = "ab",
   c = ,
@@ -629,14 +601,11 @@ switcheroo("e")
 
 ## Function arguments
 
-
 ### Exercise 1 {.exercise}
-
 
 <div class='question'>
 What does `commas(letters, collapse = "-")` do? Why?
 </div>
-
 
 <div class='answer'>
 
@@ -654,7 +623,7 @@ When `commas()` is given a collapse argument, it throws an error.
 commas(letters, collapse = "-")
 #> Error in stringr::str_c(..., collapse = ", "): formal argument "collapse" matched by multiple actual arguments
 ```
-This is because when the argument `collapse` is given to `commas`, it 
+This is because when the argument `collapse` is given to `commas`, it
 is passed to `str_c` as part of `...`.
 In other words, the previous code is equivalent to
 
@@ -672,20 +641,16 @@ commas <- function(..., collapse = ", ") {
 }
 ```
 
-
-
 </div>
 
 ### Exercise 2 {.exercise}
 
-
 <div class='question'>
 
-It’d be nice if you could supply multiple characters to the pad argument, e.g. `rule("Title", pad = "-+")`. 
+It’d be nice if you could supply multiple characters to the pad argument, e.g. `rule("Title", pad = "-+")`.
 Why doesn’t this currently work? How could you fix it?
 
 </div>
-
 
 <div class='answer'>
 
@@ -734,11 +699,9 @@ rule("Important output", pad = "-+-")
 
 ### Exercise 3 {.exercise}
 
-
 <div class='question'>
 What does the `trim` argument to `mean()` do? When might you use it?
 </div>
-
 
 <div class='answer'>
 
@@ -749,22 +712,19 @@ This is useful for calculating a measure of central tendency that is robust to o
 
 ### Exercise 4 {.exercise}
 
-
 <div class='question'>
-The default value for the `method` argument to `cor()` is `c("pearson", "kendall", "spearman")`. 
+The default value for the `method` argument to `cor()` is `c("pearson", "kendall", "spearman")`.
 What does that mean? What value is used by default?
 </div>
 
-
 <div class='answer'>
 
-It means that the `method` argument can take one of those three values. 
+It means that the `method` argument can take one of those three values.
 The first value, `"pearson"`, is used by default.
 
 </div>
 
-## Environment 
+## Environment
 
 No Exercises
-
 

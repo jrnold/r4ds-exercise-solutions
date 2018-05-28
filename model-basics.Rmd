@@ -3,8 +3,8 @@ output: html_document
 editor_options:
   chunk_output_type: console
 ---
-# Model Basics
 
+# Model Basics
 
 ## Prerequisites
 
@@ -23,11 +23,9 @@ If it is not set (the default), R will silently drop them.
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 One downside of the linear model is that it is sensitive to unusual values because the distance incorporates a squared term. Fit a linear model to the simulated data below, and visualize the results. Rerun a few times to generate different simulated datasets. What do you notice about the model?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -112,16 +110,13 @@ For a Student's $t$ distribution with degrees of freedom = 2, it is more than 3 
 pt(2, df = 2, lower.tail = FALSE)
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -159,16 +154,13 @@ best$par
 In practice, you would not use a `optim` to fit this model, you would you an existing implementation.
 See the `MASS` package's `rlm` and `lqs` functions for more information and functions to fit robust and resistant linear models.
 
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 One challenge with performing numerical optimization is that it’s only guaranteed to find a local optimum. What’s the problem with optimizing a three parameter model like this?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -214,19 +206,15 @@ Problem is that due to finite iterations, numerically these converge:
 
 -->
 
-
 `r EndAnswer()`
 
 ## Visualizing Models
 
-
 ### Exercise 1 {.exercise}
-
 
 `r BeginQuestion()`
 Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on `sim1` using `loess()` instead of `lm()`. How does the result compare to `geom_smooth()`?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -279,10 +267,9 @@ ggplot(sim1, aes(x = x)) +
 ### Exercise 2 {.exercise}
 
 `r BeginQuestion()`
-`add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`. 
+`add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`.
 How do these three functions differ?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -322,17 +309,14 @@ grid %>%
   spread(model, pred)
 ```
 
-
-
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
 
 `r BeginQuestion()`
-What does `geom_ref_line()` do? What package does it come from? 
+What does `geom_ref_line()` do? What package does it come from?
 Why is displaying a reference line in plots showing residuals useful and important?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -341,17 +325,14 @@ It is equivalent to running `geom_hline` or `geom_vline` with default settings t
 Putting a reference line at zero for residuals is important because good models (generally) should have residuals centered at zero, with approximately the same variance (or distribution) over the support of x, and no correlation.
 A zero reference line makes it easier to judge these characteristics visually.
 
-
-
 `r EndAnswer()`
 
 ### Exercise 4 {.exercise}
 
 `r BeginQuestion()`
-Why might you want to look at a frequency polygon of absolute residuals? 
+Why might you want to look at a frequency polygon of absolute residuals?
 What are the pros and cons compared to looking at the raw residuals?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -371,23 +352,18 @@ ggplot(sim1, aes(x = abs(resid))) +
 However, using the absolute values of residuals throws away information about the sign, meaning that the
 frequency polygon cannot show whether the model systematically over- or under-estimates the residuals.
 
-
-
 `r EndAnswer()`
 
 ## Formulas and Model Families
 
-
 ### Exercise 1 {.exercise}
 
 `r BeginQuestion()`
-What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation? 
+What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation?
 What happens to the predictions?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
-
 
 To run a model without an intercept, add `- 1` or `+ 0` to the right-hand-side o f the formula:
 ```{r}
@@ -405,17 +381,14 @@ grid <- sim2 %>%
 grid
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
-Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`. 
+Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`.
 Why is `*` a good shorthand for interaction?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -446,21 +419,17 @@ Confirm that `x1:x2` is the product of the `x1` and `x2`,
 all(x4[["x1"]] * x4[["x2"]] == x4[["x1:x2"]])
 ```
 
-
 The asterisk `*` is good shorthand for an interaction since an interaction between `x1` and `x2` includes
 terms for `x1`, `x2`, and the product of `x1` and `x2`.
-
 
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Using the basic principles, convert the formulas in the following two models into functions.
 (Hint: start by converting the categorical variable into 0-1 variables.)
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -468,8 +437,6 @@ Using the basic principles, convert the formulas in the following two models int
 mod1 <- lm(y ~ x1 + x2, data = sim3)
 mod2 <- lm(y ~ x1 * x2, data = sim3)
 ```
-
-
 
 ```{r}
 model_matrix_mod1 <- function(.data) {
@@ -487,7 +454,6 @@ model_matrix_mod1 <- function(.data) {
 model_matrix_mod1(sim3)
 ```
 
-
 ```{r}
 model_matrix_mod2 <- function(.data) {
   mutate(.data, `x1:x2` = x1 * x2) %>%
@@ -495,7 +461,6 @@ model_matrix_mod2 <- function(.data) {
 }
 model_matrix_mod2(sim4)
 ```
-
 
 A more general function for model `mod1` is:
 ```{r}
@@ -523,17 +488,15 @@ model_matrix_mod2 <- function(x1, x2) {
 }
 ```
 
-
 `r EndAnswer()`
 
 ### Exercise 4 {.exercise}
 
 `r BeginQuestion()`
-For `sim4`, which of `mod1` and `mod2` is better? 
-I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle. 
+For `sim4`, which of `mod1` and `mod2` is better?
+I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle.
 Can you come up with a plot to support my claim?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -571,8 +534,6 @@ sim4_mods %>%
   summarise(resid = sd(resid))
 ```
 The standard deviation of the residuals of `mod2` is smaller than that of `mod1`.
-
-
 
 `r EndAnswer()`
 

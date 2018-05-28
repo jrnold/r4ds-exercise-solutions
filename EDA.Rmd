@@ -17,18 +17,15 @@ This will also use data from **nycflights13**,
 library("nycflights13")
 ```
 
-
 ## Questions
 
 ## Variation
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -48,23 +45,20 @@ diamonds %>%
 There several noticeable features of the distributions
 
 1.  They are right skewed, with most diamonds small, but a few very large ones.
-2.  There is an outlier in `y`, and `z` (see the rug)
-3.  All three distributions have a bimodality (perhaps due to some sort of threshold)
+1.  There is an outlier in `y`, and `z` (see the rug)
+1.  All three distributions have a bimodality (perhaps due to some sort of threshold)
 
 According to the documentation for `diamonds`:
 `x` is length, `y` is width, and `z` is depth.
 I don't know if I would have figured that out before; maybe if there was data on the type of cuts.
 
-
 `r EndAnswer()`
 
-### Exercise 2.
-
+### Exercise 2
 
 `r BeginQuestion()`
 Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the `binwidth` and make sure you try a wide range of values.)
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -99,7 +93,6 @@ diamonds %>%
   geom_bar()
 ```
 
-
 ```{r}
 diamonds %>%
   mutate(ending = price %% 1000) %>%
@@ -111,13 +104,11 @@ diamonds %>%
 
 `r EndAnswer()`
 
-### Exercise 3.
-
+### Exercise 3
 
 `r BeginQuestion()`
 How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -143,11 +134,9 @@ diamonds %>%
 
 ### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 Compare and contrast `coord_cartesian()` vs `xlim()` or `ylim()` when zooming in on a histogram. What happens if you leave `binwidth` unset? What happens if you try and zoom so only half a bar shows?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -168,19 +157,16 @@ ggplot(diamonds) +
   ylim(0, 3000)
 ```
 
-
 `r EndAnswer()`
 
 ## Missing Values
 
 ### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 What happens to missing values in a histogram?
 What happens to missing values in a bar chart? > Why is there a difference?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -204,16 +190,13 @@ diamonds %>%
 In a histogram, the `x` aesthetic variable needs to be numeric, and `stat_bin` groups the observations by ranges into bins.
 Since the numeric value of the `NA` observations is unknown, they cannot be placed in a particular bin, and are dropped.
 
-
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 What does `na.rm = TRUE` do in `mean()` and `sum()`?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -232,11 +215,9 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 
 #### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Use what you've learned to improve the visualization of the departure times
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 of canceled vs. non-canceled flights.
@@ -258,27 +239,78 @@ nycflights13::flights %>%
 
 #### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
-What variable in the diamonds dataset is most important for predicting the price of a diamond? > How is that variable correlated with
+What variable in the diamonds dataset is most important for predicting the price of a diamond? 
+How is that variable correlated with cut? 
 Why does the combination of those two relationships lead to lower quality diamonds being more expensive?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
-**TODO** I'm unsure what this question is asking conditional on using only the tools introduced in the book thus far.
+<!-- 
+  Cannot use regression, geom smooth because not introduced yet.
+  Cannot plot all variables with facet_wrap since that requires functions in the tidy chapter.s
+-->
+ 
+What are the general relationships of each variable with the price of the diamonds?
+I will consider the variables: `carat`, `clarity`, `color`, and `cut`.
+I ignore the dimensions of the diamond since `carat` measures size, and thus incorporates most of the information contained in these variables.
+
+Both `price` and `carat` are continuous variables, so I will use scatterplot visualize their relationship.
+```{r plot_diamond_carat_price}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point()
+```
+However, since there is a large number of points in the data, I will use a boxplot by binning `carat` (as suggested in the chapter).
+```{r}
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) + 
+  geom_boxplot(mapping = aes(group = cut_width(carat, 0.1)))
+```
+Note that the choice of the binning width is important, as if it were too large it would obscure any relationship, and if it were too small, the values in the bins could be too variable to reveal underlying trends.
+
+The variables `color` and `clarity` are ordered categorical variables.
+The chapter suggests visualizing a categorical and continuous variable using frequency polygons or boxplots.
+In this case, I will use a box plot since it will better show a relationship over the variables.
+
+```{r plot_diamond_color_price}
+ggplot(diamonds, aes(x = color, y = price)) +
+  geom_boxplot()
+```
+
+```{r plot_diamond_clarity_price}
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = clarity, y = price))
+```
+
+There is a strong relationship between `carat` and `price`. 
+The is a weak positive relationship between `color` and `price`,
+and, surprisingly, a weak negative relationship between `clarity` and `price`.
+For both `clarity` and `color`, there is a large amount of variation within each category, which overwhelms the between category trend.
+Carat is clearly the best predictor of its price.
+
+Now that we have established that carat appears to be the best predictor of price, what is the relationship between it and cut? 
+Since this is an example of a continuous (carat) and categorical (cut) variable, it can be visualized with a box plot.
+
+```{r}
+ggplot(diamonds, aes(x = cut, y = carat)) +
+  geom_boxplot()
+```
+
+There is a lot of variability in the distribution of carat sizes within each cut category.
+There is a slight negative relationship between carat and cut.
+Noticeably, the largest carat diamonds have a cut of "Fair" (the lowest).
+
+This negative relationship can be due to the way in which diamonds are selected for sale.
+A larger diamond can be profitably sold with a lower quality cut, while a smaller diamond requires a better cut.
 
 `r EndAnswer()`
 
 #### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Install the **ggstance** package, and create a horizontal box plot.
 How does this compare to using `coord_flip()`?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -311,7 +343,6 @@ What do you learn?
 
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 How do you interpret the plots?
 
@@ -319,11 +350,11 @@ The boxes of the letter-value plot correspond to many more quantiles.
 They are useful for larger datasets because
 
 1.  larger datasets can give precise estimates of quantiles beyond the quartiles, and
-2.  in expectation, larger datasets should have more outliers (in absolute numbers).
+1.  in expectation, larger datasets should have more outliers (in absolute numbers).
 
 The letter-value plot is described in:
 
->  Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. "Letter-value plots: Boxplots for large data" <http://vita.had.co.nz/papers/letter-value-plot.pdf>
+> Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. "Letter-value plots: Boxplots for large data" <http://vita.had.co.nz/papers/letter-value-plot.pdf>
 
 ```{r}
 library("lvplot")
@@ -335,12 +366,10 @@ ggplot(diamonds, aes(x = cut, y = price)) +
 
 #### Exercise 5 {.exercise}
 
-
 `r BeginQuestion()`
 Compare and contrast `geom_violin()` with a faceted `geom_histogram()`, or a colored `geom_freqpoly()`.
 What are the pros and cons of each method?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -349,7 +378,6 @@ The `geom_violin` and faceted `geom_histogram` have similar strengths and weakne
 It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
 However, since we can't easily compare the vertical values of the distribution, its difficult to look up which category has the highest density for a given price.
 All of these methods depend on tuning parameters to determine the level of smoothness of the distribution.
-
 
 ```{r}
 ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) +
@@ -362,7 +390,6 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
   facet_wrap(~ cut, ncol = 1, scales = "free_y")
 ```
 
-
 ```{r}
 ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
   geom_violin() +
@@ -371,20 +398,17 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
 
 The violin plot was first described in
 
->  Hintze JL, Nelson RD (1998). "Violin Plots: A Box Plot-Density Trace Synergism." The American Statistician, 52(2), 181–184
-
+> Hintze JL, Nelson RD (1998). "Violin Plots: A Box Plot-Density Trace Synergism." The American Statistician, 52(2), 181–184
 
 `r EndAnswer()`
 
 #### Exercise 6 {.exercise}
-
 
 `r BeginQuestion()`
 If you have a small dataset, it's sometimes useful to use `geom_jitter()` to see the relationship between a continuous and categorical variable.
 The **ggbeeswarm** package provides a number of methods similar to `geom_jitter()`.
 List them and briefly describe what each one does.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -431,7 +455,6 @@ ggplot(data = mpg) +
                    method = "smiley")
 ```
 
-
 ```{r}
 ggplot(data = mpg) +
   geom_beeswarm(mapping = aes(x = reorder(class, hwy, FUN = median),
@@ -439,18 +462,15 @@ ggplot(data = mpg) +
 
 ```
 
-
 `r EndAnswer()`
 
 ### Two categorical variables
 
 #### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 How could you rescale the count dataset above to more clearly show the distribution of cut within color, or color within cut?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -487,13 +507,11 @@ However, using the default limits of the minimum and maximum values makes it eas
 
 #### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Use `geom_tile()` together with **dplyr** to explore how average flight delays vary by destination and month of year.
 What makes the plot difficult to read?
 How could you improve it?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -531,16 +549,13 @@ flights %>%
   labs(x = "Month", y = "Destination", fill = "Departure Delay")
 ```
 
-
 `r EndAnswer()`
 
 #### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 Why is it slightly better to use `aes(x = color, y = cut)` rather than `aes(x = cut, y = color)` in the example above?
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -557,20 +572,17 @@ diamonds %>%
 
 Another justification, for switching the order is that the larger numbers are at the top when `x = color` and `y = cut`, and that lowers the cognitive burden of interpreting the plot.
 
-
 `r EndAnswer()`
 
 ### Two continuous variables
 
 #### Exercise 1 {.exercise}
 
-
 `r BeginQuestion()`
 Instead of summarizing the conditional distribution with a box plot, you could use a frequency polygon.
 What do you need to consider when using `cut_width()` vs `cut_number()`?
 How does that impact a visualization of
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 the 2d distribution of `carat` and `price`?
@@ -611,11 +623,9 @@ ggplot(data = diamonds,
 
 #### Exercise 2 {.exercise}
 
-
 `r BeginQuestion()`
 Visualize the distribution of `carat`, partitioned by `price`.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -638,28 +648,29 @@ ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
 
 #### Exercise 3 {.exercise}
 
-
 `r BeginQuestion()`
 How does the price distribution of very large diamonds compare to small diamonds.
 Is it as you expect, or does it surprise you?
 `r EndQuestion()`
 
-
 `r BeginAnswer()`
 
 The distribution of very large diamonds is more variable.
-I'm not surprised, since I had a very weak prior about diamond prices.
-Ex post, I would reason that above a certain size other factors such as cut, clarity, color play more of a role in the price.
+I am not surprised, since I knew little about diamond prices.
+After the fact, it does not seem surprising (as many thing do).
+I would guess that this is due to the way in which diamonds are selected for retail sales.
+Suppose that someone selling a diamond only finds it profitable to sell it if some combination size, cut, clarity, and color are above a certain threshold.
+The smallest diamonds are only profitable to sell if they are exceptional in all the other factors (cut, clarity, and color), so the small diamonds sold have similar characteristics.
+However, larger diamonds may be profitable regardless of the values of the other factors.
+Thus we will observe large diamonds with a wider variety of cut, clarity, and color and thus more variability in prices.
 
 `r EndAnswer()`
 
 #### Exercise 4 {.exercise}
 
-
 `r BeginQuestion()`
 Combine two of the techniques you've learned to visualize the combined distribution of cut, carat, and price.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -687,12 +698,10 @@ ggplot(diamonds, aes(colour = cut_number(carat, 5), y = price, x = cut)) +
 
 #### Exercise 5 {.exercise}
 
-
 `r BeginQuestion()`
 Two dimensional plots reveal outliers that are not visible in one dimensional plots.
 For example, some points in the plot below have an unusual combination of `x` and `y` values, which makes the points outliers even though their `x` and `y` values appear normal when examined separately.
 `r EndQuestion()`
-
 
 `r BeginAnswer()`
 
@@ -708,7 +717,6 @@ In this case, there is a strong relationship between $x$ and $y$. The outliers i
 A binned plot would not reveal these outliers, and may lead us to conclude that the largest value of $x$ was an outlier even though it appears to fit the bivariate pattern well.
 
 The later chapter [Model Basics] discusses fitting models to bivariate data and plotting residuals, which would reveal this outliers.
-
 
 `r EndAnswer()`
 
