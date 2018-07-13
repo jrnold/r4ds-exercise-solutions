@@ -995,7 +995,7 @@ output</code></pre></div>
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                  expr min  lq mean median  uq max neval</span>
-<span class="co">#&gt;  add_to_vector(10000) 262 268  283    275 294 313     3</span></code></pre></div>
+<span class="co">#&gt;  add_to_vector(10000) 257 260  278    263 288 314     3</span></code></pre></div>
 <p>And one that pre-allocates it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_to_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
   output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, n)
@@ -1007,7 +1007,7 @@ output</code></pre></div>
 <span class="kw">microbenchmark</span>(<span class="kw">add_to_vector_2</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)
 <span class="co">#&gt; Unit: microseconds</span>
 <span class="co">#&gt;                    expr min  lq mean median   uq  max neval</span>
-<span class="co">#&gt;  add_to_vector_2(10000) 672 679 1683    687 2188 3689     3</span></code></pre></div>
+<span class="co">#&gt;  add_to_vector_2(10000) 657 748 1988    840 2653 4467     3</span></code></pre></div>
 <p>The pre-allocated vector is about <strong>100</strong> times faster! You may get different answers, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.</p>
 </div>
 </div>

@@ -898,7 +898,57 @@ Compare and contrast `geom_jitter()` with `geom_count()`.
 
 <div class='answer'>
 
-TODO
+`geom_jitter()` adds random noise to the locations points of the graph. 
+In other words, it "jitters" the points. 
+This method reduces overplotting since no two points
+are likely to have the same location after the random noise is added to their locations. 
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_jitter()
+```
+
+<img src="visualize_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+
+However, the reduction in overlapping comes at the cost of changing the `x` and `y`
+values of the points.
+  
+`geom_count()` resizes the points relative to the number of observations at each location.
+In other words, points with more observations will be larger than those with fewer observations.
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_count()
+```
+
+<img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+
+This method does not change the `x` and `y` coordinates of the points.
+However, if the points are close together and counts are large, the size of some
+points can itself introduce overplotting.
+For example, in the following example a third variable mapped to color is added to the plot. In this case, `geom_count()` is less readable than `geom_jitter()` when adding a third variable as color aesthetic. 
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
+  geom_jitter()
+```
+
+<img src="visualize_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
+  
+
+```r
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
+  geom_count()
+```
+
+<img src="visualize_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
+
+Unfortunately, there is no universal solution to overplotting. The costs and 
+benefits of different approaches will depend on the structure of the data and the goal
+of the data scientist.
 
 </div>
 
@@ -919,7 +969,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
   geom_boxplot()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -927,7 +977,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
   geom_boxplot(position = "identity")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" />
 
 </div>
 
@@ -947,7 +997,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   geom_bar()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" />
 
 See the documentation for [coord_polar](http://docs.ggplot2.org/current/coord_polar.html) for an example of making a pie chart. In particular, `theta = "y"`, meaning that the angle of the chart is the `y` variable has to be specified.
 
@@ -958,7 +1008,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   coord_polar(theta = "y")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" />
 
 If `theta = "y"` is not specified, then you get a bull’s-eye chart
 
@@ -968,7 +1018,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   coord_polar()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-53-1.png" width="70%" style="display: block; margin: auto;" />
 
 If you had a multiple stacked bar chart,
 
@@ -977,7 +1027,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" />
 
 and apply polar coordinates to it, you end up with a multi-doughnut chart,
 
@@ -987,7 +1037,7 @@ ggplot(data = diamonds) +
   coord_polar(theta = "y")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-55-1.png" width="70%" style="display: block; margin: auto;" />
 
 </div>
 
@@ -1009,7 +1059,7 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
   labs(y = "Highway MPG", x = "", title = "Highway MPG by car class")
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-56-1.png" width="70%" style="display: block; margin: auto;" />
 
 </div>
 
@@ -1047,7 +1097,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   coord_fixed()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-53-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-57-1.png" width="70%" style="display: block; margin: auto;" />
 
 If we didn't include geom_point, then the line is no longer at 45 degrees:
 
@@ -1057,7 +1107,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_abline()
 ```
 
-<img src="visualize_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="visualize_files/figure-html/unnamed-chunk-58-1.png" width="70%" style="display: block; margin: auto;" />
 
 </div>
 
