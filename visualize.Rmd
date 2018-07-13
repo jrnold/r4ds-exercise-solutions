@@ -707,21 +707,31 @@ Compare and contrast `geom_jitter()` with `geom_count()`.
 
 `r BeginAnswer()`
 
-`geom_jitter()` adds random noise to the points of the graph. This method slightly reduces the accuracy of the points, but makes the plot more readable by reducing overplotting.
+`geom_jitter()` adds random noise to the locations points of the graph. 
+In other words, it "jitters" the points. 
+This method reduces overplotting since no two points
+are likely to have the same location after the random noise is added to their locations. 
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter()
 ``` 
+
+However, the reduction in overlapping comes at the cost of changing the `x` and `y`
+values of the points.
   
 `geom_count()` resizes the points relative to the number of observations at each location.
+In other words, points with more observations will be larger than those with fewer observations.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_count()
 ```
 
-`geom_count()` faithfully plots points at their correct locations, however `geom_count()` is less readable than `geom_jitter()` when adding a third variable as color aesthetic. Compare the following two plots which add a `color = class` aesthetic.
+This method does not change the `x` and `y` coordinates of the points.
+However, if the points are close together and counts are large, the size of some
+points can itself introduce overplotting.
+For example, in the following example a third variable mapped to color is added to the plot. In this case, `geom_count()` is less readable than `geom_jitter()` when adding a third variable as color aesthetic. 
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
@@ -732,6 +742,10 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_count()
 ```
+
+Unfortunately, there is no universal solution to overplotting. The costs and 
+benefits of different approaches will depend on the structure of the data and the goal
+of the data scientist.
 
 `r EndAnswer()`
 
