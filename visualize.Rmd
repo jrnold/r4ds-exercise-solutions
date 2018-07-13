@@ -707,7 +707,31 @@ Compare and contrast `geom_jitter()` with `geom_count()`.
 
 `r BeginAnswer()`
 
-TODO
+`geom_jitter()` adds random noise to the points of the graph. This method slightly reduces the accuracy of the points, but makes the plot more readable by reducing overplotting.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_jitter()
+``` 
+  
+`geom_count()` resizes the points relative to the number of observations at each location.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_count()
+```
+
+`geom_count()` faithfully plots points at their correct locations, however `geom_count()` is less readable than `geom_jitter()` when adding a third variable as color aesthetic. Compare the following two plots which add a `color = class` aesthetic.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
+  geom_jitter()
+```
+  
+```{r}  
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
+  geom_count()
+```
 
 `r EndAnswer()`
 
