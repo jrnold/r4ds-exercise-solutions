@@ -49,6 +49,9 @@
 <script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.3.1/str_view.js"></script>
+<script src="libs/viz-0.3/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.0/grViz.js"></script>
 
 
 <style type="text/css">
@@ -1318,15 +1321,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="exercise-1-10" class="section level3 exercise">
 <h3><span class="header-section-number">5.6.1</span> Exercise 1</h3>
 <div class="question">
-<p>Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios: - A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time. - A flight is always 10 minutes late. - A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time. - 99% of the time a flight is on time. 1% of the time it’s 2 hours late.</p>
+<p>Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:</p>
+<ul>
+<li>A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.</li>
+<li>A flight is always 10 minutes late.</li>
+<li>A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.</li>
+<li>99% of the time a flight is on time. 1% of the time it’s 2 hours late.</li>
+</ul>
+<p>Which is more important: arrival delay or departure delay?</p>
 </div>
 <div class="answer">
-<blockquote>
-<p>Which is more important: arrival delay or departure delay?</p>
-</blockquote>
-<p>Arrival delay is more important. Arriving early is nice, but equally as good as arriving late is bad. Variation is worse than consistency; if I know the plane will always arrive 10 minutes late, then I can plan for it arriving as if the actual arrival time was 10 minutes later than the scheduled arrival time.</p>
-<p>So I’d try something that calculates the expected time of the flight, and then aggregates over any delays from that time. I would ignore any early arrival times. A better ranking would also consider cancellations, and need a way to convert them to a delay time (perhaps using the arrival time of the next flight to the same destination).</p>
-<p>TODO: Answer this</p>
+<p>What this question gets at is a fundamental question of data analysis: the cost function. As analysts, the reason we are interested in flight delay because it is costly to passengers. But it is worth thinking carefully about how it is costly and use that information in ranking and measuring these scenarios.</p>
+<p>In many scenarios, arrival delay is more important. Presumably being late on arriving is more costly to the passenger since it could disrupt the next stages of their travel, such as connecting flights or meetings. If the departure is delayed without affecting the arrival time (and the passenger arrived at the same time) it does not affect future plans nor does it affect the total time spent traveling. The delay could be a positive, if less time is spent on the airplane itself, or a negative, if that extra time is spent on the plane in the runway.</p>
+<p>Variation in arrival time is worse than consistency. If a flight is always 30 minutes late and that delay is know, then it is as if the arrival time is that delayed time. The traveler could easily plan for this. If the delay of the flight is more variable, then it is harder for the traveler to plan for it.</p>
+<p>TODO</p>
 </div>
 </div>
 <div id="exercise-2-9" class="section level3 exercise">

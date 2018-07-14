@@ -6,14 +6,6 @@
 
 ```r
 library("tidyverse")
-#> ── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
-#> ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-#> ✔ tidyr   0.8.1     ✔ stringr 1.3.1
-#> ✔ readr   1.1.1     ✔ forcats 0.3.0
-#> ── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
 ```
 
 ## Vector Basics
@@ -64,7 +56,7 @@ dplyr::near
 #> {
 #>     abs(x - y) < tol
 #> }
-#> <bytecode: 0x7fa552d441d8>
+#> <bytecode: 0x7f8e65193740>
 #> <environment: namespace:dplyr>
 ```
 
@@ -276,7 +268,7 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fa551a79390>
+#> <bytecode: 0x7f8e64238b90>
 #> <environment: namespace:stats>
 ```
 
@@ -286,7 +278,7 @@ purrr::set_names
 #> {
 #>     set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fa54f9a8a38>
+#> <bytecode: 0x7f8e645f9358>
 #> <environment: namespace:rlang>
 ```
 
@@ -438,9 +430,40 @@ Draw the following lists as nested sets:
 
 </div>
 
-TODO
+
 
 <div class='answer'>
+
+There are a variety of ways to draw these graphs.
+The original digrams in *R for Data Science* were produced with [Graffle](https://www.omnigroup.com/omnigraffle).
+You could also use various drawing or slide software, such as Illustrator, Powerpoint, Keynote, Google Slides.
+
+For these examples, I generated these diagrams programmatically using the
+[DiagrammeR](http://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html) R package to render [Graphviz](https://www.graphviz.org/) diagrams.
+
+The nested set diagram for
+
+```r
+list(a, b, list(c, d), list(e, f))
+```
+is
+
+
+<!--html_preserve--><div id="htmlwidget-14d5992801777f4abbc5" style="width:70%;height:355.968px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-14d5992801777f4abbc5">{"x":{"diagram":"digraph nested_set_1 {\n  node[shape=box]\n  graph[style=rounded]\n  # subgraph for R information\n  subgraph cluster0 {\n    node[style=filled,fillcolor=gray90]\n    \"a\"\n    \"b\"\n    subgraph cluster1 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      node[fillcolor=gray80]\n      \"c\"\n      \"d\"\n    }\n    subgraph cluster2 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      node[fillcolor=gray80]\n      \"e\"\n      \"f\"\n    }\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+The nested set diagram for
+
+```r
+list(list(list(list(list(list(a))))))
+```
+is as follows.
+
+
+<!--html_preserve--><div id="htmlwidget-df2c08526632671063f9" style="width:70%;height:355.968px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-df2c08526632671063f9">{"x":{"diagram":"digraph nested_set_2 {\n  node[shape=box]\n  graph[style=rounded]\n  # subgraph for R information\n  subgraph cluster_1 {\n    subgraph cluster_2 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      subgraph cluster_3 {\n        graph[fillcolor=gray80]\n        subgraph cluster_4 {\n          graph[fillcolor=gray70]\n          subgraph cluster_5 {\n            graph[fillcolor=gray60]\n            subgraph cluster_6 {\n              graph[fillcolor=gray50]\n              node[style=filled,fillcolor=gray40]\n              \"a\"\n            }\n          }\n        }\n      }\n    }\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
 </div>
 
 ### Exercise 2 {.exercise}

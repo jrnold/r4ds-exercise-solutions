@@ -2,7 +2,7 @@
 
 ## Introduction
 
-```{r}
+```{r message=FALSE}
 library("tidyverse")
 ```
 
@@ -354,9 +354,44 @@ Draw the following lists as nested sets:
 
 `r EndQuestion()`
 
-TODO
+
 
 `r BeginAnswer()`
+
+There are a variety of ways to draw these graphs.
+The original digrams in *R for Data Science* were produced with [Graffle](https://www.omnigroup.com/omnigraffle).
+You could also use various drawing or slide software, such as Illustrator, Powerpoint, Keynote, Google Slides.
+
+For these examples, I generated these diagrams programmatically using the
+[DiagrammeR](http://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html) R package to render [Graphviz](https://www.graphviz.org/) diagrams.
+
+The nested set diagram for
+```{r,eval=FALSE}
+list(a, b, list(c, d), list(e, f))
+```
+is
+
+```{r include=FALSE}
+file_nested_set_1 <- here::here("diagrams", "nested_set_1.dot")
+```
+```{r nested_set_1,echo=FALSE,dev='png',cache.extra=tools::md5sum(file_nested_set_1),echo=FALSE}
+DiagrammeR::grViz(file_nested_set_1)
+```
+
+The nested set diagram for
+```{r eval=FALSE}
+list(list(list(list(list(list(a))))))
+```
+is as follows.
+
+```{r include=FALSE}
+file_nested_set_2 <- here::here("diagrams", "nested_set_2.dot")
+```
+```{r nested_set_2,echo=FALSE,dev='png',cache.extra=tools::md5sum(file_nested_set_2),echo=FALSE}
+DiagrammeR::grViz(file_nested_set_2)
+```
+
+
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}

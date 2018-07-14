@@ -49,6 +49,9 @@
 <script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.3.1/str_view.js"></script>
+<script src="libs/viz-0.3/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.0/grViz.js"></script>
 
 
 <style type="text/css">
@@ -627,15 +630,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">20</span> Vectors</h1>
 <div id="introduction-13" class="section level2">
 <h2><span class="header-section-number">20.1</span> Introduction</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
-<span class="co">#&gt; ── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</span>
-<span class="co">#&gt; ✔ ggplot2 3.0.0     ✔ purrr   0.2.5</span>
-<span class="co">#&gt; ✔ tibble  1.4.2     ✔ dplyr   0.7.6</span>
-<span class="co">#&gt; ✔ tidyr   0.8.1     ✔ stringr 1.3.1</span>
-<span class="co">#&gt; ✔ readr   1.1.1     ✔ forcats 0.3.0</span>
-<span class="co">#&gt; ── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──</span>
-<span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span>
-<span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
 </div>
 <div id="vector-basics" class="section level2">
 <h2><span class="header-section-number">20.2</span> Vector Basics</h2>
@@ -671,7 +666,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     abs(x - y) &lt; tol</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fa552d441d8&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7f8e65193740&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:dplyr&gt;</span></code></pre></div>
 <p>Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, <code>tol</code>. By default the tolerance is set to the square root of <code>.Machine$double.eps</code>, which is the smallest floating point number that the computer can represent.</p>
 </div>
@@ -847,14 +842,14 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</sp
 <span class="co">#&gt;     names(object) &lt;- nm</span>
 <span class="co">#&gt;     object</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fa551a79390&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7f8e64238b90&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:stats&gt;</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">purrr<span class="op">::</span>set_names
 <span class="co">#&gt; function (x, nm = x, ...) </span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     set_names_impl(x, x, nm, ...)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fa54f9a8a38&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x7f8e645f9358&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:rlang&gt;</span></code></pre></div>
 <p>From the code we can see that <code>set_names</code> adds a few sanity checks: <code>x</code> has to be a vector, and the lengths of the object and the names have to be the same.</p>
 </div>
@@ -965,9 +960,19 @@ x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span
 <li><code>list(list(list(list(list(list(a))))))</code></li>
 </ol>
 </div>
-<p>TODO</p>
 <div class="answer">
-
+<p>There are a variety of ways to draw these graphs. The original digrams in <em>R for Data Science</em> were produced with <a href="https://www.omnigroup.com/omnigraffle">Graffle</a>. You could also use various drawing or slide software, such as Illustrator, Powerpoint, Keynote, Google Slides.</p>
+<p>For these examples, I generated these diagrams programmatically using the <a href="http://rich-iannone.github.io/DiagrammeR/graphviz_and_mermaid.html">DiagrammeR</a> R package to render <a href="https://www.graphviz.org/">Graphviz</a> diagrams.</p>
+<p>The nested set diagram for</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list</span>(a, b, <span class="kw">list</span>(c, d), <span class="kw">list</span>(e, f))</code></pre></div>
+<p>is</p>
+<div id="htmlwidget-14d5992801777f4abbc5" style="width:70%;height:355.968px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-14d5992801777f4abbc5">{"x":{"diagram":"digraph nested_set_1 {\n  node[shape=box]\n  graph[style=rounded]\n  # subgraph for R information\n  subgraph cluster0 {\n    node[style=filled,fillcolor=gray90]\n    \"a\"\n    \"b\"\n    subgraph cluster1 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      node[fillcolor=gray80]\n      \"c\"\n      \"d\"\n    }\n    subgraph cluster2 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      node[fillcolor=gray80]\n      \"e\"\n      \"f\"\n    }\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>The nested set diagram for</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list</span>(<span class="kw">list</span>(<span class="kw">list</span>(<span class="kw">list</span>(<span class="kw">list</span>(<span class="kw">list</span>(a))))))</code></pre></div>
+<p>is as follows.</p>
+<div id="htmlwidget-df2c08526632671063f9" style="width:70%;height:355.968px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-df2c08526632671063f9">{"x":{"diagram":"digraph nested_set_2 {\n  node[shape=box]\n  graph[style=rounded]\n  # subgraph for R information\n  subgraph cluster_1 {\n    subgraph cluster_2 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      subgraph cluster_3 {\n        graph[fillcolor=gray80]\n        subgraph cluster_4 {\n          graph[fillcolor=gray70]\n          subgraph cluster_5 {\n            graph[fillcolor=gray60]\n            subgraph cluster_6 {\n              graph[fillcolor=gray50]\n              node[style=filled,fillcolor=gray40]\n              \"a\"\n            }\n          }\n        }\n      }\n    }\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="exercise-2-54" class="section level3 exercise">

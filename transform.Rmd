@@ -475,25 +475,28 @@ atan2(c(1, 0, -1, 0), c(0, 1, 0, -1))
 
 `r BeginQuestion()`
 Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
+
 -   A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.
 -   A flight is always 10 minutes late.
 -   A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
 -   99% of the time a flight is on time. 1% of the time it’s 2 hours late.
 
+Which is more important: arrival delay or departure delay?
+
 `r EndQuestion()`
 
 `r BeginAnswer()`
 
-> Which is more important: arrival delay or departure delay?
+What this question gets at is a fundamental question of data analysis: the cost function. 
+As analysts, the reason we are interested in flight delay because it is costly to passengers. 
+But it is worth thinking carefully about how it is costly and use that information in ranking and measuring these scenarios.
 
-Arrival delay is more important.
-Arriving early is nice, but equally as good as arriving late is bad.
-Variation is worse than consistency; if I know the plane will always arrive 10 minutes late, then I can plan for it arriving as if the actual arrival time was 10 minutes later than the scheduled arrival time.
+In many scenarios, arrival delay is more important. Presumably being late on arriving is more costly to the passenger since it could disrupt the next stages of their travel, such as connecting flights or meetings.  If the departure is delayed without affecting the arrival time (and the passenger arrived at the same time) it does not affect future plans nor does it affect the total time spent traveling. 
+The delay could be a positive, if less time is spent on the airplane itself, or a negative, if that extra time is spent on the plane in the runway.
 
-So I'd try something that calculates the expected time of the flight, and then aggregates over any delays from that time. I would ignore any early arrival times.
-A better ranking would also consider cancellations, and need a way to convert them to a delay time (perhaps using the arrival time of the next flight to the same destination).
+Variation in arrival time is worse than consistency. If a flight is always 30 minutes late and that delay is know, then it is as if the arrival time is that delayed time. The traveler could easily plan for this. If the delay of the flight is more variable, then it is harder for the traveler to plan for it.
 
-TODO: Answer this
+TODO
 
 `r EndAnswer()`
 

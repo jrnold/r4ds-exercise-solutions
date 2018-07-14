@@ -119,7 +119,7 @@ Practice what you’ve learned by creating a brief CV. The title should be your 
 
 <div class='answer'>
 
-TODO
+Left to reader.
 
 </div>
 
