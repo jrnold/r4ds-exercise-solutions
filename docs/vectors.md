@@ -64,7 +64,7 @@ dplyr::near
 #> {
 #>     abs(x - y) < tol
 #> }
-#> <bytecode: 0x7fbcea955bd8>
+#> <bytecode: 0x7fa552d441d8>
 #> <environment: namespace:dplyr>
 ```
 
@@ -276,7 +276,7 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fbcea472d90>
+#> <bytecode: 0x7fa551a79390>
 #> <environment: namespace:stats>
 ```
 
@@ -286,7 +286,7 @@ purrr::set_names
 #> {
 #>     set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fbce898d038>
+#> <bytecode: 0x7fa54f9a8a38>
 #> <environment: namespace:rlang>
 ```
 
