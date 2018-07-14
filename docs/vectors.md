@@ -6,12 +6,12 @@
 
 ```r
 library("tidyverse")
-#> ── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+#> ── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──
 #> ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
 #> ✔ tibble  1.4.2     ✔ dplyr   0.7.6
 #> ✔ tidyr   0.8.1     ✔ stringr 1.3.1
 #> ✔ readr   1.1.1     ✔ forcats 0.3.0
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -64,7 +64,7 @@ dplyr::near
 #> {
 #>     abs(x - y) < tol
 #> }
-#> <bytecode: 0x7fc070112a18>
+#> <bytecode: 0x7fbcea955bd8>
 #> <environment: namespace:dplyr>
 ```
 
@@ -276,7 +276,7 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fc06eac1258>
+#> <bytecode: 0x7fbcea472d90>
 #> <environment: namespace:stats>
 ```
 
@@ -286,7 +286,7 @@ purrr::set_names
 #> {
 #>     set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fc06c0af768>
+#> <bytecode: 0x7fbce898d038>
 #> <environment: namespace:rlang>
 ```
 

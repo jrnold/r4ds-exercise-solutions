@@ -36,7 +36,7 @@ contribs <- contribs %>%
 cat("Thanks go to all contributers in alphabetical order: ")
 #> Thanks go to all contributers in alphabetical order:
 cat(paste0(contribs$uname, collapse = ", "))
-#> @A, Adam Blake, @Ben, James Clawson, Megan A. Jones, Nick DeCoursin
+#> @A, Adam Blake, @Ben, James Clawson, Klein Geard, Megan A. Jones, Nick DeCoursin
 cat(".\n")
 #> .
 ```
