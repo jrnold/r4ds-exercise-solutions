@@ -18,7 +18,7 @@ library("microbenchmark")
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 
 Write for-loops to:
 
@@ -27,9 +27,9 @@ Write for-loops to:
 1.  Compute the number of unique values in each column of `iris`.
 1.  Generate 10 random normals for each of $\mu = -10$, 0, 10, and 100.
 
-</div>
 
-<div class='answer'>
+
+
 
 > Think about the output, sequence, and body before you start writing the loop.
 
@@ -171,15 +171,15 @@ matrix(rnorm(n * length(mu), mean = mu), ncol = n)
 #> [3,] 10.17
 #> [4,] 99.91
 ```
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:
-</div>
 
-<div class='answer'>
+Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:
+
+
+
 
 
 ```r
@@ -254,11 +254,11 @@ all.equal(cumsum(x),out)
 #> [1] TRUE
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
+
 
 Combine your function writing and for loop skills:
 
@@ -269,9 +269,9 @@ Combine your function writing and for loop skills:
 1.  Convert the song "99 bottles of beer on the wall" to a function.
 Generalize to any number of any vessel containing any liquid on  surface.
 
-</div>
 
-<div class='answer'>
+
+
 The lyrics for ``Alice the Camel'' can be found at <http://www.kididdles.com/lyrics/a012.html>.
 
 We'll look from five to no humps, and print out a different last line if there are no humps. This uses `cat` instead of `print`, so it looks nicer.
@@ -423,15 +423,15 @@ beer_bottles(3)
 #> Go to the store and buy some more, 2 bottles of beer on the wall.
 ```
 
-</div>
+
 
 #### Exercise 4 {.exercise}
 
-<div class='question'>
-It's common to see for loops that don't preallocate the output and instead increase the length of a vector at each step:
-</div>
 
-<div class='answer'>
+It's common to see for loops that don't preallocate the output and instead increase the length of a vector at each step:
+
+
+
 
 
 ```r
@@ -458,7 +458,7 @@ add_to_vector <- function(n) {
 microbenchmark(add_to_vector(10000), times = 3)
 #> Unit: milliseconds
 #>                  expr min  lq mean median  uq max neval
-#>  add_to_vector(10000) 181 197  216    213 233 253     3
+#>  add_to_vector(10000) 206 215  221    223 229 234     3
 ```
 
 And one that pre-allocates it.
@@ -472,26 +472,26 @@ add_to_vector_2 <- function(n) {
   output
 }
 microbenchmark(add_to_vector_2(10000), times = 3)
-#> Unit: microseconds
-#>                    expr min  lq mean median   uq  max neval
-#>  add_to_vector_2(10000) 664 667 1713    671 2237 3804     3
+#> Unit: milliseconds
+#>                    expr  min   lq mean median  uq  max neval
+#>  add_to_vector_2(10000) 1.44 1.93 4.28   2.43 5.7 8.98     3
 ```
 
 The pre-allocated vector is about **100** times faster!
 You may get different answers, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.
 
-</div>
+
 
 ## For loop variations
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Imagine you have a directory full of CSV files that you want to read in.
 You have their paths in a vector,
-</div>
 
-<div class='answer'>
+
+
 `files <- dir("data/", pattern = "\\.csv$", full.names = TRUE)`, and now
 want to read each one with `read_csv()`. Write the for loop that will
 load them into a single data frame.
@@ -508,17 +508,17 @@ for (fname in seq_along(files)) {
 df <- bind_rows(df)
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
+
 What happens if you use `for (nm in names(x))` and `x` has no names?
 What if only some of the elements are named?
 What if the names are not unique?
-</div>
 
-<div class='answer'>
+
+
 
 Let's try it out and see what happens.
 
@@ -582,16 +582,16 @@ for (nm in names(x)) {
 #> [1] 3
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}  
 
-<div class='question'>
+
 Write a function that prints the mean of each numeric column in a data  frame, along with its name.
 For example, `show_mean(iris)` would print:
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -627,15 +627,15 @@ show_mean(iris)
 #> Petal.Width:  1.20
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-What does this code do? How does it work?
-</div>
 
-<div class='answer'>
+What does this code do? How does it work?
+
+
+
 
 
 ```r
@@ -672,30 +672,30 @@ This applies the function to the column of `mtcars` with the same name
 trans[["disp"]](mtcars[["disp"]])
 ```
 
-</div>
+
 
 ## For loops vs. functionals
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Read the documentation for `apply()`. In the 2d case, what two for loops does it generalize.
-</div>
 
-<div class='answer'>
+Read the documentation for `apply()`. In the 2d case, what two for loops does it generalize.
+
+
+
 
 It generalizes looping over the rows or columns of a matrix or data-frame.
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
+
 Adapt `col_summary()` so that it only applies to numeric columns.
 You might want to start with an `is_numeric()` function that returns a logical vector that has a `TRUE` corresponding to each numeric column.
-</div>
 
-<div class='answer'>
+
+
 
 The original `col_summary()` function is,
 
@@ -743,13 +743,13 @@ col_summary2(df, mean)
 #> [1]  0.859  0.555  0.000 -0.451
 ```
 
-</div>
+
 
 ## The map functions
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Write code that uses one of the map functions to:
 
 1.  Compute the mean of every column in `mtcars`.
@@ -757,9 +757,9 @@ Write code that uses one of the map functions to:
 1.  Compute the number of unique values in each column of `iris`.
 1.  Generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$.
 
-</div>
 
-<div class='answer'>
+
+
 
 To calculate the mean of every column in `mtcars`:
 
@@ -872,15 +872,15 @@ map(c(-10, 0, 10, 100), rnorm, n = 10)
 #>  [1] 101.2  98.6 101.4 100.0  99.9 100.4 100.1  99.2  99.5  98.8
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}  
 
-<div class='question'>
-How can you create a single vector that for each column in a data frame indicates whether or not it's a factor?
-</div>
 
-<div class='answer'>
+How can you create a single vector that for each column in a data frame indicates whether or not it's a factor?
+
+
+
 
 Use `map_lgl` with the function `is.factor`,
 
@@ -890,17 +890,17 @@ map_lgl(mtcars, is.factor)
 #> FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
+
 What happens when you use the map functions on vectors that aren't lists?
 What does `map(1:5, runif)` do?
 Why?
-</div>
 
-<div class='answer'>
+
+
 
 The function `map` applies the function to each element of the vector.
 
@@ -922,17 +922,17 @@ map(1:5, runif)
 #> [1] 0.2726 0.6537 0.9279 0.0266 0.5595
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
+
 What does `map(-2:2, rnorm, n = 5)` do? Why? >
 What does `map_dbl(-2:2, rnorm, n = 5)` do?
 Why?
-</div>
 
-<div class='answer'>
+
+
 
 This takes samples of `n = 5` from normal distributions of means -2, -1, 0, 1, and 2, and returns a list with each element a numeric vectors of length 5.
 
@@ -971,15 +971,15 @@ flatten_dbl(map(-2:2, rnorm, n = 5))
 #> [21]  2.280  2.330  2.285  2.429  1.879
 ```
 
-</div>
+
 
 ### Exercise 5 {.exercise}
 
-<div class='question'>
-Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
-</div>
 
-<div class='answer'>
+Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
+
+
+
 
 
 ```r
@@ -994,7 +994,7 @@ map(list(mtcars), ~ lm(mpg ~ wt, data = .))
 #>       37.29        -5.34
 ```
 
-</div>
+
 
 ## Dealing with Failure
 
@@ -1012,13 +1012,13 @@ No exercises
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Implement your own version of `every()` using a for loop.
 Compare it with `purrr::every()`.
 What does purrr's version do that your version doesn't?
-</div>
 
-<div class='answer'>
+
+
 
 
 ```r
@@ -1041,15 +1041,15 @@ every2(1:3, function(x) {x > 0})
 ```
 
 The function `purrr::every` does fancy things with `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Create an enhanced `col_sum()` that applies a summary function to every numeric column in a data frame.
-</div>
 
-<div class='answer'>
+Create an enhanced `col_sum()` that applies a summary function to every numeric column in a data frame.
+
+
+
 
 **Note:** this question has a typo. It is referring to `col_summary`.
 
@@ -1077,11 +1077,11 @@ col_sum2(iris, mean)
 #> [1] 1.2
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
+
 Create possible base R equivalent of `col_sum()` is:
 
 
@@ -1112,9 +1112,9 @@ col_sum3(df[0], mean)
 ```
 
 What causes these bugs?
-</div>
 
-<div class='answer'>
+
+
 The problem is that `sapply` does not always return numeric vectors.
 If no columns are selected, instead of returning an empty numeric vector, it returns an empty list.
 This causes an error since we can't use a list with `[`.
@@ -1135,5 +1135,7 @@ sapply(df[1:2], is.numeric)
 #>    a    b 
 #> TRUE TRUE
 ```
-</div>
+
+
+<!-- match unopened div --><div>
 

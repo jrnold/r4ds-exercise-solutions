@@ -3,7 +3,7 @@
 
 ## Acknowledgment
 
-All the credit should go to Garrett Grolemund and Hadley Wickham for writing the truly fantastic *R for Data Science* book, 
+All the credit should go to Garrett Grolemund and Hadley Wickham for writing the truly fantastic *R for Data Science* book,
 without which these solutions would not exist---literally.
 
 This book was written in the open, with some people contributed pull requests to fix problems.
@@ -40,4 +40,6 @@ cat(paste0(contribs$uname, collapse = ", "))
 cat(".\n")
 #> .
 ```
+
+<!-- match unopened div --><div>
 

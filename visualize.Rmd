@@ -212,13 +212,14 @@ What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?g
 
 `r BeginAnswer()`
 
-The following example is given in `?geom_point`:
+Stroke changes the size of the border for shapes (21-25).
+These are filled shapes in which the color and size of the border can differ from that of the filled interior of the shape.
+
+For example
 ```{r ex.3.3.1.5}
 ggplot(mtcars, aes(wt, mpg)) +
   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 ```
-
-Stroke changes the color of the border for shapes (22-24).
 
 `r EndAnswer()`
 
@@ -514,8 +515,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 ```{r}
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-   geom_point(size = 4, color = "white") + 
+ggplot(mpg, aes(x = displ, y = hwy)) +
+   geom_point(size = 4, color = "white") +
    geom_point(aes(colour = drv))
 ```
 `r EndAnswer()`
@@ -707,19 +708,19 @@ Compare and contrast `geom_jitter()` with `geom_count()`.
 
 `r BeginAnswer()`
 
-`geom_jitter()` adds random noise to the locations points of the graph. 
-In other words, it "jitters" the points. 
+`geom_jitter()` adds random noise to the locations points of the graph.
+In other words, it "jitters" the points.
 This method reduces overplotting since no two points
-are likely to have the same location after the random noise is added to their locations. 
+are likely to have the same location after the random noise is added to their locations.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter()
-``` 
+```
 
 However, the reduction in overlapping comes at the cost of changing the `x` and `y`
 values of the points.
-  
+
 `geom_count()` resizes the points relative to the number of observations at each location.
 In other words, points with more observations will be larger than those with fewer observations.
 
@@ -731,19 +732,19 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 This method does not change the `x` and `y` coordinates of the points.
 However, if the points are close together and counts are large, the size of some
 points can itself introduce overplotting.
-For example, in the following example a third variable mapped to color is added to the plot. In this case, `geom_count()` is less readable than `geom_jitter()` when adding a third variable as color aesthetic. 
+For example, in the following example a third variable mapped to color is added to the plot. In this case, `geom_count()` is less readable than `geom_jitter()` when adding a third variable as color aesthetic.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_jitter()
 ```
-  
+
 ```{r}  
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_count()
 ```
 
-Unfortunately, there is no universal solution to overplotting. The costs and 
+Unfortunately, there is no universal solution to overplotting. The costs and
 benefits of different approaches will depend on the structure of the data and the goal
 of the data scientist.
 
@@ -844,13 +845,13 @@ What’s the difference between `coord_quickmap()` and `coord_map()`?
 
 `r BeginAnswer()`
 
-`coord_map()` uses map projection to project 3-dimensional Earth onto a 2-dimensional plane. 
-By default, `coord_map()` uses the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection). 
-Unfortanately, this same projection must be applied to all geoms in the plot.
+`coord_map()` uses map projection to project 3-dimensional Earth onto a 2-dimensional plane.
+By default, `coord_map()` uses the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection).
+However, this projection must be applied to all geoms in the plot.
 `coord_quickmap()` uses a faster, but approximate map projection.
 This approximation ignores the curvature of Earth and adjusts the map for the  latitude/longitude ratio. This transformation is quicker than the because the shapes do not need to be transformed.
 
-The **ggplot2** [documentation](http://docs.ggplot2.org/current/coord_map.html) 
+The **ggplot2** [documentation](http://docs.ggplot2.org/current/coord_map.html)
 contains more information on and examples for these two functions.
 
 `r EndAnswer()`

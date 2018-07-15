@@ -811,11 +811,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>What does the stroke aesthetic do? What shapes does it work with? (Hint: use <code>?geom_point</code>)</p>
 </div>
 <div class="answer">
-<p>The following example is given in <code>?geom_point</code>:</p>
+<p>Stroke changes the size of the border for shapes (21-25). These are filled shapes in which the color and size of the border can differ from that of the filled interior of the shape.</p>
+<p>For example</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">stroke =</span> <span class="dv">5</span>)</code></pre></div>
 <p><img src="visualize_files/figure-html/ex.3.3.1.5-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Stroke changes the color of the border for shapes (22-24).</p>
 </div>
 </div>
 <div id="exercise-6." class="section level3 exercise">
@@ -1041,8 +1041,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> drv), <span class="dt">se =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span>
-<span class="st">   </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span>
+<span class="st">   </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span>
 <span class="st">   </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> drv))</code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
@@ -1275,11 +1275,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>What’s the difference between <code>coord_quickmap()</code> and <code>coord_map()</code>?</p>
 </div>
 <div class="answer">
-<p>See the <a href="http://docs.ggplot2.org/current/coord_quickmap.html">docs</a>:</p>
-<ul>
-<li><code>coord_map</code> uses a 2D projection: by default the Mercator project of the sphere to the plot. But this requires transforming all geoms.</li>
-<li><code>coord_quickmap</code> uses a approximate, but faster, map projection using the lat/long ratio as an approximation. This is “quick” because the shapes don’t need to be transformed.</li>
-</ul>
+<p><code>coord_map()</code> uses map projection to project 3-dimensional Earth onto a 2-dimensional plane. By default, <code>coord_map()</code> uses the <a href="https://en.wikipedia.org/wiki/Mercator_projection">Mercator projection</a>. However, this projection must be applied to all geoms in the plot. <code>coord_quickmap()</code> uses a faster, but approximate map projection. This approximation ignores the curvature of Earth and adjusts the map for the latitude/longitude ratio. This transformation is quicker than the because the shapes do not need to be transformed.</p>
+<p>The <strong>ggplot2</strong> <a href="http://docs.ggplot2.org/current/coord_map.html">documentation</a> contains more information on and examples for these two functions.</p>
 </div>
 </div>
 <div id="exercise-4-2" class="section level3 exercise">

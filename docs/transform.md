@@ -16,35 +16,9 @@ library("tidyverse")
 
 ## Filter rows with `filter()`
 
-
-```r
-glimpse(flights)
-#> Observations: 336,776
-#> Variables: 19
-#> $ year           <int> 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013,...
-#> $ month          <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-#> $ day            <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
-#> $ dep_time       <int> 517, 533, 542, 544, 554, 554, 555, 557, 557, 55...
-#> $ sched_dep_time <int> 515, 529, 540, 545, 600, 558, 600, 600, 600, 60...
-#> $ dep_delay      <dbl> 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2...
-#> $ arr_time       <int> 830, 850, 923, 1004, 812, 740, 913, 709, 838, 7...
-#> $ sched_arr_time <int> 819, 830, 850, 1022, 837, 728, 854, 723, 846, 7...
-#> $ arr_delay      <dbl> 11, 20, 33, -18, -25, 12, 19, -14, -8, 8, -2, -...
-#> $ carrier        <chr> "UA", "UA", "AA", "B6", "DL", "UA", "B6", "EV",...
-#> $ flight         <int> 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79...
-#> $ tailnum        <chr> "N14228", "N24211", "N619AA", "N804JB", "N668DN...
-#> $ origin         <chr> "EWR", "LGA", "JFK", "JFK", "LGA", "EWR", "EWR"...
-#> $ dest           <chr> "IAH", "IAH", "MIA", "BQN", "ATL", "ORD", "FLL"...
-#> $ air_time       <dbl> 227, 227, 160, 183, 116, 150, 158, 53, 140, 138...
-#> $ distance       <dbl> 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 94...
-#> $ hour           <dbl> 5, 5, 5, 5, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5,...
-#> $ minute         <dbl> 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, ...
-#> $ time_hour      <dttm> 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013...
-```
-
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Find all flights that
 
 1.  Had an arrival delay of two or more hours
@@ -55,9 +29,9 @@ Find all flights that
 1.  Were delayed by at least an hour, but made up over 30 minutes in flight
 1.  Departed between midnight and 6am (inclusive)
 
-</div>
 
-<div class='answer'>
+
+
 
 *Had an arrival delay of two or more hours:* Since delay is in minutes, find
 flights whose arrival was delayed more than 120 minutes.
@@ -215,19 +189,47 @@ filter(flights, dep_time <= 600 | dep_time == 2400)
 #> #   minute <dbl>, time_hour <dttm>
 ```
 
-</div>
+We could avoid using an "or" statement by using the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation), `%%`. The modulo operator returns the remainder of division.
+What happens if we calculate `dep_time` mod `2400`? 
+
+```r
+c(2400, 600) %% 2400
+#> [1]   0 600
+```
+Since `2400 %% 2400 == 0` and all other times are left unchanged, we will only need to compare the result of the modulo operation to `600`,
+
+```r
+filter(flights, dep_time %% 2400 <= 600)
+#> # A tibble: 9,373 x 19
+#>    year month   day dep_time sched_dep_time dep_delay arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
+#> 1  2013     1     1      517            515         2      830
+#> 2  2013     1     1      533            529         4      850
+#> 3  2013     1     1      542            540         2      923
+#> 4  2013     1     1      544            545        -1     1004
+#> 5  2013     1     1      554            600        -6      812
+#> 6  2013     1     1      554            558        -4      740
+#> # ... with 9,367 more rows, and 12 more variables: sched_arr_time <int>,
+#> #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>
+```
+This filter expression is more compact, but may or may not be more readable and 
+intuitive to a reader.
+
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
+
 Another useful **dplyr** filtering helper is `between()`. What does it do? Can you use it to simplify the code needed to answer the previous challenges?
-</div>
 
-<div class='answer'>
 
-`between(x, left, right)` is equivalent to `x >= left & x <= right`.
 
-Of the answers in the previous question,
+
+The expression `between(x, left, right)` is equivalent to `x >= left & x <= right`.
+
+Of the answers in the previous question, we could simplify the statement of *departed in summer* (`month >= 7 & month <= 9`) using `between()` as the following
 
 ```r
 filter(flights, between(month, 7, 9))
@@ -246,15 +248,15 @@ filter(flights, between(month, 7, 9))
 #> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-How many flights have a missing `dep_time`? What other variables are missing? What might these rows represent?
-</div>
 
-<div class='answer'>
+How many flights have a missing `dep_time`? What other variables are missing? What might these rows represent?
+
+
+
 
 
 ```r
@@ -276,15 +278,15 @@ filter(flights, is.na(dep_time))
 
 Since `arr_time` is also missing, these are canceled flights.
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
-</div>
 
-<div class='answer'>
+Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
+
+
+
 
 `NA ^ 0 == 1` since for all numeric values $x ^ 0 = 1$.
 
@@ -329,17 +331,17 @@ Inf * 0
 #> [1] NaN
 ```
 
-</div>
+
 
 ## Arrange rows with `arrange()`
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
-</div>
 
-<div class='answer'>
+How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
+
+
+
 
 This sorts by increasing `dep_time`, but with all missing values put first.
 
@@ -360,15 +362,15 @@ arrange(flights, desc(is.na(dep_time)), dep_time)
 #> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Sort flights to find the most delayed flights. Find the flights that left earliest.
-</div>
 
-<div class='answer'>
+Sort flights to find the most delayed flights. Find the flights that left earliest.
+
+
+
 
 The most delayed flights are found by sorting by `dep_delay` in descending order.
 
@@ -408,15 +410,15 @@ arrange(flights, dep_delay)
 #> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Sort flights to find the fastest flights.
-</div>
 
-<div class='answer'>
+Sort flights to find the fastest flights.
+
+
+
 
 I assume that by by "fastest flights" it means the flights with the minimum air time.
 So I sort by `air_time`. The fastest flights. The fastest flights area couple of flights between EWR and BDL with an air time of 20 minutes.
@@ -438,15 +440,15 @@ arrange(flights, air_time)
 #> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-Which flights traveled the longest? Which traveled the shortest?
-</div>
 
-<div class='answer'>
+Which flights traveled the longest? Which traveled the shortest?
+
+
+
 
 I'll assume hat traveled the longest or shortest refers to distance, rather than air-time.
 
@@ -488,17 +490,17 @@ arrange(flights, distance)
 #> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
-</div>
+
 
 ## Select columns with `select()`
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from flights.
-</div>
 
-<div class='answer'>
+Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from flights.
+
+
+
 
 A few ways include:
 
@@ -539,15 +541,15 @@ select(flights, matches("^(dep|arr)_(time|delay)$"))
 ```
 using `ends_with()` doesn't work well since it would return both `sched_arr_time` and `sched_dep_time`.
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-What happens if you include the name of a variable multiple times in a select() call?
-</div>
 
-<div class='answer'>
+What happens if you include the name of a variable multiple times in a select() call?
+
+
+
 
 It ignores the duplicates, and that variable is only included once. No error, warning, or message is emitted.
 
@@ -565,15 +567,15 @@ select(flights, year, month, day, year, year)
 #> # ... with 3.368e+05 more rows
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
-</div>
 
-<div class='answer'>
+What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
+
+
+
 
 The `one_of` vector allows you to select variables with a character vector rather than as unquoted variable names.
 It's useful because then you can easily pass vectors to `select()`.
@@ -594,15 +596,15 @@ select(flights, one_of(vars))
 #> # ... with 3.368e+05 more rows
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
-</div>
 
-<div class='answer'>
+Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
+
+
+
 
 
 ```r
@@ -630,17 +632,17 @@ select(flights, contains("TIME", ignore.case = FALSE))
 #> # A tibble: 336,776 x 0
 ```
 
-</div>
+
 
 ## Add new variables with `mutate()`
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
-</div>
 
-<div class='answer'>
+Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
+
+
+
 
 To get the departure times in the number of minutes, (integer) divide `dep_time` by 100 to get the hours since midnight and multiply by 60 and add the remainder of `dep_time` divided by 100.
 
@@ -683,15 +685,15 @@ mutate(flights,
 #> # ... with 3.368e+05 more rows
 ```
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? What do you need to do to fix it?
-</div>
 
-<div class='answer'>
+Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? What do you need to do to fix it?
+
+
+
 
 Since `arr_time` and `dep_time` may be in different time zones, the `air_time` doesn't equal the difference.
 We would need to account for time-zones in these calculations.
@@ -714,15 +716,15 @@ mutate(flights,
 #> # ... with 3.261e+05 more rows
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Compare `dep_time`, `sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related?
-</div>
 
-<div class='answer'>
+Compare `dep_time`, `sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related?
+
+
+
 
 I'd expect `dep_time`, `sched_dep_time`, and `dep_delay` to be related so that `dep_time - sched_dep_time = dep_delay`.
 
@@ -762,15 +764,15 @@ mutate(flights,
 ```
 Well, that solved most of the problems, but these two numbers don't match because we aren't accounting for flights where the departure time is the next day from the scheduled departure time.
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-Find the 10 most delayed flights using a ranking function. How do you want to handle ties? Carefully read the documentation for `min_rank()`.
-</div>
 
-<div class='answer'>
+Find the 10 most delayed flights using a ranking function. How do you want to handle ties? Carefully read the documentation for `min_rank()`.
+
+
+
 
 I'd want to handle ties by taking the minimum of tied values. If three flights are have the same value and are the most delayed, we would say they are tied for first, not tied for third or second.
 
@@ -794,15 +796,15 @@ mutate(flights,
 #> #   minute <dbl>, time_hour <dttm>, dep_delay_rank <int>
 ```
 
-</div>
+
 
 ### Exercise 5 {.exercise}
 
-<div class='question'>
-What does `1:3 + 1:10` return? Why?
-</div>
 
-<div class='answer'>
+What does `1:3 + 1:10` return? Why?
+
+
+
 
 It returns `c(1 + 1, 2 + 2, 3 + 3, 1 + 4, 2 + 5, 3 + 6, 1 + 7, 2 + 8, 3 + 9, 1 + 10)`.
 When adding two vectors recycles the shorter vector's values to get vectors of the same length.
@@ -816,15 +818,15 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 #>  [1]  2  4  6  5  7  9  8 10 12 11
 ```
 
-</div>
+
 
 ### Exercise 6 {.exercise}
 
-<div class='question'>
-What trigonometric functions does R provide?
-</div>
 
-<div class='answer'>
+What trigonometric functions does R provide?
+
+
+
 
 These are all described in the same help page,
 
@@ -901,13 +903,13 @@ atan2(c(1, 0, -1, 0), c(0, 1, 0, -1))
 #> [1]  1.57  0.00 -1.57  3.14
 ```
 
-</div>
+
 
 ## Grouped summaries with `summarise()`
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
+
 Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
 
 -   A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.
@@ -917,30 +919,34 @@ Brainstorm at least 5 different ways to assess the typical delay characteristics
 
 Which is more important: arrival delay or departure delay?
 
-</div>
 
-<div class='answer'>
+
+
 
 What this question gets at is a fundamental question of data analysis: the cost function. 
 As analysts, the reason we are interested in flight delay because it is costly to passengers. 
 But it is worth thinking carefully about how it is costly and use that information in ranking and measuring these scenarios.
 
-In many scenarios, arrival delay is more important. Presumably being late on arriving is more costly to the passenger since it could disrupt the next stages of their travel, such as connecting flights or meetings.  If the departure is delayed without affecting the arrival time (and the passenger arrived at the same time) it does not affect future plans nor does it affect the total time spent traveling. 
+In many scenarios, arrival delay is more important. 
+Presumably being late on arriving is more costly to the passenger since it could disrupt the next stages of their travel, such as connecting flights or meetings.  
+If the departure is delayed without affecting the arrival time and the passenger arrived at the same time, this delay will not affect future plans nor does it affect the total time spent traveling. 
 The delay could be a positive, if less time is spent on the airplane itself, or a negative, if that extra time is spent on the plane in the runway.
 
-Variation in arrival time is worse than consistency. If a flight is always 30 minutes late and that delay is know, then it is as if the arrival time is that delayed time. The traveler could easily plan for this. If the delay of the flight is more variable, then it is harder for the traveler to plan for it.
+Variation in arrival time is worse than consistency. 
+If a flight is always 30 minutes late and that delay is know, then it is as if the arrival time is that delayed time.
+The traveler could easily plan for this. If the delay of the flight is more variable, then it is harder for the traveler to plan for it.
 
-TODO
+**TODO** (Add a better explanation and some examples)
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Come up with another approach that will give you the same output as `not_cancelled %>% count(dest)` and `not_cancelled %>% count(tailnum, wt = distance)` (without using `count()`).
-</div>
 
-<div class='answer'>
+Come up with another approach that will give you the same output as `not_cancelled %>% count(dest)` and `not_cancelled %>% count(tailnum, wt = distance)` (without using `count()`).
+
+
+
 
 The data frame `not_cancelled` is defined in the chapter as,
 
@@ -1041,15 +1047,15 @@ not_cancelled %>%
 #> # ... with 4,031 more rows
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-Our definition of canceled flights `(is.na(dep_delay) | is.na(arr_delay))` is slightly suboptimal. Why? Which is the most important column?
-</div>
 
-<div class='answer'>
+Our definition of canceled flights `(is.na(dep_delay) | is.na(arr_delay))` is slightly suboptimal. Why? Which is the most important column?
+
+
+
 
 If a flight never departs, then it won't arrive.
 A flight could also depart and not arrive if it crashes, or if it is redirected and lands in an airport other than its intended destination.
@@ -1073,15 +1079,15 @@ filter(flights, !is.na(dep_delay), is.na(arr_delay)) %>%
 Okay, I'm not sure what's going on in this data. `dep_time` can be non-missing and `arr_delay` missing but `arr_time` not missing.
 They may be combining different flights?
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-Look at the number of canceled flights per day. Is there a pattern? Is the proportion of canceled flights related to the average delay?
-</div>
 
-<div class='answer'>
+Look at the number of canceled flights per day. Is there a pattern? Is the proportion of canceled flights related to the average delay?
+
+
+
 
 
 ```r
@@ -1098,17 +1104,19 @@ ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
 #> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-50-1} \end{center}
+
+
 
 ### Exercise 5 {.exercise}
 
-<div class='question'>
-Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarise(n())`)
-</div>
 
-<div class='answer'>
+Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarise(n())`)
+
+
+
 
 
 ```r
@@ -1145,15 +1153,15 @@ However, you'd really want to compare it to the average delay of the destination
 
 FiveThirtyEight conducted a [similar analysis](http://fivethirtyeight.com/features/the-best-and-worst-airlines-airports-and-flights-summer-2015-update/).
 
-</div>
+
 
 ### Exercise 6 {.exercise}
 
-<div class='question'>
-For each plane, count the number of flights before the first delay of greater than 1 hour.
-</div>
 
-<div class='answer'>
+For each plane, count the number of flights before the first delay of greater than 1 hour.
+
+
+
 
 I think this requires grouped mutate (but I may be wrong):
 
@@ -1178,42 +1186,42 @@ flights %>%
 #> # ... with 3,749 more rows
 ```
 
-</div>
+
 
 ### Exercise 7 {.exercise}
 
-<div class='question'>
-What does the sort argument to `count()` do. When might you use it?
-</div>
 
-<div class='answer'>
+What does the sort argument to `count()` do. When might you use it?
+
+
+
 
 The sort argument to `count` sorts the results in order of `n`.
 You could use this anytime you would do `count` followed by `arrange`.
 
-</div>
+
 
 ## Grouped mutates (and filters)
 
 ### Exercise 1 {.exercise}
 
-<div class='question'>
-Refer back to the table of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
-</div>
 
-<div class='answer'>
+Refer back to the table of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
+
+
+
 
 They operate within each group rather than over the entire data frame. E.g. `mean` will calculate the mean within each group.
 
-</div>
+
 
 ### Exercise 2 {.exercise}
 
-<div class='question'>
-Which plane (`tailnum`) has the worst on-time record?
-</div>
 
-<div class='answer'>
+Which plane (`tailnum`) has the worst on-time record?
+
+
+
 
 
 ```r
@@ -1227,15 +1235,15 @@ flights %>%
 #> 1 N844MH        320
 ```
 
-</div>
+
 
 ### Exercise 3 {.exercise}
 
-<div class='question'>
-What time of day should you fly if you want to avoid delays as much as possible?
-</div>
 
-<div class='answer'>
+What time of day should you fly if you want to avoid delays as much as possible?
+
+
+
 
 Let's group by hour. The earlier the better to fly. This is intuitive as delays early in the morning are likely to propagate throughout the day.
 
@@ -1256,15 +1264,15 @@ flights %>%
 #> # ... with 14 more rows
 ```
 
-</div>
+
 
 ### Exercise 4 {.exercise}
 
-<div class='question'>
-For each destination, compute the total minutes of delay. For each, flight, compute the proportion of the total delay for its destination.
-</div>
 
-<div class='answer'>
+For each destination, compute the total minutes of delay. For each, flight, compute the proportion of the total delay for its destination.
+
+
+
 
 
 ```r
@@ -1315,15 +1323,15 @@ flights %>%
 #> #   total_delay <dbl>, prop_delay <dbl>
 ```
 
-</div>
+
 
 ### Exercise 5 {.exercise}
 
-<div class='question'>
-Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using `lag()` explore how the delay of a flight is related to the delay of the immediately preceding flight.
-</div>
 
-<div class='answer'>
+Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using `lag()` explore how the delay of a flight is related to the delay of the immediately preceding flight.
+
+
+
 
 We want to group by day to avoid taking the lag from the previous day.
 Also, I want to use departure delay, since this mechanism is relevant for departures.
@@ -1342,17 +1350,19 @@ flights %>%
 #> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-57-1.png" width="70%" style="display: block; margin: auto;" />
 
-</div>
+
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-58-1} \end{center}
+
+
 
 ### Exercise 6 {.exercise}
 
-<div class='question'>
-Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
-</div>
 
-<div class='answer'>
+Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+
+
+
 
 The shorter BOS and PHL flights that are 20 minutes for 30+ minutes flights seem plausible - though maybe entries of +/- a few minutes can easily create large changes.
 I assume that departure time has a standardized definition, but I'm not sure; if there is some discretion, that could create errors that are small in absolute time, but large in relative time for small flights.
@@ -1429,15 +1439,15 @@ flights %>%
 #> # ... with 1 more variable: arr_time <int>
 ```
 
-</div>
+
 
 ### Exercise 7 {.exercise}
 
-<div class='question'>
-Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
-</div>
 
-<div class='answer'>
+Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+
+
+
 
 The carrier that flies to the most locations is ExpressJet Airlines (EV).
 ExpressJet is a regional airline and partner for major airlines, so its one of those that flies small planes to close airports
@@ -1471,5 +1481,5 @@ filter(airlines, carrier == "EV")
 #> 1 EV      ExpressJet Airlines Inc.
 ```
 
-</div>
+
 
