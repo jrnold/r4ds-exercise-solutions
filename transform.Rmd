@@ -14,9 +14,6 @@ library("tidyverse")
 
 ## Filter rows with `filter()`
 
-```{r}
-glimpse(flights)
-```
 
 ### Exercise 1 {.exercise}
 
@@ -82,6 +79,18 @@ filter(flights, !is.na(dep_delay),
 filter(flights, dep_time <= 600 | dep_time == 2400)
 ```
 
+We could avoid using an "or" statement by using the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation), `%%`. The modulo operator returns the remainder of division.
+What happens if we calculate `dep_time` mod `2400`? 
+```{r}
+c(2400, 600) %% 2400
+```
+Since `2400 %% 2400 == 0` and all other times are left unchanged, we will only need to compare the result of the modulo operation to `600`,
+```{r}
+filter(flights, dep_time %% 2400 <= 600)
+```
+This filter expression is more compact, but may or may not be more readable and 
+intuitive to a reader.
+
 `r EndAnswer()`
 
 ### Exercise 2 {.exercise}
@@ -92,19 +101,13 @@ Another useful **dplyr** filtering helper is `between()`. What does it do? Can y
 
 `r BeginAnswer()`
 
-`between(x, left, right)` is equivalent to `x >= left & x <= right`.
+The expression `between(x, left, right)` is equivalent to `x >= left & x <= right`.
 
-Of the answers in the previous question,
+Of the answers in the previous question, we could simplify the statement of *departed in summer* (`month >= 7 & month <= 9`) using `between()` as the following
 ```{r}
 filter(flights, between(month, 7, 9))
 ```
 
-You could also use the mod operation `%%` to simplify question g.
-
-`between(dep_time %% 2400, 0, 600)` is equivalent to `dep_time <= 600 | dep_time == 2400`
-```{r}
-filter(flights, between(dep_time %% 2400, 0, 600))
-```
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
