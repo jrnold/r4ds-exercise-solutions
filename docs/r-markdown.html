@@ -111,7 +111,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#acknowledgment"><i class="fa fa-check"></i><b>1.1</b> Acknowledgment</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-15</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-14</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-05-08</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
 <li class="chapter" data-level="2" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
@@ -701,7 +706,24 @@ Text of the document.</code></pre>
 <p>Practice what you’ve learned by creating a brief CV. The title should be your name, and you should include headings for (at least) education or employment. Each of the sections should include a bulleted list of jobs/degrees. Highlight the year in bold.</p>
 </div>
 <div class="answer">
-<p>Exercise left to reader.</p>
+<p>A minimal example is the following CV.</p>
+<pre><code>---
+title: &quot;Your Name&quot;
+---
+
+## Employment
+
+-   Chief Scientist, Rstudio, **2013--present**.
+-   Adjust Professor, Rice University, Houston, TX, **2013--present**.
+-   Assistant Professor, Rice University, Houston, TX, **2008--12**.
+
+## Education
+
+-   Ph.D. in Statistics, Iowa State University, Ames, IA,  **2008**
+-   M.Sc. in Statistics, University of Auckland, New Zealand, **2004**
+-   B.Sc. in Statistics and Computer Science, First Class Honours, The University of Auckland, New Zealand, **2002**.
+-   Bachelor of Human Biology, First Class Honours, The University of Auckland, Auckland, New Zealand, **1999**.</code></pre>
+<p>Your own example could be much more detailed.</p>
 </div>
 </div>
 <div id="exercise-2-70" class="section level3 exercise">
@@ -715,7 +737,11 @@ Text of the document.</code></pre>
 </ol>
 </div>
 <div class="answer">
-<pre><code>The quick brown fox jumped over the lazy dog.[^quick-fox]
+<pre><code>---
+title: Horizontal Rules, Block Quotes, and Footnotes
+---
+
+The quick brown fox jumped over the lazy dog.[^quick-fox]
 
 Use three or more `-` for a horizontal rule. For example,
 
@@ -730,8 +756,7 @@ a YAML block if it is at the start of the document.
 
 [^quick-fox]: This is an example of a footnote. The sentence this is footnoting
   is often used for displaying fonts because it includes all 26 letters of the
-  English alphabet.
-</code></pre>
+  English alphabet.</code></pre>
 </div>
 </div>
 <div id="exercise-3-54" class="section level3 exercise">
@@ -747,43 +772,86 @@ a YAML block if it is at the start of the document.
 <div id="code-chunks" class="section level2">
 <h2><span class="header-section-number">27.3</span> Code Chunks</h2>
 <p>Exercises 1–3 are answered in this document.</p>
-<pre><code>#&gt; ---
-#&gt; title: &quot;Exercise 24.4.7.4&quot;
-#&gt; author: &quot;Jeffrey Arnold&quot;
-#&gt; date: &quot;2/1/2018&quot;
-#&gt; output: html_document
-#&gt; ---
-#&gt; 
-#&gt; ```{r setup, include=FALSE}
-#&gt; knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
-#&gt; ```
-#&gt; 
-#&gt; The chunk `a` has no dependencies.
-#&gt; ```{r a}
-#&gt; print(lubridate::now())
-#&gt; x &lt;- 1
-#&gt; ```
-#&gt; 
-#&gt; The chunk `b` depends on `a`.
-#&gt; ```{r b, dependson = c(&quot;a&quot;)}
-#&gt; print(lubridate::now())
-#&gt; y &lt;- x + 1
-#&gt; ```
-#&gt; 
-#&gt; The chunk `c` depends on `a`.
-#&gt; ```{r c, dependson = c(&quot;a&quot;)}
-#&gt; print(lubridate::now())
-#&gt; z &lt;- x * 2
-#&gt; ```
-#&gt; 
-#&gt; The chunk `d` depends on `c` and `b`:
-#&gt; ```{r d, dependson = c(&quot;c&quot;, &quot;b&quot;)}
-#&gt; print(lubridate::now())
-#&gt; w &lt;- y + z
-#&gt; ```
-#&gt; 
-#&gt; If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
-#&gt; and the same as the first time the document was run with caching.</code></pre>
+<pre><code>---
+title: &quot;Diamond sizes&quot;
+date: 2016-08-25
+output: html_document
+---
+
+```{r knitr_opts, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r setup, message = FALSE}
+library(&quot;ggplot2&quot;)
+library(&quot;dplyr&quot;)
+
+smaller &lt;- diamonds %&gt;% 
+  filter(carat &lt;= 2.5)
+```
+
+```{r include = FALSE}
+# Hide objects and functions ONLY used inline
+n_larger &lt;- nrow(diamonds) - nrow(smaller)
+pct_larger &lt;- n_larger / nrow(diamonds) * 100
+
+comma &lt;- function(x) {
+  format(x, digits = 2, big.mark = &quot;,&quot;)
+}
+```
+
+# Size and Cut, Color, and Clarity
+
+Diamonds with lower quality cuts (cuts are ranked from &quot;Ideal&quot; to &quot;Fair&quot;) tend to be be larger.
+```{r}
+ggplot(diamonds, aes(y = carat, x = cut)) +
+  geom_boxplot()
+```
+Likewise, diamonds with worse color (diamond colors are ranked from J (worst) to D (best)) tend to be larger:
+```{r}
+ggplot(diamonds, aes(y = carat, x = color)) +
+  geom_boxplot()
+```
+The pattern present in cut and color is also present in clarity.
+Diamonds with worse clarity  (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best)) tend to be larger:
+```{r}
+ggplot(diamonds, aes(y = carat, x = clarity)) +
+  geom_boxplot()
+```
+These patterns are consistent with there being a profitability threshold for retail diamonds that is a function of carat, clarity, color, cut and other characteristics.
+A diamond may be profitable to sell if a poor value of one feature, for example, poor clarity, color, or cut, is be offset by a good value of another feature, such as a large size.
+
+
+# Largest Diamonds
+
+We have data about `r comma(nrow(diamonds))` diamonds. Only 
+`r n_larger` (`r round(nrow(smaller) / nrow(smaller) * 100, 1)`%) are larger than
+2.5 carats. The distribution of the remainder is shown
+below:
+
+```{r}
+smaller %&gt;% 
+  ggplot(aes(carat)) + 
+  geom_freqpoly(binwidth = 0.01)
+```
+
+The frequency distribution of diamond sizes is marked by spikes at 
+whole-number and half-carat values, as well as several other carat values corresponding to fractions.
+
+
+The largest twenty diamonds (by carat) in the datasets are,
+```{r results = &quot;asis&quot;}
+diamonds %&gt;%
+  arrange(desc(carat)) %&gt;%
+  slice(1:20) %&gt;%
+  select(carat, cut, color, clarity) %&gt;%
+  knitr::kable(
+    caption = &quot;The largest 20 diamonds in the `diamonds` dataset.&quot;
+  )
+```
+Most of the twenty largest datasets are in the lowest clarity category (&quot;I1&quot;), with one being in the second best category (&quot;VVS2&quot;)
+The top twenty diamonds have colors rangind from the worst, &quot;J&quot;, to best, &quot;D&quot;, categories, though most are in the lower categories &quot;J&quot; and &quot;I&quot;.
+The top twenty diamonds are more evenly distributed among the cut categories, from &quot;Fair&quot; to &quot;Ideal&quot;, although the worst category (Fair) is the most common.</code></pre>
 <div id="exercise-1-72" class="section level3 exercise">
 <h3><span class="header-section-number">27.3.1</span> Exercise 1</h3>
 <div class="question">
@@ -814,44 +882,43 @@ a YAML block if it is at the start of the document.
 <p>Set up a network of chunks where <code>d</code> depends on <code>c</code> and <code>b</code>, and both <code>b</code> and <code>c</code> depend on <code>a</code>. Have each chunk print lubridate::now(), set cache = TRUE, then verify your understanding of caching.</p>
 </div>
 <div class="answer">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(readr<span class="op">::</span><span class="kw">read_file</span>(<span class="st">&quot;rmarkdown/caching.Rmd&quot;</span>))
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; title: &quot;Exercise 24.4.7.4&quot;</span>
-<span class="co">#&gt; author: &quot;Jeffrey Arnold&quot;</span>
-<span class="co">#&gt; date: &quot;2/1/2018&quot;</span>
-<span class="co">#&gt; output: html_document</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ```{r setup, include=FALSE}</span>
-<span class="co">#&gt; knitr::opts_chunk$set(echo = TRUE, cache = TRUE)</span>
-<span class="co">#&gt; ```</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; The chunk `a` has no dependencies.</span>
-<span class="co">#&gt; ```{r a}</span>
-<span class="co">#&gt; print(lubridate::now())</span>
-<span class="co">#&gt; x &lt;- 1</span>
-<span class="co">#&gt; ```</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; The chunk `b` depends on `a`.</span>
-<span class="co">#&gt; ```{r b, dependson = c(&quot;a&quot;)}</span>
-<span class="co">#&gt; print(lubridate::now())</span>
-<span class="co">#&gt; y &lt;- x + 1</span>
-<span class="co">#&gt; ```</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; The chunk `c` depends on `a`.</span>
-<span class="co">#&gt; ```{r c, dependson = c(&quot;a&quot;)}</span>
-<span class="co">#&gt; print(lubridate::now())</span>
-<span class="co">#&gt; z &lt;- x * 2</span>
-<span class="co">#&gt; ```</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; The chunk `d` depends on `c` and `b`:</span>
-<span class="co">#&gt; ```{r d, dependson = c(&quot;c&quot;, &quot;b&quot;)}</span>
-<span class="co">#&gt; print(lubridate::now())</span>
-<span class="co">#&gt; w &lt;- y + z</span>
-<span class="co">#&gt; ```</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,</span>
-<span class="co">#&gt; and the same as the first time the document was run with caching.</span></code></pre></div>
+<pre><code>---
+title: &quot;Exercise 24.4.7.4&quot;
+author: &quot;Jeffrey Arnold&quot;
+date: &quot;2/1/2018&quot;
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+The chunk `a` has no dependencies.
+```{r a}
+print(lubridate::now())
+x &lt;- 1
+```
+
+The chunk `b` depends on `a`.
+```{r b, dependson = c(&quot;a&quot;)}
+print(lubridate::now())
+y &lt;- x + 1
+```
+
+The chunk `c` depends on `a`.
+```{r c, dependson = c(&quot;a&quot;)}
+print(lubridate::now())
+z &lt;- x * 2
+```
+
+The chunk `d` depends on `c` and `b`:
+```{r d, dependson = c(&quot;c&quot;, &quot;b&quot;)}
+print(lubridate::now())
+w &lt;- y + z
+```
+
+If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
+and the same as the first time the document was run with caching.</code></pre>
 </div>
 
 </div>

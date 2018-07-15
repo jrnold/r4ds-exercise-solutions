@@ -111,7 +111,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#acknowledgment"><i class="fa fa-check"></i><b>1.1</b> Acknowledgment</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-15</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-14</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-05-08</a></li>
+</ul></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
 <li class="chapter" data-level="2" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
@@ -628,43 +633,44 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<div id="acknowledgment" class="section level2">
-<h2><span class="header-section-number">1.1</span> Acknowledgment</h2>
+<div id="acknowledgments" class="section level2 unnumbered">
+<h2>Acknowledgments</h2>
 <p>All the credit should go to Garrett Grolemund and Hadley Wickham for writing the truly fantastic <em>R for Data Science</em> book, without which these solutions would not exist—literally.</p>
-<p>This book was written in the open, with some people contributed pull requests to fix problems. Thank you to all who contributed via GitHub:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: &#39;dplyr&#39;</span>
-<span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-<span class="co"># git --no-pager shortlog -ns &gt; contribs.txt</span>
-contribs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_tsv</span>(<span class="st">&quot;contribs.txt&quot;</span>, <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;name&quot;</span>))
-<span class="co">#&gt; Parsed with column specification:</span>
-<span class="co">#&gt; cols(</span>
-<span class="co">#&gt;   n = col_integer(),</span>
-<span class="co">#&gt;   name = col_character()</span>
-<span class="co">#&gt; )</span>
-
-contribs &lt;-<span class="st"> </span>contribs <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;jrnold&quot;</span>, <span class="st">&quot;Jeffrey Arnold&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(name) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">uname =</span> <span class="kw">ifelse</span>(<span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot; &quot;</span>, name), <span class="kw">paste0</span>(<span class="st">&quot;@&quot;</span>, name), name))
-
-<span class="kw">cat</span>(<span class="st">&quot;Thanks go to all contributers in alphabetical order: &quot;</span>)
-<span class="co">#&gt; Thanks go to all contributers in alphabetical order:</span>
-<span class="kw">cat</span>(<span class="kw">paste0</span>(contribs<span class="op">$</span>uname, <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>))
-<span class="co">#&gt; @A, Adam Blake, @Ben, James Clawson, Klein Geard, Megan A. Jones, Nick DeCoursin</span>
-<span class="kw">cat</span>(<span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span>)
-<span class="co">#&gt; .</span></code></pre></div>
+<p>This book was written in the open, with some people contributed pull requests to fix problems. Thank you to all who contributed via <a href="https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors">GitHub</a>.</p>
+<p>Thanks go to all contributers in alphabetical order: <span class="citation">@jmclawson</span>, <a href="mailto:benherbertson@gmail.com">benherbertson@gmail.com</a>, <a href="mailto:kleinmarkgeard@gmail.com">kleinmarkgeard@gmail.com</a>, <a href="mailto:mjones01@BattelleEcology.org">mjones01@BattelleEcology.org</a>, <a href="mailto:ndecoursin@gmail.com">ndecoursin@gmail.com</a>, <a href="mailto:theadamattack@gmail.com">theadamattack@gmail.com</a>, <a href="mailto:theadamattack@gmail.com">theadamattack@gmail.com</a>, <a href="mailto:tinhb92@gmail.com">tinhb92@gmail.com</a>.</p>
+</div>
+<div id="updates" class="section level2 unnumbered">
+<h2>Updates</h2>
+<div id="section" class="section level3 unnumbered">
+<h3>2018-07-15</h3>
+<ul>
+<li>Added answer to Ex. 25.2.3</li>
+<li>Edited Sec. 27.2. Corrected formatting of R markdown files.</li>
+<li>Changed format of contributors list</li>
+</ul>
+</div>
+<div id="section-1" class="section level3 unnumbered">
+<h3>2018-07-14</h3>
+<ul>
+<li>Added answer to Ex. 20.5.1</li>
+<li>Added answer to Ex. 3.8.3 (<span class="citation">@KleinGeard</span>, #23)</li>
+<li>Edited answer to Ex. 5.2.1 to use modulo operator (<span class="citation">@KleinGeard</span>, #23)</li>
+<li>Corrected answer to Ex 3.3.5 (Ronald Gould, #24)</li>
+<li>Corrected typos, URLs, HTML, markdown issues.</li>
+</ul>
+</div>
+<div id="section-2" class="section level3 unnumbered">
+<h3>2018-05-08</h3>
+<ul>
+<li>Corrected answer to Ex. 3.6.6 (#21)</li>
+<li>Added NEWS.md to track changes</li>
+</ul>
 <!-- match unopened div -->
 <div>
 
 
 
+</div>
 </div>
 </div>
 

@@ -168,47 +168,69 @@ License}.
 
 \chapter{Introduction}\label{introduction}
 
-\section{Acknowledgment}\label{acknowledgment}
+\section*{Acknowledgments}\label{acknowledgments}
+\addcontentsline{toc}{section}{Acknowledgments}
 
 All the credit should go to Garrett Grolemund and Hadley Wickham for
 writing the truly fantastic \emph{R for Data Science} book, without
 which these solutions would not exist---literally.
 
 This book was written in the open, with some people contributed pull
-requests to fix problems. Thank you to all who contributed via GitHub:
+requests to fix problems. Thank you to all who contributed via
+\href{https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors}{GitHub}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(dplyr)}
-\CommentTok{#> }
-\CommentTok{#> Attaching package: 'dplyr'}
-\CommentTok{#> The following objects are masked from 'package:stats':}
-\CommentTok{#> }
-\CommentTok{#>     filter, lag}
-\CommentTok{#> The following objects are masked from 'package:base':}
-\CommentTok{#> }
-\CommentTok{#>     intersect, setdiff, setequal, union}
-\CommentTok{# git --no-pager shortlog -ns > contribs.txt}
-\NormalTok{contribs <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_tsv}\NormalTok{(}\StringTok{"contribs.txt"}\NormalTok{, }\DataTypeTok{col_names =} \KeywordTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"name"}\NormalTok{))}
-\CommentTok{#> Parsed with column specification:}
-\CommentTok{#> cols(}
-\CommentTok{#>   n = col_integer(),}
-\CommentTok{#>   name = col_character()}
-\CommentTok{#> )}
+Thanks go to all contributers in alphabetical order: @jmclawson,
+\href{mailto:benherbertson@gmail.com}{\nolinkurl{benherbertson@gmail.com}},
+\href{mailto:kleinmarkgeard@gmail.com}{\nolinkurl{kleinmarkgeard@gmail.com}},
+\href{mailto:mjones01@BattelleEcology.org}{\nolinkurl{mjones01@BattelleEcology.org}},
+\href{mailto:ndecoursin@gmail.com}{\nolinkurl{ndecoursin@gmail.com}},
+\href{mailto:theadamattack@gmail.com}{\nolinkurl{theadamattack@gmail.com}},
+\href{mailto:theadamattack@gmail.com}{\nolinkurl{theadamattack@gmail.com}},
+\href{mailto:tinhb92@gmail.com}{\nolinkurl{tinhb92@gmail.com}}.
 
-\NormalTok{contribs <-}\StringTok{ }\NormalTok{contribs }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\NormalTok{name }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"jrnold"}\NormalTok{, }\StringTok{"Jeffrey Arnold"}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(name) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{uname =} \KeywordTok{ifelse}\NormalTok{(}\OperatorTok{!}\KeywordTok{grepl}\NormalTok{(}\StringTok{" "}\NormalTok{, name), }\KeywordTok{paste0}\NormalTok{(}\StringTok{"@"}\NormalTok{, name), name))}
+\section*{Updates}\label{updates}
+\addcontentsline{toc}{section}{Updates}
 
-\KeywordTok{cat}\NormalTok{(}\StringTok{"Thanks go to all contributers in alphabetical order: "}\NormalTok{)}
-\CommentTok{#> Thanks go to all contributers in alphabetical order:}
-\KeywordTok{cat}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(contribs}\OperatorTok{$}\NormalTok{uname, }\DataTypeTok{collapse =} \StringTok{", "}\NormalTok{))}
-\CommentTok{#> @A, Adam Blake, @Ben, James Clawson, Klein Geard, Megan A. Jones, Nick DeCoursin}
-\KeywordTok{cat}\NormalTok{(}\StringTok{".}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> .}
-\end{Highlighting}
-\end{Shaded}
+\subsection*{2018-07-15}\label{section}
+\addcontentsline{toc}{subsection}{2018-07-15}
+
+\begin{itemize}
+\tightlist
+\item
+  Added answer to Ex. 25.2.3
+\item
+  Edited Sec. 27.2. Corrected formatting of R markdown files.
+\item
+  Changed format of contributors list
+\end{itemize}
+
+\subsection*{2018-07-14}\label{section-1}
+\addcontentsline{toc}{subsection}{2018-07-14}
+
+\begin{itemize}
+\tightlist
+\item
+  Added answer to Ex. 20.5.1
+\item
+  Added answer to Ex. 3.8.3 (@KleinGeard, \#23)
+\item
+  Edited answer to Ex. 5.2.1 to use modulo operator (@KleinGeard, \#23)
+\item
+  Corrected answer to Ex 3.3.5 (Ronald Gould, \#24)
+\item
+  Corrected typos, URLs, HTML, markdown issues.
+\end{itemize}
+
+\subsection*{2018-05-08}\label{section-2}
+\addcontentsline{toc}{subsection}{2018-05-08}
+
+\begin{itemize}
+\tightlist
+\item
+  Corrected answer to Ex. 3.6.6 (\#21)
+\item
+  Added NEWS.md to track changes
+\end{itemize}
 
 \part{Explore}\label{part-explore}
 
@@ -12631,7 +12653,28 @@ your name, and you should include headings for (at least) education or
 employment. Each of the sections should include a bulleted list of
 jobs/degrees. Highlight the year in bold.
 
-Exercise left to reader.
+A minimal example is the following CV.
+
+\begin{verbatim}
+---
+title: "Hadley Wickham"
+---
+
+## Employment
+
+-   Chief Scientist, Rstudio, **2013--present**.
+-   Adjust Professor, Rice University, Houston, TX, **2013--present**.
+-   Assistant Professor, Rice University, Houston, TX, **2008--12**.
+
+## Education
+
+-   Ph.D. in Statistics, Iowa State University, Ames, IA,  **2008**
+-   M.Sc. in Statistics, University of Auckland, New Zealand, **2004**
+-   B.Sc. in Statistics and Computer Science, First Class Honours, The University of Auckland, New Zealand, **2002**.
+-   Bachelor of Human Biology, First Class Honours, The University of Auckland, Auckland, New Zealand, **1999**.
+\end{verbatim}
+
+Your own example could be much more detailed.
 
 \subsection{Exercise 2}\label{exercise-2-70}
 
@@ -12649,6 +12692,10 @@ Using the R Markdown quick reference, figure out how to:
 \end{enumerate}
 
 \begin{verbatim}
+---
+title: Horizontal Rules, Block Quotes, and Footnotes
+---
+
 The quick brown fox jumped over the lazy dog.[^quick-fox]
 
 Use three or more `-` for a horizontal rule. For example,
@@ -12682,43 +12729,86 @@ section.
 Exercises 1--3 are answered in this document.
 
 \begin{verbatim}
-#> ---
-#> title: "Exercise 24.4.7.4"
-#> author: "Jeffrey Arnold"
-#> date: "2/1/2018"
-#> output: html_document
-#> ---
-#> 
-#> ```{r setup, include=FALSE}
-#> knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
-#> ```
-#> 
-#> The chunk `a` has no dependencies.
-#> ```{r a}
-#> print(lubridate::now())
-#> x <- 1
-#> ```
-#> 
-#> The chunk `b` depends on `a`.
-#> ```{r b, dependson = c("a")}
-#> print(lubridate::now())
-#> y <- x + 1
-#> ```
-#> 
-#> The chunk `c` depends on `a`.
-#> ```{r c, dependson = c("a")}
-#> print(lubridate::now())
-#> z <- x * 2
-#> ```
-#> 
-#> The chunk `d` depends on `c` and `b`:
-#> ```{r d, dependson = c("c", "b")}
-#> print(lubridate::now())
-#> w <- y + z
-#> ```
-#> 
-#> If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
-#> and the same as the first time the document was run with caching.
+---
+title: "Diamond sizes"
+date: 2018-07-15
+output: html_document
+---
+
+```{r knitr_opts, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r setup, message = FALSE}
+library("ggplot2")
+library("dplyr")
+
+smaller <- diamonds %>% 
+  filter(carat <= 2.5)
+```
+
+```{r include = FALSE}
+# Hide objects and functions ONLY used inline
+n_larger <- nrow(diamonds) - nrow(smaller)
+pct_larger <- n_larger / nrow(diamonds) * 100
+
+comma <- function(x) {
+  format(x, digits = 2, big.mark = ",")
+}
+```
+
+## Size and Cut, Color, and Clarity
+
+Diamonds with lower quality cuts (cuts are ranked from "Ideal" to "Fair") tend to be be larger.
+```{r}
+ggplot(diamonds, aes(y = carat, x = cut)) +
+  geom_boxplot()
+```
+Likewise, diamonds with worse color (diamond colors are ranked from J (worst) to D (best)) tend to be larger:
+```{r}
+ggplot(diamonds, aes(y = carat, x = color)) +
+  geom_boxplot()
+```
+The pattern present in cut and color is also present in clarity.
+Diamonds with worse clarity  (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best)) tend to be larger:
+```{r}
+ggplot(diamonds, aes(y = carat, x = clarity)) +
+  geom_boxplot()
+```
+These patterns are consistent with there being a profitability threshold for retail diamonds that is a function of carat, clarity, color, cut and other characteristics.
+A diamond may be profitable to sell if a poor value of one feature, for example, poor clarity, color, or cut, is be offset by a good value of another feature, such as a large size.
+
+## Largest Diamonds
+
+We have data about `r comma(nrow(diamonds))` diamonds. Only 
+`r n_larger` (`r round(nrow(smaller) / nrow(smaller) * 100, 1)`%) are larger than
+2.5 carats. The distribution of the remainder is shown
+below:
+
+```{r}
+smaller %>% 
+  ggplot(aes(carat)) + 
+  geom_freqpoly(binwidth = 0.01)
+```
+
+The frequency distribution of diamond sizes is marked by spikes at 
+whole-number and half-carat values, as well as several other carat values corresponding to fractions.
+
+The largest twenty diamonds (by carat) in the datasets are,
+
+```{r results = "asis"}
+diamonds %>%
+  arrange(desc(carat)) %>%
+  slice(1:20) %>%
+  select(carat, cut, color, clarity) %>%
+  knitr::kable(
+    caption = "The largest 20 diamonds in the `diamonds` dataset."
+  )
+```
+
+Most of the twenty largest datasets are in the lowest clarity category ("I1"), with one being in the second best category ("VVS2")
+The top twenty diamonds have colors rangind from the worst, "J", to best, "D", categories, though most are in the lower categories "J" and "I".
+The top twenty diamonds are more evenly distributed among the cut categories, from "Fair" to "Ideal", although the worst category (Fair) is the most common.
 \end{verbatim}
 
 \subsection{Exercise 1}\label{exercise-1-72}
@@ -12762,48 +12852,45 @@ Set up a network of chunks where \texttt{d} depends on \texttt{c} and
 Have each chunk print lubridate::now(), set cache = TRUE, then verify
 your understanding of caching.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{cat}\NormalTok{(readr}\OperatorTok{::}\KeywordTok{read_file}\NormalTok{(}\StringTok{"rmarkdown/caching.Rmd"}\NormalTok{))}
-\CommentTok{#> ---}
-\CommentTok{#> title: "Exercise 24.4.7.4"}
-\CommentTok{#> author: "Jeffrey Arnold"}
-\CommentTok{#> date: "2/1/2018"}
-\CommentTok{#> output: html_document}
-\CommentTok{#> ---}
-\CommentTok{#> }
-\CommentTok{#> ```\{r setup, include=FALSE\}}
-\CommentTok{#> knitr::opts_chunk$set(echo = TRUE, cache = TRUE)}
-\CommentTok{#> ```}
-\CommentTok{#> }
-\CommentTok{#> The chunk `a` has no dependencies.}
-\CommentTok{#> ```\{r a\}}
-\CommentTok{#> print(lubridate::now())}
-\CommentTok{#> x <- 1}
-\CommentTok{#> ```}
-\CommentTok{#> }
-\CommentTok{#> The chunk `b` depends on `a`.}
-\CommentTok{#> ```\{r b, dependson = c("a")\}}
-\CommentTok{#> print(lubridate::now())}
-\CommentTok{#> y <- x + 1}
-\CommentTok{#> ```}
-\CommentTok{#> }
-\CommentTok{#> The chunk `c` depends on `a`.}
-\CommentTok{#> ```\{r c, dependson = c("a")\}}
-\CommentTok{#> print(lubridate::now())}
-\CommentTok{#> z <- x * 2}
-\CommentTok{#> ```}
-\CommentTok{#> }
-\CommentTok{#> The chunk `d` depends on `c` and `b`:}
-\CommentTok{#> ```\{r d, dependson = c("c", "b")\}}
-\CommentTok{#> print(lubridate::now())}
-\CommentTok{#> w <- y + z}
-\CommentTok{#> ```}
-\CommentTok{#> }
-\CommentTok{#> If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,}
-\CommentTok{#> and the same as the first time the document was run with caching.}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+---
+title: "Exercise 24.4.7.4"
+author: "Jeffrey Arnold"
+date: "2/1/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+The chunk `a` has no dependencies.
+```{r a}
+print(lubridate::now())
+x <- 1
+```
+
+The chunk `b` depends on `a`.
+```{r b, dependson = c("a")}
+print(lubridate::now())
+y <- x + 1
+```
+
+The chunk `c` depends on `a`.
+```{r c, dependson = c("a")}
+print(lubridate::now())
+z <- x * 2
+```
+
+The chunk `d` depends on `c` and `b`:
+```{r d, dependson = c("c", "b")}
+print(lubridate::now())
+w <- y + z
+```
+
+If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
+and the same as the first time the document was run with caching.
+\end{verbatim}
 
 \chapter{Graphics for communication}\label{graphics-for-communication}
 

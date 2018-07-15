@@ -119,7 +119,28 @@ Practice what you’ve learned by creating a brief CV. The title should be your 
 
 
 
-Exercise left to reader.
+A minimal example is the following CV.
+
+```
+---
+title: "Hadley Wickham"
+---
+
+## Employment
+
+-   Chief Scientist, Rstudio, **2013--present**.
+-   Adjust Professor, Rice University, Houston, TX, **2013--present**.
+-   Assistant Professor, Rice University, Houston, TX, **2008--12**.
+
+## Education
+
+-   Ph.D. in Statistics, Iowa State University, Ames, IA,  **2008**
+-   M.Sc. in Statistics, University of Auckland, New Zealand, **2004**
+-   B.Sc. in Statistics and Computer Science, First Class Honours, The University of Auckland, New Zealand, **2002**.
+-   Bachelor of Human Biology, First Class Honours, The University of Auckland, Auckland, New Zealand, **1999**.
+```
+
+Your own example could be much more detailed.
 
 
 
@@ -137,7 +158,12 @@ Using the R Markdown quick reference, figure out how to:
 
 
 
+
 ```
+---
+title: Horizontal Rules, Block Quotes, and Footnotes
+---
+
 The quick brown fox jumped over the lazy dog.[^quick-fox]
 
 Use three or more `-` for a horizontal rule. For example,
@@ -154,7 +180,6 @@ a YAML block if it is at the start of the document.
 [^quick-fox]: This is an example of a footnote. The sentence this is footnoting
   is often used for displaying fonts because it includes all 26 letters of the
   English alphabet.
-
 ```
 
 
@@ -176,45 +201,88 @@ For an example R markdown document, see the exercises in the next section.
 Exercises 1--3 are answered in this document.
 
 
+````
+---
+title: "Diamond sizes"
+date: 2018-07-15
+output: html_document
+---
+
+```{r knitr_opts, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 ```
-#> ---
-#> title: "Exercise 24.4.7.4"
-#> author: "Jeffrey Arnold"
-#> date: "2/1/2018"
-#> output: html_document
-#> ---
-#> 
-#> ```{r setup, include=FALSE}
-#> knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
-#> ```
-#> 
-#> The chunk `a` has no dependencies.
-#> ```{r a}
-#> print(lubridate::now())
-#> x <- 1
-#> ```
-#> 
-#> The chunk `b` depends on `a`.
-#> ```{r b, dependson = c("a")}
-#> print(lubridate::now())
-#> y <- x + 1
-#> ```
-#> 
-#> The chunk `c` depends on `a`.
-#> ```{r c, dependson = c("a")}
-#> print(lubridate::now())
-#> z <- x * 2
-#> ```
-#> 
-#> The chunk `d` depends on `c` and `b`:
-#> ```{r d, dependson = c("c", "b")}
-#> print(lubridate::now())
-#> w <- y + z
-#> ```
-#> 
-#> If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
-#> and the same as the first time the document was run with caching.
+
+```{r setup, message = FALSE}
+library("ggplot2")
+library("dplyr")
+
+smaller <- diamonds %>% 
+  filter(carat <= 2.5)
 ```
+
+```{r include = FALSE}
+# Hide objects and functions ONLY used inline
+n_larger <- nrow(diamonds) - nrow(smaller)
+pct_larger <- n_larger / nrow(diamonds) * 100
+
+comma <- function(x) {
+  format(x, digits = 2, big.mark = ",")
+}
+```
+
+## Size and Cut, Color, and Clarity
+
+Diamonds with lower quality cuts (cuts are ranked from "Ideal" to "Fair") tend to be be larger.
+```{r}
+ggplot(diamonds, aes(y = carat, x = cut)) +
+  geom_boxplot()
+```
+Likewise, diamonds with worse color (diamond colors are ranked from J (worst) to D (best)) tend to be larger:
+```{r}
+ggplot(diamonds, aes(y = carat, x = color)) +
+  geom_boxplot()
+```
+The pattern present in cut and color is also present in clarity.
+Diamonds with worse clarity  (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best)) tend to be larger:
+```{r}
+ggplot(diamonds, aes(y = carat, x = clarity)) +
+  geom_boxplot()
+```
+These patterns are consistent with there being a profitability threshold for retail diamonds that is a function of carat, clarity, color, cut and other characteristics.
+A diamond may be profitable to sell if a poor value of one feature, for example, poor clarity, color, or cut, is be offset by a good value of another feature, such as a large size.
+
+## Largest Diamonds
+
+We have data about `r comma(nrow(diamonds))` diamonds. Only 
+`r n_larger` (`r round(nrow(smaller) / nrow(smaller) * 100, 1)`%) are larger than
+2.5 carats. The distribution of the remainder is shown
+below:
+
+```{r}
+smaller %>% 
+  ggplot(aes(carat)) + 
+  geom_freqpoly(binwidth = 0.01)
+```
+
+The frequency distribution of diamond sizes is marked by spikes at 
+whole-number and half-carat values, as well as several other carat values corresponding to fractions.
+
+The largest twenty diamonds (by carat) in the datasets are,
+
+```{r results = "asis"}
+diamonds %>%
+  arrange(desc(carat)) %>%
+  slice(1:20) %>%
+  select(carat, cut, color, clarity) %>%
+  knitr::kable(
+    caption = "The largest 20 diamonds in the `diamonds` dataset."
+  )
+```
+
+Most of the twenty largest datasets are in the lowest clarity category ("I1"), with one being in the second best category ("VVS2")
+The top twenty diamonds have colors rangind from the worst, "J", to best, "D", categories, though most are in the lower categories "J" and "I".
+The top twenty diamonds are more evenly distributed among the cut categories, from "Fair" to "Ideal", although the worst category (Fair) is the most common.
+````
 
 ### Exercise 1 {.exercise}
 
@@ -261,46 +329,45 @@ Set up a network of chunks where `d` depends on `c` and `b`, and both `b` and `c
 
 
 
-```r
-cat(readr::read_file("rmarkdown/caching.Rmd"))
-#> ---
-#> title: "Exercise 24.4.7.4"
-#> author: "Jeffrey Arnold"
-#> date: "2/1/2018"
-#> output: html_document
-#> ---
-#> 
-#> ```{r setup, include=FALSE}
-#> knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
-#> ```
-#> 
-#> The chunk `a` has no dependencies.
-#> ```{r a}
-#> print(lubridate::now())
-#> x <- 1
-#> ```
-#> 
-#> The chunk `b` depends on `a`.
-#> ```{r b, dependson = c("a")}
-#> print(lubridate::now())
-#> y <- x + 1
-#> ```
-#> 
-#> The chunk `c` depends on `a`.
-#> ```{r c, dependson = c("a")}
-#> print(lubridate::now())
-#> z <- x * 2
-#> ```
-#> 
-#> The chunk `d` depends on `c` and `b`:
-#> ```{r d, dependson = c("c", "b")}
-#> print(lubridate::now())
-#> w <- y + z
-#> ```
-#> 
-#> If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
-#> and the same as the first time the document was run with caching.
+````
+---
+title: "Exercise 24.4.7.4"
+author: "Jeffrey Arnold"
+date: "2/1/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
+
+The chunk `a` has no dependencies.
+```{r a}
+print(lubridate::now())
+x <- 1
+```
+
+The chunk `b` depends on `a`.
+```{r b, dependson = c("a")}
+print(lubridate::now())
+y <- x + 1
+```
+
+The chunk `c` depends on `a`.
+```{r c, dependson = c("a")}
+print(lubridate::now())
+z <- x * 2
+```
+
+The chunk `d` depends on `c` and `b`:
+```{r d, dependson = c("c", "b")}
+print(lubridate::now())
+w <- y + z
+```
+
+If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
+and the same as the first time the document was run with caching.
+````
 
 
 

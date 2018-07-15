@@ -1,26 +1,40 @@
 # Introduction
 
-## Acknowledgment
+## Acknowledgments {-}
 
 All the credit should go to Garrett Grolemund and Hadley Wickham for writing the truly fantastic *R for Data Science* book,
 without which these solutions would not exist---literally.
 
 This book was written in the open, with some people contributed pull requests to fix problems.
-Thank you to all who contributed via GitHub:
+Thank you to all who contributed via [GitHub](https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors).
 
-```{r}
-library(dplyr)
-# git --no-pager shortlog -ns > contribs.txt
-contribs <- readr::read_tsv("contribs.txt", col_names = c("n", "name"))
+```{r contributions,echo=FALSE,cache=FALSE,message=FALSE,results='asis'}
+library("dplyr")
+clean_author <- function(x) {
+  if_else(stringr::str_detect(x, "@users\\.noreply\\.github\\.com"),
+          stringr::str_replace(x, "(.*?)@users\\.noreply\\.github\\.com", 
+                               "@\\1"),
+          stringr::str_c("<", x, ">"))
+}
 
-contribs <- contribs %>%
-  filter(!name %in% c("jrnold", "Jeffrey Arnold")) %>%
-  arrange(name) %>%
-  mutate(uname = ifelse(!grepl(" ", name), paste0("@", name), name))
+excluded_authors <- c("jeffrey.arnold@gmail.com")
+contribs <- git2r::contributions(by = "author") %>%
+  filter(!author %in% excluded_authors) %>%
+  mutate(author = clean_author(author)) %>%
+  arrange(author) 
 
 cat("Thanks go to all contributers in alphabetical order: ")
-cat(paste0(contribs$uname, collapse = ", "))
+cat(paste0(contribs$author, collapse = ", "))
 cat(".\n")
+```
+
+## Updates {-}
+
+```{r updates,results='asis',echo=FALSE}
+readr::read_file(here::here("NEWS.md")) %>%
+  stringr::str_replace_all(stringr::regex("^## (.*)$", multiline = TRUE), 
+                           "### \\1 {-}") %>%
+  cat()
 ```
 
 <!-- match unopened div --><div>

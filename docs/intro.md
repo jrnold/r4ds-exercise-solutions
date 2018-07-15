@@ -1,45 +1,36 @@
 
 # Introduction
 
-## Acknowledgment
+## Acknowledgments {-}
 
 All the credit should go to Garrett Grolemund and Hadley Wickham for writing the truly fantastic *R for Data Science* book,
 without which these solutions would not exist---literally.
 
 This book was written in the open, with some people contributed pull requests to fix problems.
-Thank you to all who contributed via GitHub:
+Thank you to all who contributed via [GitHub](https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors).
 
+Thanks go to all contributers in alphabetical order: @jmclawson, <benherbertson@gmail.com>, <kleinmarkgeard@gmail.com>, <mjones01@BattelleEcology.org>, <ndecoursin@gmail.com>, <theadamattack@gmail.com>, <theadamattack@gmail.com>, <tinhb92@gmail.com>.
 
-```r
-library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-# git --no-pager shortlog -ns > contribs.txt
-contribs <- readr::read_tsv("contribs.txt", col_names = c("n", "name"))
-#> Parsed with column specification:
-#> cols(
-#>   n = col_integer(),
-#>   name = col_character()
-#> )
+## Updates {-}
 
-contribs <- contribs %>%
-  filter(!name %in% c("jrnold", "Jeffrey Arnold")) %>%
-  arrange(name) %>%
-  mutate(uname = ifelse(!grepl(" ", name), paste0("@", name), name))
+### 2018-07-15 {-}
 
-cat("Thanks go to all contributers in alphabetical order: ")
-#> Thanks go to all contributers in alphabetical order:
-cat(paste0(contribs$uname, collapse = ", "))
-#> @A, Adam Blake, @Ben, James Clawson, Klein Geard, Megan A. Jones, Nick DeCoursin
-cat(".\n")
-#> .
-```
+-   Added answer to Ex. 25.2.3
+-   Edited Sec. 27.2. Corrected formatting of R markdown files.
+-   Changed format of contributors list
+
+### 2018-07-14 {-}
+
+-   Added answer to Ex. 20.5.1
+-   Added answer to Ex. 3.8.3 (@KleinGeard, #23)
+-   Edited answer to Ex. 5.2.1 to use modulo operator (@KleinGeard, #23)
+-   Corrected answer to Ex 3.3.5 (Ronald Gould, #24)
+-   Corrected typos, URLs, HTML, markdown issues.
+
+### 2018-05-08 {-}
+
+-   Corrected answer to Ex. 3.6.6 (#21)
+-   Added NEWS.md to track changes
 
 <!-- match unopened div --><div>
 
