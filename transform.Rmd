@@ -99,6 +99,12 @@ Of the answers in the previous question,
 filter(flights, between(month, 7, 9))
 ```
 
+You could also use the mod operation `%%` to simplify question g.
+
+`between(dep_time %% 2400, 0, 600)` is equivalent to `dep_time <= 600 | dep_time == 2400`
+```{r}
+filter(flights, between(dep_time %% 2400, 0, 600))
+```
 `r EndAnswer()`
 
 ### Exercise 3 {.exercise}
