@@ -59,14 +59,20 @@ Which representation is easiest to work with? Which is hardest? Why?
 
 Without using the join functions introduced in Ch 12:
 ```{r}
-tb2_cases <- filter(table2, type == "cases")[["count"]]
-tb2_country <- filter(table2, type == "cases")[["country"]]
-tb2_year <- filter(table2, type == "cases")[["year"]]
-tb2_population <- filter(table2, type == "population")[["count"]]
-table2_clean <- tibble(country = tb2_country,
-       year = tb2_year,
-       rate = tb2_cases / tb2_population)
-table2_clean
+t2_country <- filter(table2, type == "cases")$country
+t2_year <- filter(table2, type == "cases")$year
+t2_cases <- filter(table2, type == "cases")$count
+t2_population <- filter(table2, type == "population")$count
+
+t2_clean <- tibble(
+  country = t2_country,
+  year = t2_year,
+  cases = t2_cases,
+  population = t2_population,
+  rate = cases / population * 10000
+)
+
+t2_clean
 ```
 Note, that this assumes that all observations are sorted so that each country, year will have the observation for cases followed by population.
 
