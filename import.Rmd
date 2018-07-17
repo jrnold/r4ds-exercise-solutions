@@ -210,8 +210,18 @@ If you live outside the US, create a new locale object that encapsulates the set
 
 `r BeginAnswer()`
 
+Use `?locale` to learn about the different variables that can be set.
+
+For example. In Australia the date format "(d)d/mm/yyyy" is used while everything else is the same as the default. Create a reusable `locale` like so.
 ```{r}
-?locale
+au_locale <- locale(
+  date_format = "%d/%m/%Y"
+)
+
+parse_date(
+  "8/7/2018", #Eighth of July, 2018
+  locale = au_locale
+)
 ```
 
 `r EndAnswer()`
