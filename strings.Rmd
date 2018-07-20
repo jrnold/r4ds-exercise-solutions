@@ -634,39 +634,18 @@ To check that it works,
 str_subset("aseiouds", pattern)
 ```
 
-What word has the higher number of vowels?
-```{r}
-df <- tibble (
-  word = words,
-  i = seq_along(word)
-)
-
-df %>%
-  mutate(
-    vowels = str_count(word, "[aeiou]")
-  ) %>%
-  arrange(desc(vowels))
-```
-
-What word has the highest proportion of vowels?
-```{r}
-df %>%
-  mutate(
-    prop = str_count(word, "[aeiou]") / str_length(word)
-  )%>%
-  arrange(desc(prop))
-```
-
-`r EndAnswer()`
-
-#### Exercise 2 {.exercise}
-
 `r BeginQuestion()`
 What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
 `r EndQuestion()`
 
 `r BeginAnswer()`
+What word has the highest number of vowels?
+```{r}
+vowels <- str_count(words, "[aeiou]")
+words[which(vowels == max(vowels))]
+```
 
+What word has the highest proportion of vowels?
 ```{r}
 prop_vowels <- str_count(words, "[aeiou]") / str_length(words)
 words[which(prop_vowels == max(prop_vowels))]
