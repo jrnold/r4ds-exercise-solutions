@@ -531,7 +531,7 @@ Describe, in words, what these expressions will match:
 `r BeginQuestion()`
 Construct regular expressions to match words that:
 
-1.  Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
+1.  Start and end with the same character.
 1.  Contain a repeated pair of letters (e.g. ``church'' contains ``ch'' repeated twice.)
 1.  Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
 
@@ -539,9 +539,9 @@ Construct regular expressions to match words that:
 
 `r BeginAnswer()`
 
-Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`:
+Start and end with the same character.
 ```{r eval=is_html}
-str_view(words, "^(.).*\\1$")
+str_view(stringr::words, "^(.)((.*\\1$)|\\1?$)", match = TRUE)
 ```
 
 Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.):
