@@ -1,8 +1,7 @@
 ## 2018-07-20
 
 -   Added answer to Ex. 11.3.4 (@KleinGeard)
--   
-
+-   Correct and edit Ex. 12.2.2. (@KleinGeard): Missing multiplication by 10,000, typo in code, and did not store results in the appropriate format.
 
 ## 2018-07-15
 

@@ -57,37 +57,59 @@ Which representation is easiest to work with? Which is hardest? Why?
 
 `r BeginAnswer()`
 
-Without using the join functions introduced in Ch 12:
-```{r}
-t2_country <- filter(table2, type == "cases")$country
-t2_year <- filter(table2, type == "cases")$year
-t2_cases <- filter(table2, type == "cases")$count
-t2_population <- filter(table2, type == "population")$count
+In order to calculate cases per person, we need to divide cases by population for each country, year.
+This is easiest if country and population are two columns in a data frame with country and year rows.
 
-t2_clean <- tibble(
-  country = t2_country,
-  year = t2_year,
-  cases = t2_cases,
-  population = t2_population,
-  rate = cases / population * 10000
-)
-
-t2_clean
-```
-Note, that this assumes that all observations are sorted so that each country, year will have the observation for cases followed by population.
-
+For Table 2, we need to first create separate tables
+for cases and population and ensure that they are sorted in the same order.
 ```{r}
-tibble(country = table4a[["country"]],
-       `1999` = table4a[["1999"]] / table4b[["1999"]],
-       `2000` = table4b[["2000"]] / table4b[["2000"]])
+t2_cases <- filter(table2, type == "cases") %>%
+  rename(cases = count) %>%
+  arrange(country, year)
+t2_population <- filter(table2, type == "population") %>%
+  rename(population = count) %>%
+  arrange(country, year)
 ```
-or
+Calculate the cases per capita in a separate data frame.
 ```{r}
-tibble(country = rep(table4a[["country"]], 2),
-       year = rep(c(1999, 2000), each = nrow(table4a)),
-       `rate` = c(table4a[["1999"]] / table4b[["1999"]],
-                  table4b[["2000"]] / table4b[["2000"]]))
+t2_cases_per_cap <- t2_cases %>%
+  mutate(population = t2_population$population,
+         cases_per_cap = (cases / population) * 10000) %>%
+  select(country, year, cases_per_cap)
 ```
+Since the question asks us to store it back in the appropriate location, we will add new rows with 
+`type = "cases_per_cap"` to `table2` and then
+sort by country, year, and variable type as in the original table.
+```{r}
+t2_cases_per_cap <- t2_cases_per_cap %>%
+  mutate(type = "cases_per_cap") %>%
+  rename(count = cases_per_cap)
+```
+```{r}
+bind_rows(table2, t2_cases_per_cap) %>%
+  arrange(country, year, type, count)
+```
+Note that after adding the `cases_per_cap` rows,
+the type of `count` is coerced to `numeric` (double) because `cases_per_cap` is not an integer.
+
+For `table4a` and `table4b`, we will create a separate table for cases per capita (`table4c`), with country rows and year columns.
+```{r}
+table4c <- 
+  tibble(country = table4a$country,
+         `1999` = table4a[["1999"]] / table4b[["1999"]] * 10000,
+       `2000` = table4a[["2000"]] / table4b[["2000"]] * 10000)
+table4c
+```
+
+Neither table is particularly easy to work with. 
+Since `table2` has separate rows for cases and population we needed to generate a table with columns for cases and population where we could
+calculate cases per capita.
+`table4a` and `table4b` split the cases and population variables into different tables which
+made it easy to divide cases by population.
+However, we had to repeat this calculation for each row.
+
+The ideal format of a data frame to answer this question is one with columns `country`, `year`, `cases`, and `population`.
+Then problem could be answered with a single `mutate()` call.
 
 `r EndAnswer()`
 
