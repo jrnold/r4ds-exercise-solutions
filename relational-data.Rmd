@@ -110,7 +110,7 @@ Lahman::Batting %>%
   nrow()
 ```
 
-The primary key for `babynames::babynames` is `year`, `sex`, `name`. It is no simply `year`, `name` since names can appear for both sexes with different counts.
+The primary key for `babynames::babynames` is `year`, `sex`, `name`. It is not simply `year`, `name` since names can appear for both sexes with different counts.
 ```{r}
 babynames::babynames %>%
   group_by(year, sex, name) %>%
@@ -144,7 +144,7 @@ nrow(ggplot2::diamonds)
 
 `r EndAnswer()`
 
-### Exercise 4 {.exercise}
+### Exercise 3 {.exercise}
 
 Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
 
@@ -284,12 +284,42 @@ Add the location of the origin and destination (i.e. the `lat` and `lon`) to `fl
 
 `r BeginAnswer()`
 
+You can perform one join after another. If duplicate variables are found, by default, dplyr will distinguish the two by adding `.x`, and `.y` to the ends of the variable names to solve naming conflicts. 
 ```{r}
+airport_locations <- airports %>%
+  select(faa, lat, lon)
+  
 flights %>%
-  left_join(airports, by = c(dest = "faa")) %>%
-  left_join(airports, by = c(origin = "faa")) %>%
-  head()
+    select(year:day, hour, origin, dest) %>%
+  left_join(
+    airport_locations,
+    by = c("origin" = "faa")
+  ) %>%
+  left_join(
+    airport_locations,
+    by = c("dest" = "faa")
+  )
 ```
+This default can be over-ridden using the `suffix` argument.
+```{r}
+airport_locations <- airports %>%
+  select(faa, lat, lon)
+  
+flights %>%
+    select(year:day, hour, origin, dest) %>%
+  left_join(
+    airport_locations,
+    by = c("origin" = "faa")
+  ) %>%
+  left_join(
+    airport_locations,
+    by = c("dest" = "faa"),
+    suffix = c("_origin", "_dest")
+    #existing lat and lon variables in tibble gain the _origin suffix
+    #new lat and lon variables are given _dest suffix
+  )
+```
+It's always good practice to have clear variable names.
 
 `r EndAnswer()`
 

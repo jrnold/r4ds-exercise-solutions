@@ -736,8 +736,13 @@ flights %>%
   filter(!is.na(arr_delay), arr_delay > 0) %>%  
   group_by(dest) %>%
   mutate(total_delay = sum(arr_delay),
-         prop_delay = arr_delay / sum(arr_delay))
-
+         prop_delay = arr_delay / total_delay) %>%
+  select(
+    (year:day),
+    dep_delay,
+    total_delay,
+    prop_delay
+  )
 ```
 
 Alternatively, consider the delay as relative to the *minimum* delay for any flight to that destination. Now all non-canceled flights have a proportion.
@@ -746,7 +751,13 @@ flights %>%
   filter(!is.na(arr_delay), arr_delay > 0) %>%  
   group_by(dest) %>%
   mutate(total_delay = sum(arr_delay - min(arr_delay)),
-         prop_delay = arr_delay / sum(arr_delay))
+         prop_delay = arr_delay / sum(arr_delay)) %>%
+  select(
+    (year:day),
+    dep_delay,
+    total_delay,
+    prop_delay
+  )
 ```
 
 `r EndAnswer()`
