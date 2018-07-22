@@ -1,6 +1,7 @@
 ## 2018-07-22
 
--   Edit plot in Ex 12.2.3 (@KleinGeard)
+-   Edit plot in Ex. 12.2.3 (@KleinGeard)
+-   Add examples to Ex. 12.4.2 (@KleinGeard)
 
 ## 2018-07-21
 
