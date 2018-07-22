@@ -138,7 +138,7 @@ Lahman::Batting %>%
 #> [1] 0
 ```
 
-The primary key for `babynames::babynames` is `year`, `sex`, `name`. It is no simply `year`, `name` since names can appear for both sexes with different counts.
+The primary key for `babynames::babynames` is `year`, `sex`, `name`. It is not simply `year`, `name` since names can appear for both sexes with different counts.
 
 ```r
 babynames::babynames %>%
@@ -181,7 +181,7 @@ nrow(ggplot2::diamonds)
 
 
 
-### Exercise 4 {.exercise}
+### Exercise 3 {.exercise}
 
 Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
 
@@ -339,28 +339,64 @@ Add the location of the origin and destination (i.e. the `lat` and `lon`) to `fl
 
 
 
+You can perform one join after another. If duplicate variables are found, by default, dplyr will distinguish the two by adding `.x`, and `.y` to the ends of the variable names to solve naming conflicts. 
 
 ```r
+airport_locations <- airports %>%
+  select(faa, lat, lon)
+  
 flights %>%
-  left_join(airports, by = c(dest = "faa")) %>%
-  left_join(airports, by = c(origin = "faa")) %>%
-  head()
-#> # A tibble: 6 x 33
-#>    year month   day dep_time sched_dep_time dep_delay arr_time
-#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515         2      830
-#> 2  2013     1     1      533            529         4      850
-#> 3  2013     1     1      542            540         2      923
-#> 4  2013     1     1      544            545        -1     1004
-#> 5  2013     1     1      554            600        -6      812
-#> 6  2013     1     1      554            558        -4      740
-#> # ... with 26 more variables: sched_arr_time <int>, arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
-#> #   time_hour <dttm>, name.x <chr>, lat.x <dbl>, lon.x <dbl>, alt.x <int>,
-#> #   tz.x <dbl>, dst.x <chr>, tzone.x <chr>, name.y <chr>, lat.y <dbl>,
-#> #   lon.y <dbl>, alt.y <int>, tz.y <dbl>, dst.y <chr>, tzone.y <chr>
+    select(year:day, hour, origin, dest) %>%
+  left_join(
+    airport_locations,
+    by = c("origin" = "faa")
+  ) %>%
+  left_join(
+    airport_locations,
+    by = c("dest" = "faa")
+  )
+#> # A tibble: 336,776 x 10
+#>    year month   day  hour origin dest  lat.x lon.x lat.y lon.y
+#>   <int> <int> <int> <dbl> <chr>  <chr> <dbl> <dbl> <dbl> <dbl>
+#> 1  2013     1     1     5 EWR    IAH    40.7 -74.2  30.0 -95.3
+#> 2  2013     1     1     5 LGA    IAH    40.8 -73.9  30.0 -95.3
+#> 3  2013     1     1     5 JFK    MIA    40.6 -73.8  25.8 -80.3
+#> 4  2013     1     1     5 JFK    BQN    40.6 -73.8  NA    NA  
+#> 5  2013     1     1     6 LGA    ATL    40.8 -73.9  33.6 -84.4
+#> 6  2013     1     1     5 EWR    ORD    40.7 -74.2  42.0 -87.9
+#> # ... with 3.368e+05 more rows
 ```
+This default can be over-ridden using the `suffix` argument.
+
+```r
+airport_locations <- airports %>%
+  select(faa, lat, lon)
+  
+flights %>%
+    select(year:day, hour, origin, dest) %>%
+  left_join(
+    airport_locations,
+    by = c("origin" = "faa")
+  ) %>%
+  left_join(
+    airport_locations,
+    by = c("dest" = "faa"),
+    suffix = c("_origin", "_dest")
+    # existing lat and lon variables in tibble gain the _origin suffix
+    # new lat and lon variables are given _dest suffix
+  )
+#> # A tibble: 336,776 x 10
+#>    year month   day  hour origin dest  lat_origin lon_origin lat_dest
+#>   <int> <int> <int> <dbl> <chr>  <chr>      <dbl>      <dbl>    <dbl>
+#> 1  2013     1     1     5 EWR    IAH         40.7      -74.2     30.0
+#> 2  2013     1     1     5 LGA    IAH         40.8      -73.9     30.0
+#> 3  2013     1     1     5 JFK    MIA         40.6      -73.8     25.8
+#> 4  2013     1     1     5 JFK    BQN         40.6      -73.8     NA  
+#> 5  2013     1     1     6 LGA    ATL         40.8      -73.9     33.6
+#> 6  2013     1     1     5 EWR    ORD         40.7      -74.2     42.0
+#> # ... with 3.368e+05 more rows, and 1 more variable: lon_dest <dbl>
+```
+It's always good practice to have clear variable names.
 
 
 
@@ -395,7 +431,7 @@ flights %>%
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 
 
@@ -427,7 +463,7 @@ flight_weather %>%
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 
 
@@ -445,7 +481,6 @@ The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest,
 
 ```r
 library(viridis)
-#> Loading required package: viridisLite
 flights %>%
   filter(year == 2013, month == 6, day == 13) %>%
   group_by(dest) %>%
@@ -461,7 +496,7 @@ flights %>%
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 
 

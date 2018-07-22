@@ -663,13 +663,15 @@ To clearly show the distribution of `cut` within `color`, calculate a new variab
 This is done using a grouped mutate.
 
 ```r
+library(viridis)
+
 diamonds %>%
   count(color, cut) %>%
   group_by(color) %>%
   mutate(prop = n / sum(n)) %>%
   ggplot(mapping = aes(x = color, y = cut)) +
   geom_tile(mapping = aes(fill = prop)) +
-  scale_fill_viridis(limits = c(0, 1))
+  scale_fill_viridis(limits = c(0, 1)) #from the viridis colour palette library
 ```
 
 

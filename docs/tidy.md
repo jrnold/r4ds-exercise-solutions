@@ -104,58 +104,80 @@ Which representation is easiest to work with? Which is hardest? Why?
 
 
 
-Without using the join functions introduced in Ch 12:
+In order to calculate cases per person, we need to divide cases by population for each country, year.
+This is easiest if country and population are two columns in a data frame with country and year rows.
+
+For Table 2, we need to first create separate tables
+for cases and population and ensure that they are sorted in the same order.
 
 ```r
-tb2_cases <- filter(table2, type == "cases")[["count"]]
-tb2_country <- filter(table2, type == "cases")[["country"]]
-tb2_year <- filter(table2, type == "cases")[["year"]]
-tb2_population <- filter(table2, type == "population")[["count"]]
-table2_clean <- tibble(country = tb2_country,
-       year = tb2_year,
-       rate = tb2_cases / tb2_population)
-table2_clean
-#> # A tibble: 6 x 3
-#>   country      year      rate
-#>   <chr>       <int>     <dbl>
-#> 1 Afghanistan  1999 0.0000373
-#> 2 Afghanistan  2000 0.000129 
-#> 3 Brazil       1999 0.000219 
-#> 4 Brazil       2000 0.000461 
-#> 5 China        1999 0.000167 
-#> 6 China        2000 0.000167
+t2_cases <- filter(table2, type == "cases") %>%
+  rename(cases = count) %>%
+  arrange(country, year)
+t2_population <- filter(table2, type == "population") %>%
+  rename(population = count) %>%
+  arrange(country, year)
 ```
-Note, that this assumes that all observations are sorted so that each country, year will have the observation for cases followed by population.
-
+Calculate the cases per capita in a separate data frame.
 
 ```r
-tibble(country = table4a[["country"]],
-       `1999` = table4a[["1999"]] / table4b[["1999"]],
-       `2000` = table4b[["2000"]] / table4b[["2000"]])
+t2_cases_per_cap <- t2_cases %>%
+  mutate(population = t2_population$population,
+         cases_per_cap = (cases / population) * 10000) %>%
+  select(country, year, cases_per_cap)
+```
+Since the question asks us to store it back in the appropriate location, we will add new rows with 
+`type = "cases_per_cap"` to `table2` and then
+sort by country, year, and variable type as in the original table.
+
+```r
+t2_cases_per_cap <- t2_cases_per_cap %>%
+  mutate(type = "cases_per_cap") %>%
+  rename(count = cases_per_cap)
+```
+
+```r
+bind_rows(table2, t2_cases_per_cap) %>%
+  arrange(country, year, type, count)
+#> # A tibble: 18 x 4
+#>   country      year type                 count
+#>   <chr>       <int> <chr>                <dbl>
+#> 1 Afghanistan  1999 cases              745    
+#> 2 Afghanistan  1999 cases_per_cap        0.373
+#> 3 Afghanistan  1999 population    19987071    
+#> 4 Afghanistan  2000 cases             2666    
+#> 5 Afghanistan  2000 cases_per_cap        1.29 
+#> 6 Afghanistan  2000 population    20595360    
+#> # ... with 12 more rows
+```
+Note that after adding the `cases_per_cap` rows,
+the type of `count` is coerced to `numeric` (double) because `cases_per_cap` is not an integer.
+
+For `table4a` and `table4b`, we will create a separate table for cases per capita (`table4c`), with country rows and year columns.
+
+```r
+table4c <- 
+  tibble(country = table4a$country,
+         `1999` = table4a[["1999"]] / table4b[["1999"]] * 10000,
+       `2000` = table4a[["2000"]] / table4b[["2000"]] * 10000)
+table4c
 #> # A tibble: 3 x 3
-#>   country        `1999` `2000`
-#>   <chr>           <dbl>  <dbl>
-#> 1 Afghanistan 0.0000373      1
-#> 2 Brazil      0.000219       1
-#> 3 China       0.000167       1
+#>   country     `1999` `2000`
+#>   <chr>        <dbl>  <dbl>
+#> 1 Afghanistan  0.373   1.29
+#> 2 Brazil       2.19    4.61
+#> 3 China        1.67    1.67
 ```
-or
 
-```r
-tibble(country = rep(table4a[["country"]], 2),
-       year = rep(c(1999, 2000), each = nrow(table4a)),
-       `rate` = c(table4a[["1999"]] / table4b[["1999"]],
-                  table4b[["2000"]] / table4b[["2000"]]))
-#> # A tibble: 6 x 3
-#>   country      year      rate
-#>   <chr>       <dbl>     <dbl>
-#> 1 Afghanistan  1999 0.0000373
-#> 2 Brazil       1999 0.000219 
-#> 3 China        1999 0.000167 
-#> 4 Afghanistan  2000 1        
-#> 5 Brazil       2000 1        
-#> 6 China        2000 1
-```
+Neither table is particularly easy to work with. 
+Since `table2` has separate rows for cases and population we needed to generate a table with columns for cases and population where we could
+calculate cases per capita.
+`table4a` and `table4b` split the cases and population variables into different tables which
+made it easy to divide cases by population.
+However, we had to repeat this calculation for each row.
+
+The ideal format of a data frame to answer this question is one with columns `country`, `year`, `cases`, and `population`.
+Then problem could be answered with a single `mutate()` call.
 
 
 
@@ -167,19 +189,21 @@ Recreate the plot showing change in cases over time using `table2` instead of `t
 
 
 
-First, I needed to filter the tibble to only include those rows that represented the "cases" variable.
+Before creating the plot with change in cases over time, we need to filter the data frame to only include rows representing cases of TB.
 
 ```r
 table2 %>%
   filter(type == "cases") %>%
   ggplot(aes(year, count)) +
   geom_line(aes(group = country), colour = "grey50") +
-  geom_point(aes(colour = country))
+  geom_point(aes(colour = country)) +
+  scale_x_continuous(breaks = unique(table2$year)) +
+  ylab("cases")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 
 
@@ -411,12 +435,7 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 #> 3 f     g     i
 ```
 
-
-```r
-?separate
-```
-
-The `extra` argument tells `separate` what to do if there are too many pieces,
+The `extra` argument tells `separate()` what to do if there are too many pieces,
 and the `fill` argument if there aren't enough.
 
 
@@ -520,9 +539,93 @@ Compare and contrast `separate()` and `extract()`, Why are there three variation
 
 
 
-The function `extract` uses a regular expression to find groups and split into columns.
-In `unite` it is unambiguous since it is many columns to one, and once the columns are specified, there is only one way to do it, the only choice is the `sep`.
-In `separate`, it is one to many, and there are multiple ways to split the character string.
+The function `separate()`, splits columns a column into multiple groups using
+by separator, if the `sep` argument is a character vector, or character positions, if `sep` is numeric.
+
+```r
+# example with separators
+tibble(x = c("X_1", "X_2", "AA_1", "AA_2")) %>%
+  separate(x, c("variable", "into"), sep = "_")
+#> # A tibble: 4 x 2
+#>   variable into 
+#>   <chr>    <chr>
+#> 1 X        1    
+#> 2 X        2    
+#> 3 AA       1    
+#> 4 AA       2
+
+# example with position
+tibble(x = c("X1", "X2", "Y1", "Y2")) %>%
+  separate(x, c("variable", "into"), sep = c(1))
+#> # A tibble: 4 x 2
+#>   variable into 
+#>   <chr>    <chr>
+#> 1 X        1    
+#> 2 X        2    
+#> 3 Y        1    
+#> 4 Y        2
+```
+
+The function `extract()` uses a regular expression to specify groups in character vector and split that single character vector into multiple columns.
+This is more flexible than `separate()` because it does not require a common
+separator or specific column positions.
+
+
+```r
+# example with separators
+tibble(x = c("X_1", "X_2", "AA_1", "AA_2")) %>%
+  extract(x, c("variable", "id"), regex = "([A-Z])_([0-9])")
+#> # A tibble: 4 x 2
+#>   variable id   
+#>   <chr>    <chr>
+#> 1 X        1    
+#> 2 X        2    
+#> 3 A        1    
+#> 4 A        2
+
+# example with position
+tibble(x = c("X1", "X2", "Y1", "Y2")) %>%
+  extract(x, c("variable", "id"), regex = "([A-Z])([0-9])")
+#> # A tibble: 4 x 2
+#>   variable id   
+#>   <chr>    <chr>
+#> 1 X        1    
+#> 2 X        2    
+#> 3 Y        1    
+#> 4 Y        2
+
+# example that separate could not parse
+tibble(x = c("X1", "X20", "AA11", "AA2")) %>%
+  extract(x, c("variable", "id"), regex = "([A-Z]+)([0-9]+)")  
+#> # A tibble: 4 x 2
+#>   variable id   
+#>   <chr>    <chr>
+#> 1 X        1    
+#> 2 X        20   
+#> 3 AA       11   
+#> 4 AA       2
+```
+
+Both `separate()` and `extract()` convert a single column to many columns.
+However, `unite` converts many columns to one, with a choice of a separator to include between column values.
+
+
+```r
+tibble(variable = c("X", "X", "Y", "Y"), id = c(1, 2, 1, 2)) %>%
+  unite(x, variable, id, sep = "_")
+#> # A tibble: 4 x 1
+#>   x    
+#>   <chr>
+#> 1 X_1  
+#> 2 X_2  
+#> 3 Y_1  
+#> 4 Y_2
+```
+
+In other words, with `extract()` and `separate()` only one column can be chosen,
+but there are many choices how to split that single column into different columns.
+With `unite()`, there are many choices as to which columns to include, but only
+choice as to how to combine their contents into a single vector.
 
 
 
@@ -536,17 +639,8 @@ Compare and contrast the `fill` arguments to `spread()` and `complete()`.
 
 
 
-
-```r
-?spread
-```
-
-```r
-?complete
-```
-
-In `spread`, the fill argument explicitly sets the value to replace `NA`s.
-In `complete`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
+In `spread()`, the fill argument explicitly sets the value to replace `NA`s.
+In `complete()`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
 Also, both cases replace both implicit and explicit missing values.
 
 
@@ -758,7 +852,7 @@ who5 %>%
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-42-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.

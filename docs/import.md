@@ -306,9 +306,34 @@ If you live outside the US, create a new locale object that encapsulates the set
 
 
 
+Read the help page for `locale()` using `?locale` to learn about the different variables that can be set.
+
+As an example, consider Australia. 
+Most of the defaults values are valid, except that the date format is "(d)d/mm/yyyy", meaning that January 2, 2006 is written as `02/01/2006`.
+
+However, default locale will parse that date as February 1, 2006.
+
 
 ```r
-?locale
+parse_date("02/01/2006")
+#> Warning: 1 parsing failure.
+#> row # A tibble: 1 x 4 col     row   col expected     actual     expected   <int> <int> <chr>        <chr>      actual 1     1    NA "date like " 02/01/2006
+#> [1] NA
+```
+
+To correctly parse Australian dates, define a new `locale` object.
+
+
+```r
+au_locale <- locale(date_format = "%d/%m/%Y")
+```
+
+Using `parse_date()` with that `au_locale` will correctly parse our example date.
+
+
+```r
+parse_date("02/01/2006", locale = au_locale)
+#> [1] "2006-01-02"
 ```
 
 

@@ -234,11 +234,7 @@ What does `tibble::enframe()` do? When might you use it?
 
 
 
-It converts named vectors to a data frame with names and values
-
-```r
-?tibble::enframe
-```
+The function `tibble::enframe()` converts named vectors to a data frame with names and values
 
 
 ```r
@@ -261,12 +257,8 @@ What option controls how many additional column names are printed at the footer 
 
 
 
-The print function for tibbles is in `print.tbl_df`:
-
-```r
-?print.tbl_df
-```
-The option `n_extra` determines the number of extra columns to print information for.
+The help page for the `print()` method of tibble objects is discussed in `?print.tbl_df`.
+The `n_extra` argument determines the number of extra columns to print information for.
 
 
 

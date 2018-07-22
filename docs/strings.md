@@ -474,8 +474,17 @@ For example, let's repeat the let's rewrite the `?`, `+`, and `*` examples using
 ```r
 x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
 str_view(x, "CC?")
+```
+
+```r
 str_view(x, "CC{0,1}")
+```
+
+```r
 str_view(x, "CC+")
+```
+
+```r
 str_view(x, "CC{1,}")
 ```
 
@@ -585,7 +594,7 @@ Describe, in words, what these expressions will match:
 
 Construct regular expressions to match words that:
 
-1.  Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`
+1.  Start and end with the same character.
 1.  Contain a repeated pair of letters (e.g. ``church'' contains ``ch'' repeated twice.)
 1.  Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
 
@@ -593,10 +602,10 @@ Construct regular expressions to match words that:
 
 
 
-Start and end with the same character. Assuming the word is more than one character and all strings are considered words, `^(.).*\1$`:
+Start and end with the same character.
 
 ```r
-str_view(words, "^(.).*\\1$")
+str_view(stringr::words, "^(.)((.*\\1$)|\\1?$)", match = TRUE)
 ```
 
 Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.):
@@ -644,6 +653,7 @@ For each of the following challenges, try solving it by using both a single regu
 1.  Find all words that start or end with x.
 1.  Find all words that start with a vowel and end with a consonant.
 1.  Are there any words that contain at least one of each different vowel?
+1.  What word has the higher number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
 
 
 
@@ -693,10 +703,10 @@ str_subset(words, pattern)
 #> character(0)
 
 words[str_detect(words, "a") &
-        str_detect(words, "e") &
-        str_detect(words, "i") &
-        str_detect(words, "o") &
-        str_detect(words, "u")]
+      str_detect(words, "e") &
+      str_detect(words, "i") &
+      str_detect(words, "o") &
+      str_detect(words, "u")]
 #> character(0)
 ```
 There appear to be none.
@@ -707,15 +717,18 @@ str_subset("aseiouds", pattern)
 #> [1] "aseiouds"
 ```
 
-
-#### Exercise 2 {.exercise}
-
-
 What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
 
+What word has the highest number of vowels?
 
+```r
+vowels <- str_count(words, "[aeiou]")
+words[which(vowels == max(vowels))]
+#> [1] "appropriate" "associate"   "available"   "colleague"   "encourage"  
+#> [6] "experience"  "individual"  "television"
+```
 
-
+What word has the highest proportion of vowels?
 
 ```r
 prop_vowels <- str_count(words, "[aeiou]") / str_length(words)

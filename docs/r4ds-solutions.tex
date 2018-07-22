@@ -2890,22 +2890,25 @@ flight, compute the proportion of the total delay for its destination.
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(arr_delay), arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}\StringTok{  }
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total_delay =} \KeywordTok{sum}\NormalTok{(arr_delay),}
-         \DataTypeTok{prop_delay =}\NormalTok{ arr_delay }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(arr_delay))}
-\CommentTok{#> # A tibble: 133,004 x 21}
+         \DataTypeTok{prop_delay =}\NormalTok{ arr_delay }\OperatorTok{/}\StringTok{ }\NormalTok{total_delay) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    (year}\OperatorTok{:}\NormalTok{day),}
+\NormalTok{    dep_delay,}
+\NormalTok{    total_delay,}
+\NormalTok{    prop_delay}
+\NormalTok{  )}
+\CommentTok{#> Adding missing grouping variables: `dest`}
+\CommentTok{#> # A tibble: 133,004 x 7}
 \CommentTok{#> # Groups:   dest [103]}
-\CommentTok{#>    year month   day dep_time sched_dep_time dep_delay arr_time}
-\CommentTok{#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>}
-\CommentTok{#> 1  2013     1     1      517            515         2      830}
-\CommentTok{#> 2  2013     1     1      533            529         4      850}
-\CommentTok{#> 3  2013     1     1      542            540         2      923}
-\CommentTok{#> 4  2013     1     1      554            558        -4      740}
-\CommentTok{#> 5  2013     1     1      555            600        -5      913}
-\CommentTok{#> 6  2013     1     1      558            600        -2      753}
-\CommentTok{#> # ... with 1.33e+05 more rows, and 14 more variables:}
-\CommentTok{#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,}
-\CommentTok{#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,}
-\CommentTok{#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>,}
-\CommentTok{#> #   total_delay <dbl>, prop_delay <dbl>}
+\CommentTok{#>   dest   year month   day dep_delay total_delay prop_delay}
+\CommentTok{#>   <chr> <int> <int> <int>     <dbl>       <dbl>      <dbl>}
+\CommentTok{#> 1 IAH    2013     1     1         2       99391  0.000111 }
+\CommentTok{#> 2 IAH    2013     1     1         4       99391  0.000201 }
+\CommentTok{#> 3 MIA    2013     1     1         2      140424  0.000235 }
+\CommentTok{#> 4 ORD    2013     1     1        -4      283046  0.0000424}
+\CommentTok{#> 5 FLL    2013     1     1        -5      202605  0.0000938}
+\CommentTok{#> 6 ORD    2013     1     1        -2      283046  0.0000283}
+\CommentTok{#> # ... with 1.33e+05 more rows}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2919,22 +2922,25 @@ have a proportion.
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(arr_delay), arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}\StringTok{  }
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total_delay =} \KeywordTok{sum}\NormalTok{(arr_delay }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(arr_delay)),}
-         \DataTypeTok{prop_delay =}\NormalTok{ arr_delay }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(arr_delay))}
-\CommentTok{#> # A tibble: 133,004 x 21}
+         \DataTypeTok{prop_delay =}\NormalTok{ arr_delay }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(arr_delay)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}
+\NormalTok{    (year}\OperatorTok{:}\NormalTok{day),}
+\NormalTok{    dep_delay,}
+\NormalTok{    total_delay,}
+\NormalTok{    prop_delay}
+\NormalTok{  )}
+\CommentTok{#> Adding missing grouping variables: `dest`}
+\CommentTok{#> # A tibble: 133,004 x 7}
 \CommentTok{#> # Groups:   dest [103]}
-\CommentTok{#>    year month   day dep_time sched_dep_time dep_delay arr_time}
-\CommentTok{#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>}
-\CommentTok{#> 1  2013     1     1      517            515         2      830}
-\CommentTok{#> 2  2013     1     1      533            529         4      850}
-\CommentTok{#> 3  2013     1     1      542            540         2      923}
-\CommentTok{#> 4  2013     1     1      554            558        -4      740}
-\CommentTok{#> 5  2013     1     1      555            600        -5      913}
-\CommentTok{#> 6  2013     1     1      558            600        -2      753}
-\CommentTok{#> # ... with 1.33e+05 more rows, and 14 more variables:}
-\CommentTok{#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,}
-\CommentTok{#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,}
-\CommentTok{#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>,}
-\CommentTok{#> #   total_delay <dbl>, prop_delay <dbl>}
+\CommentTok{#>   dest   year month   day dep_delay total_delay prop_delay}
+\CommentTok{#>   <chr> <int> <int> <int>     <dbl>       <dbl>      <dbl>}
+\CommentTok{#> 1 IAH    2013     1     1         2       96508  0.000111 }
+\CommentTok{#> 2 IAH    2013     1     1         4       96508  0.000201 }
+\CommentTok{#> 3 MIA    2013     1     1         2      136569  0.000235 }
+\CommentTok{#> 4 ORD    2013     1     1        -4      276848  0.0000424}
+\CommentTok{#> 5 FLL    2013     1     1        -5      197393  0.0000938}
+\CommentTok{#> 6 ORD    2013     1     1        -2      276848  0.0000283}
+\CommentTok{#> # ... with 1.33e+05 more rows}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3817,13 +3823,15 @@ cut within a \texttt{color}. This is done using a grouped mutate.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(viridis)}
+
 \NormalTok{diamonds }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{count}\NormalTok{(color, cut) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(color) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{prop =}\NormalTok{ n }\OperatorTok{/}\StringTok{ }\KeywordTok{sum}\NormalTok{(n)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ color, }\DataTypeTok{y =}\NormalTok{ cut)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_tile}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ prop)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_fill_viridis}\NormalTok{(}\DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\StringTok{  }\KeywordTok{scale_fill_viridis}\NormalTok{(}\DataTypeTok{limits =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\CommentTok{#from the viridis colour palette library}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4400,13 +4408,8 @@ Renaming the columns to \texttt{one}, \texttt{two}, and \texttt{three}:
 
 What does \texttt{tibble::enframe()} do? When might you use it?
 
-It converts named vectors to a data frame with names and values
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{?tibble}\OperatorTok{::}\NormalTok{enframe}
-\end{Highlighting}
-\end{Shaded}
+The function \texttt{tibble::enframe()} converts named vectors to a data
+frame with names and values
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4425,16 +4428,9 @@ It converts named vectors to a data frame with names and values
 What option controls how many additional column names are printed at the
 footer of a tibble?
 
-The print function for tibbles is in \texttt{print.tbl\_df}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{?print.tbl_df}
-\end{Highlighting}
-\end{Shaded}
-
-The option \texttt{n\_extra} determines the number of extra columns to
-print information for.
+The help page for the \texttt{print()} method of tibble objects is
+discussed in \texttt{?print.tbl\_df}. The \texttt{n\_extra} argument
+determines the number of extra columns to print information for.
 
 \chapter{Data Import}\label{data-import}
 
@@ -4761,9 +4757,40 @@ is used for guessing column types.
 If you live outside the US, create a new locale object that encapsulates
 the settings for the types of file you read most commonly.
 
+Read the help page for \texttt{locale()} using \texttt{?locale} to learn
+about the different variables that can be set.
+
+As an example, consider Australia. Most of the defaults values are
+valid, except that the date format is ``(d)d/mm/yyyy'', meaning that
+January 2, 2006 is written as \texttt{02/01/2006}.
+
+However, default locale will parse that date as February 1, 2006.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{?locale}
+\KeywordTok{parse_date}\NormalTok{(}\StringTok{"02/01/2006"}\NormalTok{)}
+\CommentTok{#> Warning: 1 parsing failure.}
+\CommentTok{#> row # A tibble: 1 x 4 col     row   col expected     actual     expected   <int> <int> <chr>        <chr>      actual 1     1    NA "date like " 02/01/2006}
+\CommentTok{#> [1] NA}
+\end{Highlighting}
+\end{Shaded}
+
+To correctly parse Australian dates, define a new \texttt{locale}
+object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{au_locale <-}\StringTok{ }\KeywordTok{locale}\NormalTok{(}\DataTypeTok{date_format =} \StringTok{"%d/%m/%Y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Using \texttt{parse\_date()} with that \texttt{au\_locale} will
+correctly parse our example date.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{parse_date}\NormalTok{(}\StringTok{"02/01/2006"}\NormalTok{, }\DataTypeTok{locale =}\NormalTok{ au_locale)}
+\CommentTok{#> [1] "2006-01-02"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5043,67 +5070,101 @@ Compute the \texttt{rate} for \texttt{table2}, and \texttt{table4a} +
 
 Which representation is easiest to work with? Which is hardest? Why?
 
-Without using the join functions introduced in Ch 12:
+In order to calculate cases per person, we need to divide cases by
+population for each country, year. This is easiest if country and
+population are two columns in a data frame with country and year rows.
+
+For Table 2, we need to first create separate tables for cases and
+population and ensure that they are sorted in the same order.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tb2_cases <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(table2, type }\OperatorTok{==}\StringTok{ "cases"}\NormalTok{)[[}\StringTok{"count"}\NormalTok{]]}
-\NormalTok{tb2_country <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(table2, type }\OperatorTok{==}\StringTok{ "cases"}\NormalTok{)[[}\StringTok{"country"}\NormalTok{]]}
-\NormalTok{tb2_year <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(table2, type }\OperatorTok{==}\StringTok{ "cases"}\NormalTok{)[[}\StringTok{"year"}\NormalTok{]]}
-\NormalTok{tb2_population <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(table2, type }\OperatorTok{==}\StringTok{ "population"}\NormalTok{)[[}\StringTok{"count"}\NormalTok{]]}
-\NormalTok{table2_clean <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{country =}\NormalTok{ tb2_country,}
-       \DataTypeTok{year =}\NormalTok{ tb2_year,}
-       \DataTypeTok{rate =}\NormalTok{ tb2_cases }\OperatorTok{/}\StringTok{ }\NormalTok{tb2_population)}
-\NormalTok{table2_clean}
-\CommentTok{#> # A tibble: 6 x 3}
-\CommentTok{#>   country      year      rate}
-\CommentTok{#>   <chr>       <int>     <dbl>}
-\CommentTok{#> 1 Afghanistan  1999 0.0000373}
-\CommentTok{#> 2 Afghanistan  2000 0.000129 }
-\CommentTok{#> 3 Brazil       1999 0.000219 }
-\CommentTok{#> 4 Brazil       2000 0.000461 }
-\CommentTok{#> 5 China        1999 0.000167 }
-\CommentTok{#> 6 China        2000 0.000167}
+\NormalTok{t2_cases <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(table2, type }\OperatorTok{==}\StringTok{ "cases"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{cases =}\NormalTok{ count) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(country, year)}
+\NormalTok{t2_population <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(table2, type }\OperatorTok{==}\StringTok{ "population"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{population =}\NormalTok{ count) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(country, year)}
 \end{Highlighting}
 \end{Shaded}
 
-Note, that this assumes that all observations are sorted so that each
-country, year will have the observation for cases followed by
-population.
+Calculate the cases per capita in a separate data frame.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{country =}\NormalTok{ table4a[[}\StringTok{"country"}\NormalTok{]],}
-       \StringTok{`}\DataTypeTok{1999}\StringTok{`}\NormalTok{ =}\StringTok{ }\NormalTok{table4a[[}\StringTok{"1999"}\NormalTok{]] }\OperatorTok{/}\StringTok{ }\NormalTok{table4b[[}\StringTok{"1999"}\NormalTok{]],}
-       \StringTok{`}\DataTypeTok{2000}\StringTok{`}\NormalTok{ =}\StringTok{ }\NormalTok{table4b[[}\StringTok{"2000"}\NormalTok{]] }\OperatorTok{/}\StringTok{ }\NormalTok{table4b[[}\StringTok{"2000"}\NormalTok{]])}
+\NormalTok{t2_cases_per_cap <-}\StringTok{ }\NormalTok{t2_cases }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{population =}\NormalTok{ t2_population}\OperatorTok{$}\NormalTok{population,}
+         \DataTypeTok{cases_per_cap =}\NormalTok{ (cases }\OperatorTok{/}\StringTok{ }\NormalTok{population) }\OperatorTok{*}\StringTok{ }\DecValTok{10000}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(country, year, cases_per_cap)}
+\end{Highlighting}
+\end{Shaded}
+
+Since the question asks us to store it back in the appropriate location,
+we will add new rows with \texttt{type\ =\ "cases\_per\_cap"} to
+\texttt{table2} and then sort by country, year, and variable type as in
+the original table.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t2_cases_per_cap <-}\StringTok{ }\NormalTok{t2_cases_per_cap }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{type =} \StringTok{"cases_per_cap"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{count =}\NormalTok{ cases_per_cap)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{bind_rows}\NormalTok{(table2, t2_cases_per_cap) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(country, year, type, count)}
+\CommentTok{#> # A tibble: 18 x 4}
+\CommentTok{#>   country      year type                 count}
+\CommentTok{#>   <chr>       <int> <chr>                <dbl>}
+\CommentTok{#> 1 Afghanistan  1999 cases              745    }
+\CommentTok{#> 2 Afghanistan  1999 cases_per_cap        0.373}
+\CommentTok{#> 3 Afghanistan  1999 population    19987071    }
+\CommentTok{#> 4 Afghanistan  2000 cases             2666    }
+\CommentTok{#> 5 Afghanistan  2000 cases_per_cap        1.29 }
+\CommentTok{#> 6 Afghanistan  2000 population    20595360    }
+\CommentTok{#> # ... with 12 more rows}
+\end{Highlighting}
+\end{Shaded}
+
+Note that after adding the \texttt{cases\_per\_cap} rows, the type of
+\texttt{count} is coerced to \texttt{numeric} (double) because
+\texttt{cases\_per\_cap} is not an integer.
+
+For \texttt{table4a} and \texttt{table4b}, we will create a separate
+table for cases per capita (\texttt{table4c}), with country rows and
+year columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{table4c <-}\StringTok{ }
+\StringTok{  }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{country =}\NormalTok{ table4a}\OperatorTok{$}\NormalTok{country,}
+         \StringTok{`}\DataTypeTok{1999}\StringTok{`}\NormalTok{ =}\StringTok{ }\NormalTok{table4a[[}\StringTok{"1999"}\NormalTok{]] }\OperatorTok{/}\StringTok{ }\NormalTok{table4b[[}\StringTok{"1999"}\NormalTok{]] }\OperatorTok{*}\StringTok{ }\DecValTok{10000}\NormalTok{,}
+       \StringTok{`}\DataTypeTok{2000}\StringTok{`}\NormalTok{ =}\StringTok{ }\NormalTok{table4a[[}\StringTok{"2000"}\NormalTok{]] }\OperatorTok{/}\StringTok{ }\NormalTok{table4b[[}\StringTok{"2000"}\NormalTok{]] }\OperatorTok{*}\StringTok{ }\DecValTok{10000}\NormalTok{)}
+\NormalTok{table4c}
 \CommentTok{#> # A tibble: 3 x 3}
-\CommentTok{#>   country        `1999` `2000`}
-\CommentTok{#>   <chr>           <dbl>  <dbl>}
-\CommentTok{#> 1 Afghanistan 0.0000373      1}
-\CommentTok{#> 2 Brazil      0.000219       1}
-\CommentTok{#> 3 China       0.000167       1}
+\CommentTok{#>   country     `1999` `2000`}
+\CommentTok{#>   <chr>        <dbl>  <dbl>}
+\CommentTok{#> 1 Afghanistan  0.373   1.29}
+\CommentTok{#> 2 Brazil       2.19    4.61}
+\CommentTok{#> 3 China        1.67    1.67}
 \end{Highlighting}
 \end{Shaded}
 
-or
+Neither table is particularly easy to work with. Since \texttt{table2}
+has separate rows for cases and population we needed to generate a table
+with columns for cases and population where we could calculate cases per
+capita. \texttt{table4a} and \texttt{table4b} split the cases and
+population variables into different tables which made it easy to divide
+cases by population. However, we had to repeat this calculation for each
+row.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{country =} \KeywordTok{rep}\NormalTok{(table4a[[}\StringTok{"country"}\NormalTok{]], }\DecValTok{2}\NormalTok{),}
-       \DataTypeTok{year =} \KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1999}\NormalTok{, }\DecValTok{2000}\NormalTok{), }\DataTypeTok{each =} \KeywordTok{nrow}\NormalTok{(table4a)),}
-       \StringTok{`}\DataTypeTok{rate}\StringTok{`}\NormalTok{ =}\StringTok{ }\KeywordTok{c}\NormalTok{(table4a[[}\StringTok{"1999"}\NormalTok{]] }\OperatorTok{/}\StringTok{ }\NormalTok{table4b[[}\StringTok{"1999"}\NormalTok{]],}
-\NormalTok{                  table4b[[}\StringTok{"2000"}\NormalTok{]] }\OperatorTok{/}\StringTok{ }\NormalTok{table4b[[}\StringTok{"2000"}\NormalTok{]]))}
-\CommentTok{#> # A tibble: 6 x 3}
-\CommentTok{#>   country      year      rate}
-\CommentTok{#>   <chr>       <dbl>     <dbl>}
-\CommentTok{#> 1 Afghanistan  1999 0.0000373}
-\CommentTok{#> 2 Brazil       1999 0.000219 }
-\CommentTok{#> 3 China        1999 0.000167 }
-\CommentTok{#> 4 Afghanistan  2000 1        }
-\CommentTok{#> 5 Brazil       2000 1        }
-\CommentTok{#> 6 China        2000 1}
-\end{Highlighting}
-\end{Shaded}
+The ideal format of a data frame to answer this question is one with
+columns \texttt{country}, \texttt{year}, \texttt{cases}, and
+\texttt{population}. Then problem could be answered with a single
+\texttt{mutate()} call.
 
 \subsection{Exercise 3}\label{exercise-3-18}
 
@@ -5111,8 +5172,8 @@ Recreate the plot showing change in cases over time using
 \texttt{table2} instead of \texttt{table1}. What do you need to do
 first?
 
-First, I needed to filter the tibble to only include those rows that
-represented the ``cases'' variable.
+Before creating the plot with change in cases over time, we need to
+filter the data frame to only include rows representing cases of TB.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5120,11 +5181,13 @@ represented the ``cases'' variable.
 \StringTok{  }\KeywordTok{filter}\NormalTok{(type }\OperatorTok{==}\StringTok{ "cases"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(year, count)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{group =}\NormalTok{ country), }\DataTypeTok{colour =} \StringTok{"grey50"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ country))}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ country)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{unique}\NormalTok{(table2}\OperatorTok{$}\NormalTok{year)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"cases"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 \section{Spreading and Gathering}\label{spreading-and-gathering}
 
@@ -5359,15 +5422,9 @@ Experiment with the various options for the following two toy datasets.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{?separate}
-\end{Highlighting}
-\end{Shaded}
-
-The \texttt{extra} argument tells \texttt{separate} what to do if there
-are too many pieces, and the \texttt{fill} argument if there aren't
-enough.
+The \texttt{extra} argument tells \texttt{separate()} what to do if
+there are too many pieces, and the \texttt{fill} argument if there
+aren't enough.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5484,12 +5541,101 @@ Compare and contrast \texttt{separate()} and \texttt{extract()}, Why are
 there three variations of separation (by position, by separator, and
 with groups), but only one unite?
 
-The function \texttt{extract} uses a regular expression to find groups
-and split into columns. In \texttt{unite} it is unambiguous since it is
-many columns to one, and once the columns are specified, there is only
-one way to do it, the only choice is the \texttt{sep}. In
-\texttt{separate}, it is one to many, and there are multiple ways to
-split the character string.
+The function \texttt{separate()}, splits columns a column into multiple
+groups using by separator, if the \texttt{sep} argument is a character
+vector, or character positions, if \texttt{sep} is numeric.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# example with separators}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\StringTok{"X_1"}\NormalTok{, }\StringTok{"X_2"}\NormalTok{, }\StringTok{"AA_1"}\NormalTok{, }\StringTok{"AA_2"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(x, }\KeywordTok{c}\NormalTok{(}\StringTok{"variable"}\NormalTok{, }\StringTok{"into"}\NormalTok{), }\DataTypeTok{sep =} \StringTok{"_"}\NormalTok{)}
+\CommentTok{#> # A tibble: 4 x 2}
+\CommentTok{#>   variable into }
+\CommentTok{#>   <chr>    <chr>}
+\CommentTok{#> 1 X        1    }
+\CommentTok{#> 2 X        2    }
+\CommentTok{#> 3 AA       1    }
+\CommentTok{#> 4 AA       2}
+
+\CommentTok{# example with position}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\StringTok{"X1"}\NormalTok{, }\StringTok{"X2"}\NormalTok{, }\StringTok{"Y1"}\NormalTok{, }\StringTok{"Y2"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(x, }\KeywordTok{c}\NormalTok{(}\StringTok{"variable"}\NormalTok{, }\StringTok{"into"}\NormalTok{), }\DataTypeTok{sep =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\CommentTok{#> # A tibble: 4 x 2}
+\CommentTok{#>   variable into }
+\CommentTok{#>   <chr>    <chr>}
+\CommentTok{#> 1 X        1    }
+\CommentTok{#> 2 X        2    }
+\CommentTok{#> 3 Y        1    }
+\CommentTok{#> 4 Y        2}
+\end{Highlighting}
+\end{Shaded}
+
+The function \texttt{extract()} uses a regular expression to specify
+groups in character vector and split that single character vector into
+multiple columns. This is more flexible than \texttt{separate()} because
+it does not require a common separator or specific column positions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# example with separators}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\StringTok{"X_1"}\NormalTok{, }\StringTok{"X_2"}\NormalTok{, }\StringTok{"AA_1"}\NormalTok{, }\StringTok{"AA_2"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{extract}\NormalTok{(x, }\KeywordTok{c}\NormalTok{(}\StringTok{"variable"}\NormalTok{, }\StringTok{"id"}\NormalTok{), }\DataTypeTok{regex =} \StringTok{"([A-Z])_([0-9])"}\NormalTok{)}
+\CommentTok{#> # A tibble: 4 x 2}
+\CommentTok{#>   variable id   }
+\CommentTok{#>   <chr>    <chr>}
+\CommentTok{#> 1 X        1    }
+\CommentTok{#> 2 X        2    }
+\CommentTok{#> 3 A        1    }
+\CommentTok{#> 4 A        2}
+
+\CommentTok{# example with position}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\StringTok{"X1"}\NormalTok{, }\StringTok{"X2"}\NormalTok{, }\StringTok{"Y1"}\NormalTok{, }\StringTok{"Y2"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{extract}\NormalTok{(x, }\KeywordTok{c}\NormalTok{(}\StringTok{"variable"}\NormalTok{, }\StringTok{"id"}\NormalTok{), }\DataTypeTok{regex =} \StringTok{"([A-Z])([0-9])"}\NormalTok{)}
+\CommentTok{#> # A tibble: 4 x 2}
+\CommentTok{#>   variable id   }
+\CommentTok{#>   <chr>    <chr>}
+\CommentTok{#> 1 X        1    }
+\CommentTok{#> 2 X        2    }
+\CommentTok{#> 3 Y        1    }
+\CommentTok{#> 4 Y        2}
+
+\CommentTok{# example that separate could not parse}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\StringTok{"X1"}\NormalTok{, }\StringTok{"X20"}\NormalTok{, }\StringTok{"AA11"}\NormalTok{, }\StringTok{"AA2"}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{extract}\NormalTok{(x, }\KeywordTok{c}\NormalTok{(}\StringTok{"variable"}\NormalTok{, }\StringTok{"id"}\NormalTok{), }\DataTypeTok{regex =} \StringTok{"([A-Z]+)([0-9]+)"}\NormalTok{)  }
+\CommentTok{#> # A tibble: 4 x 2}
+\CommentTok{#>   variable id   }
+\CommentTok{#>   <chr>    <chr>}
+\CommentTok{#> 1 X        1    }
+\CommentTok{#> 2 X        20   }
+\CommentTok{#> 3 AA       11   }
+\CommentTok{#> 4 AA       2}
+\end{Highlighting}
+\end{Shaded}
+
+Both \texttt{separate()} and \texttt{extract()} convert a single column
+to many columns. However, \texttt{unite} converts many columns to one,
+with a choice of a separator to include between column values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{variable =} \KeywordTok{c}\NormalTok{(}\StringTok{"X"}\NormalTok{, }\StringTok{"X"}\NormalTok{, }\StringTok{"Y"}\NormalTok{, }\StringTok{"Y"}\NormalTok{), }\DataTypeTok{id =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{unite}\NormalTok{(x, variable, id, }\DataTypeTok{sep =} \StringTok{"_"}\NormalTok{)}
+\CommentTok{#> # A tibble: 4 x 1}
+\CommentTok{#>   x    }
+\CommentTok{#>   <chr>}
+\CommentTok{#> 1 X_1  }
+\CommentTok{#> 2 X_2  }
+\CommentTok{#> 3 Y_1  }
+\CommentTok{#> 4 Y_2}
+\end{Highlighting}
+\end{Shaded}
+
+In other words, with \texttt{extract()} and \texttt{separate()} only one
+column can be chosen, but there are many choices how to split that
+single column into different columns. With \texttt{unite()}, there are
+many choices as to which columns to include, but only choice as to how
+to combine their contents into a single vector.
 
 \section{Missing Values}\label{missing-values-1}
 
@@ -5498,21 +5644,9 @@ split the character string.
 Compare and contrast the \texttt{fill} arguments to \texttt{spread()}
 and \texttt{complete()}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{?spread}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{?complete}
-\end{Highlighting}
-\end{Shaded}
-
-In \texttt{spread}, the fill argument explicitly sets the value to
-replace \texttt{NA}s. In \texttt{complete}, the fill argument also sets
-a value to replace \texttt{NA}s but it is named list, allowing for
+In \texttt{spread()}, the fill argument explicitly sets the value to
+replace \texttt{NA}s. In \texttt{complete()}, the fill argument also
+sets a value to replace \texttt{NA}s but it is named list, allowing for
 different values for different variables. Also, both cases replace both
 implicit and explicit missing values.
 
@@ -5719,7 +5853,7 @@ Make an informative visualization of the data.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-42-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 A small multiples plot faceting by country is difficult given the number
 of countries. Focusing on those countries with the largest changes or
@@ -5875,7 +6009,7 @@ leagues within the same year.
 \end{Shaded}
 
 The primary key for \texttt{babynames::babynames} is \texttt{year},
-\texttt{sex}, \texttt{name}. It is no simply \texttt{year},
+\texttt{sex}, \texttt{name}. It is not simply \texttt{year},
 \texttt{name} since names can appear for both sexes with different
 counts.
 
@@ -5932,7 +6066,7 @@ identifies the observations.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-18}
+\subsection{Exercise 3}\label{exercise-3-23}
 
 Draw a diagram illustrating the connections between the
 \texttt{Batting}, \texttt{Master}, and \texttt{Salaries} tables in the
@@ -6140,31 +6274,75 @@ average delay for each airport.
 Add the location of the origin and destination (i.e.~the \texttt{lat}
 and \texttt{lon}) to \texttt{flights}.
 
+You can perform one join after another. If duplicate variables are
+found, by default, dplyr will distinguish the two by adding \texttt{.x},
+and \texttt{.y} to the ends of the variable names to solve naming
+conflicts.
+
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{airport_locations <-}\StringTok{ }\NormalTok{airports }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(faa, lat, lon)}
+  
 \NormalTok{flights }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{left_join}\NormalTok{(airports, }\DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{dest =} \StringTok{"faa"}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{left_join}\NormalTok{(airports, }\DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{origin =} \StringTok{"faa"}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{head}\NormalTok{()}
-\CommentTok{#> # A tibble: 6 x 33}
-\CommentTok{#>    year month   day dep_time sched_dep_time dep_delay arr_time}
-\CommentTok{#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>}
-\CommentTok{#> 1  2013     1     1      517            515         2      830}
-\CommentTok{#> 2  2013     1     1      533            529         4      850}
-\CommentTok{#> 3  2013     1     1      542            540         2      923}
-\CommentTok{#> 4  2013     1     1      544            545        -1     1004}
-\CommentTok{#> 5  2013     1     1      554            600        -6      812}
-\CommentTok{#> 6  2013     1     1      554            558        -4      740}
-\CommentTok{#> # ... with 26 more variables: sched_arr_time <int>, arr_delay <dbl>,}
-\CommentTok{#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,}
-\CommentTok{#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,}
-\CommentTok{#> #   time_hour <dttm>, name.x <chr>, lat.x <dbl>, lon.x <dbl>, alt.x <int>,}
-\CommentTok{#> #   tz.x <dbl>, dst.x <chr>, tzone.x <chr>, name.y <chr>, lat.y <dbl>,}
-\CommentTok{#> #   lon.y <dbl>, alt.y <int>, tz.y <dbl>, dst.y <chr>, tzone.y <chr>}
+\StringTok{    }\KeywordTok{select}\NormalTok{(year}\OperatorTok{:}\NormalTok{day, hour, origin, dest) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{left_join}\NormalTok{(}
+\NormalTok{    airport_locations,}
+    \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"origin"}\NormalTok{ =}\StringTok{ "faa"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{left_join}\NormalTok{(}
+\NormalTok{    airport_locations,}
+    \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"dest"}\NormalTok{ =}\StringTok{ "faa"}\NormalTok{)}
+\NormalTok{  )}
+\CommentTok{#> # A tibble: 336,776 x 10}
+\CommentTok{#>    year month   day  hour origin dest  lat.x lon.x lat.y lon.y}
+\CommentTok{#>   <int> <int> <int> <dbl> <chr>  <chr> <dbl> <dbl> <dbl> <dbl>}
+\CommentTok{#> 1  2013     1     1     5 EWR    IAH    40.7 -74.2  30.0 -95.3}
+\CommentTok{#> 2  2013     1     1     5 LGA    IAH    40.8 -73.9  30.0 -95.3}
+\CommentTok{#> 3  2013     1     1     5 JFK    MIA    40.6 -73.8  25.8 -80.3}
+\CommentTok{#> 4  2013     1     1     5 JFK    BQN    40.6 -73.8  NA    NA  }
+\CommentTok{#> 5  2013     1     1     6 LGA    ATL    40.8 -73.9  33.6 -84.4}
+\CommentTok{#> 6  2013     1     1     5 EWR    ORD    40.7 -74.2  42.0 -87.9}
+\CommentTok{#> # ... with 3.368e+05 more rows}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-23}
+This default can be over-ridden using the \texttt{suffix} argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{airport_locations <-}\StringTok{ }\NormalTok{airports }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(faa, lat, lon)}
+  
+\NormalTok{flights }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(year}\OperatorTok{:}\NormalTok{day, hour, origin, dest) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{left_join}\NormalTok{(}
+\NormalTok{    airport_locations,}
+    \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"origin"}\NormalTok{ =}\StringTok{ "faa"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{left_join}\NormalTok{(}
+\NormalTok{    airport_locations,}
+    \DataTypeTok{by =} \KeywordTok{c}\NormalTok{(}\StringTok{"dest"}\NormalTok{ =}\StringTok{ "faa"}\NormalTok{),}
+    \DataTypeTok{suffix =} \KeywordTok{c}\NormalTok{(}\StringTok{"_origin"}\NormalTok{, }\StringTok{"_dest"}\NormalTok{)}
+    \CommentTok{# existing lat and lon variables in tibble gain the _origin suffix}
+    \CommentTok{# new lat and lon variables are given _dest suffix}
+\NormalTok{  )}
+\CommentTok{#> # A tibble: 336,776 x 10}
+\CommentTok{#>    year month   day  hour origin dest  lat_origin lon_origin lat_dest}
+\CommentTok{#>   <int> <int> <int> <dbl> <chr>  <chr>      <dbl>      <dbl>    <dbl>}
+\CommentTok{#> 1  2013     1     1     5 EWR    IAH         40.7      -74.2     30.0}
+\CommentTok{#> 2  2013     1     1     5 LGA    IAH         40.8      -73.9     30.0}
+\CommentTok{#> 3  2013     1     1     5 JFK    MIA         40.6      -73.8     25.8}
+\CommentTok{#> 4  2013     1     1     5 JFK    BQN         40.6      -73.8     NA  }
+\CommentTok{#> 5  2013     1     1     6 LGA    ATL         40.8      -73.9     33.6}
+\CommentTok{#> 6  2013     1     1     5 EWR    ORD         40.7      -74.2     42.0}
+\CommentTok{#> # ... with 3.368e+05 more rows, and 1 more variable: lon_dest <dbl>}
+\end{Highlighting}
+\end{Shaded}
+
+It's always good practice to have clear variable names.
+
+\subsection{Exercise 3}\label{exercise-3-24}
 
 Is there a relationship between the age of a plane and its delays?
 
@@ -6192,9 +6370,9 @@ how airlines allocate planes to airports.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
-\subsection{Exercise 4}\label{exercise-4-19}
+\subsection{Exercise 4}\label{exercise-4-18}
 
 What weather conditions make it more likely to see a delay?
 
@@ -6219,7 +6397,7 @@ not as strong a trend after 0.02 in as one would expect
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 \subsection{Exercise 5}\label{exercise-5-10}
 
@@ -6237,7 +6415,6 @@ Midwest, which were the locations of the derechos:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(viridis)}
-\CommentTok{#> Loading required package: viridisLite}
 \NormalTok{flights }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2013}\NormalTok{, month }\OperatorTok{==}\StringTok{ }\DecValTok{6}\NormalTok{, day }\OperatorTok{==}\StringTok{ }\DecValTok{13}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
@@ -6252,7 +6429,7 @@ Midwest, which were the locations of the derechos:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{relational-data_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 \section{Filtering Joins}\label{filtering-joins}
 
@@ -6315,7 +6492,7 @@ Filter flights to only show flights with planes that have flown at least
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-24}
+\subsection{Exercise 3}\label{exercise-3-25}
 
 Combine \texttt{fueleconomy::vehicles} and \texttt{fueleconomy::common}
 to find only the records for the most common models.
@@ -6367,7 +6544,7 @@ The table \texttt{fueleconomy::common} identifies vehicles by
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-25}
+\subsection{Exercise 3}\label{exercise-3-26}
 
 Find the 48 hours (over the course of the whole year) that have the
 worst delays. Cross-reference it with the weather data. Can you see any
@@ -6394,7 +6571,7 @@ patterns?
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-20}
+\subsection{Exercise 4}\label{exercise-4-19}
 
 What does
 \texttt{anti\_join(flights,\ airports,\ by\ =\ c("dest"\ =\ "faa"))}
@@ -6584,7 +6761,7 @@ The \texttt{sep} argument is the string inserted between arguments to
 any elements of the character vector into a character vector of length
 one.
 
-\subsection{Exercise 3}\label{exercise-3-26}
+\subsection{Exercise 3}\label{exercise-3-27}
 
 Use \texttt{str\_length()} and \texttt{str\_sub()} to extract the middle
 character from a string. What will you do if the string has an even
@@ -6607,7 +6784,7 @@ even string.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-21}
+\subsection{Exercise 4}\label{exercise-4-20}
 
 What does \texttt{str\_wrap()} do? When might you want to use it?
 
@@ -6717,7 +6894,7 @@ How would you match the sequence
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 3}\label{exercise-3-27}
+\subsubsection{Exercise 3}\label{exercise-3-28}
 
 What patterns will the regular expression
 \texttt{\textbackslash{}..\textbackslash{}..\textbackslash{}..} match?
@@ -6912,7 +7089,7 @@ these rules:
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 3}\label{exercise-3-28}
+\subsubsection{Exercise 3}\label{exercise-3-29}
 
 Is
 \texttt{q\textquotesingle{}\textquotesingle{}\ always\ followed\ by\ a}u''?
@@ -6926,7 +7103,7 @@ language, no.
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 4}\label{exercise-4-22}
+\subsubsection{Exercise 4}\label{exercise-4-21}
 
 Write a regular expression that matches a word if it's probably written
 in British English, not American English.
@@ -7019,8 +7196,23 @@ and \texttt{*} examples using \texttt{\{,\}}.
 \begin{Highlighting}[]
 \NormalTok{x <-}\StringTok{ "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"}
 \KeywordTok{str_view}\NormalTok{(x, }\StringTok{"CC?"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{str_view}\NormalTok{(x, }\StringTok{"CC\{0,1\}"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{str_view}\NormalTok{(x, }\StringTok{"CC+"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{str_view}\NormalTok{(x, }\StringTok{"CC\{1,\}"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -7066,7 +7258,7 @@ regular expression.)
   \texttt{"\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}"}.
 \end{enumerate}
 
-\subsubsection{Exercise 3}\label{exercise-3-29}
+\subsubsection{Exercise 3}\label{exercise-3-30}
 
 Create regular expressions to find all words that:
 
@@ -7105,7 +7297,7 @@ Two or more vowel-consonant pairs in a row.
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 4}\label{exercise-4-23}
+\subsubsection{Exercise 4}\label{exercise-4-22}
 
 Solve the beginner regexp crosswords at
 \url{https://regexcrossword.com/challenges/}
@@ -7164,9 +7356,7 @@ Construct regular expressions to match words that:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Start and end with the same character. Assuming the word is more than
-  one character and all strings are considered words,
-  \texttt{\^{}(.).*\textbackslash{}1\$}
+  Start and end with the same character.
 \item
   Contain a repeated pair of letters (e.g.
   \texttt{church\textquotesingle{}\textquotesingle{}\ contains}ch''
@@ -7176,13 +7366,11 @@ Construct regular expressions to match words that:
   \texttt{eleven\textquotesingle{}\textquotesingle{}\ contains\ three}e''s.)
 \end{enumerate}
 
-Start and end with the same character. Assuming the word is more than
-one character and all strings are considered words,
-\texttt{\^{}(.).*\textbackslash{}1\$}:
+Start and end with the same character.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{str_view}\NormalTok{(words, }\StringTok{"^(.).*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{1$"}\NormalTok{)}
+\KeywordTok{str_view}\NormalTok{(stringr}\OperatorTok{::}\NormalTok{words, }\StringTok{"^(.)((.*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{1$)|}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{1?$)"}\NormalTok{, }\DataTypeTok{match =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7247,6 +7435,9 @@ single regular expression, and a combination of multiple
   Find all words that start with a vowel and end with a consonant.
 \item
   Are there any words that contain at least one of each different vowel?
+\item
+  What word has the higher number of vowels? What word has the highest
+  proportion of vowels? (Hint: what is the denominator?)
 \end{enumerate}
 
 Words that start or end with \texttt{x}?
@@ -7297,10 +7488,10 @@ permutations of vowels.
 \CommentTok{#> character(0)}
 
 \NormalTok{words[}\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"a"}\NormalTok{) }\OperatorTok{&}
-\StringTok{        }\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"e"}\NormalTok{) }\OperatorTok{&}
-\StringTok{        }\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"i"}\NormalTok{) }\OperatorTok{&}
-\StringTok{        }\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"o"}\NormalTok{) }\OperatorTok{&}
-\StringTok{        }\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"u"}\NormalTok{)]}
+\StringTok{      }\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"e"}\NormalTok{) }\OperatorTok{&}
+\StringTok{      }\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"i"}\NormalTok{) }\OperatorTok{&}
+\StringTok{      }\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"o"}\NormalTok{) }\OperatorTok{&}
+\StringTok{      }\KeywordTok{str_detect}\NormalTok{(words, }\StringTok{"u"}\NormalTok{)]}
 \CommentTok{#> character(0)}
 \end{Highlighting}
 \end{Shaded}
@@ -7314,10 +7505,21 @@ There appear to be none. To check that it works,
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 2}\label{exercise-2-35}
-
 What word has the highest number of vowels? What word has the highest
 proportion of vowels? (Hint: what is the denominator?)
+
+What word has the highest number of vowels?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vowels <-}\StringTok{ }\KeywordTok{str_count}\NormalTok{(words, }\StringTok{"[aeiou]"}\NormalTok{)}
+\NormalTok{words[}\KeywordTok{which}\NormalTok{(vowels }\OperatorTok{==}\StringTok{ }\KeywordTok{max}\NormalTok{(vowels))]}
+\CommentTok{#> [1] "appropriate" "associate"   "available"   "colleague"   "encourage"  }
+\CommentTok{#> [6] "experience"  "individual"  "television"}
+\end{Highlighting}
+\end{Shaded}
+
+What word has the highest proportion of vowels?
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7370,7 +7572,7 @@ indicate a word boundary) before and after the pattern:
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 2}\label{exercise-2-36}
+\subsubsection{Exercise 2}\label{exercise-2-35}
 
 From the Harvard sentences data, extract:
 
@@ -7449,7 +7651,7 @@ I'll use the same following ``word'' pattern as used above
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 2}\label{exercise-2-37}
+\subsubsection{Exercise 2}\label{exercise-2-36}
 
 Find all contractions. Separate out the pieces before and after the
 apostrophe.
@@ -7480,7 +7682,7 @@ Replace all forward slashes in a string with backslashes.
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 2}\label{exercise-2-38}
+\subsubsection{Exercise 2}\label{exercise-2-37}
 
 Implement a simple version of \texttt{str\_to\_lower()} using
 \texttt{replace\_all()}.
@@ -7491,7 +7693,7 @@ Implement a simple version of \texttt{str\_to\_lower()} using
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 3}\label{exercise-3-30}
+\subsubsection{Exercise 3}\label{exercise-3-31}
 
 Switch the first and last letters in \texttt{words}. Which of those
 strings are still words?
@@ -7538,7 +7740,7 @@ individual components.
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 2}\label{exercise-2-39}
+\subsubsection{Exercise 2}\label{exercise-2-38}
 
 Why is it better to split up by \texttt{boundary("word")} than
 \texttt{"\ "}?
@@ -7584,7 +7786,7 @@ removes punctuation, while not separating ``32.2'' and ``can't'',
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 3}\label{exercise-3-31}
+\subsubsection{Exercise 3}\label{exercise-3-32}
 
 What does splitting with an empty string \texttt{("")} do? Experiment,
 and then read the documentation.
@@ -7618,7 +7820,7 @@ How would you find all strings containing \texttt{\textbackslash{}} with
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-40}
+\subsection{Exercise 2}\label{exercise-2-39}
 
 What are the five most common words in sentences?
 
@@ -7687,7 +7889,7 @@ Find the \textbf{stringi} functions that:
   \end{itemize}
 \end{enumerate}
 
-\subsection{Exercise 2}\label{exercise-2-41}
+\subsection{Exercise 2}\label{exercise-2-40}
 
 How do you control the language that \texttt{stri\_sort()} uses for
 sorting?
@@ -7760,7 +7962,7 @@ This is better, but it unintuitively goes from low to high. It would
 help if the scale is reversed. Also, if all the missing factors were
 differentiated.
 
-\subsection{Exercise 2}\label{exercise-2-42}
+\subsection{Exercise 2}\label{exercise-2-41}
 
 What is the most common \texttt{relig} in this survey? What's the most
 common \texttt{partyid}?
@@ -7795,7 +7997,7 @@ The most common \texttt{partyid} is ``Independent''
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-24}
+\subsection{Exercise 4}\label{exercise-4-23}
 
 Which \texttt{relig} does \texttt{denom} (denomination) apply to? How
 can you find out with a table? How can you find out with a
@@ -7883,7 +8085,7 @@ Whether the mean is the best summary depends on what you are using it
 for :-), i.e.~your objective. But probably the median would be what most
 people prefer. And the hours of TV doesn't look that surprising to me.
 
-\subsection{Exercise 2}\label{exercise-2-43}
+\subsection{Exercise 2}\label{exercise-2-42}
 
 For each factor in \texttt{gss\_cat} identify whether the order of the
 levels is arbitrary or principled.
@@ -8026,7 +8228,7 @@ Democrat''.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-32}
+\subsection{Exercise 3}\label{exercise-3-33}
 
 Why did moving ``Not applicable'' to the front of the levels move it to
 the bottom of the plot?
@@ -8075,7 +8277,7 @@ Republican, and Independent
 
 \begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
-\subsection{Exercise 2}\label{exercise-2-44}
+\subsection{Exercise 2}\label{exercise-2-43}
 
 How could you collapse \texttt{rincome} into a small set of categories?
 
@@ -8165,7 +8367,7 @@ What happens if you parse a string that contains invalid dates?
 
 It produces an \texttt{NA} and an warning message.
 
-\subsection{Exercise 2}\label{exercise-2-45}
+\subsection{Exercise 2}\label{exercise-2-44}
 
 What does the \texttt{tzone} argument to \texttt{today()} do? Why is it
 important?
@@ -8174,7 +8376,7 @@ It determines the time-zone of the date. Since different time-zones can
 have different dates, the value of \texttt{today()} can vary depending
 on the time-zone specified.
 
-\subsection{Exercise 3}\label{exercise-3-33}
+\subsection{Exercise 3}\label{exercise-3-34}
 
 Use the appropriate \textbf{lubridate} function to parse each of the
 following dates:
@@ -8257,7 +8459,7 @@ fewer flights.
 At least to me there doesn't appear to much difference in within-day
 distribution over the year, but I maybe thinking about it incorrectly.
 
-\subsection{Exercise 2}\label{exercise-2-46}
+\subsection{Exercise 2}\label{exercise-2-45}
 
 Compare \texttt{dep\_time}, \texttt{sched\_dep\_time} and
 \texttt{dep\_delay}. Are they consistent? Explain your findings.
@@ -8292,7 +8494,7 @@ to check if the departure time is less than the scheduled departure
 time. Alternatively, simply adding the delay time is more robust because
 it will automatically account for crossing into the next day.
 
-\subsection{Exercise 3}\label{exercise-3-34}
+\subsection{Exercise 3}\label{exercise-3-35}
 
 Compare \texttt{air\_time} with the duration between the departure and
 arrival. Explain your findings.
@@ -8317,7 +8519,7 @@ arrival. Explain your findings.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-25}
+\subsection{Exercise 4}\label{exercise-4-24}
 
 How does the average delay time change over the course of a day? Should
 you use \texttt{dep\_time} or \texttt{sched\_dep\_time}? Why?
@@ -8471,7 +8673,7 @@ have differing numbers of days.
 Though in the past, in the pre-computer era, for arithmetic convenience,
 bankers adopted a 360 day year with 30 day months.
 
-\subsection{Exercise 2}\label{exercise-2-47}
+\subsection{Exercise 2}\label{exercise-2-46}
 
 Explain \texttt{days(overnight\ *\ 1)} to someone who has just started
 learning R. How does it work?
@@ -8480,7 +8682,7 @@ The variable \texttt{overnight} is equal to \texttt{TRUE} or
 \texttt{FALSE}. If it is an overnight flight, this becomes 1 day, and if
 not, then overnight = 0, and no days are added to the date.
 
-\subsection{Exercise 3}\label{exercise-3-35}
+\subsection{Exercise 3}\label{exercise-3-36}
 
 Create a vector of dates giving the first day of every month in 2015.
 Create a vector of dates giving the first day of every month in the
@@ -8511,7 +8713,7 @@ using \texttt{floor\_date}:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-26}
+\subsection{Exercise 4}\label{exercise-4-25}
 
 Write a function that given your birthday (as a date), returns how old
 you are in years.
@@ -8600,7 +8802,7 @@ as an argument,
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-48}
+\subsection{Exercise 2}\label{exercise-2-47}
 
 In the second variant of \texttt{rescale01()}, infinite values are left
 unchanged. Rewrite \texttt{rescale01()} so that \texttt{-Inf} is mapped
@@ -8621,7 +8823,7 @@ to 0, and \texttt{Inf} is mapped to 1.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-36}
+\subsection{Exercise 3}\label{exercise-3-37}
 
 Practice turning the following code snippets into functions. Think about
 what each function does. What would you call it? How many arguments does
@@ -8682,7 +8884,7 @@ by the mean
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-27}
+\subsection{Exercise 4}\label{exercise-4-26}
 
 Follow \url{http://nicercode.github.io/intro/writing-functions.html} to
 write your own functions to compute the variance and skew of a numeric
@@ -8902,14 +9104,14 @@ The function \texttt{f3} repeats \texttt{y} once for each element of
 This is a harder one to name. I would say something like
 \texttt{recycle} (R's name for this behavior), or \texttt{epxand}.
 
-\subsection{Exercise 2}\label{exercise-2-49}
+\subsection{Exercise 2}\label{exercise-2-48}
 
 Take a function that you've written recently and spend 5 minutes
 brainstorming a better name for it and its arguments.
 
 Answer left to the reader.
 
-\subsection{Exercise 3}\label{exercise-3-37}
+\subsection{Exercise 3}\label{exercise-3-38}
 
 Compare and contrast \texttt{rnorm()} and \texttt{MASS::mvrnorm()}. How
 could you make them more consistent?
@@ -8928,7 +9130,7 @@ functions an internally consistent. It would not be good practice to
 have \texttt{mu} and \texttt{sd} as arguments or \texttt{mean} and
 \texttt{Sigma} as arguments.
 
-\subsection{Exercise 4}\label{exercise-4-28}
+\subsection{Exercise 4}\label{exercise-4-27}
 
 Make a case for why \texttt{norm\_r()}, \texttt{norm\_d()} etc would be
 better than \texttt{rnorm()}, \texttt{dnorm()}. Make a case for the
@@ -8954,7 +9156,7 @@ illustrate the key differences.
 The keyword \texttt{if} tests a single condition, while \texttt{ifelse}
 tests each element.
 
-\subsection{Exercise 2}\label{exercise-2-50}
+\subsection{Exercise 2}\label{exercise-2-49}
 
 Write a greeting function that says ``good morning'', ``good
 afternoon'', or ``good evening'', depending on the time of day. (Hint:
@@ -8986,7 +9188,7 @@ will make it easier to test your function.)
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-38}
+\subsection{Exercise 3}\label{exercise-3-39}
 
 Implement a \texttt{fizzbuzz} function. It takes a single number as
 input. If the number is divisible by three, it returns ``fizz''. If it's
@@ -9019,7 +9221,7 @@ sure you first write working code before you create the function.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-29}
+\subsection{Exercise 4}\label{exercise-4-28}
 
 How could you use \texttt{cut()} to simplify this set of nested if-else
 statements?
@@ -9184,7 +9386,7 @@ is to add a \texttt{collapse} argument to the function.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-51}
+\subsection{Exercise 2}\label{exercise-2-50}
 
 It'd be nice if you could supply multiple characters to the pad
 argument, e.g. \texttt{rule("Title",\ pad\ =\ "-+")}. Why doesn't this
@@ -9236,7 +9438,7 @@ number of characters of \texttt{pad}.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-39}
+\subsection{Exercise 3}\label{exercise-3-40}
 
 What does the \texttt{trim} argument to \texttt{mean()} do? When might
 you use it?
@@ -9246,7 +9448,7 @@ end of the vector (meaning the range) before calculating the mean. This
 is useful for calculating a measure of central tendency that is robust
 to outliers.
 
-\subsection{Exercise 4}\label{exercise-4-30}
+\subsection{Exercise 4}\label{exercise-4-29}
 
 The default value for the \texttt{method} argument to \texttt{cor()} is
 \texttt{c("pearson",\ "kendall",\ "spearman")}. What does that mean?
@@ -9305,7 +9507,7 @@ not-a-number to be not infinite.
 So \texttt{NA} and \texttt{NaN} are neither finite or infinite. Mind
 blown.
 
-\subsection{Exercise 2}\label{exercise-2-52}
+\subsection{Exercise 2}\label{exercise-2-51}
 
 Read the source code for \texttt{dplyr::near()} (Hint: to see the source
 code, drop the ()). How does it work?
@@ -9329,7 +9531,7 @@ within a certain tolerance, \texttt{tol}. By default the tolerance is
 set to the square root of \texttt{.Machine\$double.eps}, which is the
 smallest floating point number that the computer can represent.
 
-\subsection{Exercise 3}\label{exercise-3-40}
+\subsection{Exercise 3}\label{exercise-3-41}
 
 A logical vector can take 3 possible values. How many possible values
 can an integer vector take? How many possible values can a double take?
@@ -9344,7 +9546,7 @@ The
 \href{https://en.wikipedia.org/wiki/Double-precision_floating-point_format}{IEC
 60559} or IEEE 754 format uses a 64 bit vector, but
 
-\subsection{Exercise 4}\label{exercise-4-31}
+\subsection{Exercise 4}\label{exercise-4-30}
 
 Brainstorm at least four functions that allow you to convert a double to
 an integer. How do they differ? Be precise.
@@ -9485,7 +9687,7 @@ values that are \texttt{NA}, \texttt{NaN}, or infinite.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-53}
+\subsection{Exercise 2}\label{exercise-2-52}
 
 Carefully read the documentation of \texttt{is.vector()}. What does it
 actually test for? Why does \texttt{is.atomic()} not agree with the
@@ -9538,7 +9740,7 @@ if they have extra attributes.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-41}
+\subsection{Exercise 3}\label{exercise-3-42}
 
 Compare and contrast \texttt{setNames()} with
 \texttt{purrr::set\_names()}.
@@ -9575,7 +9777,7 @@ From the code we can see that \texttt{set\_names} adds a few sanity
 checks: \texttt{x} has to be a vector, and the lengths of the object and
 the names have to be the same.
 
-\subsection{Exercise 4}\label{exercise-4-32}
+\subsection{Exercise 4}\label{exercise-4-31}
 
 Create functions that take a vector as input and returns:
 
@@ -9768,7 +9970,7 @@ is as follows.
 
 \textbackslash{}begin\{center\}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_2-1}
 
-\subsection{Exercise 2}\label{exercise-2-54}
+\subsection{Exercise 2}\label{exercise-2-53}
 
 What happens if you subset a \texttt{tibble} as if you're subsetting a
 list? What are the key differences between a list and a \texttt{tibble}?
@@ -9850,7 +10052,7 @@ The attributes is uses are \texttt{"units"} and \texttt{"class"}.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-55}
+\subsection{Exercise 2}\label{exercise-2-54}
 
 Try and make a tibble that has columns with different lengths. What
 happens?
@@ -9883,7 +10085,7 @@ lengths (other than one), the \texttt{tibble} function throws an error.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-42}
+\subsection{Exercise 3}\label{exercise-3-43}
 
 Based on the definition above, is it OK to have a list as a column of a
 tibble?
@@ -10104,7 +10306,7 @@ recycles means.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-56}
+\subsection{Exercise 2}\label{exercise-2-55}
 
 Eliminate the for loop in each of the following examples by taking
 advantage of an existing function that works with vectors:
@@ -10200,7 +10402,7 @@ The code above is calculating a cumulative sum. Use the function
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-43}
+\subsection{Exercise 3}\label{exercise-3-44}
 
 Combine your function writing and for loop skills:
 
@@ -10381,7 +10583,7 @@ the number of bottles.
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 4}\label{exercise-4-33}
+\subsubsection{Exercise 4}\label{exercise-4-32}
 
 It's common to see for loops that don't preallocate the output and
 instead increase the length of a vector at each step:
@@ -10468,7 +10670,7 @@ frames.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-57}
+\subsection{Exercise 2}\label{exercise-2-56}
 
 What happens if you use \texttt{for\ (nm\ in\ names(x))} and \texttt{x}
 has no names? What if only some of the elements are named? What if the
@@ -10552,7 +10754,7 @@ access elements with duplicate names.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-44}
+\subsection{Exercise 3}\label{exercise-3-45}
 
 Write a function that prints the mean of each numeric column in a data
 frame, along with its name. For example, \texttt{show\_mean(iris)} would
@@ -10600,7 +10802,7 @@ until I got two digits .
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-34}
+\subsection{Exercise 4}\label{exercise-4-33}
 
 What does this code do? How does it work?
 
@@ -10664,7 +10866,7 @@ for loops does it generalize.
 It generalizes looping over the rows or columns of a matrix or
 data-frame.
 
-\subsection{Exercise 2}\label{exercise-2-58}
+\subsection{Exercise 2}\label{exercise-2-57}
 
 Adapt \texttt{col\_summary()} so that it only applies to numeric
 columns. You might want to start with an \texttt{is\_numeric()} function
@@ -10867,7 +11069,7 @@ and \(100\):
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-59}
+\subsection{Exercise 2}\label{exercise-2-58}
 
 How can you create a single vector that for each column in a data frame
 indicates whether or not it's a factor?
@@ -10882,7 +11084,7 @@ Use \texttt{map\_lgl} with the function \texttt{is.factor},
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-45}
+\subsection{Exercise 3}\label{exercise-3-46}
 
 What happens when you use the map functions on vectors that aren't
 lists? What does \texttt{map(1:5,\ runif)} do? Why?
@@ -10910,7 +11112,7 @@ vector.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-35}
+\subsection{Exercise 4}\label{exercise-4-34}
 
 What does \texttt{map(-2:2,\ rnorm,\ n\ =\ 5)} do? Why? \textgreater{}
 What does \texttt{map\_dbl(-2:2,\ rnorm,\ n\ =\ 5)} do? Why?
@@ -11028,7 +11230,7 @@ The function \texttt{purrr::every} does fancy things with \texttt{.p},
 like taking a logical vector instead of a function, or being able to
 test part of a string if the elements of \texttt{.x} are lists.
 
-\subsection{Exercise 2}\label{exercise-2-60}
+\subsection{Exercise 2}\label{exercise-2-59}
 
 Create an enhanced \texttt{col\_sum()} that applies a summary function
 to every numeric column in a data frame.
@@ -11064,7 +11266,7 @@ I will use \texttt{map} to apply the function to all the columns, and
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-46}
+\subsection{Exercise 3}\label{exercise-3-47}
 
 Create possible base R equivalent of \texttt{col\_sum()} is:
 
@@ -11273,7 +11475,7 @@ more than 3 times higher,
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-61}
+\subsection{Exercise 2}\label{exercise-2-60}
 
 One way to make linear models more robust is to use a different distance
 measure. For example, instead of root-mean-squared distance, you could
@@ -11332,7 +11534,7 @@ would you an existing implementation. See the \texttt{MASS} package's
 \texttt{rlm} and \texttt{lqs} functions for more information and
 functions to fit robust and resistant linear models.
 
-\subsection{Exercise 3}\label{exercise-3-47}
+\subsection{Exercise 3}\label{exercise-3-48}
 
 One challenge with performing numerical optimization is that it's only
 guaranteed to find a local optimum. What's the problem with optimizing a
@@ -11462,7 +11664,7 @@ considered the uncertainty of these estimates).
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
-\subsection{Exercise 2}\label{exercise-2-62}
+\subsection{Exercise 2}\label{exercise-2-61}
 
 \texttt{add\_predictions()} is paired with
 \texttt{gather\_predictions()} and \texttt{spread\_predictions()}. How
@@ -11566,7 +11768,7 @@ to running \texttt{spread} after running \texttt{gather\_predictions}:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 3}\label{exercise-3-48}
+\subsection{Exercise 3}\label{exercise-3-49}
 
 What does \texttt{geom\_ref\_line()} do? What package does it come from?
 Why is displaying a reference line in plots showing residuals useful and
@@ -11581,7 +11783,7 @@ the same variance (or distribution) over the support of x, and no
 correlation. A zero reference line makes it easier to judge these
 characteristics visually.
 
-\subsection{Exercise 4}\label{exercise-4-36}
+\subsection{Exercise 4}\label{exercise-4-35}
 
 Why might you want to look at a frequency polygon of absolute residuals?
 What are the pros and cons compared to looking at the raw residuals?
@@ -11651,7 +11853,7 @@ intercept:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 2}\label{exercise-2-63}
+\subsection{Exercise 2}\label{exercise-2-62}
 
 Use \texttt{model\_matrix()} to explore the equations generated for the
 models I fit to \texttt{sim3} and \texttt{sim4}. Why is \texttt{*} a
@@ -11737,7 +11939,7 @@ interaction between \texttt{x1} and \texttt{x2} includes terms for
 \texttt{x1}, \texttt{x2}, and the product of \texttt{x1} and
 \texttt{x2}.
 
-\subsection{Exercise 3}\label{exercise-3-49}
+\subsection{Exercise 3}\label{exercise-3-50}
 
 Using the basic principles, convert the formulas in the following two
 models into functions. (Hint: start by converting the categorical
@@ -11833,7 +12035,7 @@ A more general function for model \texttt{mod1} is:
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Exercise 4}\label{exercise-4-37}
+\subsection{Exercise 4}\label{exercise-4-36}
 
 For \texttt{sim4}, which of \texttt{mod1} and \texttt{mod2} is better? I
 think \texttt{mod2} does a slightly better job at removing patterns, but
@@ -11952,7 +12154,7 @@ bright vertical strips. What do they represent?
 The distribution of diamonds has more diamonds at round or otherwise
 human friendly numbers (fractions).
 
-\subsubsection{Exercise 2}\label{exercise-2-64}
+\subsubsection{Exercise 2}\label{exercise-2-63}
 
 If \texttt{log(price)\ =\ a\_0\ +\ a\_1\ *\ log(carat)}, what does that
 say about the relationship between \texttt{price} and \texttt{carat}?
@@ -11960,7 +12162,7 @@ say about the relationship between \texttt{price} and \texttt{carat}?
 An 1\% increase in carat is associated with an \(a_1\)\% increase in
 price.
 
-\subsubsection{Exercise 3}\label{exercise-3-50}
+\subsubsection{Exercise 3}\label{exercise-3-51}
 
 Extract the diamonds that have very high and very low residuals. Is
 there anything unusual about these diamonds? Are the particularly bad or
@@ -11968,7 +12170,7 @@ good, or do you think these are pricing errors?
 
 This was already discussed in the text. I don't see anything either.
 
-\subsubsection{Exercise 4}\label{exercise-4-38}
+\subsubsection{Exercise 4}\label{exercise-4-37}
 
 Does the final model, \texttt{mod\_diamonds2}, do a good job of
 predicting diamond prices? Would you trust it to tell you how much to
@@ -12051,7 +12253,7 @@ same explanation.) How would these days generalize to another year?
 These are the Sundays before Monday holidays Martin Luther King Day,
 Memorial Day, and Labor Day.
 
-\subsubsection{Exercise 2}\label{exercise-2-65}
+\subsubsection{Exercise 2}\label{exercise-2-64}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12066,7 +12268,7 @@ Memorial Day, and Labor Day.
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 3}\label{exercise-3-51}
+\subsubsection{Exercise 3}\label{exercise-3-52}
 
 Create a new variable that splits the \texttt{wday} variable into terms,
 but only for Saturdays, i.e.~it should have \texttt{Thurs},
@@ -12143,7 +12345,7 @@ variables. More importantly for prediction purposes, it has a higher AIC
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{Exercise 4}\label{exercise-4-39}
+\subsubsection{Exercise 4}\label{exercise-4-38}
 
 Create a new \texttt{wday} variable that combines the day of week, term
 (for Saturdays), and public holidays. What do the residuals of that
@@ -12393,7 +12595,7 @@ includes the year squared.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{many-models_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
-\subsubsection{Exercise 2}\label{exercise-2-66}
+\subsubsection{Exercise 2}\label{exercise-2-65}
 
 Explore other methods for visualizing the distribution of \(R^2\) per
 continent. You might want to try the \textbf{ggbeeswarm} package, which
@@ -12426,7 +12628,7 @@ and return a list.
 
 E.g. Many of the \textbf{stringr} functions.
 
-\subsubsection{Exercise 2}\label{exercise-2-67}
+\subsubsection{Exercise 2}\label{exercise-2-66}
 
 Brainstorm useful summary functions that, like \texttt{quantile()},
 return multiple values.
@@ -12434,7 +12636,7 @@ return multiple values.
 Some examples of summary functions that return multiple values are
 \texttt{range} and \texttt{fivenum}.
 
-\subsubsection{Exercise 3}\label{exercise-3-52}
+\subsubsection{Exercise 3}\label{exercise-3-53}
 
 What's missing in the following data frame? How does \texttt{quantile()}
 return that missing piece? Why isn't that helpful here?
@@ -12473,7 +12675,7 @@ The particular quantiles of the values are missing, e.g. \texttt{0\%},
 Since the \texttt{unnest} function drops the names of the vector, they
 aren't useful here.
 
-\subsubsection{Exercise 4}\label{exercise-4-40}
+\subsubsection{Exercise 4}\label{exercise-4-39}
 
 What does this code do? Why might might it be useful?
 
@@ -12518,7 +12720,7 @@ determine how many atomic vector columns to create. It is also a
 replacement for something like \texttt{map\_int(x,\ length)} or
 \texttt{sapply(x,\ length)}.
 
-\subsubsection{Exercise 2}\label{exercise-2-68}
+\subsubsection{Exercise 2}\label{exercise-2-67}
 
 List the most common types of vector found in a data frame. What makes
 lists different?
@@ -12561,7 +12763,7 @@ output.
 
 This exercise is left to the reader.
 
-\subsubsection{Exercise 2}\label{exercise-2-69}
+\subsubsection{Exercise 2}\label{exercise-2-68}
 
 Create a new R Markdown document with \emph{File \textgreater{} New File
 \textgreater{} R Markdown \ldots{}} Knit it by clicking the appropriate
@@ -12571,7 +12773,7 @@ you can modify the input and see the output update.
 This exercise is mostly left to the reader. Recall that the keyboard
 shortcut to knit a file is \texttt{Cmd/Ctrl\ +\ Alt\ +\ I}.
 
-\subsubsection{Exercise 3}\label{exercise-3-53}
+\subsubsection{Exercise 3}\label{exercise-3-54}
 
 Compare and contrast the R notebook and R markdown files you created
 above. How are the outputs similar? How are they different? How are the
@@ -12628,7 +12830,7 @@ opening and the \textbf{rmarkdown} package when knitting uses the YAML
 header of a file, and in particular the value of the \texttt{output} key
 in the YAML header, to determine what type of document it is.
 
-\subsubsection{Exercise 4}\label{exercise-4-41}
+\subsubsection{Exercise 4}\label{exercise-4-40}
 
 Create one new R Markdown document for each of the three built-in
 formats: HTML, PDF and Word. Knit each of the three documents. How does
@@ -12676,7 +12878,7 @@ title: "Hadley Wickham"
 
 Your own example could be much more detailed.
 
-\subsection{Exercise 2}\label{exercise-2-70}
+\subsection{Exercise 2}\label{exercise-2-69}
 
 Using the R Markdown quick reference, figure out how to:
 
@@ -12714,7 +12916,7 @@ a YAML block if it is at the start of the document.
   English alphabet.
 \end{verbatim}
 
-\subsection{Exercise 3}\label{exercise-3-54}
+\subsection{Exercise 3}\label{exercise-3-55}
 
 Copy and paste the contents of \texttt{diamond-sizes.Rmd} from
 \url{https://github.com/hadley/r4ds/tree/master/rmarkdown} in to a local
@@ -12818,7 +13020,7 @@ clarity. Assume you're writing a report for someone who doesn't know R,
 and instead of setting \texttt{echo\ =\ FALSE} on each chunk, set a
 global option.
 
-\subsection{Exercise 2}\label{exercise-2-71}
+\subsection{Exercise 2}\label{exercise-2-70}
 
 Download \texttt{diamond-sizes.Rmd} from
 \url{https://github.com/hadley/r4ds/tree/master/rmarkdown}. Add a
@@ -12829,7 +13031,7 @@ For the this, I use \texttt{arrange()} and \texttt{slice()} to select
 the largest twenty diamonds, and \texttt{knitr::kable()} to produce a
 formatted table.
 
-\subsection{Exercise 3}\label{exercise-3-55}
+\subsection{Exercise 3}\label{exercise-3-56}
 
 Modify \texttt{diamonds-sizes.Rmd} to use comma() to produce nicely
 formatted output. Also include the percentage of diamonds that are
@@ -12845,7 +13047,7 @@ used in prose close to their use. Calculating those objects in a code
 chunk with the \texttt{include\ =\ FALSE} option (as is done in
 \texttt{diamonds-size.Rmd}) is useful in this regard.
 
-\subsection{Exercise 4}\label{exercise-4-42}
+\subsection{Exercise 4}\label{exercise-4-41}
 
 Set up a network of chunks where \texttt{d} depends on \texttt{c} and
 \texttt{b}, and both \texttt{b} and \texttt{c} depend on \texttt{a}.
@@ -12945,7 +13147,7 @@ Create one plot on the fuel economy data with customized \texttt{title},
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
-\subsection{Exercise 3}\label{exercise-3-56}
+\subsection{Exercise 3}\label{exercise-3-57}
 
 The \texttt{geom\_smooth()} is somewhat misleading because the
 \texttt{hwy} for large engines is skewed upwards due to the inclusion of
@@ -12989,7 +13191,7 @@ a better model.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
-\subsubsection{Exercise 3}\label{exercise-3-57}
+\subsubsection{Exercise 3}\label{exercise-3-58}
 
 Take an exploratory graphic that you've created in the last month, and
 add informative titles to make it easier for others to understand.
@@ -13032,7 +13234,7 @@ calls with four different data arguments, and four different values of
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
-\subsubsection{Exercise 2}\label{exercise-2-72}
+\subsubsection{Exercise 2}\label{exercise-2-71}
 
 Read the documentation for \texttt{annotate()}. How can you use it to
 add a text label to a plot without having to create a tibble?
@@ -13051,7 +13253,7 @@ arguments:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
-\subsubsection{Exercise 3}\label{exercise-3-58}
+\subsubsection{Exercise 3}\label{exercise-3-59}
 
 How do labels with \texttt{geom\_text()} interact with faceting? How can
 you add a label to a single facet? How can you put a different label in
@@ -13121,7 +13323,7 @@ variable(s):
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
-\subsubsection{Exercise 4}\label{exercise-4-43}
+\subsubsection{Exercise 4}\label{exercise-4-42}
 
 What arguments to \texttt{geom\_label()} control the appearance of the
 background box?
@@ -13195,7 +13397,7 @@ It does not override the default scale because the colors in
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
-\subsubsection{Exercise 2}\label{exercise-2-73}
+\subsubsection{Exercise 2}\label{exercise-2-72}
 
 The first argument to every scale is the label for the scale. It is
 equivalent to using the \texttt{labs} function.
@@ -13230,7 +13432,7 @@ equivalent to using the \texttt{labs} function.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-\subsubsection{Exercise 3}\label{exercise-3-59}
+\subsubsection{Exercise 3}\label{exercise-3-60}
 
 Change the display of the presidential terms by:
 
@@ -13271,7 +13473,7 @@ Change the display of the presidential terms by:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
-\subsubsection{Exercise 4}\label{exercise-4-44}
+\subsubsection{Exercise 4}\label{exercise-4-43}
 
 Use \texttt{override.aes} to make the legend on the following plot
 easier to see.

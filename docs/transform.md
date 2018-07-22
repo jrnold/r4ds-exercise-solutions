@@ -1280,22 +1280,25 @@ flights %>%
   filter(!is.na(arr_delay), arr_delay > 0) %>%  
   group_by(dest) %>%
   mutate(total_delay = sum(arr_delay),
-         prop_delay = arr_delay / sum(arr_delay))
-#> # A tibble: 133,004 x 21
+         prop_delay = arr_delay / total_delay) %>%
+  select(
+    (year:day),
+    dep_delay,
+    total_delay,
+    prop_delay
+  )
+#> Adding missing grouping variables: `dest`
+#> # A tibble: 133,004 x 7
 #> # Groups:   dest [103]
-#>    year month   day dep_time sched_dep_time dep_delay arr_time
-#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515         2      830
-#> 2  2013     1     1      533            529         4      850
-#> 3  2013     1     1      542            540         2      923
-#> 4  2013     1     1      554            558        -4      740
-#> 5  2013     1     1      555            600        -5      913
-#> 6  2013     1     1      558            600        -2      753
-#> # ... with 1.33e+05 more rows, and 14 more variables:
-#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
-#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>,
-#> #   total_delay <dbl>, prop_delay <dbl>
+#>   dest   year month   day dep_delay total_delay prop_delay
+#>   <chr> <int> <int> <int>     <dbl>       <dbl>      <dbl>
+#> 1 IAH    2013     1     1         2       99391  0.000111 
+#> 2 IAH    2013     1     1         4       99391  0.000201 
+#> 3 MIA    2013     1     1         2      140424  0.000235 
+#> 4 ORD    2013     1     1        -4      283046  0.0000424
+#> 5 FLL    2013     1     1        -5      202605  0.0000938
+#> 6 ORD    2013     1     1        -2      283046  0.0000283
+#> # ... with 1.33e+05 more rows
 ```
 
 Alternatively, consider the delay as relative to the *minimum* delay for any flight to that destination. Now all non-canceled flights have a proportion.
@@ -1305,22 +1308,25 @@ flights %>%
   filter(!is.na(arr_delay), arr_delay > 0) %>%  
   group_by(dest) %>%
   mutate(total_delay = sum(arr_delay - min(arr_delay)),
-         prop_delay = arr_delay / sum(arr_delay))
-#> # A tibble: 133,004 x 21
+         prop_delay = arr_delay / sum(arr_delay)) %>%
+  select(
+    (year:day),
+    dep_delay,
+    total_delay,
+    prop_delay
+  )
+#> Adding missing grouping variables: `dest`
+#> # A tibble: 133,004 x 7
 #> # Groups:   dest [103]
-#>    year month   day dep_time sched_dep_time dep_delay arr_time
-#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
-#> 1  2013     1     1      517            515         2      830
-#> 2  2013     1     1      533            529         4      850
-#> 3  2013     1     1      542            540         2      923
-#> 4  2013     1     1      554            558        -4      740
-#> 5  2013     1     1      555            600        -5      913
-#> 6  2013     1     1      558            600        -2      753
-#> # ... with 1.33e+05 more rows, and 14 more variables:
-#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
-#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>,
-#> #   total_delay <dbl>, prop_delay <dbl>
+#>   dest   year month   day dep_delay total_delay prop_delay
+#>   <chr> <int> <int> <int>     <dbl>       <dbl>      <dbl>
+#> 1 IAH    2013     1     1         2       96508  0.000111 
+#> 2 IAH    2013     1     1         4       96508  0.000201 
+#> 3 MIA    2013     1     1         2      136569  0.000235 
+#> 4 ORD    2013     1     1        -4      276848  0.0000424
+#> 5 FLL    2013     1     1        -5      197393  0.0000938
+#> 6 ORD    2013     1     1        -2      276848  0.0000283
+#> # ... with 1.33e+05 more rows
 ```
 
 
