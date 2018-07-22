@@ -1,4 +1,8 @@
-## 2018-07-20
+## 2018-07-22
+
+-   Edit plot in Ex 12.2.3 (@KleinGeard)
+
+## 2018-07-21
 
 -   Added answer to Ex. 11.3.4 (@KleinGeard)
 -   Correct and edit Ex. 12.2.2. (@KleinGeard): Missing multiplication by 10,000, typo in code, and did not store results in the appropriate format.

@@ -121,14 +121,16 @@ Recreate the plot showing change in cases over time using `table2` instead of `t
 
 `r BeginAnswer()`
 
-First, I needed to filter the tibble to only include those rows that represented the "cases" variable.
+Before creating the plot with change in cases over time, we need to filter the data frame to only include rows representing cases of TB.
 ```{r}
 table2 %>%
   filter(type == "cases") %>%
   ggplot(aes(year, count)) +
-    geom_line(aes(group = country), colour = "grey50") +
-    geom_point(aes(colour = country)) +
-    ylab("cases")
+  geom_line(aes(group = country), colour = "grey50") +
+  geom_point(aes(colour = country)) +
+  scale_x_continuous(breaks = unique(table2$year)) +
+  ylab("cases")
+
 ```
 
 `r EndAnswer()`
