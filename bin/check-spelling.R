@@ -1,6 +1,7 @@
 #!/bin/env Rscript
 # Spell check
 library("spelling")
+library("magrittr")
 wordlist_file <- "WORDLIST"
 
 wordlist <- stringr::str_trim(readLines(wordlist_file))

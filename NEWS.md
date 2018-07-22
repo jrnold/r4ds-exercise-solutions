@@ -9,7 +9,6 @@
 -   Added answer to Ex. 14.4.2.1.d (@KleinGeard)
 -   Miscellaneous minor typo fixes.
 
-
 ## 2018-07-21
 
 -   Added answer to Ex. 11.3.4 (@KleinGeard)
