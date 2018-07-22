@@ -1,3 +1,9 @@
+## 2018-07-20
+
+-   Added answer to Ex. 11.3.4 (@KleinGeard)
+-   
+
+
 ## 2018-07-15
 
 -   Added answer to Ex. 25.2.3
