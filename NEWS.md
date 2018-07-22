@@ -2,6 +2,13 @@
 
 -   Edit plot in Ex. 12.2.3 (@KleinGeard)
 -   Add examples to Ex. 12.4.2 (@KleinGeard)
+-   Fix typo in Ex. 13.2.2 (@KleinGeard)
+-   Correct exercise number in Ex. 13.2.3 (@KleinGeard)
+-   Extended discussion of Ex. 13.3.2 (@KleinGeard)
+-   New answer to Ex. 14.3.5.1.2 (@KleinGeard)
+-   Added answer to Ex. 14.4.2.1.d (@KleinGeard)
+-   Miscellaneous minor typo fixes.
+
 
 ## 2018-07-21
 
