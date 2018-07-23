@@ -1,6 +1,7 @@
 ## 2018-07-23
 
 -  Fix bug and edit solution to Ex. 3.9.4 (Thanks to JamesCuster, #27)
+-  Fix typo in Ex. 3.9.1 (Thanks to JamesCuster, #26)
 
 ## 2018-07-22
 
