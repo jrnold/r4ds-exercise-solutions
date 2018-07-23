@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   cache = TRUE,
   autodep = TRUE,
+  # need to save cache
+  cache.extra = knitr::rand_seed,
   out.width = "70%",
   fig.align = 'center',
   fig.width = 6,

@@ -481,6 +481,7 @@ The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest,
 
 ```r
 library(viridis)
+#> Loading required package: viridisLite
 flights %>%
   filter(year == 2013, month == 6, day == 13) %>%
   group_by(dest) %>%

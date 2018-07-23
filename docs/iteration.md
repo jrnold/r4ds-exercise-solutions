@@ -458,7 +458,7 @@ add_to_vector <- function(n) {
 microbenchmark(add_to_vector(10000), times = 3)
 #> Unit: milliseconds
 #>                  expr min  lq mean median  uq max neval
-#>  add_to_vector(10000) 206 215  221    223 229 234     3
+#>  add_to_vector(10000) 200 207  213    214 219 225     3
 ```
 
 And one that pre-allocates it.
@@ -472,9 +472,9 @@ add_to_vector_2 <- function(n) {
   output
 }
 microbenchmark(add_to_vector_2(10000), times = 3)
-#> Unit: milliseconds
-#>                    expr  min   lq mean median  uq  max neval
-#>  add_to_vector_2(10000) 1.44 1.93 4.28   2.43 5.7 8.98     3
+#> Unit: microseconds
+#>                    expr min  lq mean median   uq  max neval
+#>  add_to_vector_2(10000) 652 653 1620    655 2104 3552     3
 ```
 
 The pre-allocated vector is about **100** times faster!

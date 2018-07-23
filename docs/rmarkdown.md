@@ -216,7 +216,7 @@ knitr::opts_chunk$set(echo = FALSE)
 library("ggplot2")
 library("dplyr")
 
-smaller <- diamonds %>% 
+smaller <- diamonds %>%
   filter(carat <= 2.5)
 ```
 
@@ -253,18 +253,18 @@ A diamond may be profitable to sell if a poor value of one feature, for example,
 
 ## Largest Diamonds
 
-We have data about `r comma(nrow(diamonds))` diamonds. Only 
+We have data about `r comma(nrow(diamonds))` diamonds. Only
 `r n_larger` (`r round(nrow(smaller) / nrow(smaller) * 100, 1)`%) are larger than
 2.5 carats. The distribution of the remainder is shown
 below:
 
 ```{r}
-smaller %>% 
-  ggplot(aes(carat)) + 
+smaller %>%
+  ggplot(aes(carat)) +
   geom_freqpoly(binwidth = 0.01)
 ```
 
-The frequency distribution of diamond sizes is marked by spikes at 
+The frequency distribution of diamond sizes is marked by spikes at
 whole-number and half-carat values, as well as several other carat values corresponding to fractions.
 
 The largest twenty diamonds (by carat) in the datasets are,
@@ -280,7 +280,7 @@ diamonds %>%
 ```
 
 Most of the twenty largest datasets are in the lowest clarity category ("I1"), with one being in the second best category ("VVS2")
-The top twenty diamonds have colors rangind from the worst, "J", to best, "D", categories, though most are in the lower categories "J" and "I".
+The top twenty diamonds have colors ranging from the worst, "J", to best, "D", categories, though most are in the lower categories "J" and "I".
 The top twenty diamonds are more evenly distributed among the cut categories, from "Fair" to "Ideal", although the worst category (Fair) is the most common.
 ````
 
