@@ -865,21 +865,24 @@ What does `geom_abline()` do?
 
 `r BeginAnswer()`
 
-The coordinates `coord_fixed` ensures that the `abline` is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.
+The function `coord_fixed()` ensures that the line produced by `geom_abline()` is at a 45 degree angle.
+The 45 degree line makes it easy to compare the highway and city mileage to the case in which city and highway MPG were equal.
 
 ```{r}
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point() +
-  geom_abline() +
-  coord_fixed()
-```
-
-If we didn't include geom_point, then the line is no longer at 45 degrees:
-```{r}
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+p <- ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point() +
   geom_abline()
+p + coord_fixed()
 ```
+
+If we didn't include `geom_coord()`, then the line would no longer have an angle of 45 degrees.
+```{r}
+p
+```
+
+On average, humans are best able to perceive differences in angles relative to 45 degrees.
+See @Cleveland1993, @Cleveland1994,@Cleveland1993a, @ClevelandMcGillMcGill1988,  @HeerAgrawala2006 for discussion on how the aspect ratio of a plot affects perception of the values it encodes, evidence that 45 degrees is generally optimal, and methods to calculate the an aspect ratio to achieve it. 
+The function `ggthemes::bank_slopes()` will calculate the optimal aspect ratio to bank slopes to 45 degrees.
 
 `r EndAnswer()`
 

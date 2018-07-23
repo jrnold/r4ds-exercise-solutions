@@ -1,3 +1,7 @@
+## 2018-07-23
+
+-  Fix bug and edit solution to Ex. 3.9.4 (Thanks to JamesCuster, #27)
+
 ## 2018-07-22
 
 -   Edit plot in Ex. 12.2.3 (KleinGeard, #25)
