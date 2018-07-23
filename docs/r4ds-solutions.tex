@@ -158,8 +158,9 @@
 \addcontentsline{toc}{chapter}{Welcome}
 
 This contains my exercise solutions for Hadley Wickham and Garret
-Grolemund, \href{http://amzn.to/2aHLAQ1}{R for Data Science}. The
-original website is at \href{http://r4ds.had.co.nz/}{r4ds.had.co.nz}.
+Grolemund, \href{http://amzn.to/2aHLAQ1}{R for Data Science} (Wickham
+and Grolemund \protect\hyperlink{ref-WickhamGrolemund2017}{2017}). The
+website for the book is \href{http://r4ds.had.co.nz/}{r4ds.had.co.nz}.
 
 The text of this work is licensed under the
 \href{http://creativecommons.org/licenses/by/4.0/}{Creative Commons
@@ -202,19 +203,19 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
 \begin{itemize}
 \tightlist
 \item
-  Edit plot in Ex. 12.2.3 (@KleinGeard)
+  Edit plot in Ex. 12.2.3 (({\textbf{???}}))
 \item
-  Add examples to Ex. 12.4.2 (@KleinGeard)
+  Add examples to Ex. 12.4.2 (({\textbf{???}}))
 \item
-  Fix typo in Ex. 13.2.2 (@KleinGeard)
+  Fix typo in Ex. 13.2.2 (({\textbf{???}}))
 \item
-  Correct exercise number in Ex. 13.2.3 (@KleinGeard)
+  Correct exercise number in Ex. 13.2.3 (({\textbf{???}}))
 \item
-  Extended discussion of Ex. 13.3.2 (@KleinGeard)
+  Extended discussion of Ex. 13.3.2 (({\textbf{???}}))
 \item
-  New answer to Ex. 14.3.5.1.2 (@KleinGeard)
+  New answer to Ex. 14.3.5.1.2 (({\textbf{???}}))
 \item
-  Added answer to Ex. 14.4.2.1.d (@KleinGeard)
+  Added answer to Ex. 14.4.2.1.d (({\textbf{???}}))
 \item
   Miscellaneous minor typo fixes.
 \end{itemize}
@@ -226,11 +227,11 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
 \begin{itemize}
 \tightlist
 \item
-  Added answer to Ex. 11.3.4 (@KleinGeard)
+  Added answer to Ex. 11.3.4 (({\textbf{???}}))
 \item
-  Correct and edit Ex. 12.2.2. (@KleinGeard): Missing multiplication by
-  10,000, typo in code, and did not store results in the appropriate
-  format.
+  Correct and edit Ex. 12.2.2. (({\textbf{???}})): Missing
+  multiplication by 10,000, typo in code, and did not store results in
+  the appropriate format.
 \end{itemize}
 
 \hypertarget{section-2}{%
@@ -256,9 +257,10 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
 \item
   Added answer to Ex. 20.5.1
 \item
-  Added answer to Ex. 3.8.3 (@KleinGeard, \#23)
+  Added answer to Ex. 3.8.3 (({\textbf{???}}), \#23)
 \item
-  Edited answer to Ex. 5.2.1 to use modulo operator (@KleinGeard, \#23)
+  Edited answer to Ex. 5.2.1 to use modulo operator (({\textbf{???}}),
+  \#23)
 \item
   Corrected answer to Ex 3.3.5 (Ronald Gould, \#24)
 \item
@@ -1417,7 +1419,8 @@ projection}. However, this projection must be applied to all geoms in
 the plot. \texttt{coord\_quickmap()} uses a faster, but approximate map
 projection. This approximation ignores the curvature of Earth and
 adjusts the map for the latitude/longitude ratio. This transformation is
-quicker than the because the shapes do not need to be transformed.
+quicker than \texttt{coord\_map()} because the coordinates of the
+individual geoms do not need to be transformed.
 
 The \textbf{ggplot2}
 \href{http://docs.ggplot2.org/current/coord_map.html}{documentation}
@@ -1430,33 +1433,46 @@ What does the plot below tell you about the relationship between city
 and highway mpg? Why is \texttt{coord\_fixed()} important? What does
 \texttt{geom\_abline()} do?
 
-The coordinates \texttt{coord\_fixed} ensures that the \texttt{abline}
-is at a 45 degree angle, which makes it easy to compare the highway and
-city mileage against what it would be if they were exactly the same.
+The function \texttt{coord\_fixed()} ensures that the line produced by
+\texttt{geom\_abline()} is at a 45 degree angle. The 45 degree line
+makes it easy to compare the highway and city mileage to the case in
+which city and highway MPG were equal.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
+\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_abline}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{coord_fixed}\NormalTok{()}
+\StringTok{  }\KeywordTok{geom_abline}\NormalTok{()}
+\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{coord_fixed}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
-If we didn't include geom\_point, then the line is no longer at 45
-degrees:
+If we didn't include \texttt{geom\_coord()}, then the line would no
+longer have an angle of 45 degrees.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_abline}\NormalTok{()}
+\NormalTok{p}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-58-1} \end{center}
+
+On average, humans are best able to perceive differences in angles
+relative to 45 degrees. See Cleveland
+(\protect\hyperlink{ref-Cleveland1993}{1993}\protect\hyperlink{ref-Cleveland1993}{b}),
+Cleveland (\protect\hyperlink{ref-Cleveland1994}{1994}),Cleveland
+(\protect\hyperlink{ref-Cleveland1993a}{1993}\protect\hyperlink{ref-Cleveland1993a}{a}),
+Cleveland, McGill, and McGill
+(\protect\hyperlink{ref-ClevelandMcGillMcGill1988}{1988}), Heer and
+Agrawala (\protect\hyperlink{ref-HeerAgrawala2006}{2006}) for discussion
+on how the aspect ratio of a plot affects perception of the values it
+encodes, evidence that 45 degrees is generally optimal, and methods to
+calculate the an aspect ratio to achieve it. The function
+\texttt{ggthemes::bank\_slopes()} will calculate the optimal aspect
+ratio to bank slopes to 45 degrees.
 
 \hypertarget{the-layered-grammar-of-graphics}{%
 \section{The Layered Grammar of
@@ -14049,6 +14065,35 @@ code and text at
 \chapter{R Markdown Workflow}\label{r-markdown-workflow}}
 
 No exercises
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-Cleveland1993a}{}%
+Cleveland, William S. 1993a. ``A Model for Studying Display Methods of
+Statistical Graphics.'' \emph{Journal of Computational and Graphical
+Statistics} 2 (4). Taylor \& Francis:323--43.
+\url{https://doi.org/10.1080/10618600.1993.10474616}.
+
+\leavevmode\hypertarget{ref-Cleveland1993}{}%
+---------. 1993b. \emph{Visualizing Information}. Hobart Press.
+
+\leavevmode\hypertarget{ref-Cleveland1994}{}%
+---------. 1994. \emph{The Elements of Graphing Data}. Hobart Press.
+
+\leavevmode\hypertarget{ref-ClevelandMcGillMcGill1988}{}%
+Cleveland, William S., Marylyn E. McGill, and Robert McGill. 1988. ``The
+Shape Parameter of a Two-Variable Graph.'' \emph{Journal of the American
+Statistical Association} 83 (402). {[}American Statistical Association,
+Taylor \& Francis, Ltd.{]}:289--300.
+\url{http://www.jstor.org/stable/2288843}.
+
+\leavevmode\hypertarget{ref-HeerAgrawala2006}{}%
+Heer, Jeffrey, and Maneesh Agrawala. 2006. ``Multi-Scale Banking to
+45º.'' \emph{Ieee Transactions on Visualization and Computer Graphics}
+12 (5, September/October). \url{https://doi.org/10.1109/TVCG.2006.163}.
+
+\leavevmode\hypertarget{ref-WickhamGrolemund2017}{}%
+Wickham, Hadley, and Garrett Grolemund. 2017. \emph{R for Data Science:
+Import, Tidy, Transform, Visualize, and Model Data 1st}. O'Reilly Media.
 
 
 \end{document}

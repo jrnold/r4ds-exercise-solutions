@@ -1223,7 +1223,8 @@ of the data scientist.</p>
 By default, <code>coord_map()</code> uses the <a href="https://en.wikipedia.org/wiki/Mercator_projection">Mercator projection</a>.
 However, this projection must be applied to all geoms in the plot.
 <code>coord_quickmap()</code> uses a faster, but approximate map projection.
-This approximation ignores the curvature of Earth and adjusts the map for the latitude/longitude ratio. This transformation is quicker than the because the shapes do not need to be transformed.</p>
+This approximation ignores the curvature of Earth and adjusts the map for the latitude/longitude ratio.
+This transformation is quicker than <code>coord_map()</code> because the coordinates of the individual geoms do not need to be transformed.</p>
 <p>The <strong>ggplot2</strong> <a href="http://docs.ggplot2.org/current/coord_map.html">documentation</a>
 contains more information on and examples for these two functions.</p>
 </div>
@@ -1231,23 +1232,43 @@ contains more information on and examples for these two functions.</p>
 <h3><span class="header-section-number">3.9.4</span> Exercise 4</h3>
 <p>What does the plot below tell you about the relationship between city and highway mpg? Why is <code>coord_fixed()</code> important?
 What does <code>geom_abline()</code> do?</p>
-<p>The coordinates <code>coord_fixed</code> ensures that the <code>abline</code> is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<p>The function <code>coord_fixed()</code> ensures that the line produced by <code>geom_abline()</code> is at a 45 degree angle.
+The 45 degree line makes it easy to compare the highway and city mileage to the case in which city and highway MPG were equal.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb61-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb61-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_abline</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb61-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb61-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_abline</span>()</a>
+<a class="sourceLine" id="cb61-4" data-line-number="4">p <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-57-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>If we didn’t include geom_point, then the line is no longer at 45 degrees:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_abline</span>()</a></code></pre></div>
+<p>If we didn’t include <code>geom_coord()</code>, then the line would no longer have an angle of 45 degrees.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">p</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-58-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>On average, humans are best able to perceive differences in angles relative to 45 degrees.
+See <span class="citation">Cleveland (<a href="#ref-Cleveland1993">1993</a><a href="#ref-Cleveland1993">b</a>)</span>, <span class="citation">Cleveland (<a href="#ref-Cleveland1994">1994</a>)</span>,<span class="citation">Cleveland (<a href="#ref-Cleveland1993a">1993</a><a href="#ref-Cleveland1993a">a</a>)</span>, <span class="citation">Cleveland, McGill, and McGill (<a href="#ref-ClevelandMcGillMcGill1988">1988</a>)</span>, <span class="citation">Heer and Agrawala (<a href="#ref-HeerAgrawala2006">2006</a>)</span> for discussion on how the aspect ratio of a plot affects perception of the values it encodes, evidence that 45 degrees is generally optimal, and methods to calculate the an aspect ratio to achieve it.
+The function <code>ggthemes::bank_slopes()</code> will calculate the optimal aspect ratio to bank slopes to 45 degrees.</p>
 </div>
 </div>
 <div id="the-layered-grammar-of-graphics" class="section level2">
 <h2><span class="header-section-number">3.10</span> The Layered Grammar of Graphics</h2>
 <p>No exercises</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Cleveland1993">
+<p>Cleveland, William S. 1993b. <em>Visualizing Information</em>. Hobart Press.</p>
+</div>
+<div id="ref-Cleveland1994">
+<p>Cleveland, William S. 1994. <em>The Elements of Graphing Data</em>. Hobart Press.</p>
+</div>
+<div id="ref-Cleveland1993a">
+<p>Cleveland, William S. 1993a. “A Model for Studying Display Methods of Statistical Graphics.” <em>Journal of Computational and Graphical Statistics</em> 2 (4). Taylor &amp; Francis:323–43. <a href="https://doi.org/10.1080/10618600.1993.10474616" class="uri">https://doi.org/10.1080/10618600.1993.10474616</a>.</p>
+</div>
+<div id="ref-ClevelandMcGillMcGill1988">
+<p>Cleveland, William S., Marylyn E. McGill, and Robert McGill. 1988. “The Shape Parameter of a Two-Variable Graph.” <em>Journal of the American Statistical Association</em> 83 (402). [American Statistical Association, Taylor &amp; Francis, Ltd.]:289–300. <a href="http://www.jstor.org/stable/2288843" class="uri">http://www.jstor.org/stable/2288843</a>.</p>
+</div>
+<div id="ref-HeerAgrawala2006">
+<p>Heer, Jeffrey, and Maneesh Agrawala. 2006. “Multi-Scale Banking to 45º.” <em>Ieee Transactions on Visualization and Computer Graphics</em> 12 (5, September/October). <a href="https://doi.org/10.1109/TVCG.2006.163" class="uri">https://doi.org/10.1109/TVCG.2006.163</a>.</p>
 </div>
 </div>
             </section>

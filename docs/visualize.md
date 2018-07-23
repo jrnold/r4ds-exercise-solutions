@@ -1178,7 +1178,8 @@ What’s the difference between `coord_quickmap()` and `coord_map()`?
 By default, `coord_map()` uses the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection).
 However, this projection must be applied to all geoms in the plot.
 `coord_quickmap()` uses a faster, but approximate map projection.
-This approximation ignores the curvature of Earth and adjusts the map for the  latitude/longitude ratio. This transformation is quicker than the because the shapes do not need to be transformed.
+This approximation ignores the curvature of Earth and adjusts the map for the  latitude/longitude ratio.
+This transformation is quicker than `coord_map()` because the coordinates of the individual geoms do not need to be transformed.
 
 The **ggplot2** [documentation](http://docs.ggplot2.org/current/coord_map.html)
 contains more information on and examples for these two functions.
@@ -1194,31 +1195,34 @@ What does `geom_abline()` do?
 
 
 
-The coordinates `coord_fixed` ensures that the `abline` is at a 45 degree angle, which makes it easy to compare the highway and city mileage against what it would be if they were exactly the same.
+The function `coord_fixed()` ensures that the line produced by `geom_abline()` is at a 45 degree angle.
+The 45 degree line makes it easy to compare the highway and city mileage to the case in which city and highway MPG were equal.
 
 
 ```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+p <- ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point() +
-  geom_abline() +
-  coord_fixed()
+  geom_abline()
+p + coord_fixed()
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
-If we didn't include geom_point, then the line is no longer at 45 degrees:
+If we didn't include `geom_coord()`, then the line would no longer have an angle of 45 degrees.
 
 ```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point() +
-  geom_abline()
+p
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-58-1} \end{center}
+
+On average, humans are best able to perceive differences in angles relative to 45 degrees.
+See @Cleveland1993, @Cleveland1994,@Cleveland1993a, @ClevelandMcGillMcGill1988,  @HeerAgrawala2006 for discussion on how the aspect ratio of a plot affects perception of the values it encodes, evidence that 45 degrees is generally optimal, and methods to calculate the an aspect ratio to achieve it. 
+The function `ggthemes::bank_slopes()` will calculate the optimal aspect ratio to bank slopes to 45 degrees.
 
 
 

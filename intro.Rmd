@@ -13,7 +13,7 @@ library("dplyr")
 clean_author <- function(x) {
   if_else(stringr::str_detect(x, "@users\\.noreply\\.github\\.com"),
           stringr::str_replace(x, "(.*?)@users\\.noreply\\.github\\.com", 
-                               "@\\1"),
+                               "\\\\@\\1"),
           stringr::str_c("<", x, ">"))
 }
 
