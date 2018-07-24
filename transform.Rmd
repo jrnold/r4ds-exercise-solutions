@@ -223,9 +223,11 @@ Sort flights to find the fastest flights.
 `r BeginAnswer()`
 
 I assume that by by "fastest flights" it means the flights with the minimum air time.
-So I sort by `air_time`. The fastest flights. The fastest flights area couple of flights between EWR and BDL with an air time of 20 minutes.
+So I sort by `air_time`. The fastest flights are two flights between Newark ([EWR](https://en.wikipedia.org/wiki/Newark_Liberty_International_Airport)) and Bradley ([BDL](https://en.wikipedia.org/wiki/Bradley_International_Airport)), an airport in Connecticut) with an air time of 20 minutes.
 ```{r}
-arrange(flights, air_time)
+arrange(flights, air_time) %>% 
+  select(origin, dest, air_time) %>%
+  head()
 ```
 
 `r EndAnswer()`
