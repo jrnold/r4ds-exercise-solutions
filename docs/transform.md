@@ -34,7 +34,7 @@ Find all flights that
 
 
 1.  Since delay is in minutes, find
-flights whose arrival was delayed 120 or more minutes.
+    flights whose arrival was delayed 120 or more minutes.
 
     
     ```r
@@ -176,7 +176,7 @@ flights whose arrival was delayed 120 or more minutes.
     #> #   minute <dbl>, time_hour <dttm>
     ```
 
-1. Finding flights that departed between midnight and 6 am is complicated by the way in which times are represented in the `dep_time` column.
+1.  Finding flights that departed between midnight and 6 am is complicated by the way in which times are represented in the `dep_time` column.
     In `dep_time`, midnight is `2400`, not `0`.
     Thus we cannot simply check that `dep_time < 600`. Instead, we have to do this.
 
