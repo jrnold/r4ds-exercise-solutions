@@ -1677,7 +1677,6 @@ Find all flights that
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   Had an arrival delay of two or more hours
 \item
@@ -1693,15 +1692,14 @@ Find all flights that
   flight
 \item
   Departed between midnight and 6am (inclusive)
-\end{enumerate}
-
-\emph{Had an arrival delay of two or more hours:} Since delay is in
-minutes, find flights whose arrival was delayed more than 120 minutes.
+\item
+  Since delay is in minutes, find flights whose arrival was delayed 120
+  or more minutes.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(flights, arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{120}\NormalTok{)}
-\CommentTok{#> # A tibble: 10,034 x 19}
+\KeywordTok{filter}\NormalTok{(flights, arr_delay }\OperatorTok{>=}\StringTok{ }\DecValTok{120}\NormalTok{)}
+\CommentTok{#> # A tibble: 10,200 x 19}
 \CommentTok{#>    year month   day dep_time sched_dep_time dep_delay arr_time}
 \CommentTok{#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>}
 \CommentTok{#> 1  2013     1     1      811            630       101     1047}
@@ -1710,14 +1708,14 @@ minutes, find flights whose arrival was delayed more than 120 minutes.
 \CommentTok{#> 4  2013     1     1     1114            900       134     1447}
 \CommentTok{#> 5  2013     1     1     1505           1310       115     1638}
 \CommentTok{#> 6  2013     1     1     1525           1340       105     1831}
-\CommentTok{#> # ... with 1.003e+04 more rows, and 12 more variables:}
+\CommentTok{#> # ... with 1.019e+04 more rows, and 12 more variables:}
 \CommentTok{#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,}
 \CommentTok{#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,}
 \CommentTok{#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>}
 \end{Highlighting}
 \end{Shaded}
-
-\emph{Flew to Houston (IAH or HOU)}:
+\item
+  The flights that flew to Houston were:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1737,14 +1735,14 @@ minutes, find flights whose arrival was delayed more than 120 minutes.
 \CommentTok{#> #   minute <dbl>, time_hour <dttm>}
 \end{Highlighting}
 \end{Shaded}
-
-\emph{Were operated by United, American, or Delta} In the
-\texttt{flights} dataset, the column \texttt{carrier} indicates the
-airline, but it uses two-character carrier codes. We can find the
-carrier codes for the airlines in the \texttt{airlines} dataset. Since
-the carrier code dataset only has 16 rows, and the names of the airlines
-in that dataset are not exactly ``United'', ``American'', or ``Delta'',
-it is easiest to manually lookup their carrier codes in that data.
+\item
+  In the \texttt{flights} dataset, the column \texttt{carrier} indicates
+  the airline, but it uses two-character carrier codes. We can find the
+  carrier codes for the airlines in the \texttt{airlines} dataset. Since
+  the carrier code dataset only has 16 rows, and the names of the
+  airlines in that dataset are not exactly ``United'', ``American'', or
+  ``Delta'', it is easiest to manually lookup their carrier codes in
+  that data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1762,9 +1760,9 @@ it is easiest to manually lookup their carrier codes in that data.
 \end{Highlighting}
 \end{Shaded}
 
-The carrier code for Delta is \texttt{"DL"}, for American is
-\texttt{"AA"}, and for United is \texttt{"UA"}. Using these carriers
-codes, we check whether \texttt{carrier} is one of those.
+  The carrier code for Delta is \texttt{"DL"}, for American is
+  \texttt{"AA"}, and for United is \texttt{"UA"}. Using these carriers
+  codes, we check whether \texttt{carrier} is one of those.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1784,9 +1782,10 @@ codes, we check whether \texttt{carrier} is one of those.
 \CommentTok{#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>}
 \end{Highlighting}
 \end{Shaded}
-
-\emph{Departed in summer (July, August, and September)} The variable
-\texttt{month} has the month, and it is numeric.
+\item
+  The variable \texttt{month} has the month, and it is numeric. So, the
+  summer flights are those that departed in months 7 (July), 8 (August),
+  and 9 (September).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1806,12 +1805,14 @@ codes, we check whether \texttt{carrier} is one of those.
 \CommentTok{#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>}
 \end{Highlighting}
 \end{Shaded}
-
-\emph{Arrived more than two hours late, but didn't leave late}
+\item
+  Flights that arrived more than two hours late, but didn't leave late
+  will have an arrival delay of more than 120 minutes and either
+  departed on time or left early.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(flights, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(dep_delay), dep_delay }\OperatorTok{<=}\StringTok{ }\DecValTok{0}\NormalTok{, arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{120}\NormalTok{)}
+\KeywordTok{filter}\NormalTok{(flights, dep_delay }\OperatorTok{<=}\StringTok{ }\DecValTok{0}\NormalTok{, arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{120}\NormalTok{)}
 \CommentTok{#> # A tibble: 29 x 19}
 \CommentTok{#>    year month   day dep_time sched_dep_time dep_delay arr_time}
 \CommentTok{#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>}
@@ -1827,14 +1828,13 @@ codes, we check whether \texttt{carrier} is one of those.
 \CommentTok{#> #   minute <dbl>, time_hour <dttm>}
 \end{Highlighting}
 \end{Shaded}
-
-\emph{Were delayed by at least an hour, but made up over 30 minutes in
-flight}
+\item
+  Were delayed by at least an hour, but made up over 30 minutes in
+  flight
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{filter}\NormalTok{(flights, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(dep_delay),}
-\NormalTok{       dep_delay }\OperatorTok{>=}\StringTok{ }\DecValTok{60}\NormalTok{, dep_delay }\OperatorTok{-}\StringTok{ }\NormalTok{arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{30}\NormalTok{)}
+\KeywordTok{filter}\NormalTok{(flights, dep_delay }\OperatorTok{>=}\StringTok{ }\DecValTok{60}\NormalTok{, dep_delay }\OperatorTok{-}\StringTok{ }\NormalTok{arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{30}\NormalTok{)}
 \CommentTok{#> # A tibble: 1,844 x 19}
 \CommentTok{#>    year month   day dep_time sched_dep_time dep_delay arr_time}
 \CommentTok{#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>}
@@ -1850,9 +1850,12 @@ flight}
 \CommentTok{#> #   minute <dbl>, time_hour <dttm>}
 \end{Highlighting}
 \end{Shaded}
-
-\emph{Departed between midnight and 6am (inclusive)}. Note that in
-\texttt{dep\_time}, midnight is \texttt{2400}, not \texttt{0}.
+\item
+  Finding flights that departed between midnight and 6 am is complicated
+  by the way in which times are represented in the \texttt{dep\_time}
+  column. In \texttt{dep\_time}, midnight is \texttt{2400}, not
+  \texttt{0}. Thus we cannot simply check that
+  \texttt{dep\_time\ \textless{}\ 600}. Instead, we have to do this.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1873,10 +1876,11 @@ flight}
 \end{Highlighting}
 \end{Shaded}
 
-We could avoid using an ``or'' statement by using the
-\href{https://en.wikipedia.org/wiki/Modulo_operation}{modulo operator},
-\texttt{\%\%}. The modulo operator returns the remainder of division.
-What happens if we calculate \texttt{dep\_time} mod \texttt{2400}?
+  We could avoid using an ``or'' statement by using the
+  \href{https://en.wikipedia.org/wiki/Modulo_operation}{modulo
+  operator}, \texttt{\%\%}. The modulo operator returns the remainder of
+  division. What happens if we calculate \texttt{dep\_time} mod
+  \texttt{2400}?
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1885,9 +1889,9 @@ What happens if we calculate \texttt{dep\_time} mod \texttt{2400}?
 \end{Highlighting}
 \end{Shaded}
 
-Since \texttt{2400\ \%\%\ 2400\ ==\ 0} and all other times are left
-unchanged, we will only need to compare the result of the modulo
-operation to \texttt{600},
+  Since \texttt{2400\ \%\%\ 2400\ ==\ 0} and all other times are left
+  unchanged, we will only need to compare the result of the modulo
+  operation to \texttt{600},
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1908,8 +1912,9 @@ operation to \texttt{600},
 \end{Highlighting}
 \end{Shaded}
 
-This filter expression is more compact, but may or may not be more
-readable and intuitive to a reader.
+  This filter expression is more compact, but may or may not be more
+  readable and intuitive to a reader.
+\end{enumerate}
 
 \hypertarget{exercise-2-5}{%
 \subsection{Exercise 2}\label{exercise-2-5}}
@@ -2133,26 +2138,27 @@ left earliest. There was a flight that left 43 minutes early.
 Sort flights to find the fastest flights.
 
 I assume that by by ``fastest flights'' it means the flights with the
-minimum air time. So I sort by \texttt{air\_time}. The fastest flights.
-The fastest flights area couple of flights between EWR and BDL with an
-air time of 20 minutes.
+minimum air time. So I sort by \texttt{air\_time}. The fastest flights
+are two flights between Newark
+(\href{https://en.wikipedia.org/wiki/Newark_Liberty_International_Airport}{EWR})
+and Bradley
+(\href{https://en.wikipedia.org/wiki/Bradley_International_Airport}{BDL}),
+an airport in Connecticut) with an air time of 20 minutes.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{arrange}\NormalTok{(flights, air_time)}
-\CommentTok{#> # A tibble: 336,776 x 19}
-\CommentTok{#>    year month   day dep_time sched_dep_time dep_delay arr_time}
-\CommentTok{#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>}
-\CommentTok{#> 1  2013     1    16     1355           1315        40     1442}
-\CommentTok{#> 2  2013     4    13      537            527        10      622}
-\CommentTok{#> 3  2013    12     6      922            851        31     1021}
-\CommentTok{#> 4  2013     2     3     2153           2129        24     2247}
-\CommentTok{#> 5  2013     2     5     1303           1315       -12     1342}
-\CommentTok{#> 6  2013     2    12     2123           2130        -7     2211}
-\CommentTok{#> # ... with 3.368e+05 more rows, and 12 more variables:}
-\CommentTok{#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,}
-\CommentTok{#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,}
-\CommentTok{#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>}
+\KeywordTok{arrange}\NormalTok{(flights, air_time) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(origin, dest, air_time) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#>   origin dest  air_time}
+\CommentTok{#>   <chr>  <chr>    <dbl>}
+\CommentTok{#> 1 EWR    BDL         20}
+\CommentTok{#> 2 EWR    BDL         20}
+\CommentTok{#> 3 EWR    BDL         21}
+\CommentTok{#> 4 EWR    PHL         21}
+\CommentTok{#> 5 EWR    BDL         21}
+\CommentTok{#> 6 EWR    PHL         21}
 \end{Highlighting}
 \end{Shaded}
 
