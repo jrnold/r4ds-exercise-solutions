@@ -70,15 +70,13 @@ flights whose arrival was delayed 120 or more minutes.
 
 1.  Flights that arrived more than two hours late, but didn’t leave late will have an arrival delay of more than 120 minutes and either departed on time or left early.
     ```{r}
-    filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
+    filter(flights, dep_delay <= 0, arr_delay > 120)
     ```
-    Note that we also need to 
 
 1.  Were delayed by at least an hour, but made up over 30 minutes in flight
 
     ```{r}
-    filter(flights, !is.na(dep_delay),
-           dep_delay >= 60, dep_delay - arr_delay > 30)
+    filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)
     ```
 
 1. Finding flights that departed between midnight and 6 am is complicated by the way in which times are represented in the `dep_time` column.

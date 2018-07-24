@@ -1,6 +1,6 @@
 ## 2018-07-24
 
--   Fix bug in Ex. 5.2.4.1.1. The expression should use `>=` instead of `>`. (Thanks to JamesCuster, #28)
+-   Fix bugs and typos in Ex. 5.2.4. Change a `>=` to `>` in part 1. Remove `!is.na()` condtitions from `filter()` statements. (Thanks to JamesCuster, #28, #29)
 
 ## 2018-07-23
 
