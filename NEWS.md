@@ -1,3 +1,7 @@
+## 2018-07-24
+
+-   Fix bug in Ex. 5.2.4.1.1. The expression should use `>=` instead of `>`. (Thanks to JamesCuster, #28)
+
 ## 2018-07-23
 
 -   Fix bug and edit solution to Ex. 3.9.4 (Thanks to JamesCuster, #27)

@@ -31,64 +31,79 @@ Find all flights that
 
 `r BeginAnswer()`
 
-*Had an arrival delay of two or more hours:* Since delay is in minutes, find
-flights whose arrival was delayed more than 120 minutes.
-```{r}
-filter(flights, arr_delay > 120)
-```
+1.  Since delay is in minutes, find
+flights whose arrival was delayed 120 or more minutes.
 
-*Flew to Houston (IAH or HOU)*:
-```{r}
-filter(flights, dest %in% c("IAH", "HOU"))
-```
+    ```{r, indent = 4}
+    filter(flights, arr_delay >= 120)
+    ```
 
-*Were operated by United, American, or Delta* In the `flights` dataset,
-the column `carrier` indicates the airline, but it uses two-character carrier codes.
-We can find the carrier codes for the airlines in the `airlines` dataset.
-Since the carrier code dataset only has `r nrow(airlines)` rows, and the names
-of the airlines in that dataset are not exactly "United", "American", or "Delta",
-it is easiest to manually lookup their carrier codes in that data.
-```{r}
-airlines
-```
-The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`.
-Using these carriers codes, we check whether `carrier` is one of those.
-```{r}
-filter(flights, carrier %in% c("AA", "DL", "UA"))
-```
+1.  The flights that flew to Houston were:
 
-*Departed in summer (July, August, and September)* The variable `month` has the month, and it is numeric.
-```{r}
-filter(flights, month >= 7, month <= 9)
-```
+    ```{r}
+    filter(flights, dest %in% c("IAH", "HOU"))
+    ```
 
-*Arrived more than two hours late, but didn’t leave late*
-```{r}
-filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
-```
+1.  In the `flights` dataset,
+    the column `carrier` indicates the airline, but it uses two-character carrier codes.
+    We can find the carrier codes for the airlines in the `airlines` dataset.
+    Since the carrier code dataset only has `r nrow(airlines)` rows, and the names
+    of the airlines in that dataset are not exactly "United", "American", or "Delta",
+    it is easiest to manually lookup their carrier codes in that data.
 
-*Were delayed by at least an hour, but made up over 30 minutes in flight*
-```{r}
-filter(flights, !is.na(dep_delay),
-       dep_delay >= 60, dep_delay - arr_delay > 30)
-```
+    ```{r}
+    airlines
+    ```
+  
+    The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`.
+    Using these carriers codes, we check whether `carrier` is one of those.
+  
+    ```{r}
+    filter(flights, carrier %in% c("AA", "DL", "UA"))
+    ```
 
-*Departed between midnight and 6am (inclusive)*. Note that in `dep_time`, midnight is `2400`, not `0`.
-```{r}
-filter(flights, dep_time <= 600 | dep_time == 2400)
-```
+1.  The variable `month` has the month, and it is numeric. 
+    So, the summer flights are those that departed in months 7 (July), 8 (August), and 9 (September).
+    ```{r}
+    filter(flights, month >= 7, month <= 9)
+    ```
 
-We could avoid using an "or" statement by using the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation), `%%`. The modulo operator returns the remainder of division.
-What happens if we calculate `dep_time` mod `2400`? 
-```{r}
-c(2400, 600) %% 2400
-```
-Since `2400 %% 2400 == 0` and all other times are left unchanged, we will only need to compare the result of the modulo operation to `600`,
-```{r}
-filter(flights, dep_time %% 2400 <= 600)
-```
-This filter expression is more compact, but may or may not be more readable and 
-intuitive to a reader.
+1.  Flights that arrived more than two hours late, but didn’t leave late will have an arrival delay of more than 120 minutes and either departed on time or left early.
+    ```{r}
+    filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
+    ```
+    Note that we also need to 
+
+1.  Were delayed by at least an hour, but made up over 30 minutes in flight
+
+    ```{r}
+    filter(flights, !is.na(dep_delay),
+           dep_delay >= 60, dep_delay - arr_delay > 30)
+    ```
+
+1. Finding flights that departed between midnight and 6 am is complicated by the way in which times are represented in the `dep_time` column.
+    In `dep_time`, midnight is `2400`, not `0`.
+    Thus we cannot simply check that `dep_time < 600`. Instead, we have to do this.
+
+    ```{r}
+    filter(flights, dep_time <= 600 | dep_time == 2400)
+    ```
+
+    We could avoid using an "or" statement by using the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation), `%%`. The modulo operator returns the remainder of division.
+    What happens if we calculate `dep_time` mod `2400`?
+
+    ```{r}
+    c(2400, 600) %% 2400
+    ```
+
+    Since `2400 %% 2400 == 0` and all other times are left unchanged, we will only need to compare the result of the modulo operation to `600`,
+
+    ```{r}
+    filter(flights, dep_time %% 2400 <= 600)
+    ```
+
+    This filter expression is more compact, but may or may not be more readable and 
+    intuitive to a reader.
 
 `r EndAnswer()`
 
