@@ -1,3 +1,7 @@
+## 2018-07-29
+
+-   Add answer to Ex 3.5.4 (#32)
+
 ## 2018-07-28
 
 -   Fix miscellaneous typos (dongzhuoer, #31,#33,#34,#35,#36,#37)
@@ -37,7 +41,7 @@
 ## 2018-07-14
 
 -   Added answer to Ex. 20.5.1
--   Added answer to Ex. 3.8.3 (\@KleinGeard, #23)
+-   Added answer to Ex. 3.8.3 (KleinGeard, #23)
 -   Edited answer to Ex. 5.2.1 to use modulo operator (KleinGeard, #23)
 -   Corrected answer to Ex 3.3.5 (Ronald Gould, #24)
 -   Corrected typos, URLs, HTML, markdown issues.
