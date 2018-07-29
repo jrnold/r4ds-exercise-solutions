@@ -663,7 +663,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">12</span> Tidy Data</h1>
 <div id="introduction-7" class="section level2">
 <h2><span class="header-section-number">12.1</span> Introduction</h2>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 </div>
 <div id="tidy-data-1" class="section level2">
 <h2><span class="header-section-number">12.2</span> Tidy Data</h2>
@@ -671,54 +671,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">12.2.1</span> Exercise 1</h3>
 <p>Using prose, describe how the variables and observations are organized in each of the sample tables.</p>
 <p>In <code>table1</code> each row is a (country, year) with variables <code>cases</code> and <code>population</code>.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1">table1</a>
-<a class="sourceLine" id="cb219-2" data-line-number="2"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
-<a class="sourceLine" id="cb219-3" data-line-number="3"><span class="co">#&gt;   country      year  cases population</span></a>
-<a class="sourceLine" id="cb219-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb219-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></a>
-<a class="sourceLine" id="cb219-6" data-line-number="6"><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></a>
-<a class="sourceLine" id="cb219-7" data-line-number="7"><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></a>
-<a class="sourceLine" id="cb219-8" data-line-number="8"><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></a>
-<a class="sourceLine" id="cb219-9" data-line-number="9"><span class="co">#&gt; 5 China        1999 212258 1272915272</span></a>
-<a class="sourceLine" id="cb219-10" data-line-number="10"><span class="co">#&gt; 6 China        2000 213766 1280428583</span></a></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1">table1</a>
+<a class="sourceLine" id="cb218-2" data-line-number="2"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
+<a class="sourceLine" id="cb218-3" data-line-number="3"><span class="co">#&gt;   country      year  cases population</span></a>
+<a class="sourceLine" id="cb218-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb218-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></a>
+<a class="sourceLine" id="cb218-6" data-line-number="6"><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></a>
+<a class="sourceLine" id="cb218-7" data-line-number="7"><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></a>
+<a class="sourceLine" id="cb218-8" data-line-number="8"><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></a>
+<a class="sourceLine" id="cb218-9" data-line-number="9"><span class="co">#&gt; 5 China        1999 212258 1272915272</span></a>
+<a class="sourceLine" id="cb218-10" data-line-number="10"><span class="co">#&gt; 6 China        2000 213766 1280428583</span></a></code></pre></div>
 <p>In <code>table2</code>, each row is country, year , variable (“cases”, “population”) combination, and there is a <code>count</code> variable with the numeric value of the variable.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1">table2</a>
-<a class="sourceLine" id="cb220-2" data-line-number="2"><span class="co">#&gt; # A tibble: 12 x 4</span></a>
-<a class="sourceLine" id="cb220-3" data-line-number="3"><span class="co">#&gt;   country      year type           count</span></a>
-<a class="sourceLine" id="cb220-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb220-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan  1999 cases            745</span></a>
-<a class="sourceLine" id="cb220-6" data-line-number="6"><span class="co">#&gt; 2 Afghanistan  1999 population  19987071</span></a>
-<a class="sourceLine" id="cb220-7" data-line-number="7"><span class="co">#&gt; 3 Afghanistan  2000 cases           2666</span></a>
-<a class="sourceLine" id="cb220-8" data-line-number="8"><span class="co">#&gt; 4 Afghanistan  2000 population  20595360</span></a>
-<a class="sourceLine" id="cb220-9" data-line-number="9"><span class="co">#&gt; 5 Brazil       1999 cases          37737</span></a>
-<a class="sourceLine" id="cb220-10" data-line-number="10"><span class="co">#&gt; 6 Brazil       1999 population 172006362</span></a>
-<a class="sourceLine" id="cb220-11" data-line-number="11"><span class="co">#&gt; # ... with 6 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1">table2</a>
+<a class="sourceLine" id="cb219-2" data-line-number="2"><span class="co">#&gt; # A tibble: 12 x 4</span></a>
+<a class="sourceLine" id="cb219-3" data-line-number="3"><span class="co">#&gt;   country      year type           count</span></a>
+<a class="sourceLine" id="cb219-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb219-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan  1999 cases            745</span></a>
+<a class="sourceLine" id="cb219-6" data-line-number="6"><span class="co">#&gt; 2 Afghanistan  1999 population  19987071</span></a>
+<a class="sourceLine" id="cb219-7" data-line-number="7"><span class="co">#&gt; 3 Afghanistan  2000 cases           2666</span></a>
+<a class="sourceLine" id="cb219-8" data-line-number="8"><span class="co">#&gt; 4 Afghanistan  2000 population  20595360</span></a>
+<a class="sourceLine" id="cb219-9" data-line-number="9"><span class="co">#&gt; 5 Brazil       1999 cases          37737</span></a>
+<a class="sourceLine" id="cb219-10" data-line-number="10"><span class="co">#&gt; 6 Brazil       1999 population 172006362</span></a>
+<a class="sourceLine" id="cb219-11" data-line-number="11"><span class="co">#&gt; # ... with 6 more rows</span></a></code></pre></div>
 <p>In <code>table3</code>, each row is a (country, year) combination with the column <code>rate</code> having the rate of cases to population as a character string in the format <code>&quot;cases/rate&quot;</code>.</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1">table3</a>
-<a class="sourceLine" id="cb221-2" data-line-number="2"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb221-3" data-line-number="3"><span class="co">#&gt;   country      year rate             </span></a>
-<a class="sourceLine" id="cb221-4" data-line-number="4"><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></a>
-<a class="sourceLine" id="cb221-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></a>
-<a class="sourceLine" id="cb221-6" data-line-number="6"><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></a>
-<a class="sourceLine" id="cb221-7" data-line-number="7"><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></a>
-<a class="sourceLine" id="cb221-8" data-line-number="8"><span class="co">#&gt; 4 Brazil       2000 80488/174504898  </span></a>
-<a class="sourceLine" id="cb221-9" data-line-number="9"><span class="co">#&gt; 5 China        1999 212258/1272915272</span></a>
-<a class="sourceLine" id="cb221-10" data-line-number="10"><span class="co">#&gt; 6 China        2000 213766/1280428583</span></a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1">table3</a>
+<a class="sourceLine" id="cb220-2" data-line-number="2"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
+<a class="sourceLine" id="cb220-3" data-line-number="3"><span class="co">#&gt;   country      year rate             </span></a>
+<a class="sourceLine" id="cb220-4" data-line-number="4"><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></a>
+<a class="sourceLine" id="cb220-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></a>
+<a class="sourceLine" id="cb220-6" data-line-number="6"><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></a>
+<a class="sourceLine" id="cb220-7" data-line-number="7"><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></a>
+<a class="sourceLine" id="cb220-8" data-line-number="8"><span class="co">#&gt; 4 Brazil       2000 80488/174504898  </span></a>
+<a class="sourceLine" id="cb220-9" data-line-number="9"><span class="co">#&gt; 5 China        1999 212258/1272915272</span></a>
+<a class="sourceLine" id="cb220-10" data-line-number="10"><span class="co">#&gt; 6 China        2000 213766/1280428583</span></a></code></pre></div>
 <p>Table 4 is split into two tables, one table for each variable: <code>table4a</code> is the table for cases, while <code>table4b</code> is the table for population. Within each table, each row is a country, each column is a year, and the cells are the value of the variable for the table.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">table4a</a>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1">table4a</a>
+<a class="sourceLine" id="cb221-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb221-3" data-line-number="3"><span class="co">#&gt;   country     `1999` `2000`</span></a>
+<a class="sourceLine" id="cb221-4" data-line-number="4"><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb221-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan    745   2666</span></a>
+<a class="sourceLine" id="cb221-6" data-line-number="6"><span class="co">#&gt; 2 Brazil       37737  80488</span></a>
+<a class="sourceLine" id="cb221-7" data-line-number="7"><span class="co">#&gt; 3 China       212258 213766</span></a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">table4b</a>
 <a class="sourceLine" id="cb222-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb222-3" data-line-number="3"><span class="co">#&gt;   country     `1999` `2000`</span></a>
-<a class="sourceLine" id="cb222-4" data-line-number="4"><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb222-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan    745   2666</span></a>
-<a class="sourceLine" id="cb222-6" data-line-number="6"><span class="co">#&gt; 2 Brazil       37737  80488</span></a>
-<a class="sourceLine" id="cb222-7" data-line-number="7"><span class="co">#&gt; 3 China       212258 213766</span></a></code></pre></div>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">table4b</a>
-<a class="sourceLine" id="cb223-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb223-3" data-line-number="3"><span class="co">#&gt;   country         `1999`     `2000`</span></a>
-<a class="sourceLine" id="cb223-4" data-line-number="4"><span class="co">#&gt; * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb223-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan   19987071   20595360</span></a>
-<a class="sourceLine" id="cb223-6" data-line-number="6"><span class="co">#&gt; 2 Brazil       172006362  174504898</span></a>
-<a class="sourceLine" id="cb223-7" data-line-number="7"><span class="co">#&gt; 3 China       1272915272 1280428583</span></a></code></pre></div>
+<a class="sourceLine" id="cb222-3" data-line-number="3"><span class="co">#&gt;   country         `1999`     `2000`</span></a>
+<a class="sourceLine" id="cb222-4" data-line-number="4"><span class="co">#&gt; * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb222-5" data-line-number="5"><span class="co">#&gt; 1 Afghanistan   19987071   20595360</span></a>
+<a class="sourceLine" id="cb222-6" data-line-number="6"><span class="co">#&gt; 2 Brazil       172006362  174504898</span></a>
+<a class="sourceLine" id="cb222-7" data-line-number="7"><span class="co">#&gt; 3 China       1272915272 1280428583</span></a></code></pre></div>
 </div>
 <div id="exercise-2-20" class="section level3 exercise">
 <h3><span class="header-section-number">12.2.2</span> Exercise 2</h3>
@@ -734,49 +734,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 This is easiest if country and population are two columns in a data frame with country and year rows.</p>
 <p>For Table 2, we need to first create separate tables
 for cases and population and ensure that they are sorted in the same order.</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1">t2_cases &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb224-2" data-line-number="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">cases =</span> count) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb224-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(country, year)</a>
-<a class="sourceLine" id="cb224-4" data-line-number="4">t2_population &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type <span class="op">==</span><span class="st"> &quot;population&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb224-5" data-line-number="5"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">population =</span> count) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb224-6" data-line-number="6"><span class="st">  </span><span class="kw">arrange</span>(country, year)</a></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">t2_cases &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb223-2" data-line-number="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">cases =</span> count) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb223-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(country, year)</a>
+<a class="sourceLine" id="cb223-4" data-line-number="4">t2_population &lt;-<span class="st"> </span><span class="kw">filter</span>(table2, type <span class="op">==</span><span class="st"> &quot;population&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb223-5" data-line-number="5"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">population =</span> count) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb223-6" data-line-number="6"><span class="st">  </span><span class="kw">arrange</span>(country, year)</a></code></pre></div>
 <p>Calculate the cases per capita in a separate data frame.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1">t2_cases_per_cap &lt;-<span class="st"> </span>t2_cases <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb225-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">population =</span> t2_population<span class="op">$</span>population,</a>
-<a class="sourceLine" id="cb225-3" data-line-number="3">         <span class="dt">cases_per_cap =</span> (cases <span class="op">/</span><span class="st"> </span>population) <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb225-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(country, year, cases_per_cap)</a></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1">t2_cases_per_cap &lt;-<span class="st"> </span>t2_cases <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb224-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">population =</span> t2_population<span class="op">$</span>population,</a>
+<a class="sourceLine" id="cb224-3" data-line-number="3">         <span class="dt">cases_per_cap =</span> (cases <span class="op">/</span><span class="st"> </span>population) <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb224-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(country, year, cases_per_cap)</a></code></pre></div>
 <p>Since the question asks us to store it back in the appropriate location, we will add new rows with
 <code>type = &quot;cases_per_cap&quot;</code> to <code>table2</code> and then
 sort by country, year, and variable type as in the original table.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1">t2_cases_per_cap &lt;-<span class="st"> </span>t2_cases_per_cap <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;cases_per_cap&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb226-3" data-line-number="3"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">count =</span> cases_per_cap)</a></code></pre></div>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="kw">bind_rows</span>(table2, t2_cases_per_cap) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb227-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(country, year, type, count)</a>
-<a class="sourceLine" id="cb227-3" data-line-number="3"><span class="co">#&gt; # A tibble: 18 x 4</span></a>
-<a class="sourceLine" id="cb227-4" data-line-number="4"><span class="co">#&gt;   country      year type                 count</span></a>
-<a class="sourceLine" id="cb227-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb227-6" data-line-number="6"><span class="co">#&gt; 1 Afghanistan  1999 cases              745    </span></a>
-<a class="sourceLine" id="cb227-7" data-line-number="7"><span class="co">#&gt; 2 Afghanistan  1999 cases_per_cap        0.373</span></a>
-<a class="sourceLine" id="cb227-8" data-line-number="8"><span class="co">#&gt; 3 Afghanistan  1999 population    19987071    </span></a>
-<a class="sourceLine" id="cb227-9" data-line-number="9"><span class="co">#&gt; 4 Afghanistan  2000 cases             2666    </span></a>
-<a class="sourceLine" id="cb227-10" data-line-number="10"><span class="co">#&gt; 5 Afghanistan  2000 cases_per_cap        1.29 </span></a>
-<a class="sourceLine" id="cb227-11" data-line-number="11"><span class="co">#&gt; 6 Afghanistan  2000 population    20595360    </span></a>
-<a class="sourceLine" id="cb227-12" data-line-number="12"><span class="co">#&gt; # ... with 12 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1">t2_cases_per_cap &lt;-<span class="st"> </span>t2_cases_per_cap <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb225-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="st">&quot;cases_per_cap&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb225-3" data-line-number="3"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">count =</span> cases_per_cap)</a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="kw">bind_rows</span>(table2, t2_cases_per_cap) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(country, year, type, count)</a>
+<a class="sourceLine" id="cb226-3" data-line-number="3"><span class="co">#&gt; # A tibble: 18 x 4</span></a>
+<a class="sourceLine" id="cb226-4" data-line-number="4"><span class="co">#&gt;   country      year type                 count</span></a>
+<a class="sourceLine" id="cb226-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb226-6" data-line-number="6"><span class="co">#&gt; 1 Afghanistan  1999 cases              745    </span></a>
+<a class="sourceLine" id="cb226-7" data-line-number="7"><span class="co">#&gt; 2 Afghanistan  1999 cases_per_cap        0.373</span></a>
+<a class="sourceLine" id="cb226-8" data-line-number="8"><span class="co">#&gt; 3 Afghanistan  1999 population    19987071    </span></a>
+<a class="sourceLine" id="cb226-9" data-line-number="9"><span class="co">#&gt; 4 Afghanistan  2000 cases             2666    </span></a>
+<a class="sourceLine" id="cb226-10" data-line-number="10"><span class="co">#&gt; 5 Afghanistan  2000 cases_per_cap        1.29 </span></a>
+<a class="sourceLine" id="cb226-11" data-line-number="11"><span class="co">#&gt; 6 Afghanistan  2000 population    20595360    </span></a>
+<a class="sourceLine" id="cb226-12" data-line-number="12"><span class="co">#&gt; # ... with 12 more rows</span></a></code></pre></div>
 <p>Note that after adding the <code>cases_per_cap</code> rows,
 the type of <code>count</code> is coerced to <code>numeric</code> (double) because <code>cases_per_cap</code> is not an integer.</p>
 <p>For <code>table4a</code> and <code>table4b</code>, we will create a separate table for cases per capita (<code>table4c</code>), with country rows and year columns.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1">table4c &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb228-2" data-line-number="2"><span class="st">  </span><span class="kw">tibble</span>(<span class="dt">country =</span> table4a<span class="op">$</span>country,</a>
-<a class="sourceLine" id="cb228-3" data-line-number="3">         <span class="st">`</span><span class="dt">1999</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;1999&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]] <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>,</a>
-<a class="sourceLine" id="cb228-4" data-line-number="4">       <span class="st">`</span><span class="dt">2000</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;2000&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]] <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>)</a>
-<a class="sourceLine" id="cb228-5" data-line-number="5">table4c</a>
-<a class="sourceLine" id="cb228-6" data-line-number="6"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb228-7" data-line-number="7"><span class="co">#&gt;   country     `1999` `2000`</span></a>
-<a class="sourceLine" id="cb228-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb228-9" data-line-number="9"><span class="co">#&gt; 1 Afghanistan  0.373   1.29</span></a>
-<a class="sourceLine" id="cb228-10" data-line-number="10"><span class="co">#&gt; 2 Brazil       2.19    4.61</span></a>
-<a class="sourceLine" id="cb228-11" data-line-number="11"><span class="co">#&gt; 3 China        1.67    1.67</span></a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1">table4c &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb227-2" data-line-number="2"><span class="st">  </span><span class="kw">tibble</span>(<span class="dt">country =</span> table4a<span class="op">$</span>country,</a>
+<a class="sourceLine" id="cb227-3" data-line-number="3">         <span class="st">`</span><span class="dt">1999</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;1999&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]] <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>,</a>
+<a class="sourceLine" id="cb227-4" data-line-number="4">       <span class="st">`</span><span class="dt">2000</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;2000&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]] <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>)</a>
+<a class="sourceLine" id="cb227-5" data-line-number="5">table4c</a>
+<a class="sourceLine" id="cb227-6" data-line-number="6"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb227-7" data-line-number="7"><span class="co">#&gt;   country     `1999` `2000`</span></a>
+<a class="sourceLine" id="cb227-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb227-9" data-line-number="9"><span class="co">#&gt; 1 Afghanistan  0.373   1.29</span></a>
+<a class="sourceLine" id="cb227-10" data-line-number="10"><span class="co">#&gt; 2 Brazil       2.19    4.61</span></a>
+<a class="sourceLine" id="cb227-11" data-line-number="11"><span class="co">#&gt; 3 China        1.67    1.67</span></a></code></pre></div>
 <p>Neither table is particularly easy to work with.
 Since <code>table2</code> has separate rows for cases and population we needed to generate a table with columns for cases and population where we could
 calculate cases per capita.
@@ -790,143 +790,143 @@ Then problem could be answered with a single <code>mutate()</code> call.</p>
 <h3><span class="header-section-number">12.2.3</span> Exercise 3</h3>
 <p>Recreate the plot showing change in cases over time using <code>table2</code> instead of <code>table1</code>. What do you need to do first?</p>
 <p>Before creating the plot with change in cases over time, we need to filter the data frame to only include rows representing cases of TB.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1">table2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb229-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb229-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, count)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb229-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb229-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> country)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb229-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">unique</span>(table2<span class="op">$</span>year)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb229-7" data-line-number="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;cases&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1">table2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb228-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(type <span class="op">==</span><span class="st"> &quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb228-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(year, count)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb228-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), <span class="dt">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb228-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> country)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb228-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">unique</span>(table2<span class="op">$</span>year)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb228-7" data-line-number="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;cases&quot;</span>)</a></code></pre></div>
 <p><img src="tidy_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="spreading-and-gathering" class="section level2">
 <h2><span class="header-section-number">12.3</span> Spreading and Gathering</h2>
 <p>This code is reproduced from the chapter because it is needed by the exercises:</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">tidy4a &lt;-<span class="st"> </span>table4a <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb230-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a>
-<a class="sourceLine" id="cb230-3" data-line-number="3">tidy4b &lt;-<span class="st"> </span>table4b <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb230-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1">tidy4a &lt;-<span class="st"> </span>table4a <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb229-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a>
+<a class="sourceLine" id="cb229-3" data-line-number="3">tidy4b &lt;-<span class="st"> </span>table4b <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb229-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a></code></pre></div>
 <div id="exercise-1-22" class="section level3 exercise">
 <h3><span class="header-section-number">12.3.1</span> Exercise 1</h3>
 <p>Why are <code>gather()</code> and <code>spread()</code> not perfectly symmetrical?
 Carefully consider the following example:</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">stocks &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb231-2" data-line-number="2">  <span class="dt">year   =</span> <span class="kw">c</span>(<span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2016</span>, <span class="dv">2016</span>),</a>
-<a class="sourceLine" id="cb231-3" data-line-number="3">  <span class="dt">half  =</span> <span class="kw">c</span>(   <span class="dv">1</span>,    <span class="dv">2</span>,     <span class="dv">1</span>,    <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb231-4" data-line-number="4">  <span class="dt">return =</span> <span class="kw">c</span>(<span class="fl">1.88</span>, <span class="fl">0.59</span>, <span class="fl">0.92</span>, <span class="fl">0.17</span>)</a>
-<a class="sourceLine" id="cb231-5" data-line-number="5">)</a>
-<a class="sourceLine" id="cb231-6" data-line-number="6">stocks <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb231-7" data-line-number="7"><span class="st">  </span><span class="kw">spread</span>(year, return) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb231-8" data-line-number="8"><span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2016</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb231-9" data-line-number="9"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
-<a class="sourceLine" id="cb231-10" data-line-number="10"><span class="co">#&gt;    half year  return</span></a>
-<a class="sourceLine" id="cb231-11" data-line-number="11"><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb231-12" data-line-number="12"><span class="co">#&gt; 1     1 2015    1.88</span></a>
-<a class="sourceLine" id="cb231-13" data-line-number="13"><span class="co">#&gt; 2     2 2015    0.59</span></a>
-<a class="sourceLine" id="cb231-14" data-line-number="14"><span class="co">#&gt; 3     1 2016    0.92</span></a>
-<a class="sourceLine" id="cb231-15" data-line-number="15"><span class="co">#&gt; 4     2 2016    0.17</span></a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">stocks &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb230-2" data-line-number="2">  <span class="dt">year   =</span> <span class="kw">c</span>(<span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2016</span>, <span class="dv">2016</span>),</a>
+<a class="sourceLine" id="cb230-3" data-line-number="3">  <span class="dt">half  =</span> <span class="kw">c</span>(   <span class="dv">1</span>,    <span class="dv">2</span>,     <span class="dv">1</span>,    <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb230-4" data-line-number="4">  <span class="dt">return =</span> <span class="kw">c</span>(<span class="fl">1.88</span>, <span class="fl">0.59</span>, <span class="fl">0.92</span>, <span class="fl">0.17</span>)</a>
+<a class="sourceLine" id="cb230-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb230-6" data-line-number="6">stocks <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb230-7" data-line-number="7"><span class="st">  </span><span class="kw">spread</span>(year, return) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb230-8" data-line-number="8"><span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2016</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb230-9" data-line-number="9"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
+<a class="sourceLine" id="cb230-10" data-line-number="10"><span class="co">#&gt;    half year  return</span></a>
+<a class="sourceLine" id="cb230-11" data-line-number="11"><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb230-12" data-line-number="12"><span class="co">#&gt; 1     1 2015    1.88</span></a>
+<a class="sourceLine" id="cb230-13" data-line-number="13"><span class="co">#&gt; 2     2 2015    0.59</span></a>
+<a class="sourceLine" id="cb230-14" data-line-number="14"><span class="co">#&gt; 3     1 2016    0.92</span></a>
+<a class="sourceLine" id="cb230-15" data-line-number="15"><span class="co">#&gt; 4     2 2016    0.17</span></a></code></pre></div>
 <p>The functions <code>spread</code> and <code>gather</code> are not perfectly symmetrical because column type information is not transferred between them.
 In the original table the column <code>year</code> was numeric, but after running <code>spread()</code> and <code>gather()</code> it is a character vector.
 This is because variable names are always converted to a character vector by <code>gather()</code>.</p>
 <p>The <code>convert</code> argument tries to convert character vectors to the appropriate type.
 In the background this uses the <code>type.convert</code> function.</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1">stocks <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb232-2" data-line-number="2"><span class="st">  </span><span class="kw">spread</span>(year, return) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb232-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2016</span><span class="st">`</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb232-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
-<a class="sourceLine" id="cb232-5" data-line-number="5"><span class="co">#&gt;    half  year return</span></a>
-<a class="sourceLine" id="cb232-6" data-line-number="6"><span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb232-7" data-line-number="7"><span class="co">#&gt; 1     1  2015   1.88</span></a>
-<a class="sourceLine" id="cb232-8" data-line-number="8"><span class="co">#&gt; 2     2  2015   0.59</span></a>
-<a class="sourceLine" id="cb232-9" data-line-number="9"><span class="co">#&gt; 3     1  2016   0.92</span></a>
-<a class="sourceLine" id="cb232-10" data-line-number="10"><span class="co">#&gt; 4     2  2016   0.17</span></a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">stocks <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb231-2" data-line-number="2"><span class="st">  </span><span class="kw">spread</span>(year, return) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb231-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2016</span><span class="st">`</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb231-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
+<a class="sourceLine" id="cb231-5" data-line-number="5"><span class="co">#&gt;    half  year return</span></a>
+<a class="sourceLine" id="cb231-6" data-line-number="6"><span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb231-7" data-line-number="7"><span class="co">#&gt; 1     1  2015   1.88</span></a>
+<a class="sourceLine" id="cb231-8" data-line-number="8"><span class="co">#&gt; 2     2  2015   0.59</span></a>
+<a class="sourceLine" id="cb231-9" data-line-number="9"><span class="co">#&gt; 3     1  2016   0.92</span></a>
+<a class="sourceLine" id="cb231-10" data-line-number="10"><span class="co">#&gt; 4     2  2016   0.17</span></a></code></pre></div>
 </div>
 <div id="exercise-2-21" class="section level3 exercise">
 <h3><span class="header-section-number">12.3.2</span> Exercise 2</h3>
 <p>Why does this code fail?</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1">table4a <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb233-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(<span class="dv">1999</span>, <span class="dv">2000</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a>
-<a class="sourceLine" id="cb233-3" data-line-number="3"><span class="co">#&gt; Error in inds_combine(.vars, ind_list): Position must be between 0 and n</span></a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1">table4a <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb232-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(<span class="dv">1999</span>, <span class="dv">2000</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a>
+<a class="sourceLine" id="cb232-3" data-line-number="3"><span class="co">#&gt; Error in inds_combine(.vars, ind_list): Position must be between 0 and n</span></a></code></pre></div>
 <p>The code fails because the column names <code>1999</code> and <code>2000</code> are not standard and thus needs to be quoted.
 The tidyverse functions will interpret <code>1999</code> and <code>2000</code> without quotes as looking for the 1999th and 2000th column of the data frame.
 This will work:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">table4a <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb234-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a>
-<a class="sourceLine" id="cb234-3" data-line-number="3"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb234-4" data-line-number="4"><span class="co">#&gt;   country     year   cases</span></a>
-<a class="sourceLine" id="cb234-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb234-6" data-line-number="6"><span class="co">#&gt; 1 Afghanistan 1999     745</span></a>
-<a class="sourceLine" id="cb234-7" data-line-number="7"><span class="co">#&gt; 2 Brazil      1999   37737</span></a>
-<a class="sourceLine" id="cb234-8" data-line-number="8"><span class="co">#&gt; 3 China       1999  212258</span></a>
-<a class="sourceLine" id="cb234-9" data-line-number="9"><span class="co">#&gt; 4 Afghanistan 2000    2666</span></a>
-<a class="sourceLine" id="cb234-10" data-line-number="10"><span class="co">#&gt; 5 Brazil      2000   80488</span></a>
-<a class="sourceLine" id="cb234-11" data-line-number="11"><span class="co">#&gt; 6 China       2000  213766</span></a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1">table4a <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb233-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(<span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>)</a>
+<a class="sourceLine" id="cb233-3" data-line-number="3"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
+<a class="sourceLine" id="cb233-4" data-line-number="4"><span class="co">#&gt;   country     year   cases</span></a>
+<a class="sourceLine" id="cb233-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb233-6" data-line-number="6"><span class="co">#&gt; 1 Afghanistan 1999     745</span></a>
+<a class="sourceLine" id="cb233-7" data-line-number="7"><span class="co">#&gt; 2 Brazil      1999   37737</span></a>
+<a class="sourceLine" id="cb233-8" data-line-number="8"><span class="co">#&gt; 3 China       1999  212258</span></a>
+<a class="sourceLine" id="cb233-9" data-line-number="9"><span class="co">#&gt; 4 Afghanistan 2000    2666</span></a>
+<a class="sourceLine" id="cb233-10" data-line-number="10"><span class="co">#&gt; 5 Brazil      2000   80488</span></a>
+<a class="sourceLine" id="cb233-11" data-line-number="11"><span class="co">#&gt; 6 China       2000  213766</span></a></code></pre></div>
 </div>
 <div id="exercise-3-19" class="section level3 exercise">
 <h3><span class="header-section-number">12.3.3</span> Exercise 3</h3>
 <p>Why does spreading this tibble fail? How could you add a new column to fix the problem?</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb235-2" data-line-number="2">  <span class="op">~</span>name,             <span class="op">~</span>key,    <span class="op">~</span>value,</a>
-<a class="sourceLine" id="cb235-3" data-line-number="3">  <span class="co">#-----------------|--------|------</span></a>
-<a class="sourceLine" id="cb235-4" data-line-number="4">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">45</span>,</a>
-<a class="sourceLine" id="cb235-5" data-line-number="5">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;height&quot;</span>,   <span class="dv">186</span>,</a>
-<a class="sourceLine" id="cb235-6" data-line-number="6">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">50</span>,</a>
-<a class="sourceLine" id="cb235-7" data-line-number="7">  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;age&quot;</span>,       <span class="dv">37</span>,</a>
-<a class="sourceLine" id="cb235-8" data-line-number="8">  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;height&quot;</span>,   <span class="dv">156</span></a>
-<a class="sourceLine" id="cb235-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb235-10" data-line-number="10"><span class="kw">glimpse</span>(people)</a>
-<a class="sourceLine" id="cb235-11" data-line-number="11"><span class="co">#&gt; Observations: 5</span></a>
-<a class="sourceLine" id="cb235-12" data-line-number="12"><span class="co">#&gt; Variables: 3</span></a>
-<a class="sourceLine" id="cb235-13" data-line-number="13"><span class="co">#&gt; $ name  &lt;chr&gt; &quot;Phillip Woods&quot;, &quot;Phillip Woods&quot;, &quot;Phillip Woods&quot;, &quot;Jess...</span></a>
-<a class="sourceLine" id="cb235-14" data-line-number="14"><span class="co">#&gt; $ key   &lt;chr&gt; &quot;age&quot;, &quot;height&quot;, &quot;age&quot;, &quot;age&quot;, &quot;height&quot;</span></a>
-<a class="sourceLine" id="cb235-15" data-line-number="15"><span class="co">#&gt; $ value &lt;dbl&gt; 45, 186, 50, 37, 156</span></a></code></pre></div>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="kw">spread</span>(people, key, value)</a>
-<a class="sourceLine" id="cb236-2" data-line-number="2"><span class="co">#&gt; Error: Duplicate identifiers for rows (1, 3)</span></a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb234-2" data-line-number="2">  <span class="op">~</span>name,             <span class="op">~</span>key,    <span class="op">~</span>value,</a>
+<a class="sourceLine" id="cb234-3" data-line-number="3">  <span class="co">#-----------------|--------|------</span></a>
+<a class="sourceLine" id="cb234-4" data-line-number="4">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">45</span>,</a>
+<a class="sourceLine" id="cb234-5" data-line-number="5">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;height&quot;</span>,   <span class="dv">186</span>,</a>
+<a class="sourceLine" id="cb234-6" data-line-number="6">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">50</span>,</a>
+<a class="sourceLine" id="cb234-7" data-line-number="7">  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;age&quot;</span>,       <span class="dv">37</span>,</a>
+<a class="sourceLine" id="cb234-8" data-line-number="8">  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;height&quot;</span>,   <span class="dv">156</span></a>
+<a class="sourceLine" id="cb234-9" data-line-number="9">)</a>
+<a class="sourceLine" id="cb234-10" data-line-number="10"><span class="kw">glimpse</span>(people)</a>
+<a class="sourceLine" id="cb234-11" data-line-number="11"><span class="co">#&gt; Observations: 5</span></a>
+<a class="sourceLine" id="cb234-12" data-line-number="12"><span class="co">#&gt; Variables: 3</span></a>
+<a class="sourceLine" id="cb234-13" data-line-number="13"><span class="co">#&gt; $ name  &lt;chr&gt; &quot;Phillip Woods&quot;, &quot;Phillip Woods&quot;, &quot;Phillip Woods&quot;, &quot;Jess...</span></a>
+<a class="sourceLine" id="cb234-14" data-line-number="14"><span class="co">#&gt; $ key   &lt;chr&gt; &quot;age&quot;, &quot;height&quot;, &quot;age&quot;, &quot;age&quot;, &quot;height&quot;</span></a>
+<a class="sourceLine" id="cb234-15" data-line-number="15"><span class="co">#&gt; $ value &lt;dbl&gt; 45, 186, 50, 37, 156</span></a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1"><span class="kw">spread</span>(people, key, value)</a>
+<a class="sourceLine" id="cb235-2" data-line-number="2"><span class="co">#&gt; Error: Duplicate identifiers for rows (1, 3)</span></a></code></pre></div>
 <p>Spreading the data frame fails because there are two rows with “age” for “Phillip Woods”.
 We would need to add another column with an indicator for the number observation it is,</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb237-2" data-line-number="2">  <span class="op">~</span>name,             <span class="op">~</span>key,    <span class="op">~</span>value, <span class="op">~</span>obs,</a>
-<a class="sourceLine" id="cb237-3" data-line-number="3">  <span class="co">#-----------------|--------|------|------</span></a>
-<a class="sourceLine" id="cb237-4" data-line-number="4">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">45</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb237-5" data-line-number="5">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;height&quot;</span>,   <span class="dv">186</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb237-6" data-line-number="6">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">50</span>, <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb237-7" data-line-number="7">  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;age&quot;</span>,       <span class="dv">37</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb237-8" data-line-number="8">  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;height&quot;</span>,   <span class="dv">156</span>, <span class="dv">1</span></a>
-<a class="sourceLine" id="cb237-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb237-10" data-line-number="10"><span class="kw">spread</span>(people, key, value)</a>
-<a class="sourceLine" id="cb237-11" data-line-number="11"><span class="co">#&gt; # A tibble: 3 x 4</span></a>
-<a class="sourceLine" id="cb237-12" data-line-number="12"><span class="co">#&gt;   name              obs   age height</span></a>
-<a class="sourceLine" id="cb237-13" data-line-number="13"><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb237-14" data-line-number="14"><span class="co">#&gt; 1 Jessica Cordero     1    37    156</span></a>
-<a class="sourceLine" id="cb237-15" data-line-number="15"><span class="co">#&gt; 2 Phillip Woods       1    45    186</span></a>
-<a class="sourceLine" id="cb237-16" data-line-number="16"><span class="co">#&gt; 3 Phillip Woods       2    50     NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">people &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb236-2" data-line-number="2">  <span class="op">~</span>name,             <span class="op">~</span>key,    <span class="op">~</span>value, <span class="op">~</span>obs,</a>
+<a class="sourceLine" id="cb236-3" data-line-number="3">  <span class="co">#-----------------|--------|------|------</span></a>
+<a class="sourceLine" id="cb236-4" data-line-number="4">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">45</span>, <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb236-5" data-line-number="5">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;height&quot;</span>,   <span class="dv">186</span>, <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb236-6" data-line-number="6">  <span class="st">&quot;Phillip Woods&quot;</span>,   <span class="st">&quot;age&quot;</span>,       <span class="dv">50</span>, <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb236-7" data-line-number="7">  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;age&quot;</span>,       <span class="dv">37</span>, <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb236-8" data-line-number="8">  <span class="st">&quot;Jessica Cordero&quot;</span>, <span class="st">&quot;height&quot;</span>,   <span class="dv">156</span>, <span class="dv">1</span></a>
+<a class="sourceLine" id="cb236-9" data-line-number="9">)</a>
+<a class="sourceLine" id="cb236-10" data-line-number="10"><span class="kw">spread</span>(people, key, value)</a>
+<a class="sourceLine" id="cb236-11" data-line-number="11"><span class="co">#&gt; # A tibble: 3 x 4</span></a>
+<a class="sourceLine" id="cb236-12" data-line-number="12"><span class="co">#&gt;   name              obs   age height</span></a>
+<a class="sourceLine" id="cb236-13" data-line-number="13"><span class="co">#&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb236-14" data-line-number="14"><span class="co">#&gt; 1 Jessica Cordero     1    37    156</span></a>
+<a class="sourceLine" id="cb236-15" data-line-number="15"><span class="co">#&gt; 2 Phillip Woods       1    45    186</span></a>
+<a class="sourceLine" id="cb236-16" data-line-number="16"><span class="co">#&gt; 3 Phillip Woods       2    50     NA</span></a></code></pre></div>
 </div>
 <div id="exercise-4-15" class="section level3 exercise">
 <h3><span class="header-section-number">12.3.4</span> Exercise 4</h3>
 <p>Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">preg &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb238-2" data-line-number="2">  <span class="op">~</span>pregnant, <span class="op">~</span>male, <span class="op">~</span>female,</a>
-<a class="sourceLine" id="cb238-3" data-line-number="3">  <span class="st">&quot;yes&quot;</span>,     <span class="ot">NA</span>,    <span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb238-4" data-line-number="4">  <span class="st">&quot;no&quot;</span>,      <span class="dv">20</span>,    <span class="dv">12</span></a>
-<a class="sourceLine" id="cb238-5" data-line-number="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1">preg &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb237-2" data-line-number="2">  <span class="op">~</span>pregnant, <span class="op">~</span>male, <span class="op">~</span>female,</a>
+<a class="sourceLine" id="cb237-3" data-line-number="3">  <span class="st">&quot;yes&quot;</span>,     <span class="ot">NA</span>,    <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb237-4" data-line-number="4">  <span class="st">&quot;no&quot;</span>,      <span class="dv">20</span>,    <span class="dv">12</span></a>
+<a class="sourceLine" id="cb237-5" data-line-number="5">)</a></code></pre></div>
 <p>You need to gather it. The variables are:</p>
 <ul>
 <li>pregnant: logical (“yes”, “no”)</li>
 <li>female: logical</li>
 <li>count: integer</li>
 </ul>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1"><span class="kw">gather</span>(preg, sex, count, male, female) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pregnant =</span> pregnant <span class="op">==</span><span class="st"> &quot;yes&quot;</span>,</a>
-<a class="sourceLine" id="cb239-3" data-line-number="3">         <span class="dt">female =</span> sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>sex)</a>
-<a class="sourceLine" id="cb239-5" data-line-number="5"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
-<a class="sourceLine" id="cb239-6" data-line-number="6"><span class="co">#&gt;   pregnant count female</span></a>
-<a class="sourceLine" id="cb239-7" data-line-number="7"><span class="co">#&gt;   &lt;lgl&gt;    &lt;dbl&gt; &lt;lgl&gt; </span></a>
-<a class="sourceLine" id="cb239-8" data-line-number="8"><span class="co">#&gt; 1 TRUE        NA FALSE </span></a>
-<a class="sourceLine" id="cb239-9" data-line-number="9"><span class="co">#&gt; 2 FALSE       20 FALSE </span></a>
-<a class="sourceLine" id="cb239-10" data-line-number="10"><span class="co">#&gt; 3 TRUE        10 TRUE  </span></a>
-<a class="sourceLine" id="cb239-11" data-line-number="11"><span class="co">#&gt; 4 FALSE       12 TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="kw">gather</span>(preg, sex, count, male, female) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb238-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pregnant =</span> pregnant <span class="op">==</span><span class="st"> &quot;yes&quot;</span>,</a>
+<a class="sourceLine" id="cb238-3" data-line-number="3">         <span class="dt">female =</span> sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb238-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>sex)</a>
+<a class="sourceLine" id="cb238-5" data-line-number="5"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
+<a class="sourceLine" id="cb238-6" data-line-number="6"><span class="co">#&gt;   pregnant count female</span></a>
+<a class="sourceLine" id="cb238-7" data-line-number="7"><span class="co">#&gt;   &lt;lgl&gt;    &lt;dbl&gt; &lt;lgl&gt; </span></a>
+<a class="sourceLine" id="cb238-8" data-line-number="8"><span class="co">#&gt; 1 TRUE        NA FALSE </span></a>
+<a class="sourceLine" id="cb238-9" data-line-number="9"><span class="co">#&gt; 2 FALSE       20 FALSE </span></a>
+<a class="sourceLine" id="cb238-10" data-line-number="10"><span class="co">#&gt; 3 TRUE        10 TRUE  </span></a>
+<a class="sourceLine" id="cb238-11" data-line-number="11"><span class="co">#&gt; 4 FALSE       12 TRUE</span></a></code></pre></div>
 <p>Converting <code>pregnant</code> and <code>female</code> from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.</p>
 </div>
 </div>
@@ -935,6 +935,27 @@ We would need to add another column with an indicator for the number observation
 <div id="exercise-1-23" class="section level3 exercise">
 <h3><span class="header-section-number">12.4.1</span> Exercise 1</h3>
 <p>What do the extra and fill arguments do in <code>separate()</code>? Experiment with the various options for the following two toy datasets.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb239-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
+<a class="sourceLine" id="cb239-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].</span></a>
+<a class="sourceLine" id="cb239-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb239-5" data-line-number="5"><span class="co">#&gt;   one   two   three</span></a>
+<a class="sourceLine" id="cb239-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb239-7" data-line-number="7"><span class="co">#&gt; 1 a     b     c    </span></a>
+<a class="sourceLine" id="cb239-8" data-line-number="8"><span class="co">#&gt; 2 d     e     f    </span></a>
+<a class="sourceLine" id="cb239-9" data-line-number="9"><span class="co">#&gt; 3 h     i     j</span></a>
+<a class="sourceLine" id="cb239-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb239-11" data-line-number="11"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb239-12" data-line-number="12"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
+<a class="sourceLine" id="cb239-13" data-line-number="13"><span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].</span></a>
+<a class="sourceLine" id="cb239-14" data-line-number="14"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb239-15" data-line-number="15"><span class="co">#&gt;   one   two   three</span></a>
+<a class="sourceLine" id="cb239-16" data-line-number="16"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb239-17" data-line-number="17"><span class="co">#&gt; 1 a     b     c    </span></a>
+<a class="sourceLine" id="cb239-18" data-line-number="18"><span class="co">#&gt; 2 d     e     &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb239-19" data-line-number="19"><span class="co">#&gt; 3 f     g     i</span></a></code></pre></div>
+<p>The <code>extra</code> argument tells <code>separate()</code> what to do if there are too many pieces,
+and the <code>fill</code> argument if there aren’t enough.</p>
 <div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb240-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
 <a class="sourceLine" id="cb240-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].</span></a>
@@ -943,77 +964,56 @@ We would need to add another column with an indicator for the number observation
 <a class="sourceLine" id="cb240-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
 <a class="sourceLine" id="cb240-7" data-line-number="7"><span class="co">#&gt; 1 a     b     c    </span></a>
 <a class="sourceLine" id="cb240-8" data-line-number="8"><span class="co">#&gt; 2 d     e     f    </span></a>
-<a class="sourceLine" id="cb240-9" data-line-number="9"><span class="co">#&gt; 3 h     i     j</span></a>
-<a class="sourceLine" id="cb240-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb240-11" data-line-number="11"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb240-12" data-line-number="12"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
-<a class="sourceLine" id="cb240-13" data-line-number="13"><span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].</span></a>
-<a class="sourceLine" id="cb240-14" data-line-number="14"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb240-15" data-line-number="15"><span class="co">#&gt;   one   two   three</span></a>
-<a class="sourceLine" id="cb240-16" data-line-number="16"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb240-17" data-line-number="17"><span class="co">#&gt; 1 a     b     c    </span></a>
-<a class="sourceLine" id="cb240-18" data-line-number="18"><span class="co">#&gt; 2 d     e     &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb240-19" data-line-number="19"><span class="co">#&gt; 3 f     g     i</span></a></code></pre></div>
-<p>The <code>extra</code> argument tells <code>separate()</code> what to do if there are too many pieces,
-and the <code>fill</code> argument if there aren’t enough.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb241-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
-<a class="sourceLine" id="cb241-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Additional pieces discarded in 1 rows [2].</span></a>
-<a class="sourceLine" id="cb241-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb241-5" data-line-number="5"><span class="co">#&gt;   one   two   three</span></a>
-<a class="sourceLine" id="cb241-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb241-7" data-line-number="7"><span class="co">#&gt; 1 a     b     c    </span></a>
-<a class="sourceLine" id="cb241-8" data-line-number="8"><span class="co">#&gt; 2 d     e     f    </span></a>
-<a class="sourceLine" id="cb241-9" data-line-number="9"><span class="co">#&gt; 3 h     i     j</span></a></code></pre></div>
+<a class="sourceLine" id="cb240-9" data-line-number="9"><span class="co">#&gt; 3 h     i     j</span></a></code></pre></div>
 <p>By default <code>separate</code> drops the extra values with a warning.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb241-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;drop&quot;</span>)</a>
+<a class="sourceLine" id="cb241-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb241-4" data-line-number="4"><span class="co">#&gt;   one   two   three</span></a>
+<a class="sourceLine" id="cb241-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb241-6" data-line-number="6"><span class="co">#&gt; 1 a     b     c    </span></a>
+<a class="sourceLine" id="cb241-7" data-line-number="7"><span class="co">#&gt; 2 d     e     f    </span></a>
+<a class="sourceLine" id="cb241-8" data-line-number="8"><span class="co">#&gt; 3 h     i     j</span></a></code></pre></div>
+<p>This produces the same result as above, dropping extra values, but without the warning.</p>
 <div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb242-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;drop&quot;</span>)</a>
+<a class="sourceLine" id="cb242-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span>)</a>
 <a class="sourceLine" id="cb242-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
 <a class="sourceLine" id="cb242-4" data-line-number="4"><span class="co">#&gt;   one   two   three</span></a>
 <a class="sourceLine" id="cb242-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
 <a class="sourceLine" id="cb242-6" data-line-number="6"><span class="co">#&gt; 1 a     b     c    </span></a>
-<a class="sourceLine" id="cb242-7" data-line-number="7"><span class="co">#&gt; 2 d     e     f    </span></a>
+<a class="sourceLine" id="cb242-7" data-line-number="7"><span class="co">#&gt; 2 d     e     f,g  </span></a>
 <a class="sourceLine" id="cb242-8" data-line-number="8"><span class="co">#&gt; 3 h     i     j</span></a></code></pre></div>
-<p>This produces the same result as above, dropping extra values, but without the warning.</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb243-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;merge&quot;</span>)</a>
-<a class="sourceLine" id="cb243-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb243-4" data-line-number="4"><span class="co">#&gt;   one   two   three</span></a>
-<a class="sourceLine" id="cb243-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb243-6" data-line-number="6"><span class="co">#&gt; 1 a     b     c    </span></a>
-<a class="sourceLine" id="cb243-7" data-line-number="7"><span class="co">#&gt; 2 d     e     f,g  </span></a>
-<a class="sourceLine" id="cb243-8" data-line-number="8"><span class="co">#&gt; 3 h     i     j</span></a></code></pre></div>
 <p>In this, the extra values are not split, so <code>&quot;f,g&quot;</code> appears in column three.</p>
 <p>In this, one of the entries for column, <code>&quot;d,e&quot;</code>, has too few elements.
 The default for <code>fill</code> is similar to <code>separate</code>; it fills with missing values but emits a warning. In this, row 2 of column “three”, is <code>NA</code>.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb244-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
-<a class="sourceLine" id="cb244-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].</span></a>
-<a class="sourceLine" id="cb244-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb244-5" data-line-number="5"><span class="co">#&gt;   one   two   three</span></a>
-<a class="sourceLine" id="cb244-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb244-7" data-line-number="7"><span class="co">#&gt; 1 a     b     c    </span></a>
-<a class="sourceLine" id="cb244-8" data-line-number="8"><span class="co">#&gt; 2 d     e     &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb244-9" data-line-number="9"><span class="co">#&gt; 3 f     g     i</span></a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb243-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
+<a class="sourceLine" id="cb243-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].</span></a>
+<a class="sourceLine" id="cb243-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb243-5" data-line-number="5"><span class="co">#&gt;   one   two   three</span></a>
+<a class="sourceLine" id="cb243-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb243-7" data-line-number="7"><span class="co">#&gt; 1 a     b     c    </span></a>
+<a class="sourceLine" id="cb243-8" data-line-number="8"><span class="co">#&gt; 2 d     e     &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb243-9" data-line-number="9"><span class="co">#&gt; 3 f     g     i</span></a></code></pre></div>
 <p>Alternative options for <code>fill</code> are <code>&quot;right&quot;</code>, to fill with missing values from the right, but without a warning</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb244-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;right&quot;</span>)</a>
+<a class="sourceLine" id="cb244-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb244-4" data-line-number="4"><span class="co">#&gt;   one   two   three</span></a>
+<a class="sourceLine" id="cb244-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb244-6" data-line-number="6"><span class="co">#&gt; 1 a     b     c    </span></a>
+<a class="sourceLine" id="cb244-7" data-line-number="7"><span class="co">#&gt; 2 d     e     &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb244-8" data-line-number="8"><span class="co">#&gt; 3 f     g     i</span></a></code></pre></div>
+<p>The option <code>fill = &quot;left&quot;</code> also fills with missing values without a warning, but this time from the left side.
+Now, column “one” of row 2 will be missing, and the other values in that row are shifted over.</p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb245-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;right&quot;</span>)</a>
+<a class="sourceLine" id="cb245-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;left&quot;</span>)</a>
 <a class="sourceLine" id="cb245-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
 <a class="sourceLine" id="cb245-4" data-line-number="4"><span class="co">#&gt;   one   two   three</span></a>
 <a class="sourceLine" id="cb245-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
 <a class="sourceLine" id="cb245-6" data-line-number="6"><span class="co">#&gt; 1 a     b     c    </span></a>
-<a class="sourceLine" id="cb245-7" data-line-number="7"><span class="co">#&gt; 2 d     e     &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb245-7" data-line-number="7"><span class="co">#&gt; 2 &lt;NA&gt;  d     e    </span></a>
 <a class="sourceLine" id="cb245-8" data-line-number="8"><span class="co">#&gt; 3 f     g     i</span></a></code></pre></div>
-<p>The option <code>fill = &quot;left&quot;</code> also fills with missing values without a warning, but this time from the left side.
-Now, column “one” of row 2 will be missing, and the other values in that row are shifted over.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb246-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">fill =</span> <span class="st">&quot;left&quot;</span>)</a>
-<a class="sourceLine" id="cb246-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb246-4" data-line-number="4"><span class="co">#&gt;   one   two   three</span></a>
-<a class="sourceLine" id="cb246-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb246-6" data-line-number="6"><span class="co">#&gt; 1 a     b     c    </span></a>
-<a class="sourceLine" id="cb246-7" data-line-number="7"><span class="co">#&gt; 2 &lt;NA&gt;  d     e    </span></a>
-<a class="sourceLine" id="cb246-8" data-line-number="8"><span class="co">#&gt; 3 f     g     i</span></a></code></pre></div>
 </div>
 <div id="exercise-2-22" class="section level3 exercise">
 <h3><span class="header-section-number">12.4.2</span> Exercise 2</h3>
@@ -1025,73 +1025,73 @@ Now, column “one” of row 2 will be missing, and the other values in that row
 <p>Compare and contrast <code>separate()</code> and <code>extract()</code>, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?</p>
 <p>The function <code>separate()</code>, splits columns a column into multiple groups using
 by separator, if the <code>sep</code> argument is a character vector, or character positions, if <code>sep</code> is numeric.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1"><span class="co"># example with separators</span></a>
+<a class="sourceLine" id="cb246-2" data-line-number="2"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;X_1&quot;</span>, <span class="st">&quot;X_2&quot;</span>, <span class="st">&quot;AA_1&quot;</span>, <span class="st">&quot;AA_2&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb246-3" data-line-number="3"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;into&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
+<a class="sourceLine" id="cb246-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
+<a class="sourceLine" id="cb246-5" data-line-number="5"><span class="co">#&gt;   variable into </span></a>
+<a class="sourceLine" id="cb246-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb246-7" data-line-number="7"><span class="co">#&gt; 1 X        1    </span></a>
+<a class="sourceLine" id="cb246-8" data-line-number="8"><span class="co">#&gt; 2 X        2    </span></a>
+<a class="sourceLine" id="cb246-9" data-line-number="9"><span class="co">#&gt; 3 AA       1    </span></a>
+<a class="sourceLine" id="cb246-10" data-line-number="10"><span class="co">#&gt; 4 AA       2</span></a>
+<a class="sourceLine" id="cb246-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb246-12" data-line-number="12"><span class="co"># example with position</span></a>
+<a class="sourceLine" id="cb246-13" data-line-number="13"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>, <span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y2&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb246-14" data-line-number="14"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;into&quot;</span>), <span class="dt">sep =</span> <span class="kw">c</span>(<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb246-15" data-line-number="15"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
+<a class="sourceLine" id="cb246-16" data-line-number="16"><span class="co">#&gt;   variable into </span></a>
+<a class="sourceLine" id="cb246-17" data-line-number="17"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb246-18" data-line-number="18"><span class="co">#&gt; 1 X        1    </span></a>
+<a class="sourceLine" id="cb246-19" data-line-number="19"><span class="co">#&gt; 2 X        2    </span></a>
+<a class="sourceLine" id="cb246-20" data-line-number="20"><span class="co">#&gt; 3 Y        1    </span></a>
+<a class="sourceLine" id="cb246-21" data-line-number="21"><span class="co">#&gt; 4 Y        2</span></a></code></pre></div>
+<p>The function <code>extract()</code> uses a regular expression to specify groups in character vector and split that single character vector into multiple columns.
+This is more flexible than <code>separate()</code> because it does not require a common
+separator or specific column positions.</p>
 <div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" data-line-number="1"><span class="co"># example with separators</span></a>
 <a class="sourceLine" id="cb247-2" data-line-number="2"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;X_1&quot;</span>, <span class="st">&quot;X_2&quot;</span>, <span class="st">&quot;AA_1&quot;</span>, <span class="st">&quot;AA_2&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb247-3" data-line-number="3"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;into&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
+<a class="sourceLine" id="cb247-3" data-line-number="3"><span class="st">  </span><span class="kw">extract</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;id&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([A-Z])_([0-9])&quot;</span>)</a>
 <a class="sourceLine" id="cb247-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb247-5" data-line-number="5"><span class="co">#&gt;   variable into </span></a>
+<a class="sourceLine" id="cb247-5" data-line-number="5"><span class="co">#&gt;   variable id   </span></a>
 <a class="sourceLine" id="cb247-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;</span></a>
 <a class="sourceLine" id="cb247-7" data-line-number="7"><span class="co">#&gt; 1 X        1    </span></a>
 <a class="sourceLine" id="cb247-8" data-line-number="8"><span class="co">#&gt; 2 X        2    </span></a>
-<a class="sourceLine" id="cb247-9" data-line-number="9"><span class="co">#&gt; 3 AA       1    </span></a>
-<a class="sourceLine" id="cb247-10" data-line-number="10"><span class="co">#&gt; 4 AA       2</span></a>
+<a class="sourceLine" id="cb247-9" data-line-number="9"><span class="co">#&gt; 3 A        1    </span></a>
+<a class="sourceLine" id="cb247-10" data-line-number="10"><span class="co">#&gt; 4 A        2</span></a>
 <a class="sourceLine" id="cb247-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb247-12" data-line-number="12"><span class="co"># example with position</span></a>
 <a class="sourceLine" id="cb247-13" data-line-number="13"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>, <span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y2&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb247-14" data-line-number="14"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;into&quot;</span>), <span class="dt">sep =</span> <span class="kw">c</span>(<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb247-14" data-line-number="14"><span class="st">  </span><span class="kw">extract</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;id&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([A-Z])([0-9])&quot;</span>)</a>
 <a class="sourceLine" id="cb247-15" data-line-number="15"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb247-16" data-line-number="16"><span class="co">#&gt;   variable into </span></a>
+<a class="sourceLine" id="cb247-16" data-line-number="16"><span class="co">#&gt;   variable id   </span></a>
 <a class="sourceLine" id="cb247-17" data-line-number="17"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;</span></a>
 <a class="sourceLine" id="cb247-18" data-line-number="18"><span class="co">#&gt; 1 X        1    </span></a>
 <a class="sourceLine" id="cb247-19" data-line-number="19"><span class="co">#&gt; 2 X        2    </span></a>
 <a class="sourceLine" id="cb247-20" data-line-number="20"><span class="co">#&gt; 3 Y        1    </span></a>
-<a class="sourceLine" id="cb247-21" data-line-number="21"><span class="co">#&gt; 4 Y        2</span></a></code></pre></div>
-<p>The function <code>extract()</code> uses a regular expression to specify groups in character vector and split that single character vector into multiple columns.
-This is more flexible than <code>separate()</code> because it does not require a common
-separator or specific column positions.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1"><span class="co"># example with separators</span></a>
-<a class="sourceLine" id="cb248-2" data-line-number="2"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;X_1&quot;</span>, <span class="st">&quot;X_2&quot;</span>, <span class="st">&quot;AA_1&quot;</span>, <span class="st">&quot;AA_2&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb248-3" data-line-number="3"><span class="st">  </span><span class="kw">extract</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;id&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([A-Z])_([0-9])&quot;</span>)</a>
-<a class="sourceLine" id="cb248-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb248-5" data-line-number="5"><span class="co">#&gt;   variable id   </span></a>
-<a class="sourceLine" id="cb248-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb248-7" data-line-number="7"><span class="co">#&gt; 1 X        1    </span></a>
-<a class="sourceLine" id="cb248-8" data-line-number="8"><span class="co">#&gt; 2 X        2    </span></a>
-<a class="sourceLine" id="cb248-9" data-line-number="9"><span class="co">#&gt; 3 A        1    </span></a>
-<a class="sourceLine" id="cb248-10" data-line-number="10"><span class="co">#&gt; 4 A        2</span></a>
-<a class="sourceLine" id="cb248-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb248-12" data-line-number="12"><span class="co"># example with position</span></a>
-<a class="sourceLine" id="cb248-13" data-line-number="13"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>, <span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y2&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb248-14" data-line-number="14"><span class="st">  </span><span class="kw">extract</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;id&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([A-Z])([0-9])&quot;</span>)</a>
-<a class="sourceLine" id="cb248-15" data-line-number="15"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb248-16" data-line-number="16"><span class="co">#&gt;   variable id   </span></a>
-<a class="sourceLine" id="cb248-17" data-line-number="17"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb248-18" data-line-number="18"><span class="co">#&gt; 1 X        1    </span></a>
-<a class="sourceLine" id="cb248-19" data-line-number="19"><span class="co">#&gt; 2 X        2    </span></a>
-<a class="sourceLine" id="cb248-20" data-line-number="20"><span class="co">#&gt; 3 Y        1    </span></a>
-<a class="sourceLine" id="cb248-21" data-line-number="21"><span class="co">#&gt; 4 Y        2</span></a>
-<a class="sourceLine" id="cb248-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb248-23" data-line-number="23"><span class="co"># example that separate could not parse</span></a>
-<a class="sourceLine" id="cb248-24" data-line-number="24"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X20&quot;</span>, <span class="st">&quot;AA11&quot;</span>, <span class="st">&quot;AA2&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb248-25" data-line-number="25"><span class="st">  </span><span class="kw">extract</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;id&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([A-Z]+)([0-9]+)&quot;</span>)  </a>
-<a class="sourceLine" id="cb248-26" data-line-number="26"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb248-27" data-line-number="27"><span class="co">#&gt;   variable id   </span></a>
-<a class="sourceLine" id="cb248-28" data-line-number="28"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb248-29" data-line-number="29"><span class="co">#&gt; 1 X        1    </span></a>
-<a class="sourceLine" id="cb248-30" data-line-number="30"><span class="co">#&gt; 2 X        20   </span></a>
-<a class="sourceLine" id="cb248-31" data-line-number="31"><span class="co">#&gt; 3 AA       11   </span></a>
-<a class="sourceLine" id="cb248-32" data-line-number="32"><span class="co">#&gt; 4 AA       2</span></a></code></pre></div>
+<a class="sourceLine" id="cb247-21" data-line-number="21"><span class="co">#&gt; 4 Y        2</span></a>
+<a class="sourceLine" id="cb247-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb247-23" data-line-number="23"><span class="co"># example that separate could not parse</span></a>
+<a class="sourceLine" id="cb247-24" data-line-number="24"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X20&quot;</span>, <span class="st">&quot;AA11&quot;</span>, <span class="st">&quot;AA2&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb247-25" data-line-number="25"><span class="st">  </span><span class="kw">extract</span>(x, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;id&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([A-Z]+)([0-9]+)&quot;</span>)  </a>
+<a class="sourceLine" id="cb247-26" data-line-number="26"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
+<a class="sourceLine" id="cb247-27" data-line-number="27"><span class="co">#&gt;   variable id   </span></a>
+<a class="sourceLine" id="cb247-28" data-line-number="28"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb247-29" data-line-number="29"><span class="co">#&gt; 1 X        1    </span></a>
+<a class="sourceLine" id="cb247-30" data-line-number="30"><span class="co">#&gt; 2 X        20   </span></a>
+<a class="sourceLine" id="cb247-31" data-line-number="31"><span class="co">#&gt; 3 AA       11   </span></a>
+<a class="sourceLine" id="cb247-32" data-line-number="32"><span class="co">#&gt; 4 AA       2</span></a></code></pre></div>
 <p>Both <code>separate()</code> and <code>extract()</code> convert a single column to many columns.
 However, <code>unite</code> converts many columns to one, with a choice of a separator to include between column values.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">variable =</span> <span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;Y&quot;</span>), <span class="dt">id =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb249-2" data-line-number="2"><span class="st">  </span><span class="kw">unite</span>(x, variable, id, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
-<a class="sourceLine" id="cb249-3" data-line-number="3"><span class="co">#&gt; # A tibble: 4 x 1</span></a>
-<a class="sourceLine" id="cb249-4" data-line-number="4"><span class="co">#&gt;   x    </span></a>
-<a class="sourceLine" id="cb249-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb249-6" data-line-number="6"><span class="co">#&gt; 1 X_1  </span></a>
-<a class="sourceLine" id="cb249-7" data-line-number="7"><span class="co">#&gt; 2 X_2  </span></a>
-<a class="sourceLine" id="cb249-8" data-line-number="8"><span class="co">#&gt; 3 Y_1  </span></a>
-<a class="sourceLine" id="cb249-9" data-line-number="9"><span class="co">#&gt; 4 Y_2</span></a></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">variable =</span> <span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;Y&quot;</span>), <span class="dt">id =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb248-2" data-line-number="2"><span class="st">  </span><span class="kw">unite</span>(x, variable, id, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
+<a class="sourceLine" id="cb248-3" data-line-number="3"><span class="co">#&gt; # A tibble: 4 x 1</span></a>
+<a class="sourceLine" id="cb248-4" data-line-number="4"><span class="co">#&gt;   x    </span></a>
+<a class="sourceLine" id="cb248-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb248-6" data-line-number="6"><span class="co">#&gt; 1 X_1  </span></a>
+<a class="sourceLine" id="cb248-7" data-line-number="7"><span class="co">#&gt; 2 X_2  </span></a>
+<a class="sourceLine" id="cb248-8" data-line-number="8"><span class="co">#&gt; 3 Y_1  </span></a>
+<a class="sourceLine" id="cb248-9" data-line-number="9"><span class="co">#&gt; 4 Y_2</span></a></code></pre></div>
 <p>In other words, with <code>extract()</code> and <code>separate()</code> only one column can be chosen,
 but there are many choices how to split that single column into different columns.
 With <code>unite()</code>, there are many choices as to which columns to include, but only
@@ -1116,82 +1116,82 @@ Also, both cases replace both implicit and explicit missing values.</p>
 <div id="case-study" class="section level2">
 <h2><span class="header-section-number">12.6</span> Case Study</h2>
 <p>This code is repeated from the chapter because it is needed by the exercises.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">who1 &lt;-<span class="st"> </span>who <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb250-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(new_sp_m014<span class="op">:</span>newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb250-3" data-line-number="3"><span class="kw">glimpse</span>(who1)</a>
-<a class="sourceLine" id="cb250-4" data-line-number="4"><span class="co">#&gt; Observations: 76,046</span></a>
-<a class="sourceLine" id="cb250-5" data-line-number="5"><span class="co">#&gt; Variables: 6</span></a>
-<a class="sourceLine" id="cb250-6" data-line-number="6"><span class="co">#&gt; $ country &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanis...</span></a>
-<a class="sourceLine" id="cb250-7" data-line-number="7"><span class="co">#&gt; $ iso2    &lt;chr&gt; &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, ...</span></a>
-<a class="sourceLine" id="cb250-8" data-line-number="8"><span class="co">#&gt; $ iso3    &lt;chr&gt; &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;...</span></a>
-<a class="sourceLine" id="cb250-9" data-line-number="9"><span class="co">#&gt; $ year    &lt;int&gt; 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, ...</span></a>
-<a class="sourceLine" id="cb250-10" data-line-number="10"><span class="co">#&gt; $ key     &lt;chr&gt; &quot;new_sp_m014&quot;, &quot;new_sp_m014&quot;, &quot;new_sp_m014&quot;, &quot;new_sp_m...</span></a>
-<a class="sourceLine" id="cb250-11" data-line-number="11"><span class="co">#&gt; $ cases   &lt;int&gt; 0, 30, 8, 52, 129, 90, 127, 139, 151, 193, 186, 187, 2...</span></a></code></pre></div>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1">who2 &lt;-<span class="st"> </span>who1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb251-2" data-line-number="2"><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">key =</span> stringr<span class="op">::</span><span class="kw">str_replace</span>(key, <span class="st">&quot;newrel&quot;</span>, <span class="st">&quot;new_rel&quot;</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1">who3 &lt;-<span class="st"> </span>who2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb252-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
-<a class="sourceLine" id="cb252-3" data-line-number="3">who3</a>
-<a class="sourceLine" id="cb252-4" data-line-number="4"><span class="co">#&gt; # A tibble: 76,046 x 8</span></a>
-<a class="sourceLine" id="cb252-5" data-line-number="5"><span class="co">#&gt;   country     iso2  iso3   year new   type  sexage cases</span></a>
-<a class="sourceLine" id="cb252-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb252-7" data-line-number="7"><span class="co">#&gt; 1 Afghanistan AF    AFG    1997 new   sp    m014       0</span></a>
-<a class="sourceLine" id="cb252-8" data-line-number="8"><span class="co">#&gt; 2 Afghanistan AF    AFG    1998 new   sp    m014      30</span></a>
-<a class="sourceLine" id="cb252-9" data-line-number="9"><span class="co">#&gt; 3 Afghanistan AF    AFG    1999 new   sp    m014       8</span></a>
-<a class="sourceLine" id="cb252-10" data-line-number="10"><span class="co">#&gt; 4 Afghanistan AF    AFG    2000 new   sp    m014      52</span></a>
-<a class="sourceLine" id="cb252-11" data-line-number="11"><span class="co">#&gt; 5 Afghanistan AF    AFG    2001 new   sp    m014     129</span></a>
-<a class="sourceLine" id="cb252-12" data-line-number="12"><span class="co">#&gt; 6 Afghanistan AF    AFG    2002 new   sp    m014      90</span></a>
-<a class="sourceLine" id="cb252-13" data-line-number="13"><span class="co">#&gt; # ... with 7.604e+04 more rows</span></a></code></pre></div>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1">who3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb253-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(new)</a>
-<a class="sourceLine" id="cb253-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb253-4" data-line-number="4"><span class="co">#&gt;   new       n</span></a>
-<a class="sourceLine" id="cb253-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb253-6" data-line-number="6"><span class="co">#&gt; 1 new   76046</span></a></code></pre></div>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1">who4 &lt;-<span class="st"> </span>who3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb254-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>new, <span class="op">-</span>iso2, <span class="op">-</span>iso3)</a></code></pre></div>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1">who5 &lt;-<span class="st"> </span>who4 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb255-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(sexage, <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb255-3" data-line-number="3">who5</a>
-<a class="sourceLine" id="cb255-4" data-line-number="4"><span class="co">#&gt; # A tibble: 76,046 x 6</span></a>
-<a class="sourceLine" id="cb255-5" data-line-number="5"><span class="co">#&gt;   country      year type  sex   age   cases</span></a>
-<a class="sourceLine" id="cb255-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb255-7" data-line-number="7"><span class="co">#&gt; 1 Afghanistan  1997 sp    m     014       0</span></a>
-<a class="sourceLine" id="cb255-8" data-line-number="8"><span class="co">#&gt; 2 Afghanistan  1998 sp    m     014      30</span></a>
-<a class="sourceLine" id="cb255-9" data-line-number="9"><span class="co">#&gt; 3 Afghanistan  1999 sp    m     014       8</span></a>
-<a class="sourceLine" id="cb255-10" data-line-number="10"><span class="co">#&gt; 4 Afghanistan  2000 sp    m     014      52</span></a>
-<a class="sourceLine" id="cb255-11" data-line-number="11"><span class="co">#&gt; 5 Afghanistan  2001 sp    m     014     129</span></a>
-<a class="sourceLine" id="cb255-12" data-line-number="12"><span class="co">#&gt; 6 Afghanistan  2002 sp    m     014      90</span></a>
-<a class="sourceLine" id="cb255-13" data-line-number="13"><span class="co">#&gt; # ... with 7.604e+04 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1">who1 &lt;-<span class="st"> </span>who <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb249-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(new_sp_m014<span class="op">:</span>newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb249-3" data-line-number="3"><span class="kw">glimpse</span>(who1)</a>
+<a class="sourceLine" id="cb249-4" data-line-number="4"><span class="co">#&gt; Observations: 76,046</span></a>
+<a class="sourceLine" id="cb249-5" data-line-number="5"><span class="co">#&gt; Variables: 6</span></a>
+<a class="sourceLine" id="cb249-6" data-line-number="6"><span class="co">#&gt; $ country &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanis...</span></a>
+<a class="sourceLine" id="cb249-7" data-line-number="7"><span class="co">#&gt; $ iso2    &lt;chr&gt; &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, ...</span></a>
+<a class="sourceLine" id="cb249-8" data-line-number="8"><span class="co">#&gt; $ iso3    &lt;chr&gt; &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;...</span></a>
+<a class="sourceLine" id="cb249-9" data-line-number="9"><span class="co">#&gt; $ year    &lt;int&gt; 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, ...</span></a>
+<a class="sourceLine" id="cb249-10" data-line-number="10"><span class="co">#&gt; $ key     &lt;chr&gt; &quot;new_sp_m014&quot;, &quot;new_sp_m014&quot;, &quot;new_sp_m014&quot;, &quot;new_sp_m...</span></a>
+<a class="sourceLine" id="cb249-11" data-line-number="11"><span class="co">#&gt; $ cases   &lt;int&gt; 0, 30, 8, 52, 129, 90, 127, 139, 151, 193, 186, 187, 2...</span></a></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">who2 &lt;-<span class="st"> </span>who1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb250-2" data-line-number="2"><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">key =</span> stringr<span class="op">::</span><span class="kw">str_replace</span>(key, <span class="st">&quot;newrel&quot;</span>, <span class="st">&quot;new_rel&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1">who3 &lt;-<span class="st"> </span>who2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb251-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
+<a class="sourceLine" id="cb251-3" data-line-number="3">who3</a>
+<a class="sourceLine" id="cb251-4" data-line-number="4"><span class="co">#&gt; # A tibble: 76,046 x 8</span></a>
+<a class="sourceLine" id="cb251-5" data-line-number="5"><span class="co">#&gt;   country     iso2  iso3   year new   type  sexage cases</span></a>
+<a class="sourceLine" id="cb251-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb251-7" data-line-number="7"><span class="co">#&gt; 1 Afghanistan AF    AFG    1997 new   sp    m014       0</span></a>
+<a class="sourceLine" id="cb251-8" data-line-number="8"><span class="co">#&gt; 2 Afghanistan AF    AFG    1998 new   sp    m014      30</span></a>
+<a class="sourceLine" id="cb251-9" data-line-number="9"><span class="co">#&gt; 3 Afghanistan AF    AFG    1999 new   sp    m014       8</span></a>
+<a class="sourceLine" id="cb251-10" data-line-number="10"><span class="co">#&gt; 4 Afghanistan AF    AFG    2000 new   sp    m014      52</span></a>
+<a class="sourceLine" id="cb251-11" data-line-number="11"><span class="co">#&gt; 5 Afghanistan AF    AFG    2001 new   sp    m014     129</span></a>
+<a class="sourceLine" id="cb251-12" data-line-number="12"><span class="co">#&gt; 6 Afghanistan AF    AFG    2002 new   sp    m014      90</span></a>
+<a class="sourceLine" id="cb251-13" data-line-number="13"><span class="co">#&gt; # ... with 7.604e+04 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1">who3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb252-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(new)</a>
+<a class="sourceLine" id="cb252-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb252-4" data-line-number="4"><span class="co">#&gt;   new       n</span></a>
+<a class="sourceLine" id="cb252-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb252-6" data-line-number="6"><span class="co">#&gt; 1 new   76046</span></a></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1">who4 &lt;-<span class="st"> </span>who3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb253-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>new, <span class="op">-</span>iso2, <span class="op">-</span>iso3)</a></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" data-line-number="1">who5 &lt;-<span class="st"> </span>who4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb254-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(sexage, <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age&quot;</span>), <span class="dt">sep =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb254-3" data-line-number="3">who5</a>
+<a class="sourceLine" id="cb254-4" data-line-number="4"><span class="co">#&gt; # A tibble: 76,046 x 6</span></a>
+<a class="sourceLine" id="cb254-5" data-line-number="5"><span class="co">#&gt;   country      year type  sex   age   cases</span></a>
+<a class="sourceLine" id="cb254-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb254-7" data-line-number="7"><span class="co">#&gt; 1 Afghanistan  1997 sp    m     014       0</span></a>
+<a class="sourceLine" id="cb254-8" data-line-number="8"><span class="co">#&gt; 2 Afghanistan  1998 sp    m     014      30</span></a>
+<a class="sourceLine" id="cb254-9" data-line-number="9"><span class="co">#&gt; 3 Afghanistan  1999 sp    m     014       8</span></a>
+<a class="sourceLine" id="cb254-10" data-line-number="10"><span class="co">#&gt; 4 Afghanistan  2000 sp    m     014      52</span></a>
+<a class="sourceLine" id="cb254-11" data-line-number="11"><span class="co">#&gt; 5 Afghanistan  2001 sp    m     014     129</span></a>
+<a class="sourceLine" id="cb254-12" data-line-number="12"><span class="co">#&gt; 6 Afghanistan  2002 sp    m     014      90</span></a>
+<a class="sourceLine" id="cb254-13" data-line-number="13"><span class="co">#&gt; # ... with 7.604e+04 more rows</span></a></code></pre></div>
 <div id="exercise-1-25" class="section level3 exercise">
 <h3><span class="header-section-number">12.6.1</span> Exercise 1</h3>
 <p>In this case study I set <code>na.rm = TRUE</code> just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an <code>NA</code> and zero?</p>
 <p>Perhaps? I would need to know more about the data generation process.
 There are zero’s in the data, which means they may explicitly be indicating no cases.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1">who1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb256-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(cases <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb256-3" data-line-number="3"><span class="st">  </span><span class="kw">nrow</span>()</a>
-<a class="sourceLine" id="cb256-4" data-line-number="4"><span class="co">#&gt; [1] 11080</span></a></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1">who1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb255-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(cases <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb255-3" data-line-number="3"><span class="st">  </span><span class="kw">nrow</span>()</a>
+<a class="sourceLine" id="cb255-4" data-line-number="4"><span class="co">#&gt; [1] 11080</span></a></code></pre></div>
 <p>So it appears that either a country has all its values in a year as non-missing if the WHO collected data for that country, or all its values are non-missing.
 So it is okay to treat explicitly and implicitly missing values the same, and we don’t lose any information by dropping them.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1"><span class="kw">gather</span>(who, new_sp_m014<span class="op">:</span>newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb257-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year)  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb257-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">missing =</span> <span class="kw">is.na</span>(cases)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb257-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(country, year, missing) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb257-5" data-line-number="5"><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb257-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb257-7" data-line-number="7"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb257-8" data-line-number="8"><span class="co">#&gt; # A tibble: 6,968 x 3</span></a>
-<a class="sourceLine" id="cb257-9" data-line-number="9"><span class="co">#&gt; # Groups:   country, year [3,484]</span></a>
-<a class="sourceLine" id="cb257-10" data-line-number="10"><span class="co">#&gt;   country      year missing</span></a>
-<a class="sourceLine" id="cb257-11" data-line-number="11"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;lgl&gt;  </span></a>
-<a class="sourceLine" id="cb257-12" data-line-number="12"><span class="co">#&gt; 1 Afghanistan  1997 FALSE  </span></a>
-<a class="sourceLine" id="cb257-13" data-line-number="13"><span class="co">#&gt; 2 Afghanistan  1998 FALSE  </span></a>
-<a class="sourceLine" id="cb257-14" data-line-number="14"><span class="co">#&gt; 3 Afghanistan  1999 FALSE  </span></a>
-<a class="sourceLine" id="cb257-15" data-line-number="15"><span class="co">#&gt; 4 Afghanistan  2000 FALSE  </span></a>
-<a class="sourceLine" id="cb257-16" data-line-number="16"><span class="co">#&gt; 5 Afghanistan  2001 FALSE  </span></a>
-<a class="sourceLine" id="cb257-17" data-line-number="17"><span class="co">#&gt; 6 Afghanistan  2002 FALSE  </span></a>
-<a class="sourceLine" id="cb257-18" data-line-number="18"><span class="co">#&gt; # ... with 6,962 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1"><span class="kw">gather</span>(who, new_sp_m014<span class="op">:</span>newrel_f65, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">missing =</span> <span class="kw">is.na</span>(cases)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(country, year, missing) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-5" data-line-number="5"><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-7" data-line-number="7"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb256-8" data-line-number="8"><span class="co">#&gt; # A tibble: 6,968 x 3</span></a>
+<a class="sourceLine" id="cb256-9" data-line-number="9"><span class="co">#&gt; # Groups:   country, year [3,484]</span></a>
+<a class="sourceLine" id="cb256-10" data-line-number="10"><span class="co">#&gt;   country      year missing</span></a>
+<a class="sourceLine" id="cb256-11" data-line-number="11"><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;lgl&gt;  </span></a>
+<a class="sourceLine" id="cb256-12" data-line-number="12"><span class="co">#&gt; 1 Afghanistan  1997 FALSE  </span></a>
+<a class="sourceLine" id="cb256-13" data-line-number="13"><span class="co">#&gt; 2 Afghanistan  1998 FALSE  </span></a>
+<a class="sourceLine" id="cb256-14" data-line-number="14"><span class="co">#&gt; 3 Afghanistan  1999 FALSE  </span></a>
+<a class="sourceLine" id="cb256-15" data-line-number="15"><span class="co">#&gt; 4 Afghanistan  2000 FALSE  </span></a>
+<a class="sourceLine" id="cb256-16" data-line-number="16"><span class="co">#&gt; 5 Afghanistan  2001 FALSE  </span></a>
+<a class="sourceLine" id="cb256-17" data-line-number="17"><span class="co">#&gt; 6 Afghanistan  2002 FALSE  </span></a>
+<a class="sourceLine" id="cb256-18" data-line-number="18"><span class="co">#&gt; # ... with 6,962 more rows</span></a></code></pre></div>
 </div>
 <div id="exercise-2-24" class="section level3 exercise">
 <h3><span class="header-section-number">12.6.2</span> Exercise 2</h3>
@@ -1199,44 +1199,44 @@ So it is okay to treat explicitly and implicitly missing values the same, and we
 <p><code>separate</code> emits the warning “too few values”, and if we check the
 rows for keys beginning with <code>&quot;newrel_&quot;</code>, we see that <code>sexage</code> is messing,
 and <code>type = m014</code>.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1">who3a &lt;-<span class="st"> </span>who1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb258-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
-<a class="sourceLine" id="cb258-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2580 rows</span></a>
-<a class="sourceLine" id="cb258-4" data-line-number="4"><span class="co">#&gt; [73467, 73468, 73469, 73470, 73471, 73472, 73473, 73474, 73475, 73476,</span></a>
-<a class="sourceLine" id="cb258-5" data-line-number="5"><span class="co">#&gt; 73477, 73478, 73479, 73480, 73481, 73482, 73483, 73484, 73485, 73486, ...].</span></a>
-<a class="sourceLine" id="cb258-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb258-7" data-line-number="7"><span class="kw">filter</span>(who3a, new <span class="op">==</span><span class="st"> &quot;newrel&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
-<a class="sourceLine" id="cb258-8" data-line-number="8"><span class="co">#&gt; # A tibble: 6 x 8</span></a>
-<a class="sourceLine" id="cb258-9" data-line-number="9"><span class="co">#&gt;   country     iso2  iso3   year new    type  sexage cases</span></a>
-<a class="sourceLine" id="cb258-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb258-11" data-line-number="11"><span class="co">#&gt; 1 Afghanistan AF    AFG    2013 newrel m014  &lt;NA&gt;    1705</span></a>
-<a class="sourceLine" id="cb258-12" data-line-number="12"><span class="co">#&gt; 2 Albania     AL    ALB    2013 newrel m014  &lt;NA&gt;      14</span></a>
-<a class="sourceLine" id="cb258-13" data-line-number="13"><span class="co">#&gt; 3 Algeria     DZ    DZA    2013 newrel m014  &lt;NA&gt;      25</span></a>
-<a class="sourceLine" id="cb258-14" data-line-number="14"><span class="co">#&gt; 4 Andorra     AD    AND    2013 newrel m014  &lt;NA&gt;       0</span></a>
-<a class="sourceLine" id="cb258-15" data-line-number="15"><span class="co">#&gt; 5 Angola      AO    AGO    2013 newrel m014  &lt;NA&gt;     486</span></a>
-<a class="sourceLine" id="cb258-16" data-line-number="16"><span class="co">#&gt; 6 Anguilla    AI    AIA    2013 newrel m014  &lt;NA&gt;       0</span></a></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb257-1" data-line-number="1">who3a &lt;-<span class="st"> </span>who1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb257-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
+<a class="sourceLine" id="cb257-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2580 rows</span></a>
+<a class="sourceLine" id="cb257-4" data-line-number="4"><span class="co">#&gt; [73467, 73468, 73469, 73470, 73471, 73472, 73473, 73474, 73475, 73476,</span></a>
+<a class="sourceLine" id="cb257-5" data-line-number="5"><span class="co">#&gt; 73477, 73478, 73479, 73480, 73481, 73482, 73483, 73484, 73485, 73486, ...].</span></a>
+<a class="sourceLine" id="cb257-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb257-7" data-line-number="7"><span class="kw">filter</span>(who3a, new <span class="op">==</span><span class="st"> &quot;newrel&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb257-8" data-line-number="8"><span class="co">#&gt; # A tibble: 6 x 8</span></a>
+<a class="sourceLine" id="cb257-9" data-line-number="9"><span class="co">#&gt;   country     iso2  iso3   year new    type  sexage cases</span></a>
+<a class="sourceLine" id="cb257-10" data-line-number="10"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb257-11" data-line-number="11"><span class="co">#&gt; 1 Afghanistan AF    AFG    2013 newrel m014  &lt;NA&gt;    1705</span></a>
+<a class="sourceLine" id="cb257-12" data-line-number="12"><span class="co">#&gt; 2 Albania     AL    ALB    2013 newrel m014  &lt;NA&gt;      14</span></a>
+<a class="sourceLine" id="cb257-13" data-line-number="13"><span class="co">#&gt; 3 Algeria     DZ    DZA    2013 newrel m014  &lt;NA&gt;      25</span></a>
+<a class="sourceLine" id="cb257-14" data-line-number="14"><span class="co">#&gt; 4 Andorra     AD    AND    2013 newrel m014  &lt;NA&gt;       0</span></a>
+<a class="sourceLine" id="cb257-15" data-line-number="15"><span class="co">#&gt; 5 Angola      AO    AGO    2013 newrel m014  &lt;NA&gt;     486</span></a>
+<a class="sourceLine" id="cb257-16" data-line-number="16"><span class="co">#&gt; 6 Anguilla    AI    AIA    2013 newrel m014  &lt;NA&gt;       0</span></a></code></pre></div>
 </div>
 <div id="exercise-3-21" class="section level3 exercise">
 <h3><span class="header-section-number">12.6.3</span> Exercise 3</h3>
 <p>I claimed that <code>iso2</code> and <code>iso3</code> were redundant with country. Confirm this claim.</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" data-line-number="1"><span class="kw">select</span>(who3, country, iso2, iso3) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb259-2" data-line-number="2"><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb259-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb259-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb259-5" data-line-number="5"><span class="co">#&gt; # A tibble: 0 x 3</span></a>
-<a class="sourceLine" id="cb259-6" data-line-number="6"><span class="co">#&gt; # Groups:   country [0]</span></a>
-<a class="sourceLine" id="cb259-7" data-line-number="7"><span class="co">#&gt; # ... with 3 variables: country &lt;chr&gt;, iso2 &lt;chr&gt;, iso3 &lt;chr&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1"><span class="kw">select</span>(who3, country, iso2, iso3) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb258-2" data-line-number="2"><span class="st">  </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb258-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb258-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb258-5" data-line-number="5"><span class="co">#&gt; # A tibble: 0 x 3</span></a>
+<a class="sourceLine" id="cb258-6" data-line-number="6"><span class="co">#&gt; # Groups:   country [0]</span></a>
+<a class="sourceLine" id="cb258-7" data-line-number="7"><span class="co">#&gt; # ... with 3 variables: country &lt;chr&gt;, iso2 &lt;chr&gt;, iso3 &lt;chr&gt;</span></a></code></pre></div>
 </div>
 <div id="exercise-4-16" class="section level3 exercise">
 <h3><span class="header-section-number">12.6.4</span> Exercise 4</h3>
 <p>For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">who5 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year, sex) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1995</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-5" data-line-number="5"><span class="st">  </span><span class="kw">unite</span>(country_sex, country, sex, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-6" data-line-number="6"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> cases, <span class="dt">group =</span> country_sex, <span class="dt">colour =</span> sex)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb260-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" data-line-number="1">who5 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year, sex) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1995</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-5" data-line-number="5"><span class="st">  </span><span class="kw">unite</span>(country_sex, country, sex, <span class="dt">remove =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-6" data-line-number="6"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> cases, <span class="dt">group =</span> country_sex, <span class="dt">colour =</span> sex)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb259-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="tidy_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.</p>

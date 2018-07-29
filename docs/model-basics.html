@@ -663,9 +663,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">23</span> Model Basics</h1>
 <div id="prerequisites" class="section level2">
 <h2><span class="header-section-number">23.1</span> Prerequisites</h2>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb519-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
-<a class="sourceLine" id="cb519-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)</a>
-<a class="sourceLine" id="cb519-3" data-line-number="3"><span class="kw">options</span>(<span class="dt">na.action =</span> na.warn)</a></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb518-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
+<a class="sourceLine" id="cb518-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;modelr&quot;</span>)</a>
+<a class="sourceLine" id="cb518-3" data-line-number="3"><span class="kw">options</span>(<span class="dt">na.action =</span> na.warn)</a></code></pre></div>
 <p>The option <code>na.action</code> determines how missing values are handled.
 It is a function.
 <code>na.warn</code> sets it so that there is a warning if there are any missing values.
@@ -676,14 +676,14 @@ If it is not set (the default), R will silently drop them.</p>
 <div id="exercise-1-62" class="section level3 exercise">
 <h3><span class="header-section-number">23.2.1</span> Exercise 1</h3>
 <p>One downside of the linear model is that it is sensitive to unusual values because the distance incorporates a squared term. Fit a linear model to the simulated data below, and visualize the results. Rerun a few times to generate different simulated datasets. What do you notice about the model?</p>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" data-line-number="1">sim1a &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb520-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb520-3" data-line-number="3">  <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb520-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb519-1" data-line-number="1">sim1a &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb519-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb519-3" data-line-number="3">  <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb519-4" data-line-number="4">)</a></code></pre></div>
 <p>Let’s run it once and plot the results:</p>
-<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb521-1" data-line-number="1"><span class="kw">ggplot</span>(sim1a, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb521-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb521-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" data-line-number="1"><span class="kw">ggplot</span>(sim1a, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb520-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb520-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>To re-run this a few times using <code>purrr</code>,
 and plot using code similar to that in the chapter:
@@ -691,104 +691,104 @@ There appear to be a few outliers in this data.
 You can re-rerun this a couple times to see if this hold.</p>
 <p>We can also do this slightly more systematically.
 We will simulate this several times using <code>purrr</code> and plot the line using <code>geom_smooth</code>:</p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" data-line-number="1">simt &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb521-1" data-line-number="1">simt &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb521-2" data-line-number="2">  <span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb521-3" data-line-number="3">    <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb521-4" data-line-number="4">    <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb521-5" data-line-number="5">    <span class="dt">.id =</span> i</a>
+<a class="sourceLine" id="cb521-6" data-line-number="6">  )</a>
+<a class="sourceLine" id="cb521-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb521-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb521-9" data-line-number="9">sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, simt)</a>
+<a class="sourceLine" id="cb521-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb521-11" data-line-number="11"><span class="kw">ggplot</span>(sims, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb521-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb521-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb521-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>.id, <span class="dt">ncol =</span> <span class="dv">4</span>)</a></code></pre></div>
+<p><img src="model-basics_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>What if we did the same things with normal distributions?</p>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" data-line-number="1">sim_norm &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
 <a class="sourceLine" id="cb522-2" data-line-number="2">  <span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb522-3" data-line-number="3">    <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb522-4" data-line-number="4">    <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rt</span>(<span class="kw">length</span>(x), <span class="dt">df =</span> <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb522-4" data-line-number="4">    <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(x)),</a>
 <a class="sourceLine" id="cb522-5" data-line-number="5">    <span class="dt">.id =</span> i</a>
 <a class="sourceLine" id="cb522-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb522-7" data-line-number="7">}</a>
 <a class="sourceLine" id="cb522-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb522-9" data-line-number="9">sims &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, simt)</a>
+<a class="sourceLine" id="cb522-9" data-line-number="9">simdf_norm &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, sim_norm)</a>
 <a class="sourceLine" id="cb522-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb522-11" data-line-number="11"><span class="kw">ggplot</span>(sims, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb522-11" data-line-number="11"><span class="kw">ggplot</span>(simdf_norm, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb522-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb522-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb522-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>.id, <span class="dt">ncol =</span> <span class="dv">4</span>)</a></code></pre></div>
-<p><img src="model-basics_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>What if we did the same things with normal distributions?</p>
-<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb523-1" data-line-number="1">sim_norm &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb523-2" data-line-number="2">  <span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb523-3" data-line-number="3">    <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb523-4" data-line-number="4">    <span class="dt">y =</span> x <span class="op">*</span><span class="st"> </span><span class="fl">1.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(x)),</a>
-<a class="sourceLine" id="cb523-5" data-line-number="5">    <span class="dt">.id =</span> i</a>
-<a class="sourceLine" id="cb523-6" data-line-number="6">  )</a>
-<a class="sourceLine" id="cb523-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb523-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb523-9" data-line-number="9">simdf_norm &lt;-<span class="st"> </span><span class="kw">map_df</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, sim_norm)</a>
-<a class="sourceLine" id="cb523-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb523-11" data-line-number="11"><span class="kw">ggplot</span>(simdf_norm, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb523-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb523-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb523-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>.id, <span class="dt">ncol =</span> <span class="dv">4</span>)</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 There are not large outliers, and the slopes are more similar.</p>
 <p>The reason for this is that the Student’s <span class="math inline">\(t\)</span>-distribution, from which we sample with <code>rt</code> has fatter tails than the normal distribution (<code>rnorm</code>), which means is assigns larger probability to values further from the center of the distribution.</p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb524-1" data-line-number="1"><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb524-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> <span class="dv">100</span>),</a>
-<a class="sourceLine" id="cb524-3" data-line-number="3">  <span class="dt">normal =</span> <span class="kw">dnorm</span>(x),</a>
-<a class="sourceLine" id="cb524-4" data-line-number="4">  <span class="dt">student_t =</span> <span class="kw">dt</span>(x, <span class="dt">df =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb524-5" data-line-number="5">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb524-6" data-line-number="6"><span class="st">  </span><span class="kw">gather</span>(distribution, density, <span class="op">-</span>x) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb524-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> density, <span class="dt">colour =</span> distribution)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb524-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb523-1" data-line-number="1"><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb523-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> <span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb523-3" data-line-number="3">  <span class="dt">normal =</span> <span class="kw">dnorm</span>(x),</a>
+<a class="sourceLine" id="cb523-4" data-line-number="4">  <span class="dt">student_t =</span> <span class="kw">dt</span>(x, <span class="dt">df =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb523-5" data-line-number="5">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb523-6" data-line-number="6"><span class="st">  </span><span class="kw">gather</span>(distribution, density, <span class="op">-</span>x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb523-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> density, <span class="dt">colour =</span> distribution)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb523-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>For a normal distribution with mean zero and standard deviation one, the probability of being greater than 2 is,</p>
-<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb525-1" data-line-number="1"><span class="kw">pnorm</span>(<span class="dv">2</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb525-2" data-line-number="2"><span class="co">#&gt; [1] 0.0228</span></a></code></pre></div>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb524-1" data-line-number="1"><span class="kw">pnorm</span>(<span class="dv">2</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb524-2" data-line-number="2"><span class="co">#&gt; [1] 0.0228</span></a></code></pre></div>
 <p>For a Student’s <span class="math inline">\(t\)</span> distribution with degrees of freedom = 2, it is more than 3 times higher,</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb526-1" data-line-number="1"><span class="kw">pt</span>(<span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">2</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb526-2" data-line-number="2"><span class="co">#&gt; [1] 0.0918</span></a></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb525-1" data-line-number="1"><span class="kw">pt</span>(<span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">2</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb525-2" data-line-number="2"><span class="co">#&gt; [1] 0.0918</span></a></code></pre></div>
 </div>
 <div id="exercise-2-60" class="section level3 exercise">
 <h3><span class="header-section-number">23.2.2</span> Exercise 2</h3>
 <p>One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:</p>
-<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" data-line-number="1">measure_distance &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {</a>
-<a class="sourceLine" id="cb527-2" data-line-number="2">  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">make_prediction</span>(mod, data)</a>
-<a class="sourceLine" id="cb527-3" data-line-number="3">  <span class="kw">mean</span>(<span class="kw">abs</span>(diff))</a>
-<a class="sourceLine" id="cb527-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb526-1" data-line-number="1">measure_distance &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {</a>
+<a class="sourceLine" id="cb526-2" data-line-number="2">  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">make_prediction</span>(mod, data)</a>
+<a class="sourceLine" id="cb526-3" data-line-number="3">  <span class="kw">mean</span>(<span class="kw">abs</span>(diff))</a>
+<a class="sourceLine" id="cb526-4" data-line-number="4">}</a></code></pre></div>
 <p>For the above function to work, we need to define a function <code>make_prediction</code> that
 takes a numeric vector of length two (the intercept and slope) and returns the predictions,</p>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb528-1" data-line-number="1">make_prediction &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {</a>
-<a class="sourceLine" id="cb528-2" data-line-number="2">  mod[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>mod[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>data<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb528-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" data-line-number="1">make_prediction &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {</a>
+<a class="sourceLine" id="cb527-2" data-line-number="2">  mod[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>mod[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>data<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb527-3" data-line-number="3">}</a></code></pre></div>
 <p>Using the <code>sim1a</code> data, the best parameters of the least absolute deviation are:</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" data-line-number="1">best &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), measure_distance, <span class="dt">data =</span> sim1a)</a>
-<a class="sourceLine" id="cb529-2" data-line-number="2">best<span class="op">$</span>par</a>
-<a class="sourceLine" id="cb529-3" data-line-number="3"><span class="co">#&gt; [1] 5.25 1.66</span></a></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb528-1" data-line-number="1">best &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), measure_distance, <span class="dt">data =</span> sim1a)</a>
+<a class="sourceLine" id="cb528-2" data-line-number="2">best<span class="op">$</span>par</a>
+<a class="sourceLine" id="cb528-3" data-line-number="3"><span class="co">#&gt; [1] 5.25 1.66</span></a></code></pre></div>
 <p>Using the <code>sim1a</code> data, while the parameters the minimize the least squares objective function are:</p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb530-1" data-line-number="1">measure_distance_ls &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {</a>
-<a class="sourceLine" id="cb530-2" data-line-number="2">  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>(mod[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>mod[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>data<span class="op">$</span>x)</a>
-<a class="sourceLine" id="cb530-3" data-line-number="3">  <span class="kw">sqrt</span>(<span class="kw">mean</span>(diff <span class="op">^</span><span class="st"> </span><span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb530-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb530-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb530-6" data-line-number="6">best &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), measure_distance_ls, <span class="dt">data =</span> sim1a)</a>
-<a class="sourceLine" id="cb530-7" data-line-number="7">best<span class="op">$</span>par</a>
-<a class="sourceLine" id="cb530-8" data-line-number="8"><span class="co">#&gt; [1] 5.87 1.56</span></a></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" data-line-number="1">measure_distance_ls &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {</a>
+<a class="sourceLine" id="cb529-2" data-line-number="2">  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>(mod[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>mod[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>data<span class="op">$</span>x)</a>
+<a class="sourceLine" id="cb529-3" data-line-number="3">  <span class="kw">sqrt</span>(<span class="kw">mean</span>(diff <span class="op">^</span><span class="st"> </span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb529-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb529-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb529-6" data-line-number="6">best &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), measure_distance_ls, <span class="dt">data =</span> sim1a)</a>
+<a class="sourceLine" id="cb529-7" data-line-number="7">best<span class="op">$</span>par</a>
+<a class="sourceLine" id="cb529-8" data-line-number="8"><span class="co">#&gt; [1] 5.87 1.56</span></a></code></pre></div>
 <p>In practice, you would not use a <code>optim</code> to fit this model, you would you an existing implementation.
 See the <code>MASS</code> package’s <code>rlm</code> and <code>lqs</code> functions for more information and functions to fit robust and resistant linear models.</p>
 </div>
 <div id="exercise-3-48" class="section level3 exercise">
 <h3><span class="header-section-number">23.2.3</span> Exercise 3</h3>
 <p>One challenge with performing numerical optimization is that it’s only guaranteed to find a local optimum. What’s the problem with optimizing a three parameter model like this?</p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" data-line-number="1">model3 &lt;-<span class="st"> </span><span class="cf">function</span>(a, data) {</a>
-<a class="sourceLine" id="cb531-2" data-line-number="2">  a[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>x <span class="op">*</span><span class="st"> </span>a[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>a[<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb531-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb530-1" data-line-number="1">model3 &lt;-<span class="st"> </span><span class="cf">function</span>(a, data) {</a>
+<a class="sourceLine" id="cb530-2" data-line-number="2">  a[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>x <span class="op">*</span><span class="st"> </span>a[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>a[<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb530-3" data-line-number="3">}</a></code></pre></div>
 <p>The problem is that you for any values <code>a[1] = a1</code> and <code>a[3] = a3</code>, any other values of <code>a[1]</code> and <code>a[3]</code> where <code>a[1] + a[3] == (a1 + a3)</code> will have the same fit.</p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" data-line-number="1">measure_distance_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, data) {</a>
-<a class="sourceLine" id="cb532-2" data-line-number="2">  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">model3</span>(a, data)</a>
-<a class="sourceLine" id="cb532-3" data-line-number="3">  <span class="kw">sqrt</span>(<span class="kw">mean</span>(diff <span class="op">^</span><span class="st"> </span><span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb532-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" data-line-number="1">measure_distance_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, data) {</a>
+<a class="sourceLine" id="cb531-2" data-line-number="2">  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">model3</span>(a, data)</a>
+<a class="sourceLine" id="cb531-3" data-line-number="3">  <span class="kw">sqrt</span>(<span class="kw">mean</span>(diff <span class="op">^</span><span class="st"> </span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb531-4" data-line-number="4">}</a></code></pre></div>
 <p>Depending on our starting points, we can find different optimal values:</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb533-1" data-line-number="1">best3a &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), measure_distance_<span class="dv">3</span>, <span class="dt">data =</span> sim1)</a>
-<a class="sourceLine" id="cb533-2" data-line-number="2">best3a<span class="op">$</span>par</a>
-<a class="sourceLine" id="cb533-3" data-line-number="3"><span class="co">#&gt; [1] 3.367 2.052 0.853</span></a></code></pre></div>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb534-1" data-line-number="1">best3b &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), measure_distance_<span class="dv">3</span>, <span class="dt">data =</span> sim1)</a>
-<a class="sourceLine" id="cb534-2" data-line-number="2">best3b<span class="op">$</span>par</a>
-<a class="sourceLine" id="cb534-3" data-line-number="3"><span class="co">#&gt; [1] -3.47  2.05  7.69</span></a></code></pre></div>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" data-line-number="1">best3c &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>), measure_distance_<span class="dv">3</span>, <span class="dt">data =</span> sim1)</a>
-<a class="sourceLine" id="cb535-2" data-line-number="2">best3c<span class="op">$</span>par</a>
-<a class="sourceLine" id="cb535-3" data-line-number="3"><span class="co">#&gt; [1] -1.12  2.05  5.35</span></a></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" data-line-number="1">best3a &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), measure_distance_<span class="dv">3</span>, <span class="dt">data =</span> sim1)</a>
+<a class="sourceLine" id="cb532-2" data-line-number="2">best3a<span class="op">$</span>par</a>
+<a class="sourceLine" id="cb532-3" data-line-number="3"><span class="co">#&gt; [1] 3.367 2.052 0.853</span></a></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb533-1" data-line-number="1">best3b &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), measure_distance_<span class="dv">3</span>, <span class="dt">data =</span> sim1)</a>
+<a class="sourceLine" id="cb533-2" data-line-number="2">best3b<span class="op">$</span>par</a>
+<a class="sourceLine" id="cb533-3" data-line-number="3"><span class="co">#&gt; [1] -3.47  2.05  7.69</span></a></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb534-1" data-line-number="1">best3c &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>), measure_distance_<span class="dv">3</span>, <span class="dt">data =</span> sim1)</a>
+<a class="sourceLine" id="cb534-2" data-line-number="2">best3c<span class="op">$</span>par</a>
+<a class="sourceLine" id="cb534-3" data-line-number="3"><span class="co">#&gt; [1] -1.12  2.05  5.35</span></a></code></pre></div>
 <p>In fact there are an infinite number of optimal values for this model.</p>
 <!-- How to discuss this better ?
 
@@ -810,35 +810,35 @@ Problem is that due to finite iterations, numerically these converge:
 <h3><span class="header-section-number">23.3.1</span> Exercise 1</h3>
 <p>Instead of using <code>lm()</code> to fit a straight line, you can use <code>loess()</code> to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on <code>sim1</code> using <code>loess()</code> instead of <code>lm()</code>. How does the result compare to <code>geom_smooth()</code>?</p>
 <p>I’ll use <code>add_predictions</code> and <code>add_residuals</code> to add the predictions and residuals from a loess regression to the <code>sim1</code> data.</p>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb536-1" data-line-number="1">sim1_loess &lt;-<span class="st"> </span><span class="kw">loess</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
-<a class="sourceLine" id="cb536-2" data-line-number="2">sim1_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
-<a class="sourceLine" id="cb536-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb536-4" data-line-number="4">grid_loess &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb536-5" data-line-number="5"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_loess)</a>
-<a class="sourceLine" id="cb536-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb536-7" data-line-number="7">sim1 &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb536-8" data-line-number="8"><span class="st">  </span><span class="kw">add_residuals</span>(sim1_lm) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb536-9" data-line-number="9"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_lm) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb536-10" data-line-number="10"><span class="st">  </span><span class="kw">add_residuals</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;resid_loess&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb536-11" data-line-number="11"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;pred_loess&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" data-line-number="1">sim1_loess &lt;-<span class="st"> </span><span class="kw">loess</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
+<a class="sourceLine" id="cb535-2" data-line-number="2">sim1_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
+<a class="sourceLine" id="cb535-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb535-4" data-line-number="4">grid_loess &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb535-5" data-line-number="5"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_loess)</a>
+<a class="sourceLine" id="cb535-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb535-7" data-line-number="7">sim1 &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb535-8" data-line-number="8"><span class="st">  </span><span class="kw">add_residuals</span>(sim1_lm) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb535-9" data-line-number="9"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_lm) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb535-10" data-line-number="10"><span class="st">  </span><span class="kw">add_residuals</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;resid_loess&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb535-11" data-line-number="11"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;pred_loess&quot;</span>)</a></code></pre></div>
 <p>This plots the loess predictions.
 The loess produces a nonlinear, smooth line through the data.</p>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb537-1" data-line-number="1">plot_sim1_loess &lt;-</a>
-<a class="sourceLine" id="cb537-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb537-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb537-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pred), <span class="dt">data =</span> grid_loess, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb537-5" data-line-number="5">plot_sim1_loess</a></code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb536-1" data-line-number="1">plot_sim1_loess &lt;-</a>
+<a class="sourceLine" id="cb536-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb536-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb536-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pred), <span class="dt">data =</span> grid_loess, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb536-5" data-line-number="5">plot_sim1_loess</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The predictions of loess are the same as the default method for <code>geom_smooth</code> because <code>geom_smooth()</code> uses <code>loess()</code> by default; the message even tells us that.</p>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" data-line-number="1">plot_sim1_loess <span class="op">+</span></a>
-<a class="sourceLine" id="cb538-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb537-1" data-line-number="1">plot_sim1_loess <span class="op">+</span></a>
+<a class="sourceLine" id="cb537-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.20</span>)</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We can plot the residuals (red), and compare them to the residuals from <code>lm</code> (black).
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven’t considered the uncertainty of these estimates).</p>
-<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb539-1" data-line-number="1"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb539-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb539-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> resid)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb539-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> resid_loess), <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" data-line-number="1"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb538-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb538-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> resid)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb538-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> resid_loess), <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="exercise-2-61" class="section level3 exercise">
@@ -847,67 +847,67 @@ In general, the loess model has smaller residuals within the sample (out of samp
 How do these three functions differ?</p>
 <p>The functions <code>gather_predictions</code> and <code>spread_predictions</code> allow for adding predictions from multiple models at once.</p>
 <p>Taking the <code>sim1_mod</code> example,</p>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" data-line-number="1">sim1_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
-<a class="sourceLine" id="cb540-2" data-line-number="2">grid &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb540-3" data-line-number="3"><span class="st">  </span><span class="kw">data_grid</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb539-1" data-line-number="1">sim1_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
+<a class="sourceLine" id="cb539-2" data-line-number="2">grid &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb539-3" data-line-number="3"><span class="st">  </span><span class="kw">data_grid</span>(x)</a></code></pre></div>
 <p>The function <code>add_predictions</code> adds only a single model at a time.
 To add two models:</p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb541-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb541-2" data-line-number="2"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_mod, <span class="dt">var =</span> <span class="st">&quot;pred_lm&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb541-3" data-line-number="3"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;pred_loess&quot;</span>)</a>
-<a class="sourceLine" id="cb541-4" data-line-number="4"><span class="co">#&gt; # A tibble: 10 x 3</span></a>
-<a class="sourceLine" id="cb541-5" data-line-number="5"><span class="co">#&gt;       x pred_lm pred_loess</span></a>
-<a class="sourceLine" id="cb541-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt;   &lt;dbl&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb541-7" data-line-number="7"><span class="co">#&gt; 1     1    6.27       5.34</span></a>
-<a class="sourceLine" id="cb541-8" data-line-number="8"><span class="co">#&gt; 2     2    8.32       8.27</span></a>
-<a class="sourceLine" id="cb541-9" data-line-number="9"><span class="co">#&gt; 3     3   10.4       10.8 </span></a>
-<a class="sourceLine" id="cb541-10" data-line-number="10"><span class="co">#&gt; 4     4   12.4       12.8 </span></a>
-<a class="sourceLine" id="cb541-11" data-line-number="11"><span class="co">#&gt; 5     5   14.5       14.6 </span></a>
-<a class="sourceLine" id="cb541-12" data-line-number="12"><span class="co">#&gt; 6     6   16.5       16.6 </span></a>
-<a class="sourceLine" id="cb541-13" data-line-number="13"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb540-2" data-line-number="2"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_mod, <span class="dt">var =</span> <span class="st">&quot;pred_lm&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb540-3" data-line-number="3"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_loess, <span class="dt">var =</span> <span class="st">&quot;pred_loess&quot;</span>)</a>
+<a class="sourceLine" id="cb540-4" data-line-number="4"><span class="co">#&gt; # A tibble: 10 x 3</span></a>
+<a class="sourceLine" id="cb540-5" data-line-number="5"><span class="co">#&gt;       x pred_lm pred_loess</span></a>
+<a class="sourceLine" id="cb540-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt;   &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb540-7" data-line-number="7"><span class="co">#&gt; 1     1    6.27       5.34</span></a>
+<a class="sourceLine" id="cb540-8" data-line-number="8"><span class="co">#&gt; 2     2    8.32       8.27</span></a>
+<a class="sourceLine" id="cb540-9" data-line-number="9"><span class="co">#&gt; 3     3   10.4       10.8 </span></a>
+<a class="sourceLine" id="cb540-10" data-line-number="10"><span class="co">#&gt; 4     4   12.4       12.8 </span></a>
+<a class="sourceLine" id="cb540-11" data-line-number="11"><span class="co">#&gt; 5     5   14.5       14.6 </span></a>
+<a class="sourceLine" id="cb540-12" data-line-number="12"><span class="co">#&gt; 6     6   16.5       16.6 </span></a>
+<a class="sourceLine" id="cb540-13" data-line-number="13"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
 <p>The function <code>gather_predictions</code> adds predictions from multiple models by
 stacking the results and adding a column with the model name,</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb542-2" data-line-number="2"><span class="st">  </span><span class="kw">gather_predictions</span>(sim1_mod, sim1_loess)</a>
-<a class="sourceLine" id="cb542-3" data-line-number="3"><span class="co">#&gt; # A tibble: 20 x 3</span></a>
-<a class="sourceLine" id="cb542-4" data-line-number="4"><span class="co">#&gt;   model        x  pred</span></a>
-<a class="sourceLine" id="cb542-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb542-6" data-line-number="6"><span class="co">#&gt; 1 sim1_mod     1  6.27</span></a>
-<a class="sourceLine" id="cb542-7" data-line-number="7"><span class="co">#&gt; 2 sim1_mod     2  8.32</span></a>
-<a class="sourceLine" id="cb542-8" data-line-number="8"><span class="co">#&gt; 3 sim1_mod     3 10.4 </span></a>
-<a class="sourceLine" id="cb542-9" data-line-number="9"><span class="co">#&gt; 4 sim1_mod     4 12.4 </span></a>
-<a class="sourceLine" id="cb542-10" data-line-number="10"><span class="co">#&gt; 5 sim1_mod     5 14.5 </span></a>
-<a class="sourceLine" id="cb542-11" data-line-number="11"><span class="co">#&gt; 6 sim1_mod     6 16.5 </span></a>
-<a class="sourceLine" id="cb542-12" data-line-number="12"><span class="co">#&gt; # ... with 14 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb541-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb541-2" data-line-number="2"><span class="st">  </span><span class="kw">gather_predictions</span>(sim1_mod, sim1_loess)</a>
+<a class="sourceLine" id="cb541-3" data-line-number="3"><span class="co">#&gt; # A tibble: 20 x 3</span></a>
+<a class="sourceLine" id="cb541-4" data-line-number="4"><span class="co">#&gt;   model        x  pred</span></a>
+<a class="sourceLine" id="cb541-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb541-6" data-line-number="6"><span class="co">#&gt; 1 sim1_mod     1  6.27</span></a>
+<a class="sourceLine" id="cb541-7" data-line-number="7"><span class="co">#&gt; 2 sim1_mod     2  8.32</span></a>
+<a class="sourceLine" id="cb541-8" data-line-number="8"><span class="co">#&gt; 3 sim1_mod     3 10.4 </span></a>
+<a class="sourceLine" id="cb541-9" data-line-number="9"><span class="co">#&gt; 4 sim1_mod     4 12.4 </span></a>
+<a class="sourceLine" id="cb541-10" data-line-number="10"><span class="co">#&gt; 5 sim1_mod     5 14.5 </span></a>
+<a class="sourceLine" id="cb541-11" data-line-number="11"><span class="co">#&gt; 6 sim1_mod     6 16.5 </span></a>
+<a class="sourceLine" id="cb541-12" data-line-number="12"><span class="co">#&gt; # ... with 14 more rows</span></a></code></pre></div>
 <p>The function <code>spread_predictions</code> adds predictions from multiple models by
 adding multiple columns (postfixed with the model name) with predictions from each model.</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb543-2" data-line-number="2"><span class="st">  </span><span class="kw">spread_predictions</span>(sim1_mod, sim1_loess)</a>
-<a class="sourceLine" id="cb543-3" data-line-number="3"><span class="co">#&gt; # A tibble: 10 x 3</span></a>
-<a class="sourceLine" id="cb543-4" data-line-number="4"><span class="co">#&gt;       x sim1_mod sim1_loess</span></a>
-<a class="sourceLine" id="cb543-5" data-line-number="5"><span class="co">#&gt;   &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb543-6" data-line-number="6"><span class="co">#&gt; 1     1     6.27       5.34</span></a>
-<a class="sourceLine" id="cb543-7" data-line-number="7"><span class="co">#&gt; 2     2     8.32       8.27</span></a>
-<a class="sourceLine" id="cb543-8" data-line-number="8"><span class="co">#&gt; 3     3    10.4       10.8 </span></a>
-<a class="sourceLine" id="cb543-9" data-line-number="9"><span class="co">#&gt; 4     4    12.4       12.8 </span></a>
-<a class="sourceLine" id="cb543-10" data-line-number="10"><span class="co">#&gt; 5     5    14.5       14.6 </span></a>
-<a class="sourceLine" id="cb543-11" data-line-number="11"><span class="co">#&gt; 6     6    16.5       16.6 </span></a>
-<a class="sourceLine" id="cb543-12" data-line-number="12"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb542-2" data-line-number="2"><span class="st">  </span><span class="kw">spread_predictions</span>(sim1_mod, sim1_loess)</a>
+<a class="sourceLine" id="cb542-3" data-line-number="3"><span class="co">#&gt; # A tibble: 10 x 3</span></a>
+<a class="sourceLine" id="cb542-4" data-line-number="4"><span class="co">#&gt;       x sim1_mod sim1_loess</span></a>
+<a class="sourceLine" id="cb542-5" data-line-number="5"><span class="co">#&gt;   &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb542-6" data-line-number="6"><span class="co">#&gt; 1     1     6.27       5.34</span></a>
+<a class="sourceLine" id="cb542-7" data-line-number="7"><span class="co">#&gt; 2     2     8.32       8.27</span></a>
+<a class="sourceLine" id="cb542-8" data-line-number="8"><span class="co">#&gt; 3     3    10.4       10.8 </span></a>
+<a class="sourceLine" id="cb542-9" data-line-number="9"><span class="co">#&gt; 4     4    12.4       12.8 </span></a>
+<a class="sourceLine" id="cb542-10" data-line-number="10"><span class="co">#&gt; 5     5    14.5       14.6 </span></a>
+<a class="sourceLine" id="cb542-11" data-line-number="11"><span class="co">#&gt; 6     6    16.5       16.6 </span></a>
+<a class="sourceLine" id="cb542-12" data-line-number="12"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
 <p>The function <code>spread_predictions</code> is similar to the example which runs <code>add_predictions</code> for each model, and is equivalent to running <code>spread</code> after
 running <code>gather_predictions</code>:</p>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb544-2" data-line-number="2"><span class="st">  </span><span class="kw">gather_predictions</span>(sim1_mod, sim1_loess) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb544-3" data-line-number="3"><span class="st">  </span><span class="kw">spread</span>(model, pred)</a>
-<a class="sourceLine" id="cb544-4" data-line-number="4"><span class="co">#&gt; # A tibble: 10 x 3</span></a>
-<a class="sourceLine" id="cb544-5" data-line-number="5"><span class="co">#&gt;       x sim1_loess sim1_mod</span></a>
-<a class="sourceLine" id="cb544-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb544-7" data-line-number="7"><span class="co">#&gt; 1     1       5.34     6.27</span></a>
-<a class="sourceLine" id="cb544-8" data-line-number="8"><span class="co">#&gt; 2     2       8.27     8.32</span></a>
-<a class="sourceLine" id="cb544-9" data-line-number="9"><span class="co">#&gt; 3     3      10.8     10.4 </span></a>
-<a class="sourceLine" id="cb544-10" data-line-number="10"><span class="co">#&gt; 4     4      12.8     12.4 </span></a>
-<a class="sourceLine" id="cb544-11" data-line-number="11"><span class="co">#&gt; 5     5      14.6     14.5 </span></a>
-<a class="sourceLine" id="cb544-12" data-line-number="12"><span class="co">#&gt; 6     6      16.6     16.5 </span></a>
-<a class="sourceLine" id="cb544-13" data-line-number="13"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb543-2" data-line-number="2"><span class="st">  </span><span class="kw">gather_predictions</span>(sim1_mod, sim1_loess) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb543-3" data-line-number="3"><span class="st">  </span><span class="kw">spread</span>(model, pred)</a>
+<a class="sourceLine" id="cb543-4" data-line-number="4"><span class="co">#&gt; # A tibble: 10 x 3</span></a>
+<a class="sourceLine" id="cb543-5" data-line-number="5"><span class="co">#&gt;       x sim1_loess sim1_mod</span></a>
+<a class="sourceLine" id="cb543-6" data-line-number="6"><span class="co">#&gt;   &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb543-7" data-line-number="7"><span class="co">#&gt; 1     1       5.34     6.27</span></a>
+<a class="sourceLine" id="cb543-8" data-line-number="8"><span class="co">#&gt; 2     2       8.27     8.32</span></a>
+<a class="sourceLine" id="cb543-9" data-line-number="9"><span class="co">#&gt; 3     3      10.8     10.4 </span></a>
+<a class="sourceLine" id="cb543-10" data-line-number="10"><span class="co">#&gt; 4     4      12.8     12.4 </span></a>
+<a class="sourceLine" id="cb543-11" data-line-number="11"><span class="co">#&gt; 5     5      14.6     14.5 </span></a>
+<a class="sourceLine" id="cb543-12" data-line-number="12"><span class="co">#&gt; 6     6      16.6     16.5 </span></a>
+<a class="sourceLine" id="cb543-13" data-line-number="13"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
 </div>
 <div id="exercise-3-49" class="section level3 exercise">
 <h3><span class="header-section-number">23.3.3</span> Exercise 3</h3>
@@ -924,13 +924,13 @@ A zero reference line makes it easier to judge these characteristics visually.</
 What are the pros and cons compared to looking at the raw residuals?</p>
 <p>Showing the absolute values of the residuals makes it easier to view the spread of the residuals.
 The model assumes the the residuals have mean zero, and using the absolute values of the residuals effectively doubles the number of residuals.</p>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" data-line-number="1">sim1_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
-<a class="sourceLine" id="cb545-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb545-3" data-line-number="3">sim1 &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb545-4" data-line-number="4"><span class="st">  </span><span class="kw">add_residuals</span>(sim1_mod)</a>
-<a class="sourceLine" id="cb545-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb545-6" data-line-number="6"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">abs</span>(resid))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb545-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" data-line-number="1">sim1_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
+<a class="sourceLine" id="cb544-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb544-3" data-line-number="3">sim1 &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb544-4" data-line-number="4"><span class="st">  </span><span class="kw">add_residuals</span>(sim1_mod)</a>
+<a class="sourceLine" id="cb544-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb544-6" data-line-number="6"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">abs</span>(resid))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb544-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>)</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>However, using the absolute values of residuals throws away information about the sign, meaning that the
 frequency polygon cannot show whether the model systematically over- or under-estimates the residuals.</p>
@@ -943,20 +943,20 @@ frequency polygon cannot show whether the model systematically over- or under-es
 <p>What happens if you repeat the analysis of <code>sim2</code> using a model without an intercept. What happens to the model equation?
 What happens to the predictions?</p>
 <p>To run a model without an intercept, add <code>- 1</code> or <code>+ 0</code> to the right-hand-side o f the formula:</p>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb546-1" data-line-number="1">mod2a &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> sim2)</a></code></pre></div>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" data-line-number="1">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim2)</a></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" data-line-number="1">mod2a &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> sim2)</a></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb546-1" data-line-number="1">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim2)</a></code></pre></div>
 <p>The predictions are exactly the same in the models with and without an intercept:</p>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" data-line-number="1">grid &lt;-<span class="st"> </span>sim2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb548-2" data-line-number="2"><span class="st">  </span><span class="kw">data_grid</span>(x) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb548-3" data-line-number="3"><span class="st">  </span><span class="kw">spread_predictions</span>(mod2, mod2a)</a>
-<a class="sourceLine" id="cb548-4" data-line-number="4">grid</a>
-<a class="sourceLine" id="cb548-5" data-line-number="5"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
-<a class="sourceLine" id="cb548-6" data-line-number="6"><span class="co">#&gt;   x      mod2 mod2a</span></a>
-<a class="sourceLine" id="cb548-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb548-8" data-line-number="8"><span class="co">#&gt; 1 a      1.15  1.15</span></a>
-<a class="sourceLine" id="cb548-9" data-line-number="9"><span class="co">#&gt; 2 b      8.12  8.12</span></a>
-<a class="sourceLine" id="cb548-10" data-line-number="10"><span class="co">#&gt; 3 c      6.13  6.13</span></a>
-<a class="sourceLine" id="cb548-11" data-line-number="11"><span class="co">#&gt; 4 d      1.91  1.91</span></a></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" data-line-number="1">grid &lt;-<span class="st"> </span>sim2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb547-2" data-line-number="2"><span class="st">  </span><span class="kw">data_grid</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb547-3" data-line-number="3"><span class="st">  </span><span class="kw">spread_predictions</span>(mod2, mod2a)</a>
+<a class="sourceLine" id="cb547-4" data-line-number="4">grid</a>
+<a class="sourceLine" id="cb547-5" data-line-number="5"><span class="co">#&gt; # A tibble: 4 x 3</span></a>
+<a class="sourceLine" id="cb547-6" data-line-number="6"><span class="co">#&gt;   x      mod2 mod2a</span></a>
+<a class="sourceLine" id="cb547-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb547-8" data-line-number="8"><span class="co">#&gt; 1 a      1.15  1.15</span></a>
+<a class="sourceLine" id="cb547-9" data-line-number="9"><span class="co">#&gt; 2 b      8.12  8.12</span></a>
+<a class="sourceLine" id="cb547-10" data-line-number="10"><span class="co">#&gt; 3 c      6.13  6.13</span></a>
+<a class="sourceLine" id="cb547-11" data-line-number="11"><span class="co">#&gt; 4 d      1.91  1.91</span></a></code></pre></div>
 </div>
 <div id="exercise-2-62" class="section level3 exercise">
 <h3><span class="header-section-number">23.4.2</span> Exercise 2</h3>
@@ -964,43 +964,43 @@ What happens to the predictions?</p>
 Why is <code>*</code> a good shorthand for interaction?</p>
 <p>For <code>x1 * x2</code> when <code>x2</code> is a categorical variable produces indicator variables <code>x2b</code>, <code>x2c</code>, <code>x2d</code> and
 variables <code>x1:x2b</code>, <code>x1:x2c</code>, and <code>x1:x2d</code> which are the products of <code>x1</code> and <code>x2*</code> variables:</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" data-line-number="1">x3 &lt;-<span class="st"> </span><span class="kw">model_matrix</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)</a>
-<a class="sourceLine" id="cb549-2" data-line-number="2">x3</a>
-<a class="sourceLine" id="cb549-3" data-line-number="3"><span class="co">#&gt; # A tibble: 120 x 8</span></a>
-<a class="sourceLine" id="cb549-4" data-line-number="4"><span class="co">#&gt;   `(Intercept)`    x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`</span></a>
-<a class="sourceLine" id="cb549-5" data-line-number="5"><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb549-6" data-line-number="6"><span class="co">#&gt; 1             1     1     0     0     0        0        0        0</span></a>
-<a class="sourceLine" id="cb549-7" data-line-number="7"><span class="co">#&gt; 2             1     1     0     0     0        0        0        0</span></a>
-<a class="sourceLine" id="cb549-8" data-line-number="8"><span class="co">#&gt; 3             1     1     0     0     0        0        0        0</span></a>
-<a class="sourceLine" id="cb549-9" data-line-number="9"><span class="co">#&gt; 4             1     1     1     0     0        1        0        0</span></a>
-<a class="sourceLine" id="cb549-10" data-line-number="10"><span class="co">#&gt; 5             1     1     1     0     0        1        0        0</span></a>
-<a class="sourceLine" id="cb549-11" data-line-number="11"><span class="co">#&gt; 6             1     1     1     0     0        1        0        0</span></a>
-<a class="sourceLine" id="cb549-12" data-line-number="12"><span class="co">#&gt; # ... with 114 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" data-line-number="1">x3 &lt;-<span class="st"> </span><span class="kw">model_matrix</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)</a>
+<a class="sourceLine" id="cb548-2" data-line-number="2">x3</a>
+<a class="sourceLine" id="cb548-3" data-line-number="3"><span class="co">#&gt; # A tibble: 120 x 8</span></a>
+<a class="sourceLine" id="cb548-4" data-line-number="4"><span class="co">#&gt;   `(Intercept)`    x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`</span></a>
+<a class="sourceLine" id="cb548-5" data-line-number="5"><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb548-6" data-line-number="6"><span class="co">#&gt; 1             1     1     0     0     0        0        0        0</span></a>
+<a class="sourceLine" id="cb548-7" data-line-number="7"><span class="co">#&gt; 2             1     1     0     0     0        0        0        0</span></a>
+<a class="sourceLine" id="cb548-8" data-line-number="8"><span class="co">#&gt; 3             1     1     0     0     0        0        0        0</span></a>
+<a class="sourceLine" id="cb548-9" data-line-number="9"><span class="co">#&gt; 4             1     1     1     0     0        1        0        0</span></a>
+<a class="sourceLine" id="cb548-10" data-line-number="10"><span class="co">#&gt; 5             1     1     1     0     0        1        0        0</span></a>
+<a class="sourceLine" id="cb548-11" data-line-number="11"><span class="co">#&gt; 6             1     1     1     0     0        1        0        0</span></a>
+<a class="sourceLine" id="cb548-12" data-line-number="12"><span class="co">#&gt; # ... with 114 more rows</span></a></code></pre></div>
 <p>We can confirm that the variables <code>x1:x2b</code> is the product of <code>x1</code> and <code>x2b</code>,</p>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" data-line-number="1"><span class="kw">all</span>(x3[[<span class="st">&quot;x1:x2b&quot;</span>]] <span class="op">==</span><span class="st"> </span>(x3[[<span class="st">&quot;x1&quot;</span>]] <span class="op">*</span><span class="st"> </span>x3[[<span class="st">&quot;x2b&quot;</span>]]))</a>
-<a class="sourceLine" id="cb550-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" data-line-number="1"><span class="kw">all</span>(x3[[<span class="st">&quot;x1:x2b&quot;</span>]] <span class="op">==</span><span class="st"> </span>(x3[[<span class="st">&quot;x1&quot;</span>]] <span class="op">*</span><span class="st"> </span>x3[[<span class="st">&quot;x2b&quot;</span>]]))</a>
+<a class="sourceLine" id="cb549-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>and similarly for <code>x1:x2c</code> and <code>x2c</code>, and <code>x1:x2d</code> and <code>x2d</code>:</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" data-line-number="1"><span class="kw">all</span>(x3[[<span class="st">&quot;x1:x2c&quot;</span>]] <span class="op">==</span><span class="st"> </span>(x3[[<span class="st">&quot;x1&quot;</span>]] <span class="op">*</span><span class="st"> </span>x3[[<span class="st">&quot;x2c&quot;</span>]]))</a>
-<a class="sourceLine" id="cb551-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb551-3" data-line-number="3"><span class="kw">all</span>(x3[[<span class="st">&quot;x1:x2d&quot;</span>]] <span class="op">==</span><span class="st"> </span>(x3[[<span class="st">&quot;x1&quot;</span>]] <span class="op">*</span><span class="st"> </span>x3[[<span class="st">&quot;x2d&quot;</span>]]))</a>
-<a class="sourceLine" id="cb551-4" data-line-number="4"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" data-line-number="1"><span class="kw">all</span>(x3[[<span class="st">&quot;x1:x2c&quot;</span>]] <span class="op">==</span><span class="st"> </span>(x3[[<span class="st">&quot;x1&quot;</span>]] <span class="op">*</span><span class="st"> </span>x3[[<span class="st">&quot;x2c&quot;</span>]]))</a>
+<a class="sourceLine" id="cb550-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb550-3" data-line-number="3"><span class="kw">all</span>(x3[[<span class="st">&quot;x1:x2d&quot;</span>]] <span class="op">==</span><span class="st"> </span>(x3[[<span class="st">&quot;x1&quot;</span>]] <span class="op">*</span><span class="st"> </span>x3[[<span class="st">&quot;x2d&quot;</span>]]))</a>
+<a class="sourceLine" id="cb550-4" data-line-number="4"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>For <code>x1 * x2</code> where both <code>x1</code> and <code>x2</code> are continuous variables, <code>model_matrix()</code> creates variables
 <code>x1</code>, <code>x2</code>, and <code>x1:x2</code>:</p>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" data-line-number="1">x4 &lt;-<span class="st"> </span><span class="kw">model_matrix</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim4)</a>
-<a class="sourceLine" id="cb552-2" data-line-number="2">x4</a>
-<a class="sourceLine" id="cb552-3" data-line-number="3"><span class="co">#&gt; # A tibble: 300 x 4</span></a>
-<a class="sourceLine" id="cb552-4" data-line-number="4"><span class="co">#&gt;   `(Intercept)`    x1     x2 `x1:x2`</span></a>
-<a class="sourceLine" id="cb552-5" data-line-number="5"><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb552-6" data-line-number="6"><span class="co">#&gt; 1             1    -1 -1       1    </span></a>
-<a class="sourceLine" id="cb552-7" data-line-number="7"><span class="co">#&gt; 2             1    -1 -1       1    </span></a>
-<a class="sourceLine" id="cb552-8" data-line-number="8"><span class="co">#&gt; 3             1    -1 -1       1    </span></a>
-<a class="sourceLine" id="cb552-9" data-line-number="9"><span class="co">#&gt; 4             1    -1 -0.778   0.778</span></a>
-<a class="sourceLine" id="cb552-10" data-line-number="10"><span class="co">#&gt; 5             1    -1 -0.778   0.778</span></a>
-<a class="sourceLine" id="cb552-11" data-line-number="11"><span class="co">#&gt; 6             1    -1 -0.778   0.778</span></a>
-<a class="sourceLine" id="cb552-12" data-line-number="12"><span class="co">#&gt; # ... with 294 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" data-line-number="1">x4 &lt;-<span class="st"> </span><span class="kw">model_matrix</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim4)</a>
+<a class="sourceLine" id="cb551-2" data-line-number="2">x4</a>
+<a class="sourceLine" id="cb551-3" data-line-number="3"><span class="co">#&gt; # A tibble: 300 x 4</span></a>
+<a class="sourceLine" id="cb551-4" data-line-number="4"><span class="co">#&gt;   `(Intercept)`    x1     x2 `x1:x2`</span></a>
+<a class="sourceLine" id="cb551-5" data-line-number="5"><span class="co">#&gt;           &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb551-6" data-line-number="6"><span class="co">#&gt; 1             1    -1 -1       1    </span></a>
+<a class="sourceLine" id="cb551-7" data-line-number="7"><span class="co">#&gt; 2             1    -1 -1       1    </span></a>
+<a class="sourceLine" id="cb551-8" data-line-number="8"><span class="co">#&gt; 3             1    -1 -1       1    </span></a>
+<a class="sourceLine" id="cb551-9" data-line-number="9"><span class="co">#&gt; 4             1    -1 -0.778   0.778</span></a>
+<a class="sourceLine" id="cb551-10" data-line-number="10"><span class="co">#&gt; 5             1    -1 -0.778   0.778</span></a>
+<a class="sourceLine" id="cb551-11" data-line-number="11"><span class="co">#&gt; 6             1    -1 -0.778   0.778</span></a>
+<a class="sourceLine" id="cb551-12" data-line-number="12"><span class="co">#&gt; # ... with 294 more rows</span></a></code></pre></div>
 <p>Confirm that <code>x1:x2</code> is the product of the <code>x1</code> and <code>x2</code>,</p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" data-line-number="1"><span class="kw">all</span>(x4[[<span class="st">&quot;x1&quot;</span>]] <span class="op">*</span><span class="st"> </span>x4[[<span class="st">&quot;x2&quot;</span>]] <span class="op">==</span><span class="st"> </span>x4[[<span class="st">&quot;x1:x2&quot;</span>]])</a>
-<a class="sourceLine" id="cb553-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" data-line-number="1"><span class="kw">all</span>(x4[[<span class="st">&quot;x1&quot;</span>]] <span class="op">*</span><span class="st"> </span>x4[[<span class="st">&quot;x2&quot;</span>]] <span class="op">==</span><span class="st"> </span>x4[[<span class="st">&quot;x1:x2&quot;</span>]])</a>
+<a class="sourceLine" id="cb552-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>The asterisk <code>*</code> is good shorthand for an interaction since an interaction between <code>x1</code> and <code>x2</code> includes
 terms for <code>x1</code>, <code>x2</code>, and the product of <code>x1</code> and <code>x2</code>.</p>
 </div>
@@ -1008,65 +1008,65 @@ terms for <code>x1</code>, <code>x2</code>, and the product of <code>x1</code> a
 <h3><span class="header-section-number">23.4.3</span> Exercise 3</h3>
 <p>Using the basic principles, convert the formulas in the following two models into functions.
 (Hint: start by converting the categorical variable into 0-1 variables.)</p>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" data-line-number="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)</a>
-<a class="sourceLine" id="cb554-2" data-line-number="2">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)</a></code></pre></div>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" data-line-number="1">model_matrix_mod1 &lt;-<span class="st"> </span><span class="cf">function</span>(.data) {</a>
-<a class="sourceLine" id="cb555-2" data-line-number="2">  <span class="kw">mutate</span>(.data,</a>
-<a class="sourceLine" id="cb555-3" data-line-number="3">         <span class="st">`</span><span class="dt">x2b</span><span class="st">`</span> =<span class="st"> </span><span class="kw">as.numeric</span>(x2 <span class="op">==</span><span class="st"> &quot;b&quot;</span>),</a>
-<a class="sourceLine" id="cb555-4" data-line-number="4">         <span class="st">`</span><span class="dt">x2c</span><span class="st">`</span> =<span class="st"> </span><span class="kw">as.numeric</span>(x2 <span class="op">==</span><span class="st"> &quot;c&quot;</span>),</a>
-<a class="sourceLine" id="cb555-5" data-line-number="5">         <span class="st">`</span><span class="dt">x2d</span><span class="st">`</span> =<span class="st"> </span><span class="kw">as.numeric</span>(x2 <span class="op">==</span><span class="st"> &quot;d&quot;</span>),</a>
-<a class="sourceLine" id="cb555-6" data-line-number="6">         <span class="st">`</span><span class="dt">x1:x2b</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2b,</a>
-<a class="sourceLine" id="cb555-7" data-line-number="7">         <span class="st">`</span><span class="dt">x1:x2c</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2c,</a>
-<a class="sourceLine" id="cb555-8" data-line-number="8">         <span class="st">`</span><span class="dt">x1:x2d</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2d) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb555-9" data-line-number="9"><span class="st">    </span><span class="kw">select</span>(x1, x2b, x2c, x2d, <span class="st">`</span><span class="dt">x1:x2b</span><span class="st">`</span>, <span class="st">`</span><span class="dt">x1:x2c</span><span class="st">`</span>, <span class="st">`</span><span class="dt">x1:x2d</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb555-10" data-line-number="10">}</a></code></pre></div>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" data-line-number="1"><span class="kw">model_matrix_mod1</span>(sim3)</a>
-<a class="sourceLine" id="cb556-2" data-line-number="2"><span class="co">#&gt; # A tibble: 120 x 7</span></a>
-<a class="sourceLine" id="cb556-3" data-line-number="3"><span class="co">#&gt;      x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`</span></a>
-<a class="sourceLine" id="cb556-4" data-line-number="4"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb556-5" data-line-number="5"><span class="co">#&gt; 1     1     0     0     0        0        0        0</span></a>
-<a class="sourceLine" id="cb556-6" data-line-number="6"><span class="co">#&gt; 2     1     0     0     0        0        0        0</span></a>
-<a class="sourceLine" id="cb556-7" data-line-number="7"><span class="co">#&gt; 3     1     0     0     0        0        0        0</span></a>
-<a class="sourceLine" id="cb556-8" data-line-number="8"><span class="co">#&gt; 4     1     1     0     0        1        0        0</span></a>
-<a class="sourceLine" id="cb556-9" data-line-number="9"><span class="co">#&gt; 5     1     1     0     0        1        0        0</span></a>
-<a class="sourceLine" id="cb556-10" data-line-number="10"><span class="co">#&gt; 6     1     1     0     0        1        0        0</span></a>
-<a class="sourceLine" id="cb556-11" data-line-number="11"><span class="co">#&gt; # ... with 114 more rows</span></a></code></pre></div>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" data-line-number="1">model_matrix_mod2 &lt;-<span class="st"> </span><span class="cf">function</span>(.data) {</a>
-<a class="sourceLine" id="cb557-2" data-line-number="2">  <span class="kw">mutate</span>(.data, <span class="st">`</span><span class="dt">x1:x2</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb557-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>(x1, x2, <span class="st">`</span><span class="dt">x1:x2</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb557-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb557-5" data-line-number="5"><span class="kw">model_matrix_mod2</span>(sim4)</a>
-<a class="sourceLine" id="cb557-6" data-line-number="6"><span class="co">#&gt; # A tibble: 300 x 3</span></a>
-<a class="sourceLine" id="cb557-7" data-line-number="7"><span class="co">#&gt;      x1     x2 `x1:x2`</span></a>
-<a class="sourceLine" id="cb557-8" data-line-number="8"><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb557-9" data-line-number="9"><span class="co">#&gt; 1    -1 -1       1    </span></a>
-<a class="sourceLine" id="cb557-10" data-line-number="10"><span class="co">#&gt; 2    -1 -1       1    </span></a>
-<a class="sourceLine" id="cb557-11" data-line-number="11"><span class="co">#&gt; 3    -1 -1       1    </span></a>
-<a class="sourceLine" id="cb557-12" data-line-number="12"><span class="co">#&gt; 4    -1 -0.778   0.778</span></a>
-<a class="sourceLine" id="cb557-13" data-line-number="13"><span class="co">#&gt; 5    -1 -0.778   0.778</span></a>
-<a class="sourceLine" id="cb557-14" data-line-number="14"><span class="co">#&gt; 6    -1 -0.778   0.778</span></a>
-<a class="sourceLine" id="cb557-15" data-line-number="15"><span class="co">#&gt; # ... with 294 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" data-line-number="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)</a>
+<a class="sourceLine" id="cb553-2" data-line-number="2">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)</a></code></pre></div>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" data-line-number="1">model_matrix_mod1 &lt;-<span class="st"> </span><span class="cf">function</span>(.data) {</a>
+<a class="sourceLine" id="cb554-2" data-line-number="2">  <span class="kw">mutate</span>(.data,</a>
+<a class="sourceLine" id="cb554-3" data-line-number="3">         <span class="st">`</span><span class="dt">x2b</span><span class="st">`</span> =<span class="st"> </span><span class="kw">as.numeric</span>(x2 <span class="op">==</span><span class="st"> &quot;b&quot;</span>),</a>
+<a class="sourceLine" id="cb554-4" data-line-number="4">         <span class="st">`</span><span class="dt">x2c</span><span class="st">`</span> =<span class="st"> </span><span class="kw">as.numeric</span>(x2 <span class="op">==</span><span class="st"> &quot;c&quot;</span>),</a>
+<a class="sourceLine" id="cb554-5" data-line-number="5">         <span class="st">`</span><span class="dt">x2d</span><span class="st">`</span> =<span class="st"> </span><span class="kw">as.numeric</span>(x2 <span class="op">==</span><span class="st"> &quot;d&quot;</span>),</a>
+<a class="sourceLine" id="cb554-6" data-line-number="6">         <span class="st">`</span><span class="dt">x1:x2b</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2b,</a>
+<a class="sourceLine" id="cb554-7" data-line-number="7">         <span class="st">`</span><span class="dt">x1:x2c</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2c,</a>
+<a class="sourceLine" id="cb554-8" data-line-number="8">         <span class="st">`</span><span class="dt">x1:x2d</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2d) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb554-9" data-line-number="9"><span class="st">    </span><span class="kw">select</span>(x1, x2b, x2c, x2d, <span class="st">`</span><span class="dt">x1:x2b</span><span class="st">`</span>, <span class="st">`</span><span class="dt">x1:x2c</span><span class="st">`</span>, <span class="st">`</span><span class="dt">x1:x2d</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb554-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" data-line-number="1"><span class="kw">model_matrix_mod1</span>(sim3)</a>
+<a class="sourceLine" id="cb555-2" data-line-number="2"><span class="co">#&gt; # A tibble: 120 x 7</span></a>
+<a class="sourceLine" id="cb555-3" data-line-number="3"><span class="co">#&gt;      x1   x2b   x2c   x2d `x1:x2b` `x1:x2c` `x1:x2d`</span></a>
+<a class="sourceLine" id="cb555-4" data-line-number="4"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb555-5" data-line-number="5"><span class="co">#&gt; 1     1     0     0     0        0        0        0</span></a>
+<a class="sourceLine" id="cb555-6" data-line-number="6"><span class="co">#&gt; 2     1     0     0     0        0        0        0</span></a>
+<a class="sourceLine" id="cb555-7" data-line-number="7"><span class="co">#&gt; 3     1     0     0     0        0        0        0</span></a>
+<a class="sourceLine" id="cb555-8" data-line-number="8"><span class="co">#&gt; 4     1     1     0     0        1        0        0</span></a>
+<a class="sourceLine" id="cb555-9" data-line-number="9"><span class="co">#&gt; 5     1     1     0     0        1        0        0</span></a>
+<a class="sourceLine" id="cb555-10" data-line-number="10"><span class="co">#&gt; 6     1     1     0     0        1        0        0</span></a>
+<a class="sourceLine" id="cb555-11" data-line-number="11"><span class="co">#&gt; # ... with 114 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" data-line-number="1">model_matrix_mod2 &lt;-<span class="st"> </span><span class="cf">function</span>(.data) {</a>
+<a class="sourceLine" id="cb556-2" data-line-number="2">  <span class="kw">mutate</span>(.data, <span class="st">`</span><span class="dt">x1:x2</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb556-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>(x1, x2, <span class="st">`</span><span class="dt">x1:x2</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb556-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb556-5" data-line-number="5"><span class="kw">model_matrix_mod2</span>(sim4)</a>
+<a class="sourceLine" id="cb556-6" data-line-number="6"><span class="co">#&gt; # A tibble: 300 x 3</span></a>
+<a class="sourceLine" id="cb556-7" data-line-number="7"><span class="co">#&gt;      x1     x2 `x1:x2`</span></a>
+<a class="sourceLine" id="cb556-8" data-line-number="8"><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb556-9" data-line-number="9"><span class="co">#&gt; 1    -1 -1       1    </span></a>
+<a class="sourceLine" id="cb556-10" data-line-number="10"><span class="co">#&gt; 2    -1 -1       1    </span></a>
+<a class="sourceLine" id="cb556-11" data-line-number="11"><span class="co">#&gt; 3    -1 -1       1    </span></a>
+<a class="sourceLine" id="cb556-12" data-line-number="12"><span class="co">#&gt; 4    -1 -0.778   0.778</span></a>
+<a class="sourceLine" id="cb556-13" data-line-number="13"><span class="co">#&gt; 5    -1 -0.778   0.778</span></a>
+<a class="sourceLine" id="cb556-14" data-line-number="14"><span class="co">#&gt; 6    -1 -0.778   0.778</span></a>
+<a class="sourceLine" id="cb556-15" data-line-number="15"><span class="co">#&gt; # ... with 294 more rows</span></a></code></pre></div>
 <p>A more general function for model <code>mod1</code> is:</p>
-<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" data-line-number="1">model_matrix_mod1 &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2) {</a>
-<a class="sourceLine" id="cb558-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x1 =</span> x1)  </a>
-<a class="sourceLine" id="cb558-3" data-line-number="3">  <span class="co"># find levels of x2</span></a>
-<a class="sourceLine" id="cb558-4" data-line-number="4">  x2 &lt;-<span class="st"> </span><span class="kw">as.factor</span>(x2)</a>
-<a class="sourceLine" id="cb558-5" data-line-number="5">  x2lvls &lt;-<span class="st"> </span><span class="kw">levels</span>(x2)</a>
-<a class="sourceLine" id="cb558-6" data-line-number="6">  <span class="co"># create an indicator variable for each level</span></a>
-<a class="sourceLine" id="cb558-7" data-line-number="7">  <span class="cf">for</span> (lvl <span class="cf">in</span> x2lvls[<span class="dv">2</span><span class="op">:</span><span class="kw">nlevels</span>(x2)]) {</a>
-<a class="sourceLine" id="cb558-8" data-line-number="8">    out[[<span class="kw">str_c</span>(<span class="st">&quot;x2&quot;</span>, lvl)]] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(x2 <span class="op">==</span><span class="st"> </span>lvl)</a>
-<a class="sourceLine" id="cb558-9" data-line-number="9">  }</a>
-<a class="sourceLine" id="cb558-10" data-line-number="10">  <span class="co"># create interactions for each level</span></a>
-<a class="sourceLine" id="cb558-11" data-line-number="11">  <span class="cf">for</span> (lvl <span class="cf">in</span> x2lvls[<span class="dv">2</span><span class="op">:</span><span class="kw">nlevels</span>(x2)]) {</a>
-<a class="sourceLine" id="cb558-12" data-line-number="12">    out[[<span class="kw">str_c</span>(<span class="st">&quot;x1:x2&quot;</span>, lvl)]] &lt;-<span class="st"> </span>(x2 <span class="op">==</span><span class="st"> </span>lvl) <span class="op">*</span><span class="st"> </span>x1</a>
-<a class="sourceLine" id="cb558-13" data-line-number="13">  }</a>
-<a class="sourceLine" id="cb558-14" data-line-number="14">  out</a>
-<a class="sourceLine" id="cb558-15" data-line-number="15">}</a></code></pre></div>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" data-line-number="1">model_matrix_mod2 &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2) {</a>
-<a class="sourceLine" id="cb559-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x1 =</span> x1,</a>
-<a class="sourceLine" id="cb559-3" data-line-number="3">                <span class="dt">x2 =</span> x2,</a>
-<a class="sourceLine" id="cb559-4" data-line-number="4">                <span class="st">`</span><span class="dt">x1:x2</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2)</a>
-<a class="sourceLine" id="cb559-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" data-line-number="1">model_matrix_mod1 &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2) {</a>
+<a class="sourceLine" id="cb557-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x1 =</span> x1)  </a>
+<a class="sourceLine" id="cb557-3" data-line-number="3">  <span class="co"># find levels of x2</span></a>
+<a class="sourceLine" id="cb557-4" data-line-number="4">  x2 &lt;-<span class="st"> </span><span class="kw">as.factor</span>(x2)</a>
+<a class="sourceLine" id="cb557-5" data-line-number="5">  x2lvls &lt;-<span class="st"> </span><span class="kw">levels</span>(x2)</a>
+<a class="sourceLine" id="cb557-6" data-line-number="6">  <span class="co"># create an indicator variable for each level</span></a>
+<a class="sourceLine" id="cb557-7" data-line-number="7">  <span class="cf">for</span> (lvl <span class="cf">in</span> x2lvls[<span class="dv">2</span><span class="op">:</span><span class="kw">nlevels</span>(x2)]) {</a>
+<a class="sourceLine" id="cb557-8" data-line-number="8">    out[[<span class="kw">str_c</span>(<span class="st">&quot;x2&quot;</span>, lvl)]] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(x2 <span class="op">==</span><span class="st"> </span>lvl)</a>
+<a class="sourceLine" id="cb557-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb557-10" data-line-number="10">  <span class="co"># create interactions for each level</span></a>
+<a class="sourceLine" id="cb557-11" data-line-number="11">  <span class="cf">for</span> (lvl <span class="cf">in</span> x2lvls[<span class="dv">2</span><span class="op">:</span><span class="kw">nlevels</span>(x2)]) {</a>
+<a class="sourceLine" id="cb557-12" data-line-number="12">    out[[<span class="kw">str_c</span>(<span class="st">&quot;x1:x2&quot;</span>, lvl)]] &lt;-<span class="st"> </span>(x2 <span class="op">==</span><span class="st"> </span>lvl) <span class="op">*</span><span class="st"> </span>x1</a>
+<a class="sourceLine" id="cb557-13" data-line-number="13">  }</a>
+<a class="sourceLine" id="cb557-14" data-line-number="14">  out</a>
+<a class="sourceLine" id="cb557-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" data-line-number="1">model_matrix_mod2 &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2) {</a>
+<a class="sourceLine" id="cb558-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x1 =</span> x1,</a>
+<a class="sourceLine" id="cb558-3" data-line-number="3">                <span class="dt">x2 =</span> x2,</a>
+<a class="sourceLine" id="cb558-4" data-line-number="4">                <span class="st">`</span><span class="dt">x1:x2</span><span class="st">`</span> =<span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2)</a>
+<a class="sourceLine" id="cb558-5" data-line-number="5">}</a></code></pre></div>
 </div>
 <div id="exercise-4-36" class="section level3 exercise">
 <h3><span class="header-section-number">23.4.4</span> Exercise 4</h3>
@@ -1074,32 +1074,32 @@ terms for <code>x1</code>, <code>x2</code>, and the product of <code>x1</code> a
 I think <code>mod2</code> does a slightly better job at removing patterns, but it’s pretty subtle.
 Can you come up with a plot to support my claim?</p>
 <p>Estimate models <code>mod1</code> and <code>mod2</code> on <code>sim4</code>,</p>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb560-1" data-line-number="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim4)</a>
-<a class="sourceLine" id="cb560-2" data-line-number="2">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim4)</a></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" data-line-number="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim4)</a>
+<a class="sourceLine" id="cb559-2" data-line-number="2">mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim4)</a></code></pre></div>
 <p>and add the residuals from these models to the <code>sim4</code> data,</p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" data-line-number="1">sim4_mods &lt;-<span class="st"> </span><span class="kw">gather_residuals</span>(sim4, mod1, mod2)</a></code></pre></div>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb560-1" data-line-number="1">sim4_mods &lt;-<span class="st"> </span><span class="kw">gather_residuals</span>(sim4, mod1, mod2)</a></code></pre></div>
 <p>Frequency plots of both the residuals,</p>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb562-2" data-line-number="2"><span class="kw">ggplot</span>(sim4_mods, <span class="kw">aes</span>(<span class="dt">x =</span> resid, <span class="dt">colour =</span> model)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb562-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb562-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_rug</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb561-2" data-line-number="2"><span class="kw">ggplot</span>(sim4_mods, <span class="kw">aes</span>(<span class="dt">x =</span> resid, <span class="dt">colour =</span> model)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_rug</span>()</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
 and the absolute values of the residuals,</p>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" data-line-number="1"><span class="kw">ggplot</span>(sim4_mods, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">abs</span>(resid), <span class="dt">colour =</span> model)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb563-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb563-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_rug</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" data-line-number="1"><span class="kw">ggplot</span>(sim4_mods, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">abs</span>(resid), <span class="dt">colour =</span> model)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb562-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb562-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_rug</span>()</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
 does not show much difference in the residuals between the models.
 However, <code>mod2</code> appears to have fewer residuals in the tails of the distribution between 2.5 and 5 (although the most extreme residuals are from <code>mod2</code>.</p>
 <p>This is confirmed by checking the standard deviation of the residuals of these models,</p>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" data-line-number="1">sim4_mods <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb564-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(model) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb564-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">resid =</span> <span class="kw">sd</span>(resid))</a>
-<a class="sourceLine" id="cb564-4" data-line-number="4"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
-<a class="sourceLine" id="cb564-5" data-line-number="5"><span class="co">#&gt;   model resid</span></a>
-<a class="sourceLine" id="cb564-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb564-7" data-line-number="7"><span class="co">#&gt; 1 mod1   2.10</span></a>
-<a class="sourceLine" id="cb564-8" data-line-number="8"><span class="co">#&gt; 2 mod2   2.07</span></a></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" data-line-number="1">sim4_mods <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb563-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(model) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb563-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">resid =</span> <span class="kw">sd</span>(resid))</a>
+<a class="sourceLine" id="cb563-4" data-line-number="4"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
+<a class="sourceLine" id="cb563-5" data-line-number="5"><span class="co">#&gt;   model resid</span></a>
+<a class="sourceLine" id="cb563-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb563-7" data-line-number="7"><span class="co">#&gt; 1 mod1   2.10</span></a>
+<a class="sourceLine" id="cb563-8" data-line-number="8"><span class="co">#&gt; 2 mod2   2.07</span></a></code></pre></div>
 <p>The standard deviation of the residuals of <code>mod2</code> is smaller than that of <code>mod1</code>.</p>
 </div>
 </div>

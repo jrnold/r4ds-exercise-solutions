@@ -185,6 +185,7 @@ requests to fix problems. Thank you to all who contributed via
 
 Thanks go to all contributers in alphabetical order: @jmclawson,
 \href{mailto:benherbertson@gmail.com}{\nolinkurl{benherbertson@gmail.com}},
+\href{mailto:dongzhuoer@mail.nankai.edu.cn}{\nolinkurl{dongzhuoer@mail.nankai.edu.cn}},
 \href{mailto:kleinmarkgeard@gmail.com}{\nolinkurl{kleinmarkgeard@gmail.com}},
 \href{mailto:mjones01@BattelleEcology.org}{\nolinkurl{mjones01@BattelleEcology.org}},
 \href{mailto:ndecoursin@gmail.com}{\nolinkurl{ndecoursin@gmail.com}},
@@ -363,17 +364,27 @@ The number of rows and columns is also displayed by \texttt{glimpse()}:
 What does the \texttt{drv} variable describe? Read the help for
 \texttt{?mpg} to find out.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{?mpg}
-\end{Highlighting}
-\end{Shaded}
+The \texttt{drv} categorizes cars by which wheels the engine provides
+torque to, or drives: the front two wheels, the rear two wheels, or all
+four wheels.\footnote{See
+  \url{https://en.wikipedia.org/wiki/Automobile_layout}.}
 
-The \texttt{drv} variable takes the following values
-
-\texttt{"f"} \textbar{} front-wheel drive \textbar{}\\
-\texttt{"r"} \textbar{} rear-wheel drive \textbar{}\\
-\texttt{"4"} \textbar{} four-wheel drive \textbar{}
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Value & Description\tabularnewline
+\midrule
+\endhead
+\texttt{"f"} &
+\href{https://en.wikipedia.org/wiki/Front-wheel_drive}{front-wheel
+drive}\tabularnewline
+\texttt{"r"} &
+\href{https://en.wikipedia.org/wiki/Automobile_layout\#Rear-wheel-drive_layouts}{rear-wheel
+drive}\tabularnewline
+\texttt{"4"} &
+\href{https://en.wikipedia.org/wiki/Four-wheel_drive}{four-wheel
+drive}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \hypertarget{exercise-4.}{%
 \subsection{Exercise 4.}\label{exercise-4.}}
@@ -387,7 +398,7 @@ Make a scatter plot of \texttt{hwy} vs \texttt{cyl}.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 \hypertarget{exercise-5.}{%
 \subsection{Exercise 5.}\label{exercise-5.}}
@@ -402,7 +413,7 @@ What happens if you make a scatter plot of \texttt{class} vs
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 A scatter plot is not a useful way to plot these variables, since both
 \texttt{drv} and \texttt{class} are factor variables taking a limited
@@ -443,7 +454,7 @@ What's gone wrong with this code? Why are the points not blue?
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-10-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 Since \texttt{colour\ =\ "blue"} was included within the
 \texttt{mapping} argument, it was treated as an aesthetic (a mapping
@@ -524,7 +535,7 @@ continuous variable:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 Instead of using discrete colors, the continuous variable uses a scale
 that varies from a light to dark blue color.
@@ -536,7 +547,7 @@ that varies from a light to dark blue color.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-15-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 When mapped to size, the sizes of the points vary continuously with
 respect to the size (although the legend shows a few representative
@@ -550,7 +561,7 @@ values)
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 When a continuous value is mapped to shape, it gives an error. Though we
 could split a continuous variable into discrete categories and use a
@@ -573,7 +584,7 @@ What happens if you map the same variable to multiple aesthetics?
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 In the above plot, \texttt{hwy} is mapped to both location on the y-axis
 and color, and \texttt{displ} is mapped to both location on the x-axis
@@ -670,7 +681,7 @@ They are cells in which there are no values of the combination of
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The locations in the above plot without points are the same cells in
 \texttt{facet\_grid(drv\ \textasciitilde{}\ cyl)} that have no points.
@@ -745,11 +756,13 @@ area chart?
 \begin{itemize}
 \tightlist
 \item
-  line chart: \texttt{geom\_line}
+  line chart: \texttt{geom\_line()}
 \item
-  boxplot: \texttt{geom\_boxplot}
+  boxplot: \texttt{geom\_boxplot()}
 \item
-  histogram: \texttt{geom\_hist}
+  histogram: \texttt{geom\_hist()}
+\item
+  area chart: \texttt{geom\_area()}
 \end{itemize}
 
 \hypertarget{exercise-2-2}{%
@@ -780,7 +793,7 @@ There will be a smooth line, without standard errors, fit through each
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-20-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 \hypertarget{exercise-3-2}{%
 \subsection{Exercise 3}\label{exercise-3-2}}
@@ -801,7 +814,7 @@ there is a legend.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-21-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 But there is no legend in this code:
 
@@ -816,7 +829,7 @@ But there is no legend in this code:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 In the example earlier in the chapter,
 
@@ -839,7 +852,7 @@ In the example earlier in the chapter,
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-2} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-2} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-3} \end{center}
 
 the legend is suppressed because there are three plots, and adding a
 legend that only appears in the last one would make the presentation
@@ -865,7 +878,7 @@ It adds standard error bands to the lines.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 By default \texttt{se\ =\ TRUE}:
 
@@ -878,7 +891,7 @@ By default \texttt{se\ =\ TRUE}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-25-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 \hypertarget{exercise-5-2}{%
 \subsection{Exercise 5}\label{exercise-5-2}}
@@ -899,7 +912,7 @@ twice).
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-26-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -910,7 +923,7 @@ twice).
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-27-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 \hypertarget{exercise-6-1}{%
 \subsection{Exercise 6}\label{exercise-6-1}}
@@ -926,7 +939,7 @@ Recreate the R code necessary to generate the following graphs.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-28-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -937,12 +950,23 @@ Recreate the R code necessary to generate the following graphs.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-29-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{colour =}\NormalTok{ drv)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
+\CommentTok{#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-29-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ drv)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
 \CommentTok{#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'}
 \end{Highlighting}
@@ -954,7 +978,7 @@ Recreate the R code necessary to generate the following graphs.
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ drv)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =}\NormalTok{ drv), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
 \CommentTok{#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'}
 \end{Highlighting}
 \end{Shaded}
@@ -964,23 +988,12 @@ Recreate the R code necessary to generate the following graphs.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ drv)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =}\NormalTok{ drv), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
-\CommentTok{#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-32-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
 \StringTok{   }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{4}\NormalTok{, }\DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
 \StringTok{   }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ drv))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-33-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 \hypertarget{statistical-transformations}{%
 \section{Statistical
@@ -1013,7 +1026,7 @@ is \texttt{identity}, so use
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-34-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 The default message says that \texttt{stat\_summary} uses the
 \texttt{mean} and \texttt{sd} to calculate the point, and range of the
@@ -1033,7 +1046,7 @@ line. So lets use the previous values of \texttt{fun.ymin},
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 \hypertarget{exercise-2.-1}{%
 \subsection{Exercise 2.}\label{exercise-2.-1}}
@@ -1099,7 +1112,7 @@ counts within the group.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-36-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 The problem with these two plots is that the proportions are calculated
 within the groups.
@@ -1114,7 +1127,7 @@ within the groups.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-36-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-36-2} \end{center}
 
 This is more likely what was intended:
 
@@ -1128,7 +1141,7 @@ This is more likely what was intended:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-2} \end{center}
 
 \hypertarget{position-adjustments}{%
 \section{Position Adjustments}\label{position-adjustments}}
@@ -1148,7 +1161,7 @@ combination of \texttt{cty} and \texttt{hwy}.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-1} \end{center}
 
 I'd fix it by using a jitter position adjustment.
 
@@ -1159,7 +1172,7 @@ I'd fix it by using a jitter position adjustment.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-40-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 \hypertarget{exercise-2.-2}{%
 \subsection{Exercise 2.}\label{exercise-2.-2}}
@@ -1182,7 +1195,7 @@ No horizontal jitter
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-41-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 Way too much vertical jitter
 
@@ -1193,7 +1206,7 @@ Way too much vertical jitter
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-42-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 Only horizontal jitter:
 
@@ -1204,7 +1217,7 @@ Only horizontal jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 Way too much horizontal jitter:
 
@@ -1215,7 +1228,7 @@ Way too much horizontal jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-44-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 \hypertarget{exercise-3.-2}{%
 \subsection{Exercise 3.}\label{exercise-3.-2}}
@@ -1235,7 +1248,7 @@ after the random noise is added to their locations.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-45-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 However, the reduction in overlapping comes at the cost of changing the
 \texttt{x} and \texttt{y} values of the points.
@@ -1251,7 +1264,7 @@ observations will be larger than those with fewer observations.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-46-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 This method does not change the \texttt{x} and \texttt{y} coordinates of
 the points. However, if the points are close together and counts are
@@ -1268,7 +1281,7 @@ aesthetic.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-47-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1277,7 +1290,7 @@ aesthetic.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-48-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-47-1} \end{center}
 
 Unfortunately, there is no universal solution to overplotting. The costs
 and benefits of different approaches will depend on the structure of the
@@ -1304,7 +1317,7 @@ was \texttt{position\_identity}, they would be overlapping.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-49-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-48-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1313,7 +1326,7 @@ was \texttt{position\_identity}, they would be overlapping.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-50-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 \hypertarget{coordinate-systems}{%
 \section{Coordinate Systems}\label{coordinate-systems}}
@@ -1332,13 +1345,13 @@ This is a stacked bar chart with a single category
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-51-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
 See the documentation for
 \href{http://docs.ggplot2.org/current/coord_polar.html}{coord\_polar}
 for an example of making a pie chart. In particular,
 \texttt{theta\ =\ "y"}, meaning that the angle of the chart is the
-\texttt{y} variable has to be specified.
+\texttt{y} variable which has to be specified.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1348,7 +1361,7 @@ for an example of making a pie chart. In particular,
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-52-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-51-1} \end{center}
 
 If \texttt{theta\ =\ "y"} is not specified, then you get a bull's-eye
 chart
@@ -1361,7 +1374,7 @@ chart
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-53-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
 If you had a multiple stacked bar chart,
 
@@ -1372,7 +1385,7 @@ If you had a multiple stacked bar chart,
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-54-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 and apply polar coordinates to it, you end up with a multi-doughnut
 chart,
@@ -1385,7 +1398,7 @@ chart,
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-55-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 \hypertarget{exercise-2-3}{%
 \subsection{Exercise 2}\label{exercise-2-3}}
@@ -1404,7 +1417,7 @@ title of the plot.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-56-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 \hypertarget{exercise-3-3}{%
 \subsection{Exercise 3}\label{exercise-3-3}}
@@ -1447,7 +1460,7 @@ which city and highway MPG were equal.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-57-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
 If we didn't include \texttt{geom\_coord()}, then the line would no
 longer have an angle of 45 degrees.
@@ -1458,7 +1471,7 @@ longer have an angle of 45 degrees.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-58-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 On average, humans are best able to perceive differences in angles
 relative to 45 degrees. See Cleveland
