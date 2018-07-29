@@ -664,8 +664,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">14</span> Strings</h1>
 <div id="introduction-9" class="section level2">
 <h2><span class="header-section-number">14.1</span> Introduction</h2>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb287-2" data-line-number="2"><span class="kw">library</span>(stringr)</a></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb288-2" data-line-number="2"><span class="kw">library</span>(stringr)</a></code></pre></div>
 </div>
 <div id="string-basics" class="section level2">
 <h2><span class="header-section-number">14.2</span> String Basics</h2>
@@ -673,23 +673,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">14.2.1</span> Exercise 1</h3>
 <p>In code that doesn’t use <strong>stringr</strong>, you’ll often see <code>paste()</code> and <code>paste0()</code>. What’s the difference between the two functions? What <strong>stringr</strong> function are they equivalent to? How do the functions differ in their handling of NA?</p>
 <p>The function <code>paste</code> separates strings by spaces by default, while <code>paste0</code> does not separate strings with spaces by default.</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" data-line-number="1"><span class="kw">paste</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)</a>
-<a class="sourceLine" id="cb288-2" data-line-number="2"><span class="co">#&gt; [1] &quot;foo bar&quot;</span></a>
-<a class="sourceLine" id="cb288-3" data-line-number="3"><span class="kw">paste0</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)</a>
-<a class="sourceLine" id="cb288-4" data-line-number="4"><span class="co">#&gt; [1] &quot;foobar&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1"><span class="kw">paste</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)</a>
+<a class="sourceLine" id="cb289-2" data-line-number="2"><span class="co">#&gt; [1] &quot;foo bar&quot;</span></a>
+<a class="sourceLine" id="cb289-3" data-line-number="3"><span class="kw">paste0</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)</a>
+<a class="sourceLine" id="cb289-4" data-line-number="4"><span class="co">#&gt; [1] &quot;foobar&quot;</span></a></code></pre></div>
 <p>Since <code>str_c</code> does not separate strings with spaces by default it is closer in behavior to <code>paste0</code>.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1"><span class="kw">str_c</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)</a>
-<a class="sourceLine" id="cb289-2" data-line-number="2"><span class="co">#&gt; [1] &quot;foobar&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1"><span class="kw">str_c</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)</a>
+<a class="sourceLine" id="cb290-2" data-line-number="2"><span class="co">#&gt; [1] &quot;foobar&quot;</span></a></code></pre></div>
 <p>However, <code>str_c</code> and the paste function handle NA differently.
 The function <code>str_c</code> propagates <code>NA</code>, if any argument is a missing value, it returns a missing value.
 This is in line with how the numeric R functions, e.g. <code>sum</code>, <code>mean</code>, handle missing values.
 However, the paste functions, convert <code>NA</code> to the string <code>&quot;NA&quot;</code> and then treat it as any other character vector.</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1"><span class="kw">str_c</span>(<span class="st">&quot;foo&quot;</span>, <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb290-2" data-line-number="2"><span class="co">#&gt; [1] NA</span></a>
-<a class="sourceLine" id="cb290-3" data-line-number="3"><span class="kw">paste</span>(<span class="st">&quot;foo&quot;</span>, <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb290-4" data-line-number="4"><span class="co">#&gt; [1] &quot;foo NA&quot;</span></a>
-<a class="sourceLine" id="cb290-5" data-line-number="5"><span class="kw">paste0</span>(<span class="st">&quot;foo&quot;</span>, <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb290-6" data-line-number="6"><span class="co">#&gt; [1] &quot;fooNA&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1"><span class="kw">str_c</span>(<span class="st">&quot;foo&quot;</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb291-2" data-line-number="2"><span class="co">#&gt; [1] NA</span></a>
+<a class="sourceLine" id="cb291-3" data-line-number="3"><span class="kw">paste</span>(<span class="st">&quot;foo&quot;</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb291-4" data-line-number="4"><span class="co">#&gt; [1] &quot;foo NA&quot;</span></a>
+<a class="sourceLine" id="cb291-5" data-line-number="5"><span class="kw">paste0</span>(<span class="st">&quot;foo&quot;</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb291-6" data-line-number="6"><span class="co">#&gt; [1] &quot;fooNA&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-2-29" class="section level3 exercise">
 <h3><span class="header-section-number">14.2.2</span> Exercise 2</h3>
@@ -702,11 +702,11 @@ However, the paste functions, convert <code>NA</code> to the string <code>&quot;
 <p>The following function extracts the middle character. If the string has an even number of characters the choice is arbitrary.
 We choose to select <span class="math inline">\(\lceil n / 2 \rceil\)</span>, because that case works even if the string is only of length one.
 A more general method would allow the user to select either the floor or ceiling for the middle character of an even string.</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;abc&quot;</span>, <span class="st">&quot;abcd&quot;</span>, <span class="st">&quot;abcde&quot;</span>, <span class="st">&quot;abcdef&quot;</span>)</a>
-<a class="sourceLine" id="cb291-2" data-line-number="2">L &lt;-<span class="st"> </span><span class="kw">str_length</span>(x)</a>
-<a class="sourceLine" id="cb291-3" data-line-number="3">m &lt;-<span class="st"> </span><span class="kw">ceiling</span>(L <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb291-4" data-line-number="4"><span class="kw">str_sub</span>(x, m, m)</a>
-<a class="sourceLine" id="cb291-5" data-line-number="5"><span class="co">#&gt; [1] &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;c&quot; &quot;c&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;abc&quot;</span>, <span class="st">&quot;abcd&quot;</span>, <span class="st">&quot;abcde&quot;</span>, <span class="st">&quot;abcdef&quot;</span>)</a>
+<a class="sourceLine" id="cb292-2" data-line-number="2">L &lt;-<span class="st"> </span><span class="kw">str_length</span>(x)</a>
+<a class="sourceLine" id="cb292-3" data-line-number="3">m &lt;-<span class="st"> </span><span class="kw">ceiling</span>(L <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb292-4" data-line-number="4"><span class="kw">str_sub</span>(x, m, m)</a>
+<a class="sourceLine" id="cb292-5" data-line-number="5"><span class="co">#&gt; [1] &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;c&quot; &quot;c&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-4-21" class="section level3 exercise">
 <h3><span class="header-section-number">14.2.4</span> Exercise 4</h3>
@@ -718,41 +718,41 @@ This is useful for wrapping long strings of text to be typeset.</p>
 <h3><span class="header-section-number">14.2.5</span> Exercise 5</h3>
 <p>What does <code>str_trim()</code> do? What’s the opposite of <code>str_trim()</code>?</p>
 <p>The function <code>str_trim</code> trims the whitespace from a string.</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1"><span class="kw">str_trim</span>(<span class="st">&quot; abc &quot;</span>)</a>
-<a class="sourceLine" id="cb292-2" data-line-number="2"><span class="co">#&gt; [1] &quot;abc&quot;</span></a>
-<a class="sourceLine" id="cb292-3" data-line-number="3"><span class="kw">str_trim</span>(<span class="st">&quot; abc &quot;</span>, <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>)</a>
-<a class="sourceLine" id="cb292-4" data-line-number="4"><span class="co">#&gt; [1] &quot;abc &quot;</span></a>
-<a class="sourceLine" id="cb292-5" data-line-number="5"><span class="kw">str_trim</span>(<span class="st">&quot; abc &quot;</span>, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>)</a>
-<a class="sourceLine" id="cb292-6" data-line-number="6"><span class="co">#&gt; [1] &quot; abc&quot;</span></a></code></pre></div>
-<p>The opposite of <code>str_trim</code> is <code>str_pad</code> which adds characters to each side.</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1"><span class="kw">str_pad</span>(<span class="st">&quot;abc&quot;</span>, <span class="dv">5</span>, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>)</a>
-<a class="sourceLine" id="cb293-2" data-line-number="2"><span class="co">#&gt; [1] &quot; abc &quot;</span></a>
-<a class="sourceLine" id="cb293-3" data-line-number="3"><span class="kw">str_pad</span>(<span class="st">&quot;abc&quot;</span>, <span class="dv">4</span>, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>)</a>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1"><span class="kw">str_trim</span>(<span class="st">&quot; abc &quot;</span>)</a>
+<a class="sourceLine" id="cb293-2" data-line-number="2"><span class="co">#&gt; [1] &quot;abc&quot;</span></a>
+<a class="sourceLine" id="cb293-3" data-line-number="3"><span class="kw">str_trim</span>(<span class="st">&quot; abc &quot;</span>, <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>)</a>
 <a class="sourceLine" id="cb293-4" data-line-number="4"><span class="co">#&gt; [1] &quot;abc &quot;</span></a>
-<a class="sourceLine" id="cb293-5" data-line-number="5"><span class="kw">str_pad</span>(<span class="st">&quot;abc&quot;</span>, <span class="dv">4</span>, <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>)</a>
+<a class="sourceLine" id="cb293-5" data-line-number="5"><span class="kw">str_trim</span>(<span class="st">&quot; abc &quot;</span>, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>)</a>
 <a class="sourceLine" id="cb293-6" data-line-number="6"><span class="co">#&gt; [1] &quot; abc&quot;</span></a></code></pre></div>
+<p>The opposite of <code>str_trim</code> is <code>str_pad</code> which adds characters to each side.</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1"><span class="kw">str_pad</span>(<span class="st">&quot;abc&quot;</span>, <span class="dv">5</span>, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>)</a>
+<a class="sourceLine" id="cb294-2" data-line-number="2"><span class="co">#&gt; [1] &quot; abc &quot;</span></a>
+<a class="sourceLine" id="cb294-3" data-line-number="3"><span class="kw">str_pad</span>(<span class="st">&quot;abc&quot;</span>, <span class="dv">4</span>, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>)</a>
+<a class="sourceLine" id="cb294-4" data-line-number="4"><span class="co">#&gt; [1] &quot;abc &quot;</span></a>
+<a class="sourceLine" id="cb294-5" data-line-number="5"><span class="kw">str_pad</span>(<span class="st">&quot;abc&quot;</span>, <span class="dv">4</span>, <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>)</a>
+<a class="sourceLine" id="cb294-6" data-line-number="6"><span class="co">#&gt; [1] &quot; abc&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-6-9" class="section level3 exercise">
 <h3><span class="header-section-number">14.2.6</span> Exercise 6</h3>
 <p>Write a function that turns (e.g.) a vector c(“a”, “b”, “c”) into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.</p>
 <p>See the Chapter <a href="functions.html#functions">Functions</a> for more details on writing R functions.</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1">str_commasep &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">last =</span> <span class="st">&quot;, and &quot;</span>) {</a>
-<a class="sourceLine" id="cb294-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb294-3" data-line-number="3">    <span class="kw">str_c</span>(<span class="kw">str_c</span>(x[<span class="op">-</span><span class="kw">length</span>(x)], <span class="dt">collapse =</span> sep),</a>
-<a class="sourceLine" id="cb294-4" data-line-number="4">                x[<span class="kw">length</span>(x)],</a>
-<a class="sourceLine" id="cb294-5" data-line-number="5">                <span class="dt">sep =</span> last)</a>
-<a class="sourceLine" id="cb294-6" data-line-number="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb294-7" data-line-number="7">    x</a>
-<a class="sourceLine" id="cb294-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb294-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb294-10" data-line-number="10"><span class="kw">str_commasep</span>(<span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb294-11" data-line-number="11"><span class="co">#&gt; [1] &quot;&quot;</span></a>
-<a class="sourceLine" id="cb294-12" data-line-number="12"><span class="kw">str_commasep</span>(<span class="st">&quot;a&quot;</span>)</a>
-<a class="sourceLine" id="cb294-13" data-line-number="13"><span class="co">#&gt; [1] &quot;a&quot;</span></a>
-<a class="sourceLine" id="cb294-14" data-line-number="14"><span class="kw">str_commasep</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
-<a class="sourceLine" id="cb294-15" data-line-number="15"><span class="co">#&gt; [1] &quot;a, and b&quot;</span></a>
-<a class="sourceLine" id="cb294-16" data-line-number="16"><span class="kw">str_commasep</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</a>
-<a class="sourceLine" id="cb294-17" data-line-number="17"><span class="co">#&gt; [1] &quot;a, b, and c&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" data-line-number="1">str_commasep &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>, <span class="dt">last =</span> <span class="st">&quot;, and &quot;</span>) {</a>
+<a class="sourceLine" id="cb295-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb295-3" data-line-number="3">    <span class="kw">str_c</span>(<span class="kw">str_c</span>(x[<span class="op">-</span><span class="kw">length</span>(x)], <span class="dt">collapse =</span> sep),</a>
+<a class="sourceLine" id="cb295-4" data-line-number="4">                x[<span class="kw">length</span>(x)],</a>
+<a class="sourceLine" id="cb295-5" data-line-number="5">                <span class="dt">sep =</span> last)</a>
+<a class="sourceLine" id="cb295-6" data-line-number="6">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb295-7" data-line-number="7">    x</a>
+<a class="sourceLine" id="cb295-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb295-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb295-10" data-line-number="10"><span class="kw">str_commasep</span>(<span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb295-11" data-line-number="11"><span class="co">#&gt; [1] &quot;&quot;</span></a>
+<a class="sourceLine" id="cb295-12" data-line-number="12"><span class="kw">str_commasep</span>(<span class="st">&quot;a&quot;</span>)</a>
+<a class="sourceLine" id="cb295-13" data-line-number="13"><span class="co">#&gt; [1] &quot;a&quot;</span></a>
+<a class="sourceLine" id="cb295-14" data-line-number="14"><span class="kw">str_commasep</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
+<a class="sourceLine" id="cb295-15" data-line-number="15"><span class="co">#&gt; [1] &quot;a, and b&quot;</span></a>
+<a class="sourceLine" id="cb295-16" data-line-number="16"><span class="kw">str_commasep</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</a>
+<a class="sourceLine" id="cb295-17" data-line-number="17"><span class="co">#&gt; [1] &quot;a, b, and c&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="matching-patterns-and-regular-expressions" class="section level2">
@@ -771,19 +771,19 @@ This is useful for wrapping long strings of text to be typeset.</p>
 <div id="exercise-2-30" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.1.2</span> Exercise 2</h4>
 <p>How would you match the sequence <code>&quot;'\</code> ?</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" data-line-number="1"><span class="kw">str_view</span>(<span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">&#39;</span><span class="ch">\\</span><span class="st">&quot;</span>, <span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">&#39;</span><span class="ch">\\\\</span><span class="st">&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1"><span class="kw">str_view</span>(<span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">&#39;</span><span class="ch">\\</span><span class="st">&quot;</span>, <span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">&#39;</span><span class="ch">\\\\</span><span class="st">&quot;</span>)</a></code></pre></div>
 </div>
 <div id="exercise-3-28" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.1.3</span> Exercise 3</h4>
 <p>What patterns will the regular expression <code>\..\..\..</code> match? How would you represent it as a string?</p>
 <p>It will match any patterns that are a dot followed by any character, repeated three times.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1"><span class="kw">str_view</span>(<span class="kw">c</span>(<span class="st">&quot;.a.b.c&quot;</span>, <span class="st">&quot;.a.b&quot;</span>, <span class="st">&quot;.....&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">..</span><span class="ch">\\</span><span class="st">..</span><span class="ch">\\</span><span class="st">..&quot;</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;banana&quot;</span>, <span class="st">&quot;pear&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;^a&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;a$&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple pie&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;apple cake&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;apple&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;^apple$&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" data-line-number="1"><span class="kw">str_view</span>(<span class="kw">c</span>(<span class="st">&quot;.a.b.c&quot;</span>, <span class="st">&quot;.a.b&quot;</span>, <span class="st">&quot;.....&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">..</span><span class="ch">\\</span><span class="st">..</span><span class="ch">\\</span><span class="st">..&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;banana&quot;</span>, <span class="st">&quot;pear&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;^a&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;a$&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple pie&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;apple cake&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;apple&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;^apple$&quot;</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="anchors" class="section level3">
@@ -791,7 +791,7 @@ This is useful for wrapping long strings of text to be typeset.</p>
 <div id="exercise-1-32" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.2.1</span> Exercise 1</h4>
 <p>How would you match the literal string <code>&quot;$^$&quot;</code>?</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1"><span class="kw">str_view</span>(<span class="kw">c</span>(<span class="st">&quot;$^$&quot;</span>, <span class="st">&quot;ab$^$sfas&quot;</span>), <span class="st">&quot;^</span><span class="ch">\\</span><span class="st">$</span><span class="ch">\\</span><span class="st">^</span><span class="ch">\\</span><span class="st">$$&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1"><span class="kw">str_view</span>(<span class="kw">c</span>(<span class="st">&quot;$^$&quot;</span>, <span class="st">&quot;ab$^$sfas&quot;</span>), <span class="st">&quot;^</span><span class="ch">\\</span><span class="st">$</span><span class="ch">\\</span><span class="st">^</span><span class="ch">\\</span><span class="st">$$&quot;</span>)</a></code></pre></div>
 </div>
 <div id="exercise-2-31" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.2.2</span> Exercise 2</h4>
@@ -803,10 +803,10 @@ This is useful for wrapping long strings of text to be typeset.</p>
 <li>Have seven letters or more.</li>
 </ol>
 <p>Since this list is long, you might want to use the match argument to <code>str_view()</code> to show only the matching or non-matching words.</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^y&quot;</span>, <span class="dt">match =</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;x$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^...$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;.......&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^y&quot;</span>, <span class="dt">match =</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;x$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^...$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;.......&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="character-classes-and-alternatives" class="section level3">
@@ -821,30 +821,30 @@ This is useful for wrapping long strings of text to be typeset.</p>
 <li>End with <code>ing</code> or <code>ise</code>.</li>
 </ol>
 <p>Words starting with vowels</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^[aeiou]&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^[aeiou]&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Words that contain only consonants</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^[^aeiou]+$&quot;</span>, <span class="dt">match=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^[^aeiou]+$&quot;</span>, <span class="dt">match=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>This seems to require using the <code>+</code> pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.</p>
 <p>Words that end with “-ed” but not ending in “-eed”. This handles the special case of “-ed”, as well as words with a length great than two.</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^ed$|[^e]ed$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^ed$|[^e]ed$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Words ending in <code>ing</code> or <code>ise</code>:</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;i(ng|se)$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;i(ng|se)$&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="exercise-2-32" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.3.2</span> Exercise 2</h4>
 <p>Empirically verify the rule ``i before e except after c’’.</p>
 <p>Using only what has been introduced thus far:</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cei|[^c]ie)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cie|[^c]ei)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cei|[^c]ie)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cie|[^c]ei)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Using <code>str_detect</code> we can count the number of words that follow these rules:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1"><span class="kw">sum</span>(<span class="kw">str_detect</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cei|[^c]ie)&quot;</span>))</a>
-<a class="sourceLine" id="cb314-2" data-line-number="2"><span class="kw">sum</span>(<span class="kw">str_detect</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cie|[^c]ei)&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" data-line-number="1"><span class="kw">sum</span>(<span class="kw">str_detect</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cei|[^c]ie)&quot;</span>))</a>
+<a class="sourceLine" id="cb315-2" data-line-number="2"><span class="kw">sum</span>(<span class="kw">str_detect</span>(stringr<span class="op">::</span>words, <span class="st">&quot;(cie|[^c]ei)&quot;</span>))</a></code></pre></div>
 </div>
 <div id="exercise-3-29" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.3.3</span> Exercise 3</h4>
 <p>Is <code>q'' always followed by a</code>u’’?</p>
 <p>In the <code>stringr::words</code> dataset, yes. In the full English language, no.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;q[^u]&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;q[^u]&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="exercise-4-22" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.3.4</span> Exercise 4</h4>
@@ -866,12 +866,12 @@ It would require a dictionary with differences in spellings for different words.
 <p>Create a regular expression that will match telephone numbers as commonly written in your country.</p>
 <p>The answer to this will vary by country.</p>
 <p>For the United States, phone numbers have a format like <code>123-456-7890</code>.</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;123-456-7890&quot;</span>, <span class="st">&quot;1235-2351&quot;</span>)</a>
-<a class="sourceLine" id="cb316-2" data-line-number="2"><span class="kw">str_view</span>(x, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d-</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d-</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;123-456-7890&quot;</span>, <span class="st">&quot;1235-2351&quot;</span>)</a>
+<a class="sourceLine" id="cb317-2" data-line-number="2"><span class="kw">str_view</span>(x, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d-</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d-</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">d&quot;</span>)</a></code></pre></div>
 <p>or</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]&quot;</span>)</a></code></pre></div>
 <p>This regular expression can be simplified with the <code>{m,n}</code> regular expression modifier introduced in the next section,</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d{3}-</span><span class="ch">\\</span><span class="st">d{3}-</span><span class="ch">\\</span><span class="st">d{4}&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d{3}-</span><span class="ch">\\</span><span class="st">d{3}-</span><span class="ch">\\</span><span class="st">d{4}&quot;</span>)</a></code></pre></div>
 <p>Note that this pattern doesn’t account for phone numbers that are invalid
 because of unassigned area code, or special numbers like 911, or extensions.
 See the Wikipedia page for the <a href="https://en.wikipedia.org/wiki/North_American_Numbering_Plan">North American Numbering
@@ -890,11 +890,11 @@ for a discussion of using a regex for phone number validation.</p>
 <code>+</code> | <code>{1,}</code> | Match 1 or more<br />
 <code>*</code> | <code>{0,}</code> | Match 0 or more</div>
 <p>For example, let’s repeat the let’s rewrite the <code>?</code>, <code>+</code>, and <code>*</code> examples using <code>{,}</code>.</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" data-line-number="1">x &lt;-<span class="st"> &quot;1888 is the longest year in Roman numerals: MDCCCLXXXVIII&quot;</span></a>
-<a class="sourceLine" id="cb319-2" data-line-number="2"><span class="kw">str_view</span>(x, <span class="st">&quot;CC?&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;CC{0,1}&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;CC+&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;CC{1,}&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1">x &lt;-<span class="st"> &quot;1888 is the longest year in Roman numerals: MDCCCLXXXVIII&quot;</span></a>
+<a class="sourceLine" id="cb320-2" data-line-number="2"><span class="kw">str_view</span>(x, <span class="st">&quot;CC?&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;CC{0,1}&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;CC+&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1"><span class="kw">str_view</span>(x, <span class="st">&quot;CC{1,}&quot;</span>)</a></code></pre></div>
 </div>
 <div id="exercise-2-33" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.4.2</span> Exercise 2</h4>
@@ -924,11 +924,11 @@ For example: <code>&quot;\\\\{4}&quot;</code>: <code>&quot;\\\\\\\\&quot;</code>
 <li>Have two or more vowel-consonant pairs in a row.</li>
 </ol>
 <p>A regex to find all words starting with three consonants</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;^[^aeiou]{3}&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;^[^aeiou]{3}&quot;</span>)</a></code></pre></div>
 <p>A regex to find three or more vowels in a row:</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;[aeiou]{3,}&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;[aeiou]{3,}&quot;</span>)</a></code></pre></div>
 <p>Two or more vowel-consonant pairs in a row.</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;([aeiou][^aeiou]){2,}&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;([aeiou][^aeiou]){2,}&quot;</span>)</a></code></pre></div>
 </div>
 <div id="exercise-4-23" class="section level4 exercise">
 <h4><span class="header-section-number">14.3.4.4</span> Exercise 4</h4>
@@ -963,20 +963,20 @@ For example: <code>&quot;\\\\{4}&quot;</code>: <code>&quot;\\\\\\\\&quot;</code>
 <li>Contain one letter repeated in at least three places (e.g. <code>eleven'' contains three</code>e’’s.)</li>
 </ol>
 <p>Start and end with the same character.</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^(.)((.*</span><span class="ch">\\</span><span class="st">1$)|</span><span class="ch">\\</span><span class="st">1?$)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" data-line-number="1"><span class="kw">str_view</span>(stringr<span class="op">::</span>words, <span class="st">&quot;^(.)((.*</span><span class="ch">\\</span><span class="st">1$)|</span><span class="ch">\\</span><span class="st">1?$)&quot;</span>, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.):</p>
 <p>I’ll consider several patterns with varying levels of generality.
 This pattern checks for any pair of repeated characters:</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;(..).*</span><span class="ch">\\</span><span class="st">1&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;(..).*</span><span class="ch">\\</span><span class="st">1&quot;</span>)</a></code></pre></div>
 <p>This pattern is checks for any pair of repeated “letters”:</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;([A-Za-z][A-Za-z]).*</span><span class="ch">\\</span><span class="st">1&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1"><span class="kw">str_view</span>(words, <span class="st">&quot;([A-Za-z][A-Za-z]).*</span><span class="ch">\\</span><span class="st">1&quot;</span>)</a></code></pre></div>
 <p>Contain one letter repeated in at least three places (e.g. <code>eleven'' contains three</code>e’’s.)</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1"><span class="kw">str_subset</span>(<span class="kw">str_to_lower</span>(words), <span class="st">&quot;([a-z]).*</span><span class="ch">\\</span><span class="st">1.*</span><span class="ch">\\</span><span class="st">1&quot;</span>)</a>
-<a class="sourceLine" id="cb329-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;appropriate&quot; &quot;available&quot;   &quot;believe&quot;     &quot;between&quot;     &quot;business&quot;   </span></a>
-<a class="sourceLine" id="cb329-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;degree&quot;      &quot;difference&quot;  &quot;discuss&quot;     &quot;eleven&quot;      &quot;environment&quot;</span></a>
-<a class="sourceLine" id="cb329-4" data-line-number="4"><span class="co">#&gt; [11] &quot;evidence&quot;    &quot;exercise&quot;    &quot;expense&quot;     &quot;experience&quot;  &quot;individual&quot; </span></a>
-<a class="sourceLine" id="cb329-5" data-line-number="5"><span class="co">#&gt; [16] &quot;paragraph&quot;   &quot;receive&quot;     &quot;remember&quot;    &quot;represent&quot;   &quot;telephone&quot;  </span></a>
-<a class="sourceLine" id="cb329-6" data-line-number="6"><span class="co">#&gt; [21] &quot;therefore&quot;   &quot;tomorrow&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1"><span class="kw">str_subset</span>(<span class="kw">str_to_lower</span>(words), <span class="st">&quot;([a-z]).*</span><span class="ch">\\</span><span class="st">1.*</span><span class="ch">\\</span><span class="st">1&quot;</span>)</a>
+<a class="sourceLine" id="cb330-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;appropriate&quot; &quot;available&quot;   &quot;believe&quot;     &quot;between&quot;     &quot;business&quot;   </span></a>
+<a class="sourceLine" id="cb330-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;degree&quot;      &quot;difference&quot;  &quot;discuss&quot;     &quot;eleven&quot;      &quot;environment&quot;</span></a>
+<a class="sourceLine" id="cb330-4" data-line-number="4"><span class="co">#&gt; [11] &quot;evidence&quot;    &quot;exercise&quot;    &quot;expense&quot;     &quot;experience&quot;  &quot;individual&quot; </span></a>
+<a class="sourceLine" id="cb330-5" data-line-number="5"><span class="co">#&gt; [16] &quot;paragraph&quot;   &quot;receive&quot;     &quot;remember&quot;    &quot;represent&quot;   &quot;telephone&quot;  </span></a>
+<a class="sourceLine" id="cb330-6" data-line-number="6"><span class="co">#&gt; [21] &quot;therefore&quot;   &quot;tomorrow&quot;</span></a></code></pre></div>
 <p>The <code>\\1</code> is used to refer back to the first group (<code>(.)</code>) so that whatever letter is matched by <code>[A-Za-z]</code> is again matched.</p>
 </div>
 </div>
@@ -999,56 +999,56 @@ This pattern checks for any pair of repeated characters:</p>
 <li>What word has the higher number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)</li>
 </ol>
 <p>Words that start or end with <code>x</code>?</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1"><span class="co"># one regex</span></a>
-<a class="sourceLine" id="cb330-2" data-line-number="2">words[<span class="kw">str_detect</span>(words, <span class="st">&quot;^x|x$&quot;</span>)]</a>
-<a class="sourceLine" id="cb330-3" data-line-number="3"><span class="co">#&gt; [1] &quot;box&quot; &quot;sex&quot; &quot;six&quot; &quot;tax&quot;</span></a>
-<a class="sourceLine" id="cb330-4" data-line-number="4"><span class="co"># split regex into parts</span></a>
-<a class="sourceLine" id="cb330-5" data-line-number="5">start_with_x &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;^x&quot;</span>)</a>
-<a class="sourceLine" id="cb330-6" data-line-number="6">end_with_x &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;x$&quot;</span>)</a>
-<a class="sourceLine" id="cb330-7" data-line-number="7">words[start_with_x <span class="op">|</span><span class="st"> </span>end_with_x]</a>
-<a class="sourceLine" id="cb330-8" data-line-number="8"><span class="co">#&gt; [1] &quot;box&quot; &quot;sex&quot; &quot;six&quot; &quot;tax&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1"><span class="co"># one regex</span></a>
+<a class="sourceLine" id="cb331-2" data-line-number="2">words[<span class="kw">str_detect</span>(words, <span class="st">&quot;^x|x$&quot;</span>)]</a>
+<a class="sourceLine" id="cb331-3" data-line-number="3"><span class="co">#&gt; [1] &quot;box&quot; &quot;sex&quot; &quot;six&quot; &quot;tax&quot;</span></a>
+<a class="sourceLine" id="cb331-4" data-line-number="4"><span class="co"># split regex into parts</span></a>
+<a class="sourceLine" id="cb331-5" data-line-number="5">start_with_x &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;^x&quot;</span>)</a>
+<a class="sourceLine" id="cb331-6" data-line-number="6">end_with_x &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;x$&quot;</span>)</a>
+<a class="sourceLine" id="cb331-7" data-line-number="7">words[start_with_x <span class="op">|</span><span class="st"> </span>end_with_x]</a>
+<a class="sourceLine" id="cb331-8" data-line-number="8"><span class="co">#&gt; [1] &quot;box&quot; &quot;sex&quot; &quot;six&quot; &quot;tax&quot;</span></a></code></pre></div>
 <p>Find all words starting with vowel and ending with consonant.</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1"><span class="kw">str_subset</span>(words, <span class="st">&quot;^[aeiou].*[^aeiou]$&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
-<a class="sourceLine" id="cb331-2" data-line-number="2"><span class="co">#&gt; [1] &quot;about&quot;   &quot;accept&quot;  &quot;account&quot; &quot;across&quot;  &quot;act&quot;     &quot;actual&quot;</span></a>
-<a class="sourceLine" id="cb331-3" data-line-number="3">start_with_vowel &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;^[aeiou]&quot;</span>)</a>
-<a class="sourceLine" id="cb331-4" data-line-number="4">end_with_consonant &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;[^aeiou]$&quot;</span>)</a>
-<a class="sourceLine" id="cb331-5" data-line-number="5">words[start_with_vowel <span class="op">&amp;</span><span class="st"> </span>end_with_consonant] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
-<a class="sourceLine" id="cb331-6" data-line-number="6"><span class="co">#&gt; [1] &quot;about&quot;   &quot;accept&quot;  &quot;account&quot; &quot;across&quot;  &quot;act&quot;     &quot;actual&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1"><span class="kw">str_subset</span>(words, <span class="st">&quot;^[aeiou].*[^aeiou]$&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb332-2" data-line-number="2"><span class="co">#&gt; [1] &quot;about&quot;   &quot;accept&quot;  &quot;account&quot; &quot;across&quot;  &quot;act&quot;     &quot;actual&quot;</span></a>
+<a class="sourceLine" id="cb332-3" data-line-number="3">start_with_vowel &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;^[aeiou]&quot;</span>)</a>
+<a class="sourceLine" id="cb332-4" data-line-number="4">end_with_consonant &lt;-<span class="st"> </span><span class="kw">str_detect</span>(words, <span class="st">&quot;[^aeiou]$&quot;</span>)</a>
+<a class="sourceLine" id="cb332-5" data-line-number="5">words[start_with_vowel <span class="op">&amp;</span><span class="st"> </span>end_with_consonant] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb332-6" data-line-number="6"><span class="co">#&gt; [1] &quot;about&quot;   &quot;accept&quot;  &quot;account&quot; &quot;across&quot;  &quot;act&quot;     &quot;actual&quot;</span></a></code></pre></div>
 <p>Words that contain at least one of each vowel.
 There is not a good way of doing this without creating a regular expression from the permutations of vowels.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1">pattern &lt;-</a>
-<a class="sourceLine" id="cb332-2" data-line-number="2"><span class="st">  </span><span class="kw">cross_n</span>(<span class="kw">rerun</span>(<span class="dv">5</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;u&quot;</span>)),</a>
-<a class="sourceLine" id="cb332-3" data-line-number="3">        <span class="dt">.filter =</span> <span class="cf">function</span>(...) {</a>
-<a class="sourceLine" id="cb332-4" data-line-number="4">          x &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">unlist</span>(<span class="kw">list</span>(...)))</a>
-<a class="sourceLine" id="cb332-5" data-line-number="5">          <span class="kw">length</span>(x) <span class="op">!=</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(x))</a>
-<a class="sourceLine" id="cb332-6" data-line-number="6">        }) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb332-7" data-line-number="7"><span class="st">  </span><span class="kw">map_chr</span>(<span class="op">~</span><span class="st"> </span><span class="kw">str_c</span>(<span class="kw">unlist</span>(.x), <span class="dt">collapse =</span> <span class="st">&quot;.*&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb332-8" data-line-number="8"><span class="st">  </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)</a>
-<a class="sourceLine" id="cb332-9" data-line-number="9"><span class="co">#&gt; Warning: `cross_n()` is deprecated; please use `cross()` instead.</span></a>
-<a class="sourceLine" id="cb332-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb332-11" data-line-number="11"><span class="kw">str_subset</span>(words, pattern)</a>
-<a class="sourceLine" id="cb332-12" data-line-number="12"><span class="co">#&gt; character(0)</span></a>
-<a class="sourceLine" id="cb332-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb332-14" data-line-number="14">words[<span class="kw">str_detect</span>(words, <span class="st">&quot;a&quot;</span>) <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb332-15" data-line-number="15"><span class="st">      </span><span class="kw">str_detect</span>(words, <span class="st">&quot;e&quot;</span>) <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb332-16" data-line-number="16"><span class="st">      </span><span class="kw">str_detect</span>(words, <span class="st">&quot;i&quot;</span>) <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb332-17" data-line-number="17"><span class="st">      </span><span class="kw">str_detect</span>(words, <span class="st">&quot;o&quot;</span>) <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb332-18" data-line-number="18"><span class="st">      </span><span class="kw">str_detect</span>(words, <span class="st">&quot;u&quot;</span>)]</a>
-<a class="sourceLine" id="cb332-19" data-line-number="19"><span class="co">#&gt; character(0)</span></a></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1">pattern &lt;-</a>
+<a class="sourceLine" id="cb333-2" data-line-number="2"><span class="st">  </span><span class="kw">cross_n</span>(<span class="kw">rerun</span>(<span class="dv">5</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;u&quot;</span>)),</a>
+<a class="sourceLine" id="cb333-3" data-line-number="3">        <span class="dt">.filter =</span> <span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb333-4" data-line-number="4">          x &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">unlist</span>(<span class="kw">list</span>(...)))</a>
+<a class="sourceLine" id="cb333-5" data-line-number="5">          <span class="kw">length</span>(x) <span class="op">!=</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(x))</a>
+<a class="sourceLine" id="cb333-6" data-line-number="6">        }) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb333-7" data-line-number="7"><span class="st">  </span><span class="kw">map_chr</span>(<span class="op">~</span><span class="st"> </span><span class="kw">str_c</span>(<span class="kw">unlist</span>(.x), <span class="dt">collapse =</span> <span class="st">&quot;.*&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb333-8" data-line-number="8"><span class="st">  </span><span class="kw">str_c</span>(<span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)</a>
+<a class="sourceLine" id="cb333-9" data-line-number="9"><span class="co">#&gt; Warning: `cross_n()` is deprecated; please use `cross()` instead.</span></a>
+<a class="sourceLine" id="cb333-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb333-11" data-line-number="11"><span class="kw">str_subset</span>(words, pattern)</a>
+<a class="sourceLine" id="cb333-12" data-line-number="12"><span class="co">#&gt; character(0)</span></a>
+<a class="sourceLine" id="cb333-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb333-14" data-line-number="14">words[<span class="kw">str_detect</span>(words, <span class="st">&quot;a&quot;</span>) <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb333-15" data-line-number="15"><span class="st">      </span><span class="kw">str_detect</span>(words, <span class="st">&quot;e&quot;</span>) <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb333-16" data-line-number="16"><span class="st">      </span><span class="kw">str_detect</span>(words, <span class="st">&quot;i&quot;</span>) <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb333-17" data-line-number="17"><span class="st">      </span><span class="kw">str_detect</span>(words, <span class="st">&quot;o&quot;</span>) <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb333-18" data-line-number="18"><span class="st">      </span><span class="kw">str_detect</span>(words, <span class="st">&quot;u&quot;</span>)]</a>
+<a class="sourceLine" id="cb333-19" data-line-number="19"><span class="co">#&gt; character(0)</span></a></code></pre></div>
 <p>There appear to be none.
 To check that it works,</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1"><span class="kw">str_subset</span>(<span class="st">&quot;aseiouds&quot;</span>, pattern)</a>
-<a class="sourceLine" id="cb333-2" data-line-number="2"><span class="co">#&gt; [1] &quot;aseiouds&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1"><span class="kw">str_subset</span>(<span class="st">&quot;aseiouds&quot;</span>, pattern)</a>
+<a class="sourceLine" id="cb334-2" data-line-number="2"><span class="co">#&gt; [1] &quot;aseiouds&quot;</span></a></code></pre></div>
 <p>What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)</p>
 <p>What word has the highest number of vowels?</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1">vowels &lt;-<span class="st"> </span><span class="kw">str_count</span>(words, <span class="st">&quot;[aeiou]&quot;</span>)</a>
-<a class="sourceLine" id="cb334-2" data-line-number="2">words[<span class="kw">which</span>(vowels <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(vowels))]</a>
-<a class="sourceLine" id="cb334-3" data-line-number="3"><span class="co">#&gt; [1] &quot;appropriate&quot; &quot;associate&quot;   &quot;available&quot;   &quot;colleague&quot;   &quot;encourage&quot;  </span></a>
-<a class="sourceLine" id="cb334-4" data-line-number="4"><span class="co">#&gt; [6] &quot;experience&quot;  &quot;individual&quot;  &quot;television&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1">vowels &lt;-<span class="st"> </span><span class="kw">str_count</span>(words, <span class="st">&quot;[aeiou]&quot;</span>)</a>
+<a class="sourceLine" id="cb335-2" data-line-number="2">words[<span class="kw">which</span>(vowels <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(vowels))]</a>
+<a class="sourceLine" id="cb335-3" data-line-number="3"><span class="co">#&gt; [1] &quot;appropriate&quot; &quot;associate&quot;   &quot;available&quot;   &quot;colleague&quot;   &quot;encourage&quot;  </span></a>
+<a class="sourceLine" id="cb335-4" data-line-number="4"><span class="co">#&gt; [6] &quot;experience&quot;  &quot;individual&quot;  &quot;television&quot;</span></a></code></pre></div>
 <p>What word has the highest proportion of vowels?</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1">prop_vowels &lt;-<span class="st"> </span><span class="kw">str_count</span>(words, <span class="st">&quot;[aeiou]&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="kw">str_length</span>(words)</a>
-<a class="sourceLine" id="cb335-2" data-line-number="2">words[<span class="kw">which</span>(prop_vowels <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(prop_vowels))]</a>
-<a class="sourceLine" id="cb335-3" data-line-number="3"><span class="co">#&gt; [1] &quot;a&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">prop_vowels &lt;-<span class="st"> </span><span class="kw">str_count</span>(words, <span class="st">&quot;[aeiou]&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="kw">str_length</span>(words)</a>
+<a class="sourceLine" id="cb336-2" data-line-number="2">words[<span class="kw">which</span>(prop_vowels <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(prop_vowels))]</a>
+<a class="sourceLine" id="cb336-3" data-line-number="3"><span class="co">#&gt; [1] &quot;a&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="extract-matches" class="section level3">
@@ -1057,16 +1057,16 @@ To check that it works,</p>
 <h4><span class="header-section-number">14.4.3.1</span> Exercise 1</h4>
 <p>In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.</p>
 <p>This was the original color match pattern:</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">colours &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>)</a>
-<a class="sourceLine" id="cb336-2" data-line-number="2">colour_match &lt;-<span class="st"> </span><span class="kw">str_c</span>(colours, <span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1">colours &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>)</a>
+<a class="sourceLine" id="cb337-2" data-line-number="2">colour_match &lt;-<span class="st"> </span><span class="kw">str_c</span>(colours, <span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
 <p>It matches “flickered” because it matches “red”.
 The problem is that the previous pattern will match any word with the name of a color inside it. We want to only match colors in which the entire word is the name of the color.
 We can do this by adding a <code>\b</code> (to indicate a word boundary) before and after the pattern:</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1">colour_match2 &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">b(&quot;</span>, <span class="kw">str_c</span>(colours, <span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>), <span class="st">&quot;)</span><span class="ch">\\</span><span class="st">b&quot;</span>)</a>
-<a class="sourceLine" id="cb337-2" data-line-number="2">colour_match2</a>
-<a class="sourceLine" id="cb337-3" data-line-number="3"><span class="co">#&gt; [1] &quot;\\b(red|orange|yellow|green|blue|purple)\\b&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">more2 &lt;-<span class="st"> </span>sentences[<span class="kw">str_count</span>(sentences, colour_match) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>]</a></code></pre></div>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" data-line-number="1"><span class="kw">str_view_all</span>(more2, colour_match2, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">colour_match2 &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">b(&quot;</span>, <span class="kw">str_c</span>(colours, <span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>), <span class="st">&quot;)</span><span class="ch">\\</span><span class="st">b&quot;</span>)</a>
+<a class="sourceLine" id="cb338-2" data-line-number="2">colour_match2</a>
+<a class="sourceLine" id="cb338-3" data-line-number="3"><span class="co">#&gt; [1] &quot;\\b(red|orange|yellow|green|blue|purple)\\b&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" data-line-number="1">more2 &lt;-<span class="st"> </span>sentences[<span class="kw">str_count</span>(sentences, colour_match) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="kw">str_view_all</span>(more2, colour_match2, <span class="dt">match =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="exercise-2-35" class="section level4 exercise">
 <h4><span class="header-section-number">14.4.3.2</span> Exercise 2</h4>
@@ -1077,21 +1077,21 @@ We can do this by adding a <code>\b</code> (to indicate a word boundary) before 
 <li>All plurals.</li>
 </ol>
 <p>The first word in each sentence requires defining what a word is. I’ll consider a word any contiguous</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1"><span class="kw">str_extract</span>(sentences, <span class="st">&quot;[a-zA-X]+&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
-<a class="sourceLine" id="cb340-2" data-line-number="2"><span class="co">#&gt; [1] &quot;The&quot;   &quot;Glue&quot;  &quot;It&quot;    &quot;These&quot; &quot;Rice&quot;  &quot;The&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1"><span class="kw">str_extract</span>(sentences, <span class="st">&quot;[a-zA-X]+&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb341-2" data-line-number="2"><span class="co">#&gt; [1] &quot;The&quot;   &quot;Glue&quot;  &quot;It&quot;    &quot;These&quot; &quot;Rice&quot;  &quot;The&quot;</span></a></code></pre></div>
 <p>All words ending in <code>ing</code>:</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1">pattern &lt;-<span class="st"> &quot;</span><span class="ch">\\</span><span class="st">b[A-Za-z]+ing</span><span class="ch">\\</span><span class="st">b&quot;</span></a>
-<a class="sourceLine" id="cb341-2" data-line-number="2">sentences_with_ing &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sentences, pattern)</a>
-<a class="sourceLine" id="cb341-3" data-line-number="3"><span class="kw">unique</span>(<span class="kw">unlist</span>(<span class="kw">str_extract_all</span>(sentences[sentences_with_ing], pattern))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb341-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>()</a>
-<a class="sourceLine" id="cb341-5" data-line-number="5"><span class="co">#&gt; [1] &quot;spring&quot;  &quot;evening&quot; &quot;morning&quot; &quot;winding&quot; &quot;living&quot;  &quot;king&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1">pattern &lt;-<span class="st"> &quot;</span><span class="ch">\\</span><span class="st">b[A-Za-z]+ing</span><span class="ch">\\</span><span class="st">b&quot;</span></a>
+<a class="sourceLine" id="cb342-2" data-line-number="2">sentences_with_ing &lt;-<span class="st"> </span><span class="kw">str_detect</span>(sentences, pattern)</a>
+<a class="sourceLine" id="cb342-3" data-line-number="3"><span class="kw">unique</span>(<span class="kw">unlist</span>(<span class="kw">str_extract_all</span>(sentences[sentences_with_ing], pattern))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb342-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb342-5" data-line-number="5"><span class="co">#&gt; [1] &quot;spring&quot;  &quot;evening&quot; &quot;morning&quot; &quot;winding&quot; &quot;living&quot;  &quot;king&quot;</span></a></code></pre></div>
 <p>All plurals. This cannot be done correctly with regular expressions alone.
 It would require morphological information about words in the language.
 See <a href="https://cran.r-project.org/web/packages/wordnet/index.html">WordNet</a> for a resource that would do that.
 However, identifying words that end in an “s” and with more than three characters in order to remove “as”, “is”, “gas”, etc., will provide a reasonable approximation.</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1"><span class="kw">unique</span>(<span class="kw">unlist</span>(<span class="kw">str_extract_all</span>(sentences, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">b[A-Za-z]{3,}s</span><span class="ch">\\</span><span class="st">b&quot;</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb342-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>()</a>
-<a class="sourceLine" id="cb342-3" data-line-number="3"><span class="co">#&gt; [1] &quot;planks&quot; &quot;days&quot;   &quot;bowls&quot;  &quot;lemons&quot; &quot;makes&quot;  &quot;hogs&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1"><span class="kw">unique</span>(<span class="kw">unlist</span>(<span class="kw">str_extract_all</span>(sentences, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">b[A-Za-z]{3,}s</span><span class="ch">\\</span><span class="st">b&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb343-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb343-3" data-line-number="3"><span class="co">#&gt; [1] &quot;planks&quot; &quot;days&quot;   &quot;bowls&quot;  &quot;lemons&quot; &quot;makes&quot;  &quot;hogs&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="grouped-matches" class="section level3">
@@ -1100,29 +1100,29 @@ However, identifying words that end in an “s” and with more than three chara
 <h4><span class="header-section-number">14.4.4.1</span> Exercise 1</h4>
 <p>Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.</p>
 <p>I’ll use the same following “word” pattern as used above</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1">numword &lt;-<span class="st"> &quot;(one|two|three|four|five|six|seven|eight|nine|ten) +(</span><span class="ch">\\</span><span class="st">S+)&quot;</span></a>
-<a class="sourceLine" id="cb343-2" data-line-number="2">sentences[<span class="kw">str_detect</span>(sentences, numword)] <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb343-3" data-line-number="3"><span class="st">  </span><span class="kw">str_extract</span>(numword)</a>
-<a class="sourceLine" id="cb343-4" data-line-number="4"><span class="co">#&gt;  [1] &quot;ten served&quot;    &quot;one over&quot;      &quot;seven books&quot;   &quot;two met&quot;      </span></a>
-<a class="sourceLine" id="cb343-5" data-line-number="5"><span class="co">#&gt;  [5] &quot;two factors&quot;   &quot;one and&quot;       &quot;three lists&quot;   &quot;seven is&quot;     </span></a>
-<a class="sourceLine" id="cb343-6" data-line-number="6"><span class="co">#&gt;  [9] &quot;two when&quot;      &quot;one floor.&quot;    &quot;ten inches.&quot;   &quot;one with&quot;     </span></a>
-<a class="sourceLine" id="cb343-7" data-line-number="7"><span class="co">#&gt; [13] &quot;one war&quot;       &quot;one button&quot;    &quot;six minutes.&quot;  &quot;ten years&quot;    </span></a>
-<a class="sourceLine" id="cb343-8" data-line-number="8"><span class="co">#&gt; [17] &quot;one in&quot;        &quot;ten chased&quot;    &quot;one like&quot;      &quot;two shares&quot;   </span></a>
-<a class="sourceLine" id="cb343-9" data-line-number="9"><span class="co">#&gt; [21] &quot;two distinct&quot;  &quot;one costs&quot;     &quot;ten two&quot;       &quot;five robins.&quot; </span></a>
-<a class="sourceLine" id="cb343-10" data-line-number="10"><span class="co">#&gt; [25] &quot;four kinds&quot;    &quot;one rang&quot;      &quot;ten him.&quot;      &quot;three story&quot;  </span></a>
-<a class="sourceLine" id="cb343-11" data-line-number="11"><span class="co">#&gt; [29] &quot;ten by&quot;        &quot;one wall.&quot;     &quot;three inches&quot;  &quot;ten your&quot;     </span></a>
-<a class="sourceLine" id="cb343-12" data-line-number="12"><span class="co">#&gt; [33] &quot;six comes&quot;     &quot;one before&quot;    &quot;three batches&quot; &quot;two leaves.&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">numword &lt;-<span class="st"> &quot;(one|two|three|four|five|six|seven|eight|nine|ten) +(</span><span class="ch">\\</span><span class="st">S+)&quot;</span></a>
+<a class="sourceLine" id="cb344-2" data-line-number="2">sentences[<span class="kw">str_detect</span>(sentences, numword)] <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb344-3" data-line-number="3"><span class="st">  </span><span class="kw">str_extract</span>(numword)</a>
+<a class="sourceLine" id="cb344-4" data-line-number="4"><span class="co">#&gt;  [1] &quot;ten served&quot;    &quot;one over&quot;      &quot;seven books&quot;   &quot;two met&quot;      </span></a>
+<a class="sourceLine" id="cb344-5" data-line-number="5"><span class="co">#&gt;  [5] &quot;two factors&quot;   &quot;one and&quot;       &quot;three lists&quot;   &quot;seven is&quot;     </span></a>
+<a class="sourceLine" id="cb344-6" data-line-number="6"><span class="co">#&gt;  [9] &quot;two when&quot;      &quot;one floor.&quot;    &quot;ten inches.&quot;   &quot;one with&quot;     </span></a>
+<a class="sourceLine" id="cb344-7" data-line-number="7"><span class="co">#&gt; [13] &quot;one war&quot;       &quot;one button&quot;    &quot;six minutes.&quot;  &quot;ten years&quot;    </span></a>
+<a class="sourceLine" id="cb344-8" data-line-number="8"><span class="co">#&gt; [17] &quot;one in&quot;        &quot;ten chased&quot;    &quot;one like&quot;      &quot;two shares&quot;   </span></a>
+<a class="sourceLine" id="cb344-9" data-line-number="9"><span class="co">#&gt; [21] &quot;two distinct&quot;  &quot;one costs&quot;     &quot;ten two&quot;       &quot;five robins.&quot; </span></a>
+<a class="sourceLine" id="cb344-10" data-line-number="10"><span class="co">#&gt; [25] &quot;four kinds&quot;    &quot;one rang&quot;      &quot;ten him.&quot;      &quot;three story&quot;  </span></a>
+<a class="sourceLine" id="cb344-11" data-line-number="11"><span class="co">#&gt; [29] &quot;ten by&quot;        &quot;one wall.&quot;     &quot;three inches&quot;  &quot;ten your&quot;     </span></a>
+<a class="sourceLine" id="cb344-12" data-line-number="12"><span class="co">#&gt; [33] &quot;six comes&quot;     &quot;one before&quot;    &quot;three batches&quot; &quot;two leaves.&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-2-36" class="section level4 exercise">
 <h4><span class="header-section-number">14.4.4.2</span> Exercise 2</h4>
 <p>Find all contractions. Separate out the pieces before and after the apostrophe.</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">contraction &lt;-<span class="st"> &quot;([A-Za-z]+)&#39;([A-Za-z]+)&quot;</span></a>
-<a class="sourceLine" id="cb344-2" data-line-number="2">sentences <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb344-3" data-line-number="3"><span class="st">  `</span><span class="dt">[</span><span class="st">`</span>(<span class="kw">str_detect</span>(sentences, contraction)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb344-4" data-line-number="4"><span class="st">  </span><span class="kw">str_extract</span>(contraction)</a>
-<a class="sourceLine" id="cb344-5" data-line-number="5"><span class="co">#&gt;  [1] &quot;It&#39;s&quot;       &quot;man&#39;s&quot;      &quot;don&#39;t&quot;      &quot;store&#39;s&quot;    &quot;workmen&#39;s&quot; </span></a>
-<a class="sourceLine" id="cb344-6" data-line-number="6"><span class="co">#&gt;  [6] &quot;Let&#39;s&quot;      &quot;sun&#39;s&quot;      &quot;child&#39;s&quot;    &quot;king&#39;s&quot;     &quot;It&#39;s&quot;      </span></a>
-<a class="sourceLine" id="cb344-7" data-line-number="7"><span class="co">#&gt; [11] &quot;don&#39;t&quot;      &quot;queen&#39;s&quot;    &quot;don&#39;t&quot;      &quot;pirate&#39;s&quot;   &quot;neighbor&#39;s&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">contraction &lt;-<span class="st"> &quot;([A-Za-z]+)&#39;([A-Za-z]+)&quot;</span></a>
+<a class="sourceLine" id="cb345-2" data-line-number="2">sentences <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb345-3" data-line-number="3"><span class="st">  `</span><span class="dt">[</span><span class="st">`</span>(<span class="kw">str_detect</span>(sentences, contraction)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb345-4" data-line-number="4"><span class="st">  </span><span class="kw">str_extract</span>(contraction)</a>
+<a class="sourceLine" id="cb345-5" data-line-number="5"><span class="co">#&gt;  [1] &quot;It&#39;s&quot;       &quot;man&#39;s&quot;      &quot;don&#39;t&quot;      &quot;store&#39;s&quot;    &quot;workmen&#39;s&quot; </span></a>
+<a class="sourceLine" id="cb345-6" data-line-number="6"><span class="co">#&gt;  [6] &quot;Let&#39;s&quot;      &quot;sun&#39;s&quot;      &quot;child&#39;s&quot;    &quot;king&#39;s&quot;     &quot;It&#39;s&quot;      </span></a>
+<a class="sourceLine" id="cb345-7" data-line-number="7"><span class="co">#&gt; [11] &quot;don&#39;t&quot;      &quot;queen&#39;s&quot;    &quot;don&#39;t&quot;      &quot;pirate&#39;s&quot;   &quot;neighbor&#39;s&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="replacing-matches" class="section level3">
@@ -1130,31 +1130,31 @@ However, identifying words that end in an “s” and with more than three chara
 <div id="exercise-1-39" class="section level4 exercise">
 <h4><span class="header-section-number">14.4.5.1</span> Exercise 1</h4>
 <p>Replace all forward slashes in a string with backslashes.</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">backslashed &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(<span class="st">&quot;past/present/future&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">/&quot;</span>, <span class="st">&quot;</span><span class="ch">\\\\</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb345-2" data-line-number="2"><span class="kw">writeLines</span>(backslashed)</a>
-<a class="sourceLine" id="cb345-3" data-line-number="3"><span class="co">#&gt; past\present\future</span></a></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1">backslashed &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(<span class="st">&quot;past/present/future&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">/&quot;</span>, <span class="st">&quot;</span><span class="ch">\\\\</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb346-2" data-line-number="2"><span class="kw">writeLines</span>(backslashed)</a>
+<a class="sourceLine" id="cb346-3" data-line-number="3"><span class="co">#&gt; past\present\future</span></a></code></pre></div>
 </div>
 <div id="exercise-2-37" class="section level4 exercise">
 <h4><span class="header-section-number">14.4.5.2</span> Exercise 2</h4>
 <p>Implement a simple version of <code>str_to_lower()</code> using <code>replace_all()</code>.</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1">lower &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(words, <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>=<span class="st">&quot;a&quot;</span>, <span class="st">&quot;B&quot;</span>=<span class="st">&quot;b&quot;</span>, <span class="st">&quot;C&quot;</span>=<span class="st">&quot;c&quot;</span>, <span class="st">&quot;D&quot;</span>=<span class="st">&quot;d&quot;</span>, <span class="st">&quot;E&quot;</span>=<span class="st">&quot;e&quot;</span>, <span class="st">&quot;F&quot;</span>=<span class="st">&quot;f&quot;</span>, <span class="st">&quot;G&quot;</span>=<span class="st">&quot;g&quot;</span>, <span class="st">&quot;H&quot;</span>=<span class="st">&quot;h&quot;</span>, <span class="st">&quot;I&quot;</span>=<span class="st">&quot;i&quot;</span>, <span class="st">&quot;J&quot;</span>=<span class="st">&quot;j&quot;</span>, <span class="st">&quot;K&quot;</span>=<span class="st">&quot;k&quot;</span>, <span class="st">&quot;L&quot;</span>=<span class="st">&quot;l&quot;</span>, <span class="st">&quot;M&quot;</span>=<span class="st">&quot;m&quot;</span>, <span class="st">&quot;N&quot;</span>=<span class="st">&quot;n&quot;</span>, <span class="st">&quot;O&quot;</span>=<span class="st">&quot;o&quot;</span>, <span class="st">&quot;P&quot;</span>=<span class="st">&quot;p&quot;</span>, <span class="st">&quot;Q&quot;</span>=<span class="st">&quot;q&quot;</span>, <span class="st">&quot;R&quot;</span>=<span class="st">&quot;r&quot;</span>, <span class="st">&quot;S&quot;</span>=<span class="st">&quot;s&quot;</span>, <span class="st">&quot;T&quot;</span>=<span class="st">&quot;t&quot;</span>, <span class="st">&quot;U&quot;</span>=<span class="st">&quot;u&quot;</span>, <span class="st">&quot;V&quot;</span>=<span class="st">&quot;v&quot;</span>, <span class="st">&quot;W&quot;</span>=<span class="st">&quot;w&quot;</span>, <span class="st">&quot;X&quot;</span>=<span class="st">&quot;x&quot;</span>, <span class="st">&quot;Y&quot;</span>=<span class="st">&quot;y&quot;</span>, <span class="st">&quot;Z&quot;</span>=<span class="st">&quot;z&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">lower &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(words, <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>=<span class="st">&quot;a&quot;</span>, <span class="st">&quot;B&quot;</span>=<span class="st">&quot;b&quot;</span>, <span class="st">&quot;C&quot;</span>=<span class="st">&quot;c&quot;</span>, <span class="st">&quot;D&quot;</span>=<span class="st">&quot;d&quot;</span>, <span class="st">&quot;E&quot;</span>=<span class="st">&quot;e&quot;</span>, <span class="st">&quot;F&quot;</span>=<span class="st">&quot;f&quot;</span>, <span class="st">&quot;G&quot;</span>=<span class="st">&quot;g&quot;</span>, <span class="st">&quot;H&quot;</span>=<span class="st">&quot;h&quot;</span>, <span class="st">&quot;I&quot;</span>=<span class="st">&quot;i&quot;</span>, <span class="st">&quot;J&quot;</span>=<span class="st">&quot;j&quot;</span>, <span class="st">&quot;K&quot;</span>=<span class="st">&quot;k&quot;</span>, <span class="st">&quot;L&quot;</span>=<span class="st">&quot;l&quot;</span>, <span class="st">&quot;M&quot;</span>=<span class="st">&quot;m&quot;</span>, <span class="st">&quot;N&quot;</span>=<span class="st">&quot;n&quot;</span>, <span class="st">&quot;O&quot;</span>=<span class="st">&quot;o&quot;</span>, <span class="st">&quot;P&quot;</span>=<span class="st">&quot;p&quot;</span>, <span class="st">&quot;Q&quot;</span>=<span class="st">&quot;q&quot;</span>, <span class="st">&quot;R&quot;</span>=<span class="st">&quot;r&quot;</span>, <span class="st">&quot;S&quot;</span>=<span class="st">&quot;s&quot;</span>, <span class="st">&quot;T&quot;</span>=<span class="st">&quot;t&quot;</span>, <span class="st">&quot;U&quot;</span>=<span class="st">&quot;u&quot;</span>, <span class="st">&quot;V&quot;</span>=<span class="st">&quot;v&quot;</span>, <span class="st">&quot;W&quot;</span>=<span class="st">&quot;w&quot;</span>, <span class="st">&quot;X&quot;</span>=<span class="st">&quot;x&quot;</span>, <span class="st">&quot;Y&quot;</span>=<span class="st">&quot;y&quot;</span>, <span class="st">&quot;Z&quot;</span>=<span class="st">&quot;z&quot;</span>))</a></code></pre></div>
 </div>
 <div id="exercise-3-31" class="section level4 exercise">
 <h4><span class="header-section-number">14.4.5.3</span> Exercise 3</h4>
 <p>Switch the first and last letters in <code>words</code>. Which of those strings are still words?</p>
 <p>First, make a vector of all the words with first and last letters swapped,</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">swapped &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(words, <span class="st">&quot;^([A-Za-z])(.*)([a-z])$&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">3</span><span class="ch">\\</span><span class="st">2</span><span class="ch">\\</span><span class="st">1&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">swapped &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(words, <span class="st">&quot;^([A-Za-z])(.*)([a-z])$&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">3</span><span class="ch">\\</span><span class="st">2</span><span class="ch">\\</span><span class="st">1&quot;</span>)</a></code></pre></div>
 <p>Next, find what of “swapped” is also in the original list using the function <code>intersect</code>,</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1"><span class="kw">intersect</span>(swapped,words)</a>
-<a class="sourceLine" id="cb348-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;a&quot;          &quot;america&quot;    &quot;area&quot;       &quot;dad&quot;        &quot;dead&quot;      </span></a>
-<a class="sourceLine" id="cb348-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;lead&quot;       &quot;read&quot;       &quot;depend&quot;     &quot;god&quot;        &quot;educate&quot;   </span></a>
-<a class="sourceLine" id="cb348-4" data-line-number="4"><span class="co">#&gt; [11] &quot;else&quot;       &quot;encourage&quot;  &quot;engine&quot;     &quot;europe&quot;     &quot;evidence&quot;  </span></a>
-<a class="sourceLine" id="cb348-5" data-line-number="5"><span class="co">#&gt; [16] &quot;example&quot;    &quot;excuse&quot;     &quot;exercise&quot;   &quot;expense&quot;    &quot;experience&quot;</span></a>
-<a class="sourceLine" id="cb348-6" data-line-number="6"><span class="co">#&gt; [21] &quot;eye&quot;        &quot;dog&quot;        &quot;health&quot;     &quot;high&quot;       &quot;knock&quot;     </span></a>
-<a class="sourceLine" id="cb348-7" data-line-number="7"><span class="co">#&gt; [26] &quot;deal&quot;       &quot;level&quot;      &quot;local&quot;      &quot;nation&quot;     &quot;on&quot;        </span></a>
-<a class="sourceLine" id="cb348-8" data-line-number="8"><span class="co">#&gt; [31] &quot;non&quot;        &quot;no&quot;         &quot;rather&quot;     &quot;dear&quot;       &quot;refer&quot;     </span></a>
-<a class="sourceLine" id="cb348-9" data-line-number="9"><span class="co">#&gt; [36] &quot;remember&quot;   &quot;serious&quot;    &quot;stairs&quot;     &quot;test&quot;       &quot;tonight&quot;   </span></a>
-<a class="sourceLine" id="cb348-10" data-line-number="10"><span class="co">#&gt; [41] &quot;transport&quot;  &quot;treat&quot;      &quot;trust&quot;      &quot;window&quot;     &quot;yesterday&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">intersect</span>(swapped,words)</a>
+<a class="sourceLine" id="cb349-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;a&quot;          &quot;america&quot;    &quot;area&quot;       &quot;dad&quot;        &quot;dead&quot;      </span></a>
+<a class="sourceLine" id="cb349-3" data-line-number="3"><span class="co">#&gt;  [6] &quot;lead&quot;       &quot;read&quot;       &quot;depend&quot;     &quot;god&quot;        &quot;educate&quot;   </span></a>
+<a class="sourceLine" id="cb349-4" data-line-number="4"><span class="co">#&gt; [11] &quot;else&quot;       &quot;encourage&quot;  &quot;engine&quot;     &quot;europe&quot;     &quot;evidence&quot;  </span></a>
+<a class="sourceLine" id="cb349-5" data-line-number="5"><span class="co">#&gt; [16] &quot;example&quot;    &quot;excuse&quot;     &quot;exercise&quot;   &quot;expense&quot;    &quot;experience&quot;</span></a>
+<a class="sourceLine" id="cb349-6" data-line-number="6"><span class="co">#&gt; [21] &quot;eye&quot;        &quot;dog&quot;        &quot;health&quot;     &quot;high&quot;       &quot;knock&quot;     </span></a>
+<a class="sourceLine" id="cb349-7" data-line-number="7"><span class="co">#&gt; [26] &quot;deal&quot;       &quot;level&quot;      &quot;local&quot;      &quot;nation&quot;     &quot;on&quot;        </span></a>
+<a class="sourceLine" id="cb349-8" data-line-number="8"><span class="co">#&gt; [31] &quot;non&quot;        &quot;no&quot;         &quot;rather&quot;     &quot;dear&quot;       &quot;refer&quot;     </span></a>
+<a class="sourceLine" id="cb349-9" data-line-number="9"><span class="co">#&gt; [36] &quot;remember&quot;   &quot;serious&quot;    &quot;stairs&quot;     &quot;test&quot;       &quot;tonight&quot;   </span></a>
+<a class="sourceLine" id="cb349-10" data-line-number="10"><span class="co">#&gt; [41] &quot;transport&quot;  &quot;treat&quot;      &quot;trust&quot;      &quot;window&quot;     &quot;yesterday&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="splitting" class="section level3">
@@ -1162,9 +1162,9 @@ However, identifying words that end in an “s” and with more than three chara
 <div id="exercise-1-40" class="section level4 exercise">
 <h4><span class="header-section-number">14.4.6.1</span> Exercise 1</h4>
 <p>Split up a string like <code>&quot;apples, pears, and bananas&quot;</code> into individual components.</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apples, pears, and bananas&quot;</span>)</a>
-<a class="sourceLine" id="cb349-2" data-line-number="2"><span class="kw">str_split</span>(x, <span class="st">&quot;, +(and +)?&quot;</span>)[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb349-3" data-line-number="3"><span class="co">#&gt; [1] &quot;apples&quot;  &quot;pears&quot;   &quot;bananas&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apples, pears, and bananas&quot;</span>)</a>
+<a class="sourceLine" id="cb350-2" data-line-number="2"><span class="kw">str_split</span>(x, <span class="st">&quot;, +(and +)?&quot;</span>)[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb350-3" data-line-number="3"><span class="co">#&gt; [1] &quot;apples&quot;  &quot;pears&quot;   &quot;bananas&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-2-38" class="section level4 exercise">
 <h4><span class="header-section-number">14.4.6.2</span> Exercise 2</h4>
@@ -1173,23 +1173,23 @@ However, identifying words that end in an “s” and with more than three chara
 It recognizes non-space punctuation that splits words, and also removes punctuation while retaining internal non-letter characters that are parts of the word, e.g., “can’t”
 See the <a href="http://userguide.icu-project.org/boundaryanalysis">ICU website</a> for a description of the set of rules that are used to determine word boundaries.</p>
 <p>Consider this sentence from the official <a href="http://www.unicode.org/reports/tr29/#Word_Boundaries">Unicode Report on word boundaries</a>,</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">sentence &lt;-<span class="st"> &quot;The quick (“brown”) fox can’t jump 32.3 feet, right?&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1">sentence &lt;-<span class="st"> &quot;The quick (“brown”) fox can’t jump 32.3 feet, right?&quot;</span></a></code></pre></div>
 <p>Splitting the string on spaces considers will group the punctuation with the words,</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1"><span class="kw">str_split</span>(sentence, <span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb351-2" data-line-number="2"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb351-3" data-line-number="3"><span class="co">#&gt; [1] &quot;The&quot;       &quot;quick&quot;     &quot;(“brown”)&quot; &quot;fox&quot;       &quot;can’t&quot;     &quot;jump&quot;     </span></a>
-<a class="sourceLine" id="cb351-4" data-line-number="4"><span class="co">#&gt; [7] &quot;32.3&quot;      &quot;feet,&quot;     &quot;right?&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="kw">str_split</span>(sentence, <span class="st">&quot; &quot;</span>)</a>
+<a class="sourceLine" id="cb352-2" data-line-number="2"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb352-3" data-line-number="3"><span class="co">#&gt; [1] &quot;The&quot;       &quot;quick&quot;     &quot;(“brown”)&quot; &quot;fox&quot;       &quot;can’t&quot;     &quot;jump&quot;     </span></a>
+<a class="sourceLine" id="cb352-4" data-line-number="4"><span class="co">#&gt; [7] &quot;32.3&quot;      &quot;feet,&quot;     &quot;right?&quot;</span></a></code></pre></div>
 <p>However, splitting the string using <code>boundary(&quot;word&quot;)</code> correctly removes punctuation, while not
 separating “32.2” and “can’t”,</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="kw">str_split</span>(sentence, <span class="kw">boundary</span>(<span class="st">&quot;word&quot;</span>))</a>
-<a class="sourceLine" id="cb352-2" data-line-number="2"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb352-3" data-line-number="3"><span class="co">#&gt; [1] &quot;The&quot;   &quot;quick&quot; &quot;brown&quot; &quot;fox&quot;   &quot;can’t&quot; &quot;jump&quot;  &quot;32.3&quot;  &quot;feet&quot;  &quot;right&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1"><span class="kw">str_split</span>(sentence, <span class="kw">boundary</span>(<span class="st">&quot;word&quot;</span>))</a>
+<a class="sourceLine" id="cb353-2" data-line-number="2"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb353-3" data-line-number="3"><span class="co">#&gt; [1] &quot;The&quot;   &quot;quick&quot; &quot;brown&quot; &quot;fox&quot;   &quot;can’t&quot; &quot;jump&quot;  &quot;32.3&quot;  &quot;feet&quot;  &quot;right&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-3-32" class="section level4 exercise">
 <h4><span class="header-section-number">14.4.6.3</span> Exercise 3</h4>
 <p>What does splitting with an empty string <code>(&quot;&quot;)</code> do? Experiment, and then read the documentation.</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1"><span class="kw">str_split</span>(<span class="st">&quot;ab. cd|agt&quot;</span>, <span class="st">&quot;&quot;</span>)[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb353-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;a&quot; &quot;b&quot; &quot;.&quot; &quot; &quot; &quot;c&quot; &quot;d&quot; &quot;|&quot; &quot;a&quot; &quot;g&quot; &quot;t&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="kw">str_split</span>(<span class="st">&quot;ab. cd|agt&quot;</span>, <span class="st">&quot;&quot;</span>)[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb354-2" data-line-number="2"><span class="co">#&gt;  [1] &quot;a&quot; &quot;b&quot; &quot;.&quot; &quot; &quot; &quot;c&quot; &quot;d&quot; &quot;|&quot; &quot;a&quot; &quot;g&quot; &quot;t&quot;</span></a></code></pre></div>
 <p>It splits the string into individual characters.</p>
 </div>
 </div>
@@ -1203,31 +1203,31 @@ separating “32.2” and “can’t”,</p>
 <div id="exercise-1-41" class="section level3 exercise">
 <h3><span class="header-section-number">14.5.1</span> Exercise 1</h3>
 <p>How would you find all strings containing <code>\</code> with <code>regex()</code> vs. with <code>fixed()</code>?</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="kw">str_subset</span>(<span class="kw">c</span>(<span class="st">&quot;a</span><span class="ch">\\</span><span class="st">b&quot;</span>, <span class="st">&quot;ab&quot;</span>), <span class="st">&quot;</span><span class="ch">\\\\</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb354-2" data-line-number="2"><span class="co">#&gt; [1] &quot;a\\b&quot;</span></a>
-<a class="sourceLine" id="cb354-3" data-line-number="3"><span class="kw">str_subset</span>(<span class="kw">c</span>(<span class="st">&quot;a</span><span class="ch">\\</span><span class="st">b&quot;</span>, <span class="st">&quot;ab&quot;</span>), <span class="kw">fixed</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">&quot;</span>))</a>
-<a class="sourceLine" id="cb354-4" data-line-number="4"><span class="co">#&gt; [1] &quot;a\\b&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1"><span class="kw">str_subset</span>(<span class="kw">c</span>(<span class="st">&quot;a</span><span class="ch">\\</span><span class="st">b&quot;</span>, <span class="st">&quot;ab&quot;</span>), <span class="st">&quot;</span><span class="ch">\\\\</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb355-2" data-line-number="2"><span class="co">#&gt; [1] &quot;a\\b&quot;</span></a>
+<a class="sourceLine" id="cb355-3" data-line-number="3"><span class="kw">str_subset</span>(<span class="kw">c</span>(<span class="st">&quot;a</span><span class="ch">\\</span><span class="st">b&quot;</span>, <span class="st">&quot;ab&quot;</span>), <span class="kw">fixed</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">&quot;</span>))</a>
+<a class="sourceLine" id="cb355-4" data-line-number="4"><span class="co">#&gt; [1] &quot;a\\b&quot;</span></a></code></pre></div>
 </div>
 <div id="exercise-2-39" class="section level3 exercise">
 <h3><span class="header-section-number">14.5.2</span> Exercise 2</h3>
 <p>What are the five most common words in sentences?</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1"><span class="kw">str_extract_all</span>(sentences, <span class="kw">boundary</span>(<span class="st">&quot;word&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-2" data-line-number="2"><span class="st">  </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-3" data-line-number="3"><span class="st">  </span><span class="kw">str_to_lower</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-4" data-line-number="4"><span class="st">  </span><span class="kw">tibble</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-5" data-line-number="5"><span class="st">  </span><span class="kw">set_names</span>(<span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(word) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-7" data-line-number="7"><span class="st">  </span><span class="kw">count</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-8" data-line-number="8"><span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb355-9" data-line-number="9"><span class="co">#&gt; # A tibble: 5 x 2</span></a>
-<a class="sourceLine" id="cb355-10" data-line-number="10"><span class="co">#&gt; # Groups:   word [5]</span></a>
-<a class="sourceLine" id="cb355-11" data-line-number="11"><span class="co">#&gt;   word      n</span></a>
-<a class="sourceLine" id="cb355-12" data-line-number="12"><span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb355-13" data-line-number="13"><span class="co">#&gt; 1 the     751</span></a>
-<a class="sourceLine" id="cb355-14" data-line-number="14"><span class="co">#&gt; 2 a       202</span></a>
-<a class="sourceLine" id="cb355-15" data-line-number="15"><span class="co">#&gt; 3 of      132</span></a>
-<a class="sourceLine" id="cb355-16" data-line-number="16"><span class="co">#&gt; 4 to      123</span></a>
-<a class="sourceLine" id="cb355-17" data-line-number="17"><span class="co">#&gt; 5 and     118</span></a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1"><span class="kw">str_extract_all</span>(sentences, <span class="kw">boundary</span>(<span class="st">&quot;word&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb356-2" data-line-number="2"><span class="st">  </span><span class="kw">unlist</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb356-3" data-line-number="3"><span class="st">  </span><span class="kw">str_to_lower</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb356-4" data-line-number="4"><span class="st">  </span><span class="kw">tibble</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb356-5" data-line-number="5"><span class="st">  </span><span class="kw">set_names</span>(<span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb356-6" data-line-number="6"><span class="st">  </span><span class="kw">group_by</span>(word) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb356-7" data-line-number="7"><span class="st">  </span><span class="kw">count</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb356-8" data-line-number="8"><span class="st">  </span><span class="kw">head</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb356-9" data-line-number="9"><span class="co">#&gt; # A tibble: 5 x 2</span></a>
+<a class="sourceLine" id="cb356-10" data-line-number="10"><span class="co">#&gt; # Groups:   word [5]</span></a>
+<a class="sourceLine" id="cb356-11" data-line-number="11"><span class="co">#&gt;   word      n</span></a>
+<a class="sourceLine" id="cb356-12" data-line-number="12"><span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb356-13" data-line-number="13"><span class="co">#&gt; 1 the     751</span></a>
+<a class="sourceLine" id="cb356-14" data-line-number="14"><span class="co">#&gt; 2 a       202</span></a>
+<a class="sourceLine" id="cb356-15" data-line-number="15"><span class="co">#&gt; 3 of      132</span></a>
+<a class="sourceLine" id="cb356-16" data-line-number="16"><span class="co">#&gt; 4 to      123</span></a>
+<a class="sourceLine" id="cb356-17" data-line-number="17"><span class="co">#&gt; 5 and     118</span></a></code></pre></div>
 </div>
 </div>
 <div id="other-uses-of-regular-expressions" class="section level2">

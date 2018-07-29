@@ -33,6 +33,8 @@ Find all flights that
 
 
 
+The answers to each part follow.
+
 1.  Since delay is in minutes, find
     flights whose arrival was delayed 120 or more minutes.
 
@@ -308,7 +310,7 @@ NA ^ 0
 #> [1] 1
 ```
 
-`NA | TRUE` is `TRUE` because the it doesn't matter whether the missing value is `TRUE` or `FALSE`, `x \lor T = T` for all values of `x`.
+`NA | TRUE` is `TRUE` because the it doesn't matter whether the missing value is `TRUE` or `FALSE`, $x$ or `TRUE` is `TRUE` for all values of $x$.
 
 ```r
 NA | TRUE
@@ -329,13 +331,13 @@ NA & TRUE
 #> [1] NA
 ```
 
-Wut?? Since `x * 0 = 0` for all $x$ (except `Inf`) we might expect `NA * 0 = 0`, but that's not the case.
+Wut?? Since $x * 0 = 0$ for all $x$ (except `Inf`) we might expect `NA * 0 == 0`, but that's not the case.
 
 ```r
 NA * 0
 #> [1] NA
 ```
-The reason that `NA * 0` is not equal to `0` is that `x * 0 = NaN` is undefined when `x = Inf` or `x = -Inf`.
+The reason that `NA * 0` is not equal to `0` is that $x * 0$ is not a number, i.e., `NaN`, when $x = Inf$ or $x = -Inf$.
 
 ```r
 Inf * 0

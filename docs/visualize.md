@@ -461,7 +461,51 @@ How might the balance change if you had a larger dataset?
 
 
 
-**TODO**
+
+This is what the plot looks like when `class` is represented by the colour
+the color aesthetic instead of faceting.
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-19-1} \end{center}
+
+Advantages of encoding `class` with facets instead of color include the
+ability to encode more distinct categories.
+For me, it is difficult to distinguish color of `"midsize"` and the teal of `"minivan"` points are difficult to distinguish.
+Given human visual perception, the max number of colors to use when encoding
+unordered categorical (qualitative) data is nine, and in practice, often much less
+than that.
+Also, while placing points in different categories in different scales makes
+it difficult to directly compare values of individual points in different categories, it can make it easier to compare patterns between categories.
+
+Disadvantages of encoding `class` with facets instead of color are that different
+the different class is that the points for each category are on different plots,
+making it more difficult to directly compare the locations of individual points.
+Using the same x- and y-scales for all facets lessens this disadvantage.
+Since encoding class within color also places all points on the same plot,
+it visualizes the unconditional relationshipo between the x and y variables;
+with facets, the uncoditional relationship is no longer visualized since the 
+points are spread across multiple plots.
+
+The benefits encoding a variable through facetting over color become more advantageous as either the number of points or the number of categories increase.
+In the former, as the number of points increase, there is likely to be more 
+overlap. 
+
+It is difficult to handle overlapping points with color.
+Jittering will still work with color. 
+But jittering will only work well if there are few points and the classes do not overlap much, otherwise the colors of areas will no longer be distinct and it will be hard to visually pick out the patterns of different categories.
+Transparency (`alpha`) does not work well with colors since the mixing of overlapping transparent colors does not correpond will no longer represent the colors of the categories.
+Binning methods use already color to encode density, so color cannot be used to encode categories.
+
+As noted before, as the number of categories increases, the difference between
+colors decreases, to the point that the color of categories will no longer be 
+visually distinct.
+
 
 
 ### Exercise 5 {.exercise}
@@ -538,7 +582,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-20-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 
 
@@ -563,7 +607,7 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-21-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-1} \end{center}
 But there is no legend in this code:
 
 ```r
@@ -577,7 +621,7 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-22-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 In the example earlier in the chapter,
 
@@ -600,7 +644,7 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-2} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-23-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-2} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-3} \end{center}
 the legend is suppressed because there are three plots, and adding a legend that only appears in the last one would make the presentation asymmetric.
 Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a `group` aesthetic, and using a `color` aesthetic (with implicit grouping).
 In that example, the legend isn't necessary since looking up the values associated with each color isn't necessary to make that point.
@@ -627,7 +671,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-24-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 By default `se = TRUE`:
 
@@ -641,7 +685,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-25-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 
 
@@ -665,7 +709,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-26-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 
 ```r
@@ -677,7 +721,7 @@ ggplot() +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-27-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 
 
@@ -699,7 +743,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-28-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 
 ```r
@@ -711,24 +755,12 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-29-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 
 ```r
 ggplot(mpg, aes(x = displ, y = hwy, colour = drv)) +
   geom_point() +
-  geom_smooth(se = FALSE)
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-30-1} \end{center}
-
-
-```r
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(colour = drv)) +
   geom_smooth(se = FALSE)
 #> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
@@ -741,7 +773,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```r
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(colour = drv)) +
-  geom_smooth(aes(linetype = drv), se = FALSE)
+  geom_smooth(se = FALSE)
 #> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
@@ -752,13 +784,25 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ```r
 ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(colour = drv)) +
+  geom_smooth(aes(linetype = drv), se = FALSE)
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-33-1} \end{center}
+
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) +
    geom_point(size = 4, color = "white") +
    geom_point(aes(colour = drv))
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-33-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 
 ## Statistical Transformations
@@ -786,7 +830,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-34-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 The default message says that `stat_summary` uses the `mean` and `sd` to calculate the point, and range of the line. So lets use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
 
@@ -803,7 +847,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 
 
@@ -873,7 +917,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-36-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 The problem with these two plots is that the proportions are calculated within the groups.
 
@@ -887,7 +931,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-37-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-2} \end{center}
 
 This is more likely what was intended:
 
@@ -901,7 +945,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-38-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-1} \includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-2} \end{center}
 
 
 
@@ -925,7 +969,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-39-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-40-1} \end{center}
 I'd fix it by using a jitter position adjustment.
 
 ```r
@@ -935,7 +979,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-40-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 
 
@@ -958,7 +1002,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-41-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 Way too much vertical jitter
 
@@ -969,7 +1013,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-42-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 Only horizontal jitter:
 
@@ -980,7 +1024,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 Way too much horizontal jitter:
 
@@ -991,7 +1035,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-44-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 
 
@@ -1016,7 +1060,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-45-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 However, the reduction in overlapping comes at the cost of changing the `x` and `y`
 values of the points.
@@ -1032,7 +1076,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-46-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-47-1} \end{center}
 
 This method does not change the `x` and `y` coordinates of the points.
 However, if the points are close together and counts are large, the size of some
@@ -1047,7 +1091,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-47-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-48-1} \end{center}
 
 
 ```r
@@ -1057,7 +1101,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-48-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 Unfortunately, there is no universal solution to overplotting. The costs and
 benefits of different approaches will depend on the structure of the data and the goal
@@ -1084,7 +1128,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-49-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
 
 ```r
@@ -1094,7 +1138,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-50-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-51-1} \end{center}
 
 
 
@@ -1116,7 +1160,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-51-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
 See the documentation for [coord_polar](http://docs.ggplot2.org/current/coord_polar.html) for an example of making a pie chart. In particular, `theta = "y"`, meaning that the angle of the chart is the `y` variable which has to be specified.
 
@@ -1129,7 +1173,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-52-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 If `theta = "y"` is not specified, then you get a bull’s-eye chart
 
@@ -1141,7 +1185,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-53-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 If you had a multiple stacked bar chart,
 
@@ -1152,7 +1196,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-54-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 and apply polar coordinates to it, you end up with a multi-doughnut chart,
 
@@ -1164,7 +1208,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-55-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
 
 
@@ -1188,7 +1232,7 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-56-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 
 
@@ -1234,7 +1278,7 @@ p + coord_fixed()
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-57-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 If we didn't include `geom_coord()`, then the line would no longer have an angle of 45 degrees.
 
@@ -1244,7 +1288,7 @@ p
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-58-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-59-1} \end{center}
 
 On average, humans are best able to perceive differences in angles relative to 45 degrees.
 See @Cleveland1993, @Cleveland1994,@Cleveland1993a, @ClevelandMcGillMcGill1988,  @HeerAgrawala2006 for discussion on how the aspect ratio of a plot affects perception of the values it encodes, evidence that 45 degrees is generally optimal, and methods to calculate the an aspect ratio to achieve it. 
