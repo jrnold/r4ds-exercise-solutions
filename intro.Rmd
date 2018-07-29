@@ -30,7 +30,7 @@ cat(".\n")
 
 ## Updates {-}
 
-```{r updates,results='asis',echo=FALSE}
+```{r updates,results='asis',echo=FALSE,cache.extras=tools::md5sum(here::here("NEWS.md"))}
 readr::read_file(here::here("NEWS.md")) %>%
   stringr::str_replace_all(stringr::regex("^## (.*)$", multiline = TRUE), 
                            "### \\1 {-}") %>%
