@@ -1,6 +1,6 @@
 ## 2018-07-28
 
--   Fix miscellaneous typos (dongzhuoer, #31,#33,#34)
+-   Fix miscellaneous typos (dongzhuoer, #31,#33,#34,#35,#36,#37)
 
 ## 2018-07-24
 
