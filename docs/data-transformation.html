@@ -1680,29 +1680,40 @@ The ATL, GSP, and BNA flights look suspicious as they are almost half the time o
 <div id="exercise-7-1" class="section level3 exercise">
 <h3><span class="header-section-number">5.7.7</span> Exercise 7</h3>
 <p>Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.</p>
-<p>The carrier that flies to the most locations is ExpressJet Airlines (EV).
-ExpressJet is a regional airline and partner for major airlines, so its one of those that flies small planes to close airports</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb133-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(dest, carrier) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb133-3" data-line-number="3"><span class="st">  </span><span class="kw">count</span>(carrier) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb133-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(carrier) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb133-5" data-line-number="5"><span class="st">  </span><span class="kw">count</span>(<span class="dt">sort =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb133-6" data-line-number="6"><span class="co">#&gt; # A tibble: 16 x 2</span></a>
-<a class="sourceLine" id="cb133-7" data-line-number="7"><span class="co">#&gt; # Groups:   carrier [16]</span></a>
-<a class="sourceLine" id="cb133-8" data-line-number="8"><span class="co">#&gt;   carrier    nn</span></a>
-<a class="sourceLine" id="cb133-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb133-10" data-line-number="10"><span class="co">#&gt; 1 EV         61</span></a>
-<a class="sourceLine" id="cb133-11" data-line-number="11"><span class="co">#&gt; 2 9E         49</span></a>
-<a class="sourceLine" id="cb133-12" data-line-number="12"><span class="co">#&gt; 3 UA         47</span></a>
-<a class="sourceLine" id="cb133-13" data-line-number="13"><span class="co">#&gt; 4 B6         42</span></a>
-<a class="sourceLine" id="cb133-14" data-line-number="14"><span class="co">#&gt; 5 DL         40</span></a>
-<a class="sourceLine" id="cb133-15" data-line-number="15"><span class="co">#&gt; 6 MQ         20</span></a>
-<a class="sourceLine" id="cb133-16" data-line-number="16"><span class="co">#&gt; # ... with 10 more rows</span></a></code></pre></div>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="kw">filter</span>(airlines, carrier <span class="op">==</span><span class="st"> &quot;EV&quot;</span>)</a>
-<a class="sourceLine" id="cb134-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb134-3" data-line-number="3"><span class="co">#&gt;   carrier name                    </span></a>
-<a class="sourceLine" id="cb134-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span></a>
-<a class="sourceLine" id="cb134-5" data-line-number="5"><span class="co">#&gt; 1 EV      ExpressJet Airlines Inc.</span></a></code></pre></div>
+<p>To restate this question, we are asked to rank airlines by the number of destinations that they fly to, considering only those airports that are flown to by two or more airlines.</p>
+<p>First, find all airports serviced by two or more carriers.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">dest_2carriers &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb133-2" data-line-number="2"><span class="st">  </span><span class="co"># keep only unique carrier,dest pairs</span></a>
+<a class="sourceLine" id="cb133-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(dest, carrier) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb133-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(dest, carrier) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb133-5" data-line-number="5"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>() <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb133-6" data-line-number="6"><span class="st">  </span><span class="co"># count carriers by destination</span></a>
+<a class="sourceLine" id="cb133-7" data-line-number="7"><span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb133-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_carrier =</span> <span class="kw">n_distinct</span>(carrier)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb133-9" data-line-number="9"><span class="st">  </span><span class="kw">filter</span>(n_carrier <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<p>Second, rank carriers by the number of these destinations that they service.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1">carriers_by_dest &lt;-<span class="st"> </span>dest_2carriers <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb134-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(carrier) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb134-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n_dest =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb134-4" data-line-number="4"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n_dest))</a>
+<a class="sourceLine" id="cb134-5" data-line-number="5"><span class="kw">head</span>(carriers_by_dest)</a>
+<a class="sourceLine" id="cb134-6" data-line-number="6"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
+<a class="sourceLine" id="cb134-7" data-line-number="7"><span class="co">#&gt;   carrier n_dest</span></a>
+<a class="sourceLine" id="cb134-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb134-9" data-line-number="9"><span class="co">#&gt; 1 EV          51</span></a>
+<a class="sourceLine" id="cb134-10" data-line-number="10"><span class="co">#&gt; 2 9E          48</span></a>
+<a class="sourceLine" id="cb134-11" data-line-number="11"><span class="co">#&gt; 3 UA          42</span></a>
+<a class="sourceLine" id="cb134-12" data-line-number="12"><span class="co">#&gt; 4 DL          39</span></a>
+<a class="sourceLine" id="cb134-13" data-line-number="13"><span class="co">#&gt; 5 B6          35</span></a>
+<a class="sourceLine" id="cb134-14" data-line-number="14"><span class="co">#&gt; 6 AA          19</span></a></code></pre></div>
+<p>The carrier <code>&quot;EV&quot;</code> flies to the most destinations , considering only airports flown to by two or more carriers.
+What is airline does the <code>&quot;EV&quot;</code> carrier code correspond to?</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1"><span class="kw">filter</span>(airlines, carrier <span class="op">==</span><span class="st"> &quot;EV&quot;</span>)</a>
+<a class="sourceLine" id="cb135-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb135-3" data-line-number="3"><span class="co">#&gt;   carrier name                    </span></a>
+<a class="sourceLine" id="cb135-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span></a>
+<a class="sourceLine" id="cb135-5" data-line-number="5"><span class="co">#&gt; 1 EV      ExpressJet Airlines Inc.</span></a></code></pre></div>
+<p>ExpressJet is probably not a household name, because <a href="https://en.wikipedia.org/wiki/ExpressJet">ExpressJet</a> is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller city airports.</p>
 
 </div>
 </div>

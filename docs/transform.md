@@ -1472,29 +1472,42 @@ Find all destinations that are flown by at least two carriers. Use that informat
 
 
 
-The carrier that flies to the most locations is ExpressJet Airlines (EV).
-ExpressJet is a regional airline and partner for major airlines, so its one of those that flies small planes to close airports
+To restate this question, we are asked to rank airlines by the number of destinations that they fly to, considering only those airports that are flown to by two or more airlines.
 
+First, find all airports serviced by two or more carriers.
 
 ```r
-flights %>%
+dest_2carriers <- flights %>%
+  # keep only unique carrier,dest pairs
+  select(dest, carrier) %>%
   group_by(dest, carrier) %>%
-  count(carrier) %>%
+  filter(row_number() == 1) %>%
+  # count carriers by destination
+  group_by(dest) %>%
+  mutate(n_carrier = n_distinct(carrier)) %>%
+  filter(n_carrier >= 2)
+```
+Second, rank carriers by the number of these destinations that they service.
+
+```r
+carriers_by_dest <- dest_2carriers %>%
   group_by(carrier) %>%
-  count(sort = TRUE)
-#> # A tibble: 16 x 2
-#> # Groups:   carrier [16]
-#>   carrier    nn
-#>   <chr>   <int>
-#> 1 EV         61
-#> 2 9E         49
-#> 3 UA         47
-#> 4 B6         42
-#> 5 DL         40
-#> 6 MQ         20
-#> # ... with 10 more rows
+  summarise(n_dest = n()) %>%
+  arrange(desc(n_dest))
+head(carriers_by_dest)
+#> # A tibble: 6 x 2
+#>   carrier n_dest
+#>   <chr>    <int>
+#> 1 EV          51
+#> 2 9E          48
+#> 3 UA          42
+#> 4 DL          39
+#> 5 B6          35
+#> 6 AA          19
 ```
 
+The carrier `"EV"` flies to the most destinations , considering only airports flown to by two or more carriers.
+What is airline does the `"EV"` carrier code correspond to?
 
 ```r
 filter(airlines, carrier == "EV")
@@ -1503,6 +1516,7 @@ filter(airlines, carrier == "EV")
 #>   <chr>   <chr>                   
 #> 1 EV      ExpressJet Airlines Inc.
 ```
+ExpressJet is probably not a household name, because [ExpressJet](https://en.wikipedia.org/wiki/ExpressJet) is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller city airports.
 
 
 

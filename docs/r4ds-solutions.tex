@@ -3374,30 +3374,51 @@ be affected by large delays.
 Find all destinations that are flown by at least two carriers. Use that
 information to rank the carriers.
 
-The carrier that flies to the most locations is ExpressJet Airlines
-(EV). ExpressJet is a regional airline and partner for major airlines,
-so its one of those that flies small planes to close airports
+To restate this question, we are asked to rank airlines by the number of
+destinations that they fly to, considering only those airports that are
+flown to by two or more airlines.
+
+First, find all airports serviced by two or more carriers.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{flights }\OperatorTok{%>%}
+\NormalTok{dest_2carriers <-}\StringTok{ }\NormalTok{flights }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{# keep only unique carrier,dest pairs}
+\StringTok{  }\KeywordTok{select}\NormalTok{(dest, carrier) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(dest, carrier) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{count}\NormalTok{(carrier) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(carrier) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{count}\NormalTok{(}\DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> # A tibble: 16 x 2}
-\CommentTok{#> # Groups:   carrier [16]}
-\CommentTok{#>   carrier    nn}
-\CommentTok{#>   <chr>   <int>}
-\CommentTok{#> 1 EV         61}
-\CommentTok{#> 2 9E         49}
-\CommentTok{#> 3 UA         47}
-\CommentTok{#> 4 B6         42}
-\CommentTok{#> 5 DL         40}
-\CommentTok{#> 6 MQ         20}
-\CommentTok{#> # ... with 10 more rows}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{row_number}\NormalTok{() }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{# count carriers by destination}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{n_carrier =} \KeywordTok{n_distinct}\NormalTok{(carrier)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(n_carrier }\OperatorTok{>=}\StringTok{ }\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+Second, rank carriers by the number of these destinations that they
+service.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{carriers_by_dest <-}\StringTok{ }\NormalTok{dest_2carriers }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(carrier) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{n_dest =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(n_dest))}
+\KeywordTok{head}\NormalTok{(carriers_by_dest)}
+\CommentTok{#> # A tibble: 6 x 2}
+\CommentTok{#>   carrier n_dest}
+\CommentTok{#>   <chr>    <int>}
+\CommentTok{#> 1 EV          51}
+\CommentTok{#> 2 9E          48}
+\CommentTok{#> 3 UA          42}
+\CommentTok{#> 4 DL          39}
+\CommentTok{#> 5 B6          35}
+\CommentTok{#> 6 AA          19}
+\end{Highlighting}
+\end{Shaded}
+
+The carrier \texttt{"EV"} flies to the most destinations , considering
+only airports flown to by two or more carriers. What is airline does the
+\texttt{"EV"} carrier code correspond to?
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3408,6 +3429,11 @@ so its one of those that flies small planes to close airports
 \CommentTok{#> 1 EV      ExpressJet Airlines Inc.}
 \end{Highlighting}
 \end{Shaded}
+
+ExpressJet is probably not a household name, because
+\href{https://en.wikipedia.org/wiki/ExpressJet}{ExpressJet} is a
+regional airline that partners with major airlines to fly from hubs
+(larger airports) to smaller city airports.
 
 \hypertarget{workflow-scripts}{%
 \chapter{Workflow: scripts}\label{workflow-scripts}}
