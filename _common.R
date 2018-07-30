@@ -34,9 +34,9 @@ BeginQuestion <- function() {
   }
   STATE <<- "Question"
   if (is_html) {
-    "<div class='question'>"
+    "<blockquote class='question'>"
   } else {
-    # "\\begin{question}"
+     # "\\begin{quotation}"
   }
 }
 EndQuestion <- function() {
@@ -46,9 +46,9 @@ EndQuestion <- function() {
   }
   STATE <<- NULL
   if (is_html) {
-    "</div>"
+    "</blockquote>"
   } else {
-    # "\\end{question}"
+    # "\\end{quotation}"
   }
 }
 

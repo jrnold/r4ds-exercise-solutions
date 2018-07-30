@@ -139,11 +139,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-22</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-21</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-15</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-14</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-05-08</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-29</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-28</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-24</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-23</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-07-22</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-5"><i class="fa fa-check"></i>2018-07-21</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-6"><i class="fa fa-check"></i>2018-07-15</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-7"><i class="fa fa-check"></i>2018-07-14</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-8"><i class="fa fa-check"></i>2018-05-08</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
@@ -1022,7 +1026,7 @@ The <code>microbenchmark</code> function will run an R expression a number of ti
 <a class="sourceLine" id="cb483-8" data-line-number="8"><span class="kw">microbenchmark</span>(<span class="kw">add_to_vector</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb483-9" data-line-number="9"><span class="co">#&gt; Unit: milliseconds</span></a>
 <a class="sourceLine" id="cb483-10" data-line-number="10"><span class="co">#&gt;                  expr min  lq mean median  uq max neval</span></a>
-<a class="sourceLine" id="cb483-11" data-line-number="11"><span class="co">#&gt;  add_to_vector(10000) 197 208  213    219 220 221     3</span></a></code></pre></div>
+<a class="sourceLine" id="cb483-11" data-line-number="11"><span class="co">#&gt;  add_to_vector(10000) 200 202  205    205 208 211     3</span></a></code></pre></div>
 <p>And one that pre-allocates it.</p>
 <div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" data-line-number="1">add_to_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
 <a class="sourceLine" id="cb484-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, n)</a>
@@ -1034,7 +1038,7 @@ The <code>microbenchmark</code> function will run an R expression a number of ti
 <a class="sourceLine" id="cb484-8" data-line-number="8"><span class="kw">microbenchmark</span>(<span class="kw">add_to_vector_2</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb484-9" data-line-number="9"><span class="co">#&gt; Unit: microseconds</span></a>
 <a class="sourceLine" id="cb484-10" data-line-number="10"><span class="co">#&gt;                    expr min  lq mean median   uq  max neval</span></a>
-<a class="sourceLine" id="cb484-11" data-line-number="11"><span class="co">#&gt;  add_to_vector_2(10000) 649 650 1720    652 2255 3858     3</span></a></code></pre></div>
+<a class="sourceLine" id="cb484-11" data-line-number="11"><span class="co">#&gt;  add_to_vector_2(10000) 658 682 1600    705 2070 3436     3</span></a></code></pre></div>
 <p>The pre-allocated vector is about <strong>100</strong> times faster!
 You may get different answers, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.</p>
 </div>

@@ -139,11 +139,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-22</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-21</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-15</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-14</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-05-08</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-29</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-28</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-24</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-23</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-07-22</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-5"><i class="fa fa-check"></i>2018-07-21</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-6"><i class="fa fa-check"></i>2018-07-15</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-7"><i class="fa fa-check"></i>2018-07-14</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-8"><i class="fa fa-check"></i>2018-05-08</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
@@ -874,11 +878,14 @@ intuitive to a reader.</p></li>
 </div>
 <div id="exercise-4-4" class="section level3 exercise">
 <h3><span class="header-section-number">5.2.4</span> Exercise 4</h3>
-<p>Why is <code>NA ^ 0</code> not missing? Why is <code>NA | TRUE</code> not missing? Why is <code>FALSE &amp; NA</code> not missing? Can you figure out the general rule? (<code>NA * 0</code> is a tricky counterexample!)</p>
+<p>Why is <code>NA ^ 0</code> not missing? Why is <code>NA | TRUE</code> not missing?
+Why is <code>FALSE &amp; NA</code> not missing? Can you figure out the general rule?
+(<code>NA * 0</code> is a tricky counterexample!)</p>
 <p><code>NA ^ 0 == 1</code> since for all numeric values <span class="math inline">\(x ^ 0 = 1\)</span>.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="ot">NA</span> <span class="op">^</span><span class="st"> </span><span class="dv">0</span></a>
 <a class="sourceLine" id="cb85-2" data-line-number="2"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
-<p><code>NA | TRUE</code> is <code>TRUE</code> because the it doesn’t matter whether the missing value is <code>TRUE</code> or <code>FALSE</code>, <span class="math inline">\(x\)</span> or <code>TRUE</code> is <code>TRUE</code> for all values of <span class="math inline">\(x\)</span>.</p>
+<p><code>NA | TRUE</code> is <code>TRUE</code> because the value of the missing <code>TRUE</code> or <code>FALSE</code>,
+<span class="math inline">\(x\)</span> or <code>TRUE</code> is <code>TRUE</code> for all values of <span class="math inline">\(x\)</span>.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="ot">NA</span> <span class="op">|</span><span class="st"> </span><span class="ot">TRUE</span></a>
 <a class="sourceLine" id="cb86-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>Likewise, anything and <code>FALSE</code> is always <code>FALSE</code>.</p>
@@ -889,10 +896,11 @@ intuitive to a reader.</p></li>
 <a class="sourceLine" id="cb88-2" data-line-number="2"><span class="co">#&gt; [1] NA</span></a>
 <a class="sourceLine" id="cb88-3" data-line-number="3"><span class="ot">NA</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">TRUE</span></a>
 <a class="sourceLine" id="cb88-4" data-line-number="4"><span class="co">#&gt; [1] NA</span></a></code></pre></div>
-<p>Wut?? Since <span class="math inline">\(x * 0 = 0\)</span> for all <span class="math inline">\(x\)</span> (except <code>Inf</code>) we might expect <code>NA * 0 == 0</code>, but that’s not the case.</p>
+<p>Since <span class="math inline">\(x * 0 = 0\)</span> for all finite, numeric <span class="math inline">\(x\)</span>, we might expect <code>NA * 0 == 0</code>, but that’s not the case.</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="ot">NA</span> <span class="op">*</span><span class="st"> </span><span class="dv">0</span></a>
 <a class="sourceLine" id="cb89-2" data-line-number="2"><span class="co">#&gt; [1] NA</span></a></code></pre></div>
-<p>The reason that <code>NA * 0</code> is not equal to <code>0</code> is that <span class="math inline">\(x * 0\)</span> is not a number, i.e., <code>NaN</code>, when <span class="math inline">\(x = Inf\)</span> or <span class="math inline">\(x = -Inf\)</span>.</p>
+<p>The reason that <code>NA * 0</code> is not equal to <code>0</code> is that <span class="math inline">\(x \times \infty\)</span> and <span class="math inline">\(x \times -\infty\)</span> is undefined.
+R represents undefined results as <code>NaN</code>, which is an abbreviation of “<a href="https://en.wikipedia.org/wiki/NaN%22">not a number</a>.</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="ot">Inf</span> <span class="op">*</span><span class="st"> </span><span class="dv">0</span></a>
 <a class="sourceLine" id="cb90-2" data-line-number="2"><span class="co">#&gt; [1] NaN</span></a>
 <a class="sourceLine" id="cb90-3" data-line-number="3"><span class="op">-</span><span class="ot">Inf</span> <span class="op">*</span><span class="st"> </span><span class="dv">0</span></a>

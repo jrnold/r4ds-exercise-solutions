@@ -143,7 +143,9 @@ Since `arr_time` is also missing, these are canceled flights.
 ### Exercise 4 {.exercise}
 
 `r BeginQuestion()`
-Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
+Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? 
+Why is `FALSE & NA` not missing? Can you figure out the general rule? 
+(`NA * 0` is a tricky counterexample!)
 `r EndQuestion()`
 
 `r BeginAnswer()`
@@ -153,7 +155,8 @@ Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA`
 NA ^ 0
 ```
 
-`NA | TRUE` is `TRUE` because the it doesn't matter whether the missing value is `TRUE` or `FALSE`, $x$ or `TRUE` is `TRUE` for all values of $x$.
+`NA | TRUE` is `TRUE` because the value of the missing  `TRUE` or `FALSE`, 
+$x$ or `TRUE` is `TRUE` for all values of $x$.
 ```{r}
 NA | TRUE
 ```
@@ -167,11 +170,12 @@ NA | FALSE
 NA & TRUE
 ```
 
-Wut?? Since $x * 0 = 0$ for all $x$ (except `Inf`) we might expect `NA * 0 == 0`, but that's not the case.
+Since $x * 0 = 0$ for all finite, numeric $x$, we might expect `NA * 0 == 0`, but that's not the case.
 ```{r}
 NA * 0
 ```
-The reason that `NA * 0` is not equal to `0` is that $x * 0$ is not a number, i.e., `NaN`, when $x = Inf$ or $x = -Inf$.
+The reason that `NA * 0` is not equal to `0` is that $x \times \infty$ and $x \times -\infty$ is undefined. 
+R represents undefined results as `NaN`, which is an abbreviation of "[not a number](https://en.wikipedia.org/wiki/NaN").
 ```{r}
 Inf * 0
 -Inf * 0
