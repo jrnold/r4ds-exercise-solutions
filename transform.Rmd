@@ -51,7 +51,7 @@ The answers to each part follow.
     We can find the carrier codes for the airlines in the `airlines` dataset.
     Since the carrier code dataset only has `r nrow(airlines)` rows, and the names
     of the airlines in that dataset are not exactly "United", "American", or "Delta",
-    it is easiest to manually lookup their carrier codes in that data.
+    it is easiest to manually look up their carrier codes in that data.
 
     ```{r}
     airlines
@@ -326,13 +326,22 @@ select(flights, contains("TIME"))
 ```
 
 The default behavior for contains is to ignore case.
-Yes, it surprises me.
-Upon reflection, I realized that this is likely the default behavior because `dplyr` is designed to deal with a variety of data backends, and some database engines don't differentiate case.
+It may or may not surprise you.
+One reason for this behavior is that most users expect searching to be case insensitive by default, so it is a useful default.
+A second, technical, reason is that dplyr works with more than R data frames.
+It can also work with a variety of [databases](https://db.rstudio.com/dplyr/).
+Some of these database engines have case insensitive column names, so making functions that match variable names
+case insensitive by default will make the behavior of 
+`select()` consistent regardless of whether the table is 
+stored as an R data frame or in a database.
 
-To change the behavior add the argument `ignore.case = FALSE`. Now no variables are selected.
+To change the behavior add the argument `ignore.case = FALSE`. 
+
 ```{r}
 select(flights, contains("TIME", ignore.case = FALSE))
 ```
+
+Now this expression selects not variables from the table. 
 
 `r EndAnswer()`
 
@@ -405,7 +414,7 @@ mutate(flights,
 ```
 This uses the `time2mins()` function from a previous exercise.
 
-That solved most discrepencies, but there are still some non matches because we
+That solved most discrepancies, but there are still some non matches because we
 have not accounted for the cases in which the departure time is the next day
 from the scheduled departure time.
 
@@ -812,7 +821,7 @@ Look at each destination. Can you find flights that are suspiciously fast? (i.e.
 
 When calculating this answer we should only compare flights within the same origin, destination pair.
 
-A common approach to finding unusual observations would be to calcualte the z-score of observations each flight.
+A common approach to finding unusual observations would be to calculate the z-score of observations each flight.
 ```{r}
 flights_by_zscore <- flights %>%
   filter(!is.na(air_time)) %>%
@@ -845,7 +854,7 @@ that means that an outlier could affect the mean and standard deviation calculat
 enough that it does not look like one. We would want to calculate the z-score
 of each observation using the mean and standard deviation based on all other 
 flights to that origin and destination. Alternatively, we could use a 
-robust statistic to find unusual observations, such as the one used in the boxplot.
+robust statistic to find unusual observations, such as the one used in the box plot.
 
 `r EndAnswer()`
 
