@@ -817,44 +817,35 @@ A common approach to finding unusual observations would be to calcualte the z-sc
 flights_by_zscore <- flights %>%
   filter(!is.na(air_time)) %>%
   group_by(dest, origin) %>%
-  mutate(z_score = (air_time - mean(air_time)) / sd(air_time)) %>%
-  select(dest, origin, year, month, day, 
-         air_time,
-         carrier, flight, z_score)
+  mutate(mean_air_time = mean(air_time),
+         med_air_time = median(air_time),
+         n = n(),
+         z_score = (air_time - mean_air_time) / sd(air_time)) %>%
+  select(dest, origin, carrier, flight, 
+         mean_air_time, air_time, z_score, n)
 ```
 
 Possible unusual flights would be those with highly negative z-scores.
 ```{r}
-print(head(arrange(flights_by_zscore, z_score), 25),
-      n = 25)
+head(arrange(flights_by_zscore, z_score), 15)
 ```
 
-A better approach is to compare the actual air time with the scheduled air time.
-```{r}
-mutate(flights,
-       sched_sched_dep_time - sched_arr_time)
-```
+Do any of these seem unusual to you? What would you look for?
 
+<!-- 
+One idea would be to compare actual air time with the scheduled air time.
+However, this requires the scheduled air time - which is not easily available
+without the taxi time data, which is not included in the flights datasets
+-->
 
-```{r}
-ggplot(flights_by_zscore, aes(x))
-```
-
-
-
-The shorter BOS and PHL flights that are 20 minutes for 30+ minutes flights seem plausible - though maybe entries of +/- a few minutes can easily create large changes.
-The ATL, GSP, and BNA flights look suspicious as they are almost half the time of longer flights.
-
-
-```{r}
-flights %>%
-  filter(!is.na(air_time)) %>%
-  group_by(dest) %>%
-  mutate(air_time_diff = air_time - min(air_time)) %>%
-  arrange(desc(air_time_diff)) %>%
-  select(dest, year, month, day, carrier, flight, air_time_diff, air_time, dep_time, arr_time) %>%
-  head()
-```
+One problem with the way that we calculated z-scores is that the mean and 
+standard deviation used to calculate it includes the unusual observations that we
+are looking for. Since the mean and standard deviation are sensitive to outliers,
+that means that an outlier could affect the mean and standard deviation calculations
+enough that it does not look like one. We would want to calculate the z-score
+of each observation using the mean and standard deviation based on all other 
+flights to that origin and destination. Alternatively, we could use a 
+robust statistic to find unusual observations, such as the one used in the boxplot.
 
 `r EndAnswer()`
 
