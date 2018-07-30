@@ -658,27 +658,6 @@ FiveThirtyEight conducted a [similar analysis](http://fivethirtyeight.com/featur
 ### Exercise 6 {.exercise}
 
 `r BeginQuestion()`
-For each plane, count the number of flights before the first delay of greater than 1 hour.
-`r EndQuestion()`
-
-`r BeginAnswer()`
-
-I think this requires grouped mutate (but I may be wrong):
-```{r}
-flights %>%
-  arrange(tailnum, year, month, day) %>%
-  group_by(tailnum) %>%
-  mutate(delay_gt1hr = dep_delay > 60) %>%
-  mutate(before_delay = cumsum(delay_gt1hr)) %>%
-  filter(before_delay < 1) %>%
-  count(sort = TRUE)
-```
-
-`r EndAnswer()`
-
-### Exercise 7 {.exercise}
-
-`r BeginQuestion()`
 What does the sort argument to `count()` do. When might you use it?
 `r EndQuestion()`
 
@@ -872,6 +851,26 @@ flights %>%
 
 ```{r}
 filter(airlines, carrier == "EV")
+```
+
+`r EndAnswer()`
+
+### Exercise 8 {.exercise}
+
+`r BeginQuestion()`
+For each plane, count the number of flights before the first delay of greater than 1 hour.
+`r EndQuestion()`
+
+`r BeginAnswer()`
+
+```{r}
+flights %>%
+  arrange(tailnum, year, month, day) %>%
+  group_by(tailnum) %>%
+  mutate(delay_gt1hr = dep_delay > 60) %>%
+  mutate(before_delay = cumsum(delay_gt1hr)) %>%
+  filter(before_delay < 1) %>%
+  count(sort = TRUE)
 ```
 
 `r EndAnswer()`
