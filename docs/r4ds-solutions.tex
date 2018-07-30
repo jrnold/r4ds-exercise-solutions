@@ -1879,7 +1879,7 @@ The answers to each part follow.
   carrier codes for the airlines in the \texttt{airlines} dataset. Since
   the carrier code dataset only has 16 rows, and the names of the
   airlines in that dataset are not exactly ``United'', ``American'', or
-  ``Delta'', it is easiest to manually lookup their carrier codes in
+  ``Delta'', it is easiest to manually look up their carrier codes in
   that data.
 
 \begin{Shaded}
@@ -2178,7 +2178,7 @@ Since \(x * 0 = 0\) for all finite, numeric \(x\), we might expect
 The reason that \texttt{NA\ *\ 0} is not equal to \texttt{0} is that
 \(x \times \infty\) and \(x \times -\infty\) is undefined. R represents
 undefined results as \texttt{NaN}, which is an abbreviation of
-``\href{https://en.wikipedia.org/wiki/NaN\%22}{not a number}.
+``\href{https://en.wikipedia.org/wiki/NaN}{not a number}''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2482,13 +2482,18 @@ default?
 \end{Highlighting}
 \end{Shaded}
 
-The default behavior for contains is to ignore case. Yes, it surprises
-me. Upon reflection, I realized that this is likely the default behavior
-because \texttt{dplyr} is designed to deal with a variety of data
-backends, and some database engines don't differentiate case.
+The default behavior for contains is to ignore case. It may or may not
+surprise you. One reason for this behavior is that most users expect
+searching to be case insensitive by default, so it is a useful default.
+A second, technical, reason is that dplyr works with more than R data
+frames. It can also work with a variety of
+\href{https://db.rstudio.com/dplyr/}{databases}. Some of these database
+engines have case insensitive column names, so making functions that
+match variable names case insensitive by default will make the behavior
+of \texttt{select()} consistent regardless of whether the table is
+stored as an R data frame or in a database.
 
 To change the behavior add the argument \texttt{ignore.case\ =\ FALSE}.
-Now no variables are selected.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2496,6 +2501,8 @@ Now no variables are selected.
 \CommentTok{#> # A tibble: 336,776 x 0}
 \end{Highlighting}
 \end{Shaded}
+
+Now this expression selects not variables from the table.
 
 \hypertarget{add-new-variables-with-mutate}{%
 \section{\texorpdfstring{Add new variables with
@@ -2594,31 +2601,9 @@ Compare \texttt{dep\_time}, \texttt{sched\_dep\_time}, and
 \texttt{dep\_delay}. How would you expect those three numbers to be
 related?
 
-I'd expect \texttt{dep\_time}, \texttt{sched\_dep\_time}, and
-\texttt{dep\_delay} to be related so that
+I would expect \texttt{dep\_time}, \texttt{sched\_dep\_time}, and
+\texttt{dep\_delay} to be related by the equation
 \texttt{dep\_time\ -\ sched\_dep\_time\ =\ dep\_delay}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{mutate}\NormalTok{(flights,}
-       \DataTypeTok{dep_delay2 =}\NormalTok{ dep_time }\OperatorTok{-}\StringTok{ }\NormalTok{sched_dep_time) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(dep_delay2 }\OperatorTok{!=}\StringTok{ }\NormalTok{dep_delay) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(dep_time, sched_dep_time, dep_delay, dep_delay2)}
-\CommentTok{#> # A tibble: 99,777 x 4}
-\CommentTok{#>   dep_time sched_dep_time dep_delay dep_delay2}
-\CommentTok{#>      <int>          <int>     <dbl>      <int>}
-\CommentTok{#> 1      554            600        -6        -46}
-\CommentTok{#> 2      555            600        -5        -45}
-\CommentTok{#> 3      557            600        -3        -43}
-\CommentTok{#> 4      557            600        -3        -43}
-\CommentTok{#> 5      558            600        -2        -42}
-\CommentTok{#> 6      558            600        -2        -42}
-\CommentTok{#> # ... with 9.977e+04 more rows}
-\end{Highlighting}
-\end{Shaded}
-
-Oops, I forgot to convert to minutes. I'll reuse the \texttt{time2mins}
-function I wrote earlier.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2639,8 +2624,10 @@ function I wrote earlier.
 \end{Highlighting}
 \end{Shaded}
 
-Well, that solved most of the problems, but these two numbers don't
-match because we aren't accounting for flights where the departure time
+This uses the \texttt{time2mins()} function from a previous exercise.
+
+That solved most discrepancies, but there are still some non matches
+because we have not accounted for the cases in which the departure time
 is the next day from the scheduled departure time.
 
 \hypertarget{exercise-4-7}{%
@@ -2651,8 +2638,8 @@ want to handle ties? Carefully read the documentation for
 \texttt{min\_rank()}.
 
 I'd want to handle ties by taking the minimum of tied values. If three
-flights are have the same value and are the most delayed, we would say
-they are tied for first, not tied for third or second.
+flights have the same value and are the most delayed, we would say they
+are tied for first, not tied for third or second.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3027,7 +3014,7 @@ the proportion of canceled flights related to the average delay?
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-50-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 \hypertarget{exercise-5-4}{%
 \subsection{Exercise 5}\label{exercise-5-4}}
@@ -3056,6 +3043,8 @@ about
 \end{Highlighting}
 \end{Shaded}
 
+What airline corresponds to the \texttt{"F9"} carrier code?
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{filter}\NormalTok{(airlines, carrier }\OperatorTok{==}\StringTok{ "F9"}\NormalTok{)}
@@ -3065,8 +3054,6 @@ about
 \CommentTok{#> 1 F9      Frontier Airlines Inc.}
 \end{Highlighting}
 \end{Shaded}
-
-Frontier Airlines (FL) has the worst delays.
 
 You can get part of the way to disentangling the effects of airports
 vs.~carriers by comparing each flight's delay to the average delay of
@@ -3080,37 +3067,6 @@ analysis}.
 
 \hypertarget{exercise-6-3}{%
 \subsection{Exercise 6}\label{exercise-6-3}}
-
-For each plane, count the number of flights before the first delay of
-greater than 1 hour.
-
-I think this requires grouped mutate (but I may be wrong):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{flights }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(tailnum, year, month, day) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{delay_gt1hr =}\NormalTok{ dep_delay }\OperatorTok{>}\StringTok{ }\DecValTok{60}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{before_delay =} \KeywordTok{cumsum}\NormalTok{(delay_gt1hr)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(before_delay }\OperatorTok{<}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{count}\NormalTok{(}\DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> # A tibble: 3,755 x 2}
-\CommentTok{#> # Groups:   tailnum [3,755]}
-\CommentTok{#>   tailnum     n}
-\CommentTok{#>   <chr>   <int>}
-\CommentTok{#> 1 N954UW    206}
-\CommentTok{#> 2 N952UW    163}
-\CommentTok{#> 3 N957UW    142}
-\CommentTok{#> 4 N5FAAA    117}
-\CommentTok{#> 5 N38727     99}
-\CommentTok{#> 6 N3742C     98}
-\CommentTok{#> # ... with 3,749 more rows}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{exercise-7}{%
-\subsection{Exercise 7}\label{exercise-7}}
 
 What does the sort argument to \texttt{count()} do. When might you use
 it?
@@ -3137,12 +3093,45 @@ E.g. \texttt{mean} will calculate the mean within each group.
 
 Which plane (\texttt{tailnum}) has the worst on-time record?
 
+The question does not define the on-time record. I will use the
+proportion of flights not delayed or cancelled. This metric does not
+differentiate between the amount of delay, but has the benefit of easily
+incorporating cancelled flights.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{# unknown why flights have sched_arr_time, arr_time but missing arr_delay.}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(arr_delay)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{cancelled =} \KeywordTok{is.na}\NormalTok{(arr_time),}
+         \DataTypeTok{late =} \OperatorTok{!}\NormalTok{cancelled }\OperatorTok{&}\StringTok{ }\NormalTok{arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}\StringTok{  }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{on_time =} \KeywordTok{mean}\NormalTok{(}\OperatorTok{!}\NormalTok{late)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{min_rank}\NormalTok{(on_time) }\OperatorTok{<=}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\CommentTok{#> # A tibble: 104 x 2}
+\CommentTok{#>   tailnum on_time}
+\CommentTok{#>   <chr>     <dbl>}
+\CommentTok{#> 1 N121DE        0}
+\CommentTok{#> 2 N136DL        0}
+\CommentTok{#> 3 N143DA        0}
+\CommentTok{#> 4 N17627        0}
+\CommentTok{#> 5 N240AT        0}
+\CommentTok{#> 6 N26906        0}
+\CommentTok{#> # ... with 98 more rows}
+\end{Highlighting}
+\end{Shaded}
+
+However, there are many planes that have \emph{never} flown an on-time
+flight.
+
+Another alternative is to rank planes by the mean of minutes delayed.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{flights }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{arr_delay =} \KeywordTok{mean}\NormalTok{(arr_delay, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{rank}\NormalTok{(}\KeywordTok{desc}\NormalTok{(arr_delay)) }\OperatorTok{<=}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{arr_delay =} \KeywordTok{mean}\NormalTok{(arr_delay)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{min_rank}\NormalTok{(}\KeywordTok{desc}\NormalTok{(arr_delay)) }\OperatorTok{<=}\StringTok{ }\DecValTok{1}\NormalTok{)}
 \CommentTok{#> # A tibble: 1 x 2}
 \CommentTok{#>   tailnum arr_delay}
 \CommentTok{#>   <chr>       <dbl>}
@@ -3181,7 +3170,7 @@ delays early in the morning are likely to propagate throughout the day.
 \hypertarget{exercise-4-9}{%
 \subsection{Exercise 4}\label{exercise-4-9}}
 
-For each destination, compute the total minutes of delay. For each,
+For each destination, compute the total minutes of delay. For each
 flight, compute the proportion of the total delay for its destination.
 
 \begin{Shaded}
@@ -3273,103 +3262,70 @@ probability or average delay after a cancellation.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-58-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 \hypertarget{exercise-6-4}{%
 \subsection{Exercise 6}\label{exercise-6-4}}
 
 Look at each destination. Can you find flights that are suspiciously
 fast? (i.e.~flights that represent a potential data entry error).
-Compute the air time a flight relative to the shortest flight to that
+Compute the air time of a flight relative to the shortest flight to that
 destination. Which flights were most delayed in the air?
 
-The shorter BOS and PHL flights that are 20 minutes for 30+ minutes
-flights seem plausible - though maybe entries of +/- a few minutes can
-easily create large changes. I assume that departure time has a
-standardized definition, but I'm not sure; if there is some discretion,
-that could create errors that are small in absolute time, but large in
-relative time for small flights. The ATL, GSP, and BNA flights look
-suspicious as they are almost half the time of longer flights.
+When calculating this answer we should only compare flights within the
+same origin, destination pair.
+
+A common approach to finding unusual observations would be to calculate
+the z-score of observations each flight.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{flights }\OperatorTok{%>%}
+\NormalTok{flights_by_zscore <-}\StringTok{ }\NormalTok{flights }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(air_time)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{med_time =} \KeywordTok{median}\NormalTok{(air_time),}
-         \DataTypeTok{fast =}\NormalTok{ (air_time }\OperatorTok{-}\StringTok{ }\NormalTok{med_time) }\OperatorTok{/}\StringTok{ }\NormalTok{med_time) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(fast) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(air_time, med_time, fast, dep_time, sched_dep_time, arr_time, sched_arr_time) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{head}\NormalTok{(}\DecValTok{15}\NormalTok{)}
-\CommentTok{#> Adding missing grouping variables: `dest`}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(dest, origin) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_air_time =} \KeywordTok{mean}\NormalTok{(air_time),}
+         \DataTypeTok{med_air_time =} \KeywordTok{median}\NormalTok{(air_time),}
+         \DataTypeTok{n =} \KeywordTok{n}\NormalTok{(),}
+         \DataTypeTok{z_score =}\NormalTok{ (air_time }\OperatorTok{-}\StringTok{ }\NormalTok{mean_air_time) }\OperatorTok{/}\StringTok{ }\KeywordTok{sd}\NormalTok{(air_time)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(dest, origin, carrier, flight, }
+\NormalTok{         mean_air_time, air_time, z_score, n)}
+\end{Highlighting}
+\end{Shaded}
+
+Possible unusual flights would be those with highly negative z-scores.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(}\KeywordTok{arrange}\NormalTok{(flights_by_zscore, z_score), }\DecValTok{15}\NormalTok{)}
 \CommentTok{#> # A tibble: 15 x 8}
-\CommentTok{#> # Groups:   dest [9]}
-\CommentTok{#>   dest  air_time med_time   fast dep_time sched_dep_time arr_time}
-\CommentTok{#>   <chr>    <dbl>    <dbl>  <dbl>    <int>          <int>    <int>}
-\CommentTok{#> 1 BOS         21       38 -0.447     1450           1500     1547}
-\CommentTok{#> 2 ATL         65      112 -0.420     1709           1700     1923}
-\CommentTok{#> 3 GSP         55       92 -0.402     2040           2025     2225}
-\CommentTok{#> 4 BOS         23       38 -0.395     1954           2000     2131}
-\CommentTok{#> 5 BNA         70      113 -0.381     1914           1910     2045}
-\CommentTok{#> 6 MSP         93      149 -0.376     1558           1513     1745}
-\CommentTok{#> # ... with 9 more rows, and 1 more variable: sched_arr_time <int>}
+\CommentTok{#> # Groups:   dest, origin [15]}
+\CommentTok{#>   dest  origin carrier flight mean_air_time air_time z_score     n}
+\CommentTok{#>   <chr> <chr>  <chr>    <int>         <dbl>    <dbl>   <dbl> <int>}
+\CommentTok{#> 1 ATL   LGA    DL        1499         114.        65   -5.03 10041}
+\CommentTok{#> 2 MSP   EWR    EV        4667         151.        93   -4.83  2255}
+\CommentTok{#> 3 GSP   EWR    EV        4292          93.2       55   -4.72   692}
+\CommentTok{#> 4 BUF   JFK    B6        2002          57.1       38   -4.10  3512}
+\CommentTok{#> 5 BNA   EWR    EV        3805         115.        70   -4.07  2241}
+\CommentTok{#> 6 CVG   EWR    EV        4687          96.1       62   -4.03  2513}
+\CommentTok{#> # ... with 9 more rows}
 \end{Highlighting}
 \end{Shaded}
 
-I could also try a z-score. Though the standard deviation and mean will
-be affected by large delays.
+Do any of these seem unusual to you? What would you look for?
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{flights }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(air_time)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{air_time_mean =} \KeywordTok{mean}\NormalTok{(air_time),}
-         \DataTypeTok{air_time_sd =} \KeywordTok{sd}\NormalTok{(air_time),}
-         \DataTypeTok{z_score =}\NormalTok{ (air_time }\OperatorTok{-}\StringTok{ }\NormalTok{air_time_mean) }\OperatorTok{/}\StringTok{ }\NormalTok{air_time_sd) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(z_score) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(z_score, air_time_mean, air_time_sd, air_time, dep_time, sched_dep_time, arr_time, sched_arr_time)}
-\CommentTok{#> Adding missing grouping variables: `dest`}
-\CommentTok{#> # A tibble: 327,346 x 9}
-\CommentTok{#> # Groups:   dest [104]}
-\CommentTok{#>   dest  z_score air_time_mean air_time_sd air_time dep_time sched_dep_time}
-\CommentTok{#>   <chr>   <dbl>         <dbl>       <dbl>    <dbl>    <int>          <int>}
-\CommentTok{#> 1 MSP     -4.90         151.        11.8        93     1558           1513}
-\CommentTok{#> 2 ATL     -4.88         113.         9.81       65     1709           1700}
-\CommentTok{#> 3 GSP     -4.72          93.4        8.13       55     2040           2025}
-\CommentTok{#> 4 BNA     -4.05         114.        11.0        70     1914           1910}
-\CommentTok{#> 5 CVG     -3.98          96.0        8.52       62     1359           1343}
-\CommentTok{#> 6 BOS     -3.63          39.0        4.95       21     1450           1500}
-\CommentTok{#> # ... with 3.273e+05 more rows, and 2 more variables: arr_time <int>,}
-\CommentTok{#> #   sched_arr_time <int>}
-\end{Highlighting}
-\end{Shaded}
+One problem with the way that we calculated z-scores is that the mean
+and standard deviation used to calculate it includes the unusual
+observations that we are looking for. Since the mean and standard
+deviation are sensitive to outliers, that means that an outlier could
+affect the mean and standard deviation calculations enough that it does
+not look like one. We would want to calculate the z-score of each
+observation using the mean and standard deviation based on all other
+flights to that origin and destination. Alternatively, we could use a
+robust statistic to find unusual observations, such as the one used in
+the box plot.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{flights }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(air_time)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{air_time_diff =}\NormalTok{ air_time }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(air_time)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(air_time_diff)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(dest, year, month, day, carrier, flight, air_time_diff, air_time, dep_time, arr_time) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{head}\NormalTok{()}
-\CommentTok{#> # A tibble: 6 x 10}
-\CommentTok{#> # Groups:   dest [5]}
-\CommentTok{#>   dest   year month   day carrier flight air_time_diff air_time dep_time}
-\CommentTok{#>   <chr> <int> <int> <int> <chr>    <int>         <dbl>    <dbl>    <int>}
-\CommentTok{#> 1 SFO    2013     7    28 DL         841           195      490     1727}
-\CommentTok{#> 2 LAX    2013    11    22 DL         426           165      440     1812}
-\CommentTok{#> 3 EGE    2013     1    28 AA         575           163      382     1806}
-\CommentTok{#> 4 DEN    2013     9    10 UA         745           149      331     1513}
-\CommentTok{#> 5 LAX    2013     7    10 DL          17           147      422     1814}
-\CommentTok{#> 6 LAS    2013    11    22 UA         587           143      399     2142}
-\CommentTok{#> # ... with 1 more variable: arr_time <int>}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{exercise-7-1}{%
-\subsection{Exercise 7}\label{exercise-7-1}}
+\hypertarget{exercise-7}{%
+\subsection{Exercise 7}\label{exercise-7}}
 
 Find all destinations that are flown by at least two carriers. Use that
 information to rank the carriers.
@@ -3378,7 +3334,8 @@ To restate this question, we are asked to rank airlines by the number of
 destinations that they fly to, considering only those airports that are
 flown to by two or more airlines.
 
-First, find all airports serviced by two or more carriers.
+We will calculate this ranking in two parts. First, find all airports
+serviced by two or more carriers.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3434,6 +3391,35 @@ ExpressJet is probably not a household name, because
 \href{https://en.wikipedia.org/wiki/ExpressJet}{ExpressJet} is a
 regional airline that partners with major airlines to fly from hubs
 (larger airports) to smaller city airports.
+
+\hypertarget{exercise-8}{%
+\subsection{Exercise 8}\label{exercise-8}}
+
+For each plane, count the number of flights before the first delay of
+greater than 1 hour.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flights }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(tailnum, year, month, day) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{delay_gt1hr =}\NormalTok{ dep_delay }\OperatorTok{>}\StringTok{ }\DecValTok{60}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{before_delay =} \KeywordTok{cumsum}\NormalTok{(delay_gt1hr)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(before_delay }\OperatorTok{<}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{count}\NormalTok{(}\DataTypeTok{sort =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{#> # A tibble: 3,755 x 2}
+\CommentTok{#> # Groups:   tailnum [3,755]}
+\CommentTok{#>   tailnum     n}
+\CommentTok{#>   <chr>   <int>}
+\CommentTok{#> 1 N954UW    206}
+\CommentTok{#> 2 N952UW    163}
+\CommentTok{#> 3 N957UW    142}
+\CommentTok{#> 4 N5FAAA    117}
+\CommentTok{#> 5 N38727     99}
+\CommentTok{#> 6 N3742C     98}
+\CommentTok{#> # ... with 3,749 more rows}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{workflow-scripts}{%
 \chapter{Workflow: scripts}\label{workflow-scripts}}
@@ -3574,7 +3560,7 @@ sure you try a wide range of values.)
 \item
   There are no diamonds with a price of \$1,500
 \item
-  There's a bulge in the distribution around \$7,500.
+  There's a bulge in the distribution around \$750.
 \end{itemize}
 
 \begin{Shaded}
@@ -3980,8 +3966,10 @@ In this case the output looks the same, but in the aesthetics the
 
 One problem with box plots is that they were developed in an era of much
 smaller datasets and tend to display a prohibitively large number of
-`\texttt{outlying\ values\textquotesingle{}\textquotesingle{}.\ One\ approach\ to\ remedy\ this\ problem\ is\ the\ letter\ value\ plot.\ Install\ the\ **lvplot**\ package,\ and\ try\ using}geom\_lv()`
-to display the distribution of price vs cut. What do you learn?
+``outlying values''. One approach to remedy this problem is the letter
+value plot. Install the \textbf{lvplot} package, and try using
+\texttt{geom\_lv()} to display the distribution of price vs cut. What do
+you learn?
 
 How do you interpret the plots?
 
@@ -4266,7 +4254,7 @@ higher variance in their average due to fewer observations).
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{n}\NormalTok{() }\OperatorTok{==}\StringTok{ }\DecValTok{12}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{dest =} \KeywordTok{fct_reorder}\NormalTok{(dest, dep_delay)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{dest =} \KeywordTok{reorder}\NormalTok{(dest, dep_delay)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{factor}\NormalTok{(month), }\DataTypeTok{y =}\NormalTok{ dest, }\DataTypeTok{fill =}\NormalTok{ dep_delay)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_tile}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_fill_viridis}\NormalTok{() }\OperatorTok{+}
@@ -4312,9 +4300,8 @@ and that lowers the cognitive burden of interpreting the plot.
 Instead of summarizing the conditional distribution with a box plot, you
 could use a frequency polygon. What do you need to consider when using
 \texttt{cut\_width()} vs \texttt{cut\_number()}? How does that impact a
-visualization of
-
-the 2d distribution of \texttt{carat} and \texttt{price}?
+visualization of the 2d distribution of \texttt{carat} and
+\texttt{price}?
 
 When using \texttt{cut\_width} the number in each bin may be unequal.
 The distribution of \texttt{carat} is right skewed so there are few
@@ -5288,8 +5275,8 @@ Programs that identify the encoding of text include
   \href{https://github.com/chardet/chardet}{chardet} (Python)
 \end{itemize}
 
-\hypertarget{exercise-7-2}{%
-\subsection{Exercise 7}\label{exercise-7-2}}
+\hypertarget{exercise-7-1}{%
+\subsection{Exercise 7}\label{exercise-7-1}}
 
 Generate the correct format string to parse each of the following dates
 and times:
@@ -9148,8 +9135,8 @@ in 0 and 5.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{datetimes_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
-\hypertarget{exercise-7-3}{%
-\subsection{Exercise 7}\label{exercise-7-3}}
+\hypertarget{exercise-7-2}{%
+\subsection{Exercise 7}\label{exercise-7-2}}
 
 Confirm my hypothesis that the early departures of flights in minutes
 20-30 and 50-60 are caused by scheduled flights that leave early. Hint:
@@ -9532,8 +9519,8 @@ and the user has permission to open it. These functions are useful even
 though they are short because their names make it much clearer what the
 code is doing.
 
-\hypertarget{exercise-7-4}{%
-\subsection{Exercise 7}\label{exercise-7-4}}
+\hypertarget{exercise-7-3}{%
+\subsection{Exercise 7}\label{exercise-7-3}}
 
 Read the complete lyrics to ``Little Bunny Foo Foo''. There's a lot of
 duplication in this song. Extend the initial piping example to recreate
@@ -13082,8 +13069,8 @@ It will estimate a smooth seasonal trend (\texttt{ns(date,\ 5)}) with a
 day of the week cyclicality, (\texttt{wday}). It probably will not be
 effective since
 
-\hypertarget{exercise-7-5}{%
-\subsubsection{Exercise 7}\label{exercise-7-5}}
+\hypertarget{exercise-7-4}{%
+\subsubsection{Exercise 7}\label{exercise-7-4}}
 
 We hypothesized that people leaving on Sundays are more likely to be
 business travelers who need to be somewhere on Monday. Explore that
@@ -13132,8 +13119,8 @@ that of other days (excluding Saturday):
 
 Can someone think of a better way to check this?
 
-\hypertarget{exercise-8}{%
-\subsubsection{Exercise 8}\label{exercise-8}}
+\hypertarget{exercise-8-1}{%
+\subsubsection{Exercise 8}\label{exercise-8-1}}
 
 It's a little frustrating that Sunday and Saturday are on separate ends
 of the plot. Write a small function to set the levels of the factor so

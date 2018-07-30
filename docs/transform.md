@@ -81,7 +81,7 @@ The answers to each part follow.
     We can find the carrier codes for the airlines in the `airlines` dataset.
     Since the carrier code dataset only has 16 rows, and the names
     of the airlines in that dataset are not exactly "United", "American", or "Delta",
-    it is easiest to manually lookup their carrier codes in that data.
+    it is easiest to manually look up their carrier codes in that data.
 
     
     ```r
@@ -312,7 +312,7 @@ NA ^ 0
 #> [1] 1
 ```
 
-`NA | TRUE` is `TRUE` because the value of the missing  `TRUE` or `FALSE`, 
+`NA | TRUE` is `TRUE` because the value of the missing  `TRUE` or `FALSE`,
 $x$ or `TRUE` is `TRUE` for all values of $x$.
 
 ```r
@@ -341,7 +341,7 @@ NA * 0
 #> [1] NA
 ```
 The reason that `NA * 0` is not equal to `0` is that $x \times \infty$ and $x \times -\infty$ is undefined. 
-R represents undefined results as `NaN`, which is an abbreviation of "[not a number](https://en.wikipedia.org/wiki/NaN").
+R represents undefined results as `NaN`, which is an abbreviation of "[not a number](https://en.wikipedia.org/wiki/NaN)".
 
 ```r
 Inf * 0
@@ -639,15 +639,24 @@ select(flights, contains("TIME"))
 ```
 
 The default behavior for contains is to ignore case.
-Yes, it surprises me.
-Upon reflection, I realized that this is likely the default behavior because `dplyr` is designed to deal with a variety of data backends, and some database engines don't differentiate case.
+It may or may not surprise you.
+One reason for this behavior is that most users expect searching to be case insensitive by default, so it is a useful default.
+A second, technical, reason is that dplyr works with more than R data frames.
+It can also work with a variety of [databases](https://db.rstudio.com/dplyr/).
+Some of these database engines have case insensitive column names, so making functions that match variable names
+case insensitive by default will make the behavior of 
+`select()` consistent regardless of whether the table is 
+stored as an R data frame or in a database.
 
-To change the behavior add the argument `ignore.case = FALSE`. Now no variables are selected.
+To change the behavior add the argument `ignore.case = FALSE`. 
+
 
 ```r
 select(flights, contains("TIME", ignore.case = FALSE))
 #> # A tibble: 336,776 x 0
 ```
+
+Now this expression selects not variables from the table. 
 
 
 
@@ -743,25 +752,8 @@ Compare `dep_time`, `sched_dep_time`, and `dep_delay`. How would you expect thos
 
 
 
-I'd expect `dep_time`, `sched_dep_time`, and `dep_delay` to be related so that `dep_time - sched_dep_time = dep_delay`.
-
-```r
-mutate(flights,
-       dep_delay2 = dep_time - sched_dep_time) %>%
-  filter(dep_delay2 != dep_delay) %>%
-  select(dep_time, sched_dep_time, dep_delay, dep_delay2)
-#> # A tibble: 99,777 x 4
-#>   dep_time sched_dep_time dep_delay dep_delay2
-#>      <int>          <int>     <dbl>      <int>
-#> 1      554            600        -6        -46
-#> 2      555            600        -5        -45
-#> 3      557            600        -3        -43
-#> 4      557            600        -3        -43
-#> 5      558            600        -2        -42
-#> 6      558            600        -2        -42
-#> # ... with 9.977e+04 more rows
-```
-Oops, I forgot to convert to minutes. I'll reuse the `time2mins` function I wrote earlier.
+I would expect `dep_time`, `sched_dep_time`, and `dep_delay` to be related by the 
+equation `dep_time - sched_dep_time = dep_delay`.
 
 ```r
 mutate(flights,
@@ -779,7 +771,11 @@ mutate(flights,
 #> 6      235           2359       156      -1284
 #> # ... with 1,201 more rows
 ```
-Well, that solved most of the problems, but these two numbers don't match because we aren't accounting for flights where the departure time is the next day from the scheduled departure time.
+This uses the `time2mins()` function from a previous exercise.
+
+That solved most discrepancies, but there are still some non matches because we
+have not accounted for the cases in which the departure time is the next day
+from the scheduled departure time.
 
 
 
@@ -791,7 +787,9 @@ Find the 10 most delayed flights using a ranking function. How do you want to ha
 
 
 
-I'd want to handle ties by taking the minimum of tied values. If three flights are have the same value and are the most delayed, we would say they are tied for first, not tied for third or second.
+I'd want to handle ties by taking the minimum of tied values. If three flights 
+have the same value and are the most delayed, we would say they are tied for 
+first, not tied for third or second.
 
 ```r
 mutate(flights,
@@ -1123,7 +1121,7 @@ ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-50-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 
 
@@ -1153,6 +1151,7 @@ flights %>%
 #> # ... with 10 more rows
 ```
 
+What airline corresponds to the `"F9"` carrier code?
 
 ```r
 filter(airlines, carrier == "F9")
@@ -1161,8 +1160,6 @@ filter(airlines, carrier == "F9")
 #>   <chr>   <chr>                 
 #> 1 F9      Frontier Airlines Inc.
 ```
-
-Frontier Airlines (FL) has the worst delays.
 
 You can get part of the way to disentangling the effects of airports vs. carriers by
 comparing each flight's delay to the average delay of destination airport.
@@ -1173,39 +1170,6 @@ FiveThirtyEight conducted a [similar analysis](http://fivethirtyeight.com/featur
 
 
 ### Exercise 6 {.exercise}
-
-
-For each plane, count the number of flights before the first delay of greater than 1 hour.
-
-
-
-
-I think this requires grouped mutate (but I may be wrong):
-
-```r
-flights %>%
-  arrange(tailnum, year, month, day) %>%
-  group_by(tailnum) %>%
-  mutate(delay_gt1hr = dep_delay > 60) %>%
-  mutate(before_delay = cumsum(delay_gt1hr)) %>%
-  filter(before_delay < 1) %>%
-  count(sort = TRUE)
-#> # A tibble: 3,755 x 2
-#> # Groups:   tailnum [3,755]
-#>   tailnum     n
-#>   <chr>   <int>
-#> 1 N954UW    206
-#> 2 N952UW    163
-#> 3 N957UW    142
-#> 4 N5FAAA    117
-#> 5 N38727     99
-#> 6 N3742C     98
-#> # ... with 3,749 more rows
-```
-
-
-
-### Exercise 7 {.exercise}
 
 
 What does the sort argument to `count()` do. When might you use it?
@@ -1240,12 +1204,40 @@ Which plane (`tailnum`) has the worst on-time record?
 
 
 
+The question does not define the on-time record. I will use the proportion of
+flights not delayed or cancelled. 
+This metric does not differentiate between the amount of delay, but has the 
+benefit of easily incorporating cancelled flights.
+
+```r
+flights %>%
+  # unknown why flights have sched_arr_time, arr_time but missing arr_delay.
+  filter(!is.na(arr_delay)) %>%
+  mutate(cancelled = is.na(arr_time),
+         late = !cancelled & arr_delay > 0) %>%
+  group_by(tailnum) %>%  
+  summarise(on_time = mean(!late)) %>%
+  filter(min_rank(on_time) <= 1)
+#> # A tibble: 104 x 2
+#>   tailnum on_time
+#>   <chr>     <dbl>
+#> 1 N121DE        0
+#> 2 N136DL        0
+#> 3 N143DA        0
+#> 4 N17627        0
+#> 5 N240AT        0
+#> 6 N26906        0
+#> # ... with 98 more rows
+```
+However, there are many planes that have *never* flown an on-time flight.
+
+Another alternative is to rank planes by the mean of minutes delayed.
 
 ```r
 flights %>%
   group_by(tailnum) %>%
-  summarise(arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
-  filter(rank(desc(arr_delay)) <= 1)
+  summarise(arr_delay = mean(arr_delay)) %>%
+  filter(min_rank(desc(arr_delay)) <= 1)
 #> # A tibble: 1 x 2
 #>   tailnum arr_delay
 #>   <chr>       <dbl>
@@ -1286,7 +1278,7 @@ flights %>%
 ### Exercise 4 {.exercise}
 
 
-For each destination, compute the total minutes of delay. For each, flight, compute the proportion of the total delay for its destination.
+For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
 
 
 
@@ -1375,92 +1367,67 @@ flights %>%
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-58-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 
 
 ### Exercise 6 {.exercise}
 
 
-Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
 
 
 
 
-The shorter BOS and PHL flights that are 20 minutes for 30+ minutes flights seem plausible - though maybe entries of +/- a few minutes can easily create large changes.
-I assume that departure time has a standardized definition, but I'm not sure; if there is some discretion, that could create errors that are small in absolute time, but large in relative time for small flights.
-The ATL, GSP, and BNA flights look suspicious as they are almost half the time of longer flights.
+When calculating this answer we should only compare flights within the same origin, destination pair.
+
+A common approach to finding unusual observations would be to calculate the z-score of observations each flight.
 
 ```r
-flights %>%
+flights_by_zscore <- flights %>%
   filter(!is.na(air_time)) %>%
-  group_by(dest) %>%
-  mutate(med_time = median(air_time),
-         fast = (air_time - med_time) / med_time) %>%
-  arrange(fast) %>%
-  select(air_time, med_time, fast, dep_time, sched_dep_time, arr_time, sched_arr_time) %>%
-  head(15)
-#> Adding missing grouping variables: `dest`
+  group_by(dest, origin) %>%
+  mutate(mean_air_time = mean(air_time),
+         med_air_time = median(air_time),
+         n = n(),
+         z_score = (air_time - mean_air_time) / sd(air_time)) %>%
+  select(dest, origin, carrier, flight, 
+         mean_air_time, air_time, z_score, n)
+```
+
+Possible unusual flights would be those with highly negative z-scores.
+
+```r
+head(arrange(flights_by_zscore, z_score), 15)
 #> # A tibble: 15 x 8
-#> # Groups:   dest [9]
-#>   dest  air_time med_time   fast dep_time sched_dep_time arr_time
-#>   <chr>    <dbl>    <dbl>  <dbl>    <int>          <int>    <int>
-#> 1 BOS         21       38 -0.447     1450           1500     1547
-#> 2 ATL         65      112 -0.420     1709           1700     1923
-#> 3 GSP         55       92 -0.402     2040           2025     2225
-#> 4 BOS         23       38 -0.395     1954           2000     2131
-#> 5 BNA         70      113 -0.381     1914           1910     2045
-#> 6 MSP         93      149 -0.376     1558           1513     1745
-#> # ... with 9 more rows, and 1 more variable: sched_arr_time <int>
+#> # Groups:   dest, origin [15]
+#>   dest  origin carrier flight mean_air_time air_time z_score     n
+#>   <chr> <chr>  <chr>    <int>         <dbl>    <dbl>   <dbl> <int>
+#> 1 ATL   LGA    DL        1499         114.        65   -5.03 10041
+#> 2 MSP   EWR    EV        4667         151.        93   -4.83  2255
+#> 3 GSP   EWR    EV        4292          93.2       55   -4.72   692
+#> 4 BUF   JFK    B6        2002          57.1       38   -4.10  3512
+#> 5 BNA   EWR    EV        3805         115.        70   -4.07  2241
+#> 6 CVG   EWR    EV        4687          96.1       62   -4.03  2513
+#> # ... with 9 more rows
 ```
 
-I could also try a z-score. Though the standard deviation and mean will be affected by large delays.
+Do any of these seem unusual to you? What would you look for?
 
-```r
-flights %>%
-  filter(!is.na(air_time)) %>%
-  group_by(dest) %>%
-  mutate(air_time_mean = mean(air_time),
-         air_time_sd = sd(air_time),
-         z_score = (air_time - air_time_mean) / air_time_sd) %>%
-  arrange(z_score) %>%
-  select(z_score, air_time_mean, air_time_sd, air_time, dep_time, sched_dep_time, arr_time, sched_arr_time)
-#> Adding missing grouping variables: `dest`
-#> # A tibble: 327,346 x 9
-#> # Groups:   dest [104]
-#>   dest  z_score air_time_mean air_time_sd air_time dep_time sched_dep_time
-#>   <chr>   <dbl>         <dbl>       <dbl>    <dbl>    <int>          <int>
-#> 1 MSP     -4.90         151.        11.8        93     1558           1513
-#> 2 ATL     -4.88         113.         9.81       65     1709           1700
-#> 3 GSP     -4.72          93.4        8.13       55     2040           2025
-#> 4 BNA     -4.05         114.        11.0        70     1914           1910
-#> 5 CVG     -3.98          96.0        8.52       62     1359           1343
-#> 6 BOS     -3.63          39.0        4.95       21     1450           1500
-#> # ... with 3.273e+05 more rows, and 2 more variables: arr_time <int>,
-#> #   sched_arr_time <int>
-```
+<!-- 
+One idea would be to compare actual air time with the scheduled air time.
+However, this requires the scheduled air time - which is not easily available
+without the taxi time data, which is not included in the flights datasets
+-->
 
-
-```r
-flights %>%
-  filter(!is.na(air_time)) %>%
-  group_by(dest) %>%
-  mutate(air_time_diff = air_time - min(air_time)) %>%
-  arrange(desc(air_time_diff)) %>%
-  select(dest, year, month, day, carrier, flight, air_time_diff, air_time, dep_time, arr_time) %>%
-  head()
-#> # A tibble: 6 x 10
-#> # Groups:   dest [5]
-#>   dest   year month   day carrier flight air_time_diff air_time dep_time
-#>   <chr> <int> <int> <int> <chr>    <int>         <dbl>    <dbl>    <int>
-#> 1 SFO    2013     7    28 DL         841           195      490     1727
-#> 2 LAX    2013    11    22 DL         426           165      440     1812
-#> 3 EGE    2013     1    28 AA         575           163      382     1806
-#> 4 DEN    2013     9    10 UA         745           149      331     1513
-#> 5 LAX    2013     7    10 DL          17           147      422     1814
-#> 6 LAS    2013    11    22 UA         587           143      399     2142
-#> # ... with 1 more variable: arr_time <int>
-```
+One problem with the way that we calculated z-scores is that the mean and 
+standard deviation used to calculate it includes the unusual observations that we
+are looking for. Since the mean and standard deviation are sensitive to outliers,
+that means that an outlier could affect the mean and standard deviation calculations
+enough that it does not look like one. We would want to calculate the z-score
+of each observation using the mean and standard deviation based on all other 
+flights to that origin and destination. Alternatively, we could use a 
+robust statistic to find unusual observations, such as the one used in the box plot.
 
 
 
@@ -1474,6 +1441,7 @@ Find all destinations that are flown by at least two carriers. Use that informat
 
 To restate this question, we are asked to rank airlines by the number of destinations that they fly to, considering only those airports that are flown to by two or more airlines.
 
+We will calculate this ranking in two parts.
 First, find all airports serviced by two or more carriers.
 
 ```r
@@ -1517,6 +1485,38 @@ filter(airlines, carrier == "EV")
 #> 1 EV      ExpressJet Airlines Inc.
 ```
 ExpressJet is probably not a household name, because [ExpressJet](https://en.wikipedia.org/wiki/ExpressJet) is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller city airports.
+
+
+
+### Exercise 8 {.exercise}
+
+
+For each plane, count the number of flights before the first delay of greater than 1 hour.
+
+
+
+
+
+```r
+flights %>%
+  arrange(tailnum, year, month, day) %>%
+  group_by(tailnum) %>%
+  mutate(delay_gt1hr = dep_delay > 60) %>%
+  mutate(before_delay = cumsum(delay_gt1hr)) %>%
+  filter(before_delay < 1) %>%
+  count(sort = TRUE)
+#> # A tibble: 3,755 x 2
+#> # Groups:   tailnum [3,755]
+#>   tailnum     n
+#>   <chr>   <int>
+#> 1 N954UW    206
+#> 2 N952UW    163
+#> 3 N957UW    142
+#> 4 N5FAAA    117
+#> 5 N38727     99
+#> 6 N3742C     98
+#> # ... with 3,749 more rows
+```
 
 
 

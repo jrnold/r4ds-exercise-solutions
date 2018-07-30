@@ -71,7 +71,7 @@ Explore the distribution of price. Do you discover anything unusual or surprisin
 
 -   The price data has many spikes, but I can't tell what each spike corresponds to. The following plots don't show much difference in the distributions in the last one or two digits.
 -   There are no diamonds with a price of $1,500
--   There's a bulge in the distribution around $7,500.
+-   There's a bulge in the distribution around $750.
 
 
 ```r
@@ -472,7 +472,7 @@ ggplot(data = mpg) +
 
 
 
-One problem with box plots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of ``outlying values''.
+One problem with box plots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of "outlying values".
 One approach to remedy this problem is the letter value plot.
 Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut.
 What do you learn?
@@ -745,7 +745,7 @@ flights %>%
   group_by(dest) %>%
   filter(n() == 12) %>%
   ungroup() %>%
-  mutate(dest = fct_reorder(dest, dep_delay)) %>%
+  mutate(dest = reorder(dest, dep_delay)) %>%
   ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
   geom_tile() +
   scale_fill_viridis() +
@@ -793,11 +793,9 @@ Another justification, for switching the order is that the larger numbers are at
 
 Instead of summarizing the conditional distribution with a box plot, you could use a frequency polygon.
 What do you need to consider when using `cut_width()` vs `cut_number()`?
-How does that impact a visualization of
+How does that impact a visualization of the 2d distribution of `carat` and `price`?
 
 
-
-the 2d distribution of `carat` and `price`?
 
 When using `cut_width` the number in each bin may be unequal.
 The distribution of `carat` is right skewed so there are few diamonds in those bins.
