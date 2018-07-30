@@ -544,7 +544,7 @@ flights %>%
   group_by(dest) %>%
   filter(n() == 12) %>%
   ungroup() %>%
-  mutate(dest = fct_reorder(dest, dep_delay)) %>%
+  mutate(dest = reorder(dest, dep_delay)) %>%
   ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
   geom_tile() +
   scale_fill_viridis() +
