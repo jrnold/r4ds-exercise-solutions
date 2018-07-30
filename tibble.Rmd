@@ -24,7 +24,7 @@ No exercises
 
 ## Exercises
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
@@ -48,7 +48,7 @@ Tibbles will only print out a limited number of rows and show the class on top o
 
 `r EndAnswer()`
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
@@ -84,7 +84,7 @@ situations or risk bugs.
 
 `r EndAnswer()`
 
-### Exercise 3 {.exercise}
+### Exercise 3 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
@@ -96,7 +96,7 @@ You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign
 
 `r EndAnswer()`
 
-### Exercise 4 {.exercise}
+### Exercise 4 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 
@@ -111,6 +111,10 @@ Practice referring to non-syntactic names in the following data frame by:
 
 `r BeginAnswer()`
 
+For this example, I'll create a dataset called annoying with
+columns named `1` and `2`.
+
+
 ```{r}
 annoying <- tibble(
   `1` = 1:10,
@@ -118,39 +122,47 @@ annoying <- tibble(
 )
 ```
 
-Extract the variable called 1:
-```{r}
-annoying[["1"]]
-```
-or
-```{r}
-annoying$`1`
-```
+1.  To extract the variable called 1 run
 
-A scatter plot of `1` vs. `2`:
-```{r}
-ggplot(annoying, aes(x = `1`, y = `2`)) +
-  geom_point()
-```
+    ```{r}
+    annoying[["1"]]
+    ```
 
-A new column `3` with is `2` divided by `1`:
-```{r}
-annoying[["3"]] <- annoying$`2` / annoying$`1`
-```
-or
-```{r}
-annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
-```
+    or
 
-Renaming the columns to `one`, `two`, and `three`:
-```{r}
-annoying <- rename(annoying, one = `1`, two = `2`, three = `3`)
-glimpse(annoying)
-```
+    ```{r}
+    annoying$`1`
+    ```
+
+1.  To create a scatter plot of `1` vs. `2` run
+
+    ```{r}
+    ggplot(annoying, aes(x = `1`, y = `2`)) +
+      geom_point()
+    ```
+
+1.  To add a new column `3` which is `2` divided by `1` run
+
+    ```{r}
+    annoying[["3"]] <- annoying$`2` / annoying$`1`
+    ```
+
+    or
+
+    ```{r}
+    annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
+    ```
+
+1.  To rename the columns to `one`, `two`, and `three`, run
+
+    ```{r}
+    annoying <- rename(annoying, one = `1`, two = `2`, three = `3`)
+    glimpse(annoying)
+    ```
 
 `r EndAnswer()`
 
-### Exercise 5 {.exercise}
+### Exercise 5 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does `tibble::enframe()` do? When might you use it?
@@ -166,7 +178,7 @@ enframe(c(a = 1, b = 2, c = 3))
 
 `r EndAnswer()`
 
-### Exercise 6 {.exercise}
+### Exercise 6 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What option controls how many additional column names are printed at the footer of a tibble?

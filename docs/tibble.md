@@ -26,13 +26,13 @@ No exercises
 
 ## Exercises
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -86,15 +86,15 @@ class(as_tibble(mtcars))
 
 Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
 
+</div>
 
+### Exercise 2 {.unnumbered .exercise}
 
-### Exercise 2 {.exercise}
-
-
+<div class='question'>
 Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -140,23 +140,23 @@ did `df[ , vars]` where `vars` was a variable. Then you what that code does
 depends on `length(vars)` and you'd have to write code to account for those
 situations or risk bugs.
 
+</div>
 
+### Exercise 3 {.unnumbered .exercise}
 
-### Exercise 3 {.exercise}
-
-
+<div class='question'>
 If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
+</div>
 
-
-
+<div class='answer'>
 
 You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign, because `df$var` would look for a column named `var`.
 
+</div>
 
+### Exercise 4 {.unnumbered .exercise}
 
-### Exercise 4 {.exercise}
-
-
+<div class='question'>
 
 Practice referring to non-syntactic names in the following data frame by:
 
@@ -165,8 +165,12 @@ Practice referring to non-syntactic names in the following data frame by:
 1.  Creating a new column called 3 which is 2 divided by 1.
 1.  Renaming the columns to one, two and three.
 
+</div>
 
+<div class='answer'>
 
+For this example, I'll create a dataset called annoying with
+columns named `1` and `2`.
 
 
 
@@ -177,62 +181,68 @@ annoying <- tibble(
 )
 ```
 
-Extract the variable called 1:
+1.  To extract the variable called 1 run
 
-```r
-annoying[["1"]]
-#>  [1]  1  2  3  4  5  6  7  8  9 10
-```
-or
+    
+    ```r
+    annoying[["1"]]
+    #>  [1]  1  2  3  4  5  6  7  8  9 10
+    ```
 
-```r
-annoying$`1`
-#>  [1]  1  2  3  4  5  6  7  8  9 10
-```
+    or
 
-A scatter plot of `1` vs. `2`:
+    
+    ```r
+    annoying$`1`
+    #>  [1]  1  2  3  4  5  6  7  8  9 10
+    ```
 
-```r
-ggplot(annoying, aes(x = `1`, y = `2`)) +
-  geom_point()
-```
+1.  To create a scatter plot of `1` vs. `2` run
 
+    
+    ```r
+    ggplot(annoying, aes(x = `1`, y = `2`)) +
+      geom_point()
+    ```
+    
+    <img src="tibble_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
 
+1.  To add a new column `3` which is `2` divided by `1` run
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tibble_files/figure-latex/unnamed-chunk-11-1} \end{center}
+    
+    ```r
+    annoying[["3"]] <- annoying$`2` / annoying$`1`
+    ```
 
-A new column `3` with is `2` divided by `1`:
+    or
 
-```r
-annoying[["3"]] <- annoying$`2` / annoying$`1`
-```
-or
+    
+    ```r
+    annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
+    ```
 
-```r
-annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
-```
+1.  To rename the columns to `one`, `two`, and `three`, run
 
-Renaming the columns to `one`, `two`, and `three`:
+    
+    ```r
+    annoying <- rename(annoying, one = `1`, two = `2`, three = `3`)
+    glimpse(annoying)
+    #> Observations: 10
+    #> Variables: 3
+    #> $ one   <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+    #> $ two   <dbl> 0.60, 4.26, 3.56, 7.99, 10.62, 13.15, 12.18, 15.75, 17.7...
+    #> $ three <dbl> 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97
+    ```
 
-```r
-annoying <- rename(annoying, one = `1`, two = `2`, three = `3`)
-glimpse(annoying)
-#> Observations: 10
-#> Variables: 3
-#> $ one   <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-#> $ two   <dbl> 0.60, 4.26, 3.56, 7.99, 10.62, 13.15, 12.18, 15.75, 17.7...
-#> $ three <dbl> 0.60, 2.13, 1.19, 2.00, 2.12, 2.19, 1.74, 1.97, 1.97, 1.97
-```
+</div>
 
+### Exercise 5 {.unnumbered .exercise}
 
-
-### Exercise 5 {.exercise}
-
-
+<div class='question'>
 What does `tibble::enframe()` do? When might you use it?
+</div>
 
-
-
+<div class='answer'>
 
 The function `tibble::enframe()` converts named vectors to a data frame with names and values
 
@@ -247,18 +257,18 @@ enframe(c(a = 1, b = 2, c = 3))
 #> 3 c         3
 ```
 
+</div>
 
+### Exercise 6 {.unnumbered .exercise}
 
-### Exercise 6 {.exercise}
-
-
+<div class='question'>
 What option controls how many additional column names are printed at the footer of a tibble?
+</div>
 
-
-
+<div class='answer'>
 
 The help page for the `print()` method of tibble objects is discussed in `?print.tbl_df`.
 The `n_extra` argument determines the number of extra columns to print information for.
 
-
+</div>
 

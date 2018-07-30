@@ -33,11 +33,7 @@ BeginQuestion <- function() {
     stop()
   }
   STATE <<- "Question"
-  if (is_html) {
-    "<blockquote class='question'>"
-  } else {
-     # "\\begin{quotation}"
-  }
+  "<div class='question'>"
 }
 EndQuestion <- function() {
   if (is.null(STATE) || !STATE %in% "Question") {
@@ -45,11 +41,7 @@ EndQuestion <- function() {
     stop()
   }
   STATE <<- NULL
-  if (is_html) {
-    "</blockquote>"
-  } else {
-    # "\\end{quotation}"
-  }
+  "</div>"
 }
 
 BeginAnswer <- function() {
@@ -58,11 +50,7 @@ BeginAnswer <- function() {
     stop()
   }
   STATE <<- "Answer"
-  if (is_html) {
-    "<div class='answer'>"
-  } else {
-    # "\\begin{answer}"
-  }
+  "<div class='answer'>"
 }
 EndAnswer <- function() {
   if (is.null(STATE) || !STATE %in% "Answer") {
@@ -70,9 +58,5 @@ EndAnswer <- function() {
     stop()
   }
   STATE <<- NULL
-  if (is_html) {
-    "</div>"
-  } else {
-    # "\\end{answer}"
-  }
+  "</div>"
 }

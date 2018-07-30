@@ -10,13 +10,13 @@ library(tidyverse)
 
 ## Tidy Data
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 Using prose, describe how the variables and observations are organized in each of the sample tables.
+</div>
 
-
-
+<div class='answer'>
 
 In `table1` each row is a (country, year) with variables `cases` and `population`.
 
@@ -86,11 +86,11 @@ table4b
 #> 3 China       1272915272 1280428583
 ```
 
+</div>
 
+### Exercise 2 {.unnumbered .exercise}
 
-### Exercise 2 {.exercise}
-
-
+<div class='question'>
 Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
 
 1.  Extract the number of TB cases per country per year.
@@ -100,9 +100,9 @@ Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to per
 
 Which representation is easiest to work with? Which is hardest? Why?
 
+</div>
 
-
-
+<div class='answer'>
 
 In order to calculate cases per person, we need to divide cases by population for each country, year.
 This is easiest if country and population are two columns in a data frame with country and year rows.
@@ -179,15 +179,15 @@ However, we had to repeat this calculation for each row.
 The ideal format of a data frame to answer this question is one with columns `country`, `year`, `cases`, and `population`.
 Then problem could be answered with a single `mutate()` call.
 
+</div>
 
+### Exercise 3 {.unnumbered .exercise}
 
-### Exercise 3 {.exercise}
-
-
+<div class='question'>
 Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
+</div>
 
-
-
+<div class='answer'>
 
 Before creating the plot with change in cases over time, we need to filter the data frame to only include rows representing cases of TB.
 
@@ -201,11 +201,9 @@ table2 %>%
   ylab("cases")
 ```
 
+<img src="tidy_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-13-1} \end{center}
-
-
+</div>
 
 ## Spreading and Gathering
 
@@ -218,14 +216,14 @@ tidy4b <- table4b %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
 ```
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 Why are `gather()` and `spread()` not perfectly symmetrical?
 Carefully consider the following example:
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -266,15 +264,15 @@ stocks %>%
 #> 4     2  2016   0.17
 ```
 
+</div>
 
+### Exercise 2 {.unnumbered .exercise}
 
-### Exercise 2 {.exercise}
-
-
+<div class='question'>
 Why does this code fail?
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -301,15 +299,15 @@ table4a %>%
 #> 6 China       2000  213766
 ```
 
+</div>
 
+### Exercise 3 {.unnumbered .exercise}
 
-### Exercise 3 {.exercise}
-
-
+<div class='question'>
 Why does spreading this tibble fail? How could you add a new column to fix the problem?
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -359,15 +357,15 @@ spread(people, key, value)
 #> 3 Phillip Woods       2    50     NA
 ```
 
+</div>
 
+### Exercise 4 {.unnumbered .exercise}
 
-### Exercise 4 {.exercise}
-
-
+<div class='question'>
 Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -400,17 +398,17 @@ gather(preg, sex, count, male, female) %>%
 ```
 Converting `pregnant` and `female` from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.
 
-
+</div>
 
 ## Separating and Uniting
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -517,27 +515,27 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 #> 3 f     g     i
 ```
 
+</div>
 
+### Exercise 2 {.unnumbered .exercise}
 
-### Exercise 2 {.exercise}
-
-
+<div class='question'>
 Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
+</div>
 
-
-
+<div class='answer'>
 
 You would set it to `FALSE` if you want to create a new variable, but keep the old one.
 
+</div>
 
+### Exercise 3 {.unnumbered .exercise}
 
-### Exercise 3 {.exercise}
-
-
+<div class='question'>
 Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
+</div>
 
-
-
+<div class='answer'>
 
 The function `separate()`, splits columns a column into multiple groups using
 by separator, if the `sep` argument is a character vector, or character positions, if `sep` is numeric.
@@ -627,35 +625,35 @@ but there are many choices how to split that single column into different column
 With `unite()`, there are many choices as to which columns to include, but only
 choice as to how to combine their contents into a single vector.
 
-
+</div>
 
 ## Missing Values
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 Compare and contrast the `fill` arguments to `spread()` and `complete()`.
+</div>
 
-
-
+<div class='answer'>
 
 In `spread()`, the fill argument explicitly sets the value to replace `NA`s.
 In `complete()`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
 Also, both cases replace both implicit and explicit missing values.
 
+</div>
 
+### Exercise 2 {.unnumbered .exercise}
 
-### Exercise 2 {.exercise}
-
-
+<div class='question'>
 What does the direction argument to `fill()` do?
+</div>
 
-
-
+<div class='answer'>
 
 With `fill`, it determines whether `NA` values should be replaced by the previous non-missing value (`"down"`) or the next non-missing value (`"up"`).
 
-
+</div>
 
 ## Case Study
 
@@ -732,13 +730,13 @@ who5
 #> # ... with 7.604e+04 more rows
 ```
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
+</div>
 
-
-
+<div class='answer'>
 
 Perhaps? I would need to know more about the data generation process.
 There are zero's in the data, which means they may explicitly be indicating no cases.
@@ -774,15 +772,15 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
 #> # ... with 6,962 more rows
 ```
 
+</div>
 
+### Exercise 2 {.unnumbered .exercise}
 
-### Exercise 2 {.exercise}
-
-
+<div class='question'>
 What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+</div>
 
-
-
+<div class='answer'>
 
 `separate` emits the warning "too few values", and if we check the
 rows for keys beginning with `"newrel_"`, we see that `sexage` is messing,
@@ -808,15 +806,15 @@ filter(who3a, new == "newrel") %>% head()
 #> 6 Anguilla    AI    AIA    2013 newrel m014  <NA>       0
 ```
 
+</div>
 
+### Exercise 3 {.unnumbered .exercise}
 
-### Exercise 3 {.exercise}
-
-
+<div class='question'>
 I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -829,15 +827,15 @@ select(who3, country, iso2, iso3) %>%
 #> # ... with 3 variables: country <chr>, iso2 <chr>, iso3 <chr>
 ```
 
+</div>
 
+### Exercise 4 {.unnumbered .exercise}
 
-### Exercise 4 {.exercise}
-
-
+<div class='question'>
 For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -850,14 +848,12 @@ who5 %>%
   geom_line()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-44-1} \end{center}
+<img src="tidy_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
 
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.
 
-
+</div>
 
 ## Non-Tidy Data
 

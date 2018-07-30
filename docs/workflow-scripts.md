@@ -17,20 +17,20 @@ No exercises
 
 ## Practice
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 Go to the RStudio Tips twitter account, <https://twitter.com/rstudiotips> and find one tip that looks interesting. Practice using it!
-
+</div>
 
 Exercise left to reader.
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
-
+<div class='question'>
 What other common mistakes will RStudio diagnostics report?
 Read <https://support.rstudio.com/hc/en-us/articles/205753617-Code-Diagnostics> to find out.
-
+</div>
 
 The user should read that help page. However, to preview its contents, some other diagnostics for R code include:
 

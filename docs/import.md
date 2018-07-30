@@ -15,13 +15,13 @@ library("tidyverse")
 
 ## Getting started
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 What function would you use to read a file where fields were separated with
+</div>
 
-
-
+<div class='answer'>
 “|”?
 
 I'd use `read_delim` with `delim="|"`:
@@ -30,15 +30,15 @@ I'd use `read_delim` with `delim="|"`:
 read_delim(file, delim = "|")
 ```
 
+</div>
 
+### Exercise 2 {.unnumbered .exercise}
 
-### Exercise 2 {.exercise}
-
-
+<div class='question'>
 Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
+</div>
 
-
-
+<div class='answer'>
 
 They have the following arguments in common:
 
@@ -57,30 +57,30 @@ union(names(formals(read_csv)), names(formals(read_tsv)))
 -   `guess_max` sets how many rows to use when guessing the column type
 -   `progress` determines whether a progress bar is shown.
 
+</div>
 
+### Exercise 3 {.unnumbered .exercise}
 
-### Exercise 3 {.exercise}
-
-
+<div class='question'>
 What are the most important arguments to `read_fwf()`?
+</div>
 
-
-
+<div class='answer'>
 
 The most important argument to `read_fwf` which reads "fixed-width formats", is `col_positions` which tells the function where data columns begin and end.
 
+</div>
 
+### Exercise 4 {.unnumbered .exercise}
 
-### Exercise 4 {.exercise}
-
-
+<div class='question'>
 Sometimes strings in a CSV file contain commas.
 To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`.
 By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead.
 What arguments do you need to specify to read the following text into a data frame?
+</div>
 
-
-
+<div class='answer'>
 
 ```
 "x,y\n1,'a,b'"
@@ -96,16 +96,16 @@ read_delim(x, ",", quote = "'")
 #> 1     1 a,b
 ```
 
+</div>
 
+### Exercise 6 {.unnumbered .exercise}
 
-### Exercise 6 {.exercise}
-
-
+<div class='question'>
 Identify what is wrong with each of the following inline CSV files.
 What happens when you run the code?
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -182,17 +182,17 @@ read_csv2("a;b\n1;3")
 #> 1     1     3
 ```
 
-
+</div>
 
 ## Parsing a vector
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 What are the most important arguments to `locale()`?
+</div>
 
-
-
+<div class='answer'>
 
 The locale broadly controls the following:
 
@@ -201,17 +201,17 @@ The locale broadly controls the following:
 -   numbers: `decimal_mark`, `grouping_mark`
 -   encoding: `encoding`
 
+</div>
 
+### Exercise 2 {.unnumbered .exercise}
 
-### Exercise 2 {.exercise}
-
-
+<div class='question'>
 What happens if you try and set `decimal_mark` and `grouping_mark` to the same character?
 What happens to the default value of `grouping_mark` when you set `decimal_mark` to `","`?
 What happens to the default value of `decimal_mark` when you set the `grouping_mark` to `"."`?
+</div>
 
-
-
+<div class='answer'>
 
 If the decimal and grouping marks are set to the same character, `locale` throws an error:
 
@@ -255,17 +255,17 @@ locale(grouping_mark = ",")
 #> AM/PM:  AM/PM
 ```
 
+</div>
 
+### Exercise 3 {.unnumbered .exercise}
 
-### Exercise 3 {.exercise}
-
-
+<div class='question'>
 I didn’t discuss the `date_format` and `time_format` options to `locale()`.
 What do they do?
 Construct an example that shows when they might be useful.
+</div>
 
-
-
+<div class='answer'>
 
 They provide default date and time formats.
 The [readr vignette](https://cran.r-project.org/web/packages/readr/vignettes/locales.html) discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM
@@ -296,15 +296,15 @@ parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
 ```
 Apparently the time format is not used for anything, but the date format is used for guessing column types.
 
+</div>
 
+### Exercise 4 {.unnumbered .exercise}
 
-### Exercise 4 {.exercise}
-
-
+<div class='question'>
 If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
+</div>
 
-
-
+<div class='answer'>
 
 Read the help page for `locale()` using `?locale` to learn about the different variables that can be set.
 
@@ -336,29 +336,29 @@ parse_date("02/01/2006", locale = au_locale)
 #> [1] "2006-01-02"
 ```
 
+</div>
 
+### Exercise 5 {.unnumbered .exercise}
 
-### Exercise 5 {.exercise}
-
-
+<div class='question'>
 What’s the difference between `read_csv()` and `read_csv2()`?
+</div>
 
-
-
+<div class='answer'>
 
 The delimiter. The function `read_csv` uses a comma, while `read_csv2` uses a semi-colon (`;`). Using a semi-colon is useful when commas are used as the decimal point (as in Europe).
 
+</div>
 
+### Exercise 6 {.unnumbered .exercise}
 
-### Exercise 6 {.exercise}
-
-
+<div class='question'>
 What are the most common encodings used in Europe?
 What are the most common encodings used in Asia?
 Do some googling to find out.
+</div>
 
-
-
+<div class='answer'>
 
 UTF-8 is standard now, and ASCII has been around forever.
 
@@ -398,15 +398,15 @@ Programs that identify the encoding of text include
 -   [iconv](https://en.wikipedia.org/wiki/Iconv)
 -   [chardet](https://github.com/chardet/chardet) (Python)
 
+</div>
 
+### Exercise 7 {.unnumbered .exercise}
 
-### Exercise 7 {.exercise}
-
-
+<div class='question'>
 Generate the correct format string to parse each of the following dates and times:
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -442,7 +442,7 @@ parse_time(t2, "%H:%M:%OS %p")
 #> 23:15:10.12
 ```
 
-
+</div>
 
 ## Parsing a file
 

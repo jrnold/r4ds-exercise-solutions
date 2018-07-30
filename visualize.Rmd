@@ -15,7 +15,7 @@ No exercises.
 
 ## First Steps
 
-### Exercise 1. {.exercise}
+### Exercise 1. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Run `ggplot(data = mpg)` what do you see?
@@ -31,7 +31,7 @@ An empty plot. The background of the plot is created by `ggplot()`, but nothing 
 
 `r EndAnswer()`
 
-### Exercise 2. {.exercise}
+### Exercise 2. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 How many rows are in `mtcars`? How many columns?
@@ -51,7 +51,7 @@ glimpse(mtcars)
 
 `r EndAnswer()`
 
-### Exercise 3. {.exercise}
+### Exercise 3. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does the `drv` variable describe? Read the help for `?mpg` to find out.
@@ -71,7 +71,7 @@ The `drv` categorizes cars by which wheels the engine provides torque to, or dri
 
 `r EndAnswer()`
 
-### Exercise 4. {.exercise}
+### Exercise 4. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Make a scatter plot of `hwy` vs `cyl`.
@@ -86,7 +86,7 @@ ggplot(mpg, aes(x = hwy, y = cyl)) +
 
 `r EndAnswer()`
 
-### Exercise 5. {.exercise}
+### Exercise 5. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
@@ -108,7 +108,7 @@ Later chapters discuss means to deal with this, including alternative plots and 
 
 ## Aesthetic mappings
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What’s gone wrong with this code? Why are the points not blue?
@@ -122,7 +122,7 @@ ggplot(data = mpg) +
 Since `colour = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
 The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `colour = 1:234` or `colour = 1` would be interpreted by `aes()`.
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Which variables in `mpg` are categorical?
@@ -148,7 +148,7 @@ glimpse(mpg)
 ```
 `r EndAnswer()`
 
-### Exercise 3 {.exercise}
+### Exercise 3 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Map a continuous variable to color, size, and shape.
@@ -184,7 +184,7 @@ It is clear that smaller points correspond to smaller values, or once the color 
 
 `r EndAnswer()`
 
-### Exercise 4 {.exercise}
+### Exercise 4 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What happens if you map the same variable to multiple aesthetics?
@@ -204,7 +204,7 @@ Because it is redundant information, in most cases avoid mapping a single variab
 
 `r EndAnswer()`
 
-### Exercise 5 {.exercise}
+### Exercise 5 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`)
@@ -223,7 +223,7 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 `r EndAnswer()`
 
-### Exercise 6. {.exercise}
+### Exercise 6. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
@@ -249,7 +249,7 @@ No exercises
 
 ## Facets
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What happens if you facet on a continuous variable?
@@ -268,7 +268,7 @@ It converts the continuous variable to a factor and creates facets for **all** u
 
 `r EndAnswer()`
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
@@ -287,7 +287,7 @@ The locations in the above plot without points are the same cells in `facet_grid
 
 `r EndAnswer()`
 
-### Exercise 3 {.exercise}
+### Exercise 3 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What plots does the following code make? What does `.` do?
@@ -312,17 +312,17 @@ ggplot(data = mpg) +
 
 `r EndAnswer()`
 
-### Exercise 4 {.exercise}
+### Exercise 4 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Take the first faceted plot in this section:
 
 ```{r}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
   facet_wrap(~ class, nrow = 2)
 ```
-What are the advantages to using faceting instead of the colour aesthetic? 
+What are the advantages to using faceting instead of the colour aesthetic?
 What are the disadvantages?
 How might the balance change if you had a larger dataset?
 
@@ -333,7 +333,7 @@ How might the balance change if you had a larger dataset?
 This is what the plot looks like when `class` is represented by the colour
 the color aesthetic instead of faceting.
 ```{r}
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
@@ -352,26 +352,26 @@ making it more difficult to directly compare the locations of individual points.
 Using the same x- and y-scales for all facets lessens this disadvantage.
 Since encoding class within color also places all points on the same plot,
 it visualizes the unconditional relationship between the x and y variables;
-with facets, the unconditional relationship is no longer visualized since the 
+with facets, the unconditional relationship is no longer visualized since the
 points are spread across multiple plots.
 
 The benefits encoding a variable through facetting over color become more advantageous as either the number of points or the number of categories increase.
-In the former, as the number of points increase, there is likely to be more 
-overlap. 
+In the former, as the number of points increase, there is likely to be more
+overlap.
 
 It is difficult to handle overlapping points with color.
-Jittering will still work with color. 
+Jittering will still work with color.
 But jittering will only work well if there are few points and the classes do not overlap much, otherwise the colors of areas will no longer be distinct and it will be hard to visually pick out the patterns of different categories.
 Transparency (`alpha`) does not work well with colors since the mixing of overlapping transparent colors will no longer represent the colors of the categories.
 Binning methods use already color to encode density, so color cannot be used to encode categories.
 
 As noted before, as the number of categories increases, the difference between
-colors decreases, to the point that the color of categories will no longer be 
+colors decreases, to the point that the color of categories will no longer be
 visually distinct.
 
 `r EndAnswer()`
 
-### Exercise 5 {.exercise}
+### Exercise 5 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
@@ -385,7 +385,7 @@ These arguments are unnecessary for `facet_grid` since the number of rows and co
 
 `r EndAnswer()`
 
-### Exercise 6 {.exercise}
+### Exercise 6 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
@@ -401,7 +401,7 @@ It is easier to compare relative levels of y by scanning horizontally, so it may
 
 ## Geometric Objects
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
@@ -416,7 +416,7 @@ What geom would you use to draw a line chart? A boxplot? A histogram? An area ch
 
 `r EndAnswer()`
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
@@ -442,7 +442,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 
 `r EndAnswer()`
 
-### Exercise 3 {.exercise}
+### Exercise 3 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does `show.legend = FALSE` do? What happens if you remove it?
@@ -487,7 +487,7 @@ In that example, the legend isn't necessary since looking up the values associat
 
 `r EndAnswer()`
 
-### Exercise 4 {.exercise}
+### Exercise 4 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does the `se` argument to `geom_smooth()` do?
@@ -513,7 +513,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 
 `r EndAnswer()`
 
-### Exercise 5 {.exercise}
+### Exercise 5 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Will these two graphs look different? Why/why not?
@@ -537,7 +537,7 @@ ggplot() +
 
 `r EndAnswer()`
 
-### Exercise 6 {.exercise}
+### Exercise 6 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Recreate the R code necessary to generate the following graphs.
@@ -584,7 +584,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ## Statistical Transformations
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
@@ -617,7 +617,7 @@ ggplot(data = diamonds) +
 
 `r EndAnswer()`
 
-### Exercise 2. {.exercise}
+### Exercise 2. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does `geom_col()` do? How is it different to `geom_bar()`?
@@ -630,7 +630,7 @@ What does `geom_col()` do? How is it different to `geom_bar()`?
 
 `r EndAnswer()`
 
-### Exercise 3. {.exercise}
+### Exercise 3. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Most geoms and stats come in pairs that are almost always used in concert.
@@ -644,7 +644,7 @@ See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
 `r EndAnswer()`
 
-### Exercise 4. {.exercise}
+### Exercise 4. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What variables does `stat_smooth()` compute? What parameters control its behavior?
@@ -663,7 +663,7 @@ There's parameters such as `method` which determines which method is used to cal
 
 `r EndAnswer()`
 
-### Exercise 5. {.exercise}
+### Exercise 5. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 In our proportion bar chart, we need to set `group = 1` Why?
@@ -703,7 +703,7 @@ ggplot(data = diamonds) +
 
 ## Position Adjustments
 
-### Exercise 1. {.exercise}
+### Exercise 1. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What is the problem with this plot?
@@ -725,7 +725,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 `r EndAnswer()`
 
-### Exercise 2. {.exercise}
+### Exercise 2. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What parameters to `geom_jitter()` control the amount of jittering?
@@ -761,7 +761,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 `r EndAnswer()`
 
-### Exercise 3. {.exercise}
+### Exercise 3. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Compare and contrast `geom_jitter()` with `geom_count()`.
@@ -811,7 +811,7 @@ of the data scientist.
 
 `r EndAnswer()`
 
-### Exercise 4. {.exercise}
+### Exercise 4. {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the mpg dataset that demonstrates it.
@@ -836,7 +836,7 @@ ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
 
 ## Coordinate Systems
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Turn a stacked bar chart into a pie chart using `coord_polar()`.
@@ -879,7 +879,7 @@ ggplot(data = diamonds) +
 
 `r EndAnswer()`
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does `labs()` do? Read the documentation.
@@ -898,7 +898,7 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 
 `r EndAnswer()`
 
-### Exercise 3 {.exercise}
+### Exercise 3 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What’s the difference between `coord_quickmap()` and `coord_map()`?
@@ -918,7 +918,7 @@ contains more information on and examples for these two functions.
 
 `r EndAnswer()`
 
-### Exercise 4 {.exercise}
+### Exercise 4 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important?
@@ -943,7 +943,7 @@ p
 ```
 
 On average, humans are best able to perceive differences in angles relative to 45 degrees.
-See @Cleveland1993, @Cleveland1994,@Cleveland1993a, @ClevelandMcGillMcGill1988,  @HeerAgrawala2006 for discussion on how the aspect ratio of a plot affects perception of the values it encodes, evidence that 45 degrees is generally optimal, and methods to calculate the an aspect ratio to achieve it. 
+See @Cleveland1993, @Cleveland1994,@Cleveland1993a, @ClevelandMcGillMcGill1988,  @HeerAgrawala2006 for discussion on how the aspect ratio of a plot affects perception of the values it encodes, evidence that 45 degrees is generally optimal, and methods to calculate the an aspect ratio to achieve it.
 The function `ggthemes::bank_slopes()` will calculate the optimal aspect ratio to bank slopes to 45 degrees.
 
 `r EndAnswer()`

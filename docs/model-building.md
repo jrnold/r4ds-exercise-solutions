@@ -27,49 +27,49 @@ mod_diamond2 <- lm(lprice ~ lcarat + color + cut + clarity, data = diamonds2)
 
 ### Exercises
 
-#### Exercise 1 {.exercise}
+#### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 In the plot of `lcarat` vs. `lprice`, there are some bright vertical strips. What do they represent?
+</div>
 
-
-
+<div class='answer'>
 
 The distribution of diamonds has more diamonds at round or otherwise human friendly numbers (fractions).
 
+</div>
 
+#### Exercise 2 {.unnumbered .exercise}
 
-#### Exercise 2 {.exercise}
-
-
+<div class='question'>
 If `log(price) = a_0 + a_1 * log(carat)`, what does that say about the relationship between `price` and `carat`?
+</div>
 
-
-
+<div class='answer'>
 
 An 1% increase in carat is associated with an $a_1$% increase in price.
 
+</div>
 
+#### Exercise 3 {.unnumbered .exercise}
 
-#### Exercise 3 {.exercise}
-
-
+<div class='question'>
 Extract the diamonds that have very high and very low residuals. Is there anything unusual about these diamonds? Are the particularly bad or good, or do you think these are pricing errors?
+</div>
 
-
-
+<div class='answer'>
 
 This was already discussed in the text. I don't see anything either.
 
+</div>
 
+#### Exercise 4 {.unnumbered .exercise}
 
-#### Exercise 4 {.exercise}
-
-
+<div class='question'>
 Does the final model, `mod_diamonds2`, do a good job of predicting diamond prices? Would you trust it to tell you how much to spend if you were buying a diamond?
+</div>
 
-
-
+<div class='answer'>
 
 
 ```r
@@ -90,7 +90,7 @@ The average squared and absolute errors are $2^0.19 = 1.14$ and $2^0.10$ so on a
 And the 95% range of residuals is about $2^0.37 = 1.3$ so within $\pm 30$%.
 This doesn't seem terrible to me.
 
-
+</div>
 
 ### What affects the number of daily flights?
 
@@ -137,25 +137,25 @@ mod2 <- lm(n ~ wday * term, data = daily)
 
 ### Exercises
 
-#### Exercise 1 {.exercise}
+#### Exercise 1 {.unnumbered .exercise}
 
-
+<div class='question'>
 Use your Google sleuthing skills to brainstorm why there were fewer than expected flights on Jan 20, May 26, and Sep 1. (Hint: they all have the same explanation.) How would these days generalize to another year?
+</div>
 
-
-
+<div class='answer'>
 
 These are the Sundays before Monday holidays Martin Luther King Day, Memorial Day, and Labor Day.
 
+</div>
 
+#### Exercise 2 {.unnumbered .exercise}
 
-#### Exercise 2 {.exercise}
+<div class='question'>
 
+</div>
 
-
-
-
-
+<div class='answer'>
 
 
 ```r
@@ -169,15 +169,15 @@ daily %>%
 #> 3 2013-12-28   814 Sat   fall   69.4
 ```
 
+</div>
 
+#### Exercise 3 {.unnumbered .exercise}
 
-#### Exercise 3 {.exercise}
-
-
+<div class='question'>
 Create a new variable that splits the `wday` variable into terms, but only for Saturdays, i.e. it should have `Thurs`, `Fri`, but `Sat-summer`, `Sat-spring`, `Sat-fall` How does this model compare with the model with every combination of `wday` and `term`?
+</div>
 
-
-
+<div class='answer'>
 
 I'll use the function `case_when` to do this, though there are other ways which it could be solved.
 
@@ -200,9 +200,7 @@ daily %>%
     geom_line(alpha = 0.75)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-8-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
 
 I think the overlapping plot is hard to understand.
 If we are interested in the differences, it is better to plot the differences directly.
@@ -216,9 +214,7 @@ daily %>%
     geom_line(alpha = 0.75)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-9-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 The model with terms x Saturday has higher residuals in the fall, and lower residuals in the spring than the model with all interactions.
 
@@ -237,15 +233,15 @@ glance(mod2) %>% select(r.squared, sigma, AIC, df)
 #> 1     0.757  46.2 3856 21
 ```
 
+</div>
 
+#### Exercise 4 {.unnumbered .exercise}
 
-#### Exercise 4 {.exercise}
-
-
+<div class='question'>
 Create a new `wday` variable that combines the day of week, term (for Saturdays), and public holidays. What do the residuals of that model look like?
+</div>
 
-
-
+<div class='answer'>
 
 The question is unclear how to handle the public holidays. We could include a dummy for all public holidays? or the Sunday before public holidays?
 
@@ -290,32 +286,32 @@ daily %>%
 #> # ... with 14 more rows
 ```
 
+</div>
 
+#### Exercise 5 {.unnumbered .exercise}
 
-#### Exercise 5 {.exercise}
-
-
+<div class='question'>
 What happens if you fit a day of week effect that varies by month (i.e. `n ~ wday * month`)? Why is this not very helpful?
+</div>
 
-
-
+<div class='answer'>
 
 There are only 4-5 observations per parameter since only there are only 4-5 weekdays in a given month.
 
+</div>
 
-
-#### Exercise 6 {.exercise}
+#### Exercise 6 {.unnumbered .exercise}
 
 It will estimate a smooth seasonal trend (`ns(date, 5)`) with a day of the week cyclicality, (`wday`).
 It probably will not be effective since
 
-#### Exercise 7 {.exercise}
+#### Exercise 7 {.unnumbered .exercise}
 
-
+<div class='question'>
 We hypothesized that people leaving on Sundays are more likely to be business travelers who need to be somewhere on Monday. Explore that hypothesis by seeing how it breaks down based on distance and time: if it’s true, you’d expect to see more Sunday evening flights to places that are far away.
+</div>
 
-
-
+<div class='answer'>
 
 Looking at only day of the week, we see that Sunday flights are on average longer than the rest of the day of the week flights, but not as long as Saturday flights (perhaps vacation flights?).
 
@@ -330,9 +326,7 @@ flights %>%
   geom_point()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-13-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
 
 However, breaking it down by hour, I don't see much evidence at first.
 Conditional on hour, the distance of Sunday flights seems similar to that of other days (excluding Saturday):
@@ -350,21 +344,19 @@ flights %>%
   geom_line()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-14-1} \end{center}
+<img src="model-building_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
 
 Can someone think of a better way to check this?
 
+</div>
 
+#### Exercise 8 {.unnumbered .exercise}
 
-#### Exercise 8 {.exercise}
-
-
+<div class='question'>
 It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.
+</div>
 
-
-
+<div class='answer'>
 
 See the chapter [Factors](http://r4ds.had.co.nz/factors.html) for the function `fct_relevel`.
 I use `fct_relevel` to put all levels in-front of the first level ("Sunday").
@@ -386,9 +378,7 @@ ggplot(daily, aes(monday_first(wday), n)) +
   labs(x = "Day of Week", y = "Number of flights")
 ```
 
+<img src="model-building_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{model-building_files/figure-latex/unnamed-chunk-16-1} \end{center}
-
-
+</div>
 

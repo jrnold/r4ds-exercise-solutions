@@ -27,7 +27,7 @@ flights_dt <- flights %>%
   select(origin, dest, ends_with("delay"), ends_with("time"))
 ```
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What happens if you parse a string that
@@ -46,13 +46,13 @@ It produces an `NA` and an warning message.
 
 `r EndAnswer()`
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
 What does the `tzone` argument to `today()` do? Why is it important?
 
 It determines the time-zone of the date. Since different time-zones can have different dates, the value of `today()` can vary depending on the time-zone specified.
 
-### Exercise 3 {.exercise}
+### Exercise 3 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Use the appropriate **lubridate** function to
@@ -90,7 +90,7 @@ sched_dep <- flights_dt %>%
 ```
 In the previous code, the difference between rounded and un-rounded dates provides the within-period time.
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 How does the distribution of flight times
@@ -124,7 +124,7 @@ At least to me there doesn't appear to much difference in within-day distributio
 
 `r EndAnswer()`
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
 Compare `dep_time`, `sched_dep_time` and `dep_delay`. Are they consistent? Explain your findings.
 
@@ -145,7 +145,7 @@ the scheduled departure time. Alternatively, simply adding the delay time is
 more robust because it will automatically account for crossing into the next
 day.
 
-### Exercise 3 {.exercise}
+### Exercise 3 {.unnumbered .exercise}
 
 Compare `air_time` with the duration between the departure and arrival. Explain your findings.
 
@@ -157,7 +157,7 @@ flights_dt %>%
   select(origin, dest, flight_duration, air_time_mins, diff)
 ```
 
-### Exercise 4 {.exercise}
+### Exercise 4 {.unnumbered .exercise}
 
 How does the average delay time change over the course of a day? Should you use `dep_time` or `sched_dep_time`? Why?
 
@@ -173,7 +173,7 @@ flights_dt %>%
   geom_smooth()
 ```
 
-### Exercise 5 {.exercise}
+### Exercise 5 {.unnumbered .exercise}
 
 On what day of the week should you leave if you want to minimize the chance of a delay?
 
@@ -187,7 +187,7 @@ flights_dt %>%
             arr_delay = mean(arr_delay, na.rm = TRUE))
 ```
 
-### Exercise 6 {.exercise}
+### Exercise 6 {.unnumbered .exercise}
 
 What makes the distribution of `diamonds$carat` and `flights$sched_dep_time` similar?
 
@@ -211,7 +211,7 @@ ggplot(flights_dt, aes(x = minute(sched_dep_time))) +
   geom_histogram(binwidth = 1)
 ```
 
-### Exercise 7 {.exercise}
+### Exercise 7 {.unnumbered .exercise}
 
 Confirm my hypothesis that the early departures of flights in minutes 20-30 and 50-60 are caused by scheduled flights that leave early. Hint: create a binary variable that tells you whether or not a flight was delayed.
 
@@ -240,7 +240,7 @@ flights_dt %>%
 
 ## Time Spans
 
-### Exercise 1 {.exercise}
+### Exercise 1 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Why is there `months()` but no `dmonths()`?
@@ -258,7 +258,7 @@ Though in the past, in the pre-computer era, for arithmetic convenience, bankers
 
 `r EndAnswer()`
 
-### Exercise 2 {.exercise}
+### Exercise 2 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Explain `days(overnight * 1)` to someone who has just started learning R. How does it work?
@@ -271,7 +271,7 @@ If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0
 
 `r EndAnswer()`
 
-### Exercise 3 {.exercise}
+### Exercise 3 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
@@ -292,7 +292,7 @@ floor_date(today(), unit = "year") + months(0:11)
 
 `r EndAnswer()`
 
-### Exercise 4 {.exercise}
+### Exercise 4 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Write a function that given your birthday (as a date), returns how old you are in years.
@@ -309,7 +309,7 @@ age(ymd("1990-10-12"))
 
 `r EndAnswer()`
 
-### Exercise 5 {.exercise}
+### Exercise 5 {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
