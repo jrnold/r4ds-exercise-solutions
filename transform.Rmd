@@ -790,18 +790,21 @@ lagged_delays <- flights %>%
   filter(!is.na(dep_delay), !is.na(dep_delay_lag))
 ```
 
-The relationship between the delay of a flight and the previous flight is almost exactly linear.
+This plots the relationship between the mean delay of a flight for all values of the  previous flight.
 ```{r message=FALSE}
-ggplot(lagged_delays, aes(x = dep_delay, y = dep_delay)) +
+lagged_delays %>%
+  group_by(dep_delay_lag) %>%
+  summarise(dep_delay_mean = mean(dep_delay)) %>%
+  ggplot(aes(y = dep_delay_mean, x = dep_delay_lag)) +
   geom_point() +
   geom_smooth() +
-  labs(x = "Departure Delay", y = "Previous Delay")
+  labs(y = "Departure Delay", x = "Previous Departure Delay")
 ```
 
 We can summarize this relationship by the average difference in delays:
 ```{r}
 lagged_delays %>%
-  summarise(delay_diff = mean(dep_delay - lag(dep_delay), na.rm = TRUE))
+  summarise(delay_diff = mean(dep_delay - dep_delay_lag), na.rm = TRUE)
 ```
 
 `r EndAnswer()`
@@ -831,9 +834,9 @@ flights_with_zscore <- flights %>%
 Possible unusual flights are the 
 Lets print out the 10 flights with the largest
 ```{r}
-flights_by_zscore %>%
+flights_with_zscore %>%
   arrange(desc(abs(z_score))) %>%
-  select()
+  select() %>%
   print(n = 15)
 ```
 
