@@ -17,7 +17,7 @@ No exercises
 
 ## Practice
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">6.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Go to the RStudio Tips twitter account, <https://twitter.com/rstudiotips> and find one tip that looks interesting. Practice using it!
@@ -25,7 +25,7 @@ Go to the RStudio Tips twitter account, <https://twitter.com/rstudiotips> and fi
 
 Exercise left to reader.
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">6.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 What other common mistakes will RStudio diagnostics report?

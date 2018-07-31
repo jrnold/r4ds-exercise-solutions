@@ -9,7 +9,7 @@ library(stringr)
 
 ## String Basics
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.2.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What **stringr** function are they equivalent to? How do the functions differ in their handling of NA?
@@ -42,7 +42,7 @@ paste0("foo", NA)
 
 `r EndAnswer()`
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.2.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 In your own words, describe the difference between the `sep` and `collapse` arguments to `str_c()`.
@@ -54,7 +54,7 @@ The `sep` argument is the string inserted between arguments to `str_c`, while `c
 
 `r EndAnswer()`
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.2.3</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Use `str_length()` and `str_sub()` to extract the middle character from a string. What will you do if the string has an even number of characters?
@@ -74,7 +74,7 @@ str_sub(x, m, m)
 
 `r EndAnswer()`
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.2.4</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does `str_wrap()` do? When might you want to use it?
@@ -87,7 +87,7 @@ This is useful for wrapping long strings of text to be typeset.
 
 `r EndAnswer()`
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.2.5</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does `str_trim()` do? What’s the opposite of `str_trim()`?
@@ -112,7 +112,7 @@ str_pad("abc", 4, side = "left")
 
 `r EndAnswer()`
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.2.6</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
@@ -144,7 +144,7 @@ str_commasep(c("a", "b", "c"))
 
 ### Basic Matches
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.1.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
@@ -158,7 +158,7 @@ Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.1.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 How would you match the sequence `"'\` ?
@@ -172,7 +172,7 @@ str_view("\"'\\", "\"'\\\\")
 
 `r EndAnswer()`
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.1.3</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
@@ -212,7 +212,7 @@ str_view(x, "^apple$")
 
 ### Anchors
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.2.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 How would you match the literal string `"$^$"`?
@@ -226,7 +226,7 @@ str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.2.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
@@ -270,7 +270,7 @@ The answer to each part follows.
 
 ### Character classes and alternatives
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.3.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 
@@ -315,7 +315,7 @@ The answer to each part follows.
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.3.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 
@@ -343,7 +343,7 @@ sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 
 `r EndAnswer()`
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.3.3</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Is ``q'' always followed by a ``u''?
@@ -358,7 +358,7 @@ str_view(stringr::words, "q[^u]", match = TRUE)
 
 `r EndAnswer()`
 
-#### Exercise 4 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.3.4</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Write a regular expression that matches a word if it’s probably written in British English, not American English.
@@ -381,7 +381,7 @@ It would require a dictionary with differences in spellings for different words.
 
 `r EndAnswer()`
 
-#### Exercise 5 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.3.5</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Create a regular expression that will match telephone numbers as commonly written in your country.
@@ -418,7 +418,7 @@ for a discussion of using a regex for phone number validation.
 
 ### Repetition
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.4.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
@@ -449,7 +449,7 @@ str_view(x, "CC{1,}")
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.4.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
@@ -480,7 +480,7 @@ The answer to each part follows.
 
 `r EndAnswer()`
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.4.3</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Create regular expressions to find all words that:
@@ -515,7 +515,7 @@ The answer to each part follows.
 
 `r EndAnswer()`
 
-#### Exercise 4 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.4.4</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 
@@ -531,7 +531,7 @@ Exercise left to reader. That site validates its solutions, so they aren't repea
 
 ### Grouping and backreferences
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.5.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Describe, in words, what these expressions will match:
@@ -556,7 +556,7 @@ The answer to each part follows.
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.3.5.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Construct regular expressions to match words that:
@@ -615,7 +615,7 @@ No exercises
 
 ### Exercises
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.2.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 For each of the following challenges, try solving it by using both a single regular expression, and a combination of multiple `str_detect()` calls.
@@ -704,7 +704,7 @@ The answer to each part follows.
 
 ### Extract Matches
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.3.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.
@@ -734,7 +734,7 @@ str_view_all(more2, colour_match2, match = TRUE)
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.3.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 
@@ -781,7 +781,7 @@ The answer to each part follows.
 
 ### Grouped Matches
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.4.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
@@ -798,7 +798,7 @@ sentences[str_detect(sentences, numword)] %>%
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.4.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Find all contractions. Separate out the pieces before and after the apostrophe.
@@ -817,7 +817,7 @@ sentences %>%
 
 ### Replacing Matches
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.5.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Replace all forward slashes in a string with backslashes.
@@ -832,7 +832,7 @@ writeLines(backslashed)
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.5.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Implement a simple version of `str_to_lower()` using `replace_all()`.
@@ -845,7 +845,7 @@ lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "
 
 `r EndAnswer()`
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.5.3</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Switch the first and last letters in `words`. Which of those strings are still words?
@@ -866,7 +866,7 @@ intersect(swapped,words)
 
 ### Splitting
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.6.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Split up a string like `"apples, pears, and bananas"` into individual components.
@@ -881,7 +881,7 @@ str_split(x, ", +(and +)?")[[1]]
 
 `r EndAnswer()`
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.6.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Why is it better to split up by `boundary("word")` than `" "`?
@@ -909,7 +909,7 @@ str_split(sentence, boundary("word"))
 
 `r EndAnswer()`
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">14.4.6.3</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What does splitting with an empty string `("")` do? Experiment, and then read the documentation.
@@ -931,7 +931,7 @@ No exercises
 
 ## Other types of patterns
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.5.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
@@ -946,7 +946,7 @@ str_subset(c("a\\b", "ab"), fixed("\\"))
 
 `r EndAnswer()`
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.5.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 What are the five most common words in sentences?
@@ -973,7 +973,7 @@ No exercises
 
 ## stringi
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.7.1</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 Find the **stringi** functions that:
@@ -1005,7 +1005,7 @@ The answer to each part follows.
 
 `r EndAnswer()`
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">14.7.2</span> {.unnumbered .exercise}
 
 `r BeginQuestion()`
 How do you control the language that `stri_sort()` uses for sorting?

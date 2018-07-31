@@ -15,7 +15,7 @@ library("tidyverse")
 
 ## Getting started
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.2.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 What function would you use to read a file where fields were separated with
@@ -32,7 +32,7 @@ read_delim(file, delim = "|")
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.2.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
@@ -59,7 +59,7 @@ union(names(formals(read_csv)), names(formals(read_tsv)))
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.2.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 What are the most important arguments to `read_fwf()`?
@@ -71,7 +71,7 @@ The most important argument to `read_fwf` which reads "fixed-width formats", is 
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.2.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Sometimes strings in a CSV file contain commas.
@@ -98,7 +98,7 @@ read_delim(x, ",", quote = "'")
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.2.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 Identify what is wrong with each of the following inline CSV files.
@@ -186,7 +186,7 @@ read_csv2("a;b\n1;3")
 
 ## Parsing a vector
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 What are the most important arguments to `locale()`?
@@ -203,7 +203,7 @@ The locale broadly controls the following:
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 What happens if you try and set `decimal_mark` and `grouping_mark` to the same character?
@@ -257,7 +257,7 @@ locale(grouping_mark = ",")
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.3.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 I didn’t discuss the `date_format` and `time_format` options to `locale()`.
@@ -298,7 +298,7 @@ Apparently the time format is not used for anything, but the date format is used
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
@@ -338,7 +338,7 @@ parse_date("02/01/2006", locale = au_locale)
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.3.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 What’s the difference between `read_csv()` and `read_csv2()`?
@@ -350,7 +350,7 @@ The delimiter. The function `read_csv` uses a comma, while `read_csv2` uses a se
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.3.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 What are the most common encodings used in Europe?
@@ -400,7 +400,7 @@ Programs that identify the encoding of text include
 
 </div>
 
-### Exercise 7 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">11.3.7</span> {.unnumbered .exercise}
 
 <div class='question'>
 Generate the correct format string to parse each of the following dates and times:

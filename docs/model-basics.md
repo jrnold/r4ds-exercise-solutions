@@ -23,7 +23,7 @@ If it is not set (the default), R will silently drop them.
 
 ## A simple model
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.2.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 One downside of the linear model is that it is sensitive to unusual values because the distance incorporates a squared term. Fit a linear model to the simulated data below, and visualize the results. Rerun a few times to generate different simulated datasets. What do you notice about the model?
@@ -47,7 +47,9 @@ ggplot(sim1a, aes(x = x, y = y)) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 To re-run this a few times using `purrr`,
 and plot using code similar to that in the chapter:
@@ -75,7 +77,9 @@ ggplot(sims, aes(x = x, y = y)) +
   facet_wrap(~ .id, ncol = 4)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 What if we did the same things with normal distributions?
 
@@ -96,7 +100,9 @@ ggplot(simdf_norm, aes(x = x, y = y)) +
   facet_wrap(~ .id, ncol = 4)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-6-1} \end{center}
 There are not large outliers, and the slopes are more similar.
 
 The reason for this is that the Student's $t$-distribution, from which we sample with `rt` has fatter tails than the normal distribution (`rnorm`), which means is assigns larger probability to values further from the center of the distribution.
@@ -112,7 +118,9 @@ tibble(
   geom_line()
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 For a normal distribution with mean zero and standard deviation one, the probability of being greater than 2 is,
 
@@ -129,7 +137,7 @@ pt(2, df = 2, lower.tail = FALSE)
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.2.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:
@@ -179,7 +187,7 @@ See the `MASS` package's `rlm` and `lqs` functions for more information and func
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.2.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 One challenge with performing numerical optimization is that it’s only guaranteed to find a local optimum. What’s the problem with optimizing a three parameter model like this?
@@ -241,7 +249,7 @@ Problem is that due to finite iterations, numerically these converge:
 
 ## Visualizing Models
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on `sim1` using `loess()` instead of `lm()`. How does the result compare to `geom_smooth()`?
@@ -277,7 +285,9 @@ plot_sim1_loess <-
 plot_sim1_loess
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 The predictions of loess are the same as the default method for `geom_smooth` because `geom_smooth()` uses `loess()` by default; the message even tells us that.
 
@@ -286,7 +296,9 @@ plot_sim1_loess +
   geom_smooth(method = "loess", colour = "blue", se = FALSE, alpha = 0.20)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 We can plot the residuals (red), and compare them to the residuals from `lm` (black).
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven't considered the uncertainty of these estimates).
@@ -299,11 +311,13 @@ ggplot(sim1, aes(x = x)) +
   geom_point(aes(y = resid_loess), colour = "red")
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 `add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`.
@@ -395,7 +409,7 @@ grid %>%
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.3.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does `geom_ref_line()` do? What package does it come from?
@@ -411,7 +425,7 @@ A zero reference line makes it easier to judge these characteristics visually.
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why might you want to look at a frequency polygon of absolute residuals?
@@ -433,7 +447,9 @@ ggplot(sim1, aes(x = abs(resid))) +
   geom_freqpoly(binwidth = 0.5)
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 However, using the absolute values of residuals throws away information about the sign, meaning that the
 frequency polygon cannot show whether the model systematically over- or under-estimates the residuals.
@@ -442,7 +458,7 @@ frequency polygon cannot show whether the model systematically over- or under-es
 
 ## Formulas and Model Families
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation?
@@ -479,7 +495,7 @@ grid
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.4.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`.
@@ -549,7 +565,7 @@ terms for `x1`, `x2`, and the product of `x1` and `x2`.
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.4.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Using the basic principles, convert the formulas in the following two models into functions.
@@ -641,7 +657,7 @@ model_matrix_mod2 <- function(x1, x2) {
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">23.4.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 For `sim4`, which of `mod1` and `mod2` is better?
@@ -672,7 +688,9 @@ ggplot(sim4_mods, aes(x = resid, colour = model)) +
   geom_rug()
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-45-1} \end{center}
 and the absolute values of the residuals,
 
 ```r
@@ -681,7 +699,9 @@ ggplot(sim4_mods, aes(x = abs(resid), colour = model)) +
   geom_rug()
 ```
 
-<img src="model-basics_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-46-1} \end{center}
 does not show much difference in the residuals between the models.
 However, `mod2` appears to have fewer residuals in the tails of the distribution between 2.5 and 5 (although the most extreme residuals are from `mod2`.
 

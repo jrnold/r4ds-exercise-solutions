@@ -10,7 +10,7 @@ library(tidyverse)
 
 ## Tidy Data
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.2.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Using prose, describe how the variables and observations are organized in each of the sample tables.
@@ -88,7 +88,7 @@ table4b
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.2.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
@@ -181,7 +181,7 @@ Then problem could be answered with a single `mutate()` call.
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.2.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
@@ -201,7 +201,9 @@ table2 %>%
   ylab("cases")
 ```
 
-<img src="tidy_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 </div>
 
@@ -216,7 +218,7 @@ tidy4b <- table4b %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
 ```
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why are `gather()` and `spread()` not perfectly symmetrical?
@@ -266,7 +268,7 @@ stocks %>%
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why does this code fail?
@@ -301,7 +303,7 @@ table4a %>%
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.3.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why does spreading this tibble fail? How could you add a new column to fix the problem?
@@ -359,7 +361,7 @@ spread(people, key, value)
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
@@ -402,7 +404,7 @@ Converting `pregnant` and `female` from character vectors to logical was not nec
 
 ## Separating and Uniting
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 What do the extra and fill arguments do in `separate()`? Experiment with the various  options for the following two toy datasets.
@@ -517,7 +519,7 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.4.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
@@ -529,7 +531,7 @@ You would set it to `FALSE` if you want to create a new variable, but keep the o
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.4.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare and contrast `separate()` and `extract()`, Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
@@ -629,7 +631,7 @@ choice as to how to combine their contents into a single vector.
 
 ## Missing Values
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.5.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare and contrast the `fill` arguments to `spread()` and `complete()`.
@@ -643,7 +645,7 @@ Also, both cases replace both implicit and explicit missing values.
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.5.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does the direction argument to `fill()` do?
@@ -730,7 +732,7 @@ who5
 #> # ... with 7.604e+04 more rows
 ```
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.6.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an `NA` and zero?
@@ -774,7 +776,7 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.6.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
@@ -808,7 +810,7 @@ filter(who3a, new == "newrel") %>% head()
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.6.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
@@ -829,7 +831,7 @@ select(who3, country, iso2, iso3) %>%
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">12.6.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
@@ -848,7 +850,9 @@ who5 %>%
   geom_line()
 ```
 
-<img src="tidy_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{tidy_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 A small multiples plot faceting by country is difficult given the number of countries.
 Focusing on those countries with the largest changes or absolute magnitudes after providing the context above is another option.

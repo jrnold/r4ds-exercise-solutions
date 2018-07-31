@@ -14,7 +14,7 @@ No exercises
 
 ## Important Types of Atomic Vector
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
@@ -40,7 +40,7 @@ So `NA` and `NaN` are neither finite or infinite. Mind blown.
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Read the source code for `dplyr::near()` (Hint: to see the source code, drop the ()). How does it work?
@@ -56,7 +56,7 @@ dplyr::near
 #> {
 #>     abs(x - y) < tol
 #> }
-#> <bytecode: 0x7fc34662ac38>
+#> <bytecode: 0x7fdc4f3e9d68>
 #> <environment: namespace:dplyr>
 ```
 
@@ -65,7 +65,7 @@ By default the tolerance is set to the square root of `.Machine$double.eps`, whi
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.3.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use Google to do some research.
@@ -81,7 +81,7 @@ The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_fo
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
@@ -148,7 +148,7 @@ Here's a [list](https://www.ma.utexas.edu/users/arbogast/misc/disasters.html) of
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.3.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 What functions from the **readr** package allow you to turn a string into logical, integer, and double vector?
@@ -182,7 +182,7 @@ Read the documentation of `read_number`. In order to ignore things like currency
 
 ## Using atomic vectors
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does `mean(is.na(x))` tell you about a vector `x`? What about `sum(!is.finite(x))`?
@@ -207,7 +207,7 @@ mean(!is.finite(x))
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.4.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Carefully read the documentation of `is.vector()`. What does it actually test for? Why does `is.atomic()` not agree with the definition of atomic vectors above?
@@ -251,7 +251,7 @@ is.atomic(x)
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.4.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare and contrast `setNames()` with `purrr::set_names()`.
@@ -268,7 +268,7 @@ setNames
 #>     names(object) <- nm
 #>     object
 #> }
-#> <bytecode: 0x7fc346262e40>
+#> <bytecode: 0x7fdc4f524240>
 #> <environment: namespace:stats>
 ```
 
@@ -278,7 +278,7 @@ purrr::set_names
 #> {
 #>     set_names_impl(x, x, nm, ...)
 #> }
-#> <bytecode: 0x7fc3439f4bf0>
+#> <bytecode: 0x7fdc4d2533a0>
 #> <environment: namespace:rlang>
 ```
 
@@ -286,7 +286,7 @@ From the code we can see that `set_names` adds a few sanity checks: `x` has to b
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.4.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Create functions that take a vector as input and returns:
@@ -375,7 +375,7 @@ The answers to the parts follow.
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.4.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
@@ -404,7 +404,7 @@ However, if the comparison generates a `NA`, then it will always keep that entry
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.4.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?
@@ -431,7 +431,7 @@ c(a = 1, 2)[["b"]]
 
 ## Recursive Vectors (lists)
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.5.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Draw the following lists as nested sets:
@@ -454,23 +454,23 @@ For these examples, I generated these diagrams programmatically using the
     `list(a, b, list(c, d), list(e, f))`
     is
 
+    
 
-
-    <!--html_preserve--><div id="htmlwidget-14d5992801777f4abbc5" style="width:70%;height:355.968px;" class="grViz html-widget"></div>
-    <script type="application/json" data-for="htmlwidget-14d5992801777f4abbc5">{"x":{"diagram":"digraph nested_set_1 {\n  node[shape=box]\n  graph[style=rounded]\n  # subgraph for R information\n  subgraph cluster0 {\n    node[style=filled,fillcolor=gray90]\n    \"a\"\n    \"b\"\n    subgraph cluster1 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      node[fillcolor=gray80]\n      \"c\"\n      \"d\"\n    }\n    subgraph cluster2 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      node[fillcolor=gray80]\n      \"e\"\n      \"f\"\n    }\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+    
+    \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_1-1} 
 
 1.  The nested set diagram for
     `list(list(list(list(list(list(a))))))1
     is as follows.
 
+    
 
-
-    <!--html_preserve--><div id="htmlwidget-df2c08526632671063f9" style="width:70%;height:355.968px;" class="grViz html-widget"></div>
-    <script type="application/json" data-for="htmlwidget-df2c08526632671063f9">{"x":{"diagram":"digraph nested_set_2 {\n  node[shape=box]\n  graph[style=rounded]\n  # subgraph for R information\n  subgraph cluster_1 {\n    subgraph cluster_2 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      subgraph cluster_3 {\n        graph[fillcolor=gray80]\n        subgraph cluster_4 {\n          graph[fillcolor=gray70]\n          subgraph cluster_5 {\n            graph[fillcolor=gray60]\n            subgraph cluster_6 {\n              graph[fillcolor=gray50]\n              node[style=filled,fillcolor=gray40]\n              \"a\"\n            }\n          }\n        }\n      }\n    }\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+    
+    \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_2-1} 
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.5.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -514,7 +514,7 @@ No exercises
 
 ## Augmented Vectors
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.7.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -555,7 +555,7 @@ attributes(x)
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.7.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Try and make a tibble that has columns with different lengths. What happens?
@@ -586,7 +586,7 @@ tibble(x = 1:3, y = 1:4)
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">20.7.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Based on the definition above, is it OK to have a list as a column of a tibble?

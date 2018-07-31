@@ -16,7 +16,7 @@ library("microbenchmark")
 
 ## For Loops
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.2.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -173,7 +173,7 @@ matrix(rnorm(n * length(mu), mean = mu), ncol = n)
 ```
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.2.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:
@@ -256,7 +256,7 @@ all.equal(cumsum(x),out)
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.2.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -425,7 +425,7 @@ beer_bottles(3)
 
 </div>
 
-#### Exercise 4 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">21.2.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 It's common to see for loops that don't preallocate the output and instead increase the length of a vector at each step:
@@ -458,7 +458,7 @@ add_to_vector <- function(n) {
 microbenchmark(add_to_vector(10000), times = 3)
 #> Unit: milliseconds
 #>                  expr min  lq mean median  uq max neval
-#>  add_to_vector(10000) 167 170  189    172 200 229     3
+#>  add_to_vector(10000) 195 203  209    211 217 223     3
 ```
 
 And one that pre-allocates it.
@@ -474,7 +474,7 @@ add_to_vector_2 <- function(n) {
 microbenchmark(add_to_vector_2(10000), times = 3)
 #> Unit: microseconds
 #>                    expr min  lq mean median   uq  max neval
-#>  add_to_vector_2(10000) 664 669 1593    675 2058 3440     3
+#>  add_to_vector_2(10000) 650 650 1580    650 2046 3441     3
 ```
 
 The pre-allocated vector is about **100** times faster!
@@ -484,7 +484,7 @@ You may get different answers, but the longer the vector and the bigger the obje
 
 ## For loop variations
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Imagine you have a directory full of CSV files that you want to read in.
@@ -510,7 +510,7 @@ df <- bind_rows(df)
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 What happens if you use `for (nm in names(x))` and `x` has no names?
@@ -584,7 +584,7 @@ for (nm in names(x)) {
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}  
+### Exercise <span class="exercise-number">21.3.3</span> {.unnumbered .exercise}  
 
 <div class='question'>
 Write a function that prints the mean of each numeric column in a data  frame, along with its name.
@@ -629,7 +629,7 @@ show_mean(iris)
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does this code do? How does it work?
@@ -676,7 +676,7 @@ trans[["disp"]](mtcars[["disp"]])
 
 ## For loops vs. functionals
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Read the documentation for `apply()`. In the 2d case, what two for loops does it generalize.
@@ -688,7 +688,7 @@ It generalizes looping over the rows or columns of a matrix or data-frame.
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.4.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Adapt `col_summary()` so that it only applies to numeric columns.
@@ -747,7 +747,7 @@ col_summary2(df, mean)
 
 ## The map functions
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.5.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Write code that uses one of the map functions to:
@@ -874,7 +874,7 @@ map(c(-10, 0, 10, 100), rnorm, n = 10)
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}  
+### Exercise <span class="exercise-number">21.5.2</span> {.unnumbered .exercise}  
 
 <div class='question'>
 How can you create a single vector that for each column in a data frame indicates whether or not it's a factor?
@@ -892,7 +892,7 @@ map_lgl(mtcars, is.factor)
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.5.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 What happens when you use the map functions on vectors that aren't lists?
@@ -924,7 +924,7 @@ map(1:5, runif)
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.5.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does `map(-2:2, rnorm, n = 5)` do? Why? >
@@ -973,7 +973,7 @@ flatten_dbl(map(-2:2, rnorm, n = 5))
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.5.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
@@ -1010,7 +1010,7 @@ No exercises
 
 ## Other patterns of for loops
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.9.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Implement your own version of `every()` using a for loop.
@@ -1043,7 +1043,7 @@ every2(1:3, function(x) {x > 0})
 The function `purrr::every` does fancy things with `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.9.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Create an enhanced `col_sum()` that applies a summary function to every numeric column in a data frame.
@@ -1079,7 +1079,7 @@ col_sum2(iris, mean)
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">21.9.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Create possible base R equivalent of `col_sum()` is:

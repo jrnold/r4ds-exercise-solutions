@@ -20,7 +20,7 @@ No exercises
 
 ## Practice
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">4.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why does this code not work?
@@ -52,7 +52,7 @@ define the function (or had an error that prevented it from being defined
 earlier), (2) didn't load a package with the object, or (3) made a typo in the
 object's name (either when using it or when you originally defined it).
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">4.4.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Tweak each of the following R commands so that they run correctly:
@@ -61,21 +61,23 @@ Tweak each of the following R commands so that they run correctly:
 
 ```r
 library("tidyverse")
-#> ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
-#> ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-#> ✔ tidyr   0.8.1     ✔ stringr 1.3.1
-#> ✔ readr   1.1.1     ✔ forcats 0.3.0
-#> ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+#> -- Attaching packages ---------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 3.0.0     √ purrr   0.2.5
+#> √ tibble  1.4.2     √ dplyr   0.7.6
+#> √ tidyr   0.8.1     √ stringr 1.3.1
+#> √ readr   1.1.1     √ forcats 0.3.0
+#> -- Conflicts ------------------------------------- tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 
 ggplot(dota = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 #> Error in FUN(X[[i]], ...): object 'displ' not found
 ```
 
-<img src="workflow-basics_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{workflow-basics_files/figure-latex/unnamed-chunk-3-1} \end{center}
 The error message is `argument "data" is missing, with no default`.
 
 It looks like a typo, `dota` instead of `data`.
@@ -85,7 +87,9 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-<img src="workflow-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{workflow-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 
 ```r
@@ -109,12 +113,12 @@ filter(mpg, cyl == 8)
 #> # A tibble: 70 x 11
 #>   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 #>   <chr>        <chr> <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr>
-#> 1 audi         a6 q…   4.2  2008     8 auto… 4        16    23 p     mids…
-#> 2 chevrolet    c150…   5.3  2008     8 auto… r        14    20 r     suv  
-#> 3 chevrolet    c150…   5.3  2008     8 auto… r        11    15 e     suv  
-#> 4 chevrolet    c150…   5.3  2008     8 auto… r        14    20 r     suv  
-#> 5 chevrolet    c150…   5.7  1999     8 auto… r        13    17 r     suv  
-#> 6 chevrolet    c150…   6    2008     8 auto… r        12    17 r     suv  
+#> 1 audi         a6 q~   4.2  2008     8 auto~ 4        16    23 p     mids~
+#> 2 chevrolet    c150~   5.3  2008     8 auto~ r        14    20 r     suv  
+#> 3 chevrolet    c150~   5.3  2008     8 auto~ r        11    15 e     suv  
+#> 4 chevrolet    c150~   5.3  2008     8 auto~ r        14    20 r     suv  
+#> 5 chevrolet    c150~   5.7  1999     8 auto~ r        13    17 r     suv  
+#> 6 chevrolet    c150~   6    2008     8 auto~ r        12    17 r     suv  
 #> # ... with 64 more rows
 ```
 
@@ -144,7 +148,7 @@ filter(diamonds, carat > 3)
 How did I know? I started typing in `diamond` and RStudio completed it to `diamonds`.
 Since `diamonds` includes the variable `carat` and the code works, that appears to have been the problem.
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">4.4.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Press *Alt + Shift + K*. What happens? How can you get to the same place using the menus?

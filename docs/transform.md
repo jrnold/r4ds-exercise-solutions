@@ -16,7 +16,7 @@ library("tidyverse")
 
 ## Filter rows with `filter()`
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.2.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Find all flights that
@@ -234,7 +234,7 @@ The answer to each part follows.
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.2.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Another useful **dplyr** filtering helper is `between()`. What does it do? Can you use it to simplify the code needed to answer the previous challenges?
@@ -265,7 +265,7 @@ filter(flights, between(month, 7, 9))
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.2.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 How many flights have a missing `dep_time`? What other variables are missing? What might these rows represent?
@@ -295,7 +295,7 @@ Since `arr_time` is also missing, these are canceled flights.
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.2.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? 
@@ -354,7 +354,7 @@ Inf * 0
 
 ## Arrange rows with `arrange()`
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
@@ -383,7 +383,7 @@ arrange(flights, desc(is.na(dep_time)), dep_time)
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Sort flights to find the most delayed flights. Find the flights that left earliest.
@@ -431,7 +431,7 @@ arrange(flights, dep_delay)
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.3.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Sort flights to find the fastest flights.
@@ -459,7 +459,7 @@ arrange(flights, air_time) %>%
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Which flights traveled the longest? Which traveled the shortest?
@@ -511,7 +511,7 @@ arrange(flights, distance)
 
 ## Select columns with `select()`
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from flights.
@@ -560,7 +560,7 @@ using `ends_with()` doesn't work well since it would return both `sched_arr_time
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.4.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 What happens if you include the name of a variable multiple times in a select() call?
@@ -586,7 +586,7 @@ select(flights, year, month, day, year, year)
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.4.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
@@ -615,7 +615,7 @@ select(flights, one_of(vars))
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.4.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
@@ -662,7 +662,7 @@ Now this expression selects not variables from the table.
 
 ## Add new variables with `mutate()`
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.5.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
@@ -713,7 +713,7 @@ mutate(flights,
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.5.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? What do you need to do to fix it?
@@ -744,7 +744,7 @@ mutate(flights,
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.5.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare `dep_time`, `sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related?
@@ -779,7 +779,7 @@ from the scheduled departure time.
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.5.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Find the 10 most delayed flights using a ranking function. How do you want to handle ties? Carefully read the documentation for `min_rank()`.
@@ -813,7 +813,7 @@ mutate(flights,
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.5.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does `1:3 + 1:10` return? Why?
@@ -835,7 +835,7 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.5.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 What trigonometric functions does R provide?
@@ -922,7 +922,7 @@ atan2(c(1, 0, -1, 0), c(0, 1, 0, -1))
 
 ## Grouped summaries with `summarise()`
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.6.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
@@ -955,7 +955,7 @@ The traveler could easily plan for this. If the delay of the flight is more vari
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.6.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Come up with another approach that will give you the same output as `not_cancelled %>% count(dest)` and `not_cancelled %>% count(tailnum, wt = distance)` (without using `count()`).
@@ -1064,7 +1064,7 @@ not_cancelled %>%
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.6.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Our definition of canceled flights `(is.na(dep_delay) | is.na(arr_delay))` is slightly suboptimal. Why? Which is the most important column?
@@ -1096,7 +1096,7 @@ They may be combining different flights?
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.6.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Look at the number of canceled flights per day. Is there a pattern? Is the proportion of canceled flights related to the average delay?
@@ -1119,11 +1119,13 @@ ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
 #> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.6.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarise(n())`)
@@ -1167,7 +1169,7 @@ FiveThirtyEight conducted a [similar analysis](http://fivethirtyeight.com/featur
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.6.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does the sort argument to `count()` do. When might you use it?
@@ -1182,7 +1184,7 @@ You could use this anytime you would do `count` followed by `arrange`.
 
 ## Grouped mutates (and filters)
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.7.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Refer back to the table of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
@@ -1194,7 +1196,7 @@ They operate within each group rather than over the entire data frame. E.g. `mea
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.7.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Which plane (`tailnum`) has the worst on-time record?
@@ -1244,7 +1246,7 @@ flights %>%
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.7.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 What time of day should you fly if you want to avoid delays as much as possible?
@@ -1273,7 +1275,7 @@ flights %>%
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.7.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
@@ -1338,7 +1340,7 @@ flights %>%
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.7.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using `lag()` explore how the delay of a flight is related to the delay of the immediately preceding flight.
@@ -1363,11 +1365,13 @@ flights %>%
 #> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 ```
 
-<img src="transform_files/figure-html/unnamed-chunk-57-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.7.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
@@ -1427,7 +1431,7 @@ robust statistic to find unusual observations, such as the one used in the box p
 
 </div>
 
-### Exercise 7 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.7.7</span> {.unnumbered .exercise}
 
 <div class='question'>
 Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
@@ -1484,7 +1488,7 @@ ExpressJet is probably not a household name, because [ExpressJet](https://en.wik
 
 </div>
 
-### Exercise 8 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">5.7.8</span> {.unnumbered .exercise}
 
 <div class='question'>
 For each plane, count the number of flights before the first delay of greater than 1 hour.

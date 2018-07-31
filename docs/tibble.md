@@ -26,7 +26,7 @@ No exercises
 
 ## Exercises
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">10.6.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
@@ -88,7 +88,7 @@ Tibbles will only print out a limited number of rows and show the class on top o
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">10.6.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
@@ -142,7 +142,7 @@ situations or risk bugs.
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">10.6.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
@@ -154,7 +154,7 @@ You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">10.6.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -205,7 +205,9 @@ annoying <- tibble(
       geom_point()
     ```
     
-    <img src="tibble_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+    
+    
+    \begin{center}\includegraphics[width=0.7\linewidth]{tibble_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 1.  To add a new column `3` which is `2` divided by `1` run
 
@@ -236,7 +238,7 @@ annoying <- tibble(
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">10.6.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does `tibble::enframe()` do? When might you use it?
@@ -259,7 +261,7 @@ enframe(c(a = 1, b = 2, c = 3))
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">10.6.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 What option controls how many additional column names are printed at the footer of a tibble?

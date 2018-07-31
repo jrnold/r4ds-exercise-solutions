@@ -11,7 +11,7 @@ library("lubridate")
 
 ## When should you write a function?
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.2.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -42,7 +42,7 @@ rescale01_alt(c(NA, 1:5), finite = TRUE)
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.2.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -69,7 +69,7 @@ rescale01(c(Inf, -Inf, 0:5, NA))
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.2.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -124,7 +124,7 @@ coef_variation(runif(10))
 
 </div>
 
-### Exercise 4
+### Exercise <span class="exercise-number">19.2.4</span>
 
 <div class='question'>
 
@@ -177,7 +177,7 @@ skewness(rgamma(10, 1, 1))
 
 </div>
 
-#### Exercise 5 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">19.2.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -202,7 +202,7 @@ both_na(c(NA, NA,  1, 2, NA, NA, 1),
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.2.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 What do the following functions do? Why are they useful even though they are so short?
@@ -222,7 +222,7 @@ These functions are useful even though they are short because their names make i
 
 </div>
 
-### Exercise 7 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.2.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -294,7 +294,7 @@ turn_into_goon(Good_Fairy, foo_foo)
 
 ## Functions are for humans and computers
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
@@ -348,7 +348,7 @@ This is a harder one to name. I would say something like `recycle` (R's name for
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Take a function that you’ve written recently and spend 5 minutes brainstorming a better name for it and its arguments.
@@ -360,7 +360,7 @@ Answer left to the reader.
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.3.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare and contrast `rnorm()` and `MASS::mvrnorm()`. How could you make them more consistent?
@@ -380,7 +380,7 @@ It would not be good practice to have `mu` and `sd` as arguments or `mean` and `
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Make a case for why `norm_r()`, `norm_d()` etc would be better than `rnorm()`, `dnorm()`. Make a case for the opposite.
@@ -399,7 +399,7 @@ calculate the probability density or mass of a distribution: `dnorm`, `dbinom`,
 
 ## Conditional execution
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 What’s the difference between `if` and `ifelse()`? > Carefully read the help and construct three examples that illustrate the key differences.
@@ -411,7 +411,7 @@ The keyword `if` tests a single condition, while `ifelse` tests each element.
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.4.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Write a greeting function that says “good morning”, “good afternoon”, or “good evening”, depending on the time of day. (Hint: use a time argument that defaults to `lubridate::now()`. That will make it easier to test your function.)
@@ -445,7 +445,7 @@ greet(ymd_h("2017-01-08:20"))
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.4.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -485,7 +485,7 @@ fizzbuzz(2)
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.4.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 How could you use `cut()` to simplify this set of nested if-else statements?
@@ -535,7 +535,7 @@ and that to change comparisons I only needed to change the argument to `right`, 
 
 </div>
 
-### Exercise 5 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.4.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -555,7 +555,7 @@ switch(2, "one", "two", "three")
 
 </div>
 
-### Exercise 6 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.4.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does this `switch()` call do? What happens if `x` is `"e"`?
@@ -601,7 +601,7 @@ switcheroo("e")
 
 ## Function arguments
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.5.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does `commas(letters, collapse = "-")` do? Why?
@@ -643,7 +643,7 @@ commas <- function(..., collapse = ", ") {
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.5.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -697,7 +697,7 @@ rule("Important output", pad = "-+-")
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.5.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does the `trim` argument to `mean()` do? When might you use it?
@@ -710,7 +710,7 @@ This is useful for calculating a measure of central tendency that is robust to o
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.5.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 The default value for the `method` argument to `cor()` is `c("pearson", "kendall", "spearman")`.

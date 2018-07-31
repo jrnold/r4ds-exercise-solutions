@@ -24,7 +24,7 @@ library("nycflights13")
 
 ## Variation
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">7.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.
@@ -45,7 +45,9 @@ diamonds %>%
   facet_grid(variable ~ .)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 There several noticeable features of the distributions
 
@@ -59,7 +61,7 @@ I don't know if I would have figured that out before; maybe if there was data on
 
 </div>
 
-### Exercise 2
+### Exercise <span class="exercise-number">7.3.2</span>
 
 <div class='question'>
 Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the `binwidth` and make sure you try a wide range of values.)
@@ -77,7 +79,9 @@ ggplot(filter(diamonds, price < 2500), aes(x = price)) +
   geom_histogram(binwidth = 10, center = 0)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 
 ```r
@@ -85,7 +89,9 @@ ggplot(filter(diamonds), aes(x = price)) +
   geom_histogram(binwidth = 100, center = 0)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 Distribution of last digit
 
@@ -97,7 +103,9 @@ diamonds %>%
   geom_bar()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 
 ```r
@@ -108,7 +116,9 @@ diamonds %>%
   geom_bar()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 
 ```r
@@ -120,11 +130,13 @@ diamonds %>%
   geom_bar()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 </div>
 
-### Exercise 3
+### Exercise <span class="exercise-number">7.3.3</span>
 
 <div class='question'>
 How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
@@ -183,7 +195,7 @@ diamonds %>%
 
 </div>
 
-### Exercise 4 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">7.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare and contrast `coord_cartesian()` vs `xlim()` or `ylim()` when zooming in on a histogram. What happens if you leave `binwidth` unset? What happens if you try and zoom so only half a bar shows?
@@ -201,7 +213,9 @@ ggplot(diamonds) +
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 However, the `xlim` and `ylim` functions first drop any values outside the limits (the `ylim` doesn't matter in this case), then calculates the histogram, and draws the graph with the given limits.
 
@@ -216,13 +230,15 @@ ggplot(diamonds) +
 #> Warning: Removed 5 rows containing missing values (geom_bar).
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 </div>
 
 ## Missing Values
 
-### Exercise 1 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">7.4.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 What happens to missing values in a histogram?
@@ -243,7 +259,9 @@ ggplot(diamonds2, aes(x = y)) +
 #> Warning: Removed 9 rows containing non-finite values (stat_bin).
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 In `geom_bar`, `NA` is treated as another category. The `x` aesthetic in `geom_bar` requires a discrete (categorical) variable, and missing values act like another category.
 
@@ -254,14 +272,16 @@ diamonds %>%
   geom_bar(mapping = aes(x = cut))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 In a histogram, the `x` aesthetic variable needs to be numeric, and `stat_bin` groups the observations by ranges into bins.
 Since the numeric value of the `NA` observations is unknown, they cannot be placed in a particular bin, and are dropped.
 
 </div>
 
-### Exercise 2 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">7.4.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 What does `na.rm = TRUE` do in `mean()` and `sum()`?
@@ -285,7 +305,7 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 
 ### A categorical and continuous variable
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.1.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Use what you've learned to improve the visualization of the departure times
@@ -308,11 +328,13 @@ nycflights13::flights %>%
     geom_boxplot(mapping = aes(y = sched_dep_time, x = canceled))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 </div>
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.1.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 What variable in the diamonds dataset is most important for predicting the price of a diamond? 
@@ -338,7 +360,9 @@ ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point()
 ```
 
-<img src="EDA_files/figure-html/plot_diamond_carat_price-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/plot_diamond_carat_price-1} \end{center}
 However, since there is a large number of points in the data, I will use a boxplot by binning `carat` (as suggested in the chapter).
 
 ```r
@@ -346,7 +370,9 @@ ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_boxplot(mapping = aes(group = cut_width(carat, 0.1)))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-18-1} \end{center}
 Note that the choice of the binning width is important, as if it were too large it would obscure any relationship, and if it were too small, the values in the bins could be too variable to reveal underlying trends.
 
 The variables `color` and `clarity` are ordered categorical variables.
@@ -359,7 +385,9 @@ ggplot(diamonds, aes(x = color, y = price)) +
   geom_boxplot()
 ```
 
-<img src="EDA_files/figure-html/plot_diamond_color_price-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/plot_diamond_color_price-1} \end{center}
 
 
 ```r
@@ -367,7 +395,9 @@ ggplot(data = diamonds) +
   geom_boxplot(mapping = aes(x = clarity, y = price))
 ```
 
-<img src="EDA_files/figure-html/plot_diamond_clarity_price-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/plot_diamond_clarity_price-1} \end{center}
 
 There is a strong relationship between `carat` and `price`. 
 The is a weak positive relationship between `color` and `price`,
@@ -384,7 +414,9 @@ ggplot(diamonds, aes(x = cut, y = carat)) +
   geom_boxplot()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 There is a lot of variability in the distribution of carat sizes within each cut category.
 There is a slight negative relationship between carat and cut.
@@ -395,7 +427,7 @@ A larger diamond can be profitably sold with a lower quality cut, while a smalle
 
 </div>
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.1.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Install the **ggstance** package, and create a horizontal box plot.
@@ -412,7 +444,9 @@ ggplot(data = mpg) +
   coord_flip()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 In this case the output looks the same, but in the aesthetics the `x` and `y` are flipped from the previous case.
 
@@ -428,11 +462,13 @@ ggplot(data = mpg) +
   geom_boxploth(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 </div>
 
-#### Exercise 4 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.1.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 
@@ -463,11 +499,13 @@ ggplot(diamonds, aes(x = cut, y = price)) +
   geom_lv()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 </div>
 
-#### Exercise 5 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.1.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 Compare and contrast `geom_violin()` with a faceted `geom_histogram()`, or a colored `geom_freqpoly()`.
@@ -488,7 +526,9 @@ ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) +
   geom_freqpoly(mapping = aes(color = cut), binwidth = 500)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 
 ```r
@@ -498,7 +538,9 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 
 ```r
@@ -507,7 +549,9 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
   coord_flip()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 The violin plot was first described in
 
@@ -515,7 +559,7 @@ The violin plot was first described in
 
 </div>
 
-#### Exercise 6 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.1.6</span> {.unnumbered .exercise}
 
 <div class='question'>
 If you have a small dataset, it's sometimes useful to use `geom_jitter()` to see the relationship between a continuous and categorical variable.
@@ -540,7 +584,9 @@ ggplot(data = mpg) +
                                  y = hwy))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 
 ```r
@@ -550,7 +596,9 @@ ggplot(data = mpg) +
                    method = "tukey")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 
 ```r
@@ -560,7 +608,9 @@ ggplot(data = mpg) +
                    method = "tukeyDense")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 
 ```r
@@ -570,7 +620,9 @@ ggplot(data = mpg) +
                    method = "frowney")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 
 ```r
@@ -580,7 +632,9 @@ ggplot(data = mpg) +
                    method = "smiley")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 
 ```r
@@ -589,13 +643,15 @@ ggplot(data = mpg) +
                                  y = hwy))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 </div>
 
 ### Two categorical variables
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.2.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 How could you rescale the count dataset above to more clearly show the distribution of cut within color, or color within cut?
@@ -618,7 +674,9 @@ diamonds %>%
   scale_fill_viridis(limits = c(0, 1)) #from the viridis colour palette library
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 Similarly, to scale by the distribution of `color` within `cut`,
 
@@ -632,7 +690,9 @@ diamonds %>%
   scale_fill_viridis(limits = c(0, 1))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 I add `limit = c(0, 1)` to put the color scale between (0, 1).
 These are the logical boundaries of proportions.
@@ -642,7 +702,7 @@ However, using the default limits of the minimum and maximum values makes it eas
 
 </div>
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.2.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Use `geom_tile()` together with **dplyr** to explore how average flight delays vary by destination and month of year.
@@ -662,7 +722,9 @@ flights %>%
   labs(x = "Month", y = "Destination", fill = "Departure Delay")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 There are several things that could be done to improve it,
 
@@ -690,11 +752,13 @@ flights %>%
   labs(x = "Month", y = "Destination", fill = "Departure Delay")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 </div>
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.2.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why is it slightly better to use `aes(x = color, y = cut)` rather than `aes(x = cut, y = color)` in the example above?
@@ -714,7 +778,9 @@ diamonds %>%
     geom_tile(mapping = aes(fill = n))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
 Another justification, for switching the order is that the larger numbers are at the top when `x = color` and `y = cut`, and that lowers the cognitive burden of interpreting the plot.
 
@@ -722,7 +788,7 @@ Another justification, for switching the order is that the larger numbers are at
 
 ### Two continuous variables
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.3.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Instead of summarizing the conditional distribution with a box plot, you could use a frequency polygon.
@@ -742,7 +808,9 @@ ggplot(data = diamonds,
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-37-1} \end{center}
 Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
 
 ```r
@@ -754,7 +822,9 @@ ggplot(data = diamonds,
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-38-1} \end{center}
 Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
 
 ```r
@@ -765,7 +835,9 @@ ggplot(data = diamonds,
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-39-1} \end{center}
 Since there are equal numbers in each bin, the plot looks the same if density is used for the y aesthetic (although the values are on a different scale).
 
 ```r
@@ -777,11 +849,13 @@ ggplot(data = diamonds,
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 </div>
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.3.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Visualize the distribution of `carat`, partitioned by `price`.
@@ -798,7 +872,9 @@ ggplot(diamonds, aes(x = cut_number(price, 10), y = carat)) +
   xlab("Price")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-41-1} \end{center}
 With a box plot, partitioning into an bins of \$2,000 with the width of the box determined by the number of observations. I use `boundary = 0` to ensure the first bin goes from \$0--\$2,000.
 
 ```r
@@ -808,11 +884,13 @@ ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
   xlab("Price")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 </div>
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.3.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 How does the price distribution of very large diamonds compare to small diamonds.
@@ -832,7 +910,7 @@ Thus we will observe large diamonds with a wider variety of cut, clarity, and co
 
 </div>
 
-#### Exercise 4 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.3.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Combine two of the techniques you've learned to visualize the combined distribution of cut, carat, and price.
@@ -851,7 +929,9 @@ ggplot(diamonds, aes(x = carat, y = price)) +
   scale_fill_viridis()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 
 ```r
@@ -859,7 +939,9 @@ ggplot(diamonds, aes(x = cut_number(carat, 5), y = price, colour = cut)) +
   geom_boxplot()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 
 ```r
@@ -867,11 +949,13 @@ ggplot(diamonds, aes(colour = cut_number(carat, 5), y = price, x = cut)) +
   geom_boxplot()
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 </div>
 
-#### Exercise 5 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">7.5.3.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 Two dimensional plots reveal outliers that are not visible in one dimensional plots.
@@ -887,7 +971,9 @@ ggplot(data = diamonds) +
   coord_cartesian(xlim = c(4, 11), ylim = c(4, 11))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 Why is a scatterplot a better display than a binned plot for this case?
 

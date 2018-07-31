@@ -6,14 +6,14 @@
 
 ```r
 library("tidyverse")
-#> ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
-#> ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
-#> ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-#> ✔ tidyr   0.8.1     ✔ stringr 1.3.1
-#> ✔ readr   1.1.1     ✔ forcats 0.3.0
-#> ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
+#> -- Attaching packages ---------------------------------- tidyverse 1.2.1 --
+#> √ ggplot2 3.0.0     √ purrr   0.2.5
+#> √ tibble  1.4.2     √ dplyr   0.7.6
+#> √ tidyr   0.8.1     √ stringr 1.3.1
+#> √ readr   1.1.1     √ forcats 0.3.0
+#> -- Conflicts ------------------------------------- tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
 library("modelr")
 library("lubridate")
 #> 
@@ -27,7 +27,7 @@ library("lubridate")
 
 ### Exercises
 
-#### Exercise 1  {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.2.1.1</span>  {.unnumbered .exercise}
 
 <div class='question'>
 Create one plot on the fuel economy data with customized `title`,
@@ -51,11 +51,13 @@ ggplot(data = mpg,
   )
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
 </div>
 
-### Exercise 3 {.unnumbered .exercise}
+### Exercise <span class="exercise-number">28.2.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines.
@@ -77,7 +79,9 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   )
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 
 ```r
@@ -96,11 +100,13 @@ mpg %>%
   )
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 </div>
 
-#### Exercise 3
+#### Exercise <span class="exercise-number">28.2.2.1</span>
 
 <div class='question'>
 Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
@@ -116,7 +122,7 @@ By its very nature, this exercise is left to readers.
 
 ### Exercises
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.3.1.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Use `geom_text()` with infinite positions to place text at the four corners of the plot.
@@ -142,11 +148,13 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_text(aes(label = label, vjust = vjust, hjust = hjust), data = label)
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 </div>
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.3.1.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 Read the documentation for `annotate()`. How can you use it to add a text label to a plot without having to create a tibble?
@@ -163,11 +171,13 @@ ggplot(mpg, aes(displ, hwy)) +
            label = "Increasing engine size is \nrelated to decreasing fuel economy.", vjust = "top", hjust = "right")
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 </div>
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.3.1.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 How do labels with `geom_text()` interact with faceting?
@@ -194,7 +204,9 @@ ggplot(mpg, aes(displ, hwy)) +
   facet_wrap(~ class)
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 To draw the label in only one facet, add a column to the label data frame with the value of the faceting variable(s) in which to draw it.
 
@@ -213,7 +225,9 @@ ggplot(mpg, aes(displ, hwy)) +
   facet_wrap(~ class)
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 To draw labels in different plots, simply have the facetting variable(s):
 
@@ -232,11 +246,13 @@ ggplot(mpg, aes(displ, hwy)) +
   facet_wrap(~ class)
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 </div>
 
-#### Exercise 4 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.3.1.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 What arguments to `geom_label()` control the appearance of the background box?
@@ -250,7 +266,7 @@ What arguments to `geom_label()` control the appearance of the background box?
 
 </div>
 
-#### Exercise 5 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.3.1.5</span> {.unnumbered .exercise}
 
 <div class='question'>
 What are the four arguments to `arrow()`? How do they work?
@@ -272,7 +288,7 @@ The four arguments are: (from the help for [arrow](https://www.rdocumentation.or
 
 ### Exercises
 
-#### Exercise 1 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.4.1.1</span> {.unnumbered .exercise}
 
 <div class='question'>
 Why doesn’t the following code override the default scale?
@@ -292,7 +308,9 @@ ggplot(df, aes(x, y)) +
   coord_fixed()
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 It does not override the default scale because the colors in `geom_hex` are set by the `fill` aesthetic, not the `color` aesthetic.
 
@@ -304,11 +322,13 @@ ggplot(df, aes(x, y)) +
   coord_fixed()
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 </div>
 
-#### Exercise 2 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.4.1.2</span> {.unnumbered .exercise}
 
 <div class='question'>
 The first argument to every scale is the label for the scale.
@@ -330,7 +350,9 @@ ggplot(mpg, aes(displ, hwy)) +
 #> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 
 ```r
@@ -343,11 +365,13 @@ ggplot(mpg, aes(displ, hwy)) +
 #> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 </div>
 
-#### Exercise 3 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.4.1.3</span> {.unnumbered .exercise}
 
 <div class='question'>
 Change the display of the presidential terms by:
@@ -380,11 +404,13 @@ presidential %>%
     theme(panel.grid.minor = element_blank())
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 </div>
 
-#### Exercise 4 {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">28.4.1.4</span> {.unnumbered .exercise}
 
 <div class='question'>
 Use `override.aes` to make the legend on the following plot easier to see.
@@ -398,7 +424,9 @@ ggplot(diamonds, aes(carat, price)) +
   geom_point(aes(colour = cut), alpha = 1/20)
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 The problem with the legend is that the `alpha` value make the colors hard to see. So I'll override the alpha value to make the points solid in the legend.
 
@@ -409,7 +437,9 @@ ggplot(diamonds, aes(carat, price)) +
   guides(colour = guide_legend(nrow = 1, override.aes = list(alpha = 1)))  
 ```
 
-<img src="graphics-for-communication_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 </div>
 
