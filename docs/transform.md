@@ -1293,55 +1293,27 @@ For each destination, compute the total minutes of delay. For each flight, compu
 flights %>%
   filter(!is.na(arr_delay), arr_delay > 0) %>%  
   group_by(dest) %>%
-  mutate(total_delay = sum(arr_delay),
-         prop_delay = arr_delay / total_delay) %>%
-  select(
-    (year:day),
-    dep_delay,
-    total_delay,
-    prop_delay
-  )
-#> Adding missing grouping variables: `dest`
-#> # A tibble: 133,004 x 7
+  mutate(arr_delay_total = sum(arr_delay),
+         arr_delay_prop = arr_delay / arr_delay_total)
+#> # A tibble: 133,004 x 21
 #> # Groups:   dest [103]
-#>   dest   year month   day dep_delay total_delay prop_delay
-#>   <chr> <int> <int> <int>     <dbl>       <dbl>      <dbl>
-#> 1 IAH    2013     1     1         2       99391  0.000111 
-#> 2 IAH    2013     1     1         4       99391  0.000201 
-#> 3 MIA    2013     1     1         2      140424  0.000235 
-#> 4 ORD    2013     1     1        -4      283046  0.0000424
-#> 5 FLL    2013     1     1        -5      202605  0.0000938
-#> 6 ORD    2013     1     1        -2      283046  0.0000283
-#> # ... with 1.33e+05 more rows
+#>    year month   day dep_time sched_dep_time dep_delay arr_time
+#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>
+#> 1  2013     1     1      517            515         2      830
+#> 2  2013     1     1      533            529         4      850
+#> 3  2013     1     1      542            540         2      923
+#> 4  2013     1     1      554            558        -4      740
+#> 5  2013     1     1      555            600        -5      913
+#> 6  2013     1     1      558            600        -2      753
+#> # ... with 1.33e+05 more rows, and 14 more variables:
+#> #   sched_arr_time <int>, arr_delay <dbl>, carrier <chr>, flight <int>,
+#> #   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>,
+#> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>,
+#> #   arr_delay_total <dbl>, arr_delay_prop <dbl>
 ```
 
-Alternatively, consider the delay as relative to the *minimum* delay for any flight to that destination. Now all non-canceled flights have a proportion.
-
-```r
-flights %>%
-  filter(!is.na(arr_delay), arr_delay > 0) %>%  
-  group_by(dest) %>%
-  mutate(total_delay = sum(arr_delay - min(arr_delay)),
-         prop_delay = arr_delay / sum(arr_delay)) %>%
-  select(
-    (year:day),
-    dep_delay,
-    total_delay,
-    prop_delay
-  )
-#> Adding missing grouping variables: `dest`
-#> # A tibble: 133,004 x 7
-#> # Groups:   dest [103]
-#>   dest   year month   day dep_delay total_delay prop_delay
-#>   <chr> <int> <int> <int>     <dbl>       <dbl>      <dbl>
-#> 1 IAH    2013     1     1         2       96508  0.000111 
-#> 2 IAH    2013     1     1         4       96508  0.000201 
-#> 3 MIA    2013     1     1         2      136569  0.000235 
-#> 4 ORD    2013     1     1        -4      276848  0.0000424
-#> 5 FLL    2013     1     1        -5      197393  0.0000938
-#> 6 ORD    2013     1     1        -2      276848  0.0000283
-#> # ... with 1.33e+05 more rows
-```
+The key to answering this question is when calculating the total delay and proportion of delay
+we only consider only delayed flights, and ignore ontime or early flights.
 
 </div>
 
@@ -1353,26 +1325,44 @@ Delays are typically temporally correlated: even once the problem that caused th
 
 <div class='answer'>
 
-We want to group by day to avoid taking the lag from the previous day.
-Also, I want to use departure delay, since this mechanism is relevant for departures.
-Also, I remove missing values both before and after calculating the lag delay.
-However, it would be interesting to ask the probability or average delay after a cancellation.
+This calculates the departure delay of the preceeding flight from the same airport.
 
 ```r
-flights %>%
-  group_by(year, month, day) %>%
-  filter(!is.na(dep_delay)) %>%
-  mutate(lag_delay = lag(dep_delay)) %>%
-  filter(!is.na(lag_delay)) %>%
-  ggplot(aes(x = dep_delay, y = lag_delay)) +
+lagged_delays <- flights %>%
+  arrange(origin, year, month, day, dep_time) %>%
+  group_by(origin) %>%
+  mutate(dep_delay_lag = lag(dep_delay)) %>%
+  filter(!is.na(dep_delay), !is.na(dep_delay_lag))
+```
+
+This plots the relationship between the mean delay of a flight for all values of the  previous flight.
+
+```r
+lagged_delays %>%
+  group_by(dep_delay_lag) %>%
+  summarise(dep_delay_mean = mean(dep_delay)) %>%
+  ggplot(aes(y = dep_delay_mean, x = dep_delay_lag)) +
   geom_point() +
-  geom_smooth()
-#> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+  geom_smooth() +
+  labs(y = "Departure Delay", x = "Previous Departure Delay")
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{transform_files/figure-latex/unnamed-chunk-57-1} \end{center}
+
+We can summarize this relationship by the average difference in delays:
+
+```r
+lagged_delays %>%
+  summarise(delay_diff = mean(dep_delay - dep_delay_lag), na.rm = TRUE)
+#> # A tibble: 3 x 3
+#>   origin delay_diff na.rm
+#>   <chr>       <dbl> <lgl>
+#> 1 EWR        0.148  TRUE 
+#> 2 JFK       -0.0319 TRUE 
+#> 3 LGA        0.209  TRUE
+```
 
 </div>
 
@@ -1389,35 +1379,28 @@ When calculating this answer we should only compare flights within the same orig
 A common approach to finding unusual observations would be to calculate the z-score of observations each flight.
 
 ```r
-flights_by_zscore <- flights %>%
+flights_with_zscore <- flights %>%
   filter(!is.na(air_time)) %>%
   group_by(dest, origin) %>%
-  mutate(mean_air_time = mean(air_time),
-         med_air_time = median(air_time),
-         n = n(),
-         z_score = (air_time - mean_air_time) / sd(air_time)) %>%
-  select(dest, origin, carrier, flight, 
-         mean_air_time, air_time, z_score, n)
+  mutate(air_time_mean = mean(air_time),
+         air_time_sd = sd(air_time),
+         n = n()) %>%
+  ungroup() %>%
+  mutate(z_score = (air_time - air_time_mean) / air_time_sd)
 ```
 
-Possible unusual flights would be those with highly negative z-scores.
+Possible unusual flights are the 
+Lets print out the 10 flights with the largest
 
 ```r
-head(arrange(flights_by_zscore, z_score), 15)
-#> # A tibble: 15 x 8
-#> # Groups:   dest, origin [15]
-#>   dest  origin carrier flight mean_air_time air_time z_score     n
-#>   <chr> <chr>  <chr>    <int>         <dbl>    <dbl>   <dbl> <int>
-#> 1 ATL   LGA    DL        1499         114.        65   -5.03 10041
-#> 2 MSP   EWR    EV        4667         151.        93   -4.83  2255
-#> 3 GSP   EWR    EV        4292          93.2       55   -4.72   692
-#> 4 BUF   JFK    B6        2002          57.1       38   -4.10  3512
-#> 5 BNA   EWR    EV        3805         115.        70   -4.07  2241
-#> 6 CVG   EWR    EV        4687          96.1       62   -4.03  2513
-#> # ... with 9 more rows
+flights_with_zscore %>%
+  arrange(desc(abs(z_score))) %>%
+  select() %>%
+  print(n = 15)
+#> # A tibble: 327,346 x 0
 ```
 
-Do any of these seem unusual to you? What would you look for?
+Now that we've identified potentially bad observations, we would to distinguish between the real problems and 
 
 <!-- 
 One idea would be to compare actual air time with the scheduled air time.
@@ -1425,14 +1408,24 @@ However, this requires the scheduled air time - which is not easily available
 without the taxi time data, which is not included in the flights datasets
 -->
 
-One problem with the way that we calculated z-scores is that the mean and 
-standard deviation used to calculate it includes the unusual observations that we
-are looking for. Since the mean and standard deviation are sensitive to outliers,
-that means that an outlier could affect the mean and standard deviation calculations
-enough that it does not look like one. We would want to calculate the z-score
-of each observation using the mean and standard deviation based on all other 
-flights to that origin and destination. Alternatively, we could use a 
-robust statistic to find unusual observations, such as the one used in the box plot.
+One potential issue with the way that we calculated z-scores is that the mean and standard deviation used to calculate it include the unusual observations that we are looking for. 
+Since the mean and standard deviation are sensitive to outliers,
+that means that an outlier could affect the mean and standard deviation calculations enough that it does not look like one. 
+We would want to calculate the z-score of each observation using the mean and standard deviation based on all other 
+flights to that origin and destination.
+This will be more of an issue if the number of of observations is small.
+Thankfully, there are easy methods to update the mean and variance by [removing an observation](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance), but for now, we won't use them.[^methods]
+
+Another way to improve this calculation is to use the same method
+used in box plots (see `geom_boxplot()`) to screen outliers.
+That method uses the median and inter-quartile range, and thus is less sensitive to outliers. 
+Adjust the previous code and see if it makes a difference.
+
+All of these answers have relied on the distribution of comparable observerations (flights from the same origin to the same destination) to flag unusual observations.
+Apart from our knowledge that flights from the same origin to the same destination should have similar air times, we have not used any domain specific knowledge.
+But actually know much more about this problem. 
+We know that aircraft have maximum speeds.
+So could use the time and distance of each flight to calculate the average speed of each flight and find any clearly impossibly fast flights.
 
 </div>
 
@@ -1449,6 +1442,7 @@ To restate this question, we are asked to rank airlines by the number of destina
 We will calculate this ranking in two parts.
 First, find all airports serviced by two or more carriers.
 
+
 ```r
 dest_2carriers <- flights %>%
   # keep only unique carrier,dest pairs
@@ -1460,7 +1454,9 @@ dest_2carriers <- flights %>%
   mutate(n_carrier = n_distinct(carrier)) %>%
   filter(n_carrier >= 2)
 ```
+
 Second, rank carriers by the number of these destinations that they service.
+
 
 ```r
 carriers_by_dest <- dest_2carriers %>%
@@ -1489,7 +1485,10 @@ filter(airlines, carrier == "EV")
 #>   <chr>   <chr>                   
 #> 1 EV      ExpressJet Airlines Inc.
 ```
-ExpressJet is probably not a household name, because [ExpressJet](https://en.wikipedia.org/wiki/ExpressJet) is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller city airports.
+Unless you know the airplane industry, it is likely that you don't recognize [ExpressJet](https://en.wikipedia.org/wiki/ExpressJet); I certainly didn't.
+It is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller airports.
+This means that many of the shorter flights of major carriers are actually operated by ExpressJet.
+This business model expains why ExpressJet services the most destinations.
 
 </div>
 
@@ -1524,4 +1523,8 @@ flights %>%
 ```
 
 </div>
+
+[^methods]: In most interesting data analysis questions, no answer ever "right". With infinite time and money, an analysis could almost always improve their answer with more data or better methods.
+    The difficulty in real life is finding the quickest, simplest method
+    that works "good enough".
 

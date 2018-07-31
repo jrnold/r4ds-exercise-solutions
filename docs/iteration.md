@@ -272,156 +272,159 @@ Generalize to any number of any vessel containing any liquid on  surface.
 </div>
 
 <div class='answer'>
-The lyrics for ``Alice the Camel'' can be found at <http://www.kididdles.com/lyrics/a012.html>.
 
-We'll look from five to no humps, and print out a different last line if there are no humps. This uses `cat` instead of `print`, so it looks nicer.
+The answers to each part follow.
 
-```r
-humps <- c("five", "four", "three", "two", "one", "no")
-for (i in humps) {
-  cat(str_c("Alice the camel has ", rep(i, 3), " humps.",
-             collapse = "\n"), "\n")
-  if (i == "no") {
-    cat("Now Alice is a horse.\n")
-  } else {
-    cat("So go, Alice, go.\n")
-  }
-  cat("\n")
-}
-#> Alice the camel has five humps.
-#> Alice the camel has five humps.
-#> Alice the camel has five humps. 
-#> So go, Alice, go.
-#> 
-#> Alice the camel has four humps.
-#> Alice the camel has four humps.
-#> Alice the camel has four humps. 
-#> So go, Alice, go.
-#> 
-#> Alice the camel has three humps.
-#> Alice the camel has three humps.
-#> Alice the camel has three humps. 
-#> So go, Alice, go.
-#> 
-#> Alice the camel has two humps.
-#> Alice the camel has two humps.
-#> Alice the camel has two humps. 
-#> So go, Alice, go.
-#> 
-#> Alice the camel has one humps.
-#> Alice the camel has one humps.
-#> Alice the camel has one humps. 
-#> So go, Alice, go.
-#> 
-#> Alice the camel has no humps.
-#> Alice the camel has no humps.
-#> Alice the camel has no humps. 
-#> Now Alice is a horse.
-```
+1.  The lyrics for ``Alice the Camel'' can be found at <http://www.kididdles.com/lyrics/a012.html>.
 
-The lyrics for [Ten in the Bed](http://supersimplelearning.com/songs/original-series/one/ten-in-the-bed/):
+    We'll look from five to no humps, and print out a different last line if there are no humps. This uses `cat` instead of `print`, so it looks nicer.
+    
+    ```r
+    humps <- c("five", "four", "three", "two", "one", "no")
+    for (i in humps) {
+      cat(str_c("Alice the camel has ", rep(i, 3), " humps.",
+                 collapse = "\n"), "\n")
+      if (i == "no") {
+        cat("Now Alice is a horse.\n")
+      } else {
+        cat("So go, Alice, go.\n")
+      }
+      cat("\n")
+    }
+    #> Alice the camel has five humps.
+    #> Alice the camel has five humps.
+    #> Alice the camel has five humps. 
+    #> So go, Alice, go.
+    #> 
+    #> Alice the camel has four humps.
+    #> Alice the camel has four humps.
+    #> Alice the camel has four humps. 
+    #> So go, Alice, go.
+    #> 
+    #> Alice the camel has three humps.
+    #> Alice the camel has three humps.
+    #> Alice the camel has three humps. 
+    #> So go, Alice, go.
+    #> 
+    #> Alice the camel has two humps.
+    #> Alice the camel has two humps.
+    #> Alice the camel has two humps. 
+    #> So go, Alice, go.
+    #> 
+    #> Alice the camel has one humps.
+    #> Alice the camel has one humps.
+    #> Alice the camel has one humps. 
+    #> So go, Alice, go.
+    #> 
+    #> Alice the camel has no humps.
+    #> Alice the camel has no humps.
+    #> Alice the camel has no humps. 
+    #> Now Alice is a horse.
+    ```
 
-```r
-numbers <- c("ten", "nine", "eight", "seven", "six", "five",
-             "four", "three", "two", "one")
-for (i in numbers) {
-  cat(str_c("There were ", i, " in the bed\n"))
-  cat("and the little one said\n")
-  if (i == "one") {
-    cat("I'm lonely...")
-  } else {
-    cat("Roll over, roll over\n")
-    cat("So they all rolled over and one fell out.\n")
-  }
-  cat("\n")
-}
-#> There were ten in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were nine in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were eight in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were seven in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were six in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were five in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were four in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were three in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were two in the bed
-#> and the little one said
-#> Roll over, roll over
-#> So they all rolled over and one fell out.
-#> 
-#> There were one in the bed
-#> and the little one said
-#> I'm lonely...
-```
+1.  The lyrics for "Ten in the Bed" can be found at <https://www.kididdles.com/lyrics/t003.html>.
+    
+    ```r
+    numbers <- c("ten", "nine", "eight", "seven", "six", "five",
+                 "four", "three", "two", "one")
+    for (i in numbers) {
+      cat(str_c("There were ", i, " in the bed\n"))
+      cat("and the little one said\n")
+      if (i == "one") {
+        cat("I'm lonely...")
+      } else {
+        cat("Roll over, roll over\n")
+        cat("So they all rolled over and one fell out.\n")
+      }
+      cat("\n")
+    }
+    #> There were ten in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were nine in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were eight in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were seven in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were six in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were five in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were four in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were three in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were two in the bed
+    #> and the little one said
+    #> Roll over, roll over
+    #> So they all rolled over and one fell out.
+    #> 
+    #> There were one in the bed
+    #> and the little one said
+    #> I'm lonely...
+    ```
 
-For the bottles of beer, I define a helper function to correctly print the number of bottles.
-
-```r
-bottles <- function(i) {
-  if (i > 2) {
-   bottles <- str_c(i - 1, " bottles")
-  } else if (i == 2) {
-   bottles <- "1 bottle"
-  } else {
-   bottles <- "no more bottles"
-  }
-  bottles
-}
-
-beer_bottles <- function(n) {
-  # should test whether n >= 1.
-  for (i in seq(n, 1)) {
-     cat(str_c(bottles(i), " of beer on the wall, ", bottles(i), " of beer.\n"))
-     cat(str_c("Take one down and pass it around, ", bottles(i - 1),
-                " of beer on the wall.\n\n"))
-  }
-  cat("No more bottles of beer on the wall, no more bottles of beer.\n")
-  cat(str_c("Go to the store and buy some more, ", bottles(n), " of beer on the wall.\n"))
-}
-beer_bottles(3)
-#> 2 bottles of beer on the wall, 2 bottles of beer.
-#> Take one down and pass it around, 1 bottle of beer on the wall.
-#> 
-#> 1 bottle of beer on the wall, 1 bottle of beer.
-#> Take one down and pass it around, no more bottles of beer on the wall.
-#> 
-#> no more bottles of beer on the wall, no more bottles of beer.
-#> Take one down and pass it around, no more bottles of beer on the wall.
-#> 
-#> No more bottles of beer on the wall, no more bottles of beer.
-#> Go to the store and buy some more, 2 bottles of beer on the wall.
-```
+1.  For the bottles of beer, I define a helper function to correctly print the number of bottles.
+    
+    ```r
+    bottles <- function(i) {
+      if (i > 2) {
+       bottles <- str_c(i - 1, " bottles")
+      } else if (i == 2) {
+       bottles <- "1 bottle"
+      } else {
+       bottles <- "no more bottles"
+      }
+      bottles
+    }
+    
+    beer_bottles <- function(n) {
+      # should test whether n >= 1.
+      for (i in seq(n, 1)) {
+         cat(str_c(bottles(i), " of beer on the wall, ", bottles(i), " of beer.\n"))
+         cat(str_c("Take one down and pass it around, ", bottles(i - 1),
+                    " of beer on the wall.\n\n"))
+      }
+      cat("No more bottles of beer on the wall, no more bottles of beer.\n")
+      cat(str_c("Go to the store and buy some more, ", bottles(n), " of beer on the wall.\n"))
+    }
+    beer_bottles(3)
+    #> 2 bottles of beer on the wall, 2 bottles of beer.
+    #> Take one down and pass it around, 1 bottle of beer on the wall.
+    #> 
+    #> 1 bottle of beer on the wall, 1 bottle of beer.
+    #> Take one down and pass it around, no more bottles of beer on the wall.
+    #> 
+    #> no more bottles of beer on the wall, no more bottles of beer.
+    #> Take one down and pass it around, no more bottles of beer on the wall.
+    #> 
+    #> No more bottles of beer on the wall, no more bottles of beer.
+    #> Go to the store and buy some more, 2 bottles of beer on the wall.
+    ```
 
 </div>
 
@@ -458,7 +461,7 @@ add_to_vector <- function(n) {
 microbenchmark(add_to_vector(10000), times = 3)
 #> Unit: milliseconds
 #>                  expr min  lq mean median  uq max neval
-#>  add_to_vector(10000) 195 203  209    211 217 223     3
+#>  add_to_vector(10000) 168 182  195    195 208 221     3
 ```
 
 And one that pre-allocates it.
@@ -473,8 +476,8 @@ add_to_vector_2 <- function(n) {
 }
 microbenchmark(add_to_vector_2(10000), times = 3)
 #> Unit: microseconds
-#>                    expr min  lq mean median   uq  max neval
-#>  add_to_vector_2(10000) 650 650 1580    650 2046 3441     3
+#>                    expr min   lq mean median   uq  max neval
+#>  add_to_vector_2(10000) 664 1030 2435   1396 3321 5245     3
 ```
 
 The pre-allocated vector is about **100** times faster!

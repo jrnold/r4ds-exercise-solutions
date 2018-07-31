@@ -113,16 +113,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-30</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-29</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-28</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-24</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-07-23</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-5"><i class="fa fa-check"></i>2018-07-22</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-6"><i class="fa fa-check"></i>2018-07-21</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-7"><i class="fa fa-check"></i>2018-07-15</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-8"><i class="fa fa-check"></i>2018-07-14</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-9"><i class="fa fa-check"></i>2018-05-08</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-31</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-30</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-29</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-28</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-07-24</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-5"><i class="fa fa-check"></i>2018-07-23</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-6"><i class="fa fa-check"></i>2018-07-22</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-7"><i class="fa fa-check"></i>2018-07-21</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-8"><i class="fa fa-check"></i>2018-07-15</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-9"><i class="fa fa-check"></i>2018-07-14</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-10"><i class="fa fa-check"></i>2018-05-08</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
@@ -1583,50 +1584,24 @@ If the departure is delayed without affecting the arrival time and the passenger
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(arr_delay), arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st">  </span>
 <span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_delay =</span> <span class="kw">sum</span>(arr_delay),
-         <span class="dt">prop_delay =</span> arr_delay <span class="op">/</span><span class="st"> </span>total_delay) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(
-    (year<span class="op">:</span>day),
-    dep_delay,
-    total_delay,
-    prop_delay
-  )
-<span class="co">#&gt; Adding missing grouping variables: `dest`</span>
-<span class="co">#&gt; # A tibble: 133,004 x 7</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">arr_delay_total =</span> <span class="kw">sum</span>(arr_delay),
+         <span class="dt">arr_delay_prop =</span> arr_delay <span class="op">/</span><span class="st"> </span>arr_delay_total)
+<span class="co">#&gt; # A tibble: 133,004 x 21</span>
 <span class="co">#&gt; # Groups:   dest [103]</span>
-<span class="co">#&gt;   dest   year month   day dep_delay total_delay prop_delay</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 IAH    2013     1     1         2       99391  0.000111 </span>
-<span class="co">#&gt; 2 IAH    2013     1     1         4       99391  0.000201 </span>
-<span class="co">#&gt; 3 MIA    2013     1     1         2      140424  0.000235 </span>
-<span class="co">#&gt; 4 ORD    2013     1     1        -4      283046  0.0000424</span>
-<span class="co">#&gt; 5 FLL    2013     1     1        -5      202605  0.0000938</span>
-<span class="co">#&gt; 6 ORD    2013     1     1        -2      283046  0.0000283</span>
-<span class="co">#&gt; # ... with 1.33e+05 more rows</span></code></pre></div>
-<p>Alternatively, consider the delay as relative to the <em>minimum</em> delay for any flight to that destination. Now all non-canceled flights have a proportion.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(arr_delay), arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st">  </span>
-<span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_delay =</span> <span class="kw">sum</span>(arr_delay <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(arr_delay)),
-         <span class="dt">prop_delay =</span> arr_delay <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(arr_delay)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(
-    (year<span class="op">:</span>day),
-    dep_delay,
-    total_delay,
-    prop_delay
-  )
-<span class="co">#&gt; Adding missing grouping variables: `dest`</span>
-<span class="co">#&gt; # A tibble: 133,004 x 7</span>
-<span class="co">#&gt; # Groups:   dest [103]</span>
-<span class="co">#&gt;   dest   year month   day dep_delay total_delay prop_delay</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 IAH    2013     1     1         2       96508  0.000111 </span>
-<span class="co">#&gt; 2 IAH    2013     1     1         4       96508  0.000201 </span>
-<span class="co">#&gt; 3 MIA    2013     1     1         2      136569  0.000235 </span>
-<span class="co">#&gt; 4 ORD    2013     1     1        -4      276848  0.0000424</span>
-<span class="co">#&gt; 5 FLL    2013     1     1        -5      197393  0.0000938</span>
-<span class="co">#&gt; 6 ORD    2013     1     1        -2      276848  0.0000283</span>
-<span class="co">#&gt; # ... with 1.33e+05 more rows</span></code></pre></div>
+<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  2013     1     1      517            515         2      830</span>
+<span class="co">#&gt; 2  2013     1     1      533            529         4      850</span>
+<span class="co">#&gt; 3  2013     1     1      542            540         2      923</span>
+<span class="co">#&gt; 4  2013     1     1      554            558        -4      740</span>
+<span class="co">#&gt; 5  2013     1     1      555            600        -5      913</span>
+<span class="co">#&gt; 6  2013     1     1      558            600        -2      753</span>
+<span class="co">#&gt; # ... with 1.33e+05 more rows, and 14 more variables:</span>
+<span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,</span>
+<span class="co">#&gt; #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;,</span>
+<span class="co">#&gt; #   arr_delay_total &lt;dbl&gt;, arr_delay_prop &lt;dbl&gt;</span></code></pre></div>
+<p>The key to answering this question is when calculating the total delay and proportion of delay we only consider only delayed flights, and ignore ontime or early flights.</p>
 </div>
 </div>
 <div id="exercise-5.7.5" class="section level3 unnumbered exercise">
@@ -1635,17 +1610,30 @@ If the departure is delayed without affecting the arrival time and the passenger
 <p>Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using <code>lag()</code> explore how the delay of a flight is related to the delay of the immediately preceding flight.</p>
 </div>
 <div class="answer">
-<p>We want to group by day to avoid taking the lag from the previous day. Also, I want to use departure delay, since this mechanism is relevant for departures. Also, I remove missing values both before and after calculating the lag delay. However, it would be interesting to ask the probability or average delay after a cancellation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(year, month, day) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(dep_delay)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lag_delay =</span> <span class="kw">lag</span>(dep_delay)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(lag_delay)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dep_delay, <span class="dt">y =</span> lag_delay)) <span class="op">+</span>
+<p>This calculates the departure delay of the preceeding flight from the same airport.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lagged_delays &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(origin, year, month, day, dep_time) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(origin) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dep_delay_lag =</span> <span class="kw">lag</span>(dep_delay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(dep_delay), <span class="op">!</span><span class="kw">is.na</span>(dep_delay_lag))</code></pre></div>
+<p>This plots the relationship between the mean delay of a flight for all values of the previous flight.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lagged_delays <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(dep_delay_lag) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay_mean =</span> <span class="kw">mean</span>(dep_delay)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> dep_delay_mean, <span class="dt">x =</span> dep_delay_lag)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>()
-<span class="co">#&gt; `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</span></code></pre></div>
+<span class="st">  </span><span class="kw">geom_smooth</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Departure Delay&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Previous Departure Delay&quot;</span>)</code></pre></div>
 <p><img src="transform_files/figure-html/unnamed-chunk-57-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>We can summarize this relationship by the average difference in delays:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lagged_delays <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">delay_diff =</span> <span class="kw">mean</span>(dep_delay <span class="op">-</span><span class="st"> </span>dep_delay_lag), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;   origin delay_diff na.rm</span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 EWR        0.148  TRUE </span>
+<span class="co">#&gt; 2 JFK       -0.0319 TRUE </span>
+<span class="co">#&gt; 3 LGA        0.209  TRUE</span></code></pre></div>
 </div>
 </div>
 <div id="exercise-5.7.6" class="section level3 unnumbered exercise">
@@ -1656,35 +1644,29 @@ If the departure is delayed without affecting the arrival time and the passenger
 <div class="answer">
 <p>When calculating this answer we should only compare flights within the same origin, destination pair.</p>
 <p>A common approach to finding unusual observations would be to calculate the z-score of observations each flight.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_by_zscore &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_with_zscore &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(air_time)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(dest, origin) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mean_air_time =</span> <span class="kw">mean</span>(air_time),
-         <span class="dt">med_air_time =</span> <span class="kw">median</span>(air_time),
-         <span class="dt">n =</span> <span class="kw">n</span>(),
-         <span class="dt">z_score =</span> (air_time <span class="op">-</span><span class="st"> </span>mean_air_time) <span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(air_time)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(dest, origin, carrier, flight, 
-         mean_air_time, air_time, z_score, n)</code></pre></div>
-<p>Possible unusual flights would be those with highly negative z-scores.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">arrange</span>(flights_by_zscore, z_score), <span class="dv">15</span>)
-<span class="co">#&gt; # A tibble: 15 x 8</span>
-<span class="co">#&gt; # Groups:   dest, origin [15]</span>
-<span class="co">#&gt;   dest  origin carrier flight mean_air_time air_time z_score     n</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;         &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 ATL   LGA    DL        1499         114.        65   -5.03 10041</span>
-<span class="co">#&gt; 2 MSP   EWR    EV        4667         151.        93   -4.83  2255</span>
-<span class="co">#&gt; 3 GSP   EWR    EV        4292          93.2       55   -4.72   692</span>
-<span class="co">#&gt; 4 BUF   JFK    B6        2002          57.1       38   -4.10  3512</span>
-<span class="co">#&gt; 5 BNA   EWR    EV        3805         115.        70   -4.07  2241</span>
-<span class="co">#&gt; 6 CVG   EWR    EV        4687          96.1       62   -4.03  2513</span>
-<span class="co">#&gt; # ... with 9 more rows</span></code></pre></div>
-<p>Do any of these seem unusual to you? What would you look for?</p>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">air_time_mean =</span> <span class="kw">mean</span>(air_time),
+         <span class="dt">air_time_sd =</span> <span class="kw">sd</span>(air_time),
+         <span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z_score =</span> (air_time <span class="op">-</span><span class="st"> </span>air_time_mean) <span class="op">/</span><span class="st"> </span>air_time_sd)</code></pre></div>
+<p>Possible unusual flights are the Lets print out the 10 flights with the largest</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_with_zscore <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(<span class="kw">abs</span>(z_score))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">15</span>)
+<span class="co">#&gt; # A tibble: 327,346 x 0</span></code></pre></div>
+<p>Now that we’ve identified potentially bad observations, we would to distinguish between the real problems and</p>
 <!-- 
 One idea would be to compare actual air time with the scheduled air time.
 However, this requires the scheduled air time - which is not easily available
 without the taxi time data, which is not included in the flights datasets
 -->
-<p>One problem with the way that we calculated z-scores is that the mean and standard deviation used to calculate it includes the unusual observations that we are looking for. Since the mean and standard deviation are sensitive to outliers, that means that an outlier could affect the mean and standard deviation calculations enough that it does not look like one. We would want to calculate the z-score of each observation using the mean and standard deviation based on all other flights to that origin and destination. Alternatively, we could use a robust statistic to find unusual observations, such as the one used in the box plot.</p>
+<p>One potential issue with the way that we calculated z-scores is that the mean and standard deviation used to calculate it include the unusual observations that we are looking for. Since the mean and standard deviation are sensitive to outliers, that means that an outlier could affect the mean and standard deviation calculations enough that it does not look like one. We would want to calculate the z-score of each observation using the mean and standard deviation based on all other flights to that origin and destination. This will be more of an issue if the number of of observations is small. Thankfully, there are easy methods to update the mean and variance by <a href="https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance">removing an observation</a>, but for now, we won’t use them.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>Another way to improve this calculation is to use the same method used in box plots (see <code>geom_boxplot()</code>) to screen outliers. That method uses the median and inter-quartile range, and thus is less sensitive to outliers. Adjust the previous code and see if it makes a difference.</p>
+<p>All of these answers have relied on the distribution of comparable observerations (flights from the same origin to the same destination) to flag unusual observations. Apart from our knowledge that flights from the same origin to the same destination should have similar air times, we have not used any domain specific knowledge. But actually know much more about this problem. We know that aircraft have maximum speeds. So could use the time and distance of each flight to calculate the average speed of each flight and find any clearly impossibly fast flights.</p>
 </div>
 </div>
 <div id="exercise-5.7.7" class="section level3 unnumbered exercise">
@@ -1725,7 +1707,7 @@ without the taxi time data, which is not included in the flights datasets
 <span class="co">#&gt;   carrier name                    </span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span>
 <span class="co">#&gt; 1 EV      ExpressJet Airlines Inc.</span></code></pre></div>
-<p>ExpressJet is probably not a household name, because <a href="https://en.wikipedia.org/wiki/ExpressJet">ExpressJet</a> is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller city airports.</p>
+<p>Unless you know the airplane industry, it is likely that you don’t recognize <a href="https://en.wikipedia.org/wiki/ExpressJet">ExpressJet</a>; I certainly didn’t. It is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller airports. This means that many of the shorter flights of major carriers are actually operated by ExpressJet. This business model expains why ExpressJet services the most destinations.</p>
 </div>
 </div>
 <div id="exercise-5.7.8" class="section level3 unnumbered exercise">
@@ -1756,6 +1738,12 @@ without the taxi time data, which is not included in the flights datasets
 
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>In most interesting data analysis questions, no answer ever “right”. With infinite time and money, an analysis could almost always improve their answer with more data or better methods. The difficulty in real life is finding the quickest, simplest method that works “good enough”.<a href="data-transformation.html#fnref2">↩</a></p></li>
+</ol>
 </div>
             </section>
 

@@ -14,6 +14,12 @@ Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson
 
 ## Updates {-}
 
+### 2018-07-31 {-}
+
+-   Add widget to view rstudiotips Twitter timeline
+-   Fix answer to 5.7.4 (#44), and 5.7.5
+-   Edit answers of 4.4.1
+
 ### 2018-07-30 {-}
 
 -   Update answer to Ex 7.5.3.1 (#49)
