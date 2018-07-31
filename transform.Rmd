@@ -825,7 +825,7 @@ flights_with_zscore <- flights %>%
          air_time_sd = sd(air_time),
          n = n()) %>%
   ungroup() %>%
-  mutate(z_score = (air_time - mean_air_time) / sd(air_time))
+  mutate(z_score = (air_time - air_time_mean) / air_time_sd)
 ```
 
 Possible unusual flights are the 
