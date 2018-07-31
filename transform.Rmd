@@ -799,19 +799,27 @@ Delays are typically temporally correlated: even once the problem that caused th
 
 `r BeginAnswer()`
 
-We want to group by day to avoid taking the lag from the previous day.
-Also, I want to use departure delay, since this mechanism is relevant for departures.
-Also, I remove missing values both before and after calculating the lag delay.
-However, it would be interesting to ask the probability or average delay after a cancellation.
+This calculates the departure delay of the preceeding flight from the same airport.
 ```{r}
-flights %>%
-  group_by(year, month, day) %>%
-  filter(!is.na(dep_delay)) %>%
-  mutate(lag_delay = lag(dep_delay)) %>%
-  filter(!is.na(lag_delay)) %>%
-  ggplot(aes(x = dep_delay, y = lag_delay)) +
+lagged_delays <- flights %>%
+  arrange(origin, year, month, day, dep_time) %>%
+  group_by(origin) %>%
+  mutate(dep_delay_lag = lag(dep_delay)) %>%
+  filter(!is.na(dep_delay), !is.na(dep_delay_lag))
+```
+
+The relationship between the delay of a flight and the previous flight is almost exactly linear.
+```{r message=FALSE}
+ggplot(lagged_delays, aes(x = dep_delay, y = dep_delay)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  labs(x = "Departure Delay", y = "Previous Delay")
+```
+
+We can summarize this relationship by the average difference in delays:
+```{r}
+lagged_delays %>%
+  summarise(delay_diff = mean(dep_delay - lag(dep_delay), na.rm = TRUE))
 ```
 
 `r EndAnswer()`

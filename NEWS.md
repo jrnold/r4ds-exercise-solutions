@@ -1,3 +1,8 @@
+## 2018-07-31
+
+-   Add widget to view rstudiotips Twitter timeline
+-   Edit answers of 4.4.1
+
 ## 2018-07-30
 
 -   Update answer to Ex 7.5.3.1 (#49)
