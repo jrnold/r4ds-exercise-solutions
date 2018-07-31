@@ -1342,14 +1342,14 @@ If the departure is delayed without affecting the arrival time and the passenger
 <div id="exercise-5.6.2" class="section level3 unnumbered exercise">
 <h3>Exercise <span class="exercise-number">5.6.2</span></h3>
 <div class="question">
-<p>Come up with another approach that will give you the same output as <code>not_cancelled %&gt;% count(dest)</code> and <code>not_cancelled %&gt;% count(tailnum, wt = distance)</code> (without using <code>count()</code>).</p>
+<p>Come up with another approach that will give you the same output as <code>not_canceled %&gt;% count(dest)</code> and <code>not_canceled %&gt;% count(tailnum, wt = distance)</code> (without using <code>count()</code>).</p>
 </div>
 <div class="answer">
-<p>The data frame <code>not_cancelled</code> is defined in the chapter as,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_cancelled &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
+<p>The data frame <code>not_canceled</code> is defined in the chapter as,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_canceled &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(dep_delay), <span class="op">!</span><span class="kw">is.na</span>(arr_delay))</code></pre></div>
 <p>Count will group a dataset on the given variable and then determine the number of instances within each group. This can be done by by first grouping by the given variable, and then finding the number of observations in each group. The number of observations in each group can be found by calling the <code>length()</code> function on any variable. To make the result match <code>count()</code>, the value should go in a new column <code>n</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_cancelled <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_canceled <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">length</span>(dest))
 <span class="co">#&gt; # A tibble: 104 x 2</span>
@@ -1363,7 +1363,7 @@ If the departure is delayed without affecting the arrival time and the passenger
 <span class="co">#&gt; 6 AUS    2411</span>
 <span class="co">#&gt; # ... with 98 more rows</span></code></pre></div>
 <p>A more concise way to get the number of observations in a data frame, or a group, is the function <code>n()</code>,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_cancelled <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_canceled <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>())
 <span class="co">#&gt; # A tibble: 104 x 2</span>
@@ -1377,7 +1377,7 @@ If the departure is delayed without affecting the arrival time and the passenger
 <span class="co">#&gt; 6 AUS    2411</span>
 <span class="co">#&gt; # ... with 98 more rows</span></code></pre></div>
 <p>For a weighted count, take the sum of the weight variable in each group.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_cancelled <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_canceled <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">sum</span>(distance))
 <span class="co">#&gt; # A tibble: 4,037 x 2</span>
@@ -1391,7 +1391,7 @@ If the departure is delayed without affecting the arrival time and the passenger
 <span class="co">#&gt; 6 N104UW   24616</span>
 <span class="co">#&gt; # ... with 4,031 more rows</span></code></pre></div>
 <p>Alternatively, we could have used <code>group_by</code> followed by <code>tally()</code>, since <code>count()</code> itself is a shortcut for calling <code>group_by()</code> then <code>tally()</code>,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_cancelled <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_canceled <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>()
 <span class="co">#&gt; # A tibble: 4,037 x 2</span>
@@ -1405,7 +1405,7 @@ If the departure is delayed without affecting the arrival time and the passenger
 <span class="co">#&gt; 6 N104UW     46</span>
 <span class="co">#&gt; # ... with 4,031 more rows</span></code></pre></div>
 <p>and</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_cancelled <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_canceled <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">tally</span>(distance)
 <span class="co">#&gt; # A tibble: 4,037 x 2</span>
@@ -1520,12 +1520,12 @@ If the departure is delayed without affecting the arrival time and the passenger
 <p>Which plane (<code>tailnum</code>) has the worst on-time record?</p>
 </div>
 <div class="answer">
-<p>The question does not define the on-time record. I will use the proportion of flights not delayed or cancelled. This metric does not differentiate between the amount of delay, but has the benefit of easily incorporating cancelled flights.</p>
+<p>The question does not define the on-time record. I will use the proportion of flights not delayed or canceled. This metric does not differentiate between the amount of delay, but has the benefit of easily incorporating canceled flights.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co"># unknown why flights have sched_arr_time, arr_time but missing arr_delay.</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(arr_delay)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cancelled =</span> <span class="kw">is.na</span>(arr_time),
-         <span class="dt">late =</span> <span class="op">!</span>cancelled <span class="op">&amp;</span><span class="st"> </span>arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">canceled =</span> <span class="kw">is.na</span>(arr_time),
+         <span class="dt">late =</span> <span class="op">!</span>canceled <span class="op">&amp;</span><span class="st"> </span>arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span><span class="st">  </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">on_time =</span> <span class="kw">mean</span>(<span class="op">!</span>late)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">min_rank</span>(on_time) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>)

@@ -862,7 +862,7 @@ The answer to each part follows.
     #> [1] "spring"  "evening" "morning" "winding" "living"  "king"
     ```
 
-1.  Finding all plurals cannot be correctly accoplished with regular expressions alone.
+1.  Finding all plurals cannot be correctly accomplished with regular expressions alone.
     Finding plural words would at least require morphological information about words in the language.
     See [WordNet](https://cran.r-project.org/web/packages/wordnet/index.html) for a resource that would do that.
     However, identifying words that end in an "s" and with more than three characters, in order to remove "as", "is", "gas", etc., is

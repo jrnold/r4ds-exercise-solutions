@@ -963,15 +963,15 @@ The traveler could easily plan for this. If the delay of the flight is more vari
 ### Exercise <span class="exercise-number">5.6.2</span> {.unnumbered .exercise}
 
 <div class='question'>
-Come up with another approach that will give you the same output as `not_cancelled %>% count(dest)` and `not_cancelled %>% count(tailnum, wt = distance)` (without using `count()`).
+Come up with another approach that will give you the same output as `not_canceled %>% count(dest)` and `not_canceled %>% count(tailnum, wt = distance)` (without using `count()`).
 </div>
 
 <div class='answer'>
 
-The data frame `not_cancelled` is defined in the chapter as,
+The data frame `not_canceled` is defined in the chapter as,
 
 ```r
-not_cancelled <- flights %>%
+not_canceled <- flights %>%
   filter(!is.na(dep_delay), !is.na(arr_delay))
 ```
 
@@ -981,7 +981,7 @@ The number of observations in each group can be found by calling the `length()` 
 To make the result match `count()`, the value should go in a new column `n`.
 
 ```r
-not_cancelled %>%
+not_canceled %>%
   group_by(dest) %>%
   summarise(n = length(dest))
 #> # A tibble: 104 x 2
@@ -998,7 +998,7 @@ not_cancelled %>%
 A more concise way to get the number of observations in a data frame, or a group, is the function `n()`,
 
 ```r
-not_cancelled %>%
+not_canceled %>%
   group_by(dest) %>%
   summarise(n = n())
 #> # A tibble: 104 x 2
@@ -1016,7 +1016,7 @@ not_cancelled %>%
 For a weighted count, take the sum of the weight variable in each group.
 
 ```r
-not_cancelled %>%
+not_canceled %>%
   group_by(tailnum) %>%
   summarise(n = sum(distance))
 #> # A tibble: 4,037 x 2
@@ -1035,7 +1035,7 @@ Alternatively, we could have used `group_by` followed by `tally()`,
 since `count()` itself is a shortcut for calling `group_by()` then `tally()`,
 
 ```r
-not_cancelled %>%
+not_canceled %>%
   group_by(tailnum) %>%
   tally()
 #> # A tibble: 4,037 x 2
@@ -1052,7 +1052,7 @@ not_cancelled %>%
 and
 
 ```r
-not_cancelled %>%
+not_canceled %>%
   group_by(tailnum) %>%
   tally(distance)
 #> # A tibble: 4,037 x 2
@@ -1210,16 +1210,16 @@ Which plane (`tailnum`) has the worst on-time record?
 <div class='answer'>
 
 The question does not define the on-time record. I will use the proportion of
-flights not delayed or cancelled. 
+flights not delayed or canceled. 
 This metric does not differentiate between the amount of delay, but has the 
-benefit of easily incorporating cancelled flights.
+benefit of easily incorporating canceled flights.
 
 ```r
 flights %>%
   # unknown why flights have sched_arr_time, arr_time but missing arr_delay.
   filter(!is.na(arr_delay)) %>%
-  mutate(cancelled = is.na(arr_time),
-         late = !cancelled & arr_delay > 0) %>%
+  mutate(canceled = is.na(arr_time),
+         late = !canceled & arr_delay > 0) %>%
   group_by(tailnum) %>%  
   summarise(on_time = mean(!late)) %>%
   filter(min_rank(on_time) <= 1)

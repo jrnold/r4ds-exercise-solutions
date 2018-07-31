@@ -805,7 +805,9 @@ When using `cut_number()`, we only need to specify the number of groups, and the
 In either case, we need to choose the number or width of bins to be large enough to aggregate observations enough to remove noise
 but not so much as to remove all patterns.
 
-The number of bins in the frequency plots will generally need to be less than those in the box plots in order to be interpretable.
+The number of bins in the frequency plots will generally
+need to be less than those in the box plots in order to be
+interpretable.
 
 
 ```r

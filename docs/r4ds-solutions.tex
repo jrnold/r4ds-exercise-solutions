@@ -2875,15 +2875,15 @@ the traveler to plan for it.
 \addcontentsline{toc}{subsection}{Exercise {5.6.2}}
 
 Come up with another approach that will give you the same output as
-\texttt{not\_cancelled\ \%\textgreater{}\%\ count(dest)} and
-\texttt{not\_cancelled\ \%\textgreater{}\%\ count(tailnum,\ wt\ =\ distance)}
+\texttt{not\_canceled\ \%\textgreater{}\%\ count(dest)} and
+\texttt{not\_canceled\ \%\textgreater{}\%\ count(tailnum,\ wt\ =\ distance)}
 (without using \texttt{count()}).
 
-The data frame \texttt{not\_cancelled} is defined in the chapter as,
+The data frame \texttt{not\_canceled} is defined in the chapter as,
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{not_cancelled <-}\StringTok{ }\NormalTok{flights }\OperatorTok{%>%}
+\NormalTok{not_canceled <-}\StringTok{ }\NormalTok{flights }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(dep_delay), }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(arr_delay))}
 \end{Highlighting}
 \end{Shaded}
@@ -2898,7 +2898,7 @@ column \texttt{n}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{not_cancelled }\OperatorTok{%>%}
+\NormalTok{not_canceled }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{length}\NormalTok{(dest))}
 \CommentTok{#> # A tibble: 104 x 2}
@@ -2919,7 +2919,7 @@ a group, is the function \texttt{n()},
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{not_cancelled }\OperatorTok{%>%}
+\NormalTok{not_canceled }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(dest) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{())}
 \CommentTok{#> # A tibble: 104 x 2}
@@ -2939,7 +2939,7 @@ For a weighted count, take the sum of the weight variable in each group.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{not_cancelled }\OperatorTok{%>%}
+\NormalTok{not_canceled }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{sum}\NormalTok{(distance))}
 \CommentTok{#> # A tibble: 4,037 x 2}
@@ -2961,7 +2961,7 @@ calling \texttt{group\_by()} then \texttt{tally()},
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{not_cancelled }\OperatorTok{%>%}
+\NormalTok{not_canceled }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{tally}\NormalTok{()}
 \CommentTok{#> # A tibble: 4,037 x 2}
@@ -2981,7 +2981,7 @@ and
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{not_cancelled }\OperatorTok{%>%}
+\NormalTok{not_canceled }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{tally}\NormalTok{(distance)}
 \CommentTok{#> # A tibble: 4,037 x 2}
@@ -3139,17 +3139,17 @@ E.g. \texttt{mean} will calculate the mean within each group.
 Which plane (\texttt{tailnum}) has the worst on-time record?
 
 The question does not define the on-time record. I will use the
-proportion of flights not delayed or cancelled. This metric does not
+proportion of flights not delayed or canceled. This metric does not
 differentiate between the amount of delay, but has the benefit of easily
-incorporating cancelled flights.
+incorporating canceled flights.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{flights }\OperatorTok{%>%}
 \StringTok{  }\CommentTok{# unknown why flights have sched_arr_time, arr_time but missing arr_delay.}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(arr_delay)) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{cancelled =} \KeywordTok{is.na}\NormalTok{(arr_time),}
-         \DataTypeTok{late =} \OperatorTok{!}\NormalTok{cancelled }\OperatorTok{&}\StringTok{ }\NormalTok{arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{canceled =} \KeywordTok{is.na}\NormalTok{(arr_time),}
+         \DataTypeTok{late =} \OperatorTok{!}\NormalTok{canceled }\OperatorTok{&}\StringTok{ }\NormalTok{arr_delay }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}\StringTok{  }
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{on_time =} \KeywordTok{mean}\NormalTok{(}\OperatorTok{!}\NormalTok{late)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{min_rank}\NormalTok{(on_time) }\OperatorTok{<=}\StringTok{ }\DecValTok{1}\NormalTok{)}
@@ -4575,6 +4575,8 @@ No exercises
 How can you tell if an object is a tibble? (Hint: try printing
 \texttt{mtcars}, which is a regular data frame).
 
+When we print \texttt{mtcars}, it prints all the columns.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{mtcars}
@@ -4614,24 +4616,69 @@ How can you tell if an object is a tibble? (Hint: try printing
 \end{Highlighting}
 \end{Shaded}
 
+But when we first convert \texttt{mtcars} to a tibble using
+\texttt{as\_tibble()}, it prints on the first ten observations. There
+are also some other differences in formatting of the printed data frame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{as_tibble}\NormalTok{(mtcars)}
+\CommentTok{#> # A tibble: 32 x 11}
+\CommentTok{#>     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb}
+\CommentTok{#> * <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
+\CommentTok{#> 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4}
+\CommentTok{#> 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4}
+\CommentTok{#> 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1}
+\CommentTok{#> 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1}
+\CommentTok{#> 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2}
+\CommentTok{#> 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1}
+\CommentTok{#> # ... with 26 more rows}
+\end{Highlighting}
+\end{Shaded}
+
+You can use the function \texttt{is\_tibble()} to check whether a data
+frame is a tibble or not. The \texttt{mtcars} data frame is not a
+tibble.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is_tibble}\NormalTok{(mtcars)}
+\CommentTok{#> [1] FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+But the \texttt{diamonds} and \texttt{flights} data are tibbles.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is_tibble}\NormalTok{(ggplot2}\OperatorTok{::}\NormalTok{diamonds)}
+\CommentTok{#> [1] TRUE}
+\KeywordTok{is_tibble}\NormalTok{(nycflights13}\OperatorTok{::}\NormalTok{flights)}
+\CommentTok{#> [1] TRUE}
+\KeywordTok{is_tibble}\NormalTok{(}\KeywordTok{as_tibble}\NormalTok{(mtcars))}
+\CommentTok{#> [1] TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+More generally, you can use the \texttt{class()} function to find out
+the class of an object. Tibbles has the classes
+\texttt{c("tbl\_df",\ "tbl",\ "data.frame")}, while old data frames will
+only have the class \texttt{"data.frame"}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{class}\NormalTok{(mtcars)}
 \CommentTok{#> [1] "data.frame"}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{class}\NormalTok{(}\KeywordTok{as_tibble}\NormalTok{(mtcars))}
+\KeywordTok{class}\NormalTok{(ggplot2}\OperatorTok{::}\NormalTok{diamonds)}
+\CommentTok{#> [1] "tbl_df"     "tbl"        "data.frame"}
+\KeywordTok{class}\NormalTok{(nycflights13}\OperatorTok{::}\NormalTok{flights)}
 \CommentTok{#> [1] "tbl_df"     "tbl"        "data.frame"}
 \end{Highlighting}
 \end{Shaded}
 
-Tibbles will only print out a limited number of rows and show the class
-on top of each column. Additionally, tibbles have class
-\texttt{"tbl\_df"} and \texttt{"tbl\_"} in addition to
-\texttt{"data.frame"}.
+If you are interested in reading more on R's classes, read the chapters
+on object oriented programming in
+\href{http://adv-r.had.co.nz/S3.html}{Advanced R}.
 
 \subsection*{\texorpdfstring{Exercise
 {10.6.2}}{Exercise 10.6.2}}\label{exercise-10.6.2}
@@ -4763,7 +4810,7 @@ named \texttt{1} and \texttt{2}.
 \end{Highlighting}
 \end{Shaded}
 
-  \begin{center}\includegraphics[width=0.7\linewidth]{tibble_files/figure-latex/unnamed-chunk-11-1} \end{center}
+  \begin{center}\includegraphics[width=0.7\linewidth]{tibble_files/figure-latex/unnamed-chunk-13-1} \end{center}
 \item
   To add a new column \texttt{3} which is \texttt{2} divided by
   \texttt{1} run
@@ -8237,7 +8284,7 @@ The answer to each part follows.
 \end{Highlighting}
 \end{Shaded}
 \item
-  Finding all plurals cannot be correctly accoplished with regular
+  Finding all plurals cannot be correctly accomplished with regular
   expressions alone. Finding plural words would at least require
   morphological information about words in the language. See
   \href{https://cran.r-project.org/web/packages/wordnet/index.html}{WordNet}

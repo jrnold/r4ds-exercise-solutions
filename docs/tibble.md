@@ -34,6 +34,7 @@ How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which i
 
 <div class='answer'>
 
+When we print `mtcars`, it prints all the columns.
 
 ```r
 mtcars
@@ -72,19 +73,57 @@ mtcars
 #> Volvo 142E          21.4   4 121.0 109 4.11 2.78 18.6  1  1    4    2
 ```
 
+But when we first convert `mtcars` to a tibble using `as_tibble()`, it prints on the
+first ten observations. There are also some other differences in formatting
+of the printed data frame.
+
+```r
+as_tibble(mtcars)
+#> # A tibble: 32 x 11
+#>     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+#> * <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#> 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+#> 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+#> 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+#> 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+#> 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+#> 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1
+#> # ... with 26 more rows
+```
+
+You can use the function `is_tibble()` to check whether a data frame is a tibble or not.
+The `mtcars` data frame is not a tibble.
+
+```r
+is_tibble(mtcars)
+#> [1] FALSE
+```
+But the `diamonds` and `flights` data are tibbles.
+
+```r
+is_tibble(ggplot2::diamonds)
+#> [1] TRUE
+is_tibble(nycflights13::flights)
+#> [1] TRUE
+is_tibble(as_tibble(mtcars))
+#> [1] TRUE
+```
+
+More generally, you can use the `class()` function to find out the class of an 
+object. Tibbles has the classes `c("tbl_df", "tbl", "data.frame")`, while old
+data frames will only have the class `"data.frame"`.
 
 ```r
 class(mtcars)
 #> [1] "data.frame"
-```
-
-
-```r
-class(as_tibble(mtcars))
+class(ggplot2::diamonds)
+#> [1] "tbl_df"     "tbl"        "data.frame"
+class(nycflights13::flights)
 #> [1] "tbl_df"     "tbl"        "data.frame"
 ```
 
-Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
+If you are interested in reading more on R's classes, read the chapters on 
+object oriented programming in [Advanced R](http://adv-r.had.co.nz/S3.html).
 
 </div>
 
@@ -206,7 +245,7 @@ annoying <- tibble(
     
     
     
-    \begin{center}\includegraphics[width=0.7\linewidth]{tibble_files/figure-latex/unnamed-chunk-11-1} \end{center}
+    \begin{center}\includegraphics[width=0.7\linewidth]{tibble_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
 1.  To add a new column `3` which is `2` divided by `1` run
 

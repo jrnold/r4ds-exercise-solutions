@@ -669,6 +669,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>How can you tell if an object is a tibble? (Hint: try printing <code>mtcars</code>, which is a regular data frame).</p>
 </div>
 <div class="answer">
+<p>When we print <code>mtcars</code>, it prints all the columns.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars
 <span class="co">#&gt;                      mpg cyl  disp  hp drat   wt qsec vs am gear carb</span>
 <span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.62 16.5  0  1    4    4</span>
@@ -703,11 +704,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; Ferrari Dino        19.7   6 145.0 175 3.62 2.77 15.5  0  1    5    6</span>
 <span class="co">#&gt; Maserati Bora       15.0   8 301.0 335 3.54 3.57 14.6  0  1    5    8</span>
 <span class="co">#&gt; Volvo 142E          21.4   4 121.0 109 4.11 2.78 18.6  1  1    4    2</span></code></pre></div>
+<p>But when we first convert <code>mtcars</code> to a tibble using <code>as_tibble()</code>, it prints on the first ten observations. There are also some other differences in formatting of the printed data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_tibble</span>(mtcars)
+<span class="co">#&gt; # A tibble: 32 x 11</span>
+<span class="co">#&gt;     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span>
+<span class="co">#&gt; * &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4</span>
+<span class="co">#&gt; 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4</span>
+<span class="co">#&gt; 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1</span>
+<span class="co">#&gt; 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1</span>
+<span class="co">#&gt; 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2</span>
+<span class="co">#&gt; 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</span>
+<span class="co">#&gt; # ... with 26 more rows</span></code></pre></div>
+<p>You can use the function <code>is_tibble()</code> to check whether a data frame is a tibble or not. The <code>mtcars</code> data frame is not a tibble.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is_tibble</span>(mtcars)
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>But the <code>diamonds</code> and <code>flights</code> data are tibbles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is_tibble</span>(ggplot2<span class="op">::</span>diamonds)
+<span class="co">#&gt; [1] TRUE</span>
+<span class="kw">is_tibble</span>(nycflights13<span class="op">::</span>flights)
+<span class="co">#&gt; [1] TRUE</span>
+<span class="kw">is_tibble</span>(<span class="kw">as_tibble</span>(mtcars))
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>More generally, you can use the <code>class()</code> function to find out the class of an object. Tibbles has the classes <code>c(&quot;tbl_df&quot;, &quot;tbl&quot;, &quot;data.frame&quot;)</code>, while old data frames will only have the class <code>&quot;data.frame&quot;</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(mtcars)
-<span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="kw">as_tibble</span>(mtcars))
+<span class="co">#&gt; [1] &quot;data.frame&quot;</span>
+<span class="kw">class</span>(ggplot2<span class="op">::</span>diamonds)
+<span class="co">#&gt; [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</span>
+<span class="kw">class</span>(nycflights13<span class="op">::</span>flights)
 <span class="co">#&gt; [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</span></code></pre></div>
-<p>Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class <code>&quot;tbl_df&quot;</code> and <code>&quot;tbl_&quot;</code> in addition to <code>&quot;data.frame&quot;</code>.</p>
+<p>If you are interested in reading more on R’s classes, read the chapters on object oriented programming in <a href="http://adv-r.had.co.nz/S3.html">Advanced R</a>.</p>
 </div>
 </div>
 <div id="exercise-10.6.2" class="section level3 unnumbered exercise">
@@ -780,7 +806,7 @@ tbl[, <span class="kw">c</span>(<span class="st">&quot;abc&quot;</span>, <span c
 <li><p>To create a scatter plot of <code>1</code> vs. <code>2</code> run</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(annoying, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="tibble_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p></li>
+<p><img src="tibble_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p></li>
 <li><p>To add a new column <code>3</code> which is <code>2</code> divided by <code>1</code> run</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annoying[[<span class="st">&quot;3&quot;</span>]] &lt;-<span class="st"> </span>annoying<span class="op">$</span><span class="st">`</span><span class="dt">2</span><span class="st">`</span> <span class="op">/</span><span class="st"> </span>annoying<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span></code></pre></div>
 <p>or</p>
