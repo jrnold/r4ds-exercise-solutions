@@ -32,19 +32,41 @@ How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which i
 
 `r BeginAnswer()`
 
+When we print `mtcars`, it prints all the columns.
 ```{r}
 mtcars
 ```
 
+But when we first convert `mtcars` to a tibble using `as_tibble()`, it prints on the
+first ten observations. There are also some other differences in formatting
+of the printed data frame.
+```{r}
+as_tibble(mtcars)
+```
+
+You can use the function `is_tibble()` to check whether a data frame is a tibble or not.
+The `mtcars` data frame is not a tibble.
+```{r}
+is_tibble(mtcars)
+```
+But the `diamonds` and `flights` data are tibbles.
+```{r}
+is_tibble(ggplot2::diamonds)
+is_tibble(nycflights13::flights)
+is_tibble(as_tibble(mtcars))
+```
+
+More generally, you can use the `class()` function to find out the class of an 
+object. Tibbles has the classes `c("tbl_df", "tbl", "data.frame")`, while old
+data frames will only have the class `"data.frame"`.
 ```{r}
 class(mtcars)
+class(ggplot2::diamonds)
+class(nycflights::flights)
 ```
 
-```{r}
-class(as_tibble(mtcars))
-```
-
-Tibbles will only print out a limited number of rows and show the class on top of each column. Additionally, tibbles have class `"tbl_df"` and `"tbl_"` in addition to `"data.frame"`.
+If you are interested in reading more on R's classes, read the chapters on 
+object oriented programming in [Advanced R](http://adv-r.had.co.nz/S3.html).
 
 `r EndAnswer()`
 
