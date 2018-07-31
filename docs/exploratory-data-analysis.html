@@ -113,15 +113,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-29</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-28</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-24</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-23</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-07-22</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-5"><i class="fa fa-check"></i>2018-07-21</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-6"><i class="fa fa-check"></i>2018-07-15</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-7"><i class="fa fa-check"></i>2018-07-14</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-8"><i class="fa fa-check"></i>2018-05-08</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-30</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-29</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-28</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-24</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-07-23</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-5"><i class="fa fa-check"></i>2018-07-22</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-6"><i class="fa fa-check"></i>2018-07-21</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-7"><i class="fa fa-check"></i>2018-07-15</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-8"><i class="fa fa-check"></i>2018-07-14</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-9"><i class="fa fa-check"></i>2018-05-08</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
@@ -1092,33 +1093,19 @@ flights <span class="op">%&gt;%</span>
 <p>Instead of summarizing the conditional distribution with a box plot, you could use a frequency polygon. What do you need to consider when using <code>cut_width()</code> vs <code>cut_number()</code>? How does that impact a visualization of the 2d distribution of <code>carat</code> and <code>price</code>?</p>
 </div>
 <div class="answer">
-<p>When using <code>cut_width</code> the number in each bin may be unequal. The distribution of <code>carat</code> is right skewed so there are few diamonds in those bins.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds,
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price,
-                     <span class="dt">colour =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.3</span>))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_freqpoly</span>()
-<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /> Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds,
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price,
-                     <span class="dt">y =</span> ..density..,
-                     <span class="dt">colour =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.3</span>))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_freqpoly</span>()
-<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /> Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds,
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price,
-                     <span class="dt">colour =</span> <span class="kw">cut_number</span>(carat, <span class="dv">10</span>))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_freqpoly</span>()
-<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /> Since there are equal numbers in each bin, the plot looks the same if density is used for the y aesthetic (although the values are on a different scale).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds,
-       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price,
-                     <span class="dt">y =</span> ..density..,
-                     <span class="dt">colour =</span> <span class="kw">cut_number</span>(carat, <span class="dv">10</span>))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_freqpoly</span>()
-<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Both <code>cut_width()</code> and <code>cut_number()</code> split a variable into groups. When using <code>cut_width()</code>, we need to choose the width. When using <code>cut_number()</code>, we only need to specify the number of groups, and the width will be calculated.</p>
+<p>In either case, we need to choose the number or width of bins to be large enough to aggregate observations enough to remove noise but not so much as to remove all patterns.</p>
+<p>The number of bins in the frequency plots will generally need to be less than those in the box plots in order to be interpretable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, 
+       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">x =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_freqpoly</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Carat&quot;</span>)</code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, 
+       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.5</span>, <span class="dt">boundary =</span> <span class="dv">0</span>), <span class="dt">x =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_freqpoly</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Carat&quot;</span>)</code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="exercise-7.5.3.2" class="section level4 unnumbered exercise">
@@ -1132,12 +1119,12 @@ flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Price&quot;</span>)</code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /> With a box plot, partitioning into an bins of $2,000 with the width of the box determined by the number of observations. I use <code>boundary = 0</code> to ensure the first bin goes from $0–$2,000.</p>
+<p><img src="EDA_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /> With a box plot, partitioning into an bins of $2,000 with the width of the box determined by the number of observations. I use <code>boundary = 0</code> to ensure the first bin goes from $0–$2,000.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_width</span>(price, <span class="dv">2000</span>, <span class="dt">boundary =</span> <span class="dv">0</span>), <span class="dt">y =</span> carat)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">varwidth =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Price&quot;</span>)</code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="EDA_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="exercise-7.5.3.3" class="section level4 unnumbered exercise">
@@ -1160,13 +1147,13 @@ flights <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">geom_hex</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_fill_viridis</span>()</code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">y =</span> price, <span class="dt">colour =</span> cut)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="EDA_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">y =</span> price, <span class="dt">x =</span> cut)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="EDA_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="exercise-7.5.3.5" class="section level4 unnumbered exercise">
@@ -1178,7 +1165,7 @@ flights <span class="op">%&gt;%</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">11</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">11</span>))</code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="EDA_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Why is a scatterplot a better display than a binned plot for this case?</p>
 <p>In this case, there is a strong relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. The outliers in this case are not extreme in either <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span>. A binned plot would not reveal these outliers, and may lead us to conclude that the largest value of <span class="math inline">\(x\)</span> was an outlier even though it appears to fit the bivariate pattern well.</p>
 <p>The later chapter <a href="model-basics.html#model-basics">Model Basics</a> discusses fitting models to bivariate data and plotting residuals, which would reveal this outliers.</p>

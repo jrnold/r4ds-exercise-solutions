@@ -797,61 +797,39 @@ How does that impact a visualization of the 2d distribution of `carat` and `pric
 </div>
 
 <div class='answer'>
-When using `cut_width` the number in each bin may be unequal.
-The distribution of `carat` is right skewed so there are few diamonds in those bins.
+
+Both `cut_width()` and `cut_number()` split a variable into groups.
+When using `cut_width()`, we need to choose the width.
+When using `cut_number()`, we only need to specify the number of groups, and the width will be calculated.
+
+In either case, we need to choose the number or width of bins to be large enough to aggregate observations enough to remove noise
+but not so much as to remove all patterns.
+
+The number of bins in the frequency plots will generally need to be less than those in the box plots in order to be interpretable.
+
 
 ```r
-ggplot(data = diamonds,
-       mapping = aes(x = price,
-                     colour = cut_width(carat, 0.3))) +
-  geom_freqpoly()
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+ggplot(data = diamonds, 
+       mapping = aes(color = cut_number(carat, 5), x = price)) +
+  geom_freqpoly() +
+  ylab("Carat")
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-37-1} \end{center}
-Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
+
 
 ```r
-ggplot(data = diamonds,
-       mapping = aes(x = price,
-                     y = ..density..,
-                     colour = cut_width(carat, 0.3))) +
-  geom_freqpoly()
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+ggplot(data = diamonds, 
+       mapping = aes(color = cut_width(carat, 0.5, boundary = 0), x = price)) +
+  geom_freqpoly() +
+  ylab("Carat")
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-38-1} \end{center}
-Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
-
-```r
-ggplot(data = diamonds,
-       mapping = aes(x = price,
-                     colour = cut_number(carat, 10))) +
-  geom_freqpoly()
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-39-1} \end{center}
-Since there are equal numbers in each bin, the plot looks the same if density is used for the y aesthetic (although the values are on a different scale).
-
-```r
-ggplot(data = diamonds,
-       mapping = aes(x = price,
-                     y = ..density..,
-                     colour = cut_number(carat, 10))) +
-  geom_freqpoly()
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 </div>
 
@@ -874,7 +852,7 @@ ggplot(diamonds, aes(x = cut_number(price, 10), y = carat)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-41-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-39-1} \end{center}
 With a box plot, partitioning into an bins of \$2,000 with the width of the box determined by the number of observations. I use `boundary = 0` to ensure the first bin goes from \$0--\$2,000.
 
 ```r
@@ -886,7 +864,7 @@ ggplot(diamonds, aes(x = cut_width(price, 2000, boundary = 0), y = carat)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-42-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 </div>
 
@@ -931,7 +909,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 
 ```r
@@ -941,7 +919,7 @@ ggplot(diamonds, aes(x = cut_number(carat, 5), y = price, colour = cut)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-44-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 
 ```r
@@ -951,7 +929,7 @@ ggplot(diamonds, aes(colour = cut_number(carat, 5), y = price, x = cut)) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-45-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 </div>
 
@@ -973,7 +951,7 @@ ggplot(data = diamonds) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-46-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 Why is a scatterplot a better display than a binned plot for this case?
 

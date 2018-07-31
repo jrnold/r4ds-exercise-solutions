@@ -193,16 +193,32 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
 \section*{Updates}\label{updates}
 \addcontentsline{toc}{section}{Updates}
 
-\subsection*{2018-07-29}\label{section}
+\subsection*{2018-07-30}\label{section}
+\addcontentsline{toc}{subsection}{2018-07-30}
+
+\begin{itemize}
+\tightlist
+\item
+  Update answer to Ex 7.5.3.1 (\#49)
+\end{itemize}
+
+\subsection*{2018-07-29}\label{section-1}
 \addcontentsline{toc}{subsection}{2018-07-29}
 
 \begin{itemize}
 \tightlist
 \item
   Add answer to Ex 3.5.4 (\#32)
+\item
+  Move exercise 6 of 5.6 to exercise 8 of 5.7 (\#43)
+\item
+  Update code for Ex 5.7.7 to be cleaner (\#41)
+\item
+  Fix various typos (dongzhuoer \#39, \#40, \#43, \#45, \#46, \#47,
+  \#48)
 \end{itemize}
 
-\subsection*{2018-07-28}\label{section-1}
+\subsection*{2018-07-28}\label{section-2}
 \addcontentsline{toc}{subsection}{2018-07-28}
 
 \begin{itemize}
@@ -212,7 +228,7 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
   \#37)
 \end{itemize}
 
-\subsection*{2018-07-24}\label{section-2}
+\subsection*{2018-07-24}\label{section-3}
 \addcontentsline{toc}{subsection}{2018-07-24}
 
 \begin{itemize}
@@ -225,7 +241,7 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
   Typo fixes (JamesCuster, \#30)
 \end{itemize}
 
-\subsection*{2018-07-23}\label{section-3}
+\subsection*{2018-07-23}\label{section-4}
 \addcontentsline{toc}{subsection}{2018-07-23}
 
 \begin{itemize}
@@ -236,7 +252,7 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
   Fix typo in Ex. 3.9.1 (Thanks to JamesCuster, \#26)
 \end{itemize}
 
-\subsection*{2018-07-22}\label{section-4}
+\subsection*{2018-07-22}\label{section-5}
 \addcontentsline{toc}{subsection}{2018-07-22}
 
 \begin{itemize}
@@ -259,7 +275,7 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
   Miscellaneous minor typo fixes.
 \end{itemize}
 
-\subsection*{2018-07-21}\label{section-5}
+\subsection*{2018-07-21}\label{section-6}
 \addcontentsline{toc}{subsection}{2018-07-21}
 
 \begin{itemize}
@@ -272,7 +288,7 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
   the appropriate format.
 \end{itemize}
 
-\subsection*{2018-07-15}\label{section-6}
+\subsection*{2018-07-15}\label{section-7}
 \addcontentsline{toc}{subsection}{2018-07-15}
 
 \begin{itemize}
@@ -285,7 +301,7 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
   Changed format of contributors list
 \end{itemize}
 
-\subsection*{2018-07-14}\label{section-7}
+\subsection*{2018-07-14}\label{section-8}
 \addcontentsline{toc}{subsection}{2018-07-14}
 
 \begin{itemize}
@@ -302,7 +318,7 @@ Thanks go to all contributers in alphabetical order: @jmclawson,
   Corrected typos, URLs, HTML, markdown issues.
 \end{itemize}
 
-\subsection*{2018-05-08}\label{section-8}
+\subsection*{2018-05-08}\label{section-9}
 \addcontentsline{toc}{subsection}{2018-05-08}
 
 \begin{itemize}
@@ -4337,71 +4353,39 @@ could use a frequency polygon. What do you need to consider when using
 visualization of the 2d distribution of \texttt{carat} and
 \texttt{price}?
 
-When using \texttt{cut\_width} the number in each bin may be unequal.
-The distribution of \texttt{carat} is right skewed so there are few
-diamonds in those bins.
+Both \texttt{cut\_width()} and \texttt{cut\_number()} split a variable
+into groups. When using \texttt{cut\_width()}, we need to choose the
+width. When using \texttt{cut\_number()}, we only need to specify the
+number of groups, and the width will be calculated.
+
+In either case, we need to choose the number or width of bins to be
+large enough to aggregate observations enough to remove noise but not so
+much as to remove all patterns.
+
+The number of bins in the frequency plots will generally need to be less
+than those in the box plots in order to be interpretable.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds,}
-       \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ price,}
-                     \DataTypeTok{colour =} \KeywordTok{cut_width}\NormalTok{(carat, }\FloatTok{0.3}\NormalTok{))) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_freqpoly}\NormalTok{()}
-\CommentTok{#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds, }
+       \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{cut_number}\NormalTok{(carat, }\DecValTok{5}\NormalTok{), }\DataTypeTok{x =}\NormalTok{ price)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_freqpoly}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Carat"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
-Plotting the density instead of counts will make the distributions
-comparable, although the bins with few observations will still be hard
-to interpret.
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds,}
-       \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ price,}
-                     \DataTypeTok{y =}\NormalTok{ ..density..,}
-                     \DataTypeTok{colour =} \KeywordTok{cut_width}\NormalTok{(carat, }\FloatTok{0.3}\NormalTok{))) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_freqpoly}\NormalTok{()}
-\CommentTok{#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds, }
+       \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{cut_width}\NormalTok{(carat, }\FloatTok{0.5}\NormalTok{, }\DataTypeTok{boundary =} \DecValTok{0}\NormalTok{), }\DataTypeTok{x =}\NormalTok{ price)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_freqpoly}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Carat"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-38-1} \end{center}
-
-Plotting the density instead of counts will make the distributions
-comparable, although the bins with few observations will still be hard
-to interpret.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds,}
-       \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ price,}
-                     \DataTypeTok{colour =} \KeywordTok{cut_number}\NormalTok{(carat, }\DecValTok{10}\NormalTok{))) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_freqpoly}\NormalTok{()}
-\CommentTok{#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-39-1} \end{center}
-
-Since there are equal numbers in each bin, the plot looks the same if
-density is used for the y aesthetic (although the values are on a
-different scale).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds,}
-       \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ price,}
-                     \DataTypeTok{y =}\NormalTok{ ..density..,}
-                     \DataTypeTok{colour =} \KeywordTok{cut_number}\NormalTok{(carat, }\DecValTok{10}\NormalTok{))) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_freqpoly}\NormalTok{()}
-\CommentTok{#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 \subsubsection*{\texorpdfstring{Exercise
 {7.5.3.2}}{Exercise 7.5.3.2}}\label{exercise-7.5.3.2}
@@ -4422,7 +4406,7 @@ observations:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-41-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 With a box plot, partitioning into an bins of \$2,000 with the width of
 the box determined by the number of observations. I use
@@ -4437,7 +4421,7 @@ the box determined by the number of observations. I use
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-42-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 \subsubsection*{\texorpdfstring{Exercise
 {7.5.3.3}}{Exercise 7.5.3.3}}\label{exercise-7.5.3.3}
@@ -4478,7 +4462,7 @@ Here are a few options that I tried.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4487,7 +4471,7 @@ Here are a few options that I tried.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-44-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4496,7 +4480,7 @@ Here are a few options that I tried.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-45-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 \subsubsection*{\texorpdfstring{Exercise
 {7.5.3.5}}{Exercise 7.5.3.5}}\label{exercise-7.5.3.5}
@@ -4516,7 +4500,7 @@ appear normal when examined separately.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-46-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 Why is a scatterplot a better display than a binned plot for this case?
 

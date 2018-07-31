@@ -14,9 +14,17 @@ Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson
 
 ## Updates {-}
 
+### 2018-07-30 {-}
+
+-   Update answer to Ex 7.5.3.1 (#49)
+
 ### 2018-07-29 {-}
 
 -   Add answer to Ex 3.5.4 (#32)
+-   Move exercise 6 of 5.6 to exercise 8 of 5.7 (#43)
+-   Update code for Ex 5.7.7 to be cleaner (#41)
+-   Fix various typos (dongzhuoer #39, #40, #43, #45, #46, #47, #48)
+
 
 ### 2018-07-28 {-}
 
