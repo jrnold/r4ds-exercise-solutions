@@ -157,65 +157,68 @@ Generalize to any number of any vessel containing any liquid on  surface.
 `r EndQuestion()`
 
 `r BeginAnswer()`
-The lyrics for ``Alice the Camel'' can be found at <http://www.kididdles.com/lyrics/a012.html>.
 
-We'll look from five to no humps, and print out a different last line if there are no humps. This uses `cat` instead of `print`, so it looks nicer.
-```{r}
-humps <- c("five", "four", "three", "two", "one", "no")
-for (i in humps) {
-  cat(str_c("Alice the camel has ", rep(i, 3), " humps.",
-             collapse = "\n"), "\n")
-  if (i == "no") {
-    cat("Now Alice is a horse.\n")
-  } else {
-    cat("So go, Alice, go.\n")
-  }
-  cat("\n")
-}
-```
+The answers to each part follow.
 
-The lyrics for [Ten in the Bed](http://supersimplelearning.com/songs/original-series/one/ten-in-the-bed/):
-```{r}
-numbers <- c("ten", "nine", "eight", "seven", "six", "five",
-             "four", "three", "two", "one")
-for (i in numbers) {
-  cat(str_c("There were ", i, " in the bed\n"))
-  cat("and the little one said\n")
-  if (i == "one") {
-    cat("I'm lonely...")
-  } else {
-    cat("Roll over, roll over\n")
-    cat("So they all rolled over and one fell out.\n")
-  }
-  cat("\n")
-}
-```
+1.  The lyrics for ``Alice the Camel'' can be found at <http://www.kididdles.com/lyrics/a012.html>.
 
-For the bottles of beer, I define a helper function to correctly print the number of bottles.
-```{r}
-bottles <- function(i) {
-  if (i > 2) {
-   bottles <- str_c(i - 1, " bottles")
-  } else if (i == 2) {
-   bottles <- "1 bottle"
-  } else {
-   bottles <- "no more bottles"
-  }
-  bottles
-}
+    We'll look from five to no humps, and print out a different last line if there are no humps. This uses `cat` instead of `print`, so it looks nicer.
+    ```{r}
+    humps <- c("five", "four", "three", "two", "one", "no")
+    for (i in humps) {
+      cat(str_c("Alice the camel has ", rep(i, 3), " humps.",
+                 collapse = "\n"), "\n")
+      if (i == "no") {
+        cat("Now Alice is a horse.\n")
+      } else {
+        cat("So go, Alice, go.\n")
+      }
+      cat("\n")
+    }
+    ```
 
-beer_bottles <- function(n) {
-  # should test whether n >= 1.
-  for (i in seq(n, 1)) {
-     cat(str_c(bottles(i), " of beer on the wall, ", bottles(i), " of beer.\n"))
-     cat(str_c("Take one down and pass it around, ", bottles(i - 1),
-                " of beer on the wall.\n\n"))
-  }
-  cat("No more bottles of beer on the wall, no more bottles of beer.\n")
-  cat(str_c("Go to the store and buy some more, ", bottles(n), " of beer on the wall.\n"))
-}
-beer_bottles(3)
-```
+1.  The lyrics for "Ten in the Bed" can be found at <https://www.kididdles.com/lyrics/t003.html>.
+    ```{r}
+    numbers <- c("ten", "nine", "eight", "seven", "six", "five",
+                 "four", "three", "two", "one")
+    for (i in numbers) {
+      cat(str_c("There were ", i, " in the bed\n"))
+      cat("and the little one said\n")
+      if (i == "one") {
+        cat("I'm lonely...")
+      } else {
+        cat("Roll over, roll over\n")
+        cat("So they all rolled over and one fell out.\n")
+      }
+      cat("\n")
+    }
+    ```
+
+1.  For the bottles of beer, I define a helper function to correctly print the number of bottles.
+    ```{r}
+    bottles <- function(i) {
+      if (i > 2) {
+       bottles <- str_c(i - 1, " bottles")
+      } else if (i == 2) {
+       bottles <- "1 bottle"
+      } else {
+       bottles <- "no more bottles"
+      }
+      bottles
+    }
+    
+    beer_bottles <- function(n) {
+      # should test whether n >= 1.
+      for (i in seq(n, 1)) {
+         cat(str_c(bottles(i), " of beer on the wall, ", bottles(i), " of beer.\n"))
+         cat(str_c("Take one down and pass it around, ", bottles(i - 1),
+                    " of beer on the wall.\n\n"))
+      }
+      cat("No more bottles of beer on the wall, no more bottles of beer.\n")
+      cat(str_c("Go to the store and buy some more, ", bottles(n), " of beer on the wall.\n"))
+    }
+    beer_bottles(3)
+    ```
 
 `r EndAnswer()`
 
