@@ -587,36 +587,28 @@ How does that impact a visualization of the 2d distribution of `carat` and `pric
 `r EndQuestion()`
 
 `r BeginAnswer()`
-When using `cut_width` the number in each bin may be unequal.
-The distribution of `carat` is right skewed so there are few diamonds in those bins.
-```{r}
-ggplot(data = diamonds,
-       mapping = aes(x = price,
-                     colour = cut_width(carat, 0.3))) +
-  geom_freqpoly()
+
+Both `cut_width()` and `cut_number()` split a variable into groups.
+When using `cut_width()`, we need to choose the width.
+When using `cut_number()`, we only need to specify the number of groups, and the width will be calculated.
+
+In either case, we need to choose the number or width of bins to be large enough to aggregate observations enough to remove noise
+but not so much as to remove all patterns.
+
+The number of bins in the frequency plots will generally need to be less than those in the box plots in order to be interpretable.
+
+```{r message=FALSE}
+ggplot(data = diamonds, 
+       mapping = aes(color = cut_number(carat, 5), x = price)) +
+  geom_freqpoly() +
+  ylab("Carat")
 ```
-Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
-```{r}
-ggplot(data = diamonds,
-       mapping = aes(x = price,
-                     y = ..density..,
-                     colour = cut_width(carat, 0.3))) +
-  geom_freqpoly()
-```
-Plotting the density instead of counts will make the distributions comparable, although the bins with few observations will still be hard to interpret.
-```{r}
-ggplot(data = diamonds,
-       mapping = aes(x = price,
-                     colour = cut_number(carat, 10))) +
-  geom_freqpoly()
-```
-Since there are equal numbers in each bin, the plot looks the same if density is used for the y aesthetic (although the values are on a different scale).
-```{r}
-ggplot(data = diamonds,
-       mapping = aes(x = price,
-                     y = ..density..,
-                     colour = cut_number(carat, 10))) +
-  geom_freqpoly()
+
+```{r message=FALSE}
+ggplot(data = diamonds, 
+       mapping = aes(color = cut_width(carat, 0.5, boundary = 0), x = price)) +
+  geom_freqpoly() +
+  ylab("Carat")
 ```
 
 `r EndAnswer()`
