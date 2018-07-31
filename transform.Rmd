@@ -828,23 +828,26 @@ When calculating this answer we should only compare flights within the same orig
 
 A common approach to finding unusual observations would be to calculate the z-score of observations each flight.
 ```{r}
-flights_by_zscore <- flights %>%
+flights_with_zscore <- flights %>%
   filter(!is.na(air_time)) %>%
   group_by(dest, origin) %>%
-  mutate(mean_air_time = mean(air_time),
-         med_air_time = median(air_time),
-         n = n(),
-         z_score = (air_time - mean_air_time) / sd(air_time)) %>%
-  select(dest, origin, carrier, flight, 
-         mean_air_time, air_time, z_score, n)
+  mutate(air_time_mean = mean(air_time),
+         air_time_sd = sd(air_time),
+         n = n()) %>%
+  ungroup() %>%
+  mutate(z_score = (air_time - mean_air_time) / sd(air_time))
 ```
 
-Possible unusual flights would be those with highly negative z-scores.
+Possible unusual flights are the 
+Lets print out the 10 flights with the largest
 ```{r}
-head(arrange(flights_by_zscore, z_score), 15)
+flights_by_zscore %>%
+  arrange(desc(abs(z_score))) %>%
+  select()
+  print(n = 15)
 ```
 
-Do any of these seem unusual to you? What would you look for?
+Now that we've identified potentially bad observations, we would to distinguish between the real problems and 
 
 <!-- 
 One idea would be to compare actual air time with the scheduled air time.
@@ -852,14 +855,24 @@ However, this requires the scheduled air time - which is not easily available
 without the taxi time data, which is not included in the flights datasets
 -->
 
-One problem with the way that we calculated z-scores is that the mean and 
-standard deviation used to calculate it includes the unusual observations that we
-are looking for. Since the mean and standard deviation are sensitive to outliers,
-that means that an outlier could affect the mean and standard deviation calculations
-enough that it does not look like one. We would want to calculate the z-score
-of each observation using the mean and standard deviation based on all other 
-flights to that origin and destination. Alternatively, we could use a 
-robust statistic to find unusual observations, such as the one used in the box plot.
+One potential issue with the way that we calculated z-scores is that the mean and standard deviation used to calculate it include the unusual observations that we are looking for. 
+Since the mean and standard deviation are sensitive to outliers,
+that means that an outlier could affect the mean and standard deviation calculations enough that it does not look like one. 
+We would want to calculate the z-score of each observation using the mean and standard deviation based on all other 
+flights to that origin and destination.
+This will be more of an issue if the number of of observations is small.
+Thankfully, there are easy methods to update the mean and variance by [removing an observation](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance), but for now, we won't use them.[^methods]
+
+Another way to improve this calculation is to use the same method
+used in box plots (see `geom_boxplot()`) to screen outliers.
+That method uses the median and inter-quartile range, and thus is less sensitive to outliers. 
+Adjust the previous code and see if it makes a difference.
+
+All of these answers have relied on the distribution of comparable observerations (flights from the same origin to the same destination) to flag unusual observations.
+Apart from our knowledge that flights from the same origin to the same destination should have similar air times, we have not used any domain specific knowledge.
+But actually know much more about this problem. 
+We know that aircraft have maximum speeds.
+So could use the time and distance of each flight to calculate the average speed of each flight and find any clearly impossibly fast flights.
 
 `r EndAnswer()`
 
@@ -875,6 +888,7 @@ To restate this question, we are asked to rank airlines by the number of destina
 
 We will calculate this ranking in two parts.
 First, find all airports serviced by two or more carriers.
+
 ```{r}
 dest_2carriers <- flights %>%
   # keep only unique carrier,dest pairs
@@ -886,7 +900,9 @@ dest_2carriers <- flights %>%
   mutate(n_carrier = n_distinct(carrier)) %>%
   filter(n_carrier >= 2)
 ```
+
 Second, rank carriers by the number of these destinations that they service.
+
 ```{r}
 carriers_by_dest <- dest_2carriers %>%
   group_by(carrier) %>%
@@ -900,7 +916,10 @@ What is airline does the `"EV"` carrier code correspond to?
 ```{r}
 filter(airlines, carrier == "EV")
 ```
-ExpressJet is probably not a household name, because [ExpressJet](https://en.wikipedia.org/wiki/ExpressJet) is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller city airports.
+Unless you know the airplane industry, it is likely that you don't recognize [ExpressJet](https://en.wikipedia.org/wiki/ExpressJet); I certainly didn't.
+It is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller airports.
+This means that many of the shorter flights of major carriers are actually operated by ExpressJet.
+This business model expains why ExpressJet services the most destinations.
 
 `r EndAnswer()`
 
@@ -923,3 +942,7 @@ flights %>%
 ```
 
 `r EndAnswer()`
+
+[^methods]: In most interesting data analysis questions, no answer ever "right". With infinite time and money, an analysis could almost always improve their answer with more data or better methods.
+    The difficulty in real life is finding the quickest, simplest method
+    that works "good enough".
