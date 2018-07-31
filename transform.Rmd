@@ -384,6 +384,7 @@ Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What d
 
 `r BeginAnswer()`
 
+As with the previous question, we will need to 
 Since `arr_time` and `dep_time` may be in different time zones, the `air_time` does not equal the differences.
 
 ```{r}
@@ -391,9 +392,11 @@ air_times <- mutate(flights,
        arr_time_min = arr_time %/% 100 * 60 + arr_time %% 100,
        dep_time_min = dep_time %/% 100 * 60 + dep_time %% 100,
        air_time_2 = (arr_time_min - dep_time_min + 1440) %% 1440,
-       air_time_diff = air_time_2 - air_time) %>%
-  filter(air_time_diff != 0) %>%
-  select(air_time, air_time_2, dep_time, arr_time, dest)
+       air_time_diff = air_time_2 - air_time)
+
+air_times %>% 
+  arrange(desc(abs(air_time_diff))) %>%
+  select(air_time_diff)
 ```
 
 `r EndAnswer()`

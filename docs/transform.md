@@ -721,25 +721,30 @@ Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What d
 
 <div class='answer'>
 
-Since `arr_time` and `dep_time` may be in different time zones, the `air_time` doesn't equal the difference.
-We would need to account for time-zones in these calculations.
+As with the previous question, we will need to 
+Since `arr_time` and `dep_time` may be in different time zones, the `air_time` does not equal the differences.
+
 
 ```r
-mutate(flights,
-       air_time2 = arr_time - dep_time,
-       air_time_diff = air_time2 - air_time) %>%
-  filter(air_time_diff != 0) %>%
-  select(air_time, air_time2, dep_time, arr_time, dest)
-#> # A tibble: 326,128 x 5
-#>   air_time air_time2 dep_time arr_time dest 
-#>      <dbl>     <int>    <int>    <int> <chr>
-#> 1      227       313      517      830 IAH  
-#> 2      227       317      533      850 IAH  
-#> 3      160       381      542      923 MIA  
-#> 4      183       460      544     1004 BQN  
-#> 5      116       258      554      812 ATL  
-#> 6      150       186      554      740 ORD  
-#> # ... with 3.261e+05 more rows
+air_times <- mutate(flights,
+       arr_time_min = arr_time %/% 100 * 60 + arr_time %% 100,
+       dep_time_min = dep_time %/% 100 * 60 + dep_time %% 100,
+       air_time_2 = (arr_time_min - dep_time_min + 1440) %% 1440,
+       air_time_diff = air_time_2 - air_time)
+
+air_times %>% 
+  arrange(desc(abs(air_time_diff))) %>%
+  select(air_time_diff)
+#> # A tibble: 336,776 x 1
+#>   air_time_diff
+#>           <dbl>
+#> 1          -345
+#> 2          -345
+#> 3          -345
+#> 4          -345
+#> 5          -344
+#> 6          -344
+#> # ... with 3.368e+05 more rows
 ```
 
 </div>

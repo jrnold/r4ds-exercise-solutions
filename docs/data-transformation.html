@@ -1166,22 +1166,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Compare <code>air_time</code> with <code>arr_time - dep_time</code>. What do you expect to see? What do you see? What do you need to do to fix it?</p>
 </div>
 <div class="answer">
-<p>Since <code>arr_time</code> and <code>dep_time</code> may be in different time zones, the <code>air_time</code> doesn’t equal the difference. We would need to account for time-zones in these calculations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(flights,
-       <span class="dt">air_time2 =</span> arr_time <span class="op">-</span><span class="st"> </span>dep_time,
-       <span class="dt">air_time_diff =</span> air_time2 <span class="op">-</span><span class="st"> </span>air_time) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(air_time_diff <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(air_time, air_time2, dep_time, arr_time, dest)
-<span class="co">#&gt; # A tibble: 326,128 x 5</span>
-<span class="co">#&gt;   air_time air_time2 dep_time arr_time dest </span>
-<span class="co">#&gt;      &lt;dbl&gt;     &lt;int&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1      227       313      517      830 IAH  </span>
-<span class="co">#&gt; 2      227       317      533      850 IAH  </span>
-<span class="co">#&gt; 3      160       381      542      923 MIA  </span>
-<span class="co">#&gt; 4      183       460      544     1004 BQN  </span>
-<span class="co">#&gt; 5      116       258      554      812 ATL  </span>
-<span class="co">#&gt; 6      150       186      554      740 ORD  </span>
-<span class="co">#&gt; # ... with 3.261e+05 more rows</span></code></pre></div>
+<p>As with the previous question, we will need to Since <code>arr_time</code> and <code>dep_time</code> may be in different time zones, the <code>air_time</code> does not equal the differences.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">air_times &lt;-<span class="st"> </span><span class="kw">mutate</span>(flights,
+       <span class="dt">arr_time_min =</span> arr_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>arr_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>,
+       <span class="dt">dep_time_min =</span> dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>,
+       <span class="dt">air_time_2 =</span> (arr_time_min <span class="op">-</span><span class="st"> </span>dep_time_min <span class="op">+</span><span class="st"> </span><span class="dv">1440</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">1440</span>,
+       <span class="dt">air_time_diff =</span> air_time_<span class="dv">2</span> <span class="op">-</span><span class="st"> </span>air_time)
+
+air_times <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(<span class="kw">abs</span>(air_time_diff))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(air_time_diff)
+<span class="co">#&gt; # A tibble: 336,776 x 1</span>
+<span class="co">#&gt;   air_time_diff</span>
+<span class="co">#&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt; 1          -345</span>
+<span class="co">#&gt; 2          -345</span>
+<span class="co">#&gt; 3          -345</span>
+<span class="co">#&gt; 4          -345</span>
+<span class="co">#&gt; 5          -344</span>
+<span class="co">#&gt; 6          -344</span>
+<span class="co">#&gt; # ... with 3.368e+05 more rows</span></code></pre></div>
 </div>
 </div>
 <div id="exercise-5.5.3" class="section level3 unnumbered exercise">

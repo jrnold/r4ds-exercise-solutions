@@ -2601,27 +2601,31 @@ that:
 Compare \texttt{air\_time} with \texttt{arr\_time\ -\ dep\_time}. What
 do you expect to see? What do you see? What do you need to do to fix it?
 
-Since \texttt{arr\_time} and \texttt{dep\_time} may be in different time
-zones, the \texttt{air\_time} doesn't equal the difference. We would
-need to account for time-zones in these calculations.
+As with the previous question, we will need to Since \texttt{arr\_time}
+and \texttt{dep\_time} may be in different time zones, the
+\texttt{air\_time} does not equal the differences.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{mutate}\NormalTok{(flights,}
-       \DataTypeTok{air_time2 =}\NormalTok{ arr_time }\OperatorTok{-}\StringTok{ }\NormalTok{dep_time,}
-       \DataTypeTok{air_time_diff =}\NormalTok{ air_time2 }\OperatorTok{-}\StringTok{ }\NormalTok{air_time) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{filter}\NormalTok{(air_time_diff }\OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{select}\NormalTok{(air_time, air_time2, dep_time, arr_time, dest)}
-\CommentTok{#> # A tibble: 326,128 x 5}
-\CommentTok{#>   air_time air_time2 dep_time arr_time dest }
-\CommentTok{#>      <dbl>     <int>    <int>    <int> <chr>}
-\CommentTok{#> 1      227       313      517      830 IAH  }
-\CommentTok{#> 2      227       317      533      850 IAH  }
-\CommentTok{#> 3      160       381      542      923 MIA  }
-\CommentTok{#> 4      183       460      544     1004 BQN  }
-\CommentTok{#> 5      116       258      554      812 ATL  }
-\CommentTok{#> 6      150       186      554      740 ORD  }
-\CommentTok{#> # ... with 3.261e+05 more rows}
+\NormalTok{air_times <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(flights,}
+       \DataTypeTok{arr_time_min =}\NormalTok{ arr_time }\OperatorTok{%/%}\StringTok{ }\DecValTok{100} \OperatorTok{*}\StringTok{ }\DecValTok{60} \OperatorTok{+}\StringTok{ }\NormalTok{arr_time }\OperatorTok{%%}\StringTok{ }\DecValTok{100}\NormalTok{,}
+       \DataTypeTok{dep_time_min =}\NormalTok{ dep_time }\OperatorTok{%/%}\StringTok{ }\DecValTok{100} \OperatorTok{*}\StringTok{ }\DecValTok{60} \OperatorTok{+}\StringTok{ }\NormalTok{dep_time }\OperatorTok{%%}\StringTok{ }\DecValTok{100}\NormalTok{,}
+       \DataTypeTok{air_time_2 =}\NormalTok{ (arr_time_min }\OperatorTok{-}\StringTok{ }\NormalTok{dep_time_min }\OperatorTok{+}\StringTok{ }\DecValTok{1440}\NormalTok{) }\OperatorTok{%%}\StringTok{ }\DecValTok{1440}\NormalTok{,}
+       \DataTypeTok{air_time_diff =}\NormalTok{ air_time_}\DecValTok{2} \OperatorTok{-}\StringTok{ }\NormalTok{air_time)}
+
+\NormalTok{air_times }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(}\KeywordTok{abs}\NormalTok{(air_time_diff))) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(air_time_diff)}
+\CommentTok{#> # A tibble: 336,776 x 1}
+\CommentTok{#>   air_time_diff}
+\CommentTok{#>           <dbl>}
+\CommentTok{#> 1          -345}
+\CommentTok{#> 2          -345}
+\CommentTok{#> 3          -345}
+\CommentTok{#> 4          -345}
+\CommentTok{#> 5          -344}
+\CommentTok{#> 6          -344}
+\CommentTok{#> # ... with 3.368e+05 more rows}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6757,7 +6761,7 @@ conflicts.
 \begin{Highlighting}[]
 \NormalTok{airport_locations <-}\StringTok{ }\NormalTok{airports }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(faa, lat, lon)}
-  
+
 \NormalTok{flights }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{select}\NormalTok{(year}\OperatorTok{:}\NormalTok{day, hour, origin, dest) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{left_join}\NormalTok{(}
@@ -6787,7 +6791,7 @@ This default can be over-ridden using the \texttt{suffix} argument.
 \begin{Highlighting}[]
 \NormalTok{airport_locations <-}\StringTok{ }\NormalTok{airports }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(faa, lat, lon)}
-  
+
 \NormalTok{flights }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{select}\NormalTok{(year}\OperatorTok{:}\NormalTok{day, hour, origin, dest) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{left_join}\NormalTok{(}

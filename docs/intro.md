@@ -25,7 +25,6 @@ Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson
 -   Update code for Ex 5.7.7 to be cleaner (#41)
 -   Fix various typos (dongzhuoer #39, #40, #43, #45, #46, #47, #48)
 
-
 ### 2018-07-28 {-}
 
 -   Fix miscellaneous typos (dongzhuoer, #31, #33, #34, #35, #36, #37)

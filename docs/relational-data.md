@@ -130,7 +130,7 @@ Identify the keys in the following datasets
 
 The answer to each part follows.
 
-1.  The primary key for `Lahman::Batting` is `playerID`, `yearID`, `stint`. 
+1.  The primary key for `Lahman::Batting` is `playerID`, `yearID`, `stint`.
     It is not simply `playerID`, `yearID` because players can have different stints in different leagues within the same year.
 
     
@@ -142,7 +142,7 @@ The answer to each part follows.
     #> [1] 0
     ```
 
-1.  The primary key for `babynames::babynames` is `year`, `sex`, `name`. 
+1.  The primary key for `babynames::babynames` is `year`, `sex`, `name`.
     It is not simply `year`, `name` since names can appear for both sexes with different counts.
 
     
@@ -154,7 +154,7 @@ The answer to each part follows.
     #> [1] 0
     ```
 
-1.   The primary key for `nasaweather::atmos` is the location and time of the measurement: `lat`, `long`, `year`, `month`.
+1.  The primary key for `nasaweather::atmos` is the location and time of the measurement: `lat`, `long`, `year`, `month`.
 
     
     ```r
@@ -349,12 +349,12 @@ Add the location of the origin and destination (i.e. the `lat` and `lon`) to `fl
 
 <div class='answer'>
 
-You can perform one join after another. If duplicate variables are found, by default, dplyr will distinguish the two by adding `.x`, and `.y` to the ends of the variable names to solve naming conflicts. 
+You can perform one join after another. If duplicate variables are found, by default, dplyr will distinguish the two by adding `.x`, and `.y` to the ends of the variable names to solve naming conflicts.
 
 ```r
 airport_locations <- airports %>%
   select(faa, lat, lon)
-  
+
 flights %>%
     select(year:day, hour, origin, dest) %>%
   left_join(
@@ -381,7 +381,7 @@ This default can be over-ridden using the `suffix` argument.
 ```r
 airport_locations <- airports %>%
   select(faa, lat, lon)
-  
+
 flights %>%
     select(year:day, hour, origin, dest) %>%
   left_join(

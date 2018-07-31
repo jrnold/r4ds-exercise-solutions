@@ -285,8 +285,9 @@ The answer to each part follows.
     ```r
     str_view(stringr::words, "^y", match =TRUE)
     ```
-    
+
 1.  End with “x”
+
     
     ```r
     str_view(stringr::words, "x$", match = TRUE)
@@ -300,6 +301,7 @@ The answer to each part follows.
     ```
 
 1.  The words that have seven letters or more are
+
     
     ```r
     str_view(stringr::words, ".......", match = TRUE)
@@ -334,7 +336,7 @@ The answer to each part follows.
     ```
 
 1.  Words that contain only consonants
-    
+
     
     ```r
     str_view(stringr::words, "^[^aeiou]+$", match=TRUE)
@@ -350,7 +352,7 @@ The answer to each part follows.
     ```
 
 1.  Words ending in `ing` or `ise`:
-    
+
     
     ```r
     str_view(stringr::words, "i(ng|se)$", match = TRUE)
@@ -653,11 +655,11 @@ The answer to each part follows.
     ```r
     str_view(words, "([[:letter:]]).*\\1")
     ```
-    
-    Note that these patterns are case sensitive. Use the 
+
+    Note that these patterns are case sensitive. Use the
     case insensitive flag if you want to check for repeated pairs
-    of letters with different capitalization. 
-    
+    of letters with different capitalization.
+
     The `\\1` is used to refer back to the first group (`(.)`) so that whatever letter is matched by `[A-Za-z]` is again matched.
 
 1.  This regex matches words that contain one letter repeated in at least three places.
@@ -728,7 +730,7 @@ The answer to each part follows.
     that contain at least one of each vowel. The regular expression
     would need to consider all possible orders in which the vowels
     could occur.
-    
+
     
     ```r
     pattern <-
@@ -743,16 +745,16 @@ The answer to each part follows.
     ```
 
     To check that this pattern works, test it on a pattern that
-    should match 
+    should match
     
     ```r
     str_subset("aseiouds", pattern)
     #> [1] "aseiouds"
     ```
-    
-    Using multiple `str_detect()` calls, one pattern for each vowel, 
+
+    Using multiple `str_detect()` calls, one pattern for each vowel,
     produces a much simpler and readable answer.
-    
+
     
     ```r
     str_subset(words, pattern)
@@ -765,7 +767,7 @@ The answer to each part follows.
           str_detect(words, "u")]
     #> character(0)
     ```
-    
+
     There appear to be none.
 
 1.  The word with the highest number of vowels is
@@ -776,7 +778,7 @@ The answer to each part follows.
     #> [1] "appropriate" "associate"   "available"   "colleague"   "encourage"  
     #> [6] "experience"  "individual"  "television"
     ```
-    
+
     The word with the highest proportion of vowels is
     
     ```r
@@ -863,7 +865,7 @@ The answer to each part follows.
 1.  Finding all plurals cannot be correctly accoplished with regular expressions alone.
     Finding plural words would at least require morphological information about words in the language.
     See [WordNet](https://cran.r-project.org/web/packages/wordnet/index.html) for a resource that would do that.
-    However, identifying words that end in an "s" and with more than three characters, in order to remove "as", "is", "gas", etc., is 
+    However, identifying words that end in an "s" and with more than three characters, in order to remove "as", "is", "gas", etc., is
     a reasonable heuristic.
 
     
