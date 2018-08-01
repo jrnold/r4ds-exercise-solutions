@@ -419,12 +419,12 @@ When you subset with positive integers that are larger than the length of the ve
 #> [1] NA NA
 ```
 
-When a vector is subset with a name that doesn't exist, an error is generated.
-
+Similarly, when a vector is subset with a name that doesn't exist, `NA` values are returned for those names that don't exist and the names themselves.
 
 ```r
-c(a = 1, 2)[["b"]]
-#> Error in c(a = 1, 2)[["b"]]: subscript out of bounds
+c(a = 1, 2)["b"]
+#> <NA> 
+  NA
 ```
 
 </div>
