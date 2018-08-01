@@ -340,15 +340,38 @@ What happens when you subset with a positive integer that’s bigger than the le
 
 `r BeginAnswer()`
 
-When you subset with positive integers that are larger than the length of the vector, `NA` values are returned for those integers larger than the length of the vector.
+Let's consider the named vector,
 ```{r}
-(1:10)[11:12]
+x <- c(a = 10, b = 20)
+```
+If we subset it by an integer larger than its length, it returns a vector of messing values.
+```{r}
+x[3]
+```
+This also applies to ranges.
+```{r}
+x[3:5]
+```
+If some indexes are larger than the length of the vector, those elements are `NA`.
+```{r}
+x[1:5]
 ```
 
-When a vector is subset with a name that doesn't exist, an error is generated.
+Likewise, when `[` is provided names not in the vector's names, it will return
+`NA` for those elements.
+```{r}
+x["c"]
+x[c("c", "d", "e")]
+x[c("a", "b", "c")]
+```
 
+Though not yet discussed much in this chapter, the `[[` behaves differently.
+With an atomic vector, if `[[` is given an index outside the range of the vector or an invalid name, it raises an error.
 ```{r error=TRUE}
-c(a = 1, 2)[["b"]]
+x[["c"]]
+```
+```{r error=TRUE}
+x[[5]]
 ```
 
 `r EndAnswer()`
