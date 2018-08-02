@@ -1,3 +1,7 @@
+## 2018-08-01
+
+-   Edit answer to 20.4.6 (nzxwang, #50)
+
 ## 2018-07-31
 
 -   Add widget to view rstudiotips Twitter timeline
