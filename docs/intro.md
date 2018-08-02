@@ -10,9 +10,13 @@ without which these solutions would not exist---literally.
 This book was written in the open, with some people contributed pull requests to fix problems.
 Thank you to all who contributed via [GitHub](https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors).
 
-Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson@gmail.com>, <dongzhuoer@mail.nankai.edu.cn>, <kleinmarkgeard@gmail.com>, <mjones01@BattelleEcology.org>, <ndecoursin@gmail.com>, <theadamattack@gmail.com>, <theadamattack@gmail.com>, <tinhb92@gmail.com>.
+Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson@gmail.com>, <dongzhuoer@mail.nankai.edu.cn>, <kleinmarkgeard@gmail.com>, <mjones01@BattelleEcology.org>, <ndecoursin@gmail.com>, <nickywang100@gmail.com>, <theadamattack@gmail.com>, <theadamattack@gmail.com>, <tinhb92@gmail.com>.
 
 ## Updates {-}
+
+### 2018-08-01 {-}
+
+-   Edit answer to 20.4.6 (nzxwang, #50)
 
 ### 2018-07-31 {-}
 

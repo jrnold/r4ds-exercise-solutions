@@ -412,19 +412,59 @@ What happens when you subset with a positive integer that’s bigger than the le
 
 <div class='answer'>
 
-When you subset with positive integers that are larger than the length of the vector, `NA` values are returned for those integers larger than the length of the vector.
+Let's consider the named vector,
 
 ```r
-(1:10)[11:12]
-#> [1] NA NA
+x <- c(a = 10, b = 20)
+```
+If we subset it by an integer larger than its length, it returns a vector of messing values.
+
+```r
+x[3]
+#> <NA> 
+#>   NA
+```
+This also applies to ranges.
+
+```r
+x[3:5]
+#> <NA> <NA> <NA> 
+#>   NA   NA   NA
+```
+If some indexes are larger than the length of the vector, those elements are `NA`.
+
+```r
+x[1:5]
+#>    a    b <NA> <NA> <NA> 
+#>   10   20   NA   NA   NA
 ```
 
-Similarly, when a vector is subset with a name that doesn't exist, `NA` values are returned for those names that don't exist and the names themselves.
+Likewise, when `[` is provided names not in the vector's names, it will return
+`NA` for those elements.
 
 ```r
-c(a = 1, 2)["b"]
+x["c"]
 #> <NA> 
-  NA
+#>   NA
+x[c("c", "d", "e")]
+#> <NA> <NA> <NA> 
+#>   NA   NA   NA
+x[c("a", "b", "c")]
+#>    a    b <NA> 
+#>   10   20   NA
+```
+
+Though not yet discussed much in this chapter, the `[[` behaves differently.
+With an atomic vector, if `[[` is given an index outside the range of the vector or an invalid name, it raises an error.
+
+```r
+x[["c"]]
+#> Error in x[["c"]]: subscript out of bounds
+```
+
+```r
+x[[5]]
+#> Error in x[[5]]: subscript out of bounds
 ```
 
 </div>
@@ -454,7 +494,7 @@ For these examples, I generated these diagrams programmatically using the
     `list(a, b, list(c, d), list(e, f))`
     is
 
-
+    
 
     
     \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_1-1} 
@@ -463,7 +503,7 @@ For these examples, I generated these diagrams programmatically using the
     `list(list(list(list(list(list(a))))))1
     is as follows.
 
-
+    
 
     
     \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_2-1} 

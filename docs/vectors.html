@@ -113,17 +113,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-07-31</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-30</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-29</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-28</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-07-24</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-5"><i class="fa fa-check"></i>2018-07-23</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-6"><i class="fa fa-check"></i>2018-07-22</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-7"><i class="fa fa-check"></i>2018-07-21</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-8"><i class="fa fa-check"></i>2018-07-15</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-9"><i class="fa fa-check"></i>2018-07-14</a></li>
-<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-10"><i class="fa fa-check"></i>2018-05-08</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-08-01</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-07-31</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-2"><i class="fa fa-check"></i>2018-07-30</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-3"><i class="fa fa-check"></i>2018-07-29</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-4"><i class="fa fa-check"></i>2018-07-28</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-5"><i class="fa fa-check"></i>2018-07-24</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-6"><i class="fa fa-check"></i>2018-07-23</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-7"><i class="fa fa-check"></i>2018-07-22</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-8"><i class="fa fa-check"></i>2018-07-21</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-9"><i class="fa fa-check"></i>2018-07-15</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-10"><i class="fa fa-check"></i>2018-07-14</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-11"><i class="fa fa-check"></i>2018-05-08</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
@@ -961,12 +962,35 @@ x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span
 <p>What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?</p>
 </div>
 <div class="answer">
-<p>When you subset with positive integers that are larger than the length of the vector, <code>NA</code> values are returned for those integers larger than the length of the vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)[<span class="dv">11</span><span class="op">:</span><span class="dv">12</span>]
-<span class="co">#&gt; [1] NA NA</span></code></pre></div>
-<p>When a vector is subset with a name that doesn’t exist, an error is generated.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dv">2</span>)[[<span class="st">&quot;b&quot;</span>]]
-<span class="co">#&gt; Error in c(a = 1, 2)[[&quot;b&quot;]]: subscript out of bounds</span></code></pre></div>
+<p>Let’s consider the named vector,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">20</span>)</code></pre></div>
+<p>If we subset it by an integer larger than its length, it returns a vector of messing values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[<span class="dv">3</span>]
+<span class="co">#&gt; &lt;NA&gt; </span>
+<span class="co">#&gt;   NA</span></code></pre></div>
+<p>This also applies to ranges.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]
+<span class="co">#&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span>
+<span class="co">#&gt;   NA   NA   NA</span></code></pre></div>
+<p>If some indexes are larger than the length of the vector, those elements are <code>NA</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+<span class="co">#&gt;    a    b &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span>
+<span class="co">#&gt;   10   20   NA   NA   NA</span></code></pre></div>
+<p>Likewise, when <code>[</code> is provided names not in the vector’s names, it will return <code>NA</code> for those elements.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[<span class="st">&quot;c&quot;</span>]
+<span class="co">#&gt; &lt;NA&gt; </span>
+<span class="co">#&gt;   NA</span>
+x[<span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>)]
+<span class="co">#&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span>
+<span class="co">#&gt;   NA   NA   NA</span>
+x[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)]
+<span class="co">#&gt;    a    b &lt;NA&gt; </span>
+<span class="co">#&gt;   10   20   NA</span></code></pre></div>
+<p>Though not yet discussed much in this chapter, the <code>[[</code> behaves differently. With an atomic vector, if <code>[[</code> is given an index outside the range of the vector or an invalid name, it raises an error.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[[<span class="st">&quot;c&quot;</span>]]
+<span class="co">#&gt; Error in x[[&quot;c&quot;]]: subscript out of bounds</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[[<span class="dv">5</span>]]
+<span class="co">#&gt; Error in x[[5]]: subscript out of bounds</span></code></pre></div>
 </div>
 </div>
 </div>
