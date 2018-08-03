@@ -1,5 +1,6 @@
 ## 2018-08-03
 
+-  Updated 11.2.4. `read_csv()` now supports a `quote` argument.
 -  Edited 21.2.3. Added lyrics for all songs.
 -  Edited 19.2.6
 -  Edited 19.2.4. Used different definition of sample skewness. (#55)

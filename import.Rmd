@@ -71,17 +71,24 @@ Sometimes strings in a CSV file contain commas.
 To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`.
 By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead.
 What arguments do you need to specify to read the following text into a data frame?
-`r EndQuestion()`
-
-`r BeginAnswer()`
 
 ```
 "x,y\n1,'a,b'"
 ```
 
+`r EndQuestion()`
+
+`r BeginAnswer()`
+
+For `read_delim()`, we will will need to specify a delimiter, in this case `","`, and a quote argument.
 ```{r}
 x <- "x,y\n1,'a,b'"
 read_delim(x, ",", quote = "'")
+```
+
+However, this question is out of date. `read_csv()` now supports a quote argument, so the following code works.
+```{r}
+read_csv(x, quote = "'")
 ```
 
 `r EndAnswer()`
