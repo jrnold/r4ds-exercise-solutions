@@ -66,11 +66,7 @@ rescale01(c(Inf, -Inf, 0:5, NA))
 
 `r BeginQuestion()`
 
- Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
-
-`r EndQuestion()`
-
-`r BeginAnswer()`
+Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
 
 ```{r eval=FALSE}
 mean(is.na(x))
@@ -80,31 +76,62 @@ x / sum(x, na.rm = TRUE)
 sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 ```
 
-This function calculates the proportion of `NA` values in a vector,
+`r EndQuestion()`
+
+`r BeginAnswer()`
+
+This code calculates the proportion of `NA` values in a vector.
+```{r eval=FALSE}
+mean(is.na(x))
+```
+I will write it as a function named `prop_na` that takes a single argument `x`, 
+and returns a single numeric value between 0 and 1.
 ```{r}
 prop_na <- function(x) {
   mean(is.na(x))
 }
-prop_na(c(NA, 0, NA, 0, NA))
+prop_na(c(0, 1, 2, NA, 4, NA))
 ```
 
-This function standardizes a vector to its weight. If all elements of `x` are non-negative, this will ensure the vector sums to 1.
+This code standardizes a vector so that it sums to 1.
+```{r eval=FALSE}
+x / sum(x, na.rm = TRUE)
+```
+I'll write a function named `sum_to_one()`, which is a function of a single argument, `x`, the vector to standardize, and an optional argument `na.rm`.
+The optional argument, `na.rm`, makes the function more expressive, since it can 
+handle `NA` values in two ways (returning `NA` or dropping them).
+Additionally, this makes `sum_to_one()` consistent with `sum()`, `mean()`, and many 
+other R functions which have a `na.rm` argument.
+While the example code had `na.rm = TRUE`, I set `na.rm = FALSE` by default
+in order to make the function behave the same as the built-in functions like `sum()` and `mean()` in its handling of missing values.
 ```{r}
-weights <- function(x) {
-  x / sum(x, na.rm = TRUE)
+sum_to_one <- function(x, na.rm = FALSE) {
+  x / sum(x, na.rm = na.rm)
 }
-y <- weights(0:5)
-y
-sum(y)
 ```
 
-This function calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values).
-The coefficient of variation is the standard deviation divided by the mean
 ```{r}
-coef_variation <- function(x) {
-  sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+# no missing values
+sum_to_one(1:5)
+# if any missing, return all missing
+sum_to_one(c(1:5, NA))
+# drop missing values when standarizing
+sum_to_one(c(1:5, NA), na.rm = TRUE)
+```
+
+This code calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values), which is the standard deviation divided by the mean.
+```{r eval=FALSE}
+sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+```
+I'll write a function named `coef_variation()`, which takes a single argument `x`,
+and an optional `na.rm` argument.
+```{r}
+coef_variation <- function(x, na.rm = FALSE) {
+  sd(x, na.rm = na.rm) / mean(x, na.rm = na.rm)
 }
 coef_variation(runif(10))
+coef_variation(runif(c(10, NA)))
+coef_variation(runif(c(10, NA), na.rm = TRUE))
 ```
 
 `r EndAnswer()`
