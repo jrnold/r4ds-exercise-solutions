@@ -1,3 +1,7 @@
+## 2018-08-03
+
+-  Fix typos (dongzhuoer #64, #63)
+
 ## 2018-08-01
 
 -   Edit answer to 20.4.6 (nzxwang, #50)
