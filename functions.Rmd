@@ -529,19 +529,20 @@ switch(x,
 )
 ```
 
-Experiment, then carefully read the documentation.`r EndQuestion()`
+Experiment, then carefully read the documentation.
+
+`r EndQuestion()`
 
 `r BeginAnswer()`
 
-It will return the `"ab"` for `a` or `b`, `"cd"` for `c` or `d`, an `NULL` for `e`. It returns the first non-missing value for the first name it matches.
-
+First, let's write a function `switcheroo()`, and see what it returns for different values of `x`.
 ```{r}
 switcheroo <- function(x) {
   switch(x,
-  a = ,
-  b = "ab",
-  c = ,
-  d = "cd"
+    a = ,
+    b = "ab",
+    c = ,
+    d = "cd"
   )
 }
 switcheroo("a")
@@ -549,6 +550,31 @@ switcheroo("b")
 switcheroo("c")
 switcheroo("d")
 switcheroo("e")
+switcheroo("f")
+```
+
+The `switcheroo()` function returns `"ab"` for `x = "a"` or `x = "b"`, 
+`"cd"` for `x = "c"` or `x = "d"`, and
+`NULL` for `x = "e"` or any other value of `x` not in `c("a", "b", "c", "d")`.
+
+How does this work?
+The `switch()` function returns the first non-missing argument value for the first name it matches.
+Thus, when `switch()` encounters an argument with a missing value, like `a = ,`, 
+it will return the value of the next argument with a non missing value, which in this case is `b = "ab"`.
+If `object` in `switch(object=)` is not equal to the names of any of its arguments,
+`switch()` will return either the last (unnamed) argument if one is present or `NULL`.
+Since `"e"` is not one of the named arguments in `switch()` (`a`, `b`, `c`, `d`), 
+and no other unnamed default value is present, this code will return `NULL`.
+
+The code in the question is shorter way of writing the following.
+```r
+switch(x,
+  a = "ab",
+  b = "ab",
+  c = "cd",
+  d = "cd",
+  NULL  # value to return if x not matched
+)
 ```
 
 `r EndAnswer()`
