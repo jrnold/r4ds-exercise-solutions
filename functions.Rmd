@@ -129,9 +129,9 @@ and an optional `na.rm` argument.
 coef_variation <- function(x, na.rm = FALSE) {
   sd(x, na.rm = na.rm) / mean(x, na.rm = na.rm)
 }
-coef_variation(runif(10))
-coef_variation(runif(c(10, NA)))
-coef_variation(runif(c(10, NA), na.rm = TRUE))
+coef_variation(1:5)
+coef_variation(c(1:5, NA))
+coef_variation(c(1:5, NA), na.rm = TRUE)
 ```
 
 `r EndAnswer()`
@@ -154,11 +154,9 @@ Var(x) = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar{x}) ^2
 $$
 where the sample mean is $\bar{x} = (\sum x_i) / n$.
 ```{r}
-variance <- function(x) {
-  # remove missing values
-  x <- x[!is.na(x)]
+variance <- function(x, na.rm = TRUE) {
   n <- length(x)
-  m <- mean(x)
+  m <- mean(x, na.rm = TRUE)
   sq_err <- (x - m) ^ 2
   sum(sq_err) / (n - 1)
 }
@@ -166,20 +164,25 @@ var(1:10)
 variance(1:10)
 ```
 
-There are multiple definitions of [skewness](https://en.wikipedia.org/wiki/Skewness), but I'll use the method of moments estimator of the population skewness,
+There are multiple definitions of [skewness](https://en.wikipedia.org/wiki/Skewness),
+but one of the most commonly used is the following:[@DoaneSeward2011]
 $$
-b_1 =  \frac{m_3}{s^3} = \frac{\frac{1}{n} \sum (x_i - \bar{x}) ^ 3}{{\left(\frac{1}{n - 1} \sum (x_i - \bar{x}) ^ 2\right)} ^ \frac{3}{2}}
+\mathsf{skewness}(x) = \frac{n}{(n - 1)(n - 2)} \sum_{i = 1}^{n} {\left( \frac{x_i - \bar{x}}{s} \right)}^{3} .
 $$
+where $\bar{x}$ is the sample mean and 
+$$
+s = \sqrt{\frac{1}{n - 1} \sum_{i = 1}^{n} (x_i - \bar{x})^2}
+$$
+is the sample standard deviation.
+The corresponding function is:
 ```{r}
-skewness <- function(x) {
-  x <- x[!is.na(x)]
+skewness <- function(x, na.rm = FALSE) {
   n <- length(x)
-  m <- mean(x)
-  m3 <- sum((x - m) ^ 3) / n
-  s3 <- sqrt(sum((x - m) ^ 2) / (n - 1))
-  m3 / s3
+  m <- mean(x, na.rm = na.rm)
+  s <- sd(x, na.rm = na.rm)
+  n * sum(((x - m) / s) ^ 3) / (n - 1) / (n - 2)
 }
-skewness(rgamma(10, 1, 1))
+skewness(c(1, 2, 5, 100))
 ```
 
 `r EndAnswer()`
