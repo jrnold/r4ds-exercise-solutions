@@ -13,11 +13,11 @@ library(stringr)
 
 ### Exercise <span class="exercise-number">14.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What **stringr** function are they equivalent to? How do the functions differ in their handling of NA?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The function `paste` separates strings by spaces by default, while `paste0` does not separate strings with spaces by default.
 
@@ -55,11 +55,11 @@ paste0("foo", NA)
 
 ### Exercise <span class="exercise-number">14.2.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 In your own words, describe the difference between the `sep` and `collapse` arguments to `str_c()`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The `sep` argument is the string inserted between arguments to `str_c`, while `collapse` is the string used to separate any elements of the character vector into a character vector of length one.
 
@@ -67,11 +67,11 @@ The `sep` argument is the string inserted between arguments to `str_c`, while `c
 
 ### Exercise <span class="exercise-number">14.2.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Use `str_length()` and `str_sub()` to extract the middle character from a string. What will you do if the string has an even number of characters?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The following function extracts the middle character. If the string has an even number of characters the choice is arbitrary.
 We choose to select $\lceil n / 2 \rceil$, because that case works even if the string is only of length one.
@@ -89,11 +89,11 @@ str_sub(x, m, m)
 
 ### Exercise <span class="exercise-number">14.2.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `str_wrap()` do? When might you want to use it?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The function `str_wrap` wraps text so that it fits within a certain width.
 This is useful for wrapping long strings of text to be typeset.
@@ -102,11 +102,11 @@ This is useful for wrapping long strings of text to be typeset.
 
 ### Exercise <span class="exercise-number">14.2.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `str_trim()` do? What’s the opposite of `str_trim()`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The function `str_trim` trims the whitespace from a string.
 
@@ -135,11 +135,11 @@ str_pad("abc", 4, side = "left")
 
 ### Exercise <span class="exercise-number">14.2.6</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 See the Chapter [Functions] for more details on writing R functions.
 
@@ -172,11 +172,11 @@ str_commasep(c("a", "b", "c"))
 
 #### Exercise <span class="exercise-number">14.3.1.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 -   `"\"`: This will escape the next character in the R string.
 -   `"\\"`: This will resolve to `\` in the regular expression, which will escape the next character in the regular expression.
@@ -186,11 +186,11 @@ Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
 
 #### Exercise <span class="exercise-number">14.3.1.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How would you match the sequence `"'\` ?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -201,11 +201,11 @@ str_view("\"'\\", "\"'\\\\")
 
 #### Exercise <span class="exercise-number">14.3.1.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
@@ -248,11 +248,11 @@ str_view(x, "^apple$")
 
 #### Exercise <span class="exercise-number">14.3.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How would you match the literal string `"$^$"`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -263,7 +263,7 @@ str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 
 #### Exercise <span class="exercise-number">14.3.2.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
 
 1.  Start with “y”.
@@ -275,7 +275,7 @@ Since this list is long, you might want to use the match argument to `str_view()
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -313,7 +313,7 @@ The answer to each part follows.
 
 #### Exercise <span class="exercise-number">14.3.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Create regular expressions to find all words that:
 
@@ -324,7 +324,7 @@ Create regular expressions to find all words that:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -362,13 +362,13 @@ The answer to each part follows.
 
 #### Exercise <span class="exercise-number">14.3.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Empirically verify the rule ``i before e except after c''.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Using only what has been introduced thus far:
 
@@ -393,11 +393,11 @@ sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 
 #### Exercise <span class="exercise-number">14.3.3.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Is ``q'' always followed by a ``u''?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 In the `stringr::words` dataset, yes. In the full English language, no.
 
@@ -409,11 +409,11 @@ str_view(stringr::words, "q[^u]", match = TRUE)
 
 #### Exercise <span class="exercise-number">14.3.3.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Write a regular expression that matches a word if it’s probably written in British English, not American English.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 In the general case, this is hard, and could require a dictionary.
 But, there are a few heuristics to consider that would account for some common cases: British English tends to use the following:
@@ -432,11 +432,11 @@ It would require a dictionary with differences in spellings for different words.
 
 #### Exercise <span class="exercise-number">14.3.3.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Create a regular expression that will match telephone numbers as commonly written in your country.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to this will vary by country.
 
@@ -472,11 +472,11 @@ for a discussion of using a regex for phone number validation.
 
 #### Exercise <span class="exercise-number">14.3.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 | Pattern | `{m,n}` | Meaning           |
 |---------|---------|-------------------|
@@ -507,7 +507,7 @@ str_view(x, "CC{1,}")
 
 #### Exercise <span class="exercise-number">14.3.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
 
 1.  `^.*$`
@@ -517,7 +517,7 @@ Describe in words what these regular expressions match: (read carefully to see i
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -538,7 +538,7 @@ The answer to each part follows.
 
 #### Exercise <span class="exercise-number">14.3.4.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Create regular expressions to find all words that:
 
 1.  Start with three consonants.
@@ -547,7 +547,7 @@ Create regular expressions to find all words that:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -576,13 +576,13 @@ The answer to each part follows.
 
 #### Exercise <span class="exercise-number">14.3.4.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Solve the beginner regexp crosswords at <https://regexcrossword.com/challenges/>
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Exercise left to reader. That site validates its solutions, so they aren't repeated here.
 
@@ -592,7 +592,7 @@ Exercise left to reader. That site validates its solutions, so they aren't repea
 
 #### Exercise <span class="exercise-number">14.3.5.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Describe, in words, what these expressions will match:
 
 1.  `(.)\1\1` :
@@ -603,7 +603,7 @@ Describe, in words, what these expressions will match:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -617,7 +617,7 @@ The answer to each part follows.
 
 #### Exercise <span class="exercise-number">14.3.5.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Construct regular expressions to match words that:
 
 1.  Start and end with the same character.
@@ -626,7 +626,7 @@ Construct regular expressions to match words that:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -686,7 +686,7 @@ No exercises
 
 #### Exercise <span class="exercise-number">14.4.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 For each of the following challenges, try solving it by using both a single regular expression, and a combination of multiple `str_detect()` calls.
 
 1.  Find all words that start or end with x.
@@ -696,7 +696,7 @@ For each of the following challenges, try solving it by using both a single regu
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -793,11 +793,11 @@ The answer to each part follows.
 
 #### Exercise <span class="exercise-number">14.4.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 This was the original color match pattern:
 
@@ -828,7 +828,7 @@ str_view_all(more2, colour_match2, match = TRUE)
 
 #### Exercise <span class="exercise-number">14.4.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 From the Harvard sentences data, extract:
 
@@ -838,7 +838,7 @@ From the Harvard sentences data, extract:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -881,11 +881,11 @@ The answer to each part follows.
 
 #### Exercise <span class="exercise-number">14.4.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 I'll use the same following "word" pattern as used above
 
@@ -908,11 +908,11 @@ sentences[str_detect(sentences, numword)] %>%
 
 #### Exercise <span class="exercise-number">14.4.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Find all contractions. Separate out the pieces before and after the apostrophe.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -931,11 +931,11 @@ sentences %>%
 
 #### Exercise <span class="exercise-number">14.4.5.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Replace all forward slashes in a string with backslashes.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -948,11 +948,11 @@ writeLines(backslashed)
 
 #### Exercise <span class="exercise-number">14.4.5.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Implement a simple version of `str_to_lower()` using `replace_all()`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 ```r
 lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "F"="f", "G"="g", "H"="h", "I"="i", "J"="j", "K"="k", "L"="l", "M"="m", "N"="n", "O"="o", "P"="p", "Q"="q", "R"="r", "S"="s", "T"="t", "U"="u", "V"="v", "W"="w", "X"="x", "Y"="y", "Z"="z"))
@@ -962,11 +962,11 @@ lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "
 
 #### Exercise <span class="exercise-number">14.4.5.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Switch the first and last letters in `words`. Which of those strings are still words?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 First, make a vector of all the words with first and last letters swapped,
 
@@ -994,11 +994,11 @@ intersect(swapped,words)
 
 #### Exercise <span class="exercise-number">14.4.6.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Split up a string like `"apples, pears, and bananas"` into individual components.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -1011,11 +1011,11 @@ str_split(x, ", +(and +)?")[[1]]
 
 #### Exercise <span class="exercise-number">14.4.6.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why is it better to split up by `boundary("word")` than `" "`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Splitting by `boundary("word")` is a more sophisticated method to split a string into words.
 It recognizes non-space punctuation that splits words, and also removes punctuation while retaining internal non-letter characters that are parts of the word, e.g., "can't"
@@ -1047,11 +1047,11 @@ str_split(sentence, boundary("word"))
 
 #### Exercise <span class="exercise-number">14.4.6.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does splitting with an empty string `("")` do? Experiment, and then read the documentation.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -1071,11 +1071,11 @@ No exercises
 
 ### Exercise <span class="exercise-number">14.5.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -1089,11 +1089,11 @@ str_subset(c("a\\b", "ab"), fixed("\\"))
 
 ### Exercise <span class="exercise-number">14.5.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What are the five most common words in sentences?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -1126,7 +1126,7 @@ No exercises
 
 ### Exercise <span class="exercise-number">14.7.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Find the **stringi** functions that:
 
 1.  Count the number of words. `stri_count_words`
@@ -1140,7 +1140,7 @@ Find the **stringi** functions that:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -1158,12 +1158,11 @@ The answer to each part follows.
 
 ### Exercise <span class="exercise-number">14.7.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How do you control the language that `stri_sort()` uses for sorting?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Use the `locale` argument to the `opts_collator` argument.
 </div>
-

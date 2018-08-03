@@ -17,11 +17,11 @@ library("datamodelr")
 
 ### Exercise <span class="exercise-number">13.1.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 -   `flights` table: `origin` and `dest`
 -   `airports` table: longitude and latitude variables
@@ -31,11 +31,11 @@ Imagine you wanted to draw (approximately) the route each plane flies from its o
 
 ### Exercise <span class="exercise-number">13.1.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The variable `origin` in `weather` is matched with `faa` in `airports`.
 
@@ -43,11 +43,11 @@ The variable `origin` in `weather` is matched with `faa` in `airports`.
 
 ### Exercise <span class="exercise-number">13.1.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 `year`, `month`, `day`, `hour`, `origin` in `weather` would be matched to `year`, `month`, `day`, `hour`, `dest` in `flight` (though it should use the arrival date-time values for `dest` if possible).
 
@@ -55,11 +55,11 @@ weather only contains information for the origin (NYC) airports. If it contained
 
 ### Exercise <span class="exercise-number">13.1.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 I would add a table of special dates.
 The primary key would be date.
@@ -71,11 +71,11 @@ It would match to the `year`, `month`, `day` columns of `flights.
 
 ### Exercise <span class="exercise-number">13.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Add a surrogate key to flights.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 I add the column `flight_id` as a surrogate key.
 I sort the data prior to making the key, even though it is not strictly necessary, so the order of the rows has some meaning.
@@ -113,7 +113,7 @@ flights %>%
 
 ### Exercise <span class="exercise-number">13.2.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Identify the keys in the following datasets
 
 1.  `Lahman::Batting`
@@ -126,7 +126,7 @@ Identify the keys in the following datasets
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answer to each part follows.
 
@@ -290,11 +290,11 @@ flights2 <- flights %>%
 
 ### Exercise <span class="exercise-number">13.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -343,11 +343,11 @@ You might want to use the size or color of the points to display the average del
 
 ### Exercise <span class="exercise-number">13.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Add the location of the origin and destination (i.e. the `lat` and `lon`) to `flights`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 You can perform one join after another. If duplicate variables are found, by default, dplyr will distinguish the two by adding `.x`, and `.y` to the ends of the variable names to solve naming conflicts.
 
@@ -412,11 +412,11 @@ It's always good practice to have clear variable names.
 
 ### Exercise <span class="exercise-number">13.3.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Is there a relationship between the age of a plane and its delays?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
 This could be due to choices about how airlines allocate planes to airports.
@@ -447,11 +447,11 @@ flights %>%
 
 ### Exercise <span class="exercise-number">13.3.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What weather conditions make it more likely to see a delay?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Almost any amount or precipitation is associated with a delay, though not as strong a trend after 0.02 in as one would expect
 
@@ -479,11 +479,11 @@ flight_weather %>%
 
 ### Exercise <span class="exercise-number">13.3.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series))
 
@@ -515,11 +515,11 @@ flights %>%
 
 ### Exercise <span class="exercise-number">13.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
 
@@ -543,11 +543,11 @@ flights %>%
 
 ### Exercise <span class="exercise-number">13.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Filter flights to only show flights with planes that have flown at least 100 flights.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -578,11 +578,11 @@ flights %>%
 
 ### Exercise <span class="exercise-number">13.4.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The table `fueleconomy::common` identifies vehicles by `make` and `model`:
 
@@ -631,11 +631,11 @@ fueleconomy::vehicles %>%
 
 ### Exercise <span class="exercise-number">13.4.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -661,11 +661,11 @@ flights %>%
 
 ### Exercise <span class="exercise-number">13.4.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 `anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.
 
@@ -675,11 +675,11 @@ What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What 
 
 ### Exercise <span class="exercise-number">13.4.6</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
 However, even though that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
@@ -767,4 +767,3 @@ No exercises
 ## Set operations
 
 No exercises
-

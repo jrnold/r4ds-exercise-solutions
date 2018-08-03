@@ -22,7 +22,7 @@ No exercises
 
 ### Exercise <span class="exercise-number">4.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why does this code not work?
 
 ```r
@@ -61,7 +61,7 @@ The most common scenarios in which I encounter this error message are
 
 ### Exercise <span class="exercise-number">4.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Tweak each of the following R commands so that they run correctly:
 </div>
 
@@ -157,9 +157,8 @@ Since `diamonds` includes the variable `carat` and the code works, that appears 
 
 ### Exercise <span class="exercise-number">4.4.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Press *Alt + Shift + K*. What happens? How can you get to the same place using the menus?
 </div>
 
 This gives a menu with keyboard shortcuts. This can be found in the menu under `Tools -> Keyboard Shortcuts Help`.
-

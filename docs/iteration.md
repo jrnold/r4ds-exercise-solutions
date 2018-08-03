@@ -18,7 +18,7 @@ library("microbenchmark")
 
 ### Exercise <span class="exercise-number">21.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Write for-loops to:
 
@@ -29,7 +29,7 @@ Write for-loops to:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 The answers for each part are below.
 
 1.  To compute the mean of every column in `mtcars`.
@@ -175,11 +175,11 @@ matrix(rnorm(n * length(mu), mean = mu), ncol = n)
 
 ### Exercise <span class="exercise-number">21.2.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -258,7 +258,7 @@ all.equal(cumsum(x),out)
 
 ### Exercise <span class="exercise-number">21.2.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Combine your function writing and for loop skills:
 
@@ -271,7 +271,7 @@ Generalize to any number of any vessel containing any liquid on  surface.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answers to each part follow.
 
@@ -470,11 +470,11 @@ The answers to each part follow.
 
 #### Exercise <span class="exercise-number">21.2.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 It's common to see for loops that don't preallocate the output and instead increase the length of a vector at each step:
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -529,12 +529,12 @@ You may get different answers, but the longer the vector and the bigger the obje
 
 ### Exercise <span class="exercise-number">21.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Imagine you have a directory full of CSV files that you want to read in.
 You have their paths in a vector,
 </div>
 
-<div class='answer'>
+<div class="answer">
 `files <- dir("data/", pattern = "\\.csv$", full.names = TRUE)`, and now
 want to read each one with `read_csv()`. Write the for loop that will
 load them into a single data frame.
@@ -555,13 +555,13 @@ df <- bind_rows(df)
 
 ### Exercise <span class="exercise-number">21.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens if you use `for (nm in names(x))` and `x` has no names?
 What if only some of the elements are named?
 What if the names are not unique?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Let's try it out and see what happens.
 
@@ -629,12 +629,12 @@ for (nm in names(x)) {
 
 ### Exercise <span class="exercise-number">21.3.3</span> {.unnumbered .exercise}  
 
-<div class='question'>
+<div class="question">
 Write a function that prints the mean of each numeric column in a data  frame, along with its name.
 For example, `show_mean(iris)` would print:
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -674,11 +674,11 @@ show_mean(iris)
 
 ### Exercise <span class="exercise-number">21.3.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does this code do? How does it work?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -721,11 +721,11 @@ trans[["disp"]](mtcars[["disp"]])
 
 ### Exercise <span class="exercise-number">21.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Read the documentation for `apply()`. In the 2d case, what two for loops does it generalize.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 It generalizes looping over the rows or columns of a matrix or data-frame.
 
@@ -733,12 +733,12 @@ It generalizes looping over the rows or columns of a matrix or data-frame.
 
 ### Exercise <span class="exercise-number">21.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Adapt `col_summary()` so that it only applies to numeric columns.
 You might want to start with an `is_numeric()` function that returns a logical vector that has a `TRUE` corresponding to each numeric column.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The original `col_summary()` function is,
 
@@ -792,7 +792,7 @@ col_summary2(df, mean)
 
 ### Exercise <span class="exercise-number">21.5.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Write code that uses one of the map functions to:
 
 1.  Compute the mean of every column in `mtcars`.
@@ -802,7 +802,7 @@ Write code that uses one of the map functions to:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 To calculate the mean of every column in `mtcars`:
 
@@ -919,11 +919,11 @@ map(c(-10, 0, 10, 100), rnorm, n = 10)
 
 ### Exercise <span class="exercise-number">21.5.2</span> {.unnumbered .exercise}  
 
-<div class='question'>
+<div class="question">
 How can you create a single vector that for each column in a data frame indicates whether or not it's a factor?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Use `map_lgl` with the function `is.factor`,
 
@@ -937,13 +937,13 @@ map_lgl(mtcars, is.factor)
 
 ### Exercise <span class="exercise-number">21.5.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens when you use the map functions on vectors that aren't lists?
 What does `map(1:5, runif)` do?
 Why?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The function `map` applies the function to each element of the vector.
 
@@ -969,13 +969,13 @@ map(1:5, runif)
 
 ### Exercise <span class="exercise-number">21.5.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `map(-2:2, rnorm, n = 5)` do? Why? >
 What does `map_dbl(-2:2, rnorm, n = 5)` do?
 Why?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 This takes samples of `n = 5` from normal distributions of means -2, -1, 0, 1, and 2, and returns a list with each element a numeric vectors of length 5.
 
@@ -1018,11 +1018,11 @@ flatten_dbl(map(-2:2, rnorm, n = 5))
 
 ### Exercise <span class="exercise-number">21.5.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -1055,13 +1055,13 @@ No exercises
 
 ### Exercise <span class="exercise-number">21.9.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Implement your own version of `every()` using a for loop.
 Compare it with `purrr::every()`.
 What does purrr's version do that your version doesn't?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -1088,11 +1088,11 @@ The function `purrr::every` does fancy things with `.p`, like taking a logical v
 
 ### Exercise <span class="exercise-number">21.9.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Create an enhanced `col_sum()` that applies a summary function to every numeric column in a data frame.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 **Note:** this question has a typo. It is referring to `col_summary`.
 
@@ -1124,7 +1124,7 @@ col_sum2(iris, mean)
 
 ### Exercise <span class="exercise-number">21.9.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Create possible base R equivalent of `col_sum()` is:
 
 
@@ -1157,7 +1157,7 @@ col_sum3(df[0], mean)
 What causes these bugs?
 </div>
 
-<div class='answer'>
+<div class="answer">
 The problem is that `sapply` does not always return numeric vectors.
 If no columns are selected, instead of returning an empty numeric vector, it returns an empty list.
 This causes an error since we can't use a list with `[`.
@@ -1181,4 +1181,3 @@ sapply(df[1:2], is.numeric)
 </div>
 
 <!-- match unopened div --><div>
-

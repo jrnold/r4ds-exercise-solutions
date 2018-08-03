@@ -15,11 +15,11 @@ library("tidyverse")
 
 ### Exercise <span class="exercise-number">11.2.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What function would you use to read a file where fields were separated with
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 “|”?
 
 I'd use `read_delim` with `delim="|"`:
@@ -27,15 +27,15 @@ I'd use `read_delim` with `delim="|"`:
 read_delim(file, delim = "|")
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.2.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` and `read_tsv()` have in common?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 They have the following arguments in common:
 ```{r}
@@ -50,23 +50,23 @@ union(names(formals(read_csv)), names(formals(read_tsv)))
 -   `guess_max` sets how many rows to use when guessing the column type
 -   `progress` determines whether a progress bar is shown.
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.2.3</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What are the most important arguments to `read_fwf()`?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The most important argument to `read_fwf` which reads "fixed-width formats", is `col_positions` which tells the function where data columns begin and end.
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.2.4</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Sometimes strings in a CSV file contain commas.
 To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`.
 By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead.
@@ -76,9 +76,9 @@ What arguments do you need to specify to read the following text into a data fra
 "x,y\n1,'a,b'"
 ```
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 For `read_delim()`, we will will need to specify a delimiter, in this case `","`, and a quote argument.
 ```{r}
@@ -91,16 +91,16 @@ However, this question is out of date. `read_csv()` now supports a quote argumen
 read_csv(x, quote = "'")
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.2.5</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Identify what is wrong with each of the following inline CSV files.
 What happens when you run the code?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r}
 read_csv("a,b\n1,2,3\n4,5,6")
@@ -137,17 +137,17 @@ The values are separated by ";" rather than ",". Use `read_csv2` instead:
 read_csv2("a;b\n1;3")
 ```
 
-`r EndAnswer()`
+</div>
 
 ## Parsing a vector
 
 ### Exercise <span class="exercise-number">11.3.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What are the most important arguments to `locale()`?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The locale broadly controls the following:
 
@@ -156,17 +156,17 @@ The locale broadly controls the following:
 -   numbers: `decimal_mark`, `grouping_mark`
 -   encoding: `encoding`
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.3.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What happens if you try and set `decimal_mark` and `grouping_mark` to the same character?
 What happens to the default value of `grouping_mark` when you set `decimal_mark` to `","`?
 What happens to the default value of `decimal_mark` when you set the `grouping_mark` to `"."`?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 If the decimal and grouping marks are set to the same character, `locale` throws an error:
 ```{r error=TRUE}
@@ -182,17 +182,17 @@ If the grouping mark is set to a period, then the decimal mark is set to a comma
 locale(grouping_mark = ",")
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.3.3</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 I didn’t discuss the `date_format` and `time_format` options to `locale()`.
 What do they do?
 Construct an example that shows when they might be useful.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 They provide default date and time formats.
 The [readr vignette](https://cran.r-project.org/web/packages/readr/vignettes/locales.html) discusses using these to parse dates: since dates can include languages specific weekday and month names, and different conventions for specifying AM/PM
@@ -207,15 +207,15 @@ parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
 ```
 Apparently the time format is not used for anything, but the date format is used for guessing column types.
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.3.4</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 Read the help page for `locale()` using `?locale` to learn about the different variables that can be set.
 
@@ -240,29 +240,29 @@ Using `parse_date()` with that `au_locale` will correctly parse our example date
 parse_date("02/01/2006", locale = au_locale)
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.3.5</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What’s the difference between `read_csv()` and `read_csv2()`?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The delimiter. The function `read_csv` uses a comma, while `read_csv2` uses a semi-colon (`;`). Using a semi-colon is useful when commas are used as the decimal point (as in Europe).
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.3.6</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What are the most common encodings used in Europe?
 What are the most common encodings used in Asia?
 Do some googling to find out.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 UTF-8 is standard now, and ASCII has been around forever.
 
@@ -302,15 +302,15 @@ Programs that identify the encoding of text include
 -   [iconv](https://en.wikipedia.org/wiki/Iconv)
 -   [chardet](https://github.com/chardet/chardet) (Python)
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">11.3.7</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Generate the correct format string to parse each of the following dates and times:
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r}
 d1 <- "January 1, 2010"
@@ -336,7 +336,7 @@ The time `t2` uses real seconds,
 parse_time(t2, "%H:%M:%OS %p")
 ```
 
-`r EndAnswer()`
+</div>
 
 ## Parsing a file
 

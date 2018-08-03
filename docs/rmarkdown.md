@@ -13,13 +13,13 @@ editor_options:
 
 #### Exercise <span class="exercise-number">27.1.1.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Create a new notebook using *File > New File > R Notebook*. Read the instructions. Practice running the chunks. Verify that you can modify the code, re-run it, and see modified output.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 This exercise is left to the reader.
 
@@ -27,11 +27,11 @@ This exercise is left to the reader.
 
 #### Exercise <span class="exercise-number">27.1.1.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Create a new R Markdown document with *File > New File > R Markdown ...* Knit it by clicking the appropriate button. Knit it by using the appropriate keyboard short cut. Verify that you can modify the input and see the output update.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 This exercise is mostly left to the reader.
 Recall that the keyboard shortcut to knit a file is `Cmd/Ctrl + Alt + I`.
@@ -40,11 +40,11 @@ Recall that the keyboard shortcut to knit a file is `Cmd/Ctrl + Alt + I`.
 
 #### Exercise <span class="exercise-number">27.1.1.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Compare and contrast the R notebook and R markdown files you created above. How are the outputs similar? How are they different? How are the inputs similar? How are they different? What happens if you copy the YAML header from one to the other?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 R notebook files show the output inside the editor, while hiding the console. R markdown files shows the output inside the console, and does not show output inside the editor.
 They differ in the value of `output` in their YAML headers.
@@ -90,7 +90,7 @@ value of the `output` key in the YAML header, to determine what type of document
 
 #### Exercise <span class="exercise-number">27.1.1.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Create one new R Markdown document for each of the three built-in formats:
 HTML, PDF and Word. Knit each of the three documents. How does the output
@@ -99,7 +99,7 @@ build the PDF output — RStudio will prompt you if this is necessary.)
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 They produce different outputs, both in the final documents and intermediate
 files (notably the type of plots produced). The only difference in the inputs
@@ -113,11 +113,11 @@ documents.
 
 ### Exercise <span class="exercise-number">27.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Practice what you’ve learned by creating a brief CV. The title should be your name, and you should include headings for (at least) education or employment. Each of the sections should include a bulleted list of jobs/degrees. Highlight the year in bold.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 A minimal example is the following CV.
 
@@ -146,7 +146,7 @@ Your own example could be much more detailed.
 
 ### Exercise <span class="exercise-number">27.2.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Using the R Markdown quick reference, figure out how to:
 
@@ -156,7 +156,7 @@ Using the R Markdown quick reference, figure out how to:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```
@@ -186,11 +186,11 @@ a YAML block if it is at the start of the document.
 
 ### Exercise <span class="exercise-number">27.2.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Copy and paste the contents of `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown> in to a local R markdown document. Check that you can run it, then add text after the frequency polygon that describes its most striking features.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 For an example R markdown document, see the exercises in the next section.
 
@@ -286,17 +286,17 @@ The top twenty diamonds are more evenly distributed among the cut categories, fr
 
 ### Exercise <span class="exercise-number">27.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Add a section that explores how diamond sizes vary by cut, color, and clarity. Assume you’re writing a report for someone who doesn’t know R, and instead of setting `echo = FALSE` on each chunk, set a global option.
 </div>
 
 ### Exercise <span class="exercise-number">27.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Download `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown>. Add a section that describes the largest 20 diamonds, including a table that displays their most important attributes.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 For the this, I use `arrange()` and `slice()` to select the largest twenty diamonds, and `knitr::kable()` to produce a formatted table.
 
@@ -304,11 +304,11 @@ For the this, I use `arrange()` and `slice()` to select the largest twenty diamo
 
 ### Exercise <span class="exercise-number">27.3.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Modify `diamonds-sizes.Rmd` to use comma() to produce nicely formatted output. Also include the percentage of diamonds that are larger than 2.5 carats.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 I moved the computation of the number larger and percent of diamonds larger than 2.5 carats into a code chunk.
 I find that it is best to keep inline R expressions simple, usually consisting of an object and a formatting function.
@@ -320,13 +320,13 @@ Calculating those objects in a code chunk with the `include = FALSE` option (as 
 
 ### Exercise <span class="exercise-number">27.3.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Set up a network of chunks where `d` depends on `c` and `b`, and both `b` and `c` depend on `a`. Have each chunk print lubridate::now(), set cache = TRUE, then verify your understanding of caching.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ````
@@ -370,4 +370,3 @@ and the same as the first time the document was run with caching.
 ````
 
 </div>
-

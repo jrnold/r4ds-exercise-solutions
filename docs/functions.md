@@ -13,14 +13,14 @@ library("lubridate")
 
 ### Exercise <span class="exercise-number">19.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Why is TRUE not a parameter to `rescale01()`?
 What would happen if `x` contained a single missing value, and `na.rm` was `FALSE`?
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 First, note that by a a single missing value, this means that the vector `x` has at least one element equal to `NA`.
 
@@ -44,14 +44,14 @@ rescale01_alt(c(NA, 1:5), finite = TRUE)
 
 ### Exercise <span class="exercise-number">19.2.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 In the second variant of `rescale01()`, infinite values are left unchanged.
 Rewrite `rescale01()` so that `-Inf` is mapped to 0, and `Inf` is mapped to 1.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -71,7 +71,7 @@ rescale01(c(Inf, -Inf, 0:5, NA))
 
 ### Exercise <span class="exercise-number">19.2.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
 
@@ -86,7 +86,7 @@ sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 This code calculates the proportion of `NA` values in a vector.
 
@@ -160,13 +160,13 @@ coef_variation(c(1:5, NA), na.rm = TRUE)
 
 ### Exercise <span class="exercise-number">19.2.4</span>
 
-<div class='question'>
+<div class="question">
 
 Follow <http://nicercode.github.io/intro/writing-functions.html> to write your own functions to compute the variance and skew of a numeric vector.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 **Note** The math in <https://nicercode.github.io/intro/writing-functions.html> seems not to be rendering, but I'll write functions for the variance and skewness.
 
@@ -216,13 +216,13 @@ skewness(c(1, 2, 5, 100))
 
 #### Exercise <span class="exercise-number">19.2.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Write `both_na()`, a function that takes two vectors of the same length and returns the number of positions that have an `NA` in both vectors.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -241,11 +241,11 @@ both_na(c(NA, NA,  1, 2, NA, NA, 1),
 
 ### Exercise <span class="exercise-number">19.2.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What do the following functions do? Why are they useful even though they are so short?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -261,13 +261,13 @@ These functions are useful even though they are short because their names make i
 
 ### Exercise <span class="exercise-number">19.2.6</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Read the complete lyrics to ``Little Bunny Foo Foo''. There’s a lot of duplication in this song. Extend the initial piping example to recreate the complete song, and use functions to reduce the duplication.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 The lyrics of one of the [most common versions](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) of this song are
 
 > Little bunny Foo Foo \
@@ -333,11 +333,11 @@ turn_into_goon(Good_Fairy, foo_foo)
 
 ### Exercise <span class="exercise-number">19.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -387,11 +387,11 @@ This is a harder one to name. I would say something like `recycle` (R's name for
 
 ### Exercise <span class="exercise-number">19.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Take a function that you’ve written recently and spend 5 minutes brainstorming a better name for it and its arguments.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Answer left to the reader.
 
@@ -399,11 +399,11 @@ Answer left to the reader.
 
 ### Exercise <span class="exercise-number">19.3.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Compare and contrast `rnorm()` and `MASS::mvrnorm()`. How could you make them more consistent?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 `rnorm` samples from the univariate normal distribution, while `MASS::mvrnorm`
 samples from the multivariate normal distribution. The main arguments in
@@ -419,11 +419,11 @@ It would not be good practice to have `mu` and `sd` as arguments or `mean` and `
 
 ### Exercise <span class="exercise-number">19.3.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Make a case for why `norm_r()`, `norm_d()` etc would be better than `rnorm()`, `dnorm()`. Make a case for the opposite.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 If named `norm_r` and `norm_d`, it groups the family of functions related to
 the normal distribution. If named `rnorm`, and `dnorm`, functions related to
@@ -438,11 +438,11 @@ calculate the probability density or mass of a distribution: `dnorm`, `dbinom`,
 
 ### Exercise <span class="exercise-number">19.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What’s the difference between `if` and `ifelse()`? > Carefully read the help and construct three examples that illustrate the key differences.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The keyword `if` tests a single condition, while `ifelse` tests each element.
 
@@ -450,11 +450,11 @@ The keyword `if` tests a single condition, while `ifelse` tests each element.
 
 ### Exercise <span class="exercise-number">19.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Write a greeting function that says “good morning”, “good afternoon”, or “good evening”, depending on the time of day. (Hint: use a time argument that defaults to `lubridate::now()`. That will make it easier to test your function.)
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -484,7 +484,7 @@ greet(ymd_h("2017-01-08:20"))
 
 ### Exercise <span class="exercise-number">19.4.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Implement a `fizzbuzz` function. It takes a single number as input. If the
 number is divisible by three, it returns “fizz”. If it’s divisible by five it
@@ -494,7 +494,7 @@ you create the function.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -524,11 +524,11 @@ fizzbuzz(2)
 
 ### Exercise <span class="exercise-number">19.4.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How could you use `cut()` to simplify this set of nested if-else statements?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -574,13 +574,13 @@ and that to change comparisons I only needed to change the argument to `right`, 
 
 ### Exercise <span class="exercise-number">19.4.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 What happens if you use `switch()` with numeric values?
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 In `switch(n, ...)`, if `n` is numeric, it will return the `n`th argument from `...`.
 This means that if `n = 1`, `switch()` will return the first argument in `...`,
@@ -610,7 +610,7 @@ While it is possible to use non-integer numbers with `switch()`, you should avoi
 
 ### Exercise <span class="exercise-number">19.4.6</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does this `switch()` call do? What happens if `x` is `"e"`?
 
 ```r
@@ -627,7 +627,7 @@ Experiment, then carefully read the documentation.
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 First, let's write a function `switcheroo()`, and see what it returns for different values of `x`.
 
@@ -682,11 +682,11 @@ switch(x,
 
 ### Exercise <span class="exercise-number">19.5.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `commas(letters, collapse = "-")` do? Why?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The `commas` function in the chapter is defined as
 
@@ -724,14 +724,14 @@ commas <- function(..., collapse = ", ") {
 
 ### Exercise <span class="exercise-number">19.5.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 It’d be nice if you could supply multiple characters to the `pad` argument, e.g. `rule("Title", pad = "-+")`.
 Why doesn’t this currently work? How could you fix it?
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 This is the definition of the rule function from the [chapter](http://r4ds.had.co.nz/functions.html).
 
@@ -785,11 +785,11 @@ Note that in the second output, there is only a single `-` at the end.
 
 ### Exercise <span class="exercise-number">19.5.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does the `trim` argument to `mean()` do? When might you use it?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The `trim` arguments trims a fraction of observations from each end of the vector (meaning the range) before calculating the mean.
 This is useful for calculating a measure of central tendency that is robust to outliers.
@@ -798,12 +798,12 @@ This is useful for calculating a measure of central tendency that is robust to o
 
 ### Exercise <span class="exercise-number">19.5.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 The default value for the `method` argument to `cor()` is `c("pearson", "kendall", "spearman")`.
 What does that mean? What value is used by default?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 It means that the `method` argument can take one of those three values.
 The first value, `"pearson"`, is used by default.
@@ -817,4 +817,3 @@ No Exercises
 ## Environment
 
 No Exercises
-

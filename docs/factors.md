@@ -24,13 +24,13 @@ No exercises
 
 ### Exercise <span class="exercise-number">15.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Explore the distribution of `rincome` (reported income).
 What makes the default bar chart hard to understand?
 How could you improve the plot?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -76,12 +76,12 @@ scale is reversed. Also, if all the missing factors were differentiated.
 
 ### Exercise <span class="exercise-number">15.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What is the most common `relig` in this survey?
 What’s the most common `partyid`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The most common `relig` is "Protestant"
 
@@ -113,13 +113,13 @@ gss_cat %>%
 
 ### Exercise <span class="exercise-number">15.3.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Which `relig` does `denom` (denomination) apply to?
 How can you find out with a table?
 How can you find out with a visualization?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -173,12 +173,12 @@ gss_cat %>%
 
 ### Exercise <span class="exercise-number">15.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 There are some suspiciously high numbers in `tvhours`.
 Is the `mean` a good summary?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -207,11 +207,11 @@ And the hours of TV doesn't look that surprising to me.
 
 ### Exercise <span class="exercise-number">15.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 For each factor in `gss_cat` identify whether the order of the levels is arbitrary or principled.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The following piece of code uses functions introduced in Ch 21, to print out the names of only the factors.
 
@@ -336,11 +336,11 @@ levels(gss_cat$partyid)
 
 ### Exercise <span class="exercise-number">15.4.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why did moving “Not applicable” to the front of the levels move it to the bottom of the plot?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Because that gives the level "Not applicable" an integer value of 1.
 
@@ -350,11 +350,11 @@ Because that gives the level "Not applicable" an integer value of 1.
 
 ### Exercise <span class="exercise-number">15.5.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How have the proportions of people identifying as Democrat, Republican, and Independent changed over time?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 To answer that, we need to combine the multiple levels into Democrat, Republican, and Independent
 
@@ -393,11 +393,11 @@ gss_cat %>%
 
 ### Exercise <span class="exercise-number">15.5.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How could you collapse `rincome` into a small set of categories?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn't want to use something like `fct_lump`.
 
@@ -431,4 +431,3 @@ gss_cat %>%
 
 \begin{center}\includegraphics[width=0.7\linewidth]{factors_files/figure-latex/unnamed-chunk-26-1} \end{center}
 </div>
-

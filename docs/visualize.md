@@ -19,11 +19,11 @@ No exercises.
 
 ### Exercise <span class="exercise-number">3.2.1</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Run `ggplot(data = mpg)` what do you see?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -40,11 +40,11 @@ An empty plot. The background of the plot is created by `ggplot()`, but nothing 
 
 ### Exercise <span class="exercise-number">3.2.2</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How many rows are in `mtcars`? How many columns?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 There are 32 rows and 11 columns in the the `mtcars` data frame.
 
@@ -77,11 +77,11 @@ glimpse(mtcars)
 
 ### Exercise <span class="exercise-number">3.2.3</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does the `drv` variable describe? Read the help for `?mpg` to find out.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The `drv` categorizes cars by which wheels the engine provides torque to, or drives: the front two wheels, the rear two wheels, or all four wheels.[^layout]
 
@@ -97,11 +97,11 @@ The `drv` categorizes cars by which wheels the engine provides torque to, or dri
 
 ### Exercise <span class="exercise-number">3.2.4</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Make a scatter plot of `hwy` vs `cyl`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -117,11 +117,11 @@ ggplot(mpg, aes(x = hwy, y = cyl)) +
 
 ### Exercise <span class="exercise-number">3.2.5</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens if you make a scatter plot of `class` vs `drv`. Why is the plot not useful?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 ```r
 ggplot(mpg, aes(x = class, y = drv)) +
@@ -155,7 +155,7 @@ Later chapters discuss means to deal with this, including alternative plots and 
 
 ### Exercise <span class="exercise-number">3.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What’s gone wrong with this code? Why are the points not blue?
 
 
@@ -174,7 +174,7 @@ The expression, `color="blue"`, treats `"blue"` as a variable with only one valu
 
 ### Exercise <span class="exercise-number">3.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Which variables in `mpg` are categorical?
 Which variables are continuous?
 (Hint: type `?mpg` to read the documentation for the dataset).
@@ -182,7 +182,7 @@ How can you see this information when you run `mpg`?
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -226,12 +226,12 @@ glimpse(mpg)
 
 ### Exercise <span class="exercise-number">3.3.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Map a continuous variable to color, size, and shape.
 How do these aesthetics behave differently for categorical vs. continuous variables?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The variable `cty`, city highway miles per gallon, is a continuous variable:
 
@@ -278,11 +278,11 @@ It is clear that smaller points correspond to smaller values, or once the color 
 
 ### Exercise <span class="exercise-number">3.3.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens if you map the same variable to multiple aesthetics?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -303,11 +303,11 @@ Because it is redundant information, in most cases avoid mapping a single variab
 
 ### Exercise <span class="exercise-number">3.3.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`)
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Stroke changes the size of the border for shapes (21-25).
 These are filled shapes in which the color and size of the border can differ from that of the filled interior of the shape.
@@ -327,11 +327,11 @@ ggplot(mtcars, aes(wt, mpg)) +
 
 ### Exercise <span class="exercise-number">3.3.6</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -358,11 +358,11 @@ No exercises
 
 ### Exercise <span class="exercise-number">3.5.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens if you facet on a continuous variable?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Let's see.
 
@@ -382,11 +382,11 @@ It converts the continuous variable to a factor and creates facets for **all** u
 
 ### Exercise <span class="exercise-number">3.5.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 They are cells in which there are no values of the combination of `drv` and `cyl`.
 
@@ -406,11 +406,11 @@ The locations in the above plot without points are the same cells in `facet_grid
 
 ### Exercise <span class="exercise-number">3.5.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What plots does the following code make? What does `.` do?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The symbol `.` ignores that dimension for faceting.
 
@@ -441,7 +441,7 @@ ggplot(data = mpg) +
 
 ### Exercise <span class="exercise-number">3.5.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Take the first faceted plot in this section:
 
 
@@ -460,7 +460,7 @@ How might the balance change if you had a larger dataset?
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 This is what the plot looks like when `class` is represented by the colour
 the color aesthetic instead of faceting.
@@ -510,11 +510,11 @@ visually distinct.
 
 ### Exercise <span class="exercise-number">3.5.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The arguments `nrow` (`ncol`) determines the number of rows (columns) to use when laying out the facets.
 It is necessary since `facet_wrap` only facets on one variable.
@@ -524,11 +524,11 @@ These arguments are unnecessary for `facet_grid` since the number of rows and co
 
 ### Exercise <span class="exercise-number">3.5.6</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 IF the plot is laid out horizontally, there will be more space for columns.
 You should put the variable with more unique levels in the columns if the plot is laid out landscape.
@@ -540,11 +540,11 @@ It is easier to compare relative levels of y by scanning horizontally, so it may
 
 ### Exercise <span class="exercise-number">3.6.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 -   line chart: `geom_line()`
 -   boxplot: `geom_boxplot()`
@@ -555,11 +555,11 @@ What geom would you use to draw a line chart? A boxplot? A histogram? An area ch
 
 ### Exercise <span class="exercise-number">3.6.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -588,12 +588,12 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 
 ### Exercise <span class="exercise-number">3.6.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `show.legend = FALSE` do? What happens if you remove it?
 Why do you think I used it earlier in the chapter?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Show legend hides the legend box. In this code, without show legend, there is a legend.
 
@@ -653,11 +653,11 @@ In that example, the legend isn't necessary since looking up the values associat
 
 ### Exercise <span class="exercise-number">3.6.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does the `se` argument to `geom_smooth()` do?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 It adds standard error bands to the lines.
 
@@ -691,11 +691,11 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 
 ### Exercise <span class="exercise-number">3.6.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Will these two graphs look different? Why/why not?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 No. Because both `geom_point` and `geom_smooth` use the same data and mappings. They will inherit those options from the `ggplot` object, and thus don't need to specified again (or twice).
 
@@ -727,11 +727,11 @@ ggplot() +
 
 ### Exercise <span class="exercise-number">3.6.6</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Recreate the R code necessary to generate the following graphs.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -809,11 +809,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ### Exercise <span class="exercise-number">3.7.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The default geom for [`stat_summary`](http://docs.ggplot2.org/current/stat_summary.html) is `geom_pointrange` (see the `stat`) argument.
 
@@ -853,11 +853,11 @@ ggplot(data = diamonds) +
 
 ### Exercise <span class="exercise-number">3.7.2</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `geom_col()` do? How is it different to `geom_bar()`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 `geom_col` differs from `geom_bar` in its default stat. `geom_col` has uses the `identity` stat. So it expects that a variable already exists for the height of the bars.
 `geom_bar` uses the `count` stat, and so will count observations in groups in order to generate the variable to use for the height of the bars.
@@ -866,13 +866,13 @@ What does `geom_col()` do? How is it different to `geom_bar()`?
 
 ### Exercise <span class="exercise-number">3.7.3</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Most geoms and stats come in pairs that are almost always used in concert.
 Read through the documentation and make a list of all the pairs.
 What do they have in common?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
@@ -880,11 +880,11 @@ See the [ggplot2 documentation](http://docs.ggplot2.org/current/)
 
 ### Exercise <span class="exercise-number">3.7.4</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What variables does `stat_smooth()` compute? What parameters control its behavior?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 `stat_smooth` calculates
 
@@ -899,12 +899,12 @@ There's parameters such as `method` which determines which method is used to cal
 
 ### Exercise <span class="exercise-number">3.7.5</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 In our proportion bar chart, we need to set `group = 1` Why?
 In other words what is the problem with these two graphs?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 If `group` is not set to 1, then all the bars have `prop == 1`.
 The function `geom_bar` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group.
@@ -953,12 +953,12 @@ ggplot(data = diamonds) +
 
 ### Exercise <span class="exercise-number">3.8.1</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What is the problem with this plot?
 How could you improve it?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 There is overplotting because there are multiple observations for each combination of `cty` and `hwy`.
 
@@ -985,11 +985,11 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 ### Exercise <span class="exercise-number">3.8.2</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What parameters to `geom_jitter()` control the amount of jittering?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 From the [position_jitter](http://docs.ggplot2.org/current/position_jitter.html) documentation, there are two arguments to jitter: `width` and `height`, which control the amount of vertical and horizontal jitter.
 
@@ -1041,11 +1041,11 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 ### Exercise <span class="exercise-number">3.8.3</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Compare and contrast `geom_jitter()` with `geom_count()`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 `geom_jitter()` adds random noise to the locations points of the graph.
 In other words, it "jitters" the points.
@@ -1111,11 +1111,11 @@ of the data scientist.
 
 ### Exercise <span class="exercise-number">3.8.4</span>. {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the mpg dataset that demonstrates it.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The default position for `geom_boxplot` is `position_dodge` (see its [docs](http://docs.ggplot2.org/current/geom_boxplot.html)).
 
@@ -1146,11 +1146,11 @@ ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
 
 ### Exercise <span class="exercise-number">3.9.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Turn a stacked bar chart into a pie chart using `coord_polar()`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 This is a stacked bar chart with a single category
 
 ```r
@@ -1214,11 +1214,11 @@ ggplot(data = diamonds) +
 
 ### Exercise <span class="exercise-number">3.9.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `labs()` do? Read the documentation.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The `labs` function adds labels for different scales and the title of the plot.
 
@@ -1238,11 +1238,11 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 
 ### Exercise <span class="exercise-number">3.9.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What’s the difference between `coord_quickmap()` and `coord_map()`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 `coord_map()` uses map projection to project 3-dimensional Earth onto a 2-dimensional plane.
 By default, `coord_map()` uses the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection).
@@ -1258,12 +1258,12 @@ contains more information on and examples for these two functions.
 
 ### Exercise <span class="exercise-number">3.9.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does the plot below tell you about the relationship between city and highway mpg? Why is `coord_fixed()` important?
 What does `geom_abline()` do?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The function `coord_fixed()` ensures that the line produced by `geom_abline()` is at a 45 degree angle.
 The 45 degree line makes it easy to compare the highway and city mileage to the case in which city and highway MPG were equal.
@@ -1299,4 +1299,3 @@ The function `ggthemes::bank_slopes()` will calculate the optimal aspect ratio t
 ## The Layered Grammar of Graphics
 
 No exercises
-

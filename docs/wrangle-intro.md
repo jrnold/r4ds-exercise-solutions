@@ -2,4 +2,3 @@
 # Introduction
 
 No exercises.
-

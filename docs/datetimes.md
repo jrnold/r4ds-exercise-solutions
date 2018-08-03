@@ -32,12 +32,12 @@ flights_dt <- flights %>%
 
 ### Exercise <span class="exercise-number">16.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens if you parse a string that
 contains invalid dates?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -61,12 +61,12 @@ It determines the time-zone of the date. Since different time-zones can have dif
 
 ### Exercise <span class="exercise-number">16.2.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Use the appropriate **lubridate** function to
 parse each of the following dates:
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -106,12 +106,12 @@ In the previous code, the difference between rounded and un-rounded dates provid
 
 ### Exercise <span class="exercise-number">16.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How does the distribution of flight times
 within a day change over the course of the year?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Let's try plotting this by month:
 
@@ -330,11 +330,11 @@ flights_dt %>%
 
 ### Exercise <span class="exercise-number">16.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why is there `months()` but no `dmonths()`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 There is no direct unambiguous value of months in seconds since months have differing numbers of days.
 
@@ -348,11 +348,11 @@ Though in the past, in the pre-computer era, for arithmetic convenience, bankers
 
 ### Exercise <span class="exercise-number">16.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Explain `days(overnight * 1)` to someone who has just started learning R. How does it work?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The variable `overnight` is equal to `TRUE` or `FALSE`.
 If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0, and no days are added to the date.
@@ -361,11 +361,11 @@ If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0
 
 ### Exercise <span class="exercise-number">16.4.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 A vector of the first day of the month for every month in 2015:
 
@@ -390,11 +390,11 @@ floor_date(today(), unit = "year") + months(0:11)
 
 ### Exercise <span class="exercise-number">16.4.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Write a function that given your birthday (as a date), returns how old you are in years.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -412,11 +412,11 @@ age(ymd("1990-10-12"))
 
 ### Exercise <span class="exercise-number">16.4.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 It appears to work. Today is a date. Today + 1 year is a valid endpoint for an interval. And months is period that is defined in this period.
 
@@ -434,4 +434,3 @@ It appears to work. Today is a date. Today + 1 year is a valid endpoint for an i
 No exercises.
 
 <!-- match unopened div --><div>
-

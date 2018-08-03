@@ -28,11 +28,11 @@ No exercises
 
 ### Exercise <span class="exercise-number">10.6.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How can you tell if an object is a tibble? (Hint: try printing `mtcars`, which is a regular data frame).
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 When we print `mtcars`, it prints all the columns.
 
@@ -109,7 +109,7 @@ is_tibble(as_tibble(mtcars))
 #> [1] TRUE
 ```
 
-More generally, you can use the `class()` function to find out the class of an 
+More generally, you can use the `class()` function to find out the class of an
 object. Tibbles has the classes `c("tbl_df", "tbl", "data.frame")`, while old
 data frames will only have the class `"data.frame"`.
 
@@ -122,18 +122,18 @@ class(nycflights13::flights)
 #> [1] "tbl_df"     "tbl"        "data.frame"
 ```
 
-If you are interested in reading more on R's classes, read the chapters on 
+If you are interested in reading more on R's classes, read the chapters on
 object oriented programming in [Advanced R](http://adv-r.had.co.nz/S3.html).
 
 </div>
 
 ### Exercise <span class="exercise-number">10.6.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Compare and contrast the following operations on a `data.frame` and equivalent tibble. What is different? Why might the default data frame behaviors cause you frustration?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -183,11 +183,11 @@ situations or risk bugs.
 
 ### Exercise <span class="exercise-number">10.6.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 If you have the name of a variable stored in an object, e.g. `var <- "mpg"`, how can you extract the reference variable from a tibble?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign, because `df$var` would look for a column named `var`.
 
@@ -195,7 +195,7 @@ You can use the double bracket, like `df[[var]]`. You cannot use the dollar sign
 
 ### Exercise <span class="exercise-number">10.6.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 Practice referring to non-syntactic names in the following data frame by:
 
@@ -206,7 +206,7 @@ Practice referring to non-syntactic names in the following data frame by:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 For this example, I'll create a dataset called annoying with
 columns named `1` and `2`.
@@ -278,11 +278,11 @@ annoying <- tibble(
 
 ### Exercise <span class="exercise-number">10.6.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `tibble::enframe()` do? When might you use it?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The function `tibble::enframe()` converts named vectors to a data frame with names and values
 
@@ -301,14 +301,13 @@ enframe(c(a = 1, b = 2, c = 3))
 
 ### Exercise <span class="exercise-number">10.6.6</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What option controls how many additional column names are printed at the footer of a tibble?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The help page for the `print()` method of tibble objects is discussed in `?print.tbl_df`.
 The `n_extra` argument determines the number of extra columns to print information for.
 
 </div>
-

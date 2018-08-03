@@ -23,4 +23,3 @@ The website for the book is [r4ds.had.co.nz](http://r4ds.had.co.nz/).
 
 The text of this work is licensed under the [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 The R Code in this work is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-

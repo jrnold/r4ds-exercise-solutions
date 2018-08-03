@@ -25,11 +25,11 @@ If it is not set (the default), R will silently drop them.
 
 ### Exercise <span class="exercise-number">23.2.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 One downside of the linear model is that it is sensitive to unusual values because the distance incorporates a squared term. Fit a linear model to the simulated data below, and visualize the results. Rerun a few times to generate different simulated datasets. What do you notice about the model?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -139,11 +139,11 @@ pt(2, df = 2, lower.tail = FALSE)
 
 ### Exercise <span class="exercise-number">23.2.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 One way to make linear models more robust is to use a different distance measure. For example, instead of root-mean-squared distance, you could use mean-absolute distance:
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -189,11 +189,11 @@ See the `MASS` package's `rlm` and `lqs` functions for more information and func
 
 ### Exercise <span class="exercise-number">23.2.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 One challenge with performing numerical optimization is that it’s only guaranteed to find a local optimum. What’s the problem with optimizing a three parameter model like this?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -251,11 +251,11 @@ Problem is that due to finite iterations, numerically these converge:
 
 ### Exercise <span class="exercise-number">23.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on `sim1` using `loess()` instead of `lm()`. How does the result compare to `geom_smooth()`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 I'll use `add_predictions` and `add_residuals` to add the predictions and residuals from a loess regression to the `sim1` data.
 
@@ -319,12 +319,12 @@ ggplot(sim1, aes(x = x)) +
 
 ### Exercise <span class="exercise-number">23.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 `add_predictions()` is paired with `gather_predictions()` and `spread_predictions()`.
 How do these three functions differ?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The functions `gather_predictions` and `spread_predictions` allow for adding predictions from multiple models at once.
 
@@ -411,12 +411,12 @@ grid %>%
 
 ### Exercise <span class="exercise-number">23.3.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `geom_ref_line()` do? What package does it come from?
 Why is displaying a reference line in plots showing residuals useful and important?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The geom `geom_ref_line()` adds as reference line to a plot.
 It is equivalent to running `geom_hline` or `geom_vline` with default settings that are useful for visualizing models.
@@ -427,12 +427,12 @@ A zero reference line makes it easier to judge these characteristics visually.
 
 ### Exercise <span class="exercise-number">23.3.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why might you want to look at a frequency polygon of absolute residuals?
 What are the pros and cons compared to looking at the raw residuals?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Showing the absolute values of the residuals makes it easier to view the spread of the residuals.
 The model assumes the the residuals have mean zero, and using the absolute values of the residuals effectively doubles the number of residuals.
@@ -460,12 +460,12 @@ frequency polygon cannot show whether the model systematically over- or under-es
 
 ### Exercise <span class="exercise-number">23.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens if you repeat the analysis of `sim2` using a model without an intercept. What happens to the model equation?
 What happens to the predictions?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 To run a model without an intercept, add `- 1` or `+ 0` to the right-hand-side o f the formula:
 
@@ -497,12 +497,12 @@ grid
 
 ### Exercise <span class="exercise-number">23.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Use `model_matrix()` to explore the equations generated for the models I fit to `sim3` and `sim4`.
 Why is `*` a good shorthand for interaction?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 For `x1 * x2` when `x2` is a categorical variable produces indicator variables `x2b`, `x2c`, `x2d` and
 variables `x1:x2b`, `x1:x2c`, and `x1:x2d` which are the products of `x1` and `x2*` variables:
@@ -567,12 +567,12 @@ terms for `x1`, `x2`, and the product of `x1` and `x2`.
 
 ### Exercise <span class="exercise-number">23.4.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Using the basic principles, convert the formulas in the following two models into functions.
 (Hint: start by converting the categorical variable into 0-1 variables.)
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -659,13 +659,13 @@ model_matrix_mod2 <- function(x1, x2) {
 
 ### Exercise <span class="exercise-number">23.4.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 For `sim4`, which of `mod1` and `mod2` is better?
 I think `mod2` does a slightly better job at removing patterns, but it’s pretty subtle.
 Can you come up with a plot to support my claim?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Estimate models `mod1` and `mod2` on `sim4`,
 
@@ -728,4 +728,3 @@ No exercises
 ## Other model families
 
 No exercises
-

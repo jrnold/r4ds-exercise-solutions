@@ -29,12 +29,12 @@ library("lubridate")
 
 #### Exercise <span class="exercise-number">28.2.1.1</span>  {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Create one plot on the fuel economy data with customized `title`,
 `subtitle`, `caption`, `x`, `y`, and `colour` labels.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -59,12 +59,12 @@ ggplot(data = mpg,
 
 ### Exercise <span class="exercise-number">28.2.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 The `geom_smooth()` is somewhat misleading because the `hwy` for large engines is skewed upwards due to the inclusion of lightweight sports cars with big engines.
 Use your modeling tools to fit and display
 </div>
 
-<div class='answer'>
+<div class="answer">
 a better model.
 
 
@@ -108,11 +108,11 @@ mpg %>%
 
 #### Exercise <span class="exercise-number">28.2.2.1</span>
 
-<div class='question'>
+<div class="question">
 Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 By its very nature, this exercise is left to readers.
 
@@ -124,11 +124,11 @@ By its very nature, this exercise is left to readers.
 
 #### Exercise <span class="exercise-number">28.3.1.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Use `geom_text()` with infinite positions to place text at the four corners of the plot.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 I can use similar code as the example in the text.
 However, I need to use `vjust` and `hjust` in order for the text to appear in the plot, and these need to be different for each corner.
@@ -156,11 +156,11 @@ ggplot(mpg, aes(displ, hwy)) +
 
 #### Exercise <span class="exercise-number">28.3.1.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Read the documentation for `annotate()`. How can you use it to add a text label to a plot without having to create a tibble?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 With annotate you use what would be aesthetic mappings directly as arguments:
 
@@ -179,14 +179,14 @@ ggplot(mpg, aes(displ, hwy)) +
 
 #### Exercise <span class="exercise-number">28.3.1.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 How do labels with `geom_text()` interact with faceting?
 How can you add a label to a single facet?
 How can you put a different label in each facet?
 (Hint: think about the underlying data.)
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 If the facet variable is not specified, the text is drawn in all facets.
 
@@ -254,11 +254,11 @@ ggplot(mpg, aes(displ, hwy)) +
 
 #### Exercise <span class="exercise-number">28.3.1.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What arguments to `geom_label()` control the appearance of the background box?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 -   `label.padding`: padding around label
 -   `label.r`: amount of rounding in the corners
@@ -268,12 +268,12 @@ What arguments to `geom_label()` control the appearance of the background box?
 
 #### Exercise <span class="exercise-number">28.3.1.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What are the four arguments to `arrow()`? How do they work?
 Create a series of plots that demonstrate the most important options.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The four arguments are: (from the help for [arrow](https://www.rdocumentation.org/packages/grid/versions/3.3.2/topics/arrow))
 
@@ -290,11 +290,11 @@ The four arguments are: (from the help for [arrow](https://www.rdocumentation.or
 
 #### Exercise <span class="exercise-number">28.4.1.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why doesn’t the following code override the default scale?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -330,12 +330,12 @@ ggplot(df, aes(x, y)) +
 
 #### Exercise <span class="exercise-number">28.4.1.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 The first argument to every scale is the label for the scale.
 It is equivalent to using the `labs` function.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -373,7 +373,7 @@ ggplot(mpg, aes(displ, hwy)) +
 
 #### Exercise <span class="exercise-number">28.4.1.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Change the display of the presidential terms by:
 
 1.  Combining the two variants shown above.
@@ -384,7 +384,7 @@ Change the display of the presidential terms by:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 ```r
 years <- lubridate::make_date(seq(year(min(presidential$start)),
@@ -412,11 +412,11 @@ presidential %>%
 
 #### Exercise <span class="exercise-number">28.4.1.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Use `override.aes` to make the legend on the following plot easier to see.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -442,4 +442,3 @@ ggplot(diamonds, aes(carat, price)) +
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 </div>
-

@@ -11,11 +11,11 @@ library(stringr)
 
 ### Exercise <span class="exercise-number">14.2.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0()`. What’s the difference between the two functions? What **stringr** function are they equivalent to? How do the functions differ in their handling of NA?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The function `paste` separates strings by spaces by default, while `paste0` does not separate strings with spaces by default.
 
@@ -40,27 +40,27 @@ paste("foo", NA)
 paste0("foo", NA)
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">14.2.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 In your own words, describe the difference between the `sep` and `collapse` arguments to `str_c()`.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The `sep` argument is the string inserted between arguments to `str_c`, while `collapse` is the string used to separate any elements of the character vector into a character vector of length one.
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">14.2.3</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Use `str_length()` and `str_sub()` to extract the middle character from a string. What will you do if the string has an even number of characters?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The following function extracts the middle character. If the string has an even number of characters the choice is arbitrary.
 We choose to select $\lceil n / 2 \rceil$, because that case works even if the string is only of length one.
@@ -72,28 +72,28 @@ m <- ceiling(L / 2)
 str_sub(x, m, m)
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">14.2.4</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What does `str_wrap()` do? When might you want to use it?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The function `str_wrap` wraps text so that it fits within a certain width.
 This is useful for wrapping long strings of text to be typeset.
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">14.2.5</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What does `str_trim()` do? What’s the opposite of `str_trim()`?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The function `str_trim` trims the whitespace from a string.
 ```{r}
@@ -110,15 +110,15 @@ str_pad("abc", 4, side = "right")
 str_pad("abc", 4, side = "left")
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">14.2.6</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 See the Chapter [Functions] for more details on writing R functions.
 
@@ -138,7 +138,7 @@ str_commasep(c("a", "b"))
 str_commasep(c("a", "b", "c"))
 ```
 
-`r EndAnswer()`
+</div>
 
 ## Matching Patterns and Regular Expressions
 
@@ -146,39 +146,39 @@ str_commasep(c("a", "b", "c"))
 
 #### Exercise <span class="exercise-number">14.3.1.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Explain why each of these strings don’t match a `\`: `"\"`, `"\\"`, `"\\\"`.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 -   `"\"`: This will escape the next character in the R string.
 -   `"\\"`: This will resolve to `\` in the regular expression, which will escape the next character in the regular expression.
 -   `"\\\"`: The first two backslashes will resolve to a literal backslash in the regular expression, the third will escape the next character. So in the regular expression, this will escape some escaped character.
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.1.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 How would you match the sequence `"'\` ?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r eval=is_html}
 str_view("\"'\\", "\"'\\\\")
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.1.3</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What patterns will the regular expression `\..\..\..` match? How would you represent it as a string?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
@@ -208,27 +208,27 @@ str_view(x, "apple")
 str_view(x, "^apple$")
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Anchors
 
 #### Exercise <span class="exercise-number">14.3.2.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 How would you match the literal string `"$^$"`?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r eval=is_html}
 str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.2.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Given the corpus of common words in `stringr::words`, create regular expressions that find all words that:
 
 1.  Start with “y”.
@@ -238,9 +238,9 @@ Given the corpus of common words in `stringr::words`, create regular expressions
 
 Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -268,13 +268,13 @@ The answer to each part follows.
     str_view(stringr::words, ".......", match = TRUE)
     ```
 
-`r EndAnswer()`
+</div>
 
 ### Character classes and alternatives
 
 #### Exercise <span class="exercise-number">14.3.3.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 
 Create regular expressions to find all words that:
 
@@ -283,9 +283,9 @@ Create regular expressions to find all words that:
 1.  End with `ed`, but not with `eed`.
 1.  End with `ing` or `ise`.
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -315,17 +315,17 @@ The answer to each part follows.
     str_view(stringr::words, "i(ng|se)$", match = TRUE)
     ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.3.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 
 Empirically verify the rule ``i before e except after c''.
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 Using only what has been introduced thus far:
 
@@ -343,30 +343,30 @@ sum(str_detect(stringr::words, "(cei|[^c]ie)"))
 sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.3.3</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Is ``q'' always followed by a ``u''?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 In the `stringr::words` dataset, yes. In the full English language, no.
 ```{r eval=is_html}
 str_view(stringr::words, "q[^u]", match = TRUE)
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.3.4</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Write a regular expression that matches a word if it’s probably written in British English, not American English.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 In the general case, this is hard, and could require a dictionary.
 But, there are a few heuristics to consider that would account for some common cases: British English tends to use the following:
@@ -381,15 +381,15 @@ The regex `ou|ise$|ae|oe|yse$` would match these.
 There are other [spelling differences between American and British English] (https://en.wikipedia.org/wiki/American_and_British_English_spelling_differences) but they are not patterns amenable to regular expressions.
 It would require a dictionary with differences in spellings for different words.
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.3.5</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Create a regular expression that will match telephone numbers as commonly written in your country.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to this will vary by country.
 
@@ -416,17 +416,17 @@ information on the complexities of US phone numbers, and [this Stack Overflow
 question](http://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation)
 for a discussion of using a regex for phone number validation.
 
-`r EndAnswer()`
+</div>
 
 ### Repetition
 
 #### Exercise <span class="exercise-number">14.3.4.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 | Pattern | `{m,n}` | Meaning           |
 |---------|---------|-------------------|
@@ -449,11 +449,11 @@ str_view(x, "CC+")
 str_view(x, "CC{1,}")
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.4.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
 
 1.  `^.*$`
@@ -461,9 +461,9 @@ Describe in words what these regular expressions match: (read carefully to see i
 1.  `\d{4}-\d{2}-\d{2}`
 1.  `"\\\\{4}"`
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -480,20 +480,20 @@ The answer to each part follows.
 1.  `"\\\\{4}"` is `\\{4}`, which will match four backslashes.
     For example: `"\\\\{4}"`: `"\\\\\\\\"`.
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.4.3</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Create regular expressions to find all words that:
 
 1.  Start with three consonants.
 1.  Have three or more vowels in a row.
 1.  Have two or more vowel-consonant pairs in a row.
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -515,27 +515,27 @@ The answer to each part follows.
     str_view(words, "([aeiou][^aeiou]){2,}")
     ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.4.4</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 
 Solve the beginner regexp crosswords at <https://regexcrossword.com/challenges/>
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 Exercise left to reader. That site validates its solutions, so they aren't repeated here.
 
-`r EndAnswer()`
+</div>
 
 ### Grouping and backreferences
 
 #### Exercise <span class="exercise-number">14.3.5.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Describe, in words, what these expressions will match:
 
 1.  `(.)\1\1` :
@@ -544,9 +544,9 @@ Describe, in words, what these expressions will match:
 1.  `"(.).\\1.\\1"`:
 1.  `"(.)(.)(.).*\\3\\2\\1"`
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -556,20 +556,20 @@ The answer to each part follows.
 1.  `"(.).\\1.\\1"`: A character followed by any character, the original character, any other character, the original character again. E.g. `"abaca"`, `"b8b.b"`.
 1.  `"(.)(.)(.).*\\3\\2\\1"` Three characters followed by zero or more characters of any kind followed by the same three characters but in reverse order. E.g. `"abcsgasgddsadgsdgcba"` or `"abccba"` or `"abc1cba"`.
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.3.5.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Construct regular expressions to match words that:
 
 1.  Start and end with the same character.
 1.  Contain a repeated pair of letters (e.g. ``church'' contains ``ch'' repeated twice.)
 1.  Contain one letter repeated in at least three places (e.g. ``eleven'' contains three ``e''s.)
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -607,7 +607,7 @@ The answer to each part follows.
     str_subset(str_to_lower(words), "([a-z]).*\\1.*\\1")
     ```
 
-`r EndAnswer()`
+</div>
 
 ## Tools
 
@@ -619,7 +619,7 @@ No exercises
 
 #### Exercise <span class="exercise-number">14.4.2.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 For each of the following challenges, try solving it by using both a single regular expression, and a combination of multiple `str_detect()` calls.
 
 1.  Find all words that start or end with x.
@@ -627,9 +627,9 @@ For each of the following challenges, try solving it by using both a single regu
 1.  Are there any words that contain at least one of each different vowel?
 1.  What word has the higher number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -702,17 +702,17 @@ The answer to each part follows.
     words[which(prop_vowels == max(prop_vowels))]
     ```
 
-`r EndAnswer()`
+</div>
 
 ### Extract Matches
 
 #### Exercise <span class="exercise-number">14.4.3.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a color. Modify the regex to fix the problem.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 This was the original color match pattern:
 ```{r}
@@ -734,11 +734,11 @@ more2 <- sentences[str_count(sentences, colour_match) > 1]
 str_view_all(more2, colour_match2, match = TRUE)
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.4.3.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 
 From the Harvard sentences data, extract:
 
@@ -746,9 +746,9 @@ From the Harvard sentences data, extract:
 1.  All words ending in `ing`.
 1.  All plurals.
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -779,17 +779,17 @@ The answer to each part follows.
       head()
     ```
 
-`r EndAnswer()`
+</div>
 
 ### Grouped Matches
 
 #### Exercise <span class="exercise-number">14.4.4.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 I'll use the same following "word" pattern as used above
 ```{r}
@@ -798,15 +798,15 @@ sentences[str_detect(sentences, numword)] %>%
   str_extract(numword)
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.4.4.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Find all contractions. Separate out the pieces before and after the apostrophe.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r}
 contraction <- "([A-Za-z]+)'([A-Za-z]+)"
@@ -815,45 +815,45 @@ sentences %>%
   str_extract(contraction)
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Replacing Matches
 
 #### Exercise <span class="exercise-number">14.4.5.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Replace all forward slashes in a string with backslashes.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r}
 backslashed <- str_replace_all("past/present/future", "\\/", "\\\\")
 writeLines(backslashed)
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.4.5.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Implement a simple version of `str_to_lower()` using `replace_all()`.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 ```{r}
 lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "F"="f", "G"="g", "H"="h", "I"="i", "J"="j", "K"="k", "L"="l", "M"="m", "N"="n", "O"="o", "P"="p", "Q"="q", "R"="r", "S"="s", "T"="t", "U"="u", "V"="v", "W"="w", "X"="x", "Y"="y", "Z"="z"))
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.4.5.3</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Switch the first and last letters in `words`. Which of those strings are still words?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 First, make a vector of all the words with first and last letters swapped,
 ```{r}
@@ -864,32 +864,32 @@ Next, find what of "swapped" is also in the original list using the function `in
 intersect(swapped,words)
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Splitting
 
 #### Exercise <span class="exercise-number">14.4.6.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Split up a string like `"apples, pears, and bananas"` into individual components.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r}
 x <- c("apples, pears, and bananas")
 str_split(x, ", +(and +)?")[[1]]
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.4.6.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Why is it better to split up by `boundary("word")` than `" "`?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 Splitting by `boundary("word")` is a more sophisticated method to split a string into words.
 It recognizes non-space punctuation that splits words, and also removes punctuation while retaining internal non-letter characters that are parts of the word, e.g., "can't"
@@ -909,15 +909,15 @@ separating "32.2" and "can't",
 str_split(sentence, boundary("word"))
 ```
 
-`r EndAnswer()`
+</div>
 
 #### Exercise <span class="exercise-number">14.4.6.3</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What does splitting with an empty string `("")` do? Experiment, and then read the documentation.
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r}
 str_split("ab. cd|agt", "")[[1]]
@@ -925,7 +925,7 @@ str_split("ab. cd|agt", "")[[1]]
 
 It splits the string into individual characters.
 
-`r EndAnswer()`
+</div>
 
 ### Find matches
 
@@ -935,26 +935,26 @@ No exercises
 
 ### Exercise <span class="exercise-number">14.5.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r}
 str_subset(c("a\\b", "ab"), "\\\\")
 str_subset(c("a\\b", "ab"), fixed("\\"))
 ```
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">14.5.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 What are the five most common words in sentences?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 ```{r}
 str_extract_all(sentences, boundary("word")) %>%
@@ -967,7 +967,7 @@ str_extract_all(sentences, boundary("word")) %>%
   head(5)
 ```
 
-`r EndAnswer()`
+</div>
 
 ## Other uses of regular expressions
 
@@ -977,7 +977,7 @@ No exercises
 
 ### Exercise <span class="exercise-number">14.7.1</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 Find the **stringi** functions that:
 
 1.  Count the number of words. `stri_count_words`
@@ -989,9 +989,9 @@ Find the **stringi** functions that:
     random strings, `stri_rand_shuffle` randomly shuffles the code points in the
     text.
 
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 The answer to each part follows.
 
@@ -1005,15 +1005,15 @@ The answer to each part follows.
     -   `stri_rand_strings()` generates random strings
     -   `stri_rand_shuffle()` randomly shuffles the code points (characters) in the text.
 
-`r EndAnswer()`
+</div>
 
 ### Exercise <span class="exercise-number">14.7.2</span> {.unnumbered .exercise}
 
-`r BeginQuestion()`
+<div class="question">
 How do you control the language that `stri_sort()` uses for sorting?
-`r EndQuestion()`
+</div>
 
-`r BeginAnswer()`
+<div class="answer">
 
 Use the `locale` argument to the `opts_collator` argument.
-`r EndAnswer()`
+</div>

@@ -91,11 +91,11 @@ by_country %>%
 
 #### Exercise <span class="exercise-number">25.2.1.1</span>
 
-<div class='question'>
+<div class="question">
 Explore other methods for visualizing the distribution of $R^2$ per continent. You might want to try the **ggbeeswarm** package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 See exercise 7.5.1.1.6 for more on **ggbeeswarm**
 
@@ -121,11 +121,11 @@ by_country %>%
 
 #### Exercise <span class="exercise-number">25.3.1.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 List all the functions that you can think of that take a atomic vector and return a list.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 E.g. Many of the **stringr** functions.
 
@@ -133,11 +133,11 @@ E.g. Many of the **stringr** functions.
 
 #### Exercise <span class="exercise-number">25.3.1.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Brainstorm useful summary functions that, like `quantile()`, return multiple values.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Some examples of summary functions that return multiple values are `range` and `fivenum`.
 
@@ -145,11 +145,11 @@ Some examples of summary functions that return multiple values are `range` and `
 
 #### Exercise <span class="exercise-number">25.3.1.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What’s missing in the following data frame? How does `quantile()` return that missing piece? Why isn’t that helpful here?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -183,12 +183,12 @@ Since the `unnest` function drops the names of the vector, they aren't useful he
 
 #### Exercise <span class="exercise-number">25.3.1.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does this code do?
 Why might might it be useful?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -219,11 +219,11 @@ But, it seems that it may do many things that `dplyr::do` does.
 
 #### Exercise <span class="exercise-number">25.4.1.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why might the `lengths()` function be useful for creating atomic vector columns from list-columns?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The `lengths()` function gets the lengths of each element in a list.
 It could be useful for testing whether all elements in a list-column are the same length.
@@ -234,12 +234,12 @@ It is also a replacement for something like `map_int(x, length)` or `sapply(x, l
 
 #### Exercise <span class="exercise-number">25.4.1.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 List the most common types of vector found in a data frame.
 What makes lists different?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The common types of vectors in data frames are:
 
@@ -254,4 +254,3 @@ All of the common types of vectors in data frames are atomic. Lists are not atom
 </div>
 
 <!-- match unopened div --><div>
-

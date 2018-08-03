@@ -19,11 +19,11 @@ No exercises
 
 ### Exercise <span class="exercise-number">6.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Go to the RStudio Tips twitter account, <https://twitter.com/rstudiotips> and find one tip that looks interesting. Practice using it!
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Here's the current timeline of \@rstudiotips.
 
@@ -33,12 +33,12 @@ Here's the current timeline of \@rstudiotips.
 
 ### Exercise <span class="exercise-number">6.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What other common mistakes will RStudio diagnostics report?
 Read <https://support.rstudio.com/hc/en-us/articles/205753617-Code-Diagnostics> to find out.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 You should read that page, but some other diagnostics for R code include:
 
@@ -48,4 +48,3 @@ You should read that page, but some other diagnostics for R code include:
 1.  Style diagnostics to ensure the code conforms to the [tidyverse style guide](http://adv-r.had.co.nz/Style.html).
 
 </div>
-

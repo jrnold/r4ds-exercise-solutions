@@ -16,11 +16,11 @@ No exercises
 
 ### Exercise <span class="exercise-number">20.3.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 To find out, try the functions on a numeric vector that includes a number and the five special values (`NA`, `NaN`, `Inf`, `-Inf`).
 
@@ -42,11 +42,11 @@ So `NA` and `NaN` are neither finite or infinite. Mind blown.
 
 ### Exercise <span class="exercise-number">20.3.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Read the source code for `dplyr::near()` (Hint: to see the source code, drop the ()). How does it work?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The source for `dplyr::near` is:
 
@@ -67,11 +67,11 @@ By default the tolerance is set to the square root of `.Machine$double.eps`, whi
 
 ### Exercise <span class="exercise-number">20.3.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 A logical vector can take 3 possible values. How many possible values can an integer vector take? How many possible values can a double take? Use Google to do some research.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The help for `.Machine` describes some of this:
 
@@ -83,11 +83,11 @@ The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_fo
 
 ### Exercise <span class="exercise-number">20.3.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Brainstorm at least four functions that allow you to convert a double to an integer. How do they differ? Be precise.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Broadly, could convert a double to an integer by truncating or rounding to the nearest integer.
 For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determining which integer value to go to.
@@ -150,11 +150,11 @@ Here's a [list](https://www.ma.utexas.edu/users/arbogast/misc/disasters.html) of
 
 ### Exercise <span class="exercise-number">20.3.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What functions from the **readr** package allow you to turn a string into logical, integer, and double vector?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The functions `parse_logical`, `parse_integer`, and `parse_number`.
 
@@ -184,11 +184,11 @@ Read the documentation of `read_number`. In order to ignore things like currency
 
 ### Exercise <span class="exercise-number">20.4.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What does `mean(is.na(x))` tell you about a vector `x`? What about `sum(!is.finite(x))`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The expression `mean(is.na(x))` calculates the proportion of missing values in a vector
 
@@ -209,11 +209,11 @@ mean(!is.finite(x))
 
 ### Exercise <span class="exercise-number">20.4.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Carefully read the documentation of `is.vector()`. What does it actually test for? Why does `is.atomic()` not agree with the definition of atomic vectors above?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The function `is.vector` only checks whether the object has no attributes other than names. Thus a `list` is a vector:
 
@@ -253,11 +253,11 @@ is.atomic(x)
 
 ### Exercise <span class="exercise-number">20.4.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Compare and contrast `setNames()` with `purrr::set_names()`.
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 These are simple functions, so we can simply print out their source code:
 
@@ -288,7 +288,7 @@ From the code we can see that `set_names` adds a few sanity checks: `x` has to b
 
 ### Exercise <span class="exercise-number">20.4.4</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Create functions that take a vector as input and returns:
 
 1.  The last value. Should you use `[` or `[[`?
@@ -298,7 +298,7 @@ Create functions that take a vector as input and returns:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 The answers to the parts follow.
 
@@ -377,11 +377,11 @@ The answers to the parts follow.
 
 ### Exercise <span class="exercise-number">20.4.5</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 They will treat missing values differently.
 
@@ -406,11 +406,11 @@ However, if the comparison generates a `NA`, then it will always keep that entry
 
 ### Exercise <span class="exercise-number">20.4.6</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 What happens when you subset with a positive integer that’s bigger than the length of the vector? What happens when you subset with a name that doesn’t exist?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Let's consider the named vector,
 
@@ -473,7 +473,7 @@ x[[5]]
 
 ### Exercise <span class="exercise-number">20.5.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Draw the following lists as nested sets:
 
 1.  `list(a, b, list(c, d), list(e, f))`
@@ -481,7 +481,7 @@ Draw the following lists as nested sets:
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 There are a variety of ways to draw these graphs.
 The original diagrams in *R for Data Science* were produced with [Graffle](https://www.omnigroup.com/omnigraffle).
@@ -512,13 +512,13 @@ For these examples, I generated these diagrams programmatically using the
 
 ### Exercise <span class="exercise-number">20.5.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 What happens if you subset a `tibble` as if you’re subsetting a list? What are the key differences between a list and a `tibble`?
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 Subsetting a `tibble` works the same way as a list; a data frame can be thought of as a list of columns.
 The key different between a list and a `tibble` is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.
@@ -556,13 +556,13 @@ No exercises
 
 ### Exercise <span class="exercise-number">20.7.1</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 
 What does `hms::hms(3600)` return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?
 
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 
 ```r
@@ -597,11 +597,11 @@ attributes(x)
 
 ### Exercise <span class="exercise-number">20.7.2</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Try and make a tibble that has columns with different lengths. What happens?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 If I try to create at tibble with a scalar and column of a different length there are no issues, and the scalar is repeated to the length of the longer vector.
 
@@ -628,11 +628,11 @@ tibble(x = 1:3, y = 1:4)
 
 ### Exercise <span class="exercise-number">20.7.3</span> {.unnumbered .exercise}
 
-<div class='question'>
+<div class="question">
 Based on the definition above, is it OK to have a list as a column of a tibble?
 </div>
 
-<div class='answer'>
+<div class="answer">
 
 If I didn't already know the answer, what I would do is try it out.
 From the above, the error message was about vectors having different lengths.
@@ -655,4 +655,3 @@ It works! I even used a list with heterogeneous types and there wasn't an issue.
 In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
 
 </div>
-
