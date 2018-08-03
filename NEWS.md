@@ -3,7 +3,7 @@
 -  Edited 19.5.2 (dongzhuoer #62)
 -  Edited 19.4.6 (dongzhuoer #59)
 -  Edited 19.4.5 (dongzhuoer #60)
--  Fix typos (dongzhuoer #64, #63)
+-  Fix typos (dongzhuoer #51, #52, #64, #63)
 
 ## 2018-08-01
 
