@@ -149,7 +149,7 @@ skewness <- function(x) {
   n <- length(x)
   m <- mean(x)
   m3 <- sum((x - m) ^ 3) / n
-  s3 <- sqrt(sum((x - m) ^ 2) / (n - 1))
+  s3 <- (sum((x - m) ^ 2) / (n - 1)) ^ (3 / 2)
   m3 / s3
 }
 skewness(rgamma(10, 1, 1))
