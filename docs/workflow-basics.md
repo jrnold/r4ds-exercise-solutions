@@ -38,7 +38,7 @@ the seventh character is "ı" ("[LATIN SMALL LETTER DOTLESS I](https://en.wikipe
 While it wouldn't have helped much in this case, the importance of
 distinguishing characters in code is reasons why fonts which clearly
 distinguish similar characters are preferred in programming.
-It is especially important to distinguish between two sets of similar looking charaters:
+It is especially important to distinguish between two sets of similar looking characters:
 
 -   the numeral zero (0), the Latin small letter O (o), and the Latin capital letter O (O),
 -   the numeral one (1), the Latin small letter I (i), the Latin capital letter I (I), and Latin small letter L (l). 

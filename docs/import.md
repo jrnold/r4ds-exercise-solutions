@@ -78,18 +78,30 @@ Sometimes strings in a CSV file contain commas.
 To prevent them from causing problems they need to be surrounded by a quoting character, like `"` or `'`.
 By convention, `read_csv()` assumes that the quoting character will be `"`, and if you want to change it you’ll need to use `read_delim()` instead.
 What arguments do you need to specify to read the following text into a data frame?
-</div>
-
-<div class='answer'>
 
 ```
 "x,y\n1,'a,b'"
 ```
 
+</div>
+
+<div class='answer'>
+
+For `read_delim()`, we will will need to specify a delimiter, in this case `","`, and a quote argument.
 
 ```r
 x <- "x,y\n1,'a,b'"
 read_delim(x, ",", quote = "'")
+#> # A tibble: 1 x 2
+#>       x y    
+#>   <int> <chr>
+#> 1     1 a,b
+```
+
+However, this question is out of date. `read_csv()` now supports a quote argument, so the following code works.
+
+```r
+read_csv(x, quote = "'")
 #> # A tibble: 1 x 2
 #>       x y    
 #>   <int> <chr>
@@ -119,7 +131,7 @@ read_csv("a,b\n1,2,3\n4,5,6")
 #> 2     4     5
 ```
 
-Only two columns are specified in the header "a" and "b", but the rows have three columns, so the last column in dropped.
+Only two columns are specified in the header "a" and "b", but the rows have three columns, so the last column is dropped.
 
 
 ```r
@@ -148,7 +160,7 @@ read_csv("a,b\n\"1")
 #> 1     1 <NA>
 ```
 It's not clear what the intent was here.
-The opening quote `\\"1` is dropped because it is not closed, and `a` is treated as an integer.
+The opening quote `"1` is dropped because it is not closed, and `a` is treated as an integer.
 
 
 ```r
@@ -371,7 +383,7 @@ For Asian languages Arabic and Vietnamese have ISO and Windows standards. The ot
 -   Chinese: GB 2312, GBK, GB 18030
 -   Korean: KS X 1001, EUC-KR, ISO-2022-KR
 
-The list in the documentation for `stringi::stri_enc_detect` is a good list of encodings since it supports the most common encodings.
+The list in the documentation for `stringi::stri_enc_detect()` is a good list of encodings since it supports the most common encodings.
 
 -   Western European Latin script languages: ISO-8859-1, Windows-1250 (also CP-1250 for code-point)
 -   Eastern European Latin script languages: ISO-8859-2, Windows-1252

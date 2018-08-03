@@ -10,9 +10,20 @@ without which these solutions would not exist---literally.
 This book was written in the open, with some people contributed pull requests to fix problems.
 Thank you to all who contributed via [GitHub](https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors).
 
-Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson@gmail.com>, <dongzhuoer@mail.nankai.edu.cn>, <kleinmarkgeard@gmail.com>, <mjones01@BattelleEcology.org>, <ndecoursin@gmail.com>, <nickywang100@gmail.com>, <theadamattack@gmail.com>, <theadamattack@gmail.com>, <tinhb92@gmail.com>.
+Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson@gmail.com>, <dongzhuoer@mail.nankai.edu.cn>, <dongzhuoer@mail.nankai.edu.cn>, <kleinmarkgeard@gmail.com>, <mjones01@BattelleEcology.org>, <ndecoursin@gmail.com>, <nickywang100@gmail.com>, <theadamattack@gmail.com>, <theadamattack@gmail.com>, <tinhb92@gmail.com>.
 
 ## Updates {-}
+
+### 2018-08-03 {-}
+
+-   Updated 11.2.4. `read_csv()` now supports a `quote` argument. (dongzhuoer #53)
+-   Edited 21.2.3. Added lyrics for all songs.
+-   Edited 19.2.6
+-   Edited 19.2.4. Used different definition of sample skewness. (#55)
+-   Edited 19.5.2 (dongzhuoer #62)
+-   Edited 19.4.6 (dongzhuoer #59)
+-   Edited 19.4.5 (dongzhuoer #60)
+-   Fix typos (dongzhuoer #51, #52, #54, #64, #63)
 
 ### 2018-08-01 {-}
 

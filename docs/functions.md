@@ -73,11 +73,7 @@ rescale01(c(Inf, -Inf, 0:5, NA))
 
 <div class='question'>
 
- Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
-
-</div>
-
-<div class='answer'>
+Practice turning the following code snippets into functions. Think about what each function does. What would you call it? How many arguments does it need? Can you rewrite it to be more expressive or less duplicative?
 
 
 ```r
@@ -88,38 +84,76 @@ x / sum(x, na.rm = TRUE)
 sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 ```
 
-This function calculates the proportion of `NA` values in a vector,
+</div>
+
+<div class='answer'>
+
+This code calculates the proportion of `NA` values in a vector.
+
+```r
+mean(is.na(x))
+```
+I will write it as a function named `prop_na` that takes a single argument `x`, 
+and returns a single numeric value between 0 and 1.
 
 ```r
 prop_na <- function(x) {
   mean(is.na(x))
 }
-prop_na(c(NA, 0, NA, 0, NA))
-#> [1] 0.6
+prop_na(c(0, 1, 2, NA, 4, NA))
+#> [1] 0.333
 ```
 
-This function standardizes a function to its weight. If all elements of `x` are non-negative, this will ensure the vector sums to 1.
+This code standardizes a vector so that it sums to 1.
 
 ```r
-weights <- function(x) {
-  x / sum(x, na.rm = TRUE)
+x / sum(x, na.rm = TRUE)
+```
+I'll write a function named `sum_to_one()`, which is a function of a single argument, `x`, the vector to standardize, and an optional argument `na.rm`.
+The optional argument, `na.rm`, makes the function more expressive, since it can 
+handle `NA` values in two ways (returning `NA` or dropping them).
+Additionally, this makes `sum_to_one()` consistent with `sum()`, `mean()`, and many 
+other R functions which have a `na.rm` argument.
+While the example code had `na.rm = TRUE`, I set `na.rm = FALSE` by default
+in order to make the function behave the same as the built-in functions like `sum()` and `mean()` in its handling of missing values.
+
+```r
+sum_to_one <- function(x, na.rm = FALSE) {
+  x / sum(x, na.rm = na.rm)
 }
-y <- weights(0:5)
-y
-#> [1] 0.0000 0.0667 0.1333 0.2000 0.2667 0.3333
-sum(y)
-#> [1] 1
 ```
 
-This function calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values).
-The coefficient of variation is the standard deviation divided by the mean
 
 ```r
-coef_variation <- function(x) {
-  sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+# no missing values
+sum_to_one(1:5)
+#> [1] 0.0667 0.1333 0.2000 0.2667 0.3333
+# if any missing, return all missing
+sum_to_one(c(1:5, NA))
+#> [1] NA NA NA NA NA NA
+# drop missing values when standarizing
+sum_to_one(c(1:5, NA), na.rm = TRUE)
+#> [1] 0.0667 0.1333 0.2000 0.2667 0.3333     NA
+```
+
+This code calculates the [coefficient of variation](https://en.wikipedia.org/wiki/Coefficient_of_variation) (assuming that `x` can only take non-negative values), which is the standard deviation divided by the mean.
+
+```r
+sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+```
+I'll write a function named `coef_variation()`, which takes a single argument `x`,
+and an optional `na.rm` argument.
+
+```r
+coef_variation <- function(x, na.rm = FALSE) {
+  sd(x, na.rm = na.rm) / mean(x, na.rm = na.rm)
 }
-coef_variation(runif(10))
-#> [1] 0.672
+coef_variation(1:5)
+#> [1] 0.527
+coef_variation(c(1:5, NA))
+#> [1] NA
+coef_variation(c(1:5, NA), na.rm = TRUE)
+#> [1] 0.527
 ```
 
 </div>
@@ -143,11 +177,9 @@ $$
 where the sample mean is $\bar{x} = (\sum x_i) / n$.
 
 ```r
-variance <- function(x) {
-  # remove missing values
-  x <- x[!is.na(x)]
+variance <- function(x, na.rm = TRUE) {
   n <- length(x)
-  m <- mean(x)
+  m <- mean(x, na.rm = TRUE)
   sq_err <- (x - m) ^ 2
   sum(sq_err) / (n - 1)
 }
@@ -157,22 +189,27 @@ variance(1:10)
 #> [1] 9.17
 ```
 
-There are multiple definitions of [skewness](https://en.wikipedia.org/wiki/Skewness), but I'll use the method of moments estimator of the population skewness,
+There are multiple definitions of [skewness](https://en.wikipedia.org/wiki/Skewness),
+but one of the most commonly used is the following:[@DoaneSeward2011]
 $$
-b_1 =  \frac{m_3}{s^3} = \frac{\frac{1}{n} \sum (x_i - \bar{x}) ^ 3}{{\left(\frac{1}{n - 1} \sum (x_i - \bar{x}) ^ 2\right)} ^ \frac{3}{2}}
+\mathsf{skewness}(x) = \frac{n}{(n - 1)(n - 2)} \sum_{i = 1}^{n} {\left( \frac{x_i - \bar{x}}{s} \right)}^{3} .
 $$
+where $\bar{x}$ is the sample mean and 
+$$
+s = \sqrt{\frac{1}{n - 1} \sum_{i = 1}^{n} (x_i - \bar{x})^2}
+$$
+is the sample standard deviation.
+The corresponding function is:
 
 ```r
-skewness <- function(x) {
-  x <- x[!is.na(x)]
+skewness <- function(x, na.rm = FALSE) {
   n <- length(x)
-  m <- mean(x)
-  m3 <- sum((x - m) ^ 3) / n
-  s3 <- sqrt(sum((x - m) ^ 2) / (n - 1))
-  m3 / s3
+  m <- mean(x, na.rm = na.rm)
+  s <- sd(x, na.rm = na.rm)
+  n * sum(((x - m) / s) ^ 3) / (n - 1) / (n - 2)
 }
-skewness(rgamma(10, 1, 1))
-#> [1] 1.56
+skewness(c(1, 2, 5, 100))
+#> [1] 1.99
 ```
 
 </div>
@@ -233,26 +270,26 @@ Read the complete lyrics to ``Little Bunny Foo Foo''. There’s a lot of duplica
 <div class='answer'>
 The lyrics of one of the [most common versions](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) of this song are
 
-Little bunny Foo Foo
-Hopping through the forest
-Scooping up the field mice
-And bopping them on the head
-
-Down came the Good Fairy, and she said
-"Little bunny Foo Foo
-I don't want to see you
-Scooping up the field mice
-
-And bopping them on the head.
-I'll give you three chances,
-And if you don't stop, I'll turn you into a GOON!"
-And the next day...
+> Little bunny Foo Foo \
+> Hopping through the forest \
+> Scooping up the field mice \
+> And bopping them on the head
+> 
+> Down came the Good Fairy, and she said \
+> "Little bunny Foo Foo \
+> I don't want to see you \  
+> Scooping up the field mice
+> 
+> And bopping them on the head. \
+> I'll give you three chances, \
+> And if you don't stop, I'll turn you into a GOON!" \
+> And the next day...
 
 The verses repeat with one chance fewer each time.
 When there are no chances left, the Good Fairy says
 
-> "I gave you three chances, and you didn't stop; so...."
-> POOF. She turned him into a GOON!
+> "I gave you three chances, and you didn't stop; so...." \
+> POOF. She turned him into a GOON! \
 > And the moral of this story is: *hare today, goon tomorrow.*
 
 Here's one way of writing this
@@ -375,7 +412,7 @@ samples from the multivariate normal distribution. The main arguments in
 is difficult. In general, it is better to be consistent with more widely used
 functions, e.g. `rmvnorm` should follow the conventions of `rnorm`. However,
 while `mean` is correct in the multivariate case, `sd` does not make sense in
-the multivariate case. However, both functions an internally consistent.
+the multivariate case. However, both functions are internally consistent.
 It would not be good practice to have `mu` and `sd` as arguments or `mean` and `Sigma` as arguments.
 
 </div>
@@ -422,7 +459,7 @@ Write a greeting function that says “good morning”, “good afternoon”, or
 
 ```r
 greet <- function(time = lubridate::now()) {
-  hr <- hour(time)
+  hr <- lubridate::hour(time)
   # I don't know what to do about times after midnight,
   # are they evening or morning?
   if (hr < 12) {
@@ -434,7 +471,7 @@ greet <- function(time = lubridate::now()) {
   }
 }
 greet()
-#> [1] "good evening"
+#> [1] "good afternoon"
 greet(ymd_h("2017-01-08:05"))
 #> [1] "good morning"
 greet(ymd_h("2017-01-08:13"))
@@ -545,13 +582,29 @@ What happens if you use `switch()` with numeric values?
 
 <div class='answer'>
 
-It selects that number argument from `...`.
-
+In `switch(n, ...)`, if `n` is numeric, it will return the `n`th argument from `...`.
+This means that if `n = 1`, `switch()` will return the first argument in `...`,
+if `n = 2`, the second, and so on.
+For example,
 
 ```r
-switch(2, "one", "two", "three")
-#> [1] "two"
+switch(1, "apple", "banana", "cantaloupe")
+#> [1] "apple"
+switch(2, "apple", "banana", "cantaloupe")
+#> [1] "banana"
 ```
+
+If you use a non-integer number for the first argument of `switch()`, it will
+ignore the non-integer part. 
+
+```r
+switch(1.2, "apple", "banana", "cantaloupe")
+#> [1] "apple"
+switch(2.8, "apple", "banana", "cantaloupe")
+#> [1] "banana"
+```
+Note that `switch()` truncates the numeric value, it does not round to the nearest integer.
+While it is possible to use non-integer numbers with `switch()`, you should avoid it
 
 </div>
 
@@ -559,11 +612,6 @@ switch(2, "one", "two", "three")
 
 <div class='question'>
 What does this `switch()` call do? What happens if `x` is `"e"`?
-</div>
-
-<div class='answer'>
-
-It will return the `"ab"` for `a` or `b`, `"cd"` for `c` or `d`, an `NULL` for `e`. It returns the first non-missing value for the first name it matches.
 
 ```r
 x <- "e"
@@ -574,16 +622,22 @@ switch(x,
   d = "cd"
 )
 ```
+
 Experiment, then carefully read the documentation.
 
+</div>
+
+<div class='answer'>
+
+First, let's write a function `switcheroo()`, and see what it returns for different values of `x`.
 
 ```r
 switcheroo <- function(x) {
   switch(x,
-  a = ,
-  b = "ab",
-  c = ,
-  d = "cd"
+    a = ,
+    b = "ab",
+    c = ,
+    d = "cd"
   )
 }
 switcheroo("a")
@@ -595,6 +649,31 @@ switcheroo("c")
 switcheroo("d")
 #> [1] "cd"
 switcheroo("e")
+switcheroo("f")
+```
+
+The `switcheroo()` function returns `"ab"` for `x = "a"` or `x = "b"`, 
+`"cd"` for `x = "c"` or `x = "d"`, and
+`NULL` for `x = "e"` or any other value of `x` not in `c("a", "b", "c", "d")`.
+
+How does this work?
+The `switch()` function returns the first non-missing argument value for the first name it matches.
+Thus, when `switch()` encounters an argument with a missing value, like `a = ,`, 
+it will return the value of the next argument with a non missing value, which in this case is `b = "ab"`.
+If `object` in `switch(object=)` is not equal to the names of any of its arguments,
+`switch()` will return either the last (unnamed) argument if one is present or `NULL`.
+Since `"e"` is not one of the named arguments in `switch()` (`a`, `b`, `c`, `d`), 
+and no other unnamed default value is present, this code will return `NULL`.
+
+The code in the question is shorter way of writing the following.
+```r
+switch(x,
+  a = "ab",
+  b = "ab",
+  c = "cd",
+  d = "cd",
+  NULL  # value to return if x not matched
+)
 ```
 
 </div>
@@ -647,13 +726,14 @@ commas <- function(..., collapse = ", ") {
 
 <div class='question'>
 
-It’d be nice if you could supply multiple characters to the pad argument, e.g. `rule("Title", pad = "-+")`.
+It’d be nice if you could supply multiple characters to the `pad` argument, e.g. `rule("Title", pad = "-+")`.
 Why doesn’t this currently work? How could you fix it?
 
 </div>
 
 <div class='answer'>
 
+This is the definition of the rule function from the [chapter](http://r4ds.had.co.nz/functions.html).
 
 ```r
 rule <- function(..., pad = "-") {
@@ -663,37 +743,43 @@ rule <- function(..., pad = "-") {
 }
 ```
 
-
 ```r
 rule("Important output")
 #> Important output ------------------------------------------------------
-rule("Important output", pad = "-+")
-#> Important output -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
-It does not work because it duplicates pad by the width minus the length of the string.
-This is implicitly assuming that pad is only one character.
-I could adjust the code to calculate the length of pad.
-The trickiest part is handling what to do if width is not a multiple of the number of characters of `pad`.
 
+You can currently supply multiple characters to the `pad` argument, but the output is 
+will not be the desired width. The `rule()` duplicates `pad` a number of times
+equal to the desired width minus the length of the title and five extra characters.
+This implicitly assumes that `pad` is only one character. If `pad` were two character,
+the output will be almost twice as long.
+
+```r
+rule("Valuable output", pad = "-+")
+#> Valuable output -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```
+
+One way to handle this is to use `stringr::str_trunc()` to truncate the string,
+and `stringr::str_length()` to calculate the number of characters in the `pad` argument.
 
 ```r
 rule <- function(..., pad = "-") {
   title <- paste0(...)
   width <- getOption("width") - nchar(title) - 5
-  padchar <- nchar(pad)
-  cat(title, " ",
-      stringr::str_dup(pad, width %/% padchar),
-      # if not multiple, fill in the remaining characters
-      stringr::str_sub(pad, 1, width %% padchar),
-      "\n", sep = "")
+  padding <- stringr::str_dup(pad, 
+                              ceiling(width / stringr::str_length(title))) %>%
+    stringr::str_trunc(width)
+  cat(title, " ", padding, "\n", sep = "")
 }
 rule("Important output")
-#> Important output ------------------------------------------------------
-rule("Important output", pad = "-+")
-#> Important output -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-rule("Important output", pad = "-+-")
-#> Important output -+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-
+#> Important output ----
+rule("Valuable output", pad = "-+")
+#> Valuable output -+-+-+-+
+rule("Vital output", pad = "-+-")
+#> Vital output -+--+--+--+--+-
 ```
+
+Note that in the second output, there is only a single `-` at the end.
 
 </div>
 
@@ -723,6 +809,10 @@ It means that the `method` argument can take one of those three values.
 The first value, `"pearson"`, is used by default.
 
 </div>
+
+## Return values
+
+No Exercises
 
 ## Environment
 
