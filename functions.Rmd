@@ -506,12 +506,8 @@ switch(2, "one", "two", "three")
 
 `r BeginQuestion()`
 What does this `switch()` call do? What happens if `x` is `"e"`?
-`r EndQuestion()`
 
-`r BeginAnswer()`
-
-It will return the `"ab"` for `a` or `b`, `"cd"` for `c` or `d`, an `NULL` for `e`. It returns the first non-missing value for the first name it matches.
-```{r}
+```r
 x <- "e"
 switch(x,
   a = ,
@@ -520,7 +516,12 @@ switch(x,
   d = "cd"
 )
 ```
-Experiment, then carefully read the documentation.
+
+Experiment, then carefully read the documentation.`r EndQuestion()`
+
+`r BeginAnswer()`
+
+It will return the `"ab"` for `a` or `b`, `"cd"` for `c` or `d`, an `NULL` for `e`. It returns the first non-missing value for the first name it matches.
 
 ```{r}
 switcheroo <- function(x) {
