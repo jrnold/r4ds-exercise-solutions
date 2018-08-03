@@ -1,5 +1,6 @@
 ## 2018-08-03
 
+-  Edited 19.4.5 (dongzhuoer #60)
 -  Fix typos (dongzhuoer #64, #63)
 
 ## 2018-08-01
