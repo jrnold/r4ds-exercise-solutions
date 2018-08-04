@@ -1,3 +1,10 @@
+## 2018-08-04
+
+-   Correct 19.4.3. Return values instead of printing them. (dongzhuoer #72)
+-   Edit Ex. 21.2.4. Incorrect exercise number. Pre-allocated vector is only 10 times faster. (dongzhuoer #80)
+-   Edit Ex 20.5.1. Keep order of elements in the the graphics the same as in the code. (dongzhuoer #79)
+-   Fix typos (dongzhuoer #76, #77, #81, #82)
+
 ## 2018-08-03
 
 -   Updated 11.2.4. `read_csv()` now supports a `quote` argument. (dongzhuoer #53)
