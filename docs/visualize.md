@@ -169,12 +169,17 @@ ggplot(data = mpg) +
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-9-1} \end{center}
 </div>
 
+<div class="answer">
+
 Since `colour = "blue"` was included within the `mapping` argument, it was treated as an aesthetic (a mapping between a variable and a value).
 The expression, `color="blue"`, treats `"blue"` as a variable with only one value: `"blue"`. If this is confusing, consider how `colour = 1:234` or `colour = 1` would be interpreted by `aes()`.
+
+</div>
 
 ### Exercise <span class="exercise-number">3.3.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Which variables in `mpg` are categorical?
 Which variables are continuous?
 (Hint: type `?mpg` to read the documentation for the dataset).

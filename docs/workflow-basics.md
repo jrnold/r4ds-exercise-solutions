@@ -6,6 +6,13 @@ editor_options:
 ---
 # Workflow Basics
 
+## Prerequisites {-}
+
+
+```r
+library("tidyverse")
+```
+
 ## Coding basics
 
 No exercises
@@ -31,6 +38,8 @@ my_varıable
 #> Error in eval(expr, envir, enclos): object 'my_varıable' not found
 ```
 </div>
+
+<div class="answer">
 
 The variable being printed is `my_varıable`, not `my_variable`:
 the seventh character is "ı" ("[LATIN SMALL LETTER DOTLESS I](https://en.wikipedia.org/wiki/Dotted_and_dotless_I)"), not "i".
@@ -59,24 +68,20 @@ The most common scenarios in which I encounter this error message are
 
 1.  I forgot to load the package that contains the object using `library()`.
 
+</div>
+
 ### Exercise <span class="exercise-number">4.4.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Tweak each of the following R commands so that they run correctly:
+
 </div>
+
+<div class="answer">
 
 
 ```r
-library("tidyverse")
-#> -- Attaching packages ---------------------------------- tidyverse 1.2.1 --
-#> √ ggplot2 3.0.0     √ purrr   0.2.5
-#> √ tibble  1.4.2     √ dplyr   0.7.6
-#> √ tidyr   0.8.1     √ stringr 1.3.1
-#> √ readr   1.1.1     √ forcats 0.3.0
-#> -- Conflicts ------------------------------------- tidyverse_conflicts() --
-#> x dplyr::filter() masks stats::filter()
-#> x dplyr::lag()    masks stats::lag()
-
 ggplot(dota = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 #> Error in FUN(X[[i]], ...): object 'displ' not found
@@ -84,7 +89,7 @@ ggplot(dota = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{workflow-basics_files/figure-latex/unnamed-chunk-3-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{workflow-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
 The error message is `argument "data" is missing, with no default`.
 
 It looks like a typo, `dota` instead of `data`.
@@ -96,7 +101,7 @@ ggplot(data = mpg) +
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{workflow-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{workflow-basics_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 
 ```r
@@ -155,10 +160,16 @@ filter(diamonds, carat > 3)
 How did I know? I started typing in `diamond` and RStudio completed it to `diamonds`.
 Since `diamonds` includes the variable `carat` and the code works, that appears to have been the problem.
 
+</div>
+
 ### Exercise <span class="exercise-number">4.4.3</span> {.unnumbered .exercise}
 
 <div class="question">
 Press *Alt + Shift + K*. What happens? How can you get to the same place using the menus?
 </div>
 
+<div class="answer">
+
 This gives a menu with keyboard shortcuts. This can be found in the menu under `Tools -> Keyboard Shortcuts Help`.
+
+</div>
