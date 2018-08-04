@@ -3,11 +3,17 @@
 -   Rewrite Ex 20.4.3. Previous answer depended on printing the code in each function.
     This does not work for the current version of `set_names()`. Rewrote answer
     to describe the differences in features in each function. (#71)
+
 -   Edit Ex 20.3.4. Fix function, expand and clarify function. (#70)
+
 -   Correct 19.4.3. Return values instead of printing them. (dongzhuoer #72)
+
 -   Edit Ex. 21.2.4. Incorrect exercise number. Pre-allocated vector is only 10 times faster. (dongzhuoer #80)
+
 -   Edit Ex. 20.5.1. Keep order of elements in the the graphics the same as in the code. (dongzhuoer #79)
+
 -   Edit Ex. 20.3.1 for clarity.
+
 -   Fix typos (dongzhuoer #76, #77, #81, #82)
 
 ## 2018-08-03
