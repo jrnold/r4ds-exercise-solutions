@@ -239,15 +239,47 @@ Compare and contrast `setNames()` with `purrr::set_names()`.
 
 <div class="answer">
 
-These are simple functions, so we can simply print out their source code:
+The function `setNames()` takes two arguments, a vector to be named and a vector
+of names to apply to its elements.
 ```{r}
-setNames
+setNames(1:4, c("a", "b", "c", "d"))
 ```
+You can name an vector with itself if the `nm` argument is used.
 ```{r}
-purrr::set_names
+setNames(nm = c("a", "b", "c", "d"))
 ```
 
-From the code we can see that `set_names` adds a few sanity checks: `x` has to be a vector, and the lengths of the object and the names have to be the same.
+The function `set_names` is more flexible. 
+It can be used the same way as `setNames`.
+```{r}
+purrr::set_names(1:4, c("a", "b", "c", "d"))
+```
+The names can also be specified as unnamed arguments,
+```{r}
+purrr::set_names(1:4, "a", "b", "c", "d")
+```
+The function `set_names` will name an object with itself if no `nm` argument is 
+provided (the opposite of `setNames` behavior).
+```{r}
+purrr::set_names(c("a", "b", "c", "d"))
+```
+
+The biggest difference between `set_names` and `setNames` is that `set_names` allows for using a function or formula to transform the existing names.
+```{r}
+purrr::set_names(c(a = 1, b = 2, c = 3), toupper)
+purrr::set_names(c(a = 1, b = 2, c = 3), ~ toupper(.))
+```
+
+The `set_names` function also checks that the length of the names argument is the
+same length as the vector that is being named, and will raise an error if it is not.
+```{r error=TRUE}
+purrr::set_names(1:4, c("a", "b"))
+```
+The `setNames()` function will allow the names to be shorter than the vector being 
+named, and will set the missing names to `NA`.
+```{r}
+setNames(1:4, c("a", "b"))
+```
 
 </div>
 
