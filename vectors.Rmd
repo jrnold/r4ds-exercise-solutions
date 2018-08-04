@@ -20,7 +20,7 @@ Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
 
 <div class="answer">
 
-To find out, try the functions on a numeric vector that includes a number and the five special values (`NA`, `NaN`, `Inf`, `-Inf`).
+To find out, try the functions on a numeric vector that includes at least one number and the four special values (`NA`, `NaN`, `Inf`, `-Inf`).
 
 ```{r}
 x <- c(0, NA, NaN, Inf, -Inf)
@@ -28,10 +28,19 @@ is.finite(x)
 !is.infinite(x)
 ```
 
-`is.finite` considers only a number to be finite, and considers missing (`NA`), not a number (`NaN`), and positive and negative infinity to be not finite.
-However, since `is.infinite` only considers `Inf` and `-Inf` to be infinite, `!is.infinite` considers `0` as well as missing and not-a-number to be not infinite.
+The `is.finite()` function considers non-missing numeric values to be finite, 
+and missing (`NA`), not a number (`NaN`), and positive (`Inf`) and negative infinity (`-Inf`) to not be finite. The `is.infinite()` behaves slightly differently. 
+It considers `Inf` and `-Inf` to be infinite, and everything else, including non-missing numbers, `NA`, and `NaN` to not be infinite. See Table \@ref(finite-infinite).
 
-So `NA` and `NaN` are neither finite or infinite. Mind blown.
+Table: (\#finite-infinite) Results of `is.finite()` and `is.infinite()` for 
+       numeric and special values.
+
+|        | `is.finite()` | `is.infinite()` |
+|--------|---------------|-----------------|
+| `1`    | `TRUE`        | `FALSE`         |
+| `NA`   | `FALSE`       | `FALSE`         |
+| `NaN`  | `FALSE`       | `FALSE`         |
+| `Inf`  | `FALSE`       | `TRUE`          |
 
 </div>
 
