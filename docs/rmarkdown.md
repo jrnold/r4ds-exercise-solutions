@@ -34,7 +34,7 @@ Create a new R Markdown document with *File > New File > R Markdown ...* Knit it
 <div class="answer">
 
 This exercise is mostly left to the reader.
-Recall that the keyboard shortcut to knit a file is `Cmd/Ctrl + Alt + I`.
+Recall that the keyboard shortcut to knit a file is `Cmd/Ctrl + Alt + K`.
 
 </div>
 
@@ -82,7 +82,7 @@ Text of the document.
 ```
 
 Copying the YAML header from an R notebook to a R markdown file changes it to an R markdown file, and vice-versa.
-More specifically, changing the value of `output` to
+More specifically, changing the value of `output`.
 This is because the RStudio IDE when opening and the **rmarkdown** package when knitting uses the YAML header of a file, and in particular the
 value of the `output` key in the YAML header, to determine what type of document it is.
 

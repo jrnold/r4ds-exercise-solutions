@@ -503,12 +503,14 @@ fizzbuzz <- function(x) {
   stopifnot(is.numeric(x))
   # this could be made more efficient by minimizing the
   # number of tests
-  if (!(x %% 3) & !(x %% 5)) {
-    print("fizzbuzz")
+  if (!(x %% 3) && !(x %% 5)) {
+    "fizzbuzz"
   } else if (!(x %% 3)) {
-    print("fizz")
+    "fizz"
   } else if (!(x %% 5)) {
-    print("buzz")
+    "buzz"
+  } else {
+    x
   }
 }
 fizzbuzz(6)
@@ -518,6 +520,7 @@ fizzbuzz(10)
 fizzbuzz(15)
 #> [1] "fizzbuzz"
 fizzbuzz(2)
+#> [1] 2
 ```
 
 </div>

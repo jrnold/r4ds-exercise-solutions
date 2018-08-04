@@ -468,13 +468,10 @@ The answers to each part follow.
 
 </div>
 
-#### Exercise <span class="exercise-number">21.2.3.1</span> {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">21.2.4</span> {.unnumbered .exercise}
 
 <div class="question">
 It's common to see for loops that don't preallocate the output and instead increase the length of a vector at each step:
-</div>
-
-<div class="answer">
 
 
 ```r
@@ -484,9 +481,12 @@ for (i in seq_along(x)) {
 }
 output
 ```
+How does this affect performance? Design and execute an experiment.
+</div>
 
-> I'll use the package **microbenchmark** to time this.
-> The `microbenchmark` function will run an R expression a number of times and time it.
+<div class="answer">
+I'll use the package **microbenchmark** to time this.
+The `microbenchmark` function will run an R expression a number of times and time it.
 
 Define a function that appends to an integer vector.
 
@@ -520,7 +520,7 @@ microbenchmark(add_to_vector_2(10000), times = 3)
 #>  add_to_vector_2(10000) 664 1030 2435   1396 3321 5245     3
 ```
 
-The pre-allocated vector is about **100** times faster!
+The pre-allocated vector is about **10** times faster!
 You may get different answers, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.
 
 </div>
@@ -652,7 +652,7 @@ I messed around with the options to `format` until I got two digits .
 
 ```r
 show_mean <- function(df, digits = 2) {
-  # Get max length of any variable in the dataset
+  # Get max length of all variable names in the dataset
   maxstr <- max(str_length(names(df)))
   for (nm in names(df)) {
     if (is.numeric(df[[nm]])) {

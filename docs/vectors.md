@@ -22,7 +22,7 @@ Describe the difference between `is.finite(x)` and `!is.infinite(x)`.
 
 <div class="answer">
 
-To find out, try the functions on a numeric vector that includes a number and the five special values (`NA`, `NaN`, `Inf`, `-Inf`).
+To find out, try the functions on a numeric vector that includes at least one number and the four special values (`NA`, `NaN`, `Inf`, `-Inf`).
 
 
 ```r
@@ -33,17 +33,26 @@ is.finite(x)
 #> [1]  TRUE  TRUE  TRUE FALSE FALSE
 ```
 
-`is.finite` considers only a number to be finite, and considers missing (`NA`), not a number (`NaN`), and positive and negative infinity to be not finite.
-However, since `is.infinite` only considers `Inf` and `-Inf` to be infinite, `!is.infinite` considers `0` as well as missing and not-a-number to be not infinite.
+The `is.finite()` function considers non-missing numeric values to be finite, 
+and missing (`NA`), not a number (`NaN`), and positive (`Inf`) and negative infinity (`-Inf`) to not be finite. The `is.infinite()` behaves slightly differently. 
+It considers `Inf` and `-Inf` to be infinite, and everything else, including non-missing numbers, `NA`, and `NaN` to not be infinite. See Table \@ref(tab:finite-infinite).
 
-So `NA` and `NaN` are neither finite or infinite. Mind blown.
+Table: (\#tab:finite-infinite) Results of `is.finite()` and `is.infinite()` for 
+       numeric and special values.
+
+|        | `is.finite()` | `is.infinite()` |
+|--------|---------------|-----------------|
+| `1`    | `TRUE`        | `FALSE`         |
+| `NA`   | `FALSE`       | `FALSE`         |
+| `NaN`  | `FALSE`       | `FALSE`         |
+| `Inf`  | `FALSE`       | `TRUE`          |
 
 </div>
 
 ### Exercise <span class="exercise-number">20.3.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Read the source code for `dplyr::near()` (Hint: to see the source code, drop the ()). How does it work?
+Read the source code for `dplyr::near()` (Hint: to see the source code, drop the `()`). How does it work?
 </div>
 
 <div class="answer">
@@ -156,27 +165,48 @@ What functions from the **readr** package allow you to turn a string into logica
 
 <div class="answer">
 
-The functions `parse_logical`, `parse_integer`, and `parse_number`.
-
+The function `parse_logical()` parses logical values, which can appear
+as variations of TRUE/FALSE or 1/0.
 
 ```r
 parse_logical(c("TRUE", "FALSE", "1", "0", "true", "t", "NA"))
 #> [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE    NA
 ```
 
+The function `parse_integer()` parses integer values.
 
 ```r
 parse_integer(c("1235", "0134", "NA"))
 #> [1] 1235  134   NA
 ```
-
+However, if there are any non-numeric characters in the string, including
+currency symbols, commas, and decimals, `parse_integer()` will raise an error.
 
 ```r
-parse_number(c("1.0", "3.5", "1,000", "NA"))
+parse_integer(c("1000", "$1,000", "10.00"))
+#> Warning in rbind(names(probs), probs_f): number of columns of result is not
+#> a multiple of vector length (arg 1)
+#> Warning: 2 parsing failures.
+#> row # A tibble: 2 x 4 col     row   col expected               actual expected   <int> <int> <chr>                  <chr>  actual 1     2    NA an integer             $1,000 row 2     3    NA no trailing characters .00
+#> [1] 1000   NA   NA
+#> attr(,"problems")
+#> # A tibble: 2 x 4
+#>     row   col expected               actual
+#>   <int> <int> <chr>                  <chr> 
+#> 1     2    NA an integer             $1,000
+#> 2     3    NA no trailing characters .00
+```
+
+The function `parse_number()` parses integer values.
+
+```r
+parse_number(c("1.0", "3.5", "$1,000.00", "NA"))
 #> [1]    1.0    3.5 1000.0     NA
 ```
 
-Read the documentation of `read_number`. In order to ignore things like currency symbols and comma separators in number strings it ignores them using a heuristic.
+Unlike `parse_integer()`, the function `parse_number()` is very forgiving about the format of the numbers.
+It ignores all non-numeric characters, as with `"$1,000.00"` in the example.
+This allows it to easily parse numeric fields that include currency symbols and comma separators in number strings without any intervention by the user.
 
 </div>
 
@@ -259,30 +289,72 @@ Compare and contrast `setNames()` with `purrr::set_names()`.
 
 <div class="answer">
 
-These are simple functions, so we can simply print out their source code:
+The function `setNames()` takes two arguments, a vector to be named and a vector
+of names to apply to its elements.
 
 ```r
-setNames
-#> function (object = nm, nm) 
-#> {
-#>     names(object) <- nm
-#>     object
-#> }
-#> <bytecode: 0x7fdc4f524240>
-#> <environment: namespace:stats>
+setNames(1:4, c("a", "b", "c", "d"))
+#> a b c d 
+#> 1 2 3 4
 ```
+You can name an vector with itself if the `nm` argument is used.
 
 ```r
-purrr::set_names
-#> function (x, nm = x, ...) 
-#> {
-#>     set_names_impl(x, x, nm, ...)
-#> }
-#> <bytecode: 0x7fdc4d2533a0>
-#> <environment: namespace:rlang>
+setNames(nm = c("a", "b", "c", "d"))
+#>   a   b   c   d 
+#> "a" "b" "c" "d"
 ```
 
-From the code we can see that `set_names` adds a few sanity checks: `x` has to be a vector, and the lengths of the object and the names have to be the same.
+The function `set_names` is more flexible. 
+It can be used the same way as `setNames`.
+
+```r
+purrr::set_names(1:4, c("a", "b", "c", "d"))
+#> a b c d 
+#> 1 2 3 4
+```
+The names can also be specified as unnamed arguments,
+
+```r
+purrr::set_names(1:4, "a", "b", "c", "d")
+#> a b c d 
+#> 1 2 3 4
+```
+The function `set_names` will name an object with itself if no `nm` argument is 
+provided (the opposite of `setNames` behavior).
+
+```r
+purrr::set_names(c("a", "b", "c", "d"))
+#>   a   b   c   d 
+#> "a" "b" "c" "d"
+```
+
+The biggest difference between `set_names` and `setNames` is that `set_names` allows for using a function or formula to transform the existing names.
+
+```r
+purrr::set_names(c(a = 1, b = 2, c = 3), toupper)
+#> A B C 
+#> 1 2 3
+purrr::set_names(c(a = 1, b = 2, c = 3), ~ toupper(.))
+#> A B C 
+#> 1 2 3
+```
+
+The `set_names` function also checks that the length of the names argument is the
+same length as the vector that is being named, and will raise an error if it is not.
+
+```r
+purrr::set_names(1:4, c("a", "b"))
+#> Error: `nm` must be `NULL` or a character vector the same length as `x`
+```
+The `setNames()` function will allow the names to be shorter than the vector being 
+named, and will set the missing names to `NA`.
+
+```r
+setNames(1:4, c("a", "b"))
+#>    a    b <NA> <NA> 
+#>    1    2    3    4
+```
 
 </div>
 
@@ -417,7 +489,7 @@ Let's consider the named vector,
 ```r
 x <- c(a = 10, b = 20)
 ```
-If we subset it by an integer larger than its length, it returns a vector of messing values.
+If we subset it by an integer larger than its length, it returns a vector of missing values.
 
 ```r
 x[3]
@@ -500,7 +572,7 @@ For these examples, I generated these diagrams programmatically using the
     \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_1-1} 
 
 1.  The nested set diagram for
-    `list(list(list(list(list(list(a))))))1
+    `list(list(list(list(list(list(a))))))1`
     is as follows.
 
 
@@ -655,3 +727,7 @@ It works! I even used a list with heterogeneous types and there wasn't an issue.
 In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
 
 </div>
+
+[^double-rounding: The built-in variable `.Machine$double.rounding` indicates
+                   the rounding method used by R. It states that the round half to even
+                   method is expected to be used, but this may differ by operating system.
