@@ -1,5 +1,7 @@
 ## 2018-08-04
 
+-   Fix section and exercise numbers in Chapter 27.
+
 -   Rewrite Ex 20.4.3. Previous answer depended on printing the code in each function.
     This does not work for the current version of `set_names()`. Rewrote answer
     to describe the differences in features in each function. (#71)
