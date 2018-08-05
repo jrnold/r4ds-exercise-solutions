@@ -352,9 +352,10 @@ The answers to the parts follow.
 
     ```{r}
     even_numbers <- function(x) {
-      x[!is.na(x) & (x %% 2 == 0)]
+      x[!is.na(x) & !is.infinite(x) & (x %% 2 == 0)]
     }
     even_numbers(-10:10)
+    even_numbers(c(1, 2, NA, NaN, Inf))
     ```
 
 </div>
