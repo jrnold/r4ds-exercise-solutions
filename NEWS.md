@@ -1,6 +1,8 @@
 ## 2018-08-05
 
--   Edit 20.4.4.4 so that `even_numbers` handles special values correctly. (#74 dongzhuoer)
+-   Edit 20.4.4 so that `even_numbers()` handles special values correctly.
+    Expand discussion and add testing of special cases for `not_last()`.
+    (#74,#75 dongzhuoer)
 -   Edit 20.4.5 to expand the discussion of the answer. (#75, thanks dongzhuoer)
 -   Fix section and exercise numbers. (dongzhuoer #91)
 
