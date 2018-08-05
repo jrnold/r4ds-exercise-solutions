@@ -17,22 +17,22 @@ In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0
 
 <div class="answer">
 
-The function `paste` separates strings by spaces by default, while `paste0` does not separate strings with spaces by default.
+The function `paste()` separates strings by spaces by default, while `paste0()` does not separate strings with spaces by default.
 
 ```{r}
 paste("foo", "bar")
 paste0("foo", "bar")
 ```
 
-Since `str_c` does not separate strings with spaces by default it is closer in behavior to `paste0`.
+Since `str_c()` does not separate strings with spaces by default it is closer in behavior to `paste0()`.
 
 ```{r}
 str_c("foo", "bar")
 ```
 
-However, `str_c` and the paste function handle NA differently.
-The function `str_c` propagates `NA`, if any argument is a missing value, it returns a missing value.
-This is in line with how the numeric R functions, e.g. `sum`, `mean`, handle missing values.
+However, `str_c()` and the paste function handle NA differently.
+The function `str_c()` propagates `NA`, if any argument is a missing value, it returns a missing value.
+This is in line with how the numeric R functions, e.g. `sum()`, `mean()`, handle missing values.
 However, the paste functions, convert `NA` to the string `"NA"` and then treat it as any other character vector.
 ```{r}
 str_c("foo", NA)
