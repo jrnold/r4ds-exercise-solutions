@@ -16,7 +16,7 @@
 
 -   Edit Ex. 20.3.1 for clarity.
 
--   Fix typos (dongzhuoer #76, #77, #81, #82)
+-   Fix typos (dongzhuoer #76, #77, #81, #82, #87, #88)
 
 ## 2018-08-03
 
