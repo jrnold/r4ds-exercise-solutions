@@ -22,9 +22,7 @@ diamonds2 <- diamonds %>%
 mod_diamond2 <- lm(lprice ~ lcarat + color + cut + clarity, data = diamonds2)
 ```
 
-### Exercises
-
-#### Exercise <span class="exercise-number">24.2.1.1</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.2.1</span> {.unnumbered .exercise}
 
 <div class="question">
 In the plot of `lcarat` vs. `lprice`, there are some bright vertical strips. What do they represent?
@@ -36,7 +34,7 @@ The distribution of diamonds has more diamonds at round or otherwise human frien
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.1.2</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.2.2</span> {.unnumbered .exercise}
 
 <div class="question">
 If `log(price) = a_0 + a_1 * log(carat)`, what does that say about the relationship between `price` and `carat`?
@@ -48,7 +46,7 @@ An 1% increase in carat is associated with an $a_1$% increase in price.
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.1.3</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.2.3</span> {.unnumbered .exercise}
 
 <div class="question">
 Extract the diamonds that have very high and very low residuals. Is there anything unusual about these diamonds? Are the particularly bad or good, or do you think these are pricing errors?
@@ -60,7 +58,7 @@ This was already discussed in the text. I don't see anything either.
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.1.4</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.2.4</span> {.unnumbered .exercise}
 
 <div class="question">
 Does the final model, `mod_diamonds2`, do a good job of predicting diamond prices? Would you trust it to tell you how much to spend if you were buying a diamond?
@@ -85,7 +83,7 @@ This doesn't seem terrible to me.
 
 </div>
 
-### What affects the number of daily flights?
+## What affects the number of daily flights?
 
 ```{r}
 library("nycflights13")
@@ -118,9 +116,7 @@ mod2 <- lm(n ~ wday * term, data = daily)
 
 ```
 
-### Exercises
-
-#### Exercise <span class="exercise-number">24.2.3.1</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.3.1</span> {.unnumbered .exercise}
 
 <div class="question">
 Use your Google sleuthing skills to brainstorm why there were fewer than expected flights on Jan 20, May 26, and Sep 1. (Hint: they all have the same explanation.) How would these days generalize to another year?
@@ -132,7 +128,7 @@ These are the Sundays before Monday holidays Martin Luther King Day, Memorial Da
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.3.2</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.3.2</span> {.unnumbered .exercise}
 
 <div class="question">
 
@@ -147,7 +143,7 @@ daily %>%
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.3.3</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.3.3</span> {.unnumbered .exercise}
 
 <div class="question">
 Create a new variable that splits the `wday` variable into terms, but only for Saturdays, i.e. it should have `Thurs`, `Fri`, but `Sat-summer`, `Sat-spring`, `Sat-fall` How does this model compare with the model with every combination of `wday` and `term`?
@@ -198,7 +194,7 @@ glance(mod2) %>% select(r.squared, sigma, AIC, df)
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.3.4</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.3.4</span> {.unnumbered .exercise}
 
 <div class="question">
 Create a new `wday` variable that combines the day of week, term (for Saturdays), and public holidays. What do the residuals of that model look like?
@@ -241,7 +237,7 @@ daily %>%
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.3.5</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.3.5</span> {.unnumbered .exercise}
 
 <div class="question">
 What happens if you fit a day of week effect that varies by month (i.e. `n ~ wday * month`)? Why is this not very helpful?
@@ -253,12 +249,12 @@ There are only 4-5 observations per parameter since only there are only 4-5 week
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.3.6</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.3.6</span> {.unnumbered .exercise}
 
 It will estimate a smooth seasonal trend (`ns(date, 5)`) with a day of the week cyclicality, (`wday`).
 It probably will not be effective since
 
-#### Exercise <span class="exercise-number">24.2.3.7</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.3.7</span> {.unnumbered .exercise}
 
 <div class="question">
 We hypothesized that people leaving on Sundays are more likely to be business travelers who need to be somewhere on Monday. Explore that hypothesis by seeing how it breaks down based on distance and time: if it’s true, you’d expect to see more Sunday evening flights to places that are far away.
@@ -297,7 +293,7 @@ Can someone think of a better way to check this?
 
 </div>
 
-#### Exercise <span class="exercise-number">24.2.3.8</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">24.3.8</span> {.unnumbered .exercise}
 
 <div class="question">
 It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.
@@ -324,3 +320,7 @@ ggplot(daily, aes(monday_first(wday), n)) +
 ```
 
 </div>
+
+## Learning more about models
+
+No exercises
