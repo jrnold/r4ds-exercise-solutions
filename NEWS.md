@@ -1,6 +1,7 @@
 ## 2018-08-05
 
--   Fix section and exercise numbers. (dongzhuoer #75)
+-   Edit 20.4.5 to expand the discussion of the answer. (#75, thanks dongzhuoer)
+-   Fix section and exercise numbers. (dongzhuoer #91)
 
 ## 2018-08-04
 
