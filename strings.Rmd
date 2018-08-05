@@ -123,19 +123,19 @@ Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, 
 See the Chapter [Functions] for more details on writing R functions.
 
 ```{r}
-str_commasep <- function(x, sep = ", ", last = ", and ") {
-  if (length(x) > 1) {
-    str_c(str_c(x[-length(x)], collapse = sep),
-                x[length(x)],
-                sep = last)
-  } else {
-    x
-  }
+str_commasep <- function(x, sep = ", ", last = " and ") {
+    if (length(x) <= 1)
+        return(x)
+    if (length(x) == 2)
+        return(str_c(x, collapse = last))
+    
+    x[-length(x)] %>% str_c(collapse = sep) %>% str_c(last, x[length(x)])
 }
 str_commasep("")
 str_commasep("a")
 str_commasep(c("a", "b"))
 str_commasep(c("a", "b", "c"))
+str_commasep(c("a", "b", "c", "d"))
 ```
 
 </div>
@@ -184,28 +184,6 @@ It will match any patterns that are a dot followed by any character, repeated th
 
 ```{r eval=is_html}
 str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
-```
-
-```{r}
-x <- c("apple", "banana", "pear")
-```
-```{r eval=is_html}
-str_view(x, "^a")
-```
-
-```{r eval=is_html}
-str_view(x, "a$")
-```
-
-```{r}
-x <- c("apple pie", "apple", "apple cake")
-```
-```{r eval=is_html}
-str_view(x, "apple")
-```
-
-```{r eval=is_html}
-str_view(x, "^apple$")
 ```
 
 </div>
