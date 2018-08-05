@@ -1,3 +1,7 @@
+## 2018-08-05
+
+-   Fix section and exercise numbers. (dongzhuoer #75)
+
 ## 2018-08-04
 
 -   Fix section and exercise numbers in Chapter 27.
