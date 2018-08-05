@@ -16,7 +16,9 @@
 
 -   Edit Ex. 20.3.1 for clarity.
 
--   Fix typos (dongzhuoer #76, #77, #81, #82, #87, #88)
+-   Fix Ex. 14.2.6. It was incorrect for a list of length two. (dongzhuoer #90)
+
+-   Fix typos. (dongzhuoer #76, #77, #81, #82, #87, #88, #89)
 
 ## 2018-08-03
 
