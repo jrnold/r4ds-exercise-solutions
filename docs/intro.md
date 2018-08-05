@@ -14,6 +14,11 @@ Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson
 
 ## Updates {-}
 
+### 2018-08-05 {-}
+
+-   Edit 20.4.5 to expand the discussion of the answer. (#75, thanks dongzhuoer)
+-   Fix section and exercise numbers. (dongzhuoer #91)
+
 ### 2018-08-04 {-}
 
 -   Fix section and exercise numbers in Chapter 27.
@@ -32,7 +37,9 @@ Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson
 
 -   Edit Ex. 20.3.1 for clarity.
 
--   Fix typos (dongzhuoer #76, #77, #81, #82)
+-   Fix Ex. 14.2.6. It was incorrect for a list of length two. (dongzhuoer #90)
+
+-   Fix typos. (dongzhuoer #76, #77, #81, #82, #87, #88, #89)
 
 ### 2018-08-03 {-}
 

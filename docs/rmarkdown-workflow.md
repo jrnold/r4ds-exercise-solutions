@@ -1,4 +1,4 @@
 
-# R Markdown Workflow
+# R Markdown workflow
 
 No exercises

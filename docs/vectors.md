@@ -455,24 +455,93 @@ Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
 
 <div class="answer">
 
-They will treat missing values differently.
+These expressions differ in the way that they great missing values.
+Let's test how they work by creating a vector with positive and negative integers,
+and special values (`NA`, `NaN`, and `Inf`). These values should encompass 
+all relevant types of values that these expressions would encounter.
 
 ```r
-x <- c(-5:5, Inf, -Inf, NaN, NA)
+x <- c(-1:1, Inf, -Inf, NaN, NA)
 x[-which(x > 0)]
-#> [1]   -5   -4   -3   -2   -1    0 -Inf  NaN   NA
--which(x > 0)
-#> [1]  -7  -8  -9 -10 -11 -12
+#> [1]   -1    0 -Inf  NaN   NA
 x[x <= 0]
-#> [1]   -5   -4   -3   -2   -1    0 -Inf   NA   NA
-x <= 0
-#>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
-#> [12] FALSE  TRUE    NA    NA
+#> [1]   -1    0 -Inf   NA   NA
 ```
+The expressions  `x[-which(x > 0)]` and `x[x <= 0]` return the same values except
+for a `NaN` instead of a `NA` in the `which()` based expression. 
 
-`-which(x > 0)` which calculates the indexes for any value that is `TRUE` and ignores `NA`. Thus is keeps `NA` and `NaN` because the comparison is not `TRUE`.
-`x <= 0` works slightly differently. If `x <= 0` returns `TRUE` or `FALSE` it works the same way.
-However, if the comparison generates a `NA`, then it will always keep that entry, but set it to `NA`. This is why the last two values of `x[x <= 0]` are `NA` rather than `c(NaN, NA)`.
+So what is going on here? Let's work through each part of these expressions and
+see where the different occurs.
+Let's start with the expression `x[x <= 0]`.
+
+```r
+x <= 0
+#> [1]  TRUE  TRUE FALSE FALSE  TRUE    NA    NA
+```
+Recall how the logical relational operators (`<`, `<=`, `==`, `!=`, `>`, `>=`) treat `NA` values.
+Any relational operation that includes a `NA` returns an `NA`.
+Is `NA <= 0`? We don't know because it depends on the unknown value of `NA`, so the answer is `NA`.
+This same argument applies to `NaN`. Asking whether `NaN <= 0` does not make sense because you can't compare a number to "Not a Number".
+
+Now recall how indexing treats `NA` values.
+Indexing can use a logical vector, and will include those elements where the logical vector is `TRUE`,
+and will not not return those elements where the logical vector is `FALSE`.
+Since a logical vector can include `NA` values, what should it do for them?
+Well, since the value is `NA` it could be `TRUE` or `FALSE`, we don't know. 
+Keeping elements with `NA` would treat the `NA` as `TRUE`, and dropping them would treat the `NA` as `FALSE`.  
+The way R decides to handle the `NA` values so that they are treated differently than `TRUE` or `FALSE` values is include elements where the indexing vector is `NA`, but set their values to `NA`.
+
+Now consider the expression `x[-which(x > 0)]`.
+As before, to understand this expression we'll work from the inside out.
+Consider `x > 0`.
+
+```r
+x > 0
+#> [1] FALSE FALSE  TRUE  TRUE FALSE    NA    NA
+```
+As with `x <= 0`, it returns `NA` for comparisons involving `NA` and `NaN`.
+
+What does `which()` do?
+
+```r
+which(x > 0)
+#> [1] 3 4
+```
+The `which()` function returns the indexes for which the argument is `TRUE`.
+This means that it is not including the indexes for which the argument is `FALSE` or `NA`.
+
+Now consider the full expression `x[-which(x > 0)]`?
+The `which()` function returned a vector of integers.
+How does indexing treat negative integers? 
+
+```r
+x[1:2]
+#> [1] -1  0
+x[-(1:2)]
+#> [1]    1  Inf -Inf  NaN   NA
+```
+If indexing gets a vector of positive integers, it will select those indexes;
+if it receives a vector of negative integers, it will drop those indexes.
+Thus, `x[-which(x > 0)]` ends up droping the elements for which `x > 0` is true,
+and keeps all the other elements and their original values, including `NA` and `NaN`.
+
+There's one other special case that we should consider. How do these two expressions work with 
+an empty vector?
+
+```r
+x <- numeric()
+x[x <= 0]
+#> numeric(0)
+x[-which(x > 0)]
+#> numeric(0)
+```
+Thankfully, they both handle empty vectors the same.
+
+This exercise is a reminder to always test your code. Even though these two expressions looked
+equivalent, they are not in practice. And when you do test code, consider both
+how it works on typical values as well as special values and edge cases, like a
+vector with `NA` or `NaN` or `Inf` values, or an empty vector. These are where 
+unexpected behavior is most likely to occur.
 
 </div>
 
@@ -566,7 +635,7 @@ For these examples, I generated these diagrams programmatically using the
     `list(a, b, list(c, d), list(e, f))`
     is
 
-
+    
 
     
     \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_1-1} 
@@ -575,7 +644,7 @@ For these examples, I generated these diagrams programmatically using the
     `list(list(list(list(list(list(a))))))1`
     is as follows.
 
-
+    
 
     
     \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_2-1} 

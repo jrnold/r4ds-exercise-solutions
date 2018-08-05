@@ -1,5 +1,5 @@
 
-# Workflow: Projects
+# Workflow: projects
 
 No exercises in this chapter.
 

@@ -158,7 +158,7 @@ coef_variation(c(1:5, NA), na.rm = TRUE)
 
 </div>
 
-### Exercise <span class="exercise-number">19.2.4</span>
+### Exercise <span class="exercise-number">19.2.4</span> {.unnumbered .exercise}
 
 <div class="question">
 
@@ -214,7 +214,7 @@ skewness(c(1, 2, 5, 100))
 
 </div>
 
-#### Exercise <span class="exercise-number">19.2.4.1</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.2.5</span> {.unnumbered .exercise}
 
 <div class="question">
 
@@ -239,7 +239,7 @@ both_na(c(NA, NA,  1, 2, NA, NA, 1),
 
 </div>
 
-### Exercise <span class="exercise-number">19.2.5</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.2.6</span> {.unnumbered .exercise}
 
 <div class="question">
 What do the following functions do? Why are they useful even though they are so short?
@@ -259,7 +259,7 @@ These functions are useful even though they are short because their names make i
 
 </div>
 
-### Exercise <span class="exercise-number">19.2.6</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">19.2.7</span> {.unnumbered .exercise}
 
 <div class="question">
 

@@ -1,5 +1,5 @@
 
-# Dates and Times
+# Dates and times
 
 ## Introduction
 

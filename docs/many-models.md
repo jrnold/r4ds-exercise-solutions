@@ -1,5 +1,5 @@
 
-# Many Models
+# Many models
 
 ## Introduction
 
@@ -89,7 +89,7 @@ by_country %>%
 
 \begin{center}\includegraphics[width=0.7\linewidth]{many-models_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
-#### Exercise <span class="exercise-number">25.2.1.1</span>
+### Exercise <span class="exercise-number">25.2.2</span> {.unnumbered .exercise}
 
 <div class="question">
 Explore other methods for visualizing the distribution of $R^2$ per continent. You might want to try the **ggbeeswarm** package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.
@@ -115,11 +115,13 @@ by_country %>%
 
 </div>
 
+## List-columns
+
+No exercises
+
 ## Creating list-columns
 
-### Exercises
-
-#### Exercise <span class="exercise-number">25.3.1.1</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">25.4.1</span> {.unnumbered .exercise}
 
 <div class="question">
 List all the functions that you can think of that take a atomic vector and return a list.
@@ -131,7 +133,7 @@ E.g. Many of the **stringr** functions.
 
 </div>
 
-#### Exercise <span class="exercise-number">25.3.1.2</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">25.4.2</span> {.unnumbered .exercise}
 
 <div class="question">
 Brainstorm useful summary functions that, like `quantile()`, return multiple values.
@@ -143,7 +145,7 @@ Some examples of summary functions that return multiple values are `range` and `
 
 </div>
 
-#### Exercise <span class="exercise-number">25.3.1.3</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">25.4.3</span> {.unnumbered .exercise}
 
 <div class="question">
 What’s missing in the following data frame? How does `quantile()` return that missing piece? Why isn’t that helpful here?
@@ -181,7 +183,7 @@ Since the `unnest` function drops the names of the vector, they aren't useful he
 
 </div>
 
-#### Exercise <span class="exercise-number">25.3.1.4</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">25.4.4</span> {.unnumbered .exercise}
 
 <div class="question">
 What does this code do?
@@ -215,9 +217,7 @@ But, it seems that it may do many things that `dplyr::do` does.
 
 ## Simplifying list-columns
 
-### Exercises
-
-#### Exercise <span class="exercise-number">25.4.1.1</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">25.5.1</span> {.unnumbered .exercise}
 
 <div class="question">
 Why might the `lengths()` function be useful for creating atomic vector columns from list-columns?
@@ -232,7 +232,7 @@ It is also a replacement for something like `map_int(x, length)` or `sapply(x, l
 
 </div>
 
-#### Exercise <span class="exercise-number">25.4.1.2</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">25.5.2</span> {.unnumbered .exercise}
 
 <div class="question">
 List the most common types of vector found in a data frame.

@@ -104,7 +104,7 @@ mpg %>%
 
 </div>
 
-#### Exercise <span class="exercise-number">28.2.3</span>
+### Exercise <span class="exercise-number">28.2.3</span> {.unnumbered .exercise}
 
 <div class="question">
 Take an exploratory graphic that you've created in the last month, and add informative titles to make it easier for others to understand.
@@ -379,6 +379,7 @@ Change the display of the presidential terms by:
 </div>
 
 <div class="answer">
+
 
 ```r
 years <- lubridate::make_date(seq(year(min(presidential$start)),

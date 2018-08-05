@@ -61,7 +61,7 @@ I don't know if I would have figured that out before; maybe if there was data on
 
 </div>
 
-### Exercise <span class="exercise-number">7.3.2</span>
+### Exercise <span class="exercise-number">7.3.2</span> {.unnumbered .exercise}
 
 <div class="question">
 Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the `binwidth` and make sure you try a wide range of values.)
@@ -136,7 +136,7 @@ diamonds %>%
 
 </div>
 
-### Exercise <span class="exercise-number">7.3.3</span>
+### Exercise <span class="exercise-number">7.3.3</span> {.unnumbered .exercise}
 
 <div class="question">
 How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?

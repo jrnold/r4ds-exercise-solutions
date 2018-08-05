@@ -1,5 +1,5 @@
 
-# R Markdown Formats
+# R Markdown formats
 
 No exercises.
 

@@ -5,7 +5,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Model Basics
+# Model basics
 
 ## Prerequisites
 

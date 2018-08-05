@@ -8,7 +8,7 @@
 library(tidyverse)
 ```
 
-## Tidy Data
+## Tidy data
 
 ### Exercise <span class="exercise-number">12.2.1</span> {.unnumbered .exercise}
 

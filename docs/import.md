@@ -4,7 +4,7 @@ output: html_document
 editor_options:
   chunk_output_type: console
 ---
-# Data Import
+# Data import
 
 ## Introduction
 

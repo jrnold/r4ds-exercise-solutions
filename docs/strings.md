@@ -19,7 +19,7 @@ In code that doesn’t use **stringr**, you’ll often see `paste()` and `paste0
 
 <div class="answer">
 
-The function `paste` separates strings by spaces by default, while `paste0` does not separate strings with spaces by default.
+The function `paste()` separates strings by spaces by default, while `paste0()` does not separate strings with spaces by default.
 
 
 ```r
@@ -29,7 +29,7 @@ paste0("foo", "bar")
 #> [1] "foobar"
 ```
 
-Since `str_c` does not separate strings with spaces by default it is closer in behavior to `paste0`.
+Since `str_c()` does not separate strings with spaces by default it is closer in behavior to `paste0()`.
 
 
 ```r
@@ -37,9 +37,9 @@ str_c("foo", "bar")
 #> [1] "foobar"
 ```
 
-However, `str_c` and the paste function handle NA differently.
-The function `str_c` propagates `NA`, if any argument is a missing value, it returns a missing value.
-This is in line with how the numeric R functions, e.g. `sum`, `mean`, handle missing values.
+However, `str_c()` and the paste function handle NA differently.
+The function `str_c()` propagates `NA`, if any argument is a missing value, it returns a missing value.
+This is in line with how the numeric R functions, e.g. `sum()`, `mean()`, handle missing values.
 However, the paste functions, convert `NA` to the string `"NA"` and then treat it as any other character vector.
 
 ```r
@@ -136,22 +136,38 @@ str_pad("abc", 4, side = "left")
 ### Exercise <span class="exercise-number">14.2.6</span> {.unnumbered .exercise}
 
 <div class="question">
-Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
+Write a function that turns (e.g.) a vector `c("a", "b", "c")` into the string `"a, b, and c"`. Think carefully about what it should do if given a vector of length 0, 1, or 2.
 </div>
 
 <div class="answer">
 
 See the Chapter [Functions] for more details on writing R functions.
 
+This function needs to handle four cases.
+
+1.  `n == 0`: an empty string, e.g. `""`.
+1.  `n == 1`: the original vector, e.g. `"a"`.
+1.  `n == 2`: return the two elements separated by "and", e.g. `"a and b"`.
+1.  `n > 2`: return the first `n - 1` elements separated by commas, and the last element separated by a comma and "and", e.g. `"a, b, and c"`.
+
 
 ```r
-str_commasep <- function(x, sep = ", ", last = ", and ") {
-  if (length(x) > 1) {
-    str_c(str_c(x[-length(x)], collapse = sep),
-                x[length(x)],
-                sep = last)
-  } else {
+str_commasep <- function(x, delim = ",") {
+  n <- length(x)
+  if (n == 0) {
+    ""
+  } else if (n == 1) {
     x
+  } else if (n == 2) {
+    # no comma before and when n == 2
+    str_c(x[[1]], "and", x[[2]], sep = " ")
+  } else {
+    # commas after all n - 1 elements
+    not_last <- str_c(x[seq_len(n - 1)], delim)
+    # prepend "and" to the last element
+    last <- str_c("and", x[[n]], sep = " ")
+    # combine parts with spaces
+    str_c(c(not_last, last), collapse = " ")
   }
 }
 str_commasep("")
@@ -159,9 +175,11 @@ str_commasep("")
 str_commasep("a")
 #> [1] "a"
 str_commasep(c("a", "b"))
-#> [1] "a, and b"
+#> [1] "a and b"
 str_commasep(c("a", "b", "c"))
 #> [1] "a, b, and c"
+str_commasep(c("a", "b", "c", "d"))
+#> [1] "a, b, c, and d"
 ```
 
 </div>
@@ -212,34 +230,6 @@ It will match any patterns that are a dot followed by any character, repeated th
 
 ```r
 str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
-```
-
-
-```r
-x <- c("apple", "banana", "pear")
-```
-
-```r
-str_view(x, "^a")
-```
-
-
-```r
-str_view(x, "a$")
-```
-
-
-```r
-x <- c("apple pie", "apple", "apple cake")
-```
-
-```r
-str_view(x, "apple")
-```
-
-
-```r
-str_view(x, "^apple$")
 ```
 
 </div>

@@ -1,5 +1,5 @@
 
-# Relational Data
+# Relational data
 
 ## Introduction
 
