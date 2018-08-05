@@ -7,11 +7,13 @@ editor_options:
 
 # R Markdown
 
+## Introduction
+
 ## R Markdown Basics
 
 ### Exercises
 
-#### Exercise <span class="exercise-number">27.1.1.1</span> {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">27.2.1.1</span> {.unnumbered .exercise}
 
 <div class="question">
 
@@ -25,7 +27,7 @@ This exercise is left to the reader.
 
 </div>
 
-#### Exercise <span class="exercise-number">27.1.1.2</span> {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">27.2.1.2</span> {.unnumbered .exercise}
 
 <div class="question">
 Create a new R Markdown document with *File > New File > R Markdown ...* Knit it by clicking the appropriate button. Knit it by using the appropriate keyboard short cut. Verify that you can modify the input and see the output update.
@@ -38,7 +40,7 @@ Recall that the keyboard shortcut to knit a file is `Cmd/Ctrl + Alt + K`.
 
 </div>
 
-#### Exercise <span class="exercise-number">27.1.1.3</span> {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">27.2.1.3</span> {.unnumbered .exercise}
 
 <div class="question">
 Compare and contrast the R notebook and R markdown files you created above. How are the outputs similar? How are they different? How are the inputs similar? How are they different? What happens if you copy the YAML header from one to the other?
@@ -81,14 +83,14 @@ output: html_document
 Text of the document.
 ```
 
-Copying the YAML header from an R notebook to a R markdown file changes it to an R markdown file, and vice-versa.
-More specifically, changing the value of `output`.
-This is because the RStudio IDE when opening and the **rmarkdown** package when knitting uses the YAML header of a file, and in particular the
-value of the `output` key in the YAML header, to determine what type of document it is.
+Copying the YAML header from an R notebook to a R markdown file changes it to an R notebook, and vice-versa.
+More specifically, an `.Rmd` file can be changed to R markdown file or R notebook by changing the value of the `output` key in the header.
+
+The RStudio IDE and the **rmarkdown** package both use the YAML header of an `.Rmd` file to determine the document-type of the file.
 
 </div>
 
-#### Exercise <span class="exercise-number">27.1.1.4</span> {.unnumbered .exercise}
+#### Exercise <span class="exercise-number">27.2.1.4</span> {.unnumbered .exercise}
 
 <div class="question">
 
@@ -111,7 +113,7 @@ documents.
 
 ## Text formatting with R Markdown
 
-### Exercise <span class="exercise-number">27.2.1</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">27.3.1</span> {.unnumbered .exercise}
 
 <div class="question">
 Practice what you’ve learned by creating a brief CV. The title should be your name, and you should include headings for (at least) education or employment. Each of the sections should include a bulleted list of jobs/degrees. Highlight the year in bold.
@@ -144,7 +146,7 @@ Your own example could be much more detailed.
 
 </div>
 
-### Exercise <span class="exercise-number">27.2.2</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">27.3.2</span> {.unnumbered .exercise}
 
 <div class="question">
 
@@ -184,7 +186,7 @@ a YAML block if it is at the start of the document.
 
 </div>
 
-### Exercise <span class="exercise-number">27.2.3</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">27.3.3</span> {.unnumbered .exercise}
 
 <div class="question">
 Copy and paste the contents of `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown> in to a local R markdown document. Check that you can run it, then add text after the frequency polygon that describes its most striking features.
@@ -192,20 +194,7 @@ Copy and paste the contents of `diamond-sizes.Rmd` from <https://github.com/hadl
 
 <div class="answer">
 
-For an example R markdown document, see the exercises in the next section.
-
-</div>
-
-## Code Chunks
-
-### Exercise <span class="exercise-number">27.3.1</span> {.unnumbered .exercise}
-
-<div class="question">
-Add a section that explores how diamond sizes vary by cut, color, and clarity. Assume you’re writing a report for someone who doesn’t know R, and instead of setting `echo = FALSE` on each chunk, set a global option.
-</div>
-
-<div class="answer">
-Exercises 1--3 are answered in this document.
+The following R markdown document answers this question as well as exercises [exercise-27.4.1], [exercise-27.4.2], and [exercise-27.4.3].
 
 
 ````
@@ -290,9 +279,24 @@ Most of the twenty largest datasets are in the lowest clarity category ("I1"), w
 The top twenty diamonds have colors ranging from the worst, "J", to best, "D", categories, though most are in the lower categories "J" and "I".
 The top twenty diamonds are more evenly distributed among the cut categories, from "Fair" to "Ideal", although the worst category (Fair) is the most common.
 ````
+
 </div>
 
-### Exercise <span class="exercise-number">27.3.2</span> {.unnumbered .exercise}
+## Code Chunks
+
+### Exercise <span class="exercise-number">27.4.1</span> {.unnumbered .exercise}
+
+<div class="question">
+Add a section that explores how diamond sizes vary by cut, color, and clarity. 
+Assume you’re writing a report for someone who doesn’t know R, and instead of 
+setting `echo = FALSE` on each chunk, set a global option.
+</div>
+
+<div class="answer">
+See the answer to [exercise-27.3.3].
+</div>
+
+### Exercise <span class="exercise-number">27.4.2</span> {.unnumbered .exercise}
 
 <div class="question">
 Download `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown>. Add a section that describes the largest 20 diamonds, including a table that displays their most important attributes.
@@ -300,17 +304,21 @@ Download `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rm
 
 <div class="answer">
 
-For the this, I use `arrange()` and `slice()` to select the largest twenty diamonds, and `knitr::kable()` to produce a formatted table.
+See the answer to [exercise-27.3.3].
+I use `arrange()` and `slice()` to select the largest twenty diamonds, and 
+`knitr::kable()` to produce a formatted table.
 
 </div>
 
-### Exercise <span class="exercise-number">27.3.3</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">27.4.3</span> {.unnumbered .exercise}
 
 <div class="question">
 Modify `diamonds-sizes.Rmd` to use comma() to produce nicely formatted output. Also include the percentage of diamonds that are larger than 2.5 carats.
 </div>
 
 <div class="answer">
+
+See the answer to Exercise [exercise-27.3.3].
 
 I moved the computation of the number larger and percent of diamonds larger than 2.5 carats into a code chunk.
 I find that it is best to keep inline R expressions simple, usually consisting of an object and a formatting function.
@@ -320,7 +328,7 @@ Calculating those objects in a code chunk with the `include = FALSE` option (as 
 
 </div>
 
-### Exercise <span class="exercise-number">27.3.4</span> {.unnumbered .exercise}
+### Exercise <span class="exercise-number">27.4.4</span> {.unnumbered .exercise}
 
 <div class="question">
 
@@ -372,3 +380,11 @@ and the same as the first time the document was run with caching.
 ````
 
 </div>
+
+## YAML header
+
+No exercises
+
+## Learning more
+
+No exercises
