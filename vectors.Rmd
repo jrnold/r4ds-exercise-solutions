@@ -352,10 +352,22 @@ The answers to the parts follow.
 
     ```{r}
     even_numbers <- function(x) {
-      x[!is.na(x) & !is.infinite(x) & (x %% 2 == 0)]
+      x[x %% 2 == 0]
     }
     even_numbers(-10:10)
-    even_numbers(c(1, 2, NA, NaN, Inf))
+    ```
+    
+    We could improve this function by handling the cases of the special values:
+    `NA`, `NaN`, `Inf`. However, first we need to decide how to handle them.
+    Neither `NaN` nor `Inf` are considered even numbers. What about `NA`? 
+    Well, we don't know. The value of `NA` could be even or odd, but it is missing.
+    So we will follow the convention of many R functions and keep the `NA` values.
+    The revised function now handles these cases.
+    ```{r}
+    even_numbers <- function(x) {
+      x[!is.infinite(x) & !is.nan(x) & (x %% 2 == 0)]
+    }
+    even_numbers(c(0:4, NA, NaN, Inf))
     ```
 
 </div>
