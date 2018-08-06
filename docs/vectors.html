@@ -136,6 +136,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#organization"><i class="fa fa-check"></i>Organization</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#dependencies"><i class="fa fa-check"></i>Dependencies</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#bugscontributing"><i class="fa fa-check"></i>Bugs/Contributing</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-08-06</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-08-05</a></li>
@@ -154,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-14"><i class="fa fa-check"></i>2018-07-14</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-15"><i class="fa fa-check"></i>2018-05-08</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#colophon"><i class="fa fa-check"></i>Colophon</a></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
 <li class="chapter" data-level="2" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
@@ -712,7 +716,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">20</span> Vectors</h1>
 <div id="introduction-13" class="section level2">
 <h2><span class="header-section-number">20.1</span> Introduction</h2>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
 </div>
 <div id="vector-basics" class="section level2">
 <h2><span class="header-section-number">20.2</span> Vector Basics</h2>
@@ -727,11 +731,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="answer">
 <p>To find out, try the functions on a numeric vector that includes at least one number and the four special values (<code>NA</code>, <code>NaN</code>, <code>Inf</code>, <code>-Inf</code>).</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>)</a>
-<a class="sourceLine" id="cb440-2" data-line-number="2"><span class="kw">is.finite</span>(x)</a>
-<a class="sourceLine" id="cb440-3" data-line-number="3"><span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE FALSE</span></a>
-<a class="sourceLine" id="cb440-4" data-line-number="4"><span class="op">!</span><span class="kw">is.infinite</span>(x)</a>
-<a class="sourceLine" id="cb440-5" data-line-number="5"><span class="co">#&gt; [1]  TRUE  TRUE  TRUE FALSE FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>)</a>
+<a class="sourceLine" id="cb442-2" data-line-number="2"><span class="kw">is.finite</span>(x)</a>
+<a class="sourceLine" id="cb442-3" data-line-number="3"><span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE FALSE</span></a>
+<a class="sourceLine" id="cb442-4" data-line-number="4"><span class="op">!</span><span class="kw">is.infinite</span>(x)</a>
+<a class="sourceLine" id="cb442-5" data-line-number="5"><span class="co">#&gt; [1]  TRUE  TRUE  TRUE FALSE FALSE</span></a></code></pre></div>
 <p>The <code>is.finite()</code> function considers non-missing numeric values to be finite,
 and missing (<code>NA</code>), not a number (<code>NaN</code>), and positive (<code>Inf</code>) and negative infinity (<code>-Inf</code>) to not be finite. The <code>is.infinite()</code> behaves slightly differently.
 It considers <code>Inf</code> and <code>-Inf</code> to be infinite, and everything else, including non-missing numbers, <code>NA</code>, and <code>NaN</code> to not be infinite. See Table <a href="vectors.html#tab:finite-infinite">20.1</a>.</p>
@@ -777,13 +781,13 @@ numeric and special values.</caption>
 </div>
 <div class="answer">
 <p>The source for <code>dplyr::near</code> is:</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" data-line-number="1">dplyr<span class="op">::</span>near</a>
-<a class="sourceLine" id="cb441-2" data-line-number="2"><span class="co">#&gt; function (x, y, tol = .Machine$double.eps^0.5) </span></a>
-<a class="sourceLine" id="cb441-3" data-line-number="3"><span class="co">#&gt; {</span></a>
-<a class="sourceLine" id="cb441-4" data-line-number="4"><span class="co">#&gt;     abs(x - y) &lt; tol</span></a>
-<a class="sourceLine" id="cb441-5" data-line-number="5"><span class="co">#&gt; }</span></a>
-<a class="sourceLine" id="cb441-6" data-line-number="6"><span class="co">#&gt; &lt;bytecode: 0x7fc34662ac38&gt;</span></a>
-<a class="sourceLine" id="cb441-7" data-line-number="7"><span class="co">#&gt; &lt;environment: namespace:dplyr&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" data-line-number="1">dplyr<span class="op">::</span>near</a>
+<a class="sourceLine" id="cb443-2" data-line-number="2"><span class="co">#&gt; function (x, y, tol = .Machine$double.eps^0.5) </span></a>
+<a class="sourceLine" id="cb443-3" data-line-number="3"><span class="co">#&gt; {</span></a>
+<a class="sourceLine" id="cb443-4" data-line-number="4"><span class="co">#&gt;     abs(x - y) &lt; tol</span></a>
+<a class="sourceLine" id="cb443-5" data-line-number="5"><span class="co">#&gt; }</span></a>
+<a class="sourceLine" id="cb443-6" data-line-number="6"><span class="co">#&gt; &lt;bytecode: 0x7fc34662ac38&gt;</span></a>
+<a class="sourceLine" id="cb443-7" data-line-number="7"><span class="co">#&gt; &lt;environment: namespace:dplyr&gt;</span></a></code></pre></div>
 <p>Instead of checking for exact equality, it checks that two numbers are within a certain tolerance, <code>tol</code>.
 By default the tolerance is set to the square root of <code>.Machine$double.eps</code>, which is the smallest floating point number that the computer can represent.</p>
 </div>
@@ -802,22 +806,22 @@ so the range of representable integers is restricted to about +/-2*10^9: doubles
 can hold much larger integers exactly.</p>
 </blockquote>
 <p>The range of integers values that R can represent in an integer vector is <span class="math inline">\(\pm 2^{31} - 1\)</span>,</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" data-line-number="1">.Machine<span class="op">$</span>integer.max</a>
-<a class="sourceLine" id="cb442-2" data-line-number="2"><span class="co">#&gt; [1] 2147483647</span></a></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" data-line-number="1">.Machine<span class="op">$</span>integer.max</a>
+<a class="sourceLine" id="cb444-2" data-line-number="2"><span class="co">#&gt; [1] 2147483647</span></a></code></pre></div>
 <p>The maximum integer is <span class="math inline">\(2^{31} - 1\)</span> rather than <span class="math inline">\(2^{32}\)</span> because 1 bit is used to
 represent the sign (<span class="math inline">\(+\)</span>, <span class="math inline">\(-\)</span>) and one value is used to represent <code>NA_integer_</code>.</p>
 <p>If you try to represent an integer greater than that value, R will return <code>NA</code> values.</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" data-line-number="1">.Machine<span class="op">$</span>integer.max <span class="op">+</span><span class="st"> </span>1L</a>
-<a class="sourceLine" id="cb443-2" data-line-number="2"><span class="co">#&gt; Warning in .Machine$integer.max + 1L: NAs produced by integer overflow</span></a>
-<a class="sourceLine" id="cb443-3" data-line-number="3"><span class="co">#&gt; [1] NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" data-line-number="1">.Machine<span class="op">$</span>integer.max <span class="op">+</span><span class="st"> </span>1L</a>
+<a class="sourceLine" id="cb445-2" data-line-number="2"><span class="co">#&gt; Warning in .Machine$integer.max + 1L: NAs produced by integer overflow</span></a>
+<a class="sourceLine" id="cb445-3" data-line-number="3"><span class="co">#&gt; [1] NA</span></a></code></pre></div>
 <p>However, you can represent that value (exactly) with a numeric vector at the cost of
 about two times the memory.</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" data-line-number="1"><span class="kw">as.numeric</span>(.Machine<span class="op">$</span>integer.max) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb444-2" data-line-number="2"><span class="co">#&gt; [1] 2.15e+09</span></a></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" data-line-number="1"><span class="kw">as.numeric</span>(.Machine<span class="op">$</span>integer.max) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb446-2" data-line-number="2"><span class="co">#&gt; [1] 2.15e+09</span></a></code></pre></div>
 <p>The same is true for the negative of the integer max.</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" data-line-number="1"><span class="op">-</span>.Machine<span class="op">$</span>integer.max <span class="op">-</span><span class="st"> </span>1L</a>
-<a class="sourceLine" id="cb445-2" data-line-number="2"><span class="co">#&gt; Warning in -.Machine$integer.max - 1L: NAs produced by integer overflow</span></a>
-<a class="sourceLine" id="cb445-3" data-line-number="3"><span class="co">#&gt; [1] NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" data-line-number="1"><span class="op">-</span>.Machine<span class="op">$</span>integer.max <span class="op">-</span><span class="st"> </span>1L</a>
+<a class="sourceLine" id="cb447-2" data-line-number="2"><span class="co">#&gt; Warning in -.Machine$integer.max - 1L: NAs produced by integer overflow</span></a>
+<a class="sourceLine" id="cb447-3" data-line-number="3"><span class="co">#&gt; [1] NA</span></a></code></pre></div>
 <p>For double vectors, R uses a 64-bit representation. This means that they can hold up
 to <span class="math inline">\(2^64\)</span> values exactly. However, some of those values are allocated to special values
 such as <code>-Inf</code>, <code>Inf</code>, <code>NA_real_</code>, and <code>NaN</code>. From the help for <code>double</code>:</p>
@@ -835,28 +839,28 @@ the range given above but represented to less precision.</p>
 the scope of this question, and better discussed in the references provided below.
 The double can represent numbers in the range of about <span class="math inline">\(\pm 2^{-308}\)</span>, which is
 provided in</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" data-line-number="1">.Machine<span class="op">$</span>double.xmax</a>
-<a class="sourceLine" id="cb446-2" data-line-number="2"><span class="co">#&gt; [1] 1.8e+308</span></a></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" data-line-number="1">.Machine<span class="op">$</span>double.xmax</a>
+<a class="sourceLine" id="cb448-2" data-line-number="2"><span class="co">#&gt; [1] 1.8e+308</span></a></code></pre></div>
 <p>Many other details for the implementation of the double vectors are given in the <code>.Machine</code> variable (and its documentation).
 These include the base (radix) of doubles,</p>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" data-line-number="1">.Machine<span class="op">$</span>double.base</a>
-<a class="sourceLine" id="cb447-2" data-line-number="2"><span class="co">#&gt; [1] 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" data-line-number="1">.Machine<span class="op">$</span>double.base</a>
+<a class="sourceLine" id="cb449-2" data-line-number="2"><span class="co">#&gt; [1] 2</span></a></code></pre></div>
 <p>the number of bits used for the significand (mantissa),</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" data-line-number="1">.Machine<span class="op">$</span>double.digits</a>
-<a class="sourceLine" id="cb448-2" data-line-number="2"><span class="co">#&gt; [1] 53</span></a></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" data-line-number="1">.Machine<span class="op">$</span>double.digits</a>
+<a class="sourceLine" id="cb450-2" data-line-number="2"><span class="co">#&gt; [1] 53</span></a></code></pre></div>
 <p>the number of bits used in the exponent,</p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" data-line-number="1">.Machine<span class="op">$</span>double.exponent</a>
-<a class="sourceLine" id="cb449-2" data-line-number="2"><span class="co">#&gt; [1] 11</span></a></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" data-line-number="1">.Machine<span class="op">$</span>double.exponent</a>
+<a class="sourceLine" id="cb451-2" data-line-number="2"><span class="co">#&gt; [1] 11</span></a></code></pre></div>
 <p>and the smallest positive and negative numbers not equal to zero,</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" data-line-number="1">.Machine<span class="op">$</span>double.eps</a>
-<a class="sourceLine" id="cb450-2" data-line-number="2"><span class="co">#&gt; [1] 2.22e-16</span></a>
-<a class="sourceLine" id="cb450-3" data-line-number="3">.Machine<span class="op">$</span>double.neg.eps</a>
-<a class="sourceLine" id="cb450-4" data-line-number="4"><span class="co">#&gt; [1] 1.11e-16</span></a></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" data-line-number="1">.Machine<span class="op">$</span>double.eps</a>
+<a class="sourceLine" id="cb452-2" data-line-number="2"><span class="co">#&gt; [1] 2.22e-16</span></a>
+<a class="sourceLine" id="cb452-3" data-line-number="3">.Machine<span class="op">$</span>double.neg.eps</a>
+<a class="sourceLine" id="cb452-4" data-line-number="4"><span class="co">#&gt; [1] 1.11e-16</span></a></code></pre></div>
 <ul>
 <li>Computerphile, “<a href="https://www.youtube.com/watch?v=PZRI1IfStY0">Floating Point Numbers</a>”</li>
 <li><a href="https://en.wikipedia.org/wiki/IEEE_754" class="uri">https://en.wikipedia.org/wiki/IEEE_754</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format" class="uri">https://en.wikipedia.org/wiki/Double-precision_floating-point_format</a></li>
-<li>“Floating Point Numbers: Why floating-point numbers are needed](<a href="https://floating-point-gui.de/formats/fp/" class="uri">https://floating-point-gui.de/formats/fp/</a>)”</li>
+<li>“<a href="https://floating-point-gui.de/formats/fp/">Floating Point Numbers: Why floating-point numbers are needed</a>”</li>
 <li>Fabien Sanglard, “<a href="http://fabiensanglard.net/floating_point_visually_explained/">Floating Point Numbers: Visually Explained</a>”</li>
 <li>James Howard, “<a href="https://jameshoward.us/2015/09/09/how-many-floating-point-numbers-are-there/">How Many Floating Point Numbers are There?</a>”</li>
 <li>GeeksforGeeks, “<a href="https://www.geeksforgeeks.org/floating-point-representation-basics/">Floating Point Representation Basics</a>”</li>
@@ -934,18 +938,18 @@ For truncating or for handling ties (doubles ending in 0.5), there are multiple 
 <p>For rounding, R and many programming languages use the IEEE standard. This is “round to nearest, ties to even”.
 This is not the same as what you
 See the value of looking at the value of <code>.Machine$double.rounding</code> and its documentation.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb451-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb451-3" data-line-number="3">round2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">to_even =</span> <span class="ot">TRUE</span>) {</a>
-<a class="sourceLine" id="cb451-4" data-line-number="4">  q &lt;-<span class="st"> </span>x <span class="op">%/%</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb451-5" data-line-number="5">  r &lt;-<span class="st"> </span>x <span class="op">%%</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb451-6" data-line-number="6">  q <span class="op">+</span><span class="st"> </span>(r <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb451-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb451-8" data-line-number="8">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">12.5</span>, <span class="fl">-11.5</span>, <span class="fl">11.5</span>, <span class="fl">12.5</span>)</a>
-<a class="sourceLine" id="cb451-9" data-line-number="9"><span class="kw">round</span>(x)</a>
-<a class="sourceLine" id="cb451-10" data-line-number="10"><span class="co">#&gt; [1] -12 -12  12  12</span></a>
-<a class="sourceLine" id="cb451-11" data-line-number="11"><span class="kw">round2</span>(x, <span class="dt">to_even =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb451-12" data-line-number="12"><span class="co">#&gt; [1] -12 -11  12  13</span></a></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb453-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb453-3" data-line-number="3">round2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">to_even =</span> <span class="ot">TRUE</span>) {</a>
+<a class="sourceLine" id="cb453-4" data-line-number="4">  q &lt;-<span class="st"> </span>x <span class="op">%/%</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb453-5" data-line-number="5">  r &lt;-<span class="st"> </span>x <span class="op">%%</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb453-6" data-line-number="6">  q <span class="op">+</span><span class="st"> </span>(r <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb453-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb453-8" data-line-number="8">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">12.5</span>, <span class="fl">-11.5</span>, <span class="fl">11.5</span>, <span class="fl">12.5</span>)</a>
+<a class="sourceLine" id="cb453-9" data-line-number="9"><span class="kw">round</span>(x)</a>
+<a class="sourceLine" id="cb453-10" data-line-number="10"><span class="co">#&gt; [1] -12 -12  12  12</span></a>
+<a class="sourceLine" id="cb453-11" data-line-number="11"><span class="kw">round2</span>(x, <span class="dt">to_even =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb453-12" data-line-number="12"><span class="co">#&gt; [1] -12 -11  12  13</span></a></code></pre></div>
 <p>The problem with the always rounding 0.5 up rule is that it is biased upwards. Rounding to nearest with ties towards even is
 not.
 Consider the sequence <span class="math inline">\(-100.5, -99.5, \dots, 0, \dots, 99.5, 100.5\)</span>.
@@ -953,13 +957,13 @@ Its sum is 0.
 It would be nice if rounding preserved that sum.
 Using the “ties towards even”, the sum is still zero.
 However, the “ties towards <span class="math inline">\(+\infty\)</span>” produces a non-zero number.</p>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">100.5</span>, <span class="fl">100.5</span>, <span class="dt">by =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb452-2" data-line-number="2"><span class="kw">sum</span>(x)</a>
-<a class="sourceLine" id="cb452-3" data-line-number="3"><span class="co">#&gt; [1] 0</span></a>
-<a class="sourceLine" id="cb452-4" data-line-number="4"><span class="kw">sum</span>(<span class="kw">round</span>(x))</a>
-<a class="sourceLine" id="cb452-5" data-line-number="5"><span class="co">#&gt; [1] 0</span></a>
-<a class="sourceLine" id="cb452-6" data-line-number="6"><span class="kw">sum</span>(<span class="kw">round2</span>(x))</a>
-<a class="sourceLine" id="cb452-7" data-line-number="7"><span class="co">#&gt; [1] 101</span></a></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">100.5</span>, <span class="fl">100.5</span>, <span class="dt">by =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb454-2" data-line-number="2"><span class="kw">sum</span>(x)</a>
+<a class="sourceLine" id="cb454-3" data-line-number="3"><span class="co">#&gt; [1] 0</span></a>
+<a class="sourceLine" id="cb454-4" data-line-number="4"><span class="kw">sum</span>(<span class="kw">round</span>(x))</a>
+<a class="sourceLine" id="cb454-5" data-line-number="5"><span class="co">#&gt; [1] 0</span></a>
+<a class="sourceLine" id="cb454-6" data-line-number="6"><span class="kw">sum</span>(<span class="kw">round2</span>(x))</a>
+<a class="sourceLine" id="cb454-7" data-line-number="7"><span class="co">#&gt; [1] 101</span></a></code></pre></div>
 <p>Here’s a real-world non-engineering example of rounding going terribly wrong.
 In 1983, the Vancouver stock exchange adjusted its index from 524.811 to 1098.892 to correct for accumulated error due to rounding to three decimal points (see <a href="https://en.wikipedia.org/wiki/Vancouver_Stock_Exchange">Vancouver Stock Exchange</a>).</p>
 <p>Here’s a <a href="https://www.ma.utexas.edu/users/arbogast/misc/disasters.html">list</a> of a few more.</p>
@@ -973,28 +977,28 @@ In 1983, the Vancouver stock exchange adjusted its index from 524.811 to 1098.89
 <div class="answer">
 <p>The function <code>parse_logical()</code> parses logical values, which can appear
 as variations of TRUE/FALSE or 1/0.</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" data-line-number="1"><span class="kw">parse_logical</span>(<span class="kw">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;true&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;NA&quot;</span>))</a>
-<a class="sourceLine" id="cb453-2" data-line-number="2"><span class="co">#&gt; [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE    NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" data-line-number="1"><span class="kw">parse_logical</span>(<span class="kw">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;true&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;NA&quot;</span>))</a>
+<a class="sourceLine" id="cb455-2" data-line-number="2"><span class="co">#&gt; [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE    NA</span></a></code></pre></div>
 <p>The function <code>parse_integer()</code> parses integer values.</p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" data-line-number="1"><span class="kw">parse_integer</span>(<span class="kw">c</span>(<span class="st">&quot;1235&quot;</span>, <span class="st">&quot;0134&quot;</span>, <span class="st">&quot;NA&quot;</span>))</a>
-<a class="sourceLine" id="cb454-2" data-line-number="2"><span class="co">#&gt; [1] 1235  134   NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb456-1" data-line-number="1"><span class="kw">parse_integer</span>(<span class="kw">c</span>(<span class="st">&quot;1235&quot;</span>, <span class="st">&quot;0134&quot;</span>, <span class="st">&quot;NA&quot;</span>))</a>
+<a class="sourceLine" id="cb456-2" data-line-number="2"><span class="co">#&gt; [1] 1235  134   NA</span></a></code></pre></div>
 <p>However, if there are any non-numeric characters in the string, including
 currency symbols, commas, and decimals, <code>parse_integer()</code> will raise an error.</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" data-line-number="1"><span class="kw">parse_integer</span>(<span class="kw">c</span>(<span class="st">&quot;1000&quot;</span>, <span class="st">&quot;$1,000&quot;</span>, <span class="st">&quot;10.00&quot;</span>))</a>
-<a class="sourceLine" id="cb455-2" data-line-number="2"><span class="co">#&gt; Warning in rbind(names(probs), probs_f): number of columns of result is not</span></a>
-<a class="sourceLine" id="cb455-3" data-line-number="3"><span class="co">#&gt; a multiple of vector length (arg 1)</span></a>
-<a class="sourceLine" id="cb455-4" data-line-number="4"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
-<a class="sourceLine" id="cb455-5" data-line-number="5"><span class="co">#&gt; row # A tibble: 2 x 4 col     row   col expected               actual expected   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;  actual 1     2    NA an integer             $1,000 row 2     3    NA no trailing characters .00</span></a>
-<a class="sourceLine" id="cb455-6" data-line-number="6"><span class="co">#&gt; [1] 1000   NA   NA</span></a>
-<a class="sourceLine" id="cb455-7" data-line-number="7"><span class="co">#&gt; attr(,&quot;problems&quot;)</span></a>
-<a class="sourceLine" id="cb455-8" data-line-number="8"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
-<a class="sourceLine" id="cb455-9" data-line-number="9"><span class="co">#&gt;     row   col expected               actual</span></a>
-<a class="sourceLine" id="cb455-10" data-line-number="10"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt; </span></a>
-<a class="sourceLine" id="cb455-11" data-line-number="11"><span class="co">#&gt; 1     2    NA an integer             $1,000</span></a>
-<a class="sourceLine" id="cb455-12" data-line-number="12"><span class="co">#&gt; 2     3    NA no trailing characters .00</span></a></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" data-line-number="1"><span class="kw">parse_integer</span>(<span class="kw">c</span>(<span class="st">&quot;1000&quot;</span>, <span class="st">&quot;$1,000&quot;</span>, <span class="st">&quot;10.00&quot;</span>))</a>
+<a class="sourceLine" id="cb457-2" data-line-number="2"><span class="co">#&gt; Warning in rbind(names(probs), probs_f): number of columns of result is not</span></a>
+<a class="sourceLine" id="cb457-3" data-line-number="3"><span class="co">#&gt; a multiple of vector length (arg 1)</span></a>
+<a class="sourceLine" id="cb457-4" data-line-number="4"><span class="co">#&gt; Warning: 2 parsing failures.</span></a>
+<a class="sourceLine" id="cb457-5" data-line-number="5"><span class="co">#&gt; row # A tibble: 2 x 4 col     row   col expected               actual expected   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;  actual 1     2    NA an integer             $1,000 row 2     3    NA no trailing characters .00</span></a>
+<a class="sourceLine" id="cb457-6" data-line-number="6"><span class="co">#&gt; [1] 1000   NA   NA</span></a>
+<a class="sourceLine" id="cb457-7" data-line-number="7"><span class="co">#&gt; attr(,&quot;problems&quot;)</span></a>
+<a class="sourceLine" id="cb457-8" data-line-number="8"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
+<a class="sourceLine" id="cb457-9" data-line-number="9"><span class="co">#&gt;     row   col expected               actual</span></a>
+<a class="sourceLine" id="cb457-10" data-line-number="10"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt; </span></a>
+<a class="sourceLine" id="cb457-11" data-line-number="11"><span class="co">#&gt; 1     2    NA an integer             $1,000</span></a>
+<a class="sourceLine" id="cb457-12" data-line-number="12"><span class="co">#&gt; 2     3    NA no trailing characters .00</span></a></code></pre></div>
 <p>The function <code>parse_number()</code> parses integer values.</p>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb456-1" data-line-number="1"><span class="kw">parse_number</span>(<span class="kw">c</span>(<span class="st">&quot;1.0&quot;</span>, <span class="st">&quot;3.5&quot;</span>, <span class="st">&quot;$1,000.00&quot;</span>, <span class="st">&quot;NA&quot;</span>))</a>
-<a class="sourceLine" id="cb456-2" data-line-number="2"><span class="co">#&gt; [1]    1.0    3.5 1000.0     NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" data-line-number="1"><span class="kw">parse_number</span>(<span class="kw">c</span>(<span class="st">&quot;1.0&quot;</span>, <span class="st">&quot;3.5&quot;</span>, <span class="st">&quot;$1,000.00&quot;</span>, <span class="st">&quot;NA&quot;</span>))</a>
+<a class="sourceLine" id="cb458-2" data-line-number="2"><span class="co">#&gt; [1]    1.0    3.5 1000.0     NA</span></a></code></pre></div>
 <p>Unlike <code>parse_integer()</code>, the function <code>parse_number()</code> is very forgiving about the format of the numbers.
 It ignores all non-numeric characters, as with <code>&quot;$1,000.00&quot;</code> in the example.
 This allows it to easily parse numeric fields that include currency symbols and comma separators in number strings without any intervention by the user.</p>
@@ -1010,12 +1014,12 @@ This allows it to easily parse numeric fields that include currency symbols and 
 </div>
 <div class="answer">
 <p>The expression <code>mean(is.na(x))</code> calculates the proportion of missing values in a vector</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>)</a>
-<a class="sourceLine" id="cb457-2" data-line-number="2"><span class="kw">mean</span>(<span class="kw">is.na</span>(x))</a>
-<a class="sourceLine" id="cb457-3" data-line-number="3"><span class="co">#&gt; [1] 0.143</span></a></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>)</a>
+<a class="sourceLine" id="cb459-2" data-line-number="2"><span class="kw">mean</span>(<span class="kw">is.na</span>(x))</a>
+<a class="sourceLine" id="cb459-3" data-line-number="3"><span class="co">#&gt; [1] 0.143</span></a></code></pre></div>
 <p>The expression <code>mean(!is.finite(x))</code> calculates the proportion of values that are <code>NA</code>, <code>NaN</code>, or infinite.</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" data-line-number="1"><span class="kw">mean</span>(<span class="op">!</span><span class="kw">is.finite</span>(x))</a>
-<a class="sourceLine" id="cb458-2" data-line-number="2"><span class="co">#&gt; [1] 0.286</span></a></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" data-line-number="1"><span class="kw">mean</span>(<span class="op">!</span><span class="kw">is.finite</span>(x))</a>
+<a class="sourceLine" id="cb460-2" data-line-number="2"><span class="co">#&gt; [1] 0.286</span></a></code></pre></div>
 </div>
 </div>
 <div id="exercise-20.4.2" class="section level3 unnumbered exercise">
@@ -1025,22 +1029,22 @@ This allows it to easily parse numeric fields that include currency symbols and 
 </div>
 <div class="answer">
 <p>The function <code>is.vector</code> only checks whether the object has no attributes other than names. Thus a <code>list</code> is a vector:</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1"><span class="kw">is.vector</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb459-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">is.vector</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb461-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>But any object that has an attribute (other than names) is not:</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb460-2" data-line-number="2"><span class="kw">attr</span>(x, <span class="st">&quot;something&quot;</span>) &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb460-3" data-line-number="3"><span class="kw">is.vector</span>(x)</a>
-<a class="sourceLine" id="cb460-4" data-line-number="4"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb462-2" data-line-number="2"><span class="kw">attr</span>(x, <span class="st">&quot;something&quot;</span>) &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb462-3" data-line-number="3"><span class="kw">is.vector</span>(x)</a>
+<a class="sourceLine" id="cb462-4" data-line-number="4"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
 <p>The idea behind this is that object oriented classes will include attributes, including, but not limited to <code>&quot;class&quot;</code>.</p>
 <p>The function <code>is.atomic</code> explicitly checks whether an object is one of the atomic types (“logical”, “integer”, “numeric”, “complex”, “character”, and “raw”) or NULL.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">is.atomic</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb461-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb461-3" data-line-number="3"><span class="kw">is.atomic</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb461-4" data-line-number="4"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1"><span class="kw">is.atomic</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb463-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb463-3" data-line-number="3"><span class="kw">is.atomic</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb463-4" data-line-number="4"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
 <p>The function <code>is.atomic</code> will consider objects to be atomic even if they have extra attributes.</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" data-line-number="1"><span class="kw">is.atomic</span>(x)</a>
-<a class="sourceLine" id="cb462-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" data-line-number="1"><span class="kw">is.atomic</span>(x)</a>
+<a class="sourceLine" id="cb464-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 </div>
 <div id="exercise-20.4.3" class="section level3 unnumbered exercise">
@@ -1051,43 +1055,43 @@ This allows it to easily parse numeric fields that include currency symbols and 
 <div class="answer">
 <p>The function <code>setNames()</code> takes two arguments, a vector to be named and a vector
 of names to apply to its elements.</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1"><span class="kw">setNames</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
-<a class="sourceLine" id="cb463-2" data-line-number="2"><span class="co">#&gt; a b c d </span></a>
-<a class="sourceLine" id="cb463-3" data-line-number="3"><span class="co">#&gt; 1 2 3 4</span></a></code></pre></div>
-<p>You can name an vector with itself if the <code>nm</code> argument is used.</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" data-line-number="1"><span class="kw">setNames</span>(<span class="dt">nm =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
-<a class="sourceLine" id="cb464-2" data-line-number="2"><span class="co">#&gt;   a   b   c   d </span></a>
-<a class="sourceLine" id="cb464-3" data-line-number="3"><span class="co">#&gt; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</span></a></code></pre></div>
-<p>The function <code>set_names</code> is more flexible.
-It can be used the same way as <code>setNames</code>.</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" data-line-number="1"><span class="kw">setNames</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
 <a class="sourceLine" id="cb465-2" data-line-number="2"><span class="co">#&gt; a b c d </span></a>
 <a class="sourceLine" id="cb465-3" data-line-number="3"><span class="co">#&gt; 1 2 3 4</span></a></code></pre></div>
+<p>You can name an vector with itself if the <code>nm</code> argument is used.</p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" data-line-number="1"><span class="kw">setNames</span>(<span class="dt">nm =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
+<a class="sourceLine" id="cb466-2" data-line-number="2"><span class="co">#&gt;   a   b   c   d </span></a>
+<a class="sourceLine" id="cb466-3" data-line-number="3"><span class="co">#&gt; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</span></a></code></pre></div>
+<p>The function <code>set_names</code> is more flexible.
+It can be used the same way as <code>setNames</code>.</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
+<a class="sourceLine" id="cb467-2" data-line-number="2"><span class="co">#&gt; a b c d </span></a>
+<a class="sourceLine" id="cb467-3" data-line-number="3"><span class="co">#&gt; 1 2 3 4</span></a></code></pre></div>
 <p>The names can also be specified as unnamed arguments,</p>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)</a>
-<a class="sourceLine" id="cb466-2" data-line-number="2"><span class="co">#&gt; a b c d </span></a>
-<a class="sourceLine" id="cb466-3" data-line-number="3"><span class="co">#&gt; 1 2 3 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)</a>
+<a class="sourceLine" id="cb468-2" data-line-number="2"><span class="co">#&gt; a b c d </span></a>
+<a class="sourceLine" id="cb468-3" data-line-number="3"><span class="co">#&gt; 1 2 3 4</span></a></code></pre></div>
 <p>The function <code>set_names</code> will name an object with itself if no <code>nm</code> argument is
 provided (the opposite of <code>setNames</code> behavior).</p>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
-<a class="sourceLine" id="cb467-2" data-line-number="2"><span class="co">#&gt;   a   b   c   d </span></a>
-<a class="sourceLine" id="cb467-3" data-line-number="3"><span class="co">#&gt; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
+<a class="sourceLine" id="cb469-2" data-line-number="2"><span class="co">#&gt;   a   b   c   d </span></a>
+<a class="sourceLine" id="cb469-3" data-line-number="3"><span class="co">#&gt; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</span></a></code></pre></div>
 <p>The biggest difference between <code>set_names</code> and <code>setNames</code> is that <code>set_names</code> allows for using a function or formula to transform the existing names.</p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>), toupper)</a>
-<a class="sourceLine" id="cb468-2" data-line-number="2"><span class="co">#&gt; A B C </span></a>
-<a class="sourceLine" id="cb468-3" data-line-number="3"><span class="co">#&gt; 1 2 3</span></a>
-<a class="sourceLine" id="cb468-4" data-line-number="4">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.))</a>
-<a class="sourceLine" id="cb468-5" data-line-number="5"><span class="co">#&gt; A B C </span></a>
-<a class="sourceLine" id="cb468-6" data-line-number="6"><span class="co">#&gt; 1 2 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>), toupper)</a>
+<a class="sourceLine" id="cb470-2" data-line-number="2"><span class="co">#&gt; A B C </span></a>
+<a class="sourceLine" id="cb470-3" data-line-number="3"><span class="co">#&gt; 1 2 3</span></a>
+<a class="sourceLine" id="cb470-4" data-line-number="4">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.))</a>
+<a class="sourceLine" id="cb470-5" data-line-number="5"><span class="co">#&gt; A B C </span></a>
+<a class="sourceLine" id="cb470-6" data-line-number="6"><span class="co">#&gt; 1 2 3</span></a></code></pre></div>
 <p>The <code>set_names</code> function also checks that the length of the names argument is the
 same length as the vector that is being named, and will raise an error if it is not.</p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
-<a class="sourceLine" id="cb469-2" data-line-number="2"><span class="co">#&gt; Error: `nm` must be `NULL` or a character vector the same length as `x`</span></a></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
+<a class="sourceLine" id="cb471-2" data-line-number="2"><span class="co">#&gt; Error: `nm` must be `NULL` or a character vector the same length as `x`</span></a></code></pre></div>
 <p>The <code>setNames()</code> function will allow the names to be shorter than the vector being
 named, and will set the missing names to <code>NA</code>.</p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" data-line-number="1"><span class="kw">setNames</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
-<a class="sourceLine" id="cb470-2" data-line-number="2"><span class="co">#&gt;    a    b &lt;NA&gt; &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb470-3" data-line-number="3"><span class="co">#&gt;    1    2    3    4</span></a></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" data-line-number="1"><span class="kw">setNames</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
+<a class="sourceLine" id="cb472-2" data-line-number="2"><span class="co">#&gt;    a    b &lt;NA&gt; &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb472-3" data-line-number="3"><span class="co">#&gt;    1    2    3    4</span></a></code></pre></div>
 </div>
 </div>
 <div id="exercise-20.4.4" class="section level3 unnumbered exercise">
@@ -1105,75 +1109,75 @@ named, and will set the missing names to <code>NA</code>.</p>
 <p>The answers to the parts follow.</p>
 <ol style="list-style-type: decimal">
 <li><p>This function find the last value in a vector.</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" data-line-number="1">last_value &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb471-2" data-line-number="2">  <span class="co"># check for case with no length</span></a>
-<a class="sourceLine" id="cb471-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(x)) {</a>
-<a class="sourceLine" id="cb471-4" data-line-number="4">    x[[<span class="kw">length</span>(x)]]  </a>
-<a class="sourceLine" id="cb471-5" data-line-number="5">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb471-6" data-line-number="6">    x</a>
-<a class="sourceLine" id="cb471-7" data-line-number="7">  }</a>
-<a class="sourceLine" id="cb471-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb471-9" data-line-number="9"><span class="kw">last_value</span>(<span class="kw">numeric</span>())</a>
-<a class="sourceLine" id="cb471-10" data-line-number="10"><span class="co">#&gt; numeric(0)</span></a>
-<a class="sourceLine" id="cb471-11" data-line-number="11"><span class="kw">last_value</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb471-12" data-line-number="12"><span class="co">#&gt; [1] 1</span></a>
-<a class="sourceLine" id="cb471-13" data-line-number="13"><span class="kw">last_value</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb471-14" data-line-number="14"><span class="co">#&gt; [1] 10</span></a></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" data-line-number="1">last_value &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb473-2" data-line-number="2">  <span class="co"># check for case with no length</span></a>
+<a class="sourceLine" id="cb473-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(x)) {</a>
+<a class="sourceLine" id="cb473-4" data-line-number="4">    x[[<span class="kw">length</span>(x)]]  </a>
+<a class="sourceLine" id="cb473-5" data-line-number="5">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb473-6" data-line-number="6">    x</a>
+<a class="sourceLine" id="cb473-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb473-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb473-9" data-line-number="9"><span class="kw">last_value</span>(<span class="kw">numeric</span>())</a>
+<a class="sourceLine" id="cb473-10" data-line-number="10"><span class="co">#&gt; numeric(0)</span></a>
+<a class="sourceLine" id="cb473-11" data-line-number="11"><span class="kw">last_value</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb473-12" data-line-number="12"><span class="co">#&gt; [1] 1</span></a>
+<a class="sourceLine" id="cb473-13" data-line-number="13"><span class="kw">last_value</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb473-14" data-line-number="14"><span class="co">#&gt; [1] 10</span></a></code></pre></div>
 <p>The function uses <code>[[</code> in order to extract a single element.</p></li>
 <li><p>This function returns the elements at even number positions.</p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" data-line-number="1">even_indices &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb472-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(x)) {</a>
-<a class="sourceLine" id="cb472-3" data-line-number="3">    x[<span class="kw">seq_along</span>(x) <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb472-4" data-line-number="4">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb472-5" data-line-number="5">    x</a>
-<a class="sourceLine" id="cb472-6" data-line-number="6">  }  </a>
-<a class="sourceLine" id="cb472-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb472-8" data-line-number="8"><span class="kw">even_indices</span>(<span class="kw">numeric</span>())</a>
-<a class="sourceLine" id="cb472-9" data-line-number="9"><span class="co">#&gt; numeric(0)</span></a>
-<a class="sourceLine" id="cb472-10" data-line-number="10"><span class="kw">even_indices</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb472-11" data-line-number="11"><span class="co">#&gt; numeric(0)</span></a>
-<a class="sourceLine" id="cb472-12" data-line-number="12"><span class="kw">even_indices</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb472-13" data-line-number="13"><span class="co">#&gt; [1]  2  4  6  8 10</span></a>
-<a class="sourceLine" id="cb472-14" data-line-number="14"><span class="co"># test using case to ensure that values not indices</span></a>
-<a class="sourceLine" id="cb472-15" data-line-number="15"><span class="co"># are being returned</span></a>
-<a class="sourceLine" id="cb472-16" data-line-number="16"><span class="kw">even_indices</span>(letters)</a>
-<a class="sourceLine" id="cb472-17" data-line-number="17"><span class="co">#&gt;  [1] &quot;b&quot; &quot;d&quot; &quot;f&quot; &quot;h&quot; &quot;j&quot; &quot;l&quot; &quot;n&quot; &quot;p&quot; &quot;r&quot; &quot;t&quot; &quot;v&quot; &quot;x&quot; &quot;z&quot;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" data-line-number="1">even_indices &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb474-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(x)) {</a>
+<a class="sourceLine" id="cb474-3" data-line-number="3">    x[<span class="kw">seq_along</span>(x) <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb474-4" data-line-number="4">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb474-5" data-line-number="5">    x</a>
+<a class="sourceLine" id="cb474-6" data-line-number="6">  }  </a>
+<a class="sourceLine" id="cb474-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb474-8" data-line-number="8"><span class="kw">even_indices</span>(<span class="kw">numeric</span>())</a>
+<a class="sourceLine" id="cb474-9" data-line-number="9"><span class="co">#&gt; numeric(0)</span></a>
+<a class="sourceLine" id="cb474-10" data-line-number="10"><span class="kw">even_indices</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb474-11" data-line-number="11"><span class="co">#&gt; numeric(0)</span></a>
+<a class="sourceLine" id="cb474-12" data-line-number="12"><span class="kw">even_indices</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb474-13" data-line-number="13"><span class="co">#&gt; [1]  2  4  6  8 10</span></a>
+<a class="sourceLine" id="cb474-14" data-line-number="14"><span class="co"># test using case to ensure that values not indices</span></a>
+<a class="sourceLine" id="cb474-15" data-line-number="15"><span class="co"># are being returned</span></a>
+<a class="sourceLine" id="cb474-16" data-line-number="16"><span class="kw">even_indices</span>(letters)</a>
+<a class="sourceLine" id="cb474-17" data-line-number="17"><span class="co">#&gt;  [1] &quot;b&quot; &quot;d&quot; &quot;f&quot; &quot;h&quot; &quot;j&quot; &quot;l&quot; &quot;n&quot; &quot;p&quot; &quot;r&quot; &quot;t&quot; &quot;v&quot; &quot;x&quot; &quot;z&quot;</span></a></code></pre></div></li>
 <li><p>This function returns a vector with every element except the last.</p>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" data-line-number="1">not_last &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb473-2" data-line-number="2">  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb473-3" data-line-number="3">  <span class="cf">if</span> (n) {</a>
-<a class="sourceLine" id="cb473-4" data-line-number="4">    x[<span class="op">-</span>n]</a>
-<a class="sourceLine" id="cb473-5" data-line-number="5">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb473-6" data-line-number="6">    <span class="co"># n == 0</span></a>
-<a class="sourceLine" id="cb473-7" data-line-number="7">    x</a>
-<a class="sourceLine" id="cb473-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb473-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb473-10" data-line-number="10"><span class="kw">not_last</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb473-11" data-line-number="11"><span class="co">#&gt; [1] 1 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" data-line-number="1">not_last &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb475-2" data-line-number="2">  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb475-3" data-line-number="3">  <span class="cf">if</span> (n) {</a>
+<a class="sourceLine" id="cb475-4" data-line-number="4">    x[<span class="op">-</span>n]</a>
+<a class="sourceLine" id="cb475-5" data-line-number="5">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb475-6" data-line-number="6">    <span class="co"># n == 0</span></a>
+<a class="sourceLine" id="cb475-7" data-line-number="7">    x</a>
+<a class="sourceLine" id="cb475-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb475-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb475-10" data-line-number="10"><span class="kw">not_last</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb475-11" data-line-number="11"><span class="co">#&gt; [1] 1 2</span></a></code></pre></div>
 <p>We should also confirm that the function works with some edge cases, like
 a vector with one element, and a vector with zero elements.</p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" data-line-number="1"><span class="kw">not_last</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb474-2" data-line-number="2"><span class="co">#&gt; numeric(0)</span></a>
-<a class="sourceLine" id="cb474-3" data-line-number="3"><span class="kw">not_last</span>(<span class="kw">numeric</span>())</a>
-<a class="sourceLine" id="cb474-4" data-line-number="4"><span class="co">#&gt; numeric(0)</span></a></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" data-line-number="1"><span class="kw">not_last</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb476-2" data-line-number="2"><span class="co">#&gt; numeric(0)</span></a>
+<a class="sourceLine" id="cb476-3" data-line-number="3"><span class="kw">not_last</span>(<span class="kw">numeric</span>())</a>
+<a class="sourceLine" id="cb476-4" data-line-number="4"><span class="co">#&gt; numeric(0)</span></a></code></pre></div>
 <p>In both these cases, <code>not_last()</code> correctly returns an empty vector.</p></li>
 <li><p>This function returns a the elements of a vector that are even numbers.</p>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" data-line-number="1">even_numbers &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb475-2" data-line-number="2">  x[x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb475-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb475-4" data-line-number="4"><span class="kw">even_numbers</span>(<span class="op">-</span><span class="dv">10</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb475-5" data-line-number="5"><span class="co">#&gt;  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></a></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" data-line-number="1">even_numbers &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb477-2" data-line-number="2">  x[x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb477-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb477-4" data-line-number="4"><span class="kw">even_numbers</span>(<span class="op">-</span><span class="dv">10</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb477-5" data-line-number="5"><span class="co">#&gt;  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10</span></a></code></pre></div>
 <p>We could improve this function by handling the cases of the special values:
 <code>NA</code>, <code>NaN</code>, <code>Inf</code>. However, first we need to decide how to handle them.
 Neither <code>NaN</code> nor <code>Inf</code> are considered even numbers. What about <code>NA</code>?
 Well, we don’t know. The value of <code>NA</code> could be even or odd, but it is missing.
 So we will follow the convention of many R functions and keep the <code>NA</code> values.
 The revised function now handles these cases.</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" data-line-number="1">even_numbers &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb476-2" data-line-number="2">  x[<span class="op">!</span><span class="kw">is.infinite</span>(x) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.nan</span>(x) <span class="op">&amp;</span><span class="st"> </span>(x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)]</a>
-<a class="sourceLine" id="cb476-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb476-4" data-line-number="4"><span class="kw">even_numbers</span>(<span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>))</a>
-<a class="sourceLine" id="cb476-5" data-line-number="5"><span class="co">#&gt; [1]  0  2  4 NA</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" data-line-number="1">even_numbers &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb478-2" data-line-number="2">  x[<span class="op">!</span><span class="kw">is.infinite</span>(x) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.nan</span>(x) <span class="op">&amp;</span><span class="st"> </span>(x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)]</a>
+<a class="sourceLine" id="cb478-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb478-4" data-line-number="4"><span class="kw">even_numbers</span>(<span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">4</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>))</a>
+<a class="sourceLine" id="cb478-5" data-line-number="5"><span class="co">#&gt; [1]  0  2  4 NA</span></a></code></pre></div></li>
 </ol>
 </div>
 </div>
@@ -1187,18 +1191,18 @@ The revised function now handles these cases.</p>
 Let’s test how they work by creating a vector with positive and negative integers,
 and special values (<code>NA</code>, <code>NaN</code>, and <code>Inf</code>). These values should encompass
 all relevant types of values that these expressions would encounter.</p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span><span class="op">:</span><span class="dv">1</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>, <span class="ot">NaN</span>, <span class="ot">NA</span>)</a>
-<a class="sourceLine" id="cb477-2" data-line-number="2">x[<span class="op">-</span><span class="kw">which</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)]</a>
-<a class="sourceLine" id="cb477-3" data-line-number="3"><span class="co">#&gt; [1]   -1    0 -Inf  NaN   NA</span></a>
-<a class="sourceLine" id="cb477-4" data-line-number="4">x[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb477-5" data-line-number="5"><span class="co">#&gt; [1]   -1    0 -Inf   NA   NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span><span class="op">:</span><span class="dv">1</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>, <span class="ot">NaN</span>, <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb479-2" data-line-number="2">x[<span class="op">-</span><span class="kw">which</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)]</a>
+<a class="sourceLine" id="cb479-3" data-line-number="3"><span class="co">#&gt; [1]   -1    0 -Inf  NaN   NA</span></a>
+<a class="sourceLine" id="cb479-4" data-line-number="4">x[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb479-5" data-line-number="5"><span class="co">#&gt; [1]   -1    0 -Inf   NA   NA</span></a></code></pre></div>
 <p>The expressions <code>x[-which(x &gt; 0)]</code> and <code>x[x &lt;= 0]</code> return the same values except
 for a <code>NaN</code> instead of a <code>NA</code> in the <code>which()</code> based expression.</p>
 <p>So what is going on here? Let’s work through each part of these expressions and
 see where the different occurs.
 Let’s start with the expression <code>x[x &lt;= 0]</code>.</p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" data-line-number="1">x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb478-2" data-line-number="2"><span class="co">#&gt; [1]  TRUE  TRUE FALSE FALSE  TRUE    NA    NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" data-line-number="1">x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb480-2" data-line-number="2"><span class="co">#&gt; [1]  TRUE  TRUE FALSE FALSE  TRUE    NA    NA</span></a></code></pre></div>
 <p>Recall how the logical relational operators (<code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>) treat <code>NA</code> values.
 Any relational operation that includes a <code>NA</code> returns an <code>NA</code>.
 Is <code>NA &lt;= 0</code>? We don’t know because it depends on the unknown value of <code>NA</code>, so the answer is <code>NA</code>.
@@ -1213,32 +1217,32 @@ The way R decides to handle the <code>NA</code> values so that they are treated 
 <p>Now consider the expression <code>x[-which(x &gt; 0)]</code>.
 As before, to understand this expression we’ll work from the inside out.
 Consider <code>x &gt; 0</code>.</p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" data-line-number="1">x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb479-2" data-line-number="2"><span class="co">#&gt; [1] FALSE FALSE  TRUE  TRUE FALSE    NA    NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" data-line-number="1">x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb481-2" data-line-number="2"><span class="co">#&gt; [1] FALSE FALSE  TRUE  TRUE FALSE    NA    NA</span></a></code></pre></div>
 <p>As with <code>x &lt;= 0</code>, it returns <code>NA</code> for comparisons involving <code>NA</code> and <code>NaN</code>.</p>
 <p>What does <code>which()</code> do?</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" data-line-number="1"><span class="kw">which</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb480-2" data-line-number="2"><span class="co">#&gt; [1] 3 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" data-line-number="1"><span class="kw">which</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb482-2" data-line-number="2"><span class="co">#&gt; [1] 3 4</span></a></code></pre></div>
 <p>The <code>which()</code> function returns the indexes for which the argument is <code>TRUE</code>.
 This means that it is not including the indexes for which the argument is <code>FALSE</code> or <code>NA</code>.</p>
 <p>Now consider the full expression <code>x[-which(x &gt; 0)]</code>?
 The <code>which()</code> function returned a vector of integers.
 How does indexing treat negative integers?</p>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" data-line-number="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb481-2" data-line-number="2"><span class="co">#&gt; [1] -1  0</span></a>
-<a class="sourceLine" id="cb481-3" data-line-number="3">x[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</a>
-<a class="sourceLine" id="cb481-4" data-line-number="4"><span class="co">#&gt; [1]    1  Inf -Inf  NaN   NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" data-line-number="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb483-2" data-line-number="2"><span class="co">#&gt; [1] -1  0</span></a>
+<a class="sourceLine" id="cb483-3" data-line-number="3">x[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</a>
+<a class="sourceLine" id="cb483-4" data-line-number="4"><span class="co">#&gt; [1]    1  Inf -Inf  NaN   NA</span></a></code></pre></div>
 <p>If indexing gets a vector of positive integers, it will select those indexes;
 if it receives a vector of negative integers, it will drop those indexes.
 Thus, <code>x[-which(x &gt; 0)]</code> ends up dropping the elements for which <code>x &gt; 0</code> is true,
 and keeps all the other elements and their original values, including <code>NA</code> and <code>NaN</code>.</p>
 <p>There’s one other special case that we should consider. How do these two expressions work with
 an empty vector?</p>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">numeric</span>()</a>
-<a class="sourceLine" id="cb482-2" data-line-number="2">x[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb482-3" data-line-number="3"><span class="co">#&gt; numeric(0)</span></a>
-<a class="sourceLine" id="cb482-4" data-line-number="4">x[<span class="op">-</span><span class="kw">which</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)]</a>
-<a class="sourceLine" id="cb482-5" data-line-number="5"><span class="co">#&gt; numeric(0)</span></a></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">numeric</span>()</a>
+<a class="sourceLine" id="cb484-2" data-line-number="2">x[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb484-3" data-line-number="3"><span class="co">#&gt; numeric(0)</span></a>
+<a class="sourceLine" id="cb484-4" data-line-number="4">x[<span class="op">-</span><span class="kw">which</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)]</a>
+<a class="sourceLine" id="cb484-5" data-line-number="5"><span class="co">#&gt; numeric(0)</span></a></code></pre></div>
 <p>Thankfully, they both handle empty vectors the same.</p>
 <p>This exercise is a reminder to always test your code. Even though these two expressions looked
 equivalent, they are not in practice. And when you do test code, consider both
@@ -1254,36 +1258,36 @@ unexpected behavior is most likely to occur.</p>
 </div>
 <div class="answer">
 <p>Let’s consider the named vector,</p>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">20</span>)</a></code></pre></div>
 <p>If we subset it by an integer larger than its length, it returns a vector of missing values.</p>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" data-line-number="1">x[<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb484-2" data-line-number="2"><span class="co">#&gt; &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb484-3" data-line-number="3"><span class="co">#&gt;   NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" data-line-number="1">x[<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb486-2" data-line-number="2"><span class="co">#&gt; &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb486-3" data-line-number="3"><span class="co">#&gt;   NA</span></a></code></pre></div>
 <p>This also applies to ranges.</p>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" data-line-number="1">x[<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb485-2" data-line-number="2"><span class="co">#&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb485-3" data-line-number="3"><span class="co">#&gt;   NA   NA   NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" data-line-number="1">x[<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb487-2" data-line-number="2"><span class="co">#&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb487-3" data-line-number="3"><span class="co">#&gt;   NA   NA   NA</span></a></code></pre></div>
 <p>If some indexes are larger than the length of the vector, those elements are <code>NA</code>.</p>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" data-line-number="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb486-2" data-line-number="2"><span class="co">#&gt;    a    b &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb486-3" data-line-number="3"><span class="co">#&gt;   10   20   NA   NA   NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" data-line-number="1">x[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb488-2" data-line-number="2"><span class="co">#&gt;    a    b &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb488-3" data-line-number="3"><span class="co">#&gt;   10   20   NA   NA   NA</span></a></code></pre></div>
 <p>Likewise, when <code>[</code> is provided names not in the vector’s names, it will return
 <code>NA</code> for those elements.</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" data-line-number="1">x[<span class="st">&quot;c&quot;</span>]</a>
-<a class="sourceLine" id="cb487-2" data-line-number="2"><span class="co">#&gt; &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb487-3" data-line-number="3"><span class="co">#&gt;   NA</span></a>
-<a class="sourceLine" id="cb487-4" data-line-number="4">x[<span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>)]</a>
-<a class="sourceLine" id="cb487-5" data-line-number="5"><span class="co">#&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb487-6" data-line-number="6"><span class="co">#&gt;   NA   NA   NA</span></a>
-<a class="sourceLine" id="cb487-7" data-line-number="7">x[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)]</a>
-<a class="sourceLine" id="cb487-8" data-line-number="8"><span class="co">#&gt;    a    b &lt;NA&gt; </span></a>
-<a class="sourceLine" id="cb487-9" data-line-number="9"><span class="co">#&gt;   10   20   NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" data-line-number="1">x[<span class="st">&quot;c&quot;</span>]</a>
+<a class="sourceLine" id="cb489-2" data-line-number="2"><span class="co">#&gt; &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb489-3" data-line-number="3"><span class="co">#&gt;   NA</span></a>
+<a class="sourceLine" id="cb489-4" data-line-number="4">x[<span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>)]</a>
+<a class="sourceLine" id="cb489-5" data-line-number="5"><span class="co">#&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb489-6" data-line-number="6"><span class="co">#&gt;   NA   NA   NA</span></a>
+<a class="sourceLine" id="cb489-7" data-line-number="7">x[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)]</a>
+<a class="sourceLine" id="cb489-8" data-line-number="8"><span class="co">#&gt;    a    b &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb489-9" data-line-number="9"><span class="co">#&gt;   10   20   NA</span></a></code></pre></div>
 <p>Though not yet discussed much in this chapter, the <code>[[</code> behaves differently.
 With an atomic vector, if <code>[[</code> is given an index outside the range of the vector or an invalid name, it raises an error.</p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" data-line-number="1">x[[<span class="st">&quot;c&quot;</span>]]</a>
-<a class="sourceLine" id="cb488-2" data-line-number="2"><span class="co">#&gt; Error in x[[&quot;c&quot;]]: subscript out of bounds</span></a></code></pre></div>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" data-line-number="1">x[[<span class="dv">5</span>]]</a>
-<a class="sourceLine" id="cb489-2" data-line-number="2"><span class="co">#&gt; Error in x[[5]]: subscript out of bounds</span></a></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb490-1" data-line-number="1">x[[<span class="st">&quot;c&quot;</span>]]</a>
+<a class="sourceLine" id="cb490-2" data-line-number="2"><span class="co">#&gt; Error in x[[&quot;c&quot;]]: subscript out of bounds</span></a></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" data-line-number="1">x[[<span class="dv">5</span>]]</a>
+<a class="sourceLine" id="cb491-2" data-line-number="2"><span class="co">#&gt; Error in x[[5]]: subscript out of bounds</span></a></code></pre></div>
 </div>
 </div>
 </div>
@@ -1326,26 +1330,26 @@ is as follows.</p>
 <div class="answer">
 <p>Subsetting a <code>tibble</code> works the same way as a list; a data frame can be thought of as a list of columns.
 The key different between a list and a <code>tibble</code> is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb490-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb490-2" data-line-number="2">x[[<span class="st">&quot;a&quot;</span>]]</a>
-<a class="sourceLine" id="cb490-3" data-line-number="3"><span class="co">#&gt; [1] 1 2</span></a>
-<a class="sourceLine" id="cb490-4" data-line-number="4">x[<span class="st">&quot;a&quot;</span>]</a>
-<a class="sourceLine" id="cb490-5" data-line-number="5"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
-<a class="sourceLine" id="cb490-6" data-line-number="6"><span class="co">#&gt;       a</span></a>
-<a class="sourceLine" id="cb490-7" data-line-number="7"><span class="co">#&gt;   &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb490-8" data-line-number="8"><span class="co">#&gt; 1     1</span></a>
-<a class="sourceLine" id="cb490-9" data-line-number="9"><span class="co">#&gt; 2     2</span></a>
-<a class="sourceLine" id="cb490-10" data-line-number="10">x[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb490-11" data-line-number="11"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
-<a class="sourceLine" id="cb490-12" data-line-number="12"><span class="co">#&gt;       a</span></a>
-<a class="sourceLine" id="cb490-13" data-line-number="13"><span class="co">#&gt;   &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb490-14" data-line-number="14"><span class="co">#&gt; 1     1</span></a>
-<a class="sourceLine" id="cb490-15" data-line-number="15"><span class="co">#&gt; 2     2</span></a>
-<a class="sourceLine" id="cb490-16" data-line-number="16">x[<span class="dv">1</span>, ]</a>
-<a class="sourceLine" id="cb490-17" data-line-number="17"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb490-18" data-line-number="18"><span class="co">#&gt;       a     b</span></a>
-<a class="sourceLine" id="cb490-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb490-20" data-line-number="20"><span class="co">#&gt; 1     1     3</span></a></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb492-2" data-line-number="2">x[[<span class="st">&quot;a&quot;</span>]]</a>
+<a class="sourceLine" id="cb492-3" data-line-number="3"><span class="co">#&gt; [1] 1 2</span></a>
+<a class="sourceLine" id="cb492-4" data-line-number="4">x[<span class="st">&quot;a&quot;</span>]</a>
+<a class="sourceLine" id="cb492-5" data-line-number="5"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
+<a class="sourceLine" id="cb492-6" data-line-number="6"><span class="co">#&gt;       a</span></a>
+<a class="sourceLine" id="cb492-7" data-line-number="7"><span class="co">#&gt;   &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb492-8" data-line-number="8"><span class="co">#&gt; 1     1</span></a>
+<a class="sourceLine" id="cb492-9" data-line-number="9"><span class="co">#&gt; 2     2</span></a>
+<a class="sourceLine" id="cb492-10" data-line-number="10">x[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb492-11" data-line-number="11"><span class="co">#&gt; # A tibble: 2 x 1</span></a>
+<a class="sourceLine" id="cb492-12" data-line-number="12"><span class="co">#&gt;       a</span></a>
+<a class="sourceLine" id="cb492-13" data-line-number="13"><span class="co">#&gt;   &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb492-14" data-line-number="14"><span class="co">#&gt; 1     1</span></a>
+<a class="sourceLine" id="cb492-15" data-line-number="15"><span class="co">#&gt; 2     2</span></a>
+<a class="sourceLine" id="cb492-16" data-line-number="16">x[<span class="dv">1</span>, ]</a>
+<a class="sourceLine" id="cb492-17" data-line-number="17"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb492-18" data-line-number="18"><span class="co">#&gt;       a     b</span></a>
+<a class="sourceLine" id="cb492-19" data-line-number="19"><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb492-20" data-line-number="20"><span class="co">#&gt; 1     1     3</span></a></code></pre></div>
 </div>
 </div>
 </div>
@@ -1361,22 +1365,22 @@ The key different between a list and a <code>tibble</code> is that a tibble (dat
 <p>What does <code>hms::hms(3600)</code> return? How does it print? What primitive type is the augmented vector built on top of? What attributes does it use?</p>
 </div>
 <div class="answer">
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" data-line-number="1">x &lt;-<span class="st"> </span>hms<span class="op">::</span><span class="kw">hms</span>(<span class="dv">3600</span>)</a>
-<a class="sourceLine" id="cb491-2" data-line-number="2"><span class="kw">class</span>(x)</a>
-<a class="sourceLine" id="cb491-3" data-line-number="3"><span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span></a>
-<a class="sourceLine" id="cb491-4" data-line-number="4">x</a>
-<a class="sourceLine" id="cb491-5" data-line-number="5"><span class="co">#&gt; 01:00:00</span></a></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" data-line-number="1">x &lt;-<span class="st"> </span>hms<span class="op">::</span><span class="kw">hms</span>(<span class="dv">3600</span>)</a>
+<a class="sourceLine" id="cb493-2" data-line-number="2"><span class="kw">class</span>(x)</a>
+<a class="sourceLine" id="cb493-3" data-line-number="3"><span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span></a>
+<a class="sourceLine" id="cb493-4" data-line-number="4">x</a>
+<a class="sourceLine" id="cb493-5" data-line-number="5"><span class="co">#&gt; 01:00:00</span></a></code></pre></div>
 <p><code>hms::hms</code> returns an object of class, and prints the time in “%H:%M:%S” format.</p>
 <p>The primitive type is a double</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" data-line-number="1"><span class="kw">typeof</span>(x)</a>
-<a class="sourceLine" id="cb492-2" data-line-number="2"><span class="co">#&gt; [1] &quot;double&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb494-1" data-line-number="1"><span class="kw">typeof</span>(x)</a>
+<a class="sourceLine" id="cb494-2" data-line-number="2"><span class="co">#&gt; [1] &quot;double&quot;</span></a></code></pre></div>
 <p>The attributes is uses are <code>&quot;units&quot;</code> and <code>&quot;class&quot;</code>.</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" data-line-number="1"><span class="kw">attributes</span>(x)</a>
-<a class="sourceLine" id="cb493-2" data-line-number="2"><span class="co">#&gt; $class</span></a>
-<a class="sourceLine" id="cb493-3" data-line-number="3"><span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span></a>
-<a class="sourceLine" id="cb493-4" data-line-number="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb493-5" data-line-number="5"><span class="co">#&gt; $units</span></a>
-<a class="sourceLine" id="cb493-6" data-line-number="6"><span class="co">#&gt; [1] &quot;secs&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" data-line-number="1"><span class="kw">attributes</span>(x)</a>
+<a class="sourceLine" id="cb495-2" data-line-number="2"><span class="co">#&gt; $class</span></a>
+<a class="sourceLine" id="cb495-3" data-line-number="3"><span class="co">#&gt; [1] &quot;hms&quot;      &quot;difftime&quot;</span></a>
+<a class="sourceLine" id="cb495-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb495-5" data-line-number="5"><span class="co">#&gt; $units</span></a>
+<a class="sourceLine" id="cb495-6" data-line-number="6"><span class="co">#&gt; [1] &quot;secs&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="exercise-20.7.2" class="section level3 unnumbered exercise">
@@ -1386,18 +1390,18 @@ The key different between a list and a <code>tibble</code> is that a tibble (dat
 </div>
 <div class="answer">
 <p>If I try to create at tibble with a scalar and column of a different length there are no issues, and the scalar is repeated to the length of the longer vector.</p>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb494-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb494-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5 x 2</span></a>
-<a class="sourceLine" id="cb494-3" data-line-number="3"><span class="co">#&gt;       x     y</span></a>
-<a class="sourceLine" id="cb494-4" data-line-number="4"><span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb494-5" data-line-number="5"><span class="co">#&gt; 1     1     1</span></a>
-<a class="sourceLine" id="cb494-6" data-line-number="6"><span class="co">#&gt; 2     1     2</span></a>
-<a class="sourceLine" id="cb494-7" data-line-number="7"><span class="co">#&gt; 3     1     3</span></a>
-<a class="sourceLine" id="cb494-8" data-line-number="8"><span class="co">#&gt; 4     1     4</span></a>
-<a class="sourceLine" id="cb494-9" data-line-number="9"><span class="co">#&gt; 5     1     5</span></a></code></pre></div>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb496-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5 x 2</span></a>
+<a class="sourceLine" id="cb496-3" data-line-number="3"><span class="co">#&gt;       x     y</span></a>
+<a class="sourceLine" id="cb496-4" data-line-number="4"><span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb496-5" data-line-number="5"><span class="co">#&gt; 1     1     1</span></a>
+<a class="sourceLine" id="cb496-6" data-line-number="6"><span class="co">#&gt; 2     1     2</span></a>
+<a class="sourceLine" id="cb496-7" data-line-number="7"><span class="co">#&gt; 3     1     3</span></a>
+<a class="sourceLine" id="cb496-8" data-line-number="8"><span class="co">#&gt; 4     1     4</span></a>
+<a class="sourceLine" id="cb496-9" data-line-number="9"><span class="co">#&gt; 5     1     5</span></a></code></pre></div>
 <p>However, if I try to create a tibble with two vectors of different lengths (other than one), the <code>tibble</code> function throws an error.</p>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb495-2" data-line-number="2"><span class="co">#&gt; Error: Column `x` must be length 1 or 4, not 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb497-2" data-line-number="2"><span class="co">#&gt; Error: Column `x` must be length 1 or 4, not 3</span></a></code></pre></div>
 </div>
 </div>
 <div id="exercise-20.7.3" class="section level3 unnumbered exercise">
@@ -1411,13 +1415,13 @@ From the above, the error message was about vectors having different lengths.
 But there is nothing that prevents a tibble from having vectors of different types: doubles, character, integers, logical, factor, date.
 The later are still atomic, but they have additional attributes.
 So, maybe there won’t be an issue with a list vector as long as it is the same length.</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">1</span>, <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)))</a>
-<a class="sourceLine" id="cb496-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
-<a class="sourceLine" id="cb496-3" data-line-number="3"><span class="co">#&gt;       x y         </span></a>
-<a class="sourceLine" id="cb496-4" data-line-number="4"><span class="co">#&gt;   &lt;int&gt; &lt;list&gt;    </span></a>
-<a class="sourceLine" id="cb496-5" data-line-number="5"><span class="co">#&gt; 1     1 &lt;chr [1]&gt; </span></a>
-<a class="sourceLine" id="cb496-6" data-line-number="6"><span class="co">#&gt; 2     2 &lt;dbl [1]&gt; </span></a>
-<a class="sourceLine" id="cb496-7" data-line-number="7"><span class="co">#&gt; 3     3 &lt;list [1]&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb498-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="dv">1</span>, <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)))</a>
+<a class="sourceLine" id="cb498-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
+<a class="sourceLine" id="cb498-3" data-line-number="3"><span class="co">#&gt;       x y         </span></a>
+<a class="sourceLine" id="cb498-4" data-line-number="4"><span class="co">#&gt;   &lt;int&gt; &lt;list&gt;    </span></a>
+<a class="sourceLine" id="cb498-5" data-line-number="5"><span class="co">#&gt; 1     1 &lt;chr [1]&gt; </span></a>
+<a class="sourceLine" id="cb498-6" data-line-number="6"><span class="co">#&gt; 2     2 &lt;dbl [1]&gt; </span></a>
+<a class="sourceLine" id="cb498-7" data-line-number="7"><span class="co">#&gt; 3     3 &lt;list [1]&gt;</span></a></code></pre></div>
 <p>It works! I even used a list with heterogeneous types and there wasn’t an issue.
 In following chapters we’ll see that list vectors can be very useful: for example, when processing many different models.</p>
 </div>

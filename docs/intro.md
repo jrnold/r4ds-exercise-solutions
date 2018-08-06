@@ -1,5 +1,4 @@
 
-
 # Introduction
 
 ## Acknowledgments {-}
@@ -12,10 +11,40 @@ Thank you to all who contributed via [GitHub](https://github.com/jrnold/r4ds-exe
 
 Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson@gmail.com>, <dongzhuoer@mail.nankai.edu.cn>, <dongzhuoer@mail.nankai.edu.cn>, <kleinmarkgeard@gmail.com>, <mjones01@BattelleEcology.org>, <ndecoursin@gmail.com>, <nickywang100@gmail.com>, <theadamattack@gmail.com>, <theadamattack@gmail.com>, <tinhb92@gmail.com>.
 
+## Organization {-}
+
+The solutions are organized in the same order, and with the 
+same numbers as in *R for Data Science*. Sections without
+exercises are given a placeholder.
+
+Like *R for Data Science*, packages used in each chapter are loaded in a code chunk at the start of the chapter in a section titled "Prerequisites".
+If a package is used infrequently in solutions it may not 
+be loaded, and functions using it will be called using the 
+package name followed by two colons, as in `dplyr::mutate()` (see the *R for Data Science* [Introduction](http://r4ds.had.co.nz/introduction.html#running-r-code)).
+We will also use `::` to be explicit about the package of a
+function.
+
+## Dependencies {-}
+
+You can install all packages used in the solutions with the 
+following line of code.
+
+```r
+devtools::install_github("jrnold/r4ds-exercise-solutions")
+```
+
+## Bugs/Contributing {-}
+
+If you find any typos, errors in the solutions, have an alternative solution,
+or think the solution could be improved, I would love your contributions.
+Please open an issue at <https://github.com/jrnold/r4ds-exercise-solutions/issues> or a pull request at
+<https://github.com/jrnold/r4ds-exercise-solutions/pulls>.
+
 ## Updates {-}
 
 ### 2018-08-06 {-}
 
+-   Add sections on how to install dependencies, how the book is organized (#61, thanks dongzhuoer), contributing, and a colonophon.
 -   Add answer 20.3.3 (#66, thanks dongzhuoer)
 -   Correct chapter numbering, again. (dongzhuoer #93)
 -   Fix Typos (dongzhuoer #92)
@@ -133,5 +162,67 @@ Thanks go to all contributers in alphabetical order: \@jmclawson, <benherbertson
 -   Corrected answer to Ex. 3.6.6 (#21)
 -   Added NEWS.md to track changes
 
-<!-- match unopened div --><div>
+## Colophon {-}
 
+HTML and PDF versions of this book are available at <https://jrnold.github.io/r4ds-exercise-solutions>.
+The book is powered by [bookdown](https://bookdown.org) which makes it easy to turn R markdown files into HTML, PDF, and EPUB.
+
+This book was built with:
+
+```r
+devtools::session_info()
+#> Session info -------------------------------------------------------------
+#>  setting  value                       
+#>  version  R version 3.5.1 (2018-07-02)
+#>  system   x86_64, darwin15.6.0        
+#>  ui       X11                         
+#>  language (EN)                        
+#>  collate  en_US.UTF-8                 
+#>  tz       America/Los_Angeles         
+#>  date     2018-08-06
+#> Packages -----------------------------------------------------------------
+#>  package    * version date       source                            
+#>  assertthat   0.2.0   2017-04-11 CRAN (R 3.5.0)                    
+#>  backports    1.1.2   2017-12-13 CRAN (R 3.5.0)                    
+#>  base       * 3.5.1   2018-07-05 local                             
+#>  bindr        0.1.1   2018-03-13 CRAN (R 3.5.0)                    
+#>  bindrcpp   * 0.2.2   2018-03-29 CRAN (R 3.5.0)                    
+#>  bookdown     0.7     2018-02-18 CRAN (R 3.5.0)                    
+#>  compiler     3.5.1   2018-07-05 local                             
+#>  crayon       1.3.4   2017-09-16 CRAN (R 3.5.0)                    
+#>  datasets   * 3.5.1   2018-07-05 local                             
+#>  devtools     1.13.6  2018-06-27 CRAN (R 3.5.0)                    
+#>  digest       0.6.15  2018-01-28 CRAN (R 3.5.0)                    
+#>  dplyr      * 0.7.6   2018-06-29 CRAN (R 3.5.1)                    
+#>  evaluate     0.10.1  2017-06-24 CRAN (R 3.5.0)                    
+#>  git2r        0.22.1  2018-07-10 CRAN (R 3.5.0)                    
+#>  glue         1.3.0   2018-07-20 Github (tidyverse/glue@66de125)   
+#>  graphics   * 3.5.1   2018-07-05 local                             
+#>  grDevices  * 3.5.1   2018-07-05 local                             
+#>  here         0.1     2017-05-28 CRAN (R 3.5.0)                    
+#>  htmltools    0.3.6   2017-04-28 CRAN (R 3.5.0)                    
+#>  knitr        1.20    2018-02-20 CRAN (R 3.5.0)                    
+#>  magrittr     1.5     2014-11-22 CRAN (R 3.5.0)                    
+#>  memoise      1.1.0   2017-04-21 CRAN (R 3.5.0)                    
+#>  methods    * 3.5.1   2018-07-05 local                             
+#>  pillar       1.3.0   2018-07-14 CRAN (R 3.5.1)                    
+#>  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.5.0)                    
+#>  purrr        0.2.5   2018-05-29 cran (@0.2.5)                     
+#>  R6           2.2.2   2017-06-17 CRAN (R 3.5.0)                    
+#>  Rcpp         0.12.17 2018-05-18 cran (@0.12.17)                   
+#>  rlang        0.2.1   2018-05-30 cran (@0.2.1)                     
+#>  rmarkdown    1.10    2018-06-13 Github (rstudio/rmarkdown@297ff13)
+#>  rprojroot    1.3-2   2018-01-03 CRAN (R 3.5.0)                    
+#>  stats      * 3.5.1   2018-07-05 local                             
+#>  stringi      1.2.3   2018-06-12 CRAN (R 3.5.0)                    
+#>  stringr      1.3.1   2018-05-10 cran (@1.3.1)                     
+#>  tibble       1.4.2   2018-01-22 CRAN (R 3.5.0)                    
+#>  tidyselect   0.2.4   2018-02-26 CRAN (R 3.5.0)                    
+#>  tools        3.5.1   2018-07-05 local                             
+#>  utils      * 3.5.1   2018-07-05 local                             
+#>  withr        2.1.2   2018-03-15 CRAN (R 3.5.0)                    
+#>  xfun         0.3     2018-07-06 CRAN (R 3.5.1)                    
+#>  yaml         2.1.19  2018-05-01 cran (@2.1.19)
+```
+
+<!-- match unopened div --><div>

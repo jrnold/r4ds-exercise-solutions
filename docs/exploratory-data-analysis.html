@@ -136,6 +136,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#organization"><i class="fa fa-check"></i>Organization</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#dependencies"><i class="fa fa-check"></i>Dependencies</a></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#bugscontributing"><i class="fa fa-check"></i>Bugs/Contributing</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#updates"><i class="fa fa-check"></i>Updates</a><ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section"><i class="fa fa-check"></i>2018-08-06</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-1"><i class="fa fa-check"></i>2018-08-05</a></li>
@@ -154,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-14"><i class="fa fa-check"></i>2018-07-14</a></li>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#section-15"><i class="fa fa-check"></i>2018-05-08</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#colophon"><i class="fa fa-check"></i>Colophon</a></li>
 </ul></li>
 <li class="part"><span><b>I Explore</b></span></li>
 <li class="chapter" data-level="2" data-path="explore-intro.html"><a href="explore-intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
@@ -712,11 +716,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">7</span> Exploratory Data Analysis</h1>
 <div id="introduction-3" class="section level2">
 <h2><span class="header-section-number">7.1</span> Introduction</h2>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
-<a class="sourceLine" id="cb137-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;viridis&quot;</span>)</a>
-<a class="sourceLine" id="cb137-3" data-line-number="3"><span class="kw">library</span>(<span class="st">&quot;forcats&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a>
+<a class="sourceLine" id="cb139-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;viridis&quot;</span>)</a>
+<a class="sourceLine" id="cb139-3" data-line-number="3"><span class="kw">library</span>(<span class="st">&quot;forcats&quot;</span>)</a></code></pre></div>
 <p>This will also use data from <strong>nycflights13</strong>,</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;nycflights13&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;nycflights13&quot;</span>)</a></code></pre></div>
 </div>
 <div id="questions" class="section level2">
 <h2><span class="header-section-number">7.2</span> Questions</h2>
@@ -730,14 +734,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="answer">
 <p>In order to make it easier to plot them, I’ll reshape the dataset so that I can use the variables as facets.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb139-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb139-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(x, y, z, id) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb139-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>id)  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb139-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb139-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb139-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_rug</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb139-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_grid</span>(variable <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="kw">row_number</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb141-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(x, y, z, id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb141-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(variable, value, <span class="op">-</span>id)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb141-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_rug</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb141-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_grid</span>(variable <span class="op">~</span><span class="st"> </span>.)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>There several noticeable features of the distributions</p>
 <ol style="list-style-type: decimal">
@@ -761,31 +765,31 @@ I don’t know if I would have figured that out before; maybe if there was data 
 <li>There are no diamonds with a price of $1,500</li>
 <li>There’s a bulge in the distribution around $750.</li>
 </ul>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="kw">filter</span>(diamonds, price <span class="op">&lt;</span><span class="st"> </span><span class="dv">2500</span>), <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb140-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>, <span class="dt">center =</span> <span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="kw">filter</span>(diamonds, price <span class="op">&lt;</span><span class="st"> </span><span class="dv">2500</span>), <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb142-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>, <span class="dt">center =</span> <span class="dv">0</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="kw">filter</span>(diamonds), <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>, <span class="dt">center =</span> <span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="kw">filter</span>(diamonds), <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb143-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">100</span>, <span class="dt">center =</span> <span class="dv">0</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Distribution of last digit</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb142-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ending =</span> price <span class="op">%%</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb142-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ending)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb142-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">center =</span> <span class="dv">0</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb142-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb143-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ending =</span> price <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb143-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ending)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb143-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb143-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ending =</span> price <span class="op">%%</span><span class="st"> </span><span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb144-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(ending <span class="op">&gt;=</span><span class="st"> </span><span class="dv">500</span>, ending <span class="op">&lt;=</span><span class="st"> </span><span class="dv">800</span>)  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb144-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ending)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb144-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb144-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ending =</span> price <span class="op">%%</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb144-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ending)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb144-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">center =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb144-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb145-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ending =</span> price <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb145-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ending)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb146-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ending =</span> price <span class="op">%%</span><span class="st"> </span><span class="dv">1000</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb146-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(ending <span class="op">&gt;=</span><span class="st"> </span><span class="dv">500</span>, ending <span class="op">&lt;=</span><span class="st"> </span><span class="dv">800</span>)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb146-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ending)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb146-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb146-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -796,44 +800,44 @@ I don’t know if I would have figured that out before; maybe if there was data 
 </div>
 <div class="answer">
 <p>There are more than 70 times as many 1 carat diamonds as 0.99 carat diamond.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb145-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(carat <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.99</span>, carat <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb145-3" data-line-number="3"><span class="st">  </span><span class="kw">count</span>(carat)</a>
-<a class="sourceLine" id="cb145-4" data-line-number="4"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
-<a class="sourceLine" id="cb145-5" data-line-number="5"><span class="co">#&gt;   carat     n</span></a>
-<a class="sourceLine" id="cb145-6" data-line-number="6"><span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb145-7" data-line-number="7"><span class="co">#&gt; 1  0.99    23</span></a>
-<a class="sourceLine" id="cb145-8" data-line-number="8"><span class="co">#&gt; 2  1     1558</span></a></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(carat <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.99</span>, carat <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb147-3" data-line-number="3"><span class="st">  </span><span class="kw">count</span>(carat)</a>
+<a class="sourceLine" id="cb147-4" data-line-number="4"><span class="co">#&gt; # A tibble: 2 x 2</span></a>
+<a class="sourceLine" id="cb147-5" data-line-number="5"><span class="co">#&gt;   carat     n</span></a>
+<a class="sourceLine" id="cb147-6" data-line-number="6"><span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb147-7" data-line-number="7"><span class="co">#&gt; 1  0.99    23</span></a>
+<a class="sourceLine" id="cb147-8" data-line-number="8"><span class="co">#&gt; 2  1     1558</span></a></code></pre></div>
 <p>I don’t know exactly the process behind how carats are measured, but some way or another some diamonds carat values are being “rounded up”, because presumably there is a premium for a 1 carat diamond vs. a 0.99 carat diamond beyond the expected increase in price due to a 0.01 carat increase.</p>
 <p>To check this intuition, we’d want to look at the number of diamonds in each carat range to seem if there is an abnormally low number at 0.99 carats, and an abnormally high number at 1 carat.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb146-2" data-line-number="2"><span class="st">   </span><span class="kw">filter</span>(carat <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>, carat <span class="op">&lt;=</span><span class="st"> </span><span class="fl">1.1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb146-3" data-line-number="3"><span class="st">   </span><span class="kw">count</span>(carat) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb146-4" data-line-number="4"><span class="st">   </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb146-5" data-line-number="5"><span class="co">#&gt; # A tibble: 21 x 2</span></a>
-<a class="sourceLine" id="cb146-6" data-line-number="6"><span class="co">#&gt;    carat     n</span></a>
-<a class="sourceLine" id="cb146-7" data-line-number="7"><span class="co">#&gt;    &lt;dbl&gt; &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb146-8" data-line-number="8"><span class="co">#&gt;  1  0.9   1485</span></a>
-<a class="sourceLine" id="cb146-9" data-line-number="9"><span class="co">#&gt;  2  0.91   570</span></a>
-<a class="sourceLine" id="cb146-10" data-line-number="10"><span class="co">#&gt;  3  0.92   226</span></a>
-<a class="sourceLine" id="cb146-11" data-line-number="11"><span class="co">#&gt;  4  0.93   142</span></a>
-<a class="sourceLine" id="cb146-12" data-line-number="12"><span class="co">#&gt;  5  0.94    59</span></a>
-<a class="sourceLine" id="cb146-13" data-line-number="13"><span class="co">#&gt;  6  0.95    65</span></a>
-<a class="sourceLine" id="cb146-14" data-line-number="14"><span class="co">#&gt;  7  0.96   103</span></a>
-<a class="sourceLine" id="cb146-15" data-line-number="15"><span class="co">#&gt;  8  0.97    59</span></a>
-<a class="sourceLine" id="cb146-16" data-line-number="16"><span class="co">#&gt;  9  0.98    31</span></a>
-<a class="sourceLine" id="cb146-17" data-line-number="17"><span class="co">#&gt; 10  0.99    23</span></a>
-<a class="sourceLine" id="cb146-18" data-line-number="18"><span class="co">#&gt; 11  1     1558</span></a>
-<a class="sourceLine" id="cb146-19" data-line-number="19"><span class="co">#&gt; 12  1.01  2242</span></a>
-<a class="sourceLine" id="cb146-20" data-line-number="20"><span class="co">#&gt; 13  1.02   883</span></a>
-<a class="sourceLine" id="cb146-21" data-line-number="21"><span class="co">#&gt; 14  1.03   523</span></a>
-<a class="sourceLine" id="cb146-22" data-line-number="22"><span class="co">#&gt; 15  1.04   475</span></a>
-<a class="sourceLine" id="cb146-23" data-line-number="23"><span class="co">#&gt; 16  1.05   361</span></a>
-<a class="sourceLine" id="cb146-24" data-line-number="24"><span class="co">#&gt; 17  1.06   373</span></a>
-<a class="sourceLine" id="cb146-25" data-line-number="25"><span class="co">#&gt; 18  1.07   342</span></a>
-<a class="sourceLine" id="cb146-26" data-line-number="26"><span class="co">#&gt; 19  1.08   246</span></a>
-<a class="sourceLine" id="cb146-27" data-line-number="27"><span class="co">#&gt; 20  1.09   287</span></a>
-<a class="sourceLine" id="cb146-28" data-line-number="28"><span class="co">#&gt; 21  1.1    278</span></a></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb148-2" data-line-number="2"><span class="st">   </span><span class="kw">filter</span>(carat <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>, carat <span class="op">&lt;=</span><span class="st"> </span><span class="fl">1.1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb148-3" data-line-number="3"><span class="st">   </span><span class="kw">count</span>(carat) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb148-4" data-line-number="4"><span class="st">   </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb148-5" data-line-number="5"><span class="co">#&gt; # A tibble: 21 x 2</span></a>
+<a class="sourceLine" id="cb148-6" data-line-number="6"><span class="co">#&gt;    carat     n</span></a>
+<a class="sourceLine" id="cb148-7" data-line-number="7"><span class="co">#&gt;    &lt;dbl&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb148-8" data-line-number="8"><span class="co">#&gt;  1  0.9   1485</span></a>
+<a class="sourceLine" id="cb148-9" data-line-number="9"><span class="co">#&gt;  2  0.91   570</span></a>
+<a class="sourceLine" id="cb148-10" data-line-number="10"><span class="co">#&gt;  3  0.92   226</span></a>
+<a class="sourceLine" id="cb148-11" data-line-number="11"><span class="co">#&gt;  4  0.93   142</span></a>
+<a class="sourceLine" id="cb148-12" data-line-number="12"><span class="co">#&gt;  5  0.94    59</span></a>
+<a class="sourceLine" id="cb148-13" data-line-number="13"><span class="co">#&gt;  6  0.95    65</span></a>
+<a class="sourceLine" id="cb148-14" data-line-number="14"><span class="co">#&gt;  7  0.96   103</span></a>
+<a class="sourceLine" id="cb148-15" data-line-number="15"><span class="co">#&gt;  8  0.97    59</span></a>
+<a class="sourceLine" id="cb148-16" data-line-number="16"><span class="co">#&gt;  9  0.98    31</span></a>
+<a class="sourceLine" id="cb148-17" data-line-number="17"><span class="co">#&gt; 10  0.99    23</span></a>
+<a class="sourceLine" id="cb148-18" data-line-number="18"><span class="co">#&gt; 11  1     1558</span></a>
+<a class="sourceLine" id="cb148-19" data-line-number="19"><span class="co">#&gt; 12  1.01  2242</span></a>
+<a class="sourceLine" id="cb148-20" data-line-number="20"><span class="co">#&gt; 13  1.02   883</span></a>
+<a class="sourceLine" id="cb148-21" data-line-number="21"><span class="co">#&gt; 14  1.03   523</span></a>
+<a class="sourceLine" id="cb148-22" data-line-number="22"><span class="co">#&gt; 15  1.04   475</span></a>
+<a class="sourceLine" id="cb148-23" data-line-number="23"><span class="co">#&gt; 16  1.05   361</span></a>
+<a class="sourceLine" id="cb148-24" data-line-number="24"><span class="co">#&gt; 17  1.06   373</span></a>
+<a class="sourceLine" id="cb148-25" data-line-number="25"><span class="co">#&gt; 18  1.07   342</span></a>
+<a class="sourceLine" id="cb148-26" data-line-number="26"><span class="co">#&gt; 19  1.08   246</span></a>
+<a class="sourceLine" id="cb148-27" data-line-number="27"><span class="co">#&gt; 20  1.09   287</span></a>
+<a class="sourceLine" id="cb148-28" data-line-number="28"><span class="co">#&gt; 21  1.1    278</span></a></code></pre></div>
 </div>
 </div>
 <div id="exercise-7.3.4" class="section level3 unnumbered exercise">
@@ -843,19 +847,19 @@ I don’t know if I would have figured that out before; maybe if there was data 
 </div>
 <div class="answer">
 <p><code>coord_cartesian</code> simply zooms in on the area specified by the limits. The calculation of the histogram is unaffected.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
-<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb147-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">5000</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3000</span>))</a>
-<a class="sourceLine" id="cb147-4" data-line-number="4"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
+<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb149-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">5000</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3000</span>))</a>
+<a class="sourceLine" id="cb149-4" data-line-number="4"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>However, the <code>xlim</code> and <code>ylim</code> functions first drop any values outside the limits (the <code>ylim</code> doesn’t matter in this case), then calculates the histogram, and draws the graph with the given limits.</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
-<a class="sourceLine" id="cb148-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb148-3" data-line-number="3"><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">100</span>, <span class="dv">5000</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb148-4" data-line-number="4"><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">3000</span>)</a>
-<a class="sourceLine" id="cb148-5" data-line-number="5"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a>
-<a class="sourceLine" id="cb148-6" data-line-number="6"><span class="co">#&gt; Warning: Removed 14714 rows containing non-finite values (stat_bin).</span></a>
-<a class="sourceLine" id="cb148-7" data-line-number="7"><span class="co">#&gt; Warning: Removed 5 rows containing missing values (geom_bar).</span></a></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
+<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb150-3" data-line-number="3"><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">100</span>, <span class="dv">5000</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb150-4" data-line-number="4"><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">3000</span>)</a>
+<a class="sourceLine" id="cb150-5" data-line-number="5"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a>
+<a class="sourceLine" id="cb150-6" data-line-number="6"><span class="co">#&gt; Warning: Removed 14714 rows containing non-finite values (stat_bin).</span></a>
+<a class="sourceLine" id="cb150-7" data-line-number="7"><span class="co">#&gt; Warning: Removed 5 rows containing missing values (geom_bar).</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -870,19 +874,19 @@ What happens to missing values in a bar chart? &gt; Why is there a difference?</
 </div>
 <div class="answer">
 <p>Missing values are removed when the number of observations in each bin are calculated. See the warning message: <code>Removed 9 rows containing non-finite values (stat_bin)</code></p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">diamonds2 &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">y =</span> <span class="kw">ifelse</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>, <span class="ot">NA</span>, y))</a>
-<a class="sourceLine" id="cb149-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb149-4" data-line-number="4"><span class="kw">ggplot</span>(diamonds2, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb149-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_histogram</span>()</a>
-<a class="sourceLine" id="cb149-6" data-line-number="6"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a>
-<a class="sourceLine" id="cb149-7" data-line-number="7"><span class="co">#&gt; Warning: Removed 9 rows containing non-finite values (stat_bin).</span></a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1">diamonds2 &lt;-<span class="st"> </span>diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb151-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">y =</span> <span class="kw">ifelse</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>, <span class="ot">NA</span>, y))</a>
+<a class="sourceLine" id="cb151-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb151-4" data-line-number="4"><span class="kw">ggplot</span>(diamonds2, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb151-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_histogram</span>()</a>
+<a class="sourceLine" id="cb151-6" data-line-number="6"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a>
+<a class="sourceLine" id="cb151-7" data-line-number="7"><span class="co">#&gt; Warning: Removed 9 rows containing non-finite values (stat_bin).</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>In <code>geom_bar</code>, <code>NA</code> is treated as another category. The <code>x</code> aesthetic in <code>geom_bar</code> requires a discrete (categorical) variable, and missing values act like another category.</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cut =</span> <span class="kw">if_else</span>(<span class="kw">runif</span>(<span class="kw">n</span>()) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>, <span class="ot">NA_character_</span>, <span class="kw">as.character</span>(cut))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb150-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb150-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut))</a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb152-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cut =</span> <span class="kw">if_else</span>(<span class="kw">runif</span>(<span class="kw">n</span>()) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>, <span class="ot">NA_character_</span>, <span class="kw">as.character</span>(cut))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb152-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb152-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>In a histogram, the <code>x</code> aesthetic variable needs to be numeric, and <code>stat_bin</code> groups the observations by ranges into bins.
 Since the numeric value of the <code>NA</code> observations is unknown, they cannot be placed in a particular bin, and are dropped.</p>
@@ -895,10 +899,10 @@ Since the numeric value of the <code>NA</code> observations is unknown, they can
 </div>
 <div class="answer">
 <p>This option removes <code>NA</code> values from the vector prior to calculating the mean and sum.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1"><span class="kw">mean</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb151-2" data-line-number="2"><span class="co">#&gt; [1] 1</span></a>
-<a class="sourceLine" id="cb151-3" data-line-number="3"><span class="kw">sum</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb151-4" data-line-number="4"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1"><span class="kw">mean</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb153-2" data-line-number="2"><span class="co">#&gt; [1] 1</span></a>
+<a class="sourceLine" id="cb153-3" data-line-number="3"><span class="kw">sum</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb153-4" data-line-number="4"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
 </div>
 </div>
 </div>
@@ -914,15 +918,15 @@ Since the numeric value of the <code>NA</code> observations is unknown, they can
 <div class="answer">
 <p>of canceled vs. non-canceled flights.</p>
 <p>Instead of a <code>freqplot</code> use a box-plot</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1">nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb152-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb152-3" data-line-number="3">    <span class="dt">canceled =</span> <span class="kw">is.na</span>(dep_time),</a>
-<a class="sourceLine" id="cb152-4" data-line-number="4">    <span class="dt">sched_hour =</span> sched_dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span>,</a>
-<a class="sourceLine" id="cb152-5" data-line-number="5">    <span class="dt">sched_min =</span> sched_dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>,</a>
-<a class="sourceLine" id="cb152-6" data-line-number="6">    <span class="dt">sched_dep_time =</span> sched_hour <span class="op">+</span><span class="st"> </span>sched_min <span class="op">/</span><span class="st"> </span><span class="dv">60</span></a>
-<a class="sourceLine" id="cb152-7" data-line-number="7">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb152-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb152-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> sched_dep_time, <span class="dt">x =</span> canceled))</a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1">nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb154-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb154-3" data-line-number="3">    <span class="dt">canceled =</span> <span class="kw">is.na</span>(dep_time),</a>
+<a class="sourceLine" id="cb154-4" data-line-number="4">    <span class="dt">sched_hour =</span> sched_dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span>,</a>
+<a class="sourceLine" id="cb154-5" data-line-number="5">    <span class="dt">sched_min =</span> sched_dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>,</a>
+<a class="sourceLine" id="cb154-6" data-line-number="6">    <span class="dt">sched_dep_time =</span> sched_hour <span class="op">+</span><span class="st"> </span>sched_min <span class="op">/</span><span class="st"> </span><span class="dv">60</span></a>
+<a class="sourceLine" id="cb154-7" data-line-number="7">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb154-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb154-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> sched_dep_time, <span class="dt">x =</span> canceled))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -942,22 +946,22 @@ Why does the combination of those two relationships lead to lower quality diamon
 I will consider the variables: <code>carat</code>, <code>clarity</code>, <code>color</code>, and <code>cut</code>.
 I ignore the dimensions of the diamond since <code>carat</code> measures size, and thus incorporates most of the information contained in these variables.</p>
 <p>Both <code>price</code> and <code>carat</code> are continuous variables, so I will use scatterplot visualize their relationship.</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb153-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb155-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/plot_diamond_carat_price-1.png" width="70%" style="display: block; margin: auto;" />
 However, since there is a large number of points in the data, I will use a boxplot by binning <code>carat</code> (as suggested in the chapter).</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb154-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">group =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.1</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb156-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">group =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.1</span>)))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 Note that the choice of the binning width is important, as if it were too large it would obscure any relationship, and if it were too small, the values in the bins could be too variable to reveal underlying trends.</p>
 <p>The variables <code>color</code> and <code>clarity</code> are ordered categorical variables.
 The chapter suggests visualizing a categorical and continuous variable using frequency polygons or boxplots.
 In this case, I will use a box plot since it will better show a relationship over the variables.</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb155-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb157-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/plot_diamond_color_price-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
-<a class="sourceLine" id="cb156-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> clarity, <span class="dt">y =</span> price))</a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> clarity, <span class="dt">y =</span> price))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/plot_diamond_clarity_price-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>There is a strong relationship between <code>carat</code> and <code>price</code>.
 The is a weak positive relationship between <code>color</code> and <code>price</code>,
@@ -966,8 +970,8 @@ For both <code>clarity</code> and <code>color</code>, there is a large amount of
 Carat is clearly the best predictor of its price.</p>
 <p>Now that we have established that carat appears to be the best predictor of price, what is the relationship between it and cut?
 Since this is an example of a continuous (carat) and categorical (cut) variable, it can be visualized with a box plot.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> carat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb157-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> carat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb159-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>There is a lot of variability in the distribution of carat sizes within each cut category.
 There is a slight negative relationship between carat and cut.
@@ -984,20 +988,20 @@ How does this compare to using <code>coord_flip()</code>?</p>
 </div>
 <div class="answer">
 <p>Earlier we created a horizontal box plot of the distribution <code>hwy</code> by <code>class</code>, using <code>geom_boxplot</code> and <code>coord_flip</code>:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
-<a class="sourceLine" id="cb158-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb158-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
+<a class="sourceLine" id="cb160-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb160-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>In this case the output looks the same, but in the aesthetics the <code>x</code> and <code>y</code> are flipped from the previous case.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;ggstance&quot;</span>)</a>
-<a class="sourceLine" id="cb159-2" data-line-number="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb159-3" data-line-number="3"><span class="co">#&gt; Attaching package: &#39;ggstance&#39;</span></a>
-<a class="sourceLine" id="cb159-4" data-line-number="4"><span class="co">#&gt; The following objects are masked from &#39;package:ggplot2&#39;:</span></a>
-<a class="sourceLine" id="cb159-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb159-6" data-line-number="6"><span class="co">#&gt;     geom_errorbarh, GeomErrorbarh</span></a>
-<a class="sourceLine" id="cb159-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb159-8" data-line-number="8"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
-<a class="sourceLine" id="cb159-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_boxploth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">x =</span> hwy))</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;ggstance&quot;</span>)</a>
+<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb161-3" data-line-number="3"><span class="co">#&gt; Attaching package: &#39;ggstance&#39;</span></a>
+<a class="sourceLine" id="cb161-4" data-line-number="4"><span class="co">#&gt; The following objects are masked from &#39;package:ggplot2&#39;:</span></a>
+<a class="sourceLine" id="cb161-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb161-6" data-line-number="6"><span class="co">#&gt;     geom_errorbarh, GeomErrorbarh</span></a>
+<a class="sourceLine" id="cb161-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb161-8" data-line-number="8"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
+<a class="sourceLine" id="cb161-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_boxploth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">x =</span> hwy))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1021,9 +1025,9 @@ They are useful for larger datasets because</p>
 <blockquote>
 <p>Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. “Letter-value plots: Boxplots for large data” <a href="http://vita.had.co.nz/papers/letter-value-plot.pdf" class="uri">http://vita.had.co.nz/papers/letter-value-plot.pdf</a></p>
 </blockquote>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;lvplot&quot;</span>)</a>
-<a class="sourceLine" id="cb160-2" data-line-number="2"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb160-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_lv</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;lvplot&quot;</span>)</a>
+<a class="sourceLine" id="cb162-2" data-line-number="2"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb162-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_lv</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1039,17 +1043,17 @@ The <code>geom_violin</code> and faceted <code>geom_histogram</code> have simila
 It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
 However, since we can’t easily compare the vertical values of the distribution, its difficult to look up which category has the highest density for a given price.
 All of these methods depend on tuning parameters to determine the level of smoothness of the distribution.</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price, <span class="dt">y =</span> ..density..)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> cut), <span class="dt">binwidth =</span> <span class="dv">500</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price, <span class="dt">y =</span> ..density..)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> cut), <span class="dt">binwidth =</span> <span class="dv">500</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb162-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb162-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</a>
-<a class="sourceLine" id="cb162-4" data-line-number="4"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb164-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</a>
+<a class="sourceLine" id="cb164-4" data-line-number="4"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb163-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>The violin plot was first described in</p>
 <blockquote>
@@ -1071,34 +1075,34 @@ List them and briefly describe what each one does.</p>
 <li><code>geom_beeswarm</code> creates a shape similar to a violin plot, but by offsetting the points.</li>
 </ul>
 <p>I’ll use the <code>mpg</code> box plot example since these methods display individual points, they are better suited for smaller datasets.</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;ggbeeswarm&quot;</span>)</a>
-<a class="sourceLine" id="cb164-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
-<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_quasirandom</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
-<a class="sourceLine" id="cb164-4" data-line-number="4">                                 <span class="dt">y =</span> hwy))</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;ggbeeswarm&quot;</span>)</a>
+<a class="sourceLine" id="cb166-2" data-line-number="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
+<a class="sourceLine" id="cb166-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_quasirandom</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
+<a class="sourceLine" id="cb166-4" data-line-number="4">                                 <span class="dt">y =</span> hwy))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
-<a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_quasirandom</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
-<a class="sourceLine" id="cb165-3" data-line-number="3">                                 <span class="dt">y =</span> hwy),</a>
-<a class="sourceLine" id="cb165-4" data-line-number="4">                   <span class="dt">method =</span> <span class="st">&quot;tukey&quot;</span>)</a></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_quasirandom</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
-<a class="sourceLine" id="cb166-3" data-line-number="3">                                 <span class="dt">y =</span> hwy),</a>
-<a class="sourceLine" id="cb166-4" data-line-number="4">                   <span class="dt">method =</span> <span class="st">&quot;tukeyDense&quot;</span>)</a></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
 <a class="sourceLine" id="cb167-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_quasirandom</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
 <a class="sourceLine" id="cb167-3" data-line-number="3">                                 <span class="dt">y =</span> hwy),</a>
-<a class="sourceLine" id="cb167-4" data-line-number="4">                   <span class="dt">method =</span> <span class="st">&quot;frowney&quot;</span>)</a></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<a class="sourceLine" id="cb167-4" data-line-number="4">                   <span class="dt">method =</span> <span class="st">&quot;tukey&quot;</span>)</a></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
 <a class="sourceLine" id="cb168-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_quasirandom</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
 <a class="sourceLine" id="cb168-3" data-line-number="3">                                 <span class="dt">y =</span> hwy),</a>
-<a class="sourceLine" id="cb168-4" data-line-number="4">                   <span class="dt">method =</span> <span class="st">&quot;smiley&quot;</span>)</a></code></pre></div>
-<p><img src="EDA_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<a class="sourceLine" id="cb168-4" data-line-number="4">                   <span class="dt">method =</span> <span class="st">&quot;tukeyDense&quot;</span>)</a></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
-<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_beeswarm</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
-<a class="sourceLine" id="cb169-3" data-line-number="3">                                 <span class="dt">y =</span> hwy))</a></code></pre></div>
+<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_quasirandom</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
+<a class="sourceLine" id="cb169-3" data-line-number="3">                                 <span class="dt">y =</span> hwy),</a>
+<a class="sourceLine" id="cb169-4" data-line-number="4">                   <span class="dt">method =</span> <span class="st">&quot;frowney&quot;</span>)</a></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
+<a class="sourceLine" id="cb170-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_quasirandom</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
+<a class="sourceLine" id="cb170-3" data-line-number="3">                                 <span class="dt">y =</span> hwy),</a>
+<a class="sourceLine" id="cb170-4" data-line-number="4">                   <span class="dt">method =</span> <span class="st">&quot;smiley&quot;</span>)</a></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_beeswarm</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median),</a>
+<a class="sourceLine" id="cb171-3" data-line-number="3">                                 <span class="dt">y =</span> hwy))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1113,24 +1117,24 @@ List them and briefly describe what each one does.</p>
 <div class="answer">
 <p>To clearly show the distribution of <code>cut</code> within <code>color</code>, calculate a new variable <code>prop</code> which is the proportion of each cut within a <code>color</code>.
 This is done using a grouped mutate.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1"><span class="kw">library</span>(viridis)</a>
-<a class="sourceLine" id="cb170-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb170-3" data-line-number="3">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb170-4" data-line-number="4"><span class="st">  </span><span class="kw">count</span>(color, cut) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb170-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(color) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb170-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb170-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> cut)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb170-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> prop)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb170-9" data-line-number="9"><span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="co">#from the viridis colour palette library</span></a></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1"><span class="kw">library</span>(viridis)</a>
+<a class="sourceLine" id="cb172-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb172-3" data-line-number="3">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb172-4" data-line-number="4"><span class="st">  </span><span class="kw">count</span>(color, cut) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb172-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(color) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb172-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb172-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> cut)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb172-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> prop)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb172-9" data-line-number="9"><span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="co">#from the viridis colour palette library</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Similarly, to scale by the distribution of <code>color</code> within <code>cut</code>,</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb171-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(color, cut) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb171-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb171-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb171-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> cut)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> prop)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(color, cut) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(cut) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> cut)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb173-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> prop)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb173-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>I add <code>limit = c(0, 1)</code> to put the color scale between (0, 1).
 These are the logical boundaries of proportions.
@@ -1147,12 +1151,12 @@ What makes the plot difficult to read?
 How could you improve it?</p>
 </div>
 <div class="answer">
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb172-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(month, dest) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb172-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb172-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> dest, <span class="dt">fill =</span> dep_delay)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Destination&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Departure Delay&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">flights <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb174-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(month, dest) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb174-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb174-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> dest, <span class="dt">fill =</span> dep_delay)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb174-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb174-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Destination&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Departure Delay&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>There are several things that could be done to improve it,</p>
 <ul>
@@ -1163,18 +1167,18 @@ How could you improve it?</p>
 <p>How to treat missing values is difficult.
 In this case, missing values correspond to airports which don’t have regular flights (at least one flight each month) from NYC.
 These are likely smaller airports (with higher variance in their average due to fewer observations).</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;viridis&quot;</span>)</a>
-<a class="sourceLine" id="cb173-2" data-line-number="2">flights <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb173-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(month, dest) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb173-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb173-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb173-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">==</span><span class="st"> </span><span class="dv">12</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb173-7" data-line-number="7"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb173-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dest =</span> <span class="kw">reorder</span>(dest, dep_delay)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb173-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> dest, <span class="dt">fill =</span> dep_delay)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb173-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb173-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_fill_viridis</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb173-12" data-line-number="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Destination&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Departure Delay&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;viridis&quot;</span>)</a>
+<a class="sourceLine" id="cb175-2" data-line-number="2">flights <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(month, dest) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">dep_delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">==</span><span class="st"> </span><span class="dv">12</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-7" data-line-number="7"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dest =</span> <span class="kw">reorder</span>(dest, dep_delay)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> dest, <span class="dt">fill =</span> dep_delay)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb175-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb175-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_fill_viridis</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb175-12" data-line-number="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Month&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Destination&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;Departure Delay&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1187,10 +1191,10 @@ These are likely smaller airports (with higher variance in their average due to 
 <p>It’s usually better to use the categorical variable with a larger number of categories or the longer labels on the y axis.
 If at all possible, labels should be horizontal because that is easier to read.</p>
 <p>However, switching the order doesn’t result in overlapping labels.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb174-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(color, cut) <span class="op">%&gt;%</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb174-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> color, <span class="dt">x =</span> cut)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb174-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> n))</a></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb176-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(color, cut) <span class="op">%&gt;%</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb176-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">y =</span> color, <span class="dt">x =</span> cut)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb176-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> n))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Another justification, for switching the order is that the larger numbers are at the top when <code>x = color</code> and <code>y = cut</code>, and that lowers the cognitive burden of interpreting the plot.</p>
 </div>
@@ -1214,15 +1218,15 @@ but not so much as to remove all patterns.</p>
 <p>The number of bins in the frequency plots will generally
 need to be less than those in the box plots in order to be
 interpretable.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, </a>
-<a class="sourceLine" id="cb175-2" data-line-number="2">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">x =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_freqpoly</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Carat&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, </a>
+<a class="sourceLine" id="cb177-2" data-line-number="2">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">x =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_freqpoly</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Carat&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, </a>
-<a class="sourceLine" id="cb176-2" data-line-number="2">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.5</span>, <span class="dt">boundary =</span> <span class="dv">0</span>), <span class="dt">x =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_freqpoly</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Carat&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, </a>
+<a class="sourceLine" id="cb178-2" data-line-number="2">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.5</span>, <span class="dt">boundary =</span> <span class="dv">0</span>), <span class="dt">x =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_freqpoly</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Carat&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1233,16 +1237,16 @@ interpretable.</p>
 </div>
 <div class="answer">
 <p>With a box plot, partitioning into an 10 bins with the same number of observations:</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_number</span>(price, <span class="dv">10</span>), <span class="dt">y =</span> carat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Price&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_number</span>(price, <span class="dv">10</span>), <span class="dt">y =</span> carat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Price&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
 With a box plot, partitioning into an bins of $2,000 with the width of the box determined by the number of observations. I use <code>boundary = 0</code> to ensure the first bin goes from $0–$2,000.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_width</span>(price, <span class="dv">2000</span>, <span class="dt">boundary =</span> <span class="dv">0</span>), <span class="dt">y =</span> carat)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">varwidth =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Price&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_width</span>(price, <span class="dv">2000</span>, <span class="dt">boundary =</span> <span class="dv">0</span>), <span class="dt">y =</span> carat)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb180-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">varwidth =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb180-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb180-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Price&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1271,16 +1275,16 @@ Thus we will observe large diamonds with a wider variety of cut, clarity, and co
 <div class="answer">
 <p>There are many options to try, so your solutions may vary from mine.
 Here are a few options that I tried.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_hex</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_viridis</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb181-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_hex</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb181-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb181-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_viridis</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">y =</span> price, <span class="dt">colour =</span> cut)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb180-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">y =</span> price, <span class="dt">colour =</span> cut)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb182-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">y =</span> price, <span class="dt">x =</span> cut)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb181-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">y =</span> price, <span class="dt">x =</span> cut)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb183-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1291,9 +1295,9 @@ Here are a few options that I tried.</p>
 For example, some points in the plot below have an unusual combination of <code>x</code> and <code>y</code> values, which makes the points outliers even though their <code>x</code> and <code>y</code> values appear normal when examined separately.</p>
 </div>
 <div class="answer">
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
-<a class="sourceLine" id="cb182-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb182-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">11</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">11</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
+<a class="sourceLine" id="cb184-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb184-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">11</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">11</span>))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Why is a scatterplot a better display than a binned plot for this case?</p>
 <p>In this case, there is a strong relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. The outliers in this case are not extreme in either <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span>.

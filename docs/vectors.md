@@ -174,7 +174,7 @@ and the smallest positive and negative numbers not equal to zero,
 -   Computerphile, "[Floating Point Numbers](https://www.youtube.com/watch?v=PZRI1IfStY0)"
 -   <https://en.wikipedia.org/wiki/IEEE_754>
 -   <https://en.wikipedia.org/wiki/Double-precision_floating-point_format>
--   "Floating Point Numbers: Why floating-point numbers are needed](https://floating-point-gui.de/formats/fp/)"
+-   "[Floating Point Numbers: Why floating-point numbers are needed](https://floating-point-gui.de/formats/fp/)"
 -   Fabien Sanglard, "[Floating Point Numbers: Visually Explained](http://fabiensanglard.net/floating_point_visually_explained/)"
 -   James Howard, "[How Many Floating Point Numbers are There?](https://jameshoward.us/2015/09/09/how-many-floating-point-numbers-are-there/)"
 -   GeeksforGeeks, "[Floating Point Representation Basics](https://www.geeksforgeeks.org/floating-point-representation-basics/)"
