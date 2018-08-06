@@ -14,7 +14,7 @@ files <- c(list.files(here::here("."), pattern = "\\.(Rnw|Rmd)$", full.names = T
   normalizePath() %>%
   unique()
 
-misspelled_words <- spell_check_files(files, ignore = wordlist)
+misspelled_words <- spell_check_files(sort(files), ignore = wordlist)
 print(misspelled_words)
 
 # wordlist <- misspelled_words$word
