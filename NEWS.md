@@ -1,6 +1,8 @@
 ## 2018-08-06
 
--   Answer 20.3.3 (#66, thanks dongzhuoer)
+-   Add answer 20.3.3 (#66, thanks dongzhuoer)
+-   Correct chapter numbering, again. (dongzhuoer #93)
+-   Fix Typos (dongzhuoer #92)
 
 ## 2018-08-05
 

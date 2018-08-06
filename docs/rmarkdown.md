@@ -11,7 +11,6 @@ editor_options:
 
 ## R Markdown Basics
 
-
 ### Exercise <span class="exercise-number">27.2.1</span> {.unnumbered .exercise}
 
 <div class="question">

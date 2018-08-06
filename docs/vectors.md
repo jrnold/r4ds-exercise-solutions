@@ -33,11 +33,11 @@ is.finite(x)
 #> [1]  TRUE  TRUE  TRUE FALSE FALSE
 ```
 
-The `is.finite()` function considers non-missing numeric values to be finite, 
-and missing (`NA`), not a number (`NaN`), and positive (`Inf`) and negative infinity (`-Inf`) to not be finite. The `is.infinite()` behaves slightly differently. 
+The `is.finite()` function considers non-missing numeric values to be finite,
+and missing (`NA`), not a number (`NaN`), and positive (`Inf`) and negative infinity (`-Inf`) to not be finite. The `is.infinite()` behaves slightly differently.
 It considers `Inf` and `-Inf` to be infinite, and everything else, including non-missing numbers, `NA`, and `NaN` to not be infinite. See Table \@ref(tab:finite-infinite).
 
-Table: (\#tab:finite-infinite) Results of `is.finite()` and `is.infinite()` for 
+Table: (\#tab:finite-infinite) Results of `is.finite()` and `is.infinite()` for
        numeric and special values.
 
 |        | `is.finite()` | `is.infinite()` |
@@ -82,11 +82,106 @@ A logical vector can take 3 possible values. How many possible values can an int
 
 <div class="answer">
 
-The help for `.Machine` describes some of this:
+For integers vectors, R uses a 32-bit representation. This means that it can represent up to $2^32$ different values with integers. One of these values is set aside for `NA_integer_`.
+From the help for `integer`.
 
-  As all current implementations of R use 32-bit integers and uses IEC 60559 floating-point (double precision) arithmetic,
+> Note that current implementations of R use 32-bit integers for integer vectors,
+> so the range of representable integers is restricted to about +/-2*10^9: doubles
+> can hold much larger integers exactly.
 
-The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) or IEEE 754 format uses a 64 bit vector, but
+The range of integers values that R can represent in an integer vector is $\pm 2^{31} - 1$,
+
+```r
+.Machine$integer.max
+#> [1] 2147483647
+```
+The maximum integer is $2^{31} - 1$ rather than $2^{32}$ because 1 bit is used to
+represent the sign ($+$, $-$) and one value is used to represent `NA_integer_`.
+
+If you try to represent an integer greater than that value, R will return `NA` values.
+
+```r
+.Machine$integer.max + 1L
+#> Warning in .Machine$integer.max + 1L: NAs produced by integer overflow
+#> [1] NA
+```
+However, you can represent that value (exactly) with a numeric vector at the cost of
+about two times the memory.
+
+```r
+as.numeric(.Machine$integer.max) + 1
+#> [1] 2.15e+09
+```
+The same is true for the negative of the integer max.
+
+```r
+-.Machine$integer.max - 1L
+#> Warning in -.Machine$integer.max - 1L: NAs produced by integer overflow
+#> [1] NA
+```
+
+For double vectors, R uses a 64-bit representation. This means that they can hold up
+to $2^64$ values exactly. However, some of those values are allocated to special values
+such as `-Inf`, `Inf`, `NA_real_`, and `NaN`. From the help for `double`:
+
+> All R platforms are required to work with values conforming to the IEC 60559
+> (also known as IEEE 754) standard. This basically works with a precision of
+> 53 bits, and represents to that precision a range of absolute values from
+> about 2e-308 to 2e+308. It also has special values `NaN` (many of them),
+> plus and minus infinity
+> and plus and minus zero (although R acts as if these are the same). There are
+> also denormal(ized) (or subnormal) numbers with absolute values above or below
+> the range given above but represented to less precision.
+
+The details of floating point representation and arithmetic are complicated, beyond
+the scope of this question, and better discussed in the references provided below.
+The double can represent numbers in the range of about $\pm 2^{-308}$, which is
+provided in
+
+```r
+.Machine$double.xmax
+#> [1] 1.8e+308
+```
+
+Many  other details for the implementation of the double vectors are given in the `.Machine` variable (and its documentation).
+These include the base (radix) of doubles,
+
+```r
+.Machine$double.base
+#> [1] 2
+```
+the number of bits used for the significand (mantissa),
+
+```r
+.Machine$double.digits
+#> [1] 53
+```
+the number of bits used in the exponent,
+
+```r
+.Machine$double.exponent
+#> [1] 11
+```
+and the smallest positive and negative numbers not equal to zero,
+
+```r
+.Machine$double.eps
+#> [1] 2.22e-16
+.Machine$double.neg.eps
+#> [1] 1.11e-16
+```
+
+-   Computerphile, "[Floating Point Numbers](https://www.youtube.com/watch?v=PZRI1IfStY0)"
+-   <https://en.wikipedia.org/wiki/IEEE_754>
+-   <https://en.wikipedia.org/wiki/Double-precision_floating-point_format>
+-   "Floating Point Numbers: Why floating-point numbers are needed](https://floating-point-gui.de/formats/fp/)"
+-   Fabien Sanglard, "[Floating Point Numbers: Visually Explained](http://fabiensanglard.net/floating_point_visually_explained/)"
+-   James Howard, "[How Many Floating Point Numbers are There?](https://jameshoward.us/2015/09/09/how-many-floating-point-numbers-are-there/)"
+-   GeeksforGeeks, "[Floating Point Representation Basics](https://www.geeksforgeeks.org/floating-point-representation-basics/)"
+-   Chris Hecker, "[Lets Go to the (Floating) Point](http://chrishecker.com/images/f/fb/Gdmfp.pdf)", *Game Developer*
+-   Chua Hock-Chuan, [A Tutorial on Data Representation Integers, Floating-point Numbers, and Characters](http://www.ntu.edu.sg/home/ehchua/programming/java/datarepresentation.html)
+-   John D. Cook, "[Anatomy of a floating point number](https://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/)"
+-   John D. Cook, "[Five Tips for Floating Point Programming](https://www.codeproject.com/Articles/29637/Five-Tips-for-Floating-Point-Programming)"
 
 </div>
 
@@ -305,7 +400,7 @@ setNames(nm = c("a", "b", "c", "d"))
 #> "a" "b" "c" "d"
 ```
 
-The function `set_names` is more flexible. 
+The function `set_names` is more flexible.
 It can be used the same way as `setNames`.
 
 ```r
@@ -320,7 +415,7 @@ purrr::set_names(1:4, "a", "b", "c", "d")
 #> a b c d 
 #> 1 2 3 4
 ```
-The function `set_names` will name an object with itself if no `nm` argument is 
+The function `set_names` will name an object with itself if no `nm` argument is
 provided (the opposite of `setNames` behavior).
 
 ```r
@@ -347,7 +442,7 @@ same length as the vector that is being named, and will raise an error if it is 
 purrr::set_names(1:4, c("a", "b"))
 #> Error: `nm` must be `NULL` or a character vector the same length as `x`
 ```
-The `setNames()` function will allow the names to be shorter than the vector being 
+The `setNames()` function will allow the names to be shorter than the vector being
 named, and will set the missing names to `NA`.
 
 ```r
@@ -374,7 +469,7 @@ Create functions that take a vector as input and returns:
 
 The answers to the parts follow.
 
-1.  This function find the last value in a vector. 
+1.  This function find the last value in a vector.
 
     
     ```r
@@ -393,7 +488,7 @@ The answers to the parts follow.
     last_value(1:10)
     #> [1] 10
     ```
-    
+
     The function uses `[[` in order to extract a single element.
 
 1.  This function returns the elements at even number positions.
@@ -424,25 +519,53 @@ The answers to the parts follow.
     
     ```r
     not_last <- function(x) {
-      if (length(x)) {
-        x[-length(x)]
+      n <- length(x)
+      if (n) {
+        x[-n]
       } else {
+        # n == 0
         x
       }
     }
-    not_last(1:5)
-    #> [1] 1 2 3 4
+    not_last(1:3)
+    #> [1] 1 2
     ```
+
+    We should also confirm that the function works with some edge cases, like
+    a vector with one element, and a vector with zero elements.
+    
+    ```r
+    not_last(1)
+    #> numeric(0)
+    not_last(numeric())
+    #> numeric(0)
+    ```
+    In both these cases, `not_last()` correctly returns an empty vector.
 
 1.  This function returns a the elements of a vector that are even numbers.
 
     
     ```r
     even_numbers <- function(x) {
-      x[!is.na(x) & (x %% 2 == 0)]
+      x[x %% 2 == 0]
     }
     even_numbers(-10:10)
     #>  [1] -10  -8  -6  -4  -2   0   2   4   6   8  10
+    ```
+
+    We could improve this function by handling the cases of the special values:
+    `NA`, `NaN`, `Inf`. However, first we need to decide how to handle them.
+    Neither `NaN` nor `Inf` are considered even numbers. What about `NA`?
+    Well, we don't know. The value of `NA` could be even or odd, but it is missing.
+    So we will follow the convention of many R functions and keep the `NA` values.
+    The revised function now handles these cases.
+    
+    ```r
+    even_numbers <- function(x) {
+      x[!is.infinite(x) & !is.nan(x) & (x %% 2 == 0)]
+    }
+    even_numbers(c(0:4, NA, NaN, Inf))
+    #> [1]  0  2  4 NA
     ```
 
 </div>
@@ -457,7 +580,7 @@ Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
 
 These expressions differ in the way that they great missing values.
 Let's test how they work by creating a vector with positive and negative integers,
-and special values (`NA`, `NaN`, and `Inf`). These values should encompass 
+and special values (`NA`, `NaN`, and `Inf`). These values should encompass
 all relevant types of values that these expressions would encounter.
 
 ```r
@@ -468,7 +591,7 @@ x[x <= 0]
 #> [1]   -1    0 -Inf   NA   NA
 ```
 The expressions  `x[-which(x > 0)]` and `x[x <= 0]` return the same values except
-for a `NaN` instead of a `NA` in the `which()` based expression. 
+for a `NaN` instead of a `NA` in the `which()` based expression.
 
 So what is going on here? Let's work through each part of these expressions and
 see where the different occurs.
@@ -487,7 +610,7 @@ Now recall how indexing treats `NA` values.
 Indexing can use a logical vector, and will include those elements where the logical vector is `TRUE`,
 and will not not return those elements where the logical vector is `FALSE`.
 Since a logical vector can include `NA` values, what should it do for them?
-Well, since the value is `NA` it could be `TRUE` or `FALSE`, we don't know. 
+Well, since the value is `NA` it could be `TRUE` or `FALSE`, we don't know.
 Keeping elements with `NA` would treat the `NA` as `TRUE`, and dropping them would treat the `NA` as `FALSE`.  
 The way R decides to handle the `NA` values so that they are treated differently than `TRUE` or `FALSE` values is include elements where the indexing vector is `NA`, but set their values to `NA`.
 
@@ -512,7 +635,7 @@ This means that it is not including the indexes for which the argument is `FALSE
 
 Now consider the full expression `x[-which(x > 0)]`?
 The `which()` function returned a vector of integers.
-How does indexing treat negative integers? 
+How does indexing treat negative integers?
 
 ```r
 x[1:2]
@@ -522,10 +645,10 @@ x[-(1:2)]
 ```
 If indexing gets a vector of positive integers, it will select those indexes;
 if it receives a vector of negative integers, it will drop those indexes.
-Thus, `x[-which(x > 0)]` ends up droping the elements for which `x > 0` is true,
+Thus, `x[-which(x > 0)]` ends up dropping the elements for which `x > 0` is true,
 and keeps all the other elements and their original values, including `NA` and `NaN`.
 
-There's one other special case that we should consider. How do these two expressions work with 
+There's one other special case that we should consider. How do these two expressions work with
 an empty vector?
 
 ```r
@@ -540,7 +663,7 @@ Thankfully, they both handle empty vectors the same.
 This exercise is a reminder to always test your code. Even though these two expressions looked
 equivalent, they are not in practice. And when you do test code, consider both
 how it works on typical values as well as special values and edge cases, like a
-vector with `NA` or `NaN` or `Inf` values, or an empty vector. These are where 
+vector with `NA` or `NaN` or `Inf` values, or an empty vector. These are where
 unexpected behavior is most likely to occur.
 
 </div>
@@ -635,7 +758,7 @@ For these examples, I generated these diagrams programmatically using the
     `list(a, b, list(c, d), list(e, f))`
     is
 
-    
+
 
     
     \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_1-1} 
@@ -644,7 +767,7 @@ For these examples, I generated these diagrams programmatically using the
     `list(list(list(list(list(list(a))))))1`
     is as follows.
 
-    
+
 
     
     \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_2-1} 
