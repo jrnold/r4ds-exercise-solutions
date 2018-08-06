@@ -70,12 +70,33 @@ A logical vector can take 3 possible values. How many possible values can an int
 
 <div class="answer">
 
-For integers vectors, R uses a 32-bit representation. This means that it can represent up to $2^32$ different values with integers. This includes a value for $NA_integer_$.
+For integers vectors, R uses a 32-bit representation. This means that it can represent up to $2^32$ different values with integers. One of these values is set aside for `NA_integer_`.
 From the help for `integer`.
 
 > Note that current implementations of R use 32-bit integers for integer vectors, 
 > so the range of representable integers is restricted to about +/-2*10^9: doubles 
 > can hold much larger integers exactly.
+
+The range of integers values that R can represent in an integer vector is $\pm 2^{31} - 1$,
+```{r}
+.Machine$integer.max
+```
+The maximum integer is $2^{31} - 1$ rather than $2^{32}$ because 1 bit is used to 
+represent the sign ($+$, $-$) and one value is used to represent `NA_integer_`.
+
+If you try to represent an integer greater than that value, R will return `NA` values.
+```{r warning}
+.Machine$integer.max + 1L
+```
+However, you can represent that value (exactly) with a numeric vector at the cost of 
+about two times the memory.
+```{r}
+as.numeric(.Machine$integer.max) + 1
+```
+The same is true for the negative of the integer max.
+```{r}
+-.Machine$integer.max - 1L
+```
 
 For double vectors, R uses a 64-bit representation. This means that they can hold up
 to $2^64$ values exactly. However, some of those values are allocated to special values
@@ -89,6 +110,45 @@ such as `-Inf`, `Inf`, `NA_real_`, and `NaN`. From the help for `double`:
 > and plus and minus zero (although R acts as if these are the same). There are 
 > also denormal(ized) (or subnormal) numbers with absolute values above or below 
 > the range given above but represented to less precision.
+
+The details of floating point representation and arithmetic are complicated, beyond
+the scope of this question, and better discussed in the references provided below.
+The double can represent numbers in the range of about $\pm 2^{-308}$, which is
+provided in
+```{r}
+.Machine$double.xmax
+```
+
+Many  other details for the implementation of the double vectors are given in the `.Machine` variable (and its documentation).
+These include the base (radix) of doubles,
+```{r}
+.Machine$double.base
+```
+the number of bits used for the significand (mantissa),
+```{r}
+.Machine$double.digits
+```
+the number of bits used in the exponent,
+```{r}
+.Machine$double.exponent
+```
+and the smallest positive and negative numbers not equal to zero,
+```{r}
+.Machine$double.eps
+.Machine$double.neg.eps
+```
+
+-   Computerphile, "[Floating Point Numbers](https://www.youtube.com/watch?v=PZRI1IfStY0)"
+-   <https://en.wikipedia.org/wiki/IEEE_754>
+-   <https://en.wikipedia.org/wiki/Double-precision_floating-point_format>
+-   "Floating Point Numbers: Why floating-point numbers are needed](https://floating-point-gui.de/formats/fp/)"
+-   Fabien Sanglard, "[Floating Point Numbers: Visually Explained](http://fabiensanglard.net/floating_point_visually_explained/)"
+-   James Howard, "[How Many Floating Point Numbers are There?](https://jameshoward.us/2015/09/09/how-many-floating-point-numbers-are-there/)"
+-   GeeksforGeeks, "[Floating Point Representation Basics](https://www.geeksforgeeks.org/floating-point-representation-basics/)"
+-   Chris Hecker, "[Lets Go to the (Floating) Point](http://chrishecker.com/images/f/fb/Gdmfp.pdf)", *Game Developer*
+-   Chua Hock-Chuan, [A Tutorial on Data Representation Integers, Floating-point Numbers, and Characters](http://www.ntu.edu.sg/home/ehchua/programming/java/datarepresentation.html)
+-   John D. Cook, "[Anatomy of a floating point number](https://www.johndcook.com/blog/2009/04/06/anatomy-of-a-floating-point-number/)"
+-   John D. Cook, "[Five Tips for Floating Point Programming](https://www.codeproject.com/Articles/29637/Five-Tips-for-Floating-Point-Programming)"
 
 </div>
 
