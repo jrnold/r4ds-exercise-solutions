@@ -70,11 +70,25 @@ A logical vector can take 3 possible values. How many possible values can an int
 
 <div class="answer">
 
-The help for `.Machine` describes some of this:
+For integers vectors, R uses a 32-bit representation. This means that it can represent up to $2^32$ different values with integers. This includes a value for $NA_integer_$.
+From the help for `integer`.
 
-  As all current implementations of R use 32-bit integers and uses IEC 60559 floating-point (double precision) arithmetic,
+> Note that current implementations of R use 32-bit integers for integer vectors, 
+> so the range of representable integers is restricted to about +/-2*10^9: doubles 
+> can hold much larger integers exactly.
 
-The [IEC 60559](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) or IEEE 754 format uses a 64 bit vector, but
+For double vectors, R uses a 64-bit representation. This means that they can hold up
+to $2^64$ values exactly. However, some of those values are allocated to special values
+such as `-Inf`, `Inf`, `NA_real_`, and `NaN`. From the help for `double`:
+
+> All R platforms are required to work with values conforming to the IEC 60559 
+> (also known as IEEE 754) standard. This basically works with a precision of 
+> 53 bits, and represents to that precision a range of absolute values from 
+> about 2e-308 to 2e+308. It also has special values NaN (many of them), 
+> plus and minus infinity 
+> and plus and minus zero (although R acts as if these are the same). There are 
+> also denormal(ized) (or subnormal) numbers with absolute values above or below 
+> the range given above but represented to less precision.
 
 </div>
 
