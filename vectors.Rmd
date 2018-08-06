@@ -390,7 +390,7 @@ Why is `x[-which(x > 0)]` not the same as `x[x <= 0]`?
 
 <div class="answer">
 
-These expressions differ in the way that they great missing values.
+These expressions differ in the way that they treat missing values.
 Let's test how they work by creating a vector with positive and negative integers,
 and special values (`NA`, `NaN`, and `Inf`). These values should encompass 
 all relevant types of values that these expressions would encounter.
@@ -419,7 +419,7 @@ and will not not return those elements where the logical vector is `FALSE`.
 Since a logical vector can include `NA` values, what should it do for them?
 Well, since the value is `NA` it could be `TRUE` or `FALSE`, we don't know. 
 Keeping elements with `NA` would treat the `NA` as `TRUE`, and dropping them would treat the `NA` as `FALSE`.  
-The way R decides to handle the `NA` values so that they are treated differently than `TRUE` or `FALSE` values is include elements where the indexing vector is `NA`, but set their values to `NA`.
+The way R decides to handle the `NA` values so that they are treated differently than `TRUE` or `FALSE` values is to include elements where the indexing vector is `NA`, but set their values to `NA`.
 
 Now consider the expression `x[-which(x > 0)]`.
 As before, to understand this expression we'll work from the inside out.
