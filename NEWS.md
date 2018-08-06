@@ -1,5 +1,6 @@
 ## 2018-08-06
 
+-   Add sections on how to install dependencies, how the book is organized (#61, thanks dongzhuoer), contributing, and a colonophon.
 -   Add answer 20.3.3 (#66, thanks dongzhuoer)
 -   Correct chapter numbering, again. (dongzhuoer #93)
 -   Fix Typos (dongzhuoer #92)
