@@ -84,7 +84,7 @@ This code calculates the proportion of `NA` values in a vector.
 ```{r eval=FALSE}
 mean(is.na(x))
 ```
-I will write it as a function named `prop_na` that takes a single argument `x`, 
+I will write it as a function named `prop_na()` that takes a single argument `x`,
 and returns a single numeric value between 0 and 1.
 ```{r}
 prop_na <- function(x) {
@@ -98,9 +98,9 @@ This code standardizes a vector so that it sums to 1.
 x / sum(x, na.rm = TRUE)
 ```
 I'll write a function named `sum_to_one()`, which is a function of a single argument, `x`, the vector to standardize, and an optional argument `na.rm`.
-The optional argument, `na.rm`, makes the function more expressive, since it can 
+The optional argument, `na.rm`, makes the function more expressive, since it can
 handle `NA` values in two ways (returning `NA` or dropping them).
-Additionally, this makes `sum_to_one()` consistent with `sum()`, `mean()`, and many 
+Additionally, this makes `sum_to_one()` consistent with `sum()`, `mean()`, and many
 other R functions which have a `na.rm` argument.
 While the example code had `na.rm = TRUE`, I set `na.rm = FALSE` by default
 in order to make the function behave the same as the built-in functions like `sum()` and `mean()` in its handling of missing values.
@@ -169,7 +169,7 @@ but one of the most commonly used is the following:[@DoaneSeward2011]
 $$
 \mathsf{skewness}(x) = \frac{n}{(n - 1)(n - 2)} \sum_{i = 1}^{n} {\left( \frac{x_i - \bar{x}}{s} \right)}^{3} .
 $$
-where $\bar{x}$ is the sample mean and 
+where $\bar{x}$ is the sample mean and
 $$
 s = \sqrt{\frac{1}{n - 1} \sum_{i = 1}^{n} (x_i - \bar{x})^2}
 $$
@@ -222,8 +222,8 @@ is_directory <- function(x) file.info(x)$isdir
 is_readable <- function(x) file.access(x, 4) == 0
 ```
 
-The function `is_directory` checks whether the path in `x` is a directory.
-The function `is_readable` checks whether the path in `x` is readable, meaning that the file exists and the user has permission to open it.
+The function `is_directory()` checks whether the path in `x` is a directory.
+The function `is_readable()` checks whether the path in `x` is readable, meaning that the file exists and the user has permission to open it.
 These functions are useful even though they are short because their names make it much clearer what the code is doing.
 
 </div>
@@ -243,12 +243,12 @@ The lyrics of one of the [most common versions](https://en.wikipedia.org/wiki/Li
 > Hopping through the forest \
 > Scooping up the field mice \
 > And bopping them on the head
-> 
+>
 > Down came the Good Fairy, and she said \
 > "Little bunny Foo Foo \
 > I don't want to see you \  
 > Scooping up the field mice
-> 
+>
 > And bopping them on the head. \
 > I'll give you three chances, \
 > And if you don't stop, I'll turn you into a GOON!" \
@@ -341,7 +341,7 @@ The function `f3` repeats `y` once for each element of `x`.
 ```{r}
 f3(1:3, 4)
 ```
-This is a harder one to name. I would say something like `recycle` (R's name for this behavior), or `epxand`.
+Good names would include `recycle()` (R's name for this behavior), or `expand()`.
 
 </div>
 
@@ -365,12 +365,12 @@ Compare and contrast `rnorm()` and `MASS::mvrnorm()`. How could you make them mo
 
 <div class="answer">
 
-`rnorm` samples from the univariate normal distribution, while `MASS::mvrnorm`
+`rnorm()` samples from the univariate normal distribution, while `MASS::mvrnorm`
 samples from the multivariate normal distribution. The main arguments in
-`rnorm` are `n`, `mean`, `sd`. The main arguments is `MASS::mvrnorm` are `n`,
+`rnorm()` are `n`, `mean`, `sd`. The main arguments is `MASS::mvrnorm` are `n`,
 `mu`, `Sigma`. To be consistent they should have the same names. However, this
 is difficult. In general, it is better to be consistent with more widely used
-functions, e.g. `rmvnorm` should follow the conventions of `rnorm`. However,
+functions, e.g. `rmvnorm()` should follow the conventions of `rnorm()`. However,
 while `mean` is correct in the multivariate case, `sd` does not make sense in
 the multivariate case. However, both functions are internally consistent.
 It would not be good practice to have `mu` and `sd` as arguments or `mean` and `Sigma` as arguments.
@@ -385,12 +385,16 @@ Make a case for why `norm_r()`, `norm_d()` etc would be better than `rnorm()`, `
 
 <div class="answer">
 
-If named `norm_r` and `norm_d`, it groups the family of functions related to
-the normal distribution. If named `rnorm`, and `dnorm`, functions related to
-are grouped into families by the action they perform. `r*` functions always
-sample from distributions: `rnorm`, `rbinom`, `runif`, `rexp`. `d*` functions
-calculate the probability density or mass of a distribution: `dnorm`, `dbinom`,
-`dunif`, `dexp`.
+If named `norm_r()` and `norm_d()`, the naming convention groups functions by their
+distribution.
+
+If named `rnorm()`, and `dnorm()`, the naming convention groups functions
+by the action they perform.
+
+-   `r*` functions always sample from distributions: `rnorm()`, `rbinom()`, `runif()`, `rexp()`
+-   `d*` functions calculate the probability density or mass of a distribution: `dnorm()`, `dbinom()`,
+`dunif()`, `dexp()`.
+
 
 </div>
 
@@ -404,7 +408,7 @@ What’s the difference between `if` and `ifelse()`? > Carefully read the help a
 
 <div class="answer">
 
-The keyword `if` tests a single condition, while `ifelse` tests each element.
+The keyword `if` tests a single condition, while `ifelse()` tests each element.
 
 </div>
 
@@ -441,7 +445,7 @@ greet(ymd_h("2017-01-08:20"))
 
 <div class="question">
 
-Implement a `fizzbuzz` function. It takes a single number as input. If the
+Implement a `fizzbuzz()` function. It takes a single number as input. If the
 number is divisible by three, it returns “fizz”. If it’s divisible by five it
 returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”.
 Otherwise, it returns the number. Make sure you first write working code before
@@ -536,7 +540,7 @@ switch(2, "apple", "banana", "cantaloupe")
 ```
 
 If you use a non-integer number for the first argument of `switch()`, it will
-ignore the non-integer part. 
+ignore the non-integer part.
 ```{r}
 switch(1.2, "apple", "banana", "cantaloupe")
 switch(2.8, "apple", "banana", "cantaloupe")
@@ -585,17 +589,17 @@ switcheroo("e")
 switcheroo("f")
 ```
 
-The `switcheroo()` function returns `"ab"` for `x = "a"` or `x = "b"`, 
+The `switcheroo()` function returns `"ab"` for `x = "a"` or `x = "b"`,
 `"cd"` for `x = "c"` or `x = "d"`, and
 `NULL` for `x = "e"` or any other value of `x` not in `c("a", "b", "c", "d")`.
 
 How does this work?
 The `switch()` function returns the first non-missing argument value for the first name it matches.
-Thus, when `switch()` encounters an argument with a missing value, like `a = ,`, 
+Thus, when `switch()` encounters an argument with a missing value, like `a = ,`,
 it will return the value of the next argument with a non missing value, which in this case is `b = "ab"`.
 If `object` in `switch(object=)` is not equal to the names of any of its arguments,
 `switch()` will return either the last (unnamed) argument if one is present or `NULL`.
-Since `"e"` is not one of the named arguments in `switch()` (`a`, `b`, `c`, `d`), 
+Since `"e"` is not one of the named arguments in `switch()` (`a`, `b`, `c`, `d`),
 and no other unnamed default value is present, this code will return `NULL`.
 
 The code in the question is shorter way of writing the following.
@@ -621,7 +625,7 @@ What does `commas(letters, collapse = "-")` do? Why?
 
 <div class="answer">
 
-The `commas` function in the chapter is defined as
+The `commas()` function in the chapter is defined as
 ```{r}
 commas <- function(...) {
   stringr::str_c(..., collapse = ", ")
@@ -632,15 +636,15 @@ When `commas()` is given a collapse argument, it throws an error.
 ```{r error=TRUE}
 commas(letters, collapse = "-")
 ```
-This is because when the argument `collapse` is given to `commas`, it
-is passed to `str_c` as part of `...`.
+This is because when the argument `collapse` is given to `commas()`, it
+is passed to `str_c()` as part of `...`.
 In other words, the previous code is equivalent to
 ```{r eval=FALSE}
 str_c(letters, collapse = "-", collapse = ", ")
 ```
 However, it is an error to give the same named argument to a function twice.
 
-One way to allow the user to override the separator in `commas` is to add a `collapse`
+One way to allow the user to override the separator in `commas()` is to add a `collapse`
 argument to the function.
 ```{r}
 commas <- function(..., collapse = ", ") {
@@ -673,8 +677,8 @@ rule <- function(..., pad = "-") {
 rule("Important output")
 ```
 
-You can currently supply multiple characters to the `pad` argument, but the output is 
-will not be the desired width. The `rule()` duplicates `pad` a number of times
+You can currently supply multiple characters to the `pad` argument, but the output is
+will not be the desired width. The `rule()` function duplicates `pad` a number of times
 equal to the desired width minus the length of the title and five extra characters.
 This implicitly assumes that `pad` is only one character. If `pad` were two character,
 the output will be almost twice as long.
@@ -688,7 +692,7 @@ and `stringr::str_length()` to calculate the number of characters in the `pad` a
 rule <- function(..., pad = "-") {
   title <- paste0(...)
   width <- getOption("width") - nchar(title) - 5
-  padding <- stringr::str_dup(pad, 
+  padding <- stringr::str_dup(pad,
                               ceiling(width / stringr::str_length(title))) %>%
     stringr::str_trunc(width)
   cat(title, " ", padding, "\n", sep = "")

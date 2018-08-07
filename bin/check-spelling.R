@@ -15,7 +15,9 @@ files <- c(list.files(here::here("."), pattern = "\\.(Rnw|Rmd)$", full.names = T
   unique()
 
 misspelled_words <- spell_check_files(sort(files), ignore = wordlist)
-print(misspelled_words)
+any_mispelled <- as.logical(nrow(misspelled_words))
 
-# wordlist <- misspelled_words$word
-# cat(str_c(wordlist, collapse = "\n"), "\n", file = "WORDLIST")
+if (any_mispelled) {
+  cat(print(misspelled_words), file = stderr())
+  quit(1)
+}

@@ -50,7 +50,7 @@ In your own words, describe the difference between the `sep` and `collapse` argu
 
 <div class="answer">
 
-The `sep` argument is the string inserted between arguments to `str_c`, while `collapse` is the string used to separate any elements of the character vector into a character vector of length one.
+The `sep` argument is the string inserted between arguments to `str_c()`, while `collapse` is the string used to separate any elements of the character vector into a character vector of length one.
 
 </div>
 
@@ -82,7 +82,7 @@ What does `str_wrap()` do? When might you want to use it?
 
 <div class="answer">
 
-The function `str_wrap` wraps text so that it fits within a certain width.
+The function `str_wrap()` wraps text so that it fits within a certain width.
 This is useful for wrapping long strings of text to be typeset.
 
 </div>
@@ -95,14 +95,14 @@ What does `str_trim()` do? What’s the opposite of `str_trim()`?
 
 <div class="answer">
 
-The function `str_trim` trims the whitespace from a string.
+The function `str_trim()` trims the whitespace from a string.
 ```{r}
 str_trim(" abc ")
 str_trim(" abc ", side = "left")
 str_trim(" abc ", side = "right")
 ```
 
-The opposite of `str_trim` is `str_pad` which adds characters to each side.
+The opposite of `str_trim()` is `str_pad()` which adds characters to each side.
 
 ```{r}
 str_pad("abc", 5, side = "both")
@@ -332,7 +332,7 @@ str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
 
-Using `str_detect` we can count the number of words that follow these rules:
+Using `str_detect()` count the number of words that follow these rules:
 ```{r eval=is_html}
 sum(str_detect(stringr::words, "(cei|[^c]ie)"))
 sum(str_detect(stringr::words, "(cie|[^c]ei)"))
@@ -854,7 +854,7 @@ First, make a vector of all the words with first and last letters swapped,
 ```{r}
 swapped <- str_replace_all(words, "^([A-Za-z])(.*)([a-z])$", "\\3\\2\\1")
 ```
-Next, find what of "swapped" is also in the original list using the function `intersect`,
+Next, find what of "swapped" is also in the original list using the function `intersect()`,
 ```{r}
 intersect(swapped,words)
 ```
@@ -973,16 +973,12 @@ No exercises
 ### Exercise <span class="exercise-number">14.7.1</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Find the **stringi** functions that:
 
-1.  Count the number of words. `stri_count_words`
-
-1.  Find duplicated strings. `stri_duplicated`
-
-1.  Generate random text. There are several functions beginning with `stri_rand_`.
-    `stri_rand_lipsum` generates lorem ipsum text, `stri_rand_strings` generates
-    random strings, `stri_rand_shuffle` randomly shuffles the code points in the
-    text.
+1.  Count the number of words.
+1.  Find duplicated strings.
+1.  Generate random text.
 
 </div>
 
@@ -994,7 +990,7 @@ The answer to each part follows.
 
 1.  To find duplicated strings use `stri_duplicated()`.
 
-1.  To generate random text the *stringi* package contains several functions beginning with `stri_rand_`:
+1.  To generate random text the *stringi* package contains several functions beginning with `stri_rand_*`:
 
     -   `stri_rand_lipsum()` generates lorem ipsum text
     -   `stri_rand_strings()` generates random strings
@@ -1010,5 +1006,6 @@ How do you control the language that `stri_sort()` uses for sorting?
 
 <div class="answer">
 
-Use the `locale` argument to the `opts_collator` argument.
+You can set a locale to use when sorting with either `stri_sort(..., opts_collator=stri_opts_collator(locale = ...))` or `stri_sort(..., locale = ...)`.
+
 </div>

@@ -278,7 +278,7 @@ Carefully read the documentation of `is.vector()`. What does it actually test fo
 
 <div class="answer">
 
-The function `is.vector` only checks whether the object has no attributes other than names. Thus a `list` is a vector:
+The function `is.vector()` only checks whether the object has no attributes other than names. Thus a `list` is a vector:
 ```{r}
 is.vector(list(a = 1, b = 2))
 ```
@@ -291,14 +291,14 @@ is.vector(x)
 
 The idea behind this is that object oriented classes will include attributes, including, but not limited to `"class"`.
 
-The function `is.atomic` explicitly checks whether an object is one of the atomic types ("logical", "integer", "numeric", "complex", "character", and "raw") or NULL.
+The function `is.atomic()` explicitly checks whether an object is one of the atomic types ("logical", "integer", "numeric", "complex", "character", and "raw") or NULL.
 
 ```{r}
 is.atomic(1:10)
 is.atomic(list(a = 1))
 ```
 
-The function `is.atomic` will consider objects to be atomic even if they have extra attributes.
+The function `is.atomic()` will consider objects to be atomic even if they have extra attributes.
 ```{r}
 is.atomic(x)
 ```
@@ -323,8 +323,8 @@ You can name an vector with itself if the `nm` argument is used.
 setNames(nm = c("a", "b", "c", "d"))
 ```
 
-The function `set_names` is more flexible.
-It can be used the same way as `setNames`.
+The function `set_names()` has more ways to set the names than `setNames()`.
+The names can be specified in the same manner as `setNames()`.
 ```{r}
 purrr::set_names(1:4, c("a", "b", "c", "d"))
 ```
@@ -332,19 +332,19 @@ The names can also be specified as unnamed arguments,
 ```{r}
 purrr::set_names(1:4, "a", "b", "c", "d")
 ```
-The function `set_names` will name an object with itself if no `nm` argument is
-provided (the opposite of `setNames` behavior).
+The function `set_names()` will name an object with itself if no `nm` argument is
+provided (the opposite of `setNames()` behavior).
 ```{r}
 purrr::set_names(c("a", "b", "c", "d"))
 ```
 
-The biggest difference between `set_names` and `setNames` is that `set_names` allows for using a function or formula to transform the existing names.
+The biggest difference between `set_names()` and `setNames()` is that `set_names()` allows for using a function or formula to transform the existing names.
 ```{r}
 purrr::set_names(c(a = 1, b = 2, c = 3), toupper)
 purrr::set_names(c(a = 1, b = 2, c = 3), ~ toupper(.))
 ```
 
-The `set_names` function also checks that the length of the names argument is the
+The `set_names()` function also checks that the length of the names argument is the
 same length as the vector that is being named, and will raise an error if it is not.
 ```{r error=TRUE}
 purrr::set_names(1:4, c("a", "b"))
@@ -641,7 +641,8 @@ What happens if you subset a `tibble` as if you’re subsetting a list? What are
 <div class="answer">
 
 Subsetting a `tibble` works the same way as a list; a data frame can be thought of as a list of columns.
-The key different between a list and a `tibble` is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.
+The key difference between a list and a `tibble` is that all the elements (columns) of a tibble must have the same length (number of rows).
+Lists can have vectors with different lengths as elements.
 ```{r}
 x <- tibble(a = 1:2, b = 3:4)
 x[["a"]]
