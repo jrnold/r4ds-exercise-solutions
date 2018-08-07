@@ -802,8 +802,7 @@ of ``character'' (\texttt{\textless{}chr\textgreater{}}).
 \end{Highlighting}
 \end{Shaded}
 
-Alternatively, the \texttt{glimpse} function displays the type of each
-column:
+Alternatively, \texttt{glimpse()} displays the type of each column:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1121,8 +1120,8 @@ and \texttt{ncol} variables?
 
 The arguments \texttt{nrow} (\texttt{ncol}) determines the number of
 rows (columns) to use when laying out the facets. It is necessary since
-\texttt{facet\_wrap} only facets on one variable. These arguments are
-unnecessary for \texttt{facet\_grid} since the number of rows and
+\texttt{facet\_wrap()} only facets on one variable. These arguments are
+unnecessary for \texttt{facet\_grid()} since the number of rows and
 columns are determined by the number of unique values of the variables
 specified.
 
@@ -1304,9 +1303,9 @@ By default \texttt{se\ =\ TRUE}:
 
 Will these two graphs look different? Why/why not?
 
-No.~Because both \texttt{geom\_point} and \texttt{geom\_smooth} use the
-same data and mappings. They will inherit those options from the
-\texttt{ggplot} object, and thus don't need to specified again (or
+No.~Because both \texttt{geom\_point()} and \texttt{geom\_smooth()} use
+the same data and mappings. They will inherit those options from the
+\texttt{ggplot()} object, and thus don't need to specified again (or
 twice).
 
 \begin{Shaded}
@@ -1417,12 +1416,12 @@ could you rewrite the previous plot to use that geom function instead of
 the stat function?
 
 The default geom for
-\href{http://docs.ggplot2.org/current/stat_summary.html}{\texttt{stat\_summary}}
-is \texttt{geom\_pointrange} (see the \texttt{stat}) argument.
+\href{http://docs.ggplot2.org/current/stat_summary.html}{\texttt{stat\_summary()}}
+is \texttt{geom\_pointrange()} (see the \texttt{stat}) argument.
 
 But, the default \texttt{stat} for
-\href{http://docs.ggplot2.org/current/geom_linerange.html}{\texttt{geom\_pointrange}}
-is \texttt{identity}, so use
+\href{http://docs.ggplot2.org/current/geom_linerange.html}{\texttt{geom\_pointrange()}}
+is \texttt{identity()}, so use
 \texttt{geom\_pointrange(stat\ =\ "summary")}.
 
 \begin{Shaded}
@@ -1438,7 +1437,7 @@ is \texttt{identity}, so use
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
-The default message says that \texttt{stat\_summary} uses the
+The default message says that \texttt{stat\_summary()} uses the
 \texttt{mean} and \texttt{sd} to calculate the point, and range of the
 line. So lets use the previous values of \texttt{fun.ymin},
 \texttt{fun.ymax}, and \texttt{fun.y}:
@@ -1466,12 +1465,10 @@ line. So lets use the previous values of \texttt{fun.ymin},
 What does \texttt{geom\_col()} do? How is it different to
 \texttt{geom\_bar()}?
 
-\texttt{geom\_col} differs from \texttt{geom\_bar} in its default stat.
-\texttt{geom\_col} has uses the \texttt{identity} stat. So it expects
-that a variable already exists for the height of the bars.
-\texttt{geom\_bar} uses the \texttt{count} stat, and so will count
-observations in groups in order to generate the variable to use for the
-height of the bars.
+The \texttt{geom\_col()} function has different default than
+\texttt{geom\_bar()}. The default stat of
+\texttt{geom\_col()\ is}identity()\texttt{stat.\ This\ means\ that}geom\_col()\texttt{expects\ that\ the\ data\ is\ already\ preprocessed\ into}x\texttt{values\ and}y\texttt{values\ representing\ the\ bar\ height.\ The\ defult\ stat\ of}geom\_bar()\texttt{is}count()\texttt{.\ This\ means\ that}geom\_bar()\texttt{expects\ the}x\texttt{variable\ to\ contain\ multiple\ observations\ for\ each\ values,\ and\ it\ will\ handle\ counting\ the\ number\ of\ observations\ for\ each\ value\ of}x`
+in order to create the bar heights.ß
 
 \hypertarget{exercise-3.7.3.}{%
 \subsection*{\texorpdfstring{Exercise
@@ -1492,7 +1489,8 @@ See the \href{http://docs.ggplot2.org/current/}{ggplot2 documentation}
 What variables does \texttt{stat\_smooth()} compute? What parameters
 control its behavior?
 
-\texttt{stat\_smooth} calculates
+The function \texttt{stat\_smooth()} calculates the following
+statistics:
 
 \begin{itemize}
 \tightlist
@@ -1519,7 +1517,7 @@ In our proportion bar chart, we need to set \texttt{group\ =\ 1} Why? In
 other words what is the problem with these two graphs?
 
 If \texttt{group} is not set to 1, then all the bars have
-\texttt{prop\ ==\ 1}. The function \texttt{geom\_bar} assumes that the
+\texttt{prop\ ==\ 1}. The function \texttt{geom\_bar()} assumes that the
 groups are equal to the \texttt{x} values, since the stat computes the
 counts within the group.
 
@@ -1728,13 +1726,13 @@ data and the goal of the data scientist.
 What's the default position adjustment for \texttt{geom\_boxplot()}?
 Create a visualization of the mpg dataset that demonstrates it.
 
-The default position for \texttt{geom\_boxplot} is
-\texttt{position\_dodge} (see its
+The default position for \texttt{geom\_boxplot()} is
+\texttt{position\_dodge()} (see its
 \href{http://docs.ggplot2.org/current/geom_boxplot.html}{docs}).
 
 When we add \texttt{colour\ =\ class} to the box plot, the different
 classes within \texttt{drv} are placed side by side, i.e.~dodged. If it
-was \texttt{position\_identity}, they would be overlapping.
+was \texttt{position\_identity()}, they would be overlapping.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2063,7 +2061,7 @@ It looks like a typo, \texttt{dota} instead of \texttt{data}.
 \end{Highlighting}
 \end{Shaded}
 
-R could not find the function \texttt{fliter} because we made a typo:
+R could not find the function \texttt{fliter()} because we made a typo:
 \texttt{fliter} instead of \texttt{filter}.
 
 \begin{Shaded}
@@ -2650,7 +2648,7 @@ an airport in Connecticut) with an air time of 20 minutes.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{arrange}\NormalTok{(flights, air_time) }\OperatorTok{%>%}\StringTok{ }
+\KeywordTok{arrange}\NormalTok{(flights, air_time) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(origin, dest, air_time) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 3}
@@ -2810,9 +2808,11 @@ error, warning, or message is emitted.
 What does the \texttt{one\_of()} function do? Why might it be helpful in
 conjunction with this vector?
 
-The \texttt{one\_of} vector allows you to select variables with a
-character vector rather than as unquoted variable names. It's useful
-because then you can easily pass vectors to \texttt{select()}.
+The \texttt{one\_of()} function select variables using a character
+vector rather than as unquoted variable names. This function is useful
+because it is easier to programmatically generate character vectors with
+variable names than to generate unquoted variable names, which are
+easier to type.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2960,7 +2960,7 @@ and \texttt{dep\_time} may be in different time zones, the
        \DataTypeTok{air_time_2 =}\NormalTok{ (arr_time_min }\OperatorTok{-}\StringTok{ }\NormalTok{dep_time_min }\OperatorTok{+}\StringTok{ }\DecValTok{1440}\NormalTok{) }\OperatorTok{%%}\StringTok{ }\DecValTok{1440}\NormalTok{,}
        \DataTypeTok{air_time_diff =}\NormalTok{ air_time_}\DecValTok{2} \OperatorTok{-}\StringTok{ }\NormalTok{air_time)}
 
-\NormalTok{air_times }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{air_times }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(}\KeywordTok{abs}\NormalTok{(air_time_diff))) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(air_time_diff)}
 \CommentTok{#> # A tibble: 336,776 x 1}
@@ -3087,8 +3087,8 @@ These are all described in the same help page,
 \end{Highlighting}
 \end{Shaded}
 
-Cosine (\texttt{cos}), sine (\texttt{sin}), tangent (\texttt{tan}) are
-provided:
+Cosine (\texttt{cos()}), sine (\texttt{sin()}), tangent (\texttt{tan()})
+are provided:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3112,8 +3112,8 @@ provided:
 \end{Shaded}
 
 The convenience function \texttt{cospi(x)} is equivalent to
-\texttt{cos(pi\ *\ x)}, with \texttt{sinpi} and \texttt{tanpi} similarly
-defined,
+\texttt{cos(pi\ *\ x)}, with \texttt{sinpi()} and \texttt{tanpi()}
+similarly defined,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3136,8 +3136,8 @@ defined,
 \end{Highlighting}
 \end{Shaded}
 
-The inverse function arc-cosine (\texttt{acos}), arc-sine
-(\texttt{asin}), and arc-tangent (\texttt{atan}) are provided,
+The inverse function arc-cosine (\texttt{acos()}), arc-sine
+(\texttt{asin()}), and arc-tangent (\texttt{atan()}) are provided,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3160,8 +3160,8 @@ The inverse function arc-cosine (\texttt{acos}), arc-sine
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{atan2} is the angle between the x-axis and the the
-vector (0,0) to (\texttt{x}, \texttt{y}).
+The function \texttt{atan2()} is the angle between the x-axis and the
+the vector (0,0) to (\texttt{x}, \texttt{y}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3309,7 +3309,7 @@ For a weighted count, take the sum of the weight variable in each group.
 \end{Highlighting}
 \end{Shaded}
 
-Alternatively, we could have used \texttt{group\_by} followed by
+Alternatively, we could have used \texttt{group\_by()} followed by
 \texttt{tally()}, since \texttt{count()} itself is a shortcut for
 calling \texttt{group\_by()} then \texttt{tally()},
 
@@ -3473,9 +3473,9 @@ analysis}.
 What does the sort argument to \texttt{count()} do. When might you use
 it?
 
-The sort argument to \texttt{count} sorts the results in order of
-\texttt{n}. You could use this anytime you would do \texttt{count}
-followed by \texttt{arrange}.
+The sort argument to \texttt{count()} sorts the results in order of
+\texttt{n}. You could use this anytime you would run \texttt{count()}
+followed by \texttt{arrange()}.
 
 \hypertarget{grouped-mutates-and-filters}{%
 \section{Grouped mutates (and
@@ -4135,8 +4135,9 @@ Compare and contrast \texttt{coord\_cartesian()} vs \texttt{xlim()} or
 leave \texttt{binwidth} unset? What happens if you try and zoom so only
 half a bar shows?
 
-\texttt{coord\_cartesian} simply zooms in on the area specified by the
-limits. The calculation of the histogram is unaffected.
+The \texttt{coord\_cartesian()} function zooms in on the area specified
+by the limits, after having calculated and drawn the geoms. Since the
+histogram bins have already been calculated, it is unaffected.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4149,10 +4150,11 @@ limits. The calculation of the histogram is unaffected.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
-However, the \texttt{xlim} and \texttt{ylim} functions first drop any
-values outside the limits (the \texttt{ylim} doesn't matter in this
-case), then calculates the histogram, and draws the graph with the given
-limits.
+However, the \texttt{xlim()} and \texttt{ylim()} functions influence
+actions before the calculation of the stats related to the histogram.
+Thus, any values outside the x- and y-limits are dropped before
+calculating bin widths and counts. This can influence how the histogram
+looks.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4197,9 +4199,10 @@ are calculated. See the warning message:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-In \texttt{geom\_bar}, \texttt{NA} is treated as another category. The
-\texttt{x} aesthetic in \texttt{geom\_bar} requires a discrete
-(categorical) variable, and missing values act like another category.
+In the \texttt{geom\_bar()} function, \texttt{NA} is treated as another
+category. The \texttt{x} aesthetic in \texttt{geom\_bar()} requires a
+discrete (categorical) variable, and missing values act like another
+category.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4213,7 +4216,7 @@ In \texttt{geom\_bar}, \texttt{NA} is treated as another category. The
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 In a histogram, the \texttt{x} aesthetic variable needs to be numeric,
-and \texttt{stat\_bin} groups the observations by ranges into bins.
+and \texttt{stat\_bin()} groups the observations by ranges into bins.
 Since the numeric value of the \texttt{NA} observations is unknown, they
 cannot be placed in a particular bin, and are dropped.
 
@@ -4305,7 +4308,7 @@ a boxplot by binning \texttt{carat} (as suggested in the chapter).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ carat, }\DataTypeTok{y =}\NormalTok{ price)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ carat, }\DataTypeTok{y =}\NormalTok{ price)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{group =} \KeywordTok{cut_width}\NormalTok{(carat, }\FloatTok{0.1}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
@@ -4380,9 +4383,9 @@ quality cut, while a smaller diamond requires a better cut.
 Install the \textbf{ggstance} package, and create a horizontal box plot.
 How does this compare to using \texttt{coord\_flip()}?
 
-Earlier we created a horizontal box plot of the distribution
-\texttt{hwy} by \texttt{class}, using \texttt{geom\_boxplot} and
-\texttt{coord\_flip}:
+Earlier, we created this horizontal box plot of the distribution
+\texttt{hwy} by \texttt{class}, using \texttt{geom\_boxplot()} and
+\texttt{coord\_flip()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4394,8 +4397,8 @@ Earlier we created a horizontal box plot of the distribution
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
-In this case the output looks the same, but in the aesthetics the
-\texttt{x} and \texttt{y} are flipped from the previous case.
+In this case the output looks the same, but \texttt{x} and \texttt{y}
+aesthetics are flipped.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4469,15 +4472,15 @@ Compare and contrast \texttt{geom\_violin()} with a faceted
 are the pros and cons of each method?
 
 I produce plots for these three methods below. The
-\texttt{geom\_freqpoly} is better for look-up: meaning that given a
+\texttt{geom\_freqpoly()} is better for look-up: meaning that given a
 price, it is easy to tell which \texttt{cut} has the highest density.
 However, the overlapping lines makes it difficult to distinguish how the
-overall distributions relate to each other. The \texttt{geom\_violin}
-and faceted \texttt{geom\_histogram} have similar strengths and
+overall distributions relate to each other. The \texttt{geom\_violin()}
+and faceted \texttt{geom\_histogram()} have similar strengths and
 weaknesses. It is easy to visually distinguish differences in the
 overall shape of the distributions (skewness, central values, variance,
 etc). However, since we can't easily compare the vertical values of the
-distribution, its difficult to look up which category has the highest
+distribution, it is difficult to look up which category has the highest
 density for a given price. All of these methods depend on tuning
 parameters to determine the level of smoothness of the distribution.
 
@@ -4534,12 +4537,12 @@ There are two methods:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{geom\_quasirandom} that produces plots that resemble something
-  between jitter and violin. There are several different methods that
-  determine exactly how the random location of the points is generated.
+  \texttt{geom\_quasirandom()} produces plots that are a mix of jitter
+  and violin plots. There are several different methods that determine
+  exactly how the random location of the points is generated.
 \item
-  \texttt{geom\_beeswarm} creates a shape similar to a violin plot, but
-  by offsetting the points.
+  \texttt{geom\_beeswarm()} produces a plot similar to a violin plot,
+  but by offsetting the points.
 \end{itemize}
 
 I'll use the \texttt{mpg} box plot example since these methods display
@@ -4783,7 +4786,7 @@ than those in the box plots in order to be interpretable.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds, }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds,}
        \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{cut_number}\NormalTok{(carat, }\DecValTok{5}\NormalTok{), }\DataTypeTok{x =}\NormalTok{ price)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_freqpoly}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Carat"}\NormalTok{)}
@@ -4794,7 +4797,7 @@ than those in the box plots in order to be interpretable.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds, }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds,}
        \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{cut_width}\NormalTok{(carat, }\FloatTok{0.5}\NormalTok{, }\DataTypeTok{boundary =} \DecValTok{0}\NormalTok{), }\DataTypeTok{x =}\NormalTok{ price)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_freqpoly}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Carat"}\NormalTok{)}
@@ -5334,11 +5337,10 @@ determines the number of extra columns to print information for.
 \addcontentsline{toc}{subsection}{Exercise {11.2.1}}
 
 What function would you use to read a file where fields were separated
-with
+with ``\textbar{}''?
 
-``\textbar{}''?
-
-I'd use \texttt{read\_delim} with \texttt{delim="\textbar{}"}:
+Use the \texttt{read\_delim()} function with the argument
+\texttt{delim="\textbar{}"}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5396,7 +5398,7 @@ They have the following arguments in common:
 
 What are the most important arguments to \texttt{read\_fwf()}?
 
-The most important argument to \texttt{read\_fwf} which reads
+The most important argument to \texttt{read\_fwf()} which reads
 ``fixed-width formats'', is \texttt{col\_positions} which tells the
 function where data columns begin and end.
 
@@ -5528,7 +5530,7 @@ have intended the values of the columns to be ``1,2'' and ``a,b''.
 \end{Shaded}
 
 The values are separated by ``;'' rather than ``,''. Use
-\texttt{read\_csv2} instead:
+\texttt{read\_csv2()} instead:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5551,7 +5553,7 @@ The values are separated by ``;'' rather than ``,''. Use
 
 What are the most important arguments to \texttt{locale()}?
 
-The locale broadly controls the following:
+The locale object has arguments to set the following:
 
 \begin{itemize}
 \tightlist
@@ -5559,7 +5561,7 @@ The locale broadly controls the following:
   date and time formats: \texttt{date\_names}, \texttt{date\_format},
   and \texttt{time\_format}
 \item
-  time\_zone: \texttt{tz}
+  time zone: \texttt{tz}
 \item
   numbers: \texttt{decimal\_mark}, \texttt{grouping\_mark}
 \item
@@ -5712,8 +5714,8 @@ object.
 \end{Highlighting}
 \end{Shaded}
 
-Using \texttt{parse\_date()} with that \texttt{au\_locale} will
-correctly parse our example date.
+Using \texttt{parse\_date()} with the \texttt{au\_locale} as its locale
+will correctly parse our example date.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5730,9 +5732,11 @@ correctly parse our example date.
 What's the difference between \texttt{read\_csv()} and
 \texttt{read\_csv2()}?
 
-The delimiter. The function \texttt{read\_csv} uses a comma, while
-\texttt{read\_csv2} uses a semi-colon (\texttt{;}). Using a semi-colon
+The delimiter. The function \texttt{read\_csv()} uses a comma, while
+\texttt{read\_csv2()} uses a semi-colon (\texttt{;}). Using a semi-colon
 is useful when commas are used as the decimal point (as in Europe).
+
+div\textgreater{}
 
 \hypertarget{exercise-11.3.6}{%
 \subsection*{\texorpdfstring{Exercise
@@ -5814,9 +5818,9 @@ Programs that identify the encoding of text include
 \begin{itemize}
 \tightlist
 \item
-  \texttt{guess\_encoding} in the \textbf{reader} package
+  \texttt{guess\_encoding()} in the \textbf{reader} package
 \item
-  \texttt{str\_enc\_detect} in the \textbf{stringi} package
+  \texttt{str\_enc\_detect()} in the \textbf{stringi} package
 \item
   \href{https://en.wikipedia.org/wiki/Iconv}{iconv}
 \item
@@ -6088,7 +6092,7 @@ year columns.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{table4c <-}\StringTok{ }
+\NormalTok{table4c <-}
 \StringTok{  }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{country =}\NormalTok{ table4a}\OperatorTok{$}\NormalTok{country,}
          \StringTok{`}\DataTypeTok{1999}\StringTok{`}\NormalTok{ =}\StringTok{ }\NormalTok{table4a[[}\StringTok{"1999"}\NormalTok{]] }\OperatorTok{/}\StringTok{ }\NormalTok{table4b[[}\StringTok{"1999"}\NormalTok{]] }\OperatorTok{*}\StringTok{ }\DecValTok{10000}\NormalTok{,}
        \StringTok{`}\DataTypeTok{2000}\StringTok{`}\NormalTok{ =}\StringTok{ }\NormalTok{table4a[[}\StringTok{"2000"}\NormalTok{]] }\OperatorTok{/}\StringTok{ }\NormalTok{table4b[[}\StringTok{"2000"}\NormalTok{]] }\OperatorTok{*}\StringTok{ }\DecValTok{10000}\NormalTok{)}
@@ -6184,7 +6188,7 @@ symmetrical? Carefully consider the following example:
 \end{Highlighting}
 \end{Shaded}
 
-The functions \texttt{spread} and \texttt{gather} are not perfectly
+The functions \texttt{spread()} and \texttt{gather()} are not perfectly
 symmetrical because column type information is not transferred between
 them. In the original table the column \texttt{year} was numeric, but
 after running \texttt{spread()} and \texttt{gather()} it is a character
@@ -6192,8 +6196,8 @@ vector. This is because variable names are always converted to a
 character vector by \texttt{gather()}.
 
 The \texttt{convert} argument tries to convert character vectors to the
-appropriate type. In the background this uses the \texttt{type.convert}
-function.
+appropriate type. In the background this uses the
+\texttt{type.convert()} function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6409,7 +6413,7 @@ aren't enough.
 \end{Highlighting}
 \end{Shaded}
 
-By default \texttt{separate} drops the extra values with a warning.
+By default, \texttt{separate()} drops the extra values with a warning.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6444,9 +6448,9 @@ In this, the extra values are not split, so \texttt{"f,g"} appears in
 column three.
 
 In this, one of the entries for column, \texttt{"d,e"}, has too few
-elements. The default for \texttt{fill} is similar to \texttt{separate};
-it fills with missing values but emits a warning. In this, row 2 of
-column ``three'', is \texttt{NA}.
+elements. The default for \texttt{fill} is similar to those in separate
+\texttt{separate()}; it fills with missing values but emits a warning.
+In this, row 2 of column ``three'', is \texttt{NA}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6589,7 +6593,7 @@ it does not require a common separator or specific column positions.
 \end{Shaded}
 
 Both \texttt{separate()} and \texttt{extract()} convert a single column
-to many columns. However, \texttt{unite} converts many columns to one,
+to many columns. However, \texttt{unite()} converts many columns to one,
 with a choice of a separator to include between column values.
 
 \begin{Shaded}
@@ -6783,9 +6787,9 @@ them.
 What happens if you neglect the \texttt{mutate()} step?
 (\texttt{mutate(key\ =\ stringr::str\_replace(key,\ "newrel",\ "new\_rel")})
 
-\texttt{separate} emits the warning ``too few values'', and if we check
-the rows for keys beginning with \texttt{"newrel\_"}, we see that
-\texttt{sexage} is messing, and \texttt{type\ =\ m014}.
+The \texttt{separate()} function emits the warning ``too few values''.
+If we check the rows for keys beginning with \texttt{"newrel\_"}, we see
+that \texttt{sexage} is messing, and \texttt{type\ =\ m014}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7776,10 +7780,10 @@ No exercises
 {14.2.1}}{Exercise 14.2.1}}\label{exercise-14.2.1}}
 \addcontentsline{toc}{subsection}{Exercise {14.2.1}}
 
-In code that doesn't use \textbf{stringr}, you'll often see
-\texttt{paste()} and \texttt{paste0()}. What's the difference between
-the two functions? What \textbf{stringr} function are they equivalent
-to? How do the functions differ in their handling of NA?
+In code that doesn't \textbf{stringr}, you'll often see \texttt{paste()}
+and \texttt{paste0()}. What's the difference between the two functions?
+What \textbf{stringr} function are they equivalent to? How do the
+functions differ in their handling of NA?
 
 The function \texttt{paste()} separates strings by spaces by default,
 while \texttt{paste0()} does not separate strings with spaces by
@@ -7831,9 +7835,9 @@ In your own words, describe the difference between the \texttt{sep} and
 \texttt{collapse} arguments to \texttt{str\_c()}.
 
 The \texttt{sep} argument is the string inserted between arguments to
-\texttt{str\_c}, while \texttt{collapse} is the string used to separate
-any elements of the character vector into a character vector of length
-one.
+\texttt{str\_c()}, while \texttt{collapse} is the string used to
+separate any elements of the character vector into a character vector of
+length one.
 
 \hypertarget{exercise-14.2.3}{%
 \subsection*{\texorpdfstring{Exercise
@@ -7868,7 +7872,7 @@ even string.
 
 What does \texttt{str\_wrap()} do? When might you want to use it?
 
-The function \texttt{str\_wrap} wraps text so that it fits within a
+The function \texttt{str\_wrap()} wraps text so that it fits within a
 certain width. This is useful for wrapping long strings of text to be
 typeset.
 
@@ -7880,7 +7884,7 @@ typeset.
 What does \texttt{str\_trim()} do? What's the opposite of
 \texttt{str\_trim()}?
 
-The function \texttt{str\_trim} trims the whitespace from a string.
+The function \texttt{str\_trim()} trims the whitespace from a string.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7893,7 +7897,7 @@ The function \texttt{str\_trim} trims the whitespace from a string.
 \end{Highlighting}
 \end{Shaded}
 
-The opposite of \texttt{str\_trim} is \texttt{str\_pad} which adds
+The opposite of \texttt{str\_trim()} is \texttt{str\_pad()} which adds
 characters to each side.
 
 \begin{Shaded}
@@ -8204,8 +8208,8 @@ Using only what has been introduced thus far:
 \end{Highlighting}
 \end{Shaded}
 
-Using \texttt{str\_detect} we can count the number of words that follow
-these rules:
+Using \texttt{str\_detect()} count the number of words that follow these
+rules:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8953,7 +8957,7 @@ swapped,
 \end{Shaded}
 
 Next, find what of ``swapped'' is also in the original list using the
-function \texttt{intersect},
+function \texttt{intersect()},
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9127,16 +9131,13 @@ Find the \textbf{stringi} functions that:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
-  Count the number of words. \texttt{stri\_count\_words}
+  Count the number of words.
 \item
-  Find duplicated strings. \texttt{stri\_duplicated}
+  Find duplicated strings.
 \item
-  Generate random text. There are several functions beginning with
-  \texttt{stri\_rand\_}. \texttt{stri\_rand\_lipsum} generates lorem
-  ipsum text, \texttt{stri\_rand\_strings} generates random strings,
-  \texttt{stri\_rand\_shuffle} randomly shuffles the code points in the
-  text.
+  Generate random text.
 \end{enumerate}
 
 The answer to each part follows.
@@ -9149,7 +9150,7 @@ The answer to each part follows.
   To find duplicated strings use \texttt{stri\_duplicated()}.
 \item
   To generate random text the \emph{stringi} package contains several
-  functions beginning with \texttt{stri\_rand\_}:
+  functions beginning with \texttt{stri\_rand\_*}:
 
   \begin{itemize}
   \tightlist
@@ -9171,8 +9172,9 @@ The answer to each part follows.
 How do you control the language that \texttt{stri\_sort()} uses for
 sorting?
 
-Use the \texttt{locale} argument to the \texttt{opts\_collator}
-argument.
+You can set a locale to use when sorting with either
+\texttt{stri\_sort(...,\ opts\_collator=stri\_opts\_collator(locale\ =\ ...))}
+or \texttt{stri\_sort(...,\ locale\ =\ ...)}.
 
 \hypertarget{factors}{%
 \chapter{Factors}\label{factors}}
@@ -9590,7 +9592,7 @@ How could you collapse \texttt{rincome} into a small set of categories?
 
 Group all the non-responses into one category, and then group other
 categories into a smaller number. Since there is a clear ordering, we
-wouldn't want to use something like \texttt{fct\_lump}.
+would not use \texttt{fct\_lump()}.`
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10053,7 +10055,7 @@ A vector of the first day of the month for every month in 2015:
 To get the vector of the first day of the month for \emph{this} year, we
 first need to figure out what this year is, and get January 1st of it. I
 can do that by taking \texttt{today()} and truncating it to the year
-using \texttt{floor\_date}:
+using \texttt{floor\_date()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10220,7 +10222,7 @@ This code calculates the proportion of \texttt{NA} values in a vector.
 \end{Highlighting}
 \end{Shaded}
 
-I will write it as a function named \texttt{prop\_na} that takes a
+I will write it as a function named \texttt{prop\_na()} that takes a
 single argument \texttt{x}, and returns a single numeric value between 0
 and 1.
 
@@ -10397,8 +10399,8 @@ are so short?
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{is\_directory} checks whether the path in
-\texttt{x} is a directory. The function \texttt{is\_readable} checks
+The function \texttt{is\_directory()} checks whether the path in
+\texttt{x} is a directory. The function \texttt{is\_readable()} checks
 whether the path in \texttt{x} is readable, meaning that the file exists
 and the user has permission to open it. These functions are useful even
 though they are short because their names make it much clearer what the
@@ -10544,8 +10546,8 @@ The function \texttt{f3} repeats \texttt{y} once for each element of
 \end{Highlighting}
 \end{Shaded}
 
-This is a harder one to name. I would say something like
-\texttt{recycle} (R's name for this behavior), or \texttt{epxand}.
+Good names would include \texttt{recycle()} (R's name for this
+behavior), or \texttt{expand()}.
 
 \hypertarget{exercise-19.3.2}{%
 \subsection*{\texorpdfstring{Exercise
@@ -10565,14 +10567,14 @@ Answer left to the reader.
 Compare and contrast \texttt{rnorm()} and \texttt{MASS::mvrnorm()}. How
 could you make them more consistent?
 
-\texttt{rnorm} samples from the univariate normal distribution, while
+\texttt{rnorm()} samples from the univariate normal distribution, while
 \texttt{MASS::mvrnorm} samples from the multivariate normal
-distribution. The main arguments in \texttt{rnorm} are \texttt{n},
+distribution. The main arguments in \texttt{rnorm()} are \texttt{n},
 \texttt{mean}, \texttt{sd}. The main arguments is \texttt{MASS::mvrnorm}
 are \texttt{n}, \texttt{mu}, \texttt{Sigma}. To be consistent they
 should have the same names. However, this is difficult. In general, it
 is better to be consistent with more widely used functions, e.g.
-\texttt{rmvnorm} should follow the conventions of \texttt{rnorm}.
+\texttt{rmvnorm()} should follow the conventions of \texttt{rnorm()}.
 However, while \texttt{mean} is correct in the multivariate case,
 \texttt{sd} does not make sense in the multivariate case. However, both
 functions are internally consistent. It would not be good practice to
@@ -10588,14 +10590,22 @@ Make a case for why \texttt{norm\_r()}, \texttt{norm\_d()} etc would be
 better than \texttt{rnorm()}, \texttt{dnorm()}. Make a case for the
 opposite.
 
-If named \texttt{norm\_r} and \texttt{norm\_d}, it groups the family of
-functions related to the normal distribution. If named \texttt{rnorm},
-and \texttt{dnorm}, functions related to are grouped into families by
-the action they perform. \texttt{r*} functions always sample from
-distributions: \texttt{rnorm}, \texttt{rbinom}, \texttt{runif},
-\texttt{rexp}. \texttt{d*} functions calculate the probability density
-or mass of a distribution: \texttt{dnorm}, \texttt{dbinom},
-\texttt{dunif}, \texttt{dexp}.
+If named \texttt{norm\_r()} and \texttt{norm\_d()}, the naming
+convention groups functions by their distribution.
+
+If named \texttt{rnorm()}, and \texttt{dnorm()}, the naming convention
+groups functions by the action they perform.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{r*} functions always sample from distributions:
+  \texttt{rnorm()}, \texttt{rbinom()}, \texttt{runif()}, \texttt{rexp()}
+\item
+  \texttt{d*} functions calculate the probability density or mass of a
+  distribution: \texttt{dnorm()}, \texttt{dbinom()}, \texttt{dunif()},
+  \texttt{dexp()}.
+\end{itemize}
 
 \hypertarget{conditional-execution}{%
 \section{Conditional execution}\label{conditional-execution}}
@@ -10609,8 +10619,8 @@ What's the difference between \texttt{if} and \texttt{ifelse()}?
 \textgreater{} Carefully read the help and construct three examples that
 illustrate the key differences.
 
-The keyword \texttt{if} tests a single condition, while \texttt{ifelse}
-tests each element.
+The keyword \texttt{if} tests a single condition, while
+\texttt{ifelse()} tests each element.
 
 \hypertarget{exercise-19.4.2}{%
 \subsection*{\texorpdfstring{Exercise
@@ -10652,7 +10662,7 @@ will make it easier to test your function.)
 {19.4.3}}{Exercise 19.4.3}}\label{exercise-19.4.3}}
 \addcontentsline{toc}{subsection}{Exercise {19.4.3}}
 
-Implement a \texttt{fizzbuzz} function. It takes a single number as
+Implement a \texttt{fizzbuzz()} function. It takes a single number as
 input. If the number is divisible by three, it returns ``fizz''. If it's
 divisible by five it returns ``buzz''. If it's divisible by three and
 five, it returns ``fizzbuzz''. Otherwise, it returns the number. Make
@@ -10873,7 +10883,7 @@ The code in the question is shorter way of writing the following.
 
 What does \texttt{commas(letters,\ collapse\ =\ "-")} do? Why?
 
-The \texttt{commas} function in the chapter is defined as
+The \texttt{commas()} function in the chapter is defined as
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10893,7 +10903,7 @@ When \texttt{commas()} is given a collapse argument, it throws an error.
 \end{Shaded}
 
 This is because when the argument \texttt{collapse} is given to
-\texttt{commas}, it is passed to \texttt{str\_c} as part of
+\texttt{commas()}, it is passed to \texttt{str\_c()} as part of
 \texttt{...}. In other words, the previous code is equivalent to
 
 \begin{Shaded}
@@ -10905,7 +10915,7 @@ This is because when the argument \texttt{collapse} is given to
 However, it is an error to give the same named argument to a function
 twice.
 
-One way to allow the user to override the separator in \texttt{commas}
+One way to allow the user to override the separator in \texttt{commas()}
 is to add a \texttt{collapse} argument to the function.
 
 \begin{Shaded}
@@ -10947,11 +10957,11 @@ This is the definition of the rule function from the
 
 You can currently supply multiple characters to the \texttt{pad}
 argument, but the output is will not be the desired width. The
-\texttt{rule()} duplicates \texttt{pad} a number of times equal to the
-desired width minus the length of the title and five extra characters.
-This implicitly assumes that \texttt{pad} is only one character. If
-\texttt{pad} were two character, the output will be almost twice as
-long.
+\texttt{rule()} function duplicates \texttt{pad} a number of times equal
+to the desired width minus the length of the title and five extra
+characters. This implicitly assumes that \texttt{pad} is only one
+character. If \texttt{pad} were two character, the output will be almost
+twice as long.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10969,7 +10979,7 @@ the number of characters in the \texttt{pad} argument.
 \NormalTok{rule <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(..., }\DataTypeTok{pad =} \StringTok{"-"}\NormalTok{) \{}
 \NormalTok{  title <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(...)}
 \NormalTok{  width <-}\StringTok{ }\KeywordTok{getOption}\NormalTok{(}\StringTok{"width"}\NormalTok{) }\OperatorTok{-}\StringTok{ }\KeywordTok{nchar}\NormalTok{(title) }\OperatorTok{-}\StringTok{ }\DecValTok{5}
-\NormalTok{  padding <-}\StringTok{ }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_dup}\NormalTok{(pad, }
+\NormalTok{  padding <-}\StringTok{ }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_dup}\NormalTok{(pad,}
                               \KeywordTok{ceiling}\NormalTok{(width }\OperatorTok{/}\StringTok{ }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_length}\NormalTok{(title))) }\OperatorTok{%>%}
 \StringTok{    }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_trunc}\NormalTok{(width)}
   \KeywordTok{cat}\NormalTok{(title, }\StringTok{" "}\NormalTok{, padding, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{""}\NormalTok{)}
@@ -11483,7 +11493,7 @@ Carefully read the documentation of \texttt{is.vector()}. What does it
 actually test for? Why does \texttt{is.atomic()} not agree with the
 definition of atomic vectors above?
 
-The function \texttt{is.vector} only checks whether the object has no
+The function \texttt{is.vector()} only checks whether the object has no
 attributes other than names. Thus a \texttt{list} is a vector:
 
 \begin{Shaded}
@@ -11507,7 +11517,7 @@ But any object that has an attribute (other than names) is not:
 The idea behind this is that object oriented classes will include
 attributes, including, but not limited to \texttt{"class"}.
 
-The function \texttt{is.atomic} explicitly checks whether an object is
+The function \texttt{is.atomic()} explicitly checks whether an object is
 one of the atomic types (``logical'', ``integer'', ``numeric'',
 ``complex'', ``character'', and ``raw'') or NULL.
 
@@ -11520,8 +11530,8 @@ one of the atomic types (``logical'', ``integer'', ``numeric'',
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{is.atomic} will consider objects to be atomic even
-if they have extra attributes.
+The function \texttt{is.atomic()} will consider objects to be atomic
+even if they have extra attributes.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11559,8 +11569,9 @@ You can name an vector with itself if the \texttt{nm} argument is used.
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{set\_names} is more flexible. It can be used the
-same way as \texttt{setNames}.
+The function \texttt{set\_names()} has more ways to set the names than
+\texttt{setNames()}. The names can be specified in the same manner as
+\texttt{setNames()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11580,8 +11591,8 @@ The names can also be specified as unnamed arguments,
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{set\_names} will name an object with itself if no
-\texttt{nm} argument is provided (the opposite of \texttt{setNames}
+The function \texttt{set\_names()} will name an object with itself if no
+\texttt{nm} argument is provided (the opposite of \texttt{setNames()}
 behavior).
 
 \begin{Shaded}
@@ -11592,9 +11603,9 @@ behavior).
 \end{Highlighting}
 \end{Shaded}
 
-The biggest difference between \texttt{set\_names} and \texttt{setNames}
-is that \texttt{set\_names} allows for using a function or formula to
-transform the existing names.
+The biggest difference between \texttt{set\_names()} and
+\texttt{setNames()} is that \texttt{set\_names()} allows for using a
+function or formula to transform the existing names.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11607,7 +11618,7 @@ transform the existing names.
 \end{Highlighting}
 \end{Shaded}
 
-The \texttt{set\_names} function also checks that the length of the
+The \texttt{set\_names()} function also checks that the length of the
 names argument is the same length as the vector that is being named, and
 will raise an error if it is not.
 
@@ -12041,9 +12052,10 @@ What happens if you subset a \texttt{tibble} as if you're subsetting a
 list? What are the key differences between a list and a \texttt{tibble}?
 
 Subsetting a \texttt{tibble} works the same way as a list; a data frame
-can be thought of as a list of columns. The key different between a list
-and a \texttt{tibble} is that a tibble (data frame) has the restriction
-that all its elements (columns) must have the same length.
+can be thought of as a list of columns. The key difference between a
+list and a \texttt{tibble} is that all the elements (columns) of a
+tibble must have the same length (number of rows). Lists can have
+vectors with different lengths as elements.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12380,8 +12392,8 @@ The answers for each part are below.
 \end{Shaded}
 \end{enumerate}
 
-However, we don't need a \texttt{for} loop for this since \texttt{rnorm}
-recycles means.
+However, we don't need a for loop for this since \texttt{rnorm()}
+recycle the \texttt{mean} argument.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12418,8 +12430,8 @@ advantage of an existing function that works with vectors:
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{str\_c} already works with vectors, so simply use
-\texttt{str\_c} with the \texttt{collapse} argument to return a single
+Since \texttt{str\_c()} already works with vectors, use
+\texttt{str\_c()} with the \texttt{collapse} argument to return a single
 string.
 
 \begin{Shaded}
@@ -12456,8 +12468,8 @@ We could simply use the \texttt{sd} function.
 \end{Shaded}
 
 Or if there was a need to use the equation (e.g.~for pedagogical
-reasons), then the functions \texttt{mean} and \texttt{sum} already work
-with vectors:
+reasons), then the functions \texttt{mean()} and \texttt{sum()} already
+work with vectors:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12489,7 +12501,7 @@ with vectors:
 \end{Shaded}
 
 The code above is calculating a cumulative sum. Use the function
-\texttt{cumsum}
+\texttt{cumsum()}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12759,7 +12771,7 @@ instead increase the length of a vector at each step:
 How does this affect performance? Design and execute an experiment.
 
 I'll use the package \textbf{microbenchmark} to time this. The
-\texttt{microbenchmark} function will run an R expression a number of
+\texttt{microbenchmark()} function will run an R expression a number of
 times and time it.
 
 Define a function that appends to an integer vector.
@@ -12819,8 +12831,8 @@ loop that will load them into a single data frame.
 
 I will pre-allocate a list, read each file as data frame into an element
 in that list. This creates a list of data frames. I then use
-\texttt{bind\_rows} to create a single data frame from the list of data
-frames.
+\texttt{bind\_rows()} to create a single data frame from the list of
+data frames.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12943,10 +12955,10 @@ print:
 lined up nicely, even though the variable names had different lengths?)
 \end{quote}
 
-There may be other functions to do this, but I'll use \texttt{str\_pad},
-and \texttt{str\_length} to ensure that the space given to the variable
-names is the same. I messed around with the options to \texttt{format}
-until I got two digits .
+There may be other functions to do this, but I'll use
+\texttt{str\_pad()}, and \texttt{str\_length()} to ensure that the space
+given to the variable names is the same. I messed around with the
+options to \texttt{format()} until I got two digits .
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13343,8 +13355,10 @@ length one.
 \end{Highlighting}
 \end{Shaded}
 
-If we wanted a numeric vector, we could use \texttt{map} followed by
-\texttt{flatten\_dbl},
+If we wanted a numeric vector, we could use \texttt{map()} followed by
+`flatten\_dbl(
+
+)`,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13428,7 +13442,7 @@ version doesn't?
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{purrr::every} does fancy things with \texttt{.p},
+The function \texttt{purrr::every()} does fancy things with \texttt{.p},
 like taking a logical vector instead of a function, or being able to
 test part of a string if the elements of \texttt{.x} are lists.
 
@@ -13441,7 +13455,7 @@ Create an enhanced \texttt{col\_sum()} that applies a summary function
 to every numeric column in a data frame.
 
 \textbf{Note:} this question has a typo. It is referring to
-\texttt{col\_summary}.
+\texttt{col\_summary()}.
 
 I will use \texttt{map} to apply the function to all the columns, and
 \texttt{keep} to only select numeric columns.
@@ -13597,13 +13611,8 @@ Let's run it once and plot the results:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
-To re-run this a few times using \texttt{purrr}, and plot using code
-similar to that in the chapter: There appear to be a few outliers in
-this data. You can re-rerun this a couple times to see if this hold.
-
-We can also do this slightly more systematically. We will simulate this
-several times using \texttt{purrr} and plot the line using
-\texttt{geom\_smooth}:
+We can also do this more systematically, by generating several
+simulations and plotting the line.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13652,9 +13661,10 @@ What if we did the same things with normal distributions?
 There are not large outliers, and the slopes are more similar.
 
 The reason for this is that the Student's \(t\)-distribution, from which
-we sample with \texttt{rt} has fatter tails than the normal distribution
-(\texttt{rnorm}), which means is assigns larger probability to values
-further from the center of the distribution.
+we sample with \texttt{rt()} has heavier tails than the normal
+distribution (\texttt{rnorm()}). This means that the Student's
+t-distribution assigns a larger probability to values further from the
+center of the distribution.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13709,9 +13719,9 @@ use mean-absolute distance:
 \end{Highlighting}
 \end{Shaded}
 
-For the above function to work, we need to define a function
-\texttt{make\_prediction} that takes a numeric vector of length two (the
-intercept and slope) and returns the predictions,
+For the above function to work, we need to define a function,
+\texttt{make\_prediction()}, that takes a numeric vector of length two
+(the intercept and slope) and returns the predictions,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13748,9 +13758,9 @@ least squares objective function are:
 \end{Highlighting}
 \end{Shaded}
 
-In practice, you would not use a \texttt{optim} to fit this model, you
-would you an existing implementation. See the \texttt{MASS} package's
-\texttt{rlm} and \texttt{lqs} functions for more information and
+In practice, you would not use a \texttt{optim()} to fit this model, you
+would you an existing implementation. See the \textbf{MASS} package's
+\texttt{rlm()} and \texttt{lqs()} functions for more information and
 functions to fit robust and resistant linear models.
 
 \hypertarget{exercise-23.2.3}{%
@@ -13826,8 +13836,8 @@ fitting, grid generation, predictions, and visualization on
 \texttt{sim1} using \texttt{loess()} instead of \texttt{lm()}. How does
 the result compare to \texttt{geom\_smooth()}?
 
-I'll use \texttt{add\_predictions} and \texttt{add\_residuals} to add
-the predictions and residuals from a loess regression to the
+I'll use \texttt{add\_predictions()} and \texttt{add\_residuals()} to
+add the predictions and residuals from a loess regression to the
 \texttt{sim1} data.
 
 \begin{Shaded}
@@ -13862,7 +13872,7 @@ line through the data.
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 The predictions of loess are the same as the default method for
-\texttt{geom\_smooth} because \texttt{geom\_smooth()} uses
+\texttt{geom\_smooth()} because \texttt{geom\_smooth()} uses
 \texttt{loess()} by default; the message even tells us that.
 
 \begin{Shaded}
@@ -13875,7 +13885,7 @@ The predictions of loess are the same as the default method for
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 We can plot the residuals (red), and compare them to the residuals from
-\texttt{lm} (black). In general, the loess model has smaller residuals
+\texttt{lm()} (black). In general, the loess model has smaller residuals
 within the sample (out of sample is a different issue, and we haven't
 considered the uncertainty of these estimates).
 
@@ -13899,9 +13909,9 @@ considered the uncertainty of these estimates).
 \texttt{gather\_predictions()} and \texttt{spread\_predictions()}. How
 do these three functions differ?
 
-The functions \texttt{gather\_predictions} and
-\texttt{spread\_predictions} allow for adding predictions from multiple
-models at once.
+The functions \texttt{gather\_predictions()} and
+\texttt{spread\_predictions()} allow for adding predictions from
+multiple models at once.
 
 Taking the \texttt{sim1\_mod} example,
 
@@ -13913,7 +13923,7 @@ Taking the \texttt{sim1\_mod} example,
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{add\_predictions} adds only a single model at a
+The function \texttt{add\_predictions()} adds only a single model at a
 time. To add two models:
 
 \begin{Shaded}
@@ -13934,8 +13944,9 @@ time. To add two models:
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{gather\_predictions} adds predictions from multiple
-models by stacking the results and adding a column with the model name,
+The function \texttt{gather\_predictions()} adds predictions from
+multiple models by stacking the results and adding a column with the
+model name,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13954,9 +13965,9 @@ models by stacking the results and adding a column with the model name,
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{spread\_predictions} adds predictions from multiple
-models by adding multiple columns (postfixed with the model name) with
-predictions from each model.
+The function \texttt{spread\_predictions()} adds predictions from
+multiple models by adding multiple columns (postfixed with the model
+name) with predictions from each model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13975,9 +13986,10 @@ predictions from each model.
 \end{Highlighting}
 \end{Shaded}
 
-The function \texttt{spread\_predictions} is similar to the example
-which runs \texttt{add\_predictions} for each model, and is equivalent
-to running \texttt{spread} after running \texttt{gather\_predictions}:
+The function \texttt{spread\_predictions()} is similar to the example
+which runs \texttt{add\_predictions()} for each model, and is equivalent
+to running \texttt{spread()} after running
+\texttt{gather\_predictions()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14007,13 +14019,13 @@ Why is displaying a reference line in plots showing residuals useful and
 important?
 
 The geom \texttt{geom\_ref\_line()} adds as reference line to a plot. It
-is equivalent to running \texttt{geom\_hline} or \texttt{geom\_vline}
-with default settings that are useful for visualizing models. Putting a
-reference line at zero for residuals is important because good models
-(generally) should have residuals centered at zero, with approximately
-the same variance (or distribution) over the support of x, and no
-correlation. A zero reference line makes it easier to judge these
-characteristics visually.
+is equivalent to running \texttt{geom\_hline()} or
+\texttt{geom\_vline()} with default settings that are useful for
+visualizing models. Putting a reference line at zero for residuals is
+important because good models (generally) should have residuals centered
+at zero, with approximately the same variance (or distribution) over the
+support of x, and no correlation. A zero reference line makes it easier
+to judge these characteristics visually.
 
 \hypertarget{exercise-23.3.4}{%
 \subsection*{\texorpdfstring{Exercise
@@ -14548,7 +14560,7 @@ but only for Saturdays, i.e.~it should have \texttt{Thurs},
 \texttt{Sat-fall} How does this model compare with the model with every
 combination of \texttt{wday} and \texttt{term}?
 
-I'll use the function \texttt{case\_when} to do this, though there are
+I'll use the function \texttt{case\_when()} to do this, though there are
 other ways which it could be solved.
 
 \begin{Shaded}
@@ -14577,9 +14589,9 @@ other ways which it could be solved.
 
 I think the overlapping plot is hard to understand. If we are interested
 in the differences, it is better to plot the differences directly. In
-this code I use \texttt{spread\_residuals} to add one \emph{column} per
-model, rather than \texttt{gather\_residuals} which creates a new row
-for each model.
+this code, I use \texttt{spread\_residuals()} to add one \emph{column}
+per model, rather than \texttt{gather\_residuals()} which creates a new
+row for each model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14759,7 +14771,7 @@ of the plot. Write a small function to set the levels of the factor so
 that the week starts on Monday.
 
 See the chapter \href{http://r4ds.had.co.nz/factors.html}{Factors} for
-the function \texttt{fct\_relevel}. I use \texttt{fct\_relevel} to put
+the function \texttt{fct\_relevel()}. Use \texttt{fct\_relevel()} to put
 all levels in-front of the first level (``Sunday'').
 
 \begin{Shaded}
@@ -14825,7 +14837,7 @@ coefficients of the quadratic? (Hint you might want to transform year so
 that it has mean zero.)
 
 The following code replicates the analysis in the chapter but the
-function \texttt{country\_model} is replaced with a regression that
+function \texttt{country\_model()} is replaced with a regression that
 includes the year squared.
 
 \begin{Shaded}
@@ -14945,7 +14957,16 @@ Brainstorm useful summary functions that, like \texttt{quantile()},
 return multiple values.
 
 Some examples of summary functions that return multiple values are
-\texttt{range} and \texttt{fivenum}.
+\texttt{range()} and \texttt{fivenum()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{range}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{mpg)}
+\CommentTok{#> [1] 10.4 33.9}
+\KeywordTok{fivenum}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{mpg)}
+\CommentTok{#> [1] 10.4 15.3 19.2 22.8 33.9}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{exercise-25.4.3}{%
 \subsection*{\texorpdfstring{Exercise
@@ -15599,11 +15620,11 @@ four corners of the plot.
 I can use similar code as the example in the text. However, I need to
 use \texttt{vjust} and \texttt{hjust} in order for the text to appear in
 the plot, and these need to be different for each corner. But,
-\texttt{geom\_text} takes \texttt{hjust} and \texttt{vjust} as
+\texttt{geom\_text()} takes \texttt{hjust} and \texttt{vjust} as
 aesthetics, I can add them to the data and mappings, and use a single
-\texttt{geom\_text} call instead of four different \texttt{geom\_text}
-calls with four different data arguments, and four different values of
-\texttt{hjust} and \texttt{vjust} arguments.
+\texttt{geom\_text()} call instead of four different
+\texttt{geom\_text()} calls with four different data arguments, and four
+different values of \texttt{hjust} and \texttt{vjust} arguments.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -15786,7 +15807,7 @@ Why doesn't the following code override the default scale?
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 It does not override the default scale because the colors in
-\texttt{geom\_hex} are set by the \texttt{fill} aesthetic, not the
+\texttt{geom\_hex()} are set by the \texttt{fill} aesthetic, not the
 \texttt{color} aesthetic.
 
 \begin{Shaded}

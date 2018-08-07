@@ -1028,7 +1028,7 @@ This allows it to easily parse numeric fields that include currency symbols and 
 <p>Carefully read the documentation of <code>is.vector()</code>. What does it actually test for? Why does <code>is.atomic()</code> not agree with the definition of atomic vectors above?</p>
 </div>
 <div class="answer">
-<p>The function <code>is.vector</code> only checks whether the object has no attributes other than names. Thus a <code>list</code> is a vector:</p>
+<p>The function <code>is.vector()</code> only checks whether the object has no attributes other than names. Thus a <code>list</code> is a vector:</p>
 <div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">is.vector</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>))</a>
 <a class="sourceLine" id="cb461-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>But any object that has an attribute (other than names) is not:</p>
@@ -1037,12 +1037,12 @@ This allows it to easily parse numeric fields that include currency symbols and 
 <a class="sourceLine" id="cb462-3" data-line-number="3"><span class="kw">is.vector</span>(x)</a>
 <a class="sourceLine" id="cb462-4" data-line-number="4"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
 <p>The idea behind this is that object oriented classes will include attributes, including, but not limited to <code>&quot;class&quot;</code>.</p>
-<p>The function <code>is.atomic</code> explicitly checks whether an object is one of the atomic types (“logical”, “integer”, “numeric”, “complex”, “character”, and “raw”) or NULL.</p>
+<p>The function <code>is.atomic()</code> explicitly checks whether an object is one of the atomic types (“logical”, “integer”, “numeric”, “complex”, “character”, and “raw”) or NULL.</p>
 <div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1"><span class="kw">is.atomic</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
 <a class="sourceLine" id="cb463-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a>
 <a class="sourceLine" id="cb463-3" data-line-number="3"><span class="kw">is.atomic</span>(<span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb463-4" data-line-number="4"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
-<p>The function <code>is.atomic</code> will consider objects to be atomic even if they have extra attributes.</p>
+<p>The function <code>is.atomic()</code> will consider objects to be atomic even if they have extra attributes.</p>
 <div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" data-line-number="1"><span class="kw">is.atomic</span>(x)</a>
 <a class="sourceLine" id="cb464-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
@@ -1062,8 +1062,8 @@ of names to apply to its elements.</p>
 <div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" data-line-number="1"><span class="kw">setNames</span>(<span class="dt">nm =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
 <a class="sourceLine" id="cb466-2" data-line-number="2"><span class="co">#&gt;   a   b   c   d </span></a>
 <a class="sourceLine" id="cb466-3" data-line-number="3"><span class="co">#&gt; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</span></a></code></pre></div>
-<p>The function <code>set_names</code> is more flexible.
-It can be used the same way as <code>setNames</code>.</p>
+<p>The function <code>set_names()</code> has more ways to set the names than <code>setNames()</code>.
+The names can be specified in the same manner as <code>setNames()</code>.</p>
 <div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
 <a class="sourceLine" id="cb467-2" data-line-number="2"><span class="co">#&gt; a b c d </span></a>
 <a class="sourceLine" id="cb467-3" data-line-number="3"><span class="co">#&gt; 1 2 3 4</span></a></code></pre></div>
@@ -1071,19 +1071,19 @@ It can be used the same way as <code>setNames</code>.</p>
 <div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)</a>
 <a class="sourceLine" id="cb468-2" data-line-number="2"><span class="co">#&gt; a b c d </span></a>
 <a class="sourceLine" id="cb468-3" data-line-number="3"><span class="co">#&gt; 1 2 3 4</span></a></code></pre></div>
-<p>The function <code>set_names</code> will name an object with itself if no <code>nm</code> argument is
-provided (the opposite of <code>setNames</code> behavior).</p>
+<p>The function <code>set_names()</code> will name an object with itself if no <code>nm</code> argument is
+provided (the opposite of <code>setNames()</code> behavior).</p>
 <div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>))</a>
 <a class="sourceLine" id="cb469-2" data-line-number="2"><span class="co">#&gt;   a   b   c   d </span></a>
 <a class="sourceLine" id="cb469-3" data-line-number="3"><span class="co">#&gt; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</span></a></code></pre></div>
-<p>The biggest difference between <code>set_names</code> and <code>setNames</code> is that <code>set_names</code> allows for using a function or formula to transform the existing names.</p>
+<p>The biggest difference between <code>set_names()</code> and <code>setNames()</code> is that <code>set_names()</code> allows for using a function or formula to transform the existing names.</p>
 <div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>), toupper)</a>
 <a class="sourceLine" id="cb470-2" data-line-number="2"><span class="co">#&gt; A B C </span></a>
 <a class="sourceLine" id="cb470-3" data-line-number="3"><span class="co">#&gt; 1 2 3</span></a>
 <a class="sourceLine" id="cb470-4" data-line-number="4">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.))</a>
 <a class="sourceLine" id="cb470-5" data-line-number="5"><span class="co">#&gt; A B C </span></a>
 <a class="sourceLine" id="cb470-6" data-line-number="6"><span class="co">#&gt; 1 2 3</span></a></code></pre></div>
-<p>The <code>set_names</code> function also checks that the length of the names argument is the
+<p>The <code>set_names()</code> function also checks that the length of the names argument is the
 same length as the vector that is being named, and will raise an error if it is not.</p>
 <div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" data-line-number="1">purrr<span class="op">::</span><span class="kw">set_names</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
 <a class="sourceLine" id="cb471-2" data-line-number="2"><span class="co">#&gt; Error: `nm` must be `NULL` or a character vector the same length as `x`</span></a></code></pre></div>
@@ -1329,7 +1329,8 @@ is as follows.</p>
 </div>
 <div class="answer">
 <p>Subsetting a <code>tibble</code> works the same way as a list; a data frame can be thought of as a list of columns.
-The key different between a list and a <code>tibble</code> is that a tibble (data frame) has the restriction that all its elements (columns) must have the same length.</p>
+The key difference between a list and a <code>tibble</code> is that all the elements (columns) of a tibble must have the same length (number of rows).
+Lists can have vectors with different lengths as elements.</p>
 <div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb492-2" data-line-number="2">x[[<span class="st">&quot;a&quot;</span>]]</a>
 <a class="sourceLine" id="cb492-3" data-line-number="3"><span class="co">#&gt; [1] 1 2</span></a>

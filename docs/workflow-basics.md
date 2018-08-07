@@ -50,12 +50,12 @@ distinguish similar characters are preferred in programming.
 It is especially important to distinguish between two sets of similar looking characters:
 
 -   the numeral zero (0), the Latin small letter O (o), and the Latin capital letter O (O),
--   the numeral one (1), the Latin small letter I (i), the Latin capital letter I (I), and Latin small letter L (l). 
+-   the numeral one (1), the Latin small letter I (i), the Latin capital letter I (I), and Latin small letter L (l).
 
 In these fonts, zero and the Latin letter O are often distinguished by using a glyph for zero that uses either a dot in the interior or a slash through it.
 Some examples of fonts with dotted or slashed zero glyphs  are Consolas, Deja Vu Sans Mono, Monaco, Menlo, [Source Sans Pro](https://adobe-fonts.github.io/source-sans-pro/), and FiraCode.
 
-Error messages of the form `"object '...' not found"` mean exactly what they say. 
+Error messages of the form `"object '...' not found"` mean exactly what they say.
 R cannot find an object with that name.
 Unfortunately, the error does not tell you why that object cannot be found, because R does not know the reason that the object does not exist.
 The most common scenarios in which I encounter this error message are
@@ -109,7 +109,7 @@ fliter(mpg, cyl = 8)
 #> Error in fliter(mpg, cyl = 8): could not find function "fliter"
 ```
 
-R could not find the function `fliter` because we made a typo: `fliter` instead of `filter`.
+R could not find the function `fliter()` because we made a typo: `fliter` instead of `filter`.
 
 
 ```r

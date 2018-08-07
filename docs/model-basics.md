@@ -50,14 +50,8 @@ ggplot(sim1a, aes(x = x, y = y)) +
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-4-1} \end{center}
-
-To re-run this a few times using `purrr`,
-and plot using code similar to that in the chapter:
-There appear to be a few outliers in this data.
-You can re-rerun this a couple times to see if this hold.
-
-We can also do this slightly more systematically.
-We will simulate this several times using `purrr` and plot the line using `geom_smooth`:
+We can also do this more systematically, by generating several simulations
+and plotting the line.
 
 
 ```r
@@ -105,7 +99,8 @@ ggplot(simdf_norm, aes(x = x, y = y)) +
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-6-1} \end{center}
 There are not large outliers, and the slopes are more similar.
 
-The reason for this is that the Student's $t$-distribution, from which we sample with `rt` has fatter tails than the normal distribution (`rnorm`), which means is assigns larger probability to values further from the center of the distribution.
+The reason for this is that the Student's $t$-distribution, from which we sample with `rt()` has heavier tails than the normal distribution (`rnorm()`). This means that the Student's t-distribution
+assigns a larger probability to values further from the center of the distribution.
 
 ```r
 tibble(
@@ -153,7 +148,7 @@ measure_distance <- function(mod, data) {
 }
 ```
 
-For the above function to work, we need to define a function `make_prediction` that
+For the above function to work, we need to define a function, `make_prediction()`, that
 takes a numeric vector of length two (the intercept and slope) and returns the predictions,
 
 ```r
@@ -182,8 +177,8 @@ best$par
 #> [1] 5.87 1.56
 ```
 
-In practice, you would not use a `optim` to fit this model, you would you an existing implementation.
-See the `MASS` package's `rlm` and `lqs` functions for more information and functions to fit robust and resistant linear models.
+In practice, you would not use a `optim()` to fit this model, you would you an existing implementation.
+See the **MASS** package's `rlm()` and `lqs()` functions for more information and functions to fit robust and resistant linear models.
 
 </div>
 
@@ -257,7 +252,7 @@ Instead of using `lm()` to fit a straight line, you can use `loess()` to fit a s
 
 <div class="answer">
 
-I'll use `add_predictions` and `add_residuals` to add the predictions and residuals from a loess regression to the `sim1` data.
+I'll use `add_predictions()` and `add_residuals()` to add the predictions and residuals from a loess regression to the `sim1` data.
 
 
 ```r
@@ -289,7 +284,7 @@ plot_sim1_loess
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
-The predictions of loess are the same as the default method for `geom_smooth` because `geom_smooth()` uses `loess()` by default; the message even tells us that.
+The predictions of loess are the same as the default method for `geom_smooth()` because `geom_smooth()` uses `loess()` by default; the message even tells us that.
 
 ```r
 plot_sim1_loess +
@@ -300,7 +295,7 @@ plot_sim1_loess +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{model-basics_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
-We can plot the residuals (red), and compare them to the residuals from `lm` (black).
+We can plot the residuals (red), and compare them to the residuals from `lm()` (black).
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven't considered the uncertainty of these estimates).
 
 
@@ -326,7 +321,7 @@ How do these three functions differ?
 
 <div class="answer">
 
-The functions `gather_predictions` and `spread_predictions` allow for adding predictions from multiple models at once.
+The functions `gather_predictions()` and `spread_predictions()` allow for adding predictions from multiple models at once.
 
 Taking the `sim1_mod` example,
 
@@ -336,7 +331,7 @@ grid <- sim1 %>%
   data_grid(x)
 ```
 
-The function `add_predictions` adds only a single model at a time.
+The function `add_predictions()` adds only a single model at a time.
 To add two models:
 
 ```r
@@ -354,7 +349,7 @@ grid %>%
 #> 6     6   16.5       16.6 
 #> # ... with 4 more rows
 ```
-The function `gather_predictions` adds predictions from multiple models by
+The function `gather_predictions()` adds predictions from multiple models by
 stacking the results and adding a column with the model name,
 
 ```r
@@ -371,7 +366,7 @@ grid %>%
 #> 6 sim1_mod     6 16.5 
 #> # ... with 14 more rows
 ```
-The function `spread_predictions` adds predictions from multiple models by
+The function `spread_predictions()` adds predictions from multiple models by
 adding multiple columns (postfixed with the model name) with predictions from each model.
 
 ```r
@@ -388,8 +383,8 @@ grid %>%
 #> 6     6    16.5       16.6 
 #> # ... with 4 more rows
 ```
-The function `spread_predictions` is similar to the example which runs `add_predictions` for each model, and is equivalent to running `spread` after
-running `gather_predictions`:
+The function `spread_predictions()` is similar to the example which runs `add_predictions()` for each model, and is equivalent to running `spread()` after
+running `gather_predictions()`:
 
 ```r
 grid %>%
@@ -419,7 +414,7 @@ Why is displaying a reference line in plots showing residuals useful and importa
 <div class="answer">
 
 The geom `geom_ref_line()` adds as reference line to a plot.
-It is equivalent to running `geom_hline` or `geom_vline` with default settings that are useful for visualizing models.
+It is equivalent to running `geom_hline()` or `geom_vline()` with default settings that are useful for visualizing models.
 Putting a reference line at zero for residuals is important because good models (generally) should have residuals centered at zero, with approximately the same variance (or distribution) over the support of x, and no correlation.
 A zero reference line makes it easier to judge these characteristics visually.
 

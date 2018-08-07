@@ -156,7 +156,7 @@ The answers for each part are below.
     #>  [1] 100.9 100.2 100.2 101.6 100.1  99.9  98.1  99.7  99.7 101.1
     ```
 
-However, we don't need a `for` loop for this since `rnorm` recycles means.
+However, we don't need a for loop for this since `rnorm()` recycle the `mean` argument.
 
 ```r
 matrix(rnorm(n * length(mu), mean = mu), ncol = n)
@@ -191,7 +191,7 @@ out
 #> [1] "abcdefghijklmnopqrstuvwxyz"
 ```
 
-`str_c` already works with vectors, so simply use `str_c` with the `collapse` argument to return a single string.
+Since `str_c()` already works with vectors, use `str_c()` with the `collapse` argument to return a single string.
 
 ```r
 stringr::str_c(letters, collapse = "")
@@ -219,7 +219,7 @@ sd(x)
 #> [1] 29
 ```
 Or if there was a need to use the equation (e.g. for pedagogical reasons), then
-the functions `mean` and `sum` already work with vectors:
+the functions `mean()` and `sum()` already work with vectors:
 
 ```r
 sqrt(sum((x - mean(x)) ^ 2) / (length(x) - 1))
@@ -247,7 +247,7 @@ out
 #>  [91] 46.412 47.154 47.472 47.583 47.685 48.485 48.865 48.917 49.904 50.508
 ```
 
-The code above is calculating a cumulative sum. Use the function `cumsum`
+The code above is calculating a cumulative sum. Use the function `cumsum()`
 
 ```r
 all.equal(cumsum(x),out)
@@ -276,16 +276,16 @@ Generalize to any number of any vessel containing any liquid on  surface.
 The answers to each part follow.
 
 1.  The lyrics for [Alice the Camel](http://www.kididdles.com/lyrics/a012.html) are:
-    
+
     > Alice the camel has five humps. \
     > Alice the camel has five humps. \
     > Alice the camel has five humps. \
     > So go, Alice, go.
-    
+
     This verse is repeated, each time with one fewer hump,
     until there are no humps.
     The last verse, with no humps, is:
-    
+
     > Alice the camel has no humps. \
     > Alice the camel has no humps. \
     > Alice the camel has no humps. \
@@ -343,10 +343,10 @@ The answers to each part follow.
     > and the little one said, \
     > “Roll over, roll over.” \
     > So they all rolled over and one fell out.
-    
+
     This verse is repeated, each time with one fewer in the bed, until there is one left. That last verse is:
-    
-    > One! 
+
+    > One!
     > There was one in the bed \
     > and the little one said, \
     > “I’m lonely...”
@@ -420,10 +420,10 @@ The answers to each part follow.
 
     > 99 bottles of beer on the wall, 99 bottles of beer. \
     > Take one down, pass it around, 98 bottles of beer on the wall
-  
+
     This verse is repeated, each time with one few bottle, until
     there are no more bottles of beer. The last verse is
-  
+
     > No more bottles of beer on the wall, no more bottles of beer. \
     > We've taken them down and passed them around; now we're drunk and passed out!
 
@@ -486,7 +486,7 @@ How does this affect performance? Design and execute an experiment.
 
 <div class="answer">
 I'll use the package **microbenchmark** to time this.
-The `microbenchmark` function will run an R expression a number of times and time it.
+The `microbenchmark()` function will run an R expression a number of times and time it.
 
 Define a function that appends to an integer vector.
 
@@ -541,7 +541,7 @@ load them into a single data frame.
 
 I will pre-allocate a list, read each file as data frame into an element in that list.
 This creates a list of data frames.
-I then use `bind_rows` to create a single data frame from the list of data frames.
+I then use `bind_rows()` to create a single data frame from the list of data frames.
 
 ```r
 df <- vector("list", length(files))
@@ -647,8 +647,8 @@ show_mean(iris)
 
 > (Extra challenge: what function did I use to make sure that the numbers lined up nicely, even though the variable names had different lengths?)
 
-There may be other functions to do this, but I'll use `str_pad`, and `str_length` to ensure that the space given to the variable names is the same.
-I messed around with the options to `format` until I got two digits .
+There may be other functions to do this, but I'll use `str_pad()`, and `str_length()` to ensure that the space given to the variable names is the same.
+I messed around with the options to `format()` until I got two digits .
 
 ```r
 show_mean <- function(df, digits = 2) {
@@ -1005,7 +1005,9 @@ map_dbl(-2:2, rnorm, n = 5)
 #> Error: Result 1 is not a length 1 atomic vector
 ```
 
-If we wanted a numeric vector, we could use `map` followed by `flatten_dbl`,
+If we wanted a numeric vector, we could use `map()` followed by `flatten_dbl(
+  
+  )`,
 
 ```r
 flatten_dbl(map(-2:2, rnorm, n = 5))
@@ -1083,7 +1085,7 @@ every2(1:3, function(x) {x > 0})
 #> [1] TRUE
 ```
 
-The function `purrr::every` does fancy things with `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.
+The function `purrr::every()` does fancy things with `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.
 </div>
 
 ### Exercise <span class="exercise-number">21.9.2</span> {.unnumbered .exercise}
@@ -1094,7 +1096,7 @@ Create an enhanced `col_sum()` that applies a summary function to every numeric 
 
 <div class="answer">
 
-**Note:** this question has a typo. It is referring to `col_summary`.
+**Note:** this question has a typo. It is referring to `col_summary()`.
 
 I will use `map` to apply the function to all the columns, and `keep` to only select numeric columns.
 

@@ -24,7 +24,7 @@ library("gapminder")
 
 A linear trend seems to be slightly too simple for the overall trend. Can you do better with a quadratic polynomial? How can you interpret the coefficients of the quadratic? (Hint you might want to transform year so that it has mean zero.)
 
-The following code replicates the analysis in the chapter but the function `country_model` is replaced with a regression that includes the year squared.
+The following code replicates the analysis in the chapter but the function `country_model()` is replaced with a regression that includes the year squared.
 
 ```r
 lifeExp ~ poly(year, 2)
@@ -141,7 +141,15 @@ Brainstorm useful summary functions that, like `quantile()`, return multiple val
 
 <div class="answer">
 
-Some examples of summary functions that return multiple values are `range` and `fivenum`.
+Some examples of summary functions that return multiple values are `range()` and `fivenum()`.
+
+
+```r
+range(mtcars$mpg)
+#> [1] 10.4 33.9
+fivenum(mtcars$mpg)
+#> [1] 10.4 15.3 19.2 22.8 33.9
+```
 
 </div>
 

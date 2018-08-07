@@ -377,7 +377,7 @@ ymd("2015-01-01") + months(0:11)
 ```
 
 To get the vector of the first day of the month for *this* year, we first need to figure out what this year is, and get January 1st of it.
-I can do that by taking `today()` and truncating it to the year using `floor_date`:
+I can do that by taking `today()` and truncating it to the year using `floor_date()`:
 
 ```r
 floor_date(today(), unit = "year") + months(0:11)

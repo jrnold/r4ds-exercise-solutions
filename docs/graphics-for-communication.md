@@ -128,7 +128,7 @@ Use `geom_text()` with infinite positions to place text at the four corners of t
 
 I can use similar code as the example in the text.
 However, I need to use `vjust` and `hjust` in order for the text to appear in the plot, and these need to be different for each corner.
-But, `geom_text` takes `hjust` and `vjust` as aesthetics, I can add them to the data and mappings, and use a single `geom_text` call instead of four different `geom_text` calls with four different data arguments, and four different values of `hjust` and `vjust` arguments.
+But, `geom_text()` takes `hjust` and `vjust` as aesthetics, I can add them to the data and mappings, and use a single `geom_text()` call instead of four different `geom_text()` calls with four different data arguments, and four different values of `hjust` and `vjust` arguments.
 
 ```r
 label <- tribble(
@@ -306,7 +306,7 @@ ggplot(df, aes(x, y)) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{graphics-for-communication_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
-It does not override the default scale because the colors in `geom_hex` are set by the `fill` aesthetic, not the `color` aesthetic.
+It does not override the default scale because the colors in `geom_hex()` are set by the `fill` aesthetic, not the `color` aesthetic.
 
 
 ```r

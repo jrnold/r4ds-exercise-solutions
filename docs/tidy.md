@@ -126,7 +126,7 @@ t2_cases_per_cap <- t2_cases %>%
          cases_per_cap = (cases / population) * 10000) %>%
   select(country, year, cases_per_cap)
 ```
-Since the question asks us to store it back in the appropriate location, we will add new rows with 
+Since the question asks us to store it back in the appropriate location, we will add new rows with
 `type = "cases_per_cap"` to `table2` and then
 sort by country, year, and variable type as in the original table.
 
@@ -156,7 +156,7 @@ the type of `count` is coerced to `numeric` (double) because `cases_per_cap` is 
 For `table4a` and `table4b`, we will create a separate table for cases per capita (`table4c`), with country rows and year columns.
 
 ```r
-table4c <- 
+table4c <-
   tibble(country = table4a$country,
          `1999` = table4a[["1999"]] / table4b[["1999"]] * 10000,
        `2000` = table4a[["2000"]] / table4b[["2000"]] * 10000)
@@ -169,7 +169,7 @@ table4c
 #> 3 China        1.67    1.67
 ```
 
-Neither table is particularly easy to work with. 
+Neither table is particularly easy to work with.
 Since `table2` has separate rows for cases and population we needed to generate a table with columns for cases and population where we could
 calculate cases per capita.
 `table4a` and `table4b` split the cases and population variables into different tables which
@@ -246,12 +246,12 @@ stocks %>%
 #> 4     2 2016    0.17
 ```
 
-The functions `spread` and `gather` are not perfectly symmetrical because column type information is not transferred between them.
+The functions `spread()` and `gather()` are not perfectly symmetrical because column type information is not transferred between them.
 In the original table the column `year` was numeric, but after running `spread()` and `gather()` it is a character vector.
 This is because variable names are always converted to a character vector by `gather()`.
 
 The `convert` argument tries to convert character vectors to the appropriate type.
-In the background this uses the `type.convert` function.
+In the background this uses the `type.convert()` function.
 
 ```r
 stocks %>%
@@ -450,7 +450,7 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
 #> 2 d     e     f    
 #> 3 h     i     j
 ```
-By default `separate` drops the extra values with a warning.
+By default, `separate()` drops the extra values with a warning.
 
 ```r
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
@@ -477,7 +477,7 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
 In this, the extra values are not split, so `"f,g"` appears in column three.
 
 In this, one of the entries for column, `"d,e"`, has too few elements.
-The default for `fill` is similar to `separate`; it fills with missing values but emits a warning. In this, row 2 of column "three", is `NA`.
+The default for `fill` is similar to those in separate `separate()`; it fills with missing values but emits a warning. In this, row 2 of column "three", is `NA`.
 
 ```r
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
@@ -607,7 +607,7 @@ tibble(x = c("X1", "X20", "AA11", "AA2")) %>%
 ```
 
 Both `separate()` and `extract()` convert a single column to many columns.
-However, `unite` converts many columns to one, with a choice of a separator to include between column values.
+However, `unite()` converts many columns to one, with a choice of a separator to include between column values.
 
 
 ```r
@@ -784,8 +784,8 @@ What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_rep
 
 <div class="answer">
 
-`separate` emits the warning "too few values", and if we check the
-rows for keys beginning with `"newrel_"`, we see that `sexage` is messing,
+The `separate()` function emits the warning "too few values".
+If we check the rows for keys beginning with `"newrel_"`, we see that `sexage` is messing,
 and `type = m014`.
 
 

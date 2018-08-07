@@ -18,13 +18,12 @@ library("tidyverse")
 ### Exercise <span class="exercise-number">11.2.1</span> {.unnumbered .exercise}
 
 <div class="question">
-What function would you use to read a file where fields were separated with
+What function would you use to read a file where fields were separated with “|”?
 </div>
 
 <div class="answer">
-“|”?
 
-I'd use `read_delim` with `delim="|"`:
+Use the `read_delim()` function with the argument `delim="|"`.
 
 ```r
 read_delim(file, delim = "|")
@@ -67,7 +66,7 @@ What are the most important arguments to `read_fwf()`?
 
 <div class="answer">
 
-The most important argument to `read_fwf` which reads "fixed-width formats", is `col_positions` which tells the function where data columns begin and end.
+The most important argument to `read_fwf()` which reads "fixed-width formats", is `col_positions` which tells the function where data columns begin and end.
 
 </div>
 
@@ -183,7 +182,7 @@ read_csv("a;b\n1;3")
 #> 1 1;3
 ```
 
-The values are separated by ";" rather than ",". Use `read_csv2` instead:
+The values are separated by ";" rather than ",". Use `read_csv2()` instead:
 
 ```r
 read_csv2("a;b\n1;3")
@@ -206,10 +205,10 @@ What are the most important arguments to `locale()`?
 
 <div class="answer">
 
-The locale broadly controls the following:
+The locale object has arguments to set the following:
 
 -   date and time formats: `date_names`, `date_format`, and `time_format`
--   time_zone: `tz`
+-   time zone: `tz`
 -   numbers: `decimal_mark`, `grouping_mark`
 -   encoding: `encoding`
 
@@ -320,7 +319,7 @@ If you live outside the US, create a new locale object that encapsulates the set
 
 Read the help page for `locale()` using `?locale` to learn about the different variables that can be set.
 
-As an example, consider Australia. 
+As an example, consider Australia.
 Most of the defaults values are valid, except that the date format is "(d)d/mm/yyyy", meaning that January 2, 2006 is written as `02/01/2006`.
 
 However, default locale will parse that date as February 1, 2006.
@@ -340,7 +339,7 @@ To correctly parse Australian dates, define a new `locale` object.
 au_locale <- locale(date_format = "%d/%m/%Y")
 ```
 
-Using `parse_date()` with that `au_locale` will correctly parse our example date.
+Using `parse_date()` with the `au_locale` as its locale will correctly parse our example date.
 
 
 ```r
@@ -358,9 +357,9 @@ What’s the difference between `read_csv()` and `read_csv2()`?
 
 <div class="answer">
 
-The delimiter. The function `read_csv` uses a comma, while `read_csv2` uses a semi-colon (`;`). Using a semi-colon is useful when commas are used as the decimal point (as in Europe).
+The delimiter. The function `read_csv()` uses a comma, while `read_csv2()` uses a semi-colon (`;`). Using a semi-colon is useful when commas are used as the decimal point (as in Europe).
 
-</div>
+div>
 
 ### Exercise <span class="exercise-number">11.3.6</span> {.unnumbered .exercise}
 
@@ -405,8 +404,8 @@ For more information on character encodings see the following sources.
 
 Programs that identify the encoding of text include
 
--   `guess_encoding` in the **reader** package
--   `str_enc_detect` in the **stringi** package
+-   `guess_encoding()` in the **reader** package
+-   `str_enc_detect()` in the **stringi** package
 -   [iconv](https://en.wikipedia.org/wiki/Iconv)
 -   [chardet](https://github.com/chardet/chardet) (Python)
 

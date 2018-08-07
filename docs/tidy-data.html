@@ -826,7 +826,7 @@ sort by country, year, and variable type as in the original table.</p>
 <p>Note that after adding the <code>cases_per_cap</code> rows,
 the type of <code>count</code> is coerced to <code>numeric</code> (double) because <code>cases_per_cap</code> is not an integer.</p>
 <p>For <code>table4a</code> and <code>table4b</code>, we will create a separate table for cases per capita (<code>table4c</code>), with country rows and year columns.</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">table4c &lt;-<span class="st"> </span></a>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">table4c &lt;-</a>
 <a class="sourceLine" id="cb234-2" data-line-number="2"><span class="st">  </span><span class="kw">tibble</span>(<span class="dt">country =</span> table4a<span class="op">$</span>country,</a>
 <a class="sourceLine" id="cb234-3" data-line-number="3">         <span class="st">`</span><span class="dt">1999</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;1999&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;1999&quot;</span>]] <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>,</a>
 <a class="sourceLine" id="cb234-4" data-line-number="4">       <span class="st">`</span><span class="dt">2000</span><span class="st">`</span> =<span class="st"> </span>table4a[[<span class="st">&quot;2000&quot;</span>]] <span class="op">/</span><span class="st"> </span>table4b[[<span class="st">&quot;2000&quot;</span>]] <span class="op">*</span><span class="st"> </span><span class="dv">10000</span>)</a>
@@ -894,11 +894,11 @@ Carefully consider the following example:</p>
 <a class="sourceLine" id="cb237-13" data-line-number="13"><span class="co">#&gt; 2     2 2015    0.59</span></a>
 <a class="sourceLine" id="cb237-14" data-line-number="14"><span class="co">#&gt; 3     1 2016    0.92</span></a>
 <a class="sourceLine" id="cb237-15" data-line-number="15"><span class="co">#&gt; 4     2 2016    0.17</span></a></code></pre></div>
-<p>The functions <code>spread</code> and <code>gather</code> are not perfectly symmetrical because column type information is not transferred between them.
+<p>The functions <code>spread()</code> and <code>gather()</code> are not perfectly symmetrical because column type information is not transferred between them.
 In the original table the column <code>year</code> was numeric, but after running <code>spread()</code> and <code>gather()</code> it is a character vector.
 This is because variable names are always converted to a character vector by <code>gather()</code>.</p>
 <p>The <code>convert</code> argument tries to convert character vectors to the appropriate type.
-In the background this uses the <code>type.convert</code> function.</p>
+In the background this uses the <code>type.convert()</code> function.</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">stocks <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb238-2" data-line-number="2"><span class="st">  </span><span class="kw">spread</span>(year, return) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb238-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;return&quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2016</span><span class="st">`</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</a>
@@ -1049,7 +1049,7 @@ and the <code>fill</code> argument if there aren’t enough.</p>
 <a class="sourceLine" id="cb247-7" data-line-number="7"><span class="co">#&gt; 1 a     b     c    </span></a>
 <a class="sourceLine" id="cb247-8" data-line-number="8"><span class="co">#&gt; 2 d     e     f    </span></a>
 <a class="sourceLine" id="cb247-9" data-line-number="9"><span class="co">#&gt; 3 h     i     j</span></a></code></pre></div>
-<p>By default <code>separate</code> drops the extra values with a warning.</p>
+<p>By default, <code>separate()</code> drops the extra values with a warning.</p>
 <div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e,f,g&quot;</span>, <span class="st">&quot;h,i,j&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb248-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>), <span class="dt">extra =</span> <span class="st">&quot;drop&quot;</span>)</a>
 <a class="sourceLine" id="cb248-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
@@ -1069,7 +1069,7 @@ and the <code>fill</code> argument if there aren’t enough.</p>
 <a class="sourceLine" id="cb249-8" data-line-number="8"><span class="co">#&gt; 3 h     i     j</span></a></code></pre></div>
 <p>In this, the extra values are not split, so <code>&quot;f,g&quot;</code> appears in column three.</p>
 <p>In this, one of the entries for column, <code>&quot;d,e&quot;</code>, has too few elements.
-The default for <code>fill</code> is similar to <code>separate</code>; it fills with missing values but emits a warning. In this, row 2 of column “three”, is <code>NA</code>.</p>
+The default for <code>fill</code> is similar to those in separate <code>separate()</code>; it fills with missing values but emits a warning. In this, row 2 of column “three”, is <code>NA</code>.</p>
 <div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;a,b,c&quot;</span>, <span class="st">&quot;d,e&quot;</span>, <span class="st">&quot;f,g,i&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb250-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(x, <span class="kw">c</span>(<span class="st">&quot;one&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;three&quot;</span>))</a>
 <a class="sourceLine" id="cb250-3" data-line-number="3"><span class="co">#&gt; Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [2].</span></a>
@@ -1174,7 +1174,7 @@ separator or specific column positions.</p>
 <a class="sourceLine" id="cb254-31" data-line-number="31"><span class="co">#&gt; 3 AA       11   </span></a>
 <a class="sourceLine" id="cb254-32" data-line-number="32"><span class="co">#&gt; 4 AA       2</span></a></code></pre></div>
 <p>Both <code>separate()</code> and <code>extract()</code> convert a single column to many columns.
-However, <code>unite</code> converts many columns to one, with a choice of a separator to include between column values.</p>
+However, <code>unite()</code> converts many columns to one, with a choice of a separator to include between column values.</p>
 <div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">variable =</span> <span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;Y&quot;</span>), <span class="dt">id =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb255-2" data-line-number="2"><span class="st">  </span><span class="kw">unite</span>(x, variable, id, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>
 <a class="sourceLine" id="cb255-3" data-line-number="3"><span class="co">#&gt; # A tibble: 4 x 1</span></a>
@@ -1304,8 +1304,8 @@ So it is okay to treat explicitly and implicitly missing values the same, and we
 <p>What happens if you neglect the <code>mutate()</code> step? (<code>mutate(key = stringr::str_replace(key, &quot;newrel&quot;, &quot;new_rel&quot;)</code>)</p>
 </div>
 <div class="answer">
-<p><code>separate</code> emits the warning “too few values”, and if we check the
-rows for keys beginning with <code>&quot;newrel_&quot;</code>, we see that <code>sexage</code> is messing,
+<p>The <code>separate()</code> function emits the warning “too few values”.
+If we check the rows for keys beginning with <code>&quot;newrel_&quot;</code>, we see that <code>sexage</code> is messing,
 and <code>type = m014</code>.</p>
 <div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">who3a &lt;-<span class="st"> </span>who1 <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb264-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(key, <span class="kw">c</span>(<span class="st">&quot;new&quot;</span>, <span class="st">&quot;type&quot;</span>, <span class="st">&quot;sexage&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a>

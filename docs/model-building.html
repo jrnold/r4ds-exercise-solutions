@@ -851,7 +851,7 @@ This doesn’t seem terrible to me.</p>
 <p>Create a new variable that splits the <code>wday</code> variable into terms, but only for Saturdays, i.e. it should have <code>Thurs</code>, <code>Fri</code>, but <code>Sat-summer</code>, <code>Sat-spring</code>, <code>Sat-fall</code> How does this model compare with the model with every combination of <code>wday</code> and <code>term</code>?</p>
 </div>
 <div class="answer">
-<p>I’ll use the function <code>case_when</code> to do this, though there are other ways which it could be solved.</p>
+<p>I’ll use the function <code>case_when()</code> to do this, though there are other ways which it could be solved.</p>
 <div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" data-line-number="1">daily &lt;-<span class="st"> </span>daily <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb605-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wday2 =</span></a>
 <a class="sourceLine" id="cb605-3" data-line-number="3">         <span class="kw">case_when</span>(.<span class="op">$</span>wday <span class="op">==</span><span class="st"> &quot;Sat&quot;</span> <span class="op">&amp;</span><span class="st"> </span>.<span class="op">$</span>term <span class="op">==</span><span class="st"> &quot;summer&quot;</span> <span class="op">~</span><span class="st"> &quot;Sat-summer&quot;</span>,</a>
@@ -867,7 +867,7 @@ This doesn’t seem terrible to me.</p>
 <p><img src="model-building_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>I think the overlapping plot is hard to understand.
 If we are interested in the differences, it is better to plot the differences directly.
-In this code I use <code>spread_residuals</code> to add one <em>column</em> per model, rather than <code>gather_residuals</code> which creates a new row for each model.</p>
+In this code, I use <code>spread_residuals()</code> to add one <em>column</em> per model, rather than <code>gather_residuals()</code> which creates a new row for each model.</p>
 <div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" data-line-number="1">daily <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb607-2" data-line-number="2"><span class="st">  </span><span class="kw">spread_residuals</span>(<span class="dt">sat_term =</span> mod4, <span class="dt">all_interact =</span> mod2) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb607-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">resid_diff =</span> sat_term <span class="op">-</span><span class="st"> </span>all_interact) <span class="op">%&gt;%</span></a>
@@ -981,8 +981,8 @@ Conditional on hour, the distance of Sunday flights seems similar to that of oth
 <p>It’s a little frustrating that Sunday and Saturday are on separate ends of the plot. Write a small function to set the levels of the factor so that the week starts on Monday.</p>
 </div>
 <div class="answer">
-<p>See the chapter <a href="http://r4ds.had.co.nz/factors.html">Factors</a> for the function <code>fct_relevel</code>.
-I use <code>fct_relevel</code> to put all levels in-front of the first level (“Sunday”).</p>
+<p>See the chapter <a href="http://r4ds.had.co.nz/factors.html">Factors</a> for the function <code>fct_relevel()</code>.
+Use <code>fct_relevel()</code> to put all levels in-front of the first level (“Sunday”).</p>
 <div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" data-line-number="1">monday_first &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
 <a class="sourceLine" id="cb613-2" data-line-number="2">  forcats<span class="op">::</span><span class="kw">fct_relevel</span>(x, <span class="kw">levels</span>(x)[<span class="op">-</span><span class="dv">1</span>])  </a>
 <a class="sourceLine" id="cb613-3" data-line-number="3">}</a></code></pre></div>

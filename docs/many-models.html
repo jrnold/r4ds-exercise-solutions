@@ -733,7 +733,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="exercise-25.2.1" class="section level3 unnumbered exercise">
 <h3>Exercise <span class="exercise-number">25.2.1</span></h3>
 <p>A linear trend seems to be slightly too simple for the overall trend. Can you do better with a quadratic polynomial? How can you interpret the coefficients of the quadratic? (Hint you might want to transform year so that it has mean zero.)</p>
-<p>The following code replicates the analysis in the chapter but the function <code>country_model</code> is replaced with a regression that includes the year squared.</p>
+<p>The following code replicates the analysis in the chapter but the function <code>country_model()</code> is replaced with a regression that includes the year squared.</p>
 <div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb616-1" data-line-number="1">lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(year, <span class="dv">2</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb617-1" data-line-number="1">country_model &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</a>
 <a class="sourceLine" id="cb617-2" data-line-number="2">  <span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(year <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(year), <span class="dv">2</span>), <span class="dt">data =</span> df)</a>
@@ -811,7 +811,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Brainstorm useful summary functions that, like <code>quantile()</code>, return multiple values.</p>
 </div>
 <div class="answer">
-<p>Some examples of summary functions that return multiple values are <code>range</code> and <code>fivenum</code>.</p>
+<p>Some examples of summary functions that return multiple values are <code>range()</code> and <code>fivenum()</code>.</p>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb622-1" data-line-number="1"><span class="kw">range</span>(mtcars<span class="op">$</span>mpg)</a>
+<a class="sourceLine" id="cb622-2" data-line-number="2"><span class="co">#&gt; [1] 10.4 33.9</span></a>
+<a class="sourceLine" id="cb622-3" data-line-number="3"><span class="kw">fivenum</span>(mtcars<span class="op">$</span>mpg)</a>
+<a class="sourceLine" id="cb622-4" data-line-number="4"><span class="co">#&gt; [1] 10.4 15.3 19.2 22.8 33.9</span></a></code></pre></div>
 </div>
 </div>
 <div id="exercise-25.4.3" class="section level3 unnumbered exercise">
@@ -820,24 +824,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>What’s missing in the following data frame? How does <code>quantile()</code> return that missing piece? Why isn’t that helpful here?</p>
 </div>
 <div class="answer">
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb622-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb622-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(cyl) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb622-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">q =</span> <span class="kw">list</span>(<span class="kw">quantile</span>(mpg))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb622-4" data-line-number="4"><span class="st">  </span><span class="kw">unnest</span>()</a>
-<a class="sourceLine" id="cb622-5" data-line-number="5"><span class="co">#&gt; # A tibble: 15 x 2</span></a>
-<a class="sourceLine" id="cb622-6" data-line-number="6"><span class="co">#&gt;     cyl     q</span></a>
-<a class="sourceLine" id="cb622-7" data-line-number="7"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb622-8" data-line-number="8"><span class="co">#&gt; 1     4  21.4</span></a>
-<a class="sourceLine" id="cb622-9" data-line-number="9"><span class="co">#&gt; 2     4  22.8</span></a>
-<a class="sourceLine" id="cb622-10" data-line-number="10"><span class="co">#&gt; 3     4  26  </span></a>
-<a class="sourceLine" id="cb622-11" data-line-number="11"><span class="co">#&gt; 4     4  30.4</span></a>
-<a class="sourceLine" id="cb622-12" data-line-number="12"><span class="co">#&gt; 5     4  33.9</span></a>
-<a class="sourceLine" id="cb622-13" data-line-number="13"><span class="co">#&gt; 6     6  17.8</span></a>
-<a class="sourceLine" id="cb622-14" data-line-number="14"><span class="co">#&gt; # ... with 9 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb623-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb623-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(cyl) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb623-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">q =</span> <span class="kw">list</span>(<span class="kw">quantile</span>(mpg))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb623-4" data-line-number="4"><span class="st">  </span><span class="kw">unnest</span>()</a>
+<a class="sourceLine" id="cb623-5" data-line-number="5"><span class="co">#&gt; # A tibble: 15 x 2</span></a>
+<a class="sourceLine" id="cb623-6" data-line-number="6"><span class="co">#&gt;     cyl     q</span></a>
+<a class="sourceLine" id="cb623-7" data-line-number="7"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb623-8" data-line-number="8"><span class="co">#&gt; 1     4  21.4</span></a>
+<a class="sourceLine" id="cb623-9" data-line-number="9"><span class="co">#&gt; 2     4  22.8</span></a>
+<a class="sourceLine" id="cb623-10" data-line-number="10"><span class="co">#&gt; 3     4  26  </span></a>
+<a class="sourceLine" id="cb623-11" data-line-number="11"><span class="co">#&gt; 4     4  30.4</span></a>
+<a class="sourceLine" id="cb623-12" data-line-number="12"><span class="co">#&gt; 5     4  33.9</span></a>
+<a class="sourceLine" id="cb623-13" data-line-number="13"><span class="co">#&gt; 6     6  17.8</span></a>
+<a class="sourceLine" id="cb623-14" data-line-number="14"><span class="co">#&gt; # ... with 9 more rows</span></a></code></pre></div>
 <p>The particular quantiles of the values are missing, e.g. <code>0%</code>, <code>25%</code>, <code>50%</code>, <code>75%</code>, <code>100%</code>. <code>quantile()</code> returns these in the names of the vector.</p>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb623-1" data-line-number="1"><span class="kw">quantile</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb623-2" data-line-number="2"><span class="co">#&gt;   0%  25%  50%  75% 100% </span></a>
-<a class="sourceLine" id="cb623-3" data-line-number="3"><span class="co">#&gt; 10.4 15.4 19.2 22.8 33.9</span></a></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb624-1" data-line-number="1"><span class="kw">quantile</span>(mtcars<span class="op">$</span>mpg)</a>
+<a class="sourceLine" id="cb624-2" data-line-number="2"><span class="co">#&gt;   0%  25%  50%  75% 100% </span></a>
+<a class="sourceLine" id="cb624-3" data-line-number="3"><span class="co">#&gt; 10.4 15.4 19.2 22.8 33.9</span></a></code></pre></div>
 <p>Since the <code>unnest</code> function drops the names of the vector, they aren’t useful here.</p>
 </div>
 </div>
@@ -848,18 +852,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Why might might it be useful?</p>
 </div>
 <div class="answer">
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb624-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb624-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(cyl) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb624-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise_each</span>(<span class="kw">funs</span>(list))</a>
-<a class="sourceLine" id="cb624-4" data-line-number="4"><span class="co">#&gt; `summarise_each()` is deprecated.</span></a>
-<a class="sourceLine" id="cb624-5" data-line-number="5"><span class="co">#&gt; Use `summarise_all()`, `summarise_at()` or `summarise_if()` instead.</span></a>
-<a class="sourceLine" id="cb624-6" data-line-number="6"><span class="co">#&gt; To map `funs` over all variables, use `summarise_all()`</span></a>
-<a class="sourceLine" id="cb624-7" data-line-number="7"><span class="co">#&gt; # A tibble: 3 x 11</span></a>
-<a class="sourceLine" id="cb624-8" data-line-number="8"><span class="co">#&gt;     cyl mpg    disp   hp     drat   wt     qsec   vs     am    gear  carb </span></a>
-<a class="sourceLine" id="cb624-9" data-line-number="9"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;lis&gt; &lt;lis&gt; &lt;lis&gt;</span></a>
-<a class="sourceLine" id="cb624-10" data-line-number="10"><span class="co">#&gt; 1     4 &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl… &lt;dbl… &lt;dbl…</span></a>
-<a class="sourceLine" id="cb624-11" data-line-number="11"><span class="co">#&gt; 2     6 &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl… &lt;dbl… &lt;dbl…</span></a>
-<a class="sourceLine" id="cb624-12" data-line-number="12"><span class="co">#&gt; 3     8 &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl… &lt;dbl… &lt;dbl…</span></a></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb625-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb625-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(cyl) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb625-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise_each</span>(<span class="kw">funs</span>(list))</a>
+<a class="sourceLine" id="cb625-4" data-line-number="4"><span class="co">#&gt; `summarise_each()` is deprecated.</span></a>
+<a class="sourceLine" id="cb625-5" data-line-number="5"><span class="co">#&gt; Use `summarise_all()`, `summarise_at()` or `summarise_if()` instead.</span></a>
+<a class="sourceLine" id="cb625-6" data-line-number="6"><span class="co">#&gt; To map `funs` over all variables, use `summarise_all()`</span></a>
+<a class="sourceLine" id="cb625-7" data-line-number="7"><span class="co">#&gt; # A tibble: 3 x 11</span></a>
+<a class="sourceLine" id="cb625-8" data-line-number="8"><span class="co">#&gt;     cyl mpg    disp   hp     drat   wt     qsec   vs     am    gear  carb </span></a>
+<a class="sourceLine" id="cb625-9" data-line-number="9"><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;list&gt; &lt;lis&gt; &lt;lis&gt; &lt;lis&gt;</span></a>
+<a class="sourceLine" id="cb625-10" data-line-number="10"><span class="co">#&gt; 1     4 &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl… &lt;dbl… &lt;dbl…</span></a>
+<a class="sourceLine" id="cb625-11" data-line-number="11"><span class="co">#&gt; 2     6 &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl… &lt;dbl… &lt;dbl…</span></a>
+<a class="sourceLine" id="cb625-12" data-line-number="12"><span class="co">#&gt; 3     8 &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl … &lt;dbl… &lt;dbl… &lt;dbl…</span></a></code></pre></div>
 <p>It creates a data frame in which each row corresponds to a value of <code>cyl</code>,
 and each observation for each column (other than <code>cyl</code>) is a vector of all the values of that column for that value of <code>cyl</code>.
 It seems like it should be useful to have all the observations of each variable for each group, but off the top of my head, I can’t think of a specific use for this.

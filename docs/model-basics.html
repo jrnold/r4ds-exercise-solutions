@@ -740,13 +740,9 @@ If it is not set (the default), R will silently drop them.</p>
 <div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" data-line-number="1"><span class="kw">ggplot</span>(sim1a, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb556-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb556-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p><img src="model-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>To re-run this a few times using <code>purrr</code>,
-and plot using code similar to that in the chapter:
-There appear to be a few outliers in this data.
-You can re-rerun this a couple times to see if this hold.</p>
-<p>We can also do this slightly more systematically.
-We will simulate this several times using <code>purrr</code> and plot the line using <code>geom_smooth</code>:</p>
+<p><img src="model-basics_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+We can also do this more systematically, by generating several simulations
+and plotting the line.</p>
 <div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" data-line-number="1">simt &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
 <a class="sourceLine" id="cb557-2" data-line-number="2">  <span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb557-3" data-line-number="3">    <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),</a>
@@ -779,7 +775,8 @@ We will simulate this several times using <code>purrr</code> and plot the line u
 <a class="sourceLine" id="cb558-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>.id, <span class="dt">ncol =</span> <span class="dv">4</span>)</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 There are not large outliers, and the slopes are more similar.</p>
-<p>The reason for this is that the Student’s <span class="math inline">\(t\)</span>-distribution, from which we sample with <code>rt</code> has fatter tails than the normal distribution (<code>rnorm</code>), which means is assigns larger probability to values further from the center of the distribution.</p>
+<p>The reason for this is that the Student’s <span class="math inline">\(t\)</span>-distribution, from which we sample with <code>rt()</code> has heavier tails than the normal distribution (<code>rnorm()</code>). This means that the Student’s t-distribution
+assigns a larger probability to values further from the center of the distribution.</p>
 <div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" data-line-number="1"><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb559-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> <span class="dv">100</span>),</a>
 <a class="sourceLine" id="cb559-3" data-line-number="3">  <span class="dt">normal =</span> <span class="kw">dnorm</span>(x),</a>
@@ -807,7 +804,7 @@ There are not large outliers, and the slopes are more similar.</p>
 <a class="sourceLine" id="cb562-2" data-line-number="2">  diff &lt;-<span class="st"> </span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">make_prediction</span>(mod, data)</a>
 <a class="sourceLine" id="cb562-3" data-line-number="3">  <span class="kw">mean</span>(<span class="kw">abs</span>(diff))</a>
 <a class="sourceLine" id="cb562-4" data-line-number="4">}</a></code></pre></div>
-<p>For the above function to work, we need to define a function <code>make_prediction</code> that
+<p>For the above function to work, we need to define a function, <code>make_prediction()</code>, that
 takes a numeric vector of length two (the intercept and slope) and returns the predictions,</p>
 <div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" data-line-number="1">make_prediction &lt;-<span class="st"> </span><span class="cf">function</span>(mod, data) {</a>
 <a class="sourceLine" id="cb563-2" data-line-number="2">  mod[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>mod[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>data<span class="op">$</span>x</a>
@@ -825,8 +822,8 @@ takes a numeric vector of length two (the intercept and slope) and returns the p
 <a class="sourceLine" id="cb565-6" data-line-number="6">best &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), measure_distance_ls, <span class="dt">data =</span> sim1a)</a>
 <a class="sourceLine" id="cb565-7" data-line-number="7">best<span class="op">$</span>par</a>
 <a class="sourceLine" id="cb565-8" data-line-number="8"><span class="co">#&gt; [1] 5.87 1.56</span></a></code></pre></div>
-<p>In practice, you would not use a <code>optim</code> to fit this model, you would you an existing implementation.
-See the <code>MASS</code> package’s <code>rlm</code> and <code>lqs</code> functions for more information and functions to fit robust and resistant linear models.</p>
+<p>In practice, you would not use a <code>optim()</code> to fit this model, you would you an existing implementation.
+See the <strong>MASS</strong> package’s <code>rlm()</code> and <code>lqs()</code> functions for more information and functions to fit robust and resistant linear models.</p>
 </div>
 </div>
 <div id="exercise-23.2.3" class="section level3 unnumbered exercise">
@@ -877,7 +874,7 @@ Problem is that due to finite iterations, numerically these converge:
 <p>Instead of using <code>lm()</code> to fit a straight line, you can use <code>loess()</code> to fit a smooth curve. Repeat the process of model fitting, grid generation, predictions, and visualization on <code>sim1</code> using <code>loess()</code> instead of <code>lm()</code>. How does the result compare to <code>geom_smooth()</code>?</p>
 </div>
 <div class="answer">
-<p>I’ll use <code>add_predictions</code> and <code>add_residuals</code> to add the predictions and residuals from a loess regression to the <code>sim1</code> data.</p>
+<p>I’ll use <code>add_predictions()</code> and <code>add_residuals()</code> to add the predictions and residuals from a loess regression to the <code>sim1</code> data.</p>
 <div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" data-line-number="1">sim1_loess &lt;-<span class="st"> </span><span class="kw">loess</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
 <a class="sourceLine" id="cb571-2" data-line-number="2">sim1_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
 <a class="sourceLine" id="cb571-3" data-line-number="3"></a>
@@ -897,11 +894,11 @@ The loess produces a nonlinear, smooth line through the data.</p>
 <a class="sourceLine" id="cb572-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pred), <span class="dt">data =</span> grid_loess, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</a>
 <a class="sourceLine" id="cb572-5" data-line-number="5">plot_sim1_loess</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>The predictions of loess are the same as the default method for <code>geom_smooth</code> because <code>geom_smooth()</code> uses <code>loess()</code> by default; the message even tells us that.</p>
+<p>The predictions of loess are the same as the default method for <code>geom_smooth()</code> because <code>geom_smooth()</code> uses <code>loess()</code> by default; the message even tells us that.</p>
 <div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb573-1" data-line-number="1">plot_sim1_loess <span class="op">+</span></a>
 <a class="sourceLine" id="cb573-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">alpha =</span> <span class="fl">0.20</span>)</a></code></pre></div>
 <p><img src="model-basics_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>We can plot the residuals (red), and compare them to the residuals from <code>lm</code> (black).
+<p>We can plot the residuals (red), and compare them to the residuals from <code>lm()</code> (black).
 In general, the loess model has smaller residuals within the sample (out of sample is a different issue, and we haven’t considered the uncertainty of these estimates).</p>
 <div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" data-line-number="1"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb574-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) <span class="op">+</span></a>
@@ -917,12 +914,12 @@ In general, the loess model has smaller residuals within the sample (out of samp
 How do these three functions differ?</p>
 </div>
 <div class="answer">
-<p>The functions <code>gather_predictions</code> and <code>spread_predictions</code> allow for adding predictions from multiple models at once.</p>
+<p>The functions <code>gather_predictions()</code> and <code>spread_predictions()</code> allow for adding predictions from multiple models at once.</p>
 <p>Taking the <code>sim1_mod</code> example,</p>
 <div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" data-line-number="1">sim1_mod &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim1)</a>
 <a class="sourceLine" id="cb575-2" data-line-number="2">grid &lt;-<span class="st"> </span>sim1 <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb575-3" data-line-number="3"><span class="st">  </span><span class="kw">data_grid</span>(x)</a></code></pre></div>
-<p>The function <code>add_predictions</code> adds only a single model at a time.
+<p>The function <code>add_predictions()</code> adds only a single model at a time.
 To add two models:</p>
 <div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb576-2" data-line-number="2"><span class="st">  </span><span class="kw">add_predictions</span>(sim1_mod, <span class="dt">var =</span> <span class="st">&quot;pred_lm&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -937,7 +934,7 @@ To add two models:</p>
 <a class="sourceLine" id="cb576-11" data-line-number="11"><span class="co">#&gt; 5     5   14.5       14.6 </span></a>
 <a class="sourceLine" id="cb576-12" data-line-number="12"><span class="co">#&gt; 6     6   16.5       16.6 </span></a>
 <a class="sourceLine" id="cb576-13" data-line-number="13"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
-<p>The function <code>gather_predictions</code> adds predictions from multiple models by
+<p>The function <code>gather_predictions()</code> adds predictions from multiple models by
 stacking the results and adding a column with the model name,</p>
 <div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb577-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb577-2" data-line-number="2"><span class="st">  </span><span class="kw">gather_predictions</span>(sim1_mod, sim1_loess)</a>
@@ -951,7 +948,7 @@ stacking the results and adding a column with the model name,</p>
 <a class="sourceLine" id="cb577-10" data-line-number="10"><span class="co">#&gt; 5 sim1_mod     5 14.5 </span></a>
 <a class="sourceLine" id="cb577-11" data-line-number="11"><span class="co">#&gt; 6 sim1_mod     6 16.5 </span></a>
 <a class="sourceLine" id="cb577-12" data-line-number="12"><span class="co">#&gt; # ... with 14 more rows</span></a></code></pre></div>
-<p>The function <code>spread_predictions</code> adds predictions from multiple models by
+<p>The function <code>spread_predictions()</code> adds predictions from multiple models by
 adding multiple columns (postfixed with the model name) with predictions from each model.</p>
 <div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb578-2" data-line-number="2"><span class="st">  </span><span class="kw">spread_predictions</span>(sim1_mod, sim1_loess)</a>
@@ -965,8 +962,8 @@ adding multiple columns (postfixed with the model name) with predictions from ea
 <a class="sourceLine" id="cb578-10" data-line-number="10"><span class="co">#&gt; 5     5    14.5       14.6 </span></a>
 <a class="sourceLine" id="cb578-11" data-line-number="11"><span class="co">#&gt; 6     6    16.5       16.6 </span></a>
 <a class="sourceLine" id="cb578-12" data-line-number="12"><span class="co">#&gt; # ... with 4 more rows</span></a></code></pre></div>
-<p>The function <code>spread_predictions</code> is similar to the example which runs <code>add_predictions</code> for each model, and is equivalent to running <code>spread</code> after
-running <code>gather_predictions</code>:</p>
+<p>The function <code>spread_predictions()</code> is similar to the example which runs <code>add_predictions()</code> for each model, and is equivalent to running <code>spread()</code> after
+running <code>gather_predictions()</code>:</p>
 <div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb579-1" data-line-number="1">grid <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb579-2" data-line-number="2"><span class="st">  </span><span class="kw">gather_predictions</span>(sim1_mod, sim1_loess) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb579-3" data-line-number="3"><span class="st">  </span><span class="kw">spread</span>(model, pred)</a>
@@ -990,7 +987,7 @@ Why is displaying a reference line in plots showing residuals useful and importa
 </div>
 <div class="answer">
 <p>The geom <code>geom_ref_line()</code> adds as reference line to a plot.
-It is equivalent to running <code>geom_hline</code> or <code>geom_vline</code> with default settings that are useful for visualizing models.
+It is equivalent to running <code>geom_hline()</code> or <code>geom_vline()</code> with default settings that are useful for visualizing models.
 Putting a reference line at zero for residuals is important because good models (generally) should have residuals centered at zero, with approximately the same variance (or distribution) over the support of x, and no correlation.
 A zero reference line makes it easier to judge these characteristics visually.</p>
 </div>

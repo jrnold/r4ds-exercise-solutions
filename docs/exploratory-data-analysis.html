@@ -846,13 +846,18 @@ I don’t know if I would have figured that out before; maybe if there was data 
 <p>Compare and contrast <code>coord_cartesian()</code> vs <code>xlim()</code> or <code>ylim()</code> when zooming in on a histogram. What happens if you leave <code>binwidth</code> unset? What happens if you try and zoom so only half a bar shows?</p>
 </div>
 <div class="answer">
-<p><code>coord_cartesian</code> simply zooms in on the area specified by the limits. The calculation of the histogram is unaffected.</p>
+<p>The <code>coord_cartesian()</code> function zooms in on the area specified by the limits,
+after having calculated and drawn the geoms.
+Since the histogram bins have already been calculated, it is unaffected.</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
 <a class="sourceLine" id="cb149-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb149-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">5000</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3000</span>))</a>
 <a class="sourceLine" id="cb149-4" data-line-number="4"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>However, the <code>xlim</code> and <code>ylim</code> functions first drop any values outside the limits (the <code>ylim</code> doesn’t matter in this case), then calculates the histogram, and draws the graph with the given limits.</p>
+<p>However, the <code>xlim()</code> and <code>ylim()</code> functions influence actions before the calculation
+of the stats related to the histogram. Thus, any values outside the x- and y-limits
+are dropped before calculating bin widths and counts. This can influence how
+the histogram looks.</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span></a>
 <a class="sourceLine" id="cb150-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb150-3" data-line-number="3"><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">100</span>, <span class="dv">5000</span>) <span class="op">+</span></a>
@@ -882,13 +887,13 @@ What happens to missing values in a bar chart? &gt; Why is there a difference?</
 <a class="sourceLine" id="cb151-6" data-line-number="6"><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a>
 <a class="sourceLine" id="cb151-7" data-line-number="7"><span class="co">#&gt; Warning: Removed 9 rows containing non-finite values (stat_bin).</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>In <code>geom_bar</code>, <code>NA</code> is treated as another category. The <code>x</code> aesthetic in <code>geom_bar</code> requires a discrete (categorical) variable, and missing values act like another category.</p>
+<p>In the <code>geom_bar()</code> function, <code>NA</code> is treated as another category. The <code>x</code> aesthetic in <code>geom_bar()</code> requires a discrete (categorical) variable, and missing values act like another category.</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1">diamonds <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb152-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cut =</span> <span class="kw">if_else</span>(<span class="kw">runif</span>(<span class="kw">n</span>()) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>, <span class="ot">NA_character_</span>, <span class="kw">as.character</span>(cut))) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb152-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb152-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>In a histogram, the <code>x</code> aesthetic variable needs to be numeric, and <code>stat_bin</code> groups the observations by ranges into bins.
+<p>In a histogram, the <code>x</code> aesthetic variable needs to be numeric, and <code>stat_bin()</code> groups the observations by ranges into bins.
 Since the numeric value of the <code>NA</code> observations is unknown, they cannot be placed in a particular bin, and are dropped.</p>
 </div>
 </div>
@@ -938,7 +943,7 @@ How is that variable correlated with cut?
 Why does the combination of those two relationships lead to lower quality diamonds being more expensive?</p>
 </div>
 <div class="answer">
-<!-- 
+<!--
   Cannot use regression, geom smooth because not introduced yet.
   Cannot plot all variables with facet_wrap since that requires functions in the tidy chapter.s
 -->
@@ -950,7 +955,7 @@ I ignore the dimensions of the diamond since <code>carat</code> measures size, a
 <a class="sourceLine" id="cb155-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/plot_diamond_carat_price-1.png" width="70%" style="display: block; margin: auto;" />
 However, since there is a large number of points in the data, I will use a boxplot by binning <code>carat</code> (as suggested in the chapter).</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb156-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">group =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.1</span>)))</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 Note that the choice of the binning width is important, as if it were too large it would obscure any relationship, and if it were too small, the values in the bins could be too variable to reveal underlying trends.</p>
@@ -987,12 +992,12 @@ A larger diamond can be profitably sold with a lower quality cut, while a smalle
 How does this compare to using <code>coord_flip()</code>?</p>
 </div>
 <div class="answer">
-<p>Earlier we created a horizontal box plot of the distribution <code>hwy</code> by <code>class</code>, using <code>geom_boxplot</code> and <code>coord_flip</code>:</p>
+<p>Earlier, we created this horizontal box plot of the distribution <code>hwy</code> by <code>class</code>, using <code>geom_boxplot()</code> and <code>coord_flip()</code>:</p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></a>
 <a class="sourceLine" id="cb160-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb160-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>In this case the output looks the same, but in the aesthetics the <code>x</code> and <code>y</code> are flipped from the previous case.</p>
+<p>In this case the output looks the same, but <code>x</code> and <code>y</code> aesthetics are flipped.</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;ggstance&quot;</span>)</a>
 <a class="sourceLine" id="cb161-2" data-line-number="2"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb161-3" data-line-number="3"><span class="co">#&gt; Attaching package: &#39;ggstance&#39;</span></a>
@@ -1023,7 +1028,8 @@ They are useful for larger datasets because</p>
 </ol>
 <p>The letter-value plot is described in:</p>
 <blockquote>
-<p>Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. “Letter-value plots: Boxplots for large data” <a href="http://vita.had.co.nz/papers/letter-value-plot.pdf" class="uri">http://vita.had.co.nz/papers/letter-value-plot.pdf</a></p>
+<p>Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011.
+“Letter-value plots: Boxplots for large data” <a href="http://vita.had.co.nz/papers/letter-value-plot.pdf" class="uri">http://vita.had.co.nz/papers/letter-value-plot.pdf</a></p>
 </blockquote>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;lvplot&quot;</span>)</a>
 <a class="sourceLine" id="cb162-2" data-line-number="2"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> price)) <span class="op">+</span></a>
@@ -1038,11 +1044,17 @@ They are useful for larger datasets because</p>
 What are the pros and cons of each method?</p>
 </div>
 <div class="answer">
-<p>I produce plots for these three methods below. The <code>geom_freqpoly</code> is better for look-up: meaning that given a price, it is easy to tell which <code>cut</code> has the highest density. However, the overlapping lines makes it difficult to distinguish how the overall distributions relate to each other.
-The <code>geom_violin</code> and faceted <code>geom_histogram</code> have similar strengths and weaknesses.
-It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
-However, since we can’t easily compare the vertical values of the distribution, its difficult to look up which category has the highest density for a given price.
-All of these methods depend on tuning parameters to determine the level of smoothness of the distribution.</p>
+<p>I produce plots for these three methods below. The <code>geom_freqpoly()</code> is better
+for look-up: meaning that given a price, it is easy to tell which <code>cut</code> has the
+highest density. However, the overlapping lines makes it difficult to distinguish how the overall distributions relate to each other.
+The <code>geom_violin()</code> and faceted <code>geom_histogram()</code> have similar strengths and
+weaknesses.
+It is easy to visually distinguish differences in the overall shape of the
+distributions (skewness, central values, variance, etc).
+However, since we can’t easily compare the vertical values of the distribution,
+it is difficult to look up which category has the highest density for a given price.
+All of these methods depend on tuning parameters to determine the level of
+smoothness of the distribution.</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> price, <span class="dt">y =</span> ..density..)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb163-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> cut), <span class="dt">binwidth =</span> <span class="dv">500</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -1071,8 +1083,8 @@ List them and briefly describe what each one does.</p>
 <div class="answer">
 <p>There are two methods:</p>
 <ul>
-<li><code>geom_quasirandom</code> that produces plots that resemble something between jitter and violin. There are several different methods that determine exactly how the random location of the points is generated.</li>
-<li><code>geom_beeswarm</code> creates a shape similar to a violin plot, but by offsetting the points.</li>
+<li><code>geom_quasirandom()</code> produces plots that are a mix of jitter and violin plots. There are several different methods that determine exactly how the random location of the points is generated.</li>
+<li><code>geom_beeswarm()</code> produces a plot similar to a violin plot, but by offsetting the points.</li>
 </ul>
 <p>I’ll use the <code>mpg</code> box plot example since these methods display individual points, they are better suited for smaller datasets.</p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;ggbeeswarm&quot;</span>)</a>
@@ -1218,12 +1230,12 @@ but not so much as to remove all patterns.</p>
 <p>The number of bins in the frequency plots will generally
 need to be less than those in the box plots in order to be
 interpretable.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, </a>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds,</a>
 <a class="sourceLine" id="cb177-2" data-line-number="2">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">x =</span> price)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb177-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_freqpoly</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb177-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Carat&quot;</span>)</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, </a>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds,</a>
 <a class="sourceLine" id="cb178-2" data-line-number="2">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">cut_width</span>(carat, <span class="fl">0.5</span>, <span class="dt">boundary =</span> <span class="dv">0</span>), <span class="dt">x =</span> price)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb178-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_freqpoly</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb178-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Carat&quot;</span>)</a></code></pre></div>

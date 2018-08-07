@@ -1043,7 +1043,7 @@ There was a flight that left 43 minutes early.</p>
 <div class="answer">
 <p>I assume that by by “fastest flights” it means the flights with the minimum air time.
 So I sort by <code>air_time</code>. The fastest flights are two flights between Newark (<a href="https://en.wikipedia.org/wiki/Newark_Liberty_International_Airport">EWR</a>) and Bradley (<a href="https://en.wikipedia.org/wiki/Bradley_International_Airport">BDL</a>), an airport in Connecticut) with an air time of 20 minutes.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">arrange</span>(flights, air_time) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">arrange</span>(flights, air_time) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb97-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(origin, dest, air_time) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb97-3" data-line-number="3"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb97-4" data-line-number="4"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
@@ -1168,8 +1168,8 @@ So I sort by <code>air_time</code>. The fastest flights are two flights between 
 <p>What does the <code>one_of()</code> function do? Why might it be helpful in conjunction with this vector?</p>
 </div>
 <div class="answer">
-<p>The <code>one_of</code> vector allows you to select variables with a character vector rather than as unquoted variable names.
-It’s useful because then you can easily pass vectors to <code>select()</code>.</p>
+<p>The <code>one_of()</code> function select variables using a character vector rather than as unquoted variable names.
+This function is useful because it is easier to programmatically generate character vectors with variable names than to generate unquoted variable names, which are easier to type.</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1">vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;dep_delay&quot;</span>, <span class="st">&quot;arr_delay&quot;</span>)</a>
 <a class="sourceLine" id="cb102-2" data-line-number="2"><span class="kw">select</span>(flights, <span class="kw">one_of</span>(vars))</a>
 <a class="sourceLine" id="cb102-3" data-line-number="3"><span class="co">#&gt; # A tibble: 336,776 x 5</span></a>
@@ -1274,7 +1274,7 @@ Since <code>arr_time</code> and <code>dep_time</code> may be in different time z
 <a class="sourceLine" id="cb107-4" data-line-number="4">       <span class="dt">air_time_2 =</span> (arr_time_min <span class="op">-</span><span class="st"> </span>dep_time_min <span class="op">+</span><span class="st"> </span><span class="dv">1440</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">1440</span>,</a>
 <a class="sourceLine" id="cb107-5" data-line-number="5">       <span class="dt">air_time_diff =</span> air_time_<span class="dv">2</span> <span class="op">-</span><span class="st"> </span>air_time)</a>
 <a class="sourceLine" id="cb107-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb107-7" data-line-number="7">air_times <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-7" data-line-number="7">air_times <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb107-8" data-line-number="8"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(<span class="kw">abs</span>(air_time_diff))) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb107-9" data-line-number="9"><span class="st">  </span><span class="kw">select</span>(air_time_diff)</a>
 <a class="sourceLine" id="cb107-10" data-line-number="10"><span class="co">#&gt; # A tibble: 336,776 x 1</span></a>
@@ -1368,7 +1368,7 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 <div class="answer">
 <p>These are all described in the same help page,</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="kw">help</span>(<span class="st">&quot;Trig&quot;</span>)</a></code></pre></div>
-<p>Cosine (<code>cos</code>), sine (<code>sin</code>), tangent (<code>tan</code>) are provided:</p>
+<p>Cosine (<code>cos()</code>), sine (<code>sin()</code>), tangent (<code>tan()</code>) are provided:</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb112-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dt">by =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span>),</a>
 <a class="sourceLine" id="cb112-3" data-line-number="3">  <span class="dt">cosx =</span> <span class="kw">cos</span>(pi <span class="op">*</span><span class="st"> </span>x),</a>
@@ -1385,7 +1385,7 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 <a class="sourceLine" id="cb112-14" data-line-number="14"><span class="co">#&gt; 5  -1   -1.00e+ 0 -1.00e+ 0  1.22e-16</span></a>
 <a class="sourceLine" id="cb112-15" data-line-number="15"><span class="co">#&gt; 6  -0.5  6.12e-17  6.12e-17 -1.63e+16</span></a>
 <a class="sourceLine" id="cb112-16" data-line-number="16"><span class="co">#&gt; # ... with 15 more rows</span></a></code></pre></div>
-<p>The convenience function <code>cospi(x)</code> is equivalent to <code>cos(pi * x)</code>, with <code>sinpi</code> and <code>tanpi</code> similarly defined,</p>
+<p>The convenience function <code>cospi(x)</code> is equivalent to <code>cos(pi * x)</code>, with <code>sinpi()</code> and <code>tanpi()</code> similarly defined,</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb113-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dt">by =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span>),</a>
 <a class="sourceLine" id="cb113-3" data-line-number="3">  <span class="dt">cosx =</span> <span class="kw">cospi</span>(x),</a>
@@ -1402,7 +1402,7 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 <a class="sourceLine" id="cb113-14" data-line-number="14"><span class="co">#&gt; 5  -1      -1  0.540   -1.56 </span></a>
 <a class="sourceLine" id="cb113-15" data-line-number="15"><span class="co">#&gt; 6  -0.5     0  0.878   -0.546</span></a>
 <a class="sourceLine" id="cb113-16" data-line-number="16"><span class="co">#&gt; # ... with 15 more rows</span></a></code></pre></div>
-<p>The inverse function arc-cosine (<code>acos</code>), arc-sine (<code>asin</code>), and arc-tangent (<code>atan</code>) are provided,</p>
+<p>The inverse function arc-cosine (<code>acos()</code>), arc-sine (<code>asin()</code>), and arc-tangent (<code>atan()</code>) are provided,</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb114-2" data-line-number="2">  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">4</span>),</a>
 <a class="sourceLine" id="cb114-3" data-line-number="3">  <span class="dt">acosx =</span> <span class="kw">acos</span>(x),</a>
@@ -1419,7 +1419,7 @@ We get a warning vector since the shorter vector is not a multiple of the longer
 <a class="sourceLine" id="cb114-14" data-line-number="14"><span class="co">#&gt; 5  0     1.57  0      0    </span></a>
 <a class="sourceLine" id="cb114-15" data-line-number="15"><span class="co">#&gt; 6  0.25  1.32  0.253  0.245</span></a>
 <a class="sourceLine" id="cb114-16" data-line-number="16"><span class="co">#&gt; # ... with 3 more rows</span></a></code></pre></div>
-<p>The function <code>atan2</code> is the angle between the x-axis and the the vector (0,0) to (<code>x</code>, <code>y</code>).</p>
+<p>The function <code>atan2()</code> is the angle between the x-axis and the the vector (0,0) to (<code>x</code>, <code>y</code>).</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="kw">atan2</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">-1</span>))</a>
 <a class="sourceLine" id="cb115-2" data-line-number="2"><span class="co">#&gt; [1]  1.57  0.00 -1.57  3.14</span></a></code></pre></div>
 </div>
@@ -1507,7 +1507,7 @@ To make the result match <code>count()</code>, the value should go in a new colu
 <a class="sourceLine" id="cb119-11" data-line-number="11"><span class="co">#&gt; 5 N103US   24619</span></a>
 <a class="sourceLine" id="cb119-12" data-line-number="12"><span class="co">#&gt; 6 N104UW   24616</span></a>
 <a class="sourceLine" id="cb119-13" data-line-number="13"><span class="co">#&gt; # ... with 4,031 more rows</span></a></code></pre></div>
-<p>Alternatively, we could have used <code>group_by</code> followed by <code>tally()</code>,
+<p>Alternatively, we could have used <code>group_by()</code> followed by <code>tally()</code>,
 since <code>count()</code> itself is a shortcut for calling <code>group_by()</code> then <code>tally()</code>,</p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1">not_canceled <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb120-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span></a>
@@ -1621,8 +1621,8 @@ However, you’d really want to compare it to the average delay of the destinati
 <p>What does the sort argument to <code>count()</code> do. When might you use it?</p>
 </div>
 <div class="answer">
-<p>The sort argument to <code>count</code> sorts the results in order of <code>n</code>.
-You could use this anytime you would do <code>count</code> followed by <code>arrange</code>.</p>
+<p>The sort argument to <code>count()</code> sorts the results in order of <code>n</code>.
+You could use this anytime you would run <code>count()</code> followed by <code>arrange()</code>.</p>
 </div>
 </div>
 </div>
@@ -1786,7 +1786,7 @@ Lets print out the 10 flights with the largest</p>
 <a class="sourceLine" id="cb134-4" data-line-number="4"><span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">15</span>)</a>
 <a class="sourceLine" id="cb134-5" data-line-number="5"><span class="co">#&gt; # A tibble: 327,346 x 0</span></a></code></pre></div>
 <p>Now that we’ve identified potentially bad observations, we would to distinguish between the real problems and</p>
-<!-- 
+<!--
 One idea would be to compare actual air time with the scheduled air time.
 However, this requires the scheduled air time - which is not easily available
 without the taxi time data, which is not included in the flights datasets

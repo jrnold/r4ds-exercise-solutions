@@ -846,7 +846,7 @@ Note that we need to use a <code>list</code>, not a character vector, since the 
 <a class="sourceLine" id="cb504-20" data-line-number="20"><span class="co">#&gt; [[4]]</span></a>
 <a class="sourceLine" id="cb504-21" data-line-number="21"><span class="co">#&gt;  [1] 100.9 100.2 100.2 101.6 100.1  99.9  98.1  99.7  99.7 101.1</span></a></code></pre></div></li>
 </ol>
-<p>However, we don’t need a <code>for</code> loop for this since <code>rnorm</code> recycles means.</p>
+<p>However, we don’t need a for loop for this since <code>rnorm()</code> recycle the <code>mean</code> argument.</p>
 <div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb505-1" data-line-number="1"><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n <span class="op">*</span><span class="st"> </span><span class="kw">length</span>(mu), <span class="dt">mean =</span> mu), <span class="dt">ncol =</span> n)</a>
 <a class="sourceLine" id="cb505-2" data-line-number="2"><span class="co">#&gt;        [,1]   [,2]  [,3]     [,4]   [,5]   [,6]    [,7]   [,8]    [,9]</span></a>
 <a class="sourceLine" id="cb505-3" data-line-number="3"><span class="co">#&gt; [1,] -9.930  -9.56 -9.88 -10.2061 -12.27 -8.926 -11.178  -9.51  -8.663</span></a>
@@ -872,7 +872,7 @@ Note that we need to use a <code>list</code>, not a character vector, since the 
 <a class="sourceLine" id="cb506-4" data-line-number="4">}</a>
 <a class="sourceLine" id="cb506-5" data-line-number="5">out</a>
 <a class="sourceLine" id="cb506-6" data-line-number="6"><span class="co">#&gt; [1] &quot;abcdefghijklmnopqrstuvwxyz&quot;</span></a></code></pre></div>
-<p><code>str_c</code> already works with vectors, so simply use <code>str_c</code> with the <code>collapse</code> argument to return a single string.</p>
+<p>Since <code>str_c()</code> already works with vectors, use <code>str_c()</code> with the <code>collapse</code> argument to return a single string.</p>
 <div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" data-line-number="1">stringr<span class="op">::</span><span class="kw">str_c</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</a>
 <a class="sourceLine" id="cb507-2" data-line-number="2"><span class="co">#&gt; [1] &quot;abcdefghijklmnopqrstuvwxyz&quot;</span></a></code></pre></div>
 <p>For this I’m going to rename the variable <code>sd</code> to something different because <code>sd</code> is the name of the function we want to use.</p>
@@ -888,7 +888,7 @@ Note that we need to use a <code>list</code>, not a character vector, since the 
 <div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" data-line-number="1"><span class="kw">sd</span>(x)</a>
 <a class="sourceLine" id="cb509-2" data-line-number="2"><span class="co">#&gt; [1] 29</span></a></code></pre></div>
 <p>Or if there was a need to use the equation (e.g. for pedagogical reasons), then
-the functions <code>mean</code> and <code>sum</code> already work with vectors:</p>
+the functions <code>mean()</code> and <code>sum()</code> already work with vectors:</p>
 <div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb510-1" data-line-number="1"><span class="kw">sqrt</span>(<span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x)) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(<span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb510-2" data-line-number="2"><span class="co">#&gt; [1] 29</span></a></code></pre></div>
 <div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb511-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">100</span>)</a>
@@ -908,7 +908,7 @@ the functions <code>mean</code> and <code>sum</code> already work with vectors:<
 <a class="sourceLine" id="cb511-15" data-line-number="15"><span class="co">#&gt;  [71] 35.163 35.179 35.307 35.993 36.635 36.963 37.350 38.058 38.755 39.681</span></a>
 <a class="sourceLine" id="cb511-16" data-line-number="16"><span class="co">#&gt;  [81] 40.140 40.736 40.901 41.468 42.366 42.960 43.792 44.386 45.165 45.562</span></a>
 <a class="sourceLine" id="cb511-17" data-line-number="17"><span class="co">#&gt;  [91] 46.412 47.154 47.472 47.583 47.685 48.485 48.865 48.917 49.904 50.508</span></a></code></pre></div>
-<p>The code above is calculating a cumulative sum. Use the function <code>cumsum</code></p>
+<p>The code above is calculating a cumulative sum. Use the function <code>cumsum()</code></p>
 <div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb512-1" data-line-number="1"><span class="kw">all.equal</span>(<span class="kw">cumsum</span>(x),out)</a>
 <a class="sourceLine" id="cb512-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
@@ -1120,7 +1120,7 @@ We’ve taken them down and passed them around; now we’re drunk and passed out
 </div>
 <div class="answer">
 <p>I’ll use the package <strong>microbenchmark</strong> to time this.
-The <code>microbenchmark</code> function will run an R expression a number of times and time it.</p>
+The <code>microbenchmark()</code> function will run an R expression a number of times and time it.</p>
 <p>Define a function that appends to an integer vector.</p>
 <div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb517-1" data-line-number="1">add_to_vector &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
 <a class="sourceLine" id="cb517-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, <span class="dv">0</span>)</a>
@@ -1165,7 +1165,7 @@ want to read each one with <code>read_csv()</code>. Write the for loop that will
 load them into a single data frame.</p>
 <p>I will pre-allocate a list, read each file as data frame into an element in that list.
 This creates a list of data frames.
-I then use <code>bind_rows</code> to create a single data frame from the list of data frames.</p>
+I then use <code>bind_rows()</code> to create a single data frame from the list of data frames.</p>
 <div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb519-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="kw">length</span>(files))</a>
 <a class="sourceLine" id="cb519-2" data-line-number="2"><span class="cf">for</span> (fname <span class="cf">in</span> <span class="kw">seq_along</span>(files)) {</a>
 <a class="sourceLine" id="cb519-3" data-line-number="3">  df[[i]] &lt;-<span class="st"> </span><span class="kw">read_csv</span>(files[[i]])</a>
@@ -1238,8 +1238,8 @@ For example, <code>show_mean(iris)</code> would print:</p>
 <blockquote>
 <p>(Extra challenge: what function did I use to make sure that the numbers lined up nicely, even though the variable names had different lengths?)</p>
 </blockquote>
-<p>There may be other functions to do this, but I’ll use <code>str_pad</code>, and <code>str_length</code> to ensure that the space given to the variable names is the same.
-I messed around with the options to <code>format</code> until I got two digits .</p>
+<p>There may be other functions to do this, but I’ll use <code>str_pad()</code>, and <code>str_length()</code> to ensure that the space given to the variable names is the same.
+I messed around with the options to <code>format()</code> until I got two digits .</p>
 <div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" data-line-number="1">show_mean &lt;-<span class="st"> </span><span class="cf">function</span>(df, <span class="dt">digits =</span> <span class="dv">2</span>) {</a>
 <a class="sourceLine" id="cb527-2" data-line-number="2">  <span class="co"># Get max length of all variable names in the dataset</span></a>
 <a class="sourceLine" id="cb527-3" data-line-number="3">  maxstr &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">str_length</span>(<span class="kw">names</span>(df)))</a>
@@ -1517,7 +1517,8 @@ Why?</p>
 to return a numeric vector of length one.</p>
 <div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" data-line-number="1"><span class="kw">map_dbl</span>(<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb543-2" data-line-number="2"><span class="co">#&gt; Error: Result 1 is not a length 1 atomic vector</span></a></code></pre></div>
-<p>If we wanted a numeric vector, we could use <code>map</code> followed by <code>flatten_dbl</code>,</p>
+<p>If we wanted a numeric vector, we could use <code>map()</code> followed by `flatten_dbl(</p>
+<p>)`,</p>
 <div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" data-line-number="1"><span class="kw">flatten_dbl</span>(<span class="kw">map</span>(<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">2</span>, rnorm, <span class="dt">n =</span> <span class="dv">5</span>))</a>
 <a class="sourceLine" id="cb544-2" data-line-number="2"><span class="co">#&gt;  [1] -1.402 -1.872 -3.717 -1.964 -0.993 -0.287 -2.110 -0.851 -1.386 -1.230</span></a>
 <a class="sourceLine" id="cb544-3" data-line-number="3"><span class="co">#&gt; [11]  0.392  0.470  0.989 -0.714  1.270  1.709  2.047 -0.210  1.380  0.933</span></a>
@@ -1580,7 +1581,7 @@ What does purrr’s version do that your version doesn’t?</p>
 <a class="sourceLine" id="cb546-14" data-line-number="14"><span class="co">#&gt; [1] FALSE</span></a>
 <a class="sourceLine" id="cb546-15" data-line-number="15"><span class="kw">every2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) {x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>})</a>
 <a class="sourceLine" id="cb546-16" data-line-number="16"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
-<p>The function <code>purrr::every</code> does fancy things with <code>.p</code>, like taking a logical vector instead of a function, or being able to test part of a string if the elements of <code>.x</code> are lists.</p>
+<p>The function <code>purrr::every()</code> does fancy things with <code>.p</code>, like taking a logical vector instead of a function, or being able to test part of a string if the elements of <code>.x</code> are lists.</p>
 </div>
 </div>
 <div id="exercise-21.9.2" class="section level3 unnumbered exercise">
@@ -1589,7 +1590,7 @@ What does purrr’s version do that your version doesn’t?</p>
 <p>Create an enhanced <code>col_sum()</code> that applies a summary function to every numeric column in a data frame.</p>
 </div>
 <div class="answer">
-<p><strong>Note:</strong> this question has a typo. It is referring to <code>col_summary</code>.</p>
+<p><strong>Note:</strong> this question has a typo. It is referring to <code>col_summary()</code>.</p>
 <p>I will use <code>map</code> to apply the function to all the columns, and <code>keep</code> to only select numeric columns.</p>
 <div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" data-line-number="1">col_sum2 &lt;-<span class="st"> </span><span class="cf">function</span>(df, f, ...) {</a>
 <a class="sourceLine" id="cb547-2" data-line-number="2">  <span class="kw">map</span>(<span class="kw">keep</span>(df, is.numeric), f, ...)</a>

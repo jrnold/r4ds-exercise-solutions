@@ -209,7 +209,7 @@ mpg
 #> 6 audi         a4      2.8  1999     6 manu~ f        18    26 p     comp~
 #> # ... with 228 more rows
 ```
-Alternatively, the `glimpse` function displays the type of each column:
+Alternatively, `glimpse()` displays the type of each column:
 
 ```r
 glimpse(mpg)
@@ -522,8 +522,8 @@ Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options
 <div class="answer">
 
 The arguments `nrow` (`ncol`) determines the number of rows (columns) to use when laying out the facets.
-It is necessary since `facet_wrap` only facets on one variable.
-These arguments are unnecessary for `facet_grid` since the number of rows and columns are determined by the number of unique values of the variables specified.
+It is necessary since `facet_wrap()` only facets on one variable.
+These arguments are unnecessary for `facet_grid()` since the number of rows and columns are determined by the number of unique values of the variables specified.
 
 </div>
 
@@ -702,7 +702,7 @@ Will these two graphs look different? Why/why not?
 
 <div class="answer">
 
-No. Because both `geom_point` and `geom_smooth` use the same data and mappings. They will inherit those options from the `ggplot` object, and thus don't need to specified again (or twice).
+No. Because both `geom_point()` and `geom_smooth()` use the same data and mappings. They will inherit those options from the `ggplot()` object, and thus don't need to specified again (or twice).
 
 
 ```r
@@ -820,9 +820,9 @@ What is the default geom associated with `stat_summary()`? How could you rewrite
 
 <div class="answer">
 
-The default geom for [`stat_summary`](http://docs.ggplot2.org/current/stat_summary.html) is `geom_pointrange` (see the `stat`) argument.
+The default geom for [`stat_summary()`](http://docs.ggplot2.org/current/stat_summary.html) is `geom_pointrange()` (see the `stat`) argument.
 
-But, the default `stat` for [`geom_pointrange`](http://docs.ggplot2.org/current/geom_linerange.html) is `identity`, so use `geom_pointrange(stat = "summary")`.
+But, the default `stat` for [`geom_pointrange()`](http://docs.ggplot2.org/current/geom_linerange.html) is `identity()`, so use `geom_pointrange(stat = "summary")`.
 
 ```r
 ggplot(data = diamonds) +
@@ -837,7 +837,7 @@ ggplot(data = diamonds) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{visualize_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
-The default message says that `stat_summary` uses the `mean` and `sd` to calculate the point, and range of the line. So lets use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
+The default message says that `stat_summary()` uses the `mean` and `sd` to calculate the point, and range of the line. So lets use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
 
 ```r
 ggplot(data = diamonds) +
@@ -864,8 +864,12 @@ What does `geom_col()` do? How is it different to `geom_bar()`?
 
 <div class="answer">
 
-`geom_col` differs from `geom_bar` in its default stat. `geom_col` has uses the `identity` stat. So it expects that a variable already exists for the height of the bars.
-`geom_bar` uses the `count` stat, and so will count observations in groups in order to generate the variable to use for the height of the bars.
+The `geom_col()` function has different default than `geom_bar()`.
+The default stat of `geom_col() is `identity()` stat.
+This means that `geom_col()` expects that the data is already preprocessed into `x` values and `y` values representing the bar height.
+The defult stat of `geom_bar()` is `count()`.
+This means that `geom_bar()` expects the `x` variable to contain multiple observations for each values, and it will handle counting the number of observations
+for each value of `x` in order to create the bar heights.ß
 
 </div>
 
@@ -891,7 +895,7 @@ What variables does `stat_smooth()` compute? What parameters control its behavio
 
 <div class="answer">
 
-`stat_smooth` calculates
+The function `stat_smooth()` calculates the following statistics:
 
 -   `y`: predicted value
 -   `ymin`: lower value of the confidence interval
@@ -912,7 +916,7 @@ In other words what is the problem with these two graphs?
 <div class="answer">
 
 If `group` is not set to 1, then all the bars have `prop == 1`.
-The function `geom_bar` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group.
+The function `geom_bar()` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group.
 
 
 ```r
@@ -1122,9 +1126,9 @@ What’s the default position adjustment for `geom_boxplot()`? Create a visualiz
 
 <div class="answer">
 
-The default position for `geom_boxplot` is `position_dodge` (see its [docs](http://docs.ggplot2.org/current/geom_boxplot.html)).
+The default position for `geom_boxplot()` is `position_dodge()` (see its [docs](http://docs.ggplot2.org/current/geom_boxplot.html)).
 
-When we add `colour = class` to the box plot, the different classes within `drv` are placed side by side, i.e. dodged. If it was `position_identity`, they would be overlapping.
+When we add `colour = class` to the box plot, the different classes within `drv` are placed side by side, i.e. dodged. If it was `position_identity()`, they would be overlapping.
 
 ```r
 ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +

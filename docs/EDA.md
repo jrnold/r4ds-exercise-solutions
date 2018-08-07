@@ -203,7 +203,9 @@ Compare and contrast `coord_cartesian()` vs `xlim()` or `ylim()` when zooming in
 
 <div class="answer">
 
-`coord_cartesian` simply zooms in on the area specified by the limits. The calculation of the histogram is unaffected.
+The `coord_cartesian()` function zooms in on the area specified by the limits,
+after having calculated and drawn the geoms.
+Since the histogram bins have already been calculated, it is unaffected.
 
 
 ```r
@@ -217,7 +219,10 @@ ggplot(diamonds) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
-However, the `xlim` and `ylim` functions first drop any values outside the limits (the `ylim` doesn't matter in this case), then calculates the histogram, and draws the graph with the given limits.
+However, the `xlim()` and `ylim()` functions influence actions before the calculation
+of the stats related to the histogram. Thus, any values outside the x- and y-limits
+are dropped before calculating bin widths and counts. This can influence how
+the histogram looks.
 
 
 ```r
@@ -263,7 +268,7 @@ ggplot(diamonds2, aes(x = y)) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-In `geom_bar`, `NA` is treated as another category. The `x` aesthetic in `geom_bar` requires a discrete (categorical) variable, and missing values act like another category.
+In the `geom_bar()` function, `NA` is treated as another category. The `x` aesthetic in `geom_bar()` requires a discrete (categorical) variable, and missing values act like another category.
 
 ```r
 diamonds %>%
@@ -276,7 +281,7 @@ diamonds %>%
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
-In a histogram, the `x` aesthetic variable needs to be numeric, and `stat_bin` groups the observations by ranges into bins.
+In a histogram, the `x` aesthetic variable needs to be numeric, and `stat_bin()` groups the observations by ranges into bins.
 Since the numeric value of the `NA` observations is unknown, they cannot be placed in a particular bin, and are dropped.
 
 </div>
@@ -337,18 +342,18 @@ nycflights13::flights %>%
 #### Exercise <span class="exercise-number">7.5.1.2</span> {.unnumbered .exercise}
 
 <div class="question">
-What variable in the diamonds dataset is most important for predicting the price of a diamond? 
-How is that variable correlated with cut? 
+What variable in the diamonds dataset is most important for predicting the price of a diamond?
+How is that variable correlated with cut?
 Why does the combination of those two relationships lead to lower quality diamonds being more expensive?
 </div>
 
 <div class="answer">
 
-<!-- 
+<!--
   Cannot use regression, geom smooth because not introduced yet.
   Cannot plot all variables with facet_wrap since that requires functions in the tidy chapter.s
 -->
- 
+
 What are the general relationships of each variable with the price of the diamonds?
 I will consider the variables: `carat`, `clarity`, `color`, and `cut`.
 I ignore the dimensions of the diamond since `carat` measures size, and thus incorporates most of the information contained in these variables.
@@ -366,7 +371,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 However, since there is a large number of points in the data, I will use a boxplot by binning `carat` (as suggested in the chapter).
 
 ```r
-ggplot(data = diamonds, mapping = aes(x = carat, y = price)) + 
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_boxplot(mapping = aes(group = cut_width(carat, 0.1)))
 ```
 
@@ -399,13 +404,13 @@ ggplot(data = diamonds) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/plot_diamond_clarity_price-1} \end{center}
 
-There is a strong relationship between `carat` and `price`. 
+There is a strong relationship between `carat` and `price`.
 The is a weak positive relationship between `color` and `price`,
 and, surprisingly, a weak negative relationship between `clarity` and `price`.
 For both `clarity` and `color`, there is a large amount of variation within each category, which overwhelms the between category trend.
 Carat is clearly the best predictor of its price.
 
-Now that we have established that carat appears to be the best predictor of price, what is the relationship between it and cut? 
+Now that we have established that carat appears to be the best predictor of price, what is the relationship between it and cut?
 Since this is an example of a continuous (carat) and categorical (cut) variable, it can be visualized with a box plot.
 
 
@@ -436,7 +441,7 @@ How does this compare to using `coord_flip()`?
 
 <div class="answer">
 
-Earlier we created a horizontal box plot of the distribution `hwy` by `class`, using `geom_boxplot` and `coord_flip`:   
+Earlier, we created this horizontal box plot of the distribution `hwy` by `class`, using `geom_boxplot()` and `coord_flip()`:   
 
 ```r
 ggplot(data = mpg) +
@@ -448,7 +453,7 @@ ggplot(data = mpg) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
-In this case the output looks the same, but in the aesthetics the `x` and `y` are flipped from the previous case.
+In this case the output looks the same, but `x` and `y` aesthetics are flipped.
 
 ```r
 library("ggstance")
@@ -490,7 +495,8 @@ They are useful for larger datasets because
 
 The letter-value plot is described in:
 
-> Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011. "Letter-value plots: Boxplots for large data" <http://vita.had.co.nz/papers/letter-value-plot.pdf>
+> Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011.
+> "Letter-value plots: Boxplots for large data" <http://vita.had.co.nz/papers/letter-value-plot.pdf>
 
 
 ```r
@@ -502,7 +508,6 @@ ggplot(diamonds, aes(x = cut, y = price)) +
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-22-1} \end{center}
-
 </div>
 
 #### Exercise <span class="exercise-number">7.5.1.5</span> {.unnumbered .exercise}
@@ -514,11 +519,17 @@ What are the pros and cons of each method?
 
 <div class="answer">
 
-I produce plots for these three methods below. The `geom_freqpoly` is better for look-up: meaning that given a price, it is easy to tell which `cut` has the highest density. However, the overlapping lines makes it difficult to distinguish how the overall distributions relate to each other.
-The `geom_violin` and faceted `geom_histogram` have similar strengths and weaknesses.
-It is easy to visually distinguish differences in the overall shape of the distributions (skewness, central values, variance, etc).
-However, since we can't easily compare the vertical values of the distribution, its difficult to look up which category has the highest density for a given price.
-All of these methods depend on tuning parameters to determine the level of smoothness of the distribution.
+I produce plots for these three methods below. The `geom_freqpoly()` is better
+for look-up: meaning that given a price, it is easy to tell which `cut` has the
+highest density. However, the overlapping lines makes it difficult to distinguish how the overall distributions relate to each other.
+The `geom_violin()` and faceted `geom_histogram()` have similar strengths and
+ weaknesses.
+It is easy to visually distinguish differences in the overall shape of the
+ distributions (skewness, central values, variance, etc).
+However, since we can't easily compare the vertical values of the distribution,
+it is difficult to look up which category has the highest density for a given price.
+All of these methods depend on tuning parameters to determine the level of
+smoothness of the distribution.
 
 
 ```r
@@ -571,8 +582,8 @@ List them and briefly describe what each one does.
 
 There are two methods:
 
--   `geom_quasirandom` that produces plots that resemble something between jitter and violin. There are several different methods that determine exactly how the random location of the points is generated.
--   `geom_beeswarm` creates a shape similar to a violin plot, but by offsetting the points.
+-   `geom_quasirandom()` produces plots that are a mix of jitter and violin plots. There are several different methods that determine exactly how the random location of the points is generated.
+-   `geom_beeswarm()` produces a plot similar to a violin plot, but by offsetting the points.
 
 I'll use the `mpg`  box plot example since these methods display individual points, they are better suited for smaller datasets.
 
@@ -811,7 +822,7 @@ interpretable.
 
 
 ```r
-ggplot(data = diamonds, 
+ggplot(data = diamonds,
        mapping = aes(color = cut_number(carat, 5), x = price)) +
   geom_freqpoly() +
   ylab("Carat")
@@ -823,7 +834,7 @@ ggplot(data = diamonds,
 
 
 ```r
-ggplot(data = diamonds, 
+ggplot(data = diamonds,
        mapping = aes(color = cut_width(carat, 0.5, boundary = 0), x = price)) +
   geom_freqpoly() +
   ylab("Carat")

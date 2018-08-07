@@ -97,10 +97,10 @@ The answer to each part follows.
     #> 6 EV      ExpressJet Airlines Inc.
     #> # ... with 10 more rows
     ```
-  
+
     The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`.
     Using these carriers codes, we check whether `carrier` is one of those.
-  
+
     
     ```r
     filter(flights, carrier %in% c("AA", "DL", "UA"))
@@ -119,7 +119,7 @@ The answer to each part follows.
     #> #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
     ```
 
-1.  The variable `month` has the month, and it is numeric. 
+1.  The variable `month` has the month, and it is numeric.
     So, the summer flights are those that departed in months 7 (July), 8 (August), and 9 (September).
     
     ```r
@@ -229,7 +229,7 @@ The answer to each part follows.
     #> #   minute <dbl>, time_hour <dttm>
     ```
 
-    This filter expression is more compact, but may or may not be more readable and 
+    This filter expression is more compact, but may or may not be more readable and
     intuitive to a reader.
 
 </div>
@@ -298,8 +298,8 @@ Since `arr_time` is also missing, these are canceled flights.
 ### Exercise <span class="exercise-number">5.2.4</span> {.unnumbered .exercise}
 
 <div class="question">
-Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? 
-Why is `FALSE & NA` not missing? Can you figure out the general rule? 
+Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing?
+Why is `FALSE & NA` not missing? Can you figure out the general rule?
 (`NA * 0` is a tricky counterexample!)
 </div>
 
@@ -340,7 +340,7 @@ Since $x * 0 = 0$ for all finite, numeric $x$, we might expect `NA * 0 == 0`, bu
 NA * 0
 #> [1] NA
 ```
-The reason that `NA * 0` is not equal to `0` is that $x \times \infty$ and $x \times -\infty$ is undefined. 
+The reason that `NA * 0` is not equal to `0` is that $x \times \infty$ and $x \times -\infty$ is undefined.
 R represents undefined results as `NaN`, which is an abbreviation of "[not a number](https://en.wikipedia.org/wiki/NaN)".
 
 ```r
@@ -443,7 +443,7 @@ I assume that by by "fastest flights" it means the flights with the minimum air 
 So I sort by `air_time`. The fastest flights are two flights between Newark ([EWR](https://en.wikipedia.org/wiki/Newark_Liberty_International_Airport)) and Bradley ([BDL](https://en.wikipedia.org/wiki/Bradley_International_Airport)), an airport in Connecticut) with an air time of 20 minutes.
 
 ```r
-arrange(flights, air_time) %>% 
+arrange(flights, air_time) %>%
   select(origin, dest, air_time) %>%
   head()
 #> # A tibble: 6 x 3
@@ -594,8 +594,8 @@ What does the `one_of()` function do? Why might it be helpful in conjunction wit
 
 <div class="answer">
 
-The `one_of` vector allows you to select variables with a character vector rather than as unquoted variable names.
-It's useful because then you can easily pass vectors to `select()`.
+The `one_of()` function select variables using a character vector rather than as unquoted variable names.
+This function is useful because it is easier to programmatically generate character vectors with variable names than to generate unquoted variable names, which are easier to type.
 
 
 ```r
@@ -644,11 +644,11 @@ One reason for this behavior is that most users expect searching to be case inse
 A second, technical, reason is that dplyr works with more than R data frames.
 It can also work with a variety of [databases](https://db.rstudio.com/dplyr/).
 Some of these database engines have case insensitive column names, so making functions that match variable names
-case insensitive by default will make the behavior of 
-`select()` consistent regardless of whether the table is 
+case insensitive by default will make the behavior of
+`select()` consistent regardless of whether the table is
 stored as an R data frame or in a database.
 
-To change the behavior add the argument `ignore.case = FALSE`. 
+To change the behavior add the argument `ignore.case = FALSE`.
 
 
 ```r
@@ -656,7 +656,7 @@ select(flights, contains("TIME", ignore.case = FALSE))
 #> # A tibble: 336,776 x 0
 ```
 
-Now this expression selects not variables from the table. 
+Now this expression selects not variables from the table.
 
 </div>
 
@@ -721,7 +721,7 @@ Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What d
 
 <div class="answer">
 
-As with the previous question, we will need to 
+As with the previous question, we will need to
 Since `arr_time` and `dep_time` may be in different time zones, the `air_time` does not equal the differences.
 
 
@@ -732,7 +732,7 @@ air_times <- mutate(flights,
        air_time_2 = (arr_time_min - dep_time_min + 1440) %% 1440,
        air_time_diff = air_time_2 - air_time)
 
-air_times %>% 
+air_times %>%
   arrange(desc(abs(air_time_diff))) %>%
   select(air_time_diff)
 #> # A tibble: 336,776 x 1
@@ -757,7 +757,7 @@ Compare `dep_time`, `sched_dep_time`, and `dep_delay`. How would you expect thos
 
 <div class="answer">
 
-I would expect `dep_time`, `sched_dep_time`, and `dep_delay` to be related by the 
+I would expect `dep_time`, `sched_dep_time`, and `dep_delay` to be related by the
 equation `dep_time - sched_dep_time = dep_delay`.
 
 ```r
@@ -792,8 +792,8 @@ Find the 10 most delayed flights using a ranking function. How do you want to ha
 
 <div class="answer">
 
-I'd want to handle ties by taking the minimum of tied values. If three flights 
-have the same value and are the most delayed, we would say they are tied for 
+I'd want to handle ties by taking the minimum of tied values. If three flights
+have the same value and are the most delayed, we would say they are tied for
 first, not tied for third or second.
 
 ```r
@@ -854,7 +854,7 @@ These are all described in the same help page,
 help("Trig")
 ```
 
-Cosine (`cos`), sine (`sin`), tangent (`tan`) are provided:
+Cosine (`cos()`), sine (`sin()`), tangent (`tan()`) are provided:
 
 ```r
 tibble(
@@ -874,7 +874,7 @@ tibble(
 #> 6  -0.5  6.12e-17  6.12e-17 -1.63e+16
 #> # ... with 15 more rows
 ```
-The convenience function `cospi(x)` is equivalent to `cos(pi * x)`, with `sinpi` and `tanpi` similarly defined,
+The convenience function `cospi(x)` is equivalent to `cos(pi * x)`, with `sinpi()` and `tanpi()` similarly defined,
 
 ```r
 tibble(
@@ -895,7 +895,7 @@ tibble(
 #> # ... with 15 more rows
 ```
 
-The inverse function arc-cosine (`acos`), arc-sine (`asin`), and arc-tangent (`atan`) are provided,
+The inverse function arc-cosine (`acos()`), arc-sine (`asin()`), and arc-tangent (`atan()`) are provided,
 
 ```r
 tibble(
@@ -916,7 +916,7 @@ tibble(
 #> # ... with 3 more rows
 ```
 
-The function `atan2` is the angle between the x-axis and the the vector (0,0) to (`x`, `y`).
+The function `atan2()` is the angle between the x-axis and the the vector (0,0) to (`x`, `y`).
 
 ```r
 atan2(c(1, 0, -1, 0), c(0, 1, 0, -1))
@@ -943,16 +943,16 @@ Which is more important: arrival delay or departure delay?
 
 <div class="answer">
 
-What this question gets at is a fundamental question of data analysis: the cost function. 
-As analysts, the reason we are interested in flight delay because it is costly to passengers. 
+What this question gets at is a fundamental question of data analysis: the cost function.
+As analysts, the reason we are interested in flight delay because it is costly to passengers.
 But it is worth thinking carefully about how it is costly and use that information in ranking and measuring these scenarios.
 
-In many scenarios, arrival delay is more important. 
+In many scenarios, arrival delay is more important.
 Presumably being late on arriving is more costly to the passenger since it could disrupt the next stages of their travel, such as connecting flights or meetings.  
-If the departure is delayed without affecting the arrival time and the passenger arrived at the same time, this delay will not affect future plans nor does it affect the total time spent traveling. 
+If the departure is delayed without affecting the arrival time and the passenger arrived at the same time, this delay will not affect future plans nor does it affect the total time spent traveling.
 The delay could be a positive, if less time is spent on the airplane itself, or a negative, if that extra time is spent on the plane in the runway.
 
-Variation in arrival time is worse than consistency. 
+Variation in arrival time is worse than consistency.
 If a flight is always 30 minutes late and that delay is know, then it is as if the arrival time is that delayed time.
 The traveler could easily plan for this. If the delay of the flight is more variable, then it is harder for the traveler to plan for it.
 
@@ -1031,7 +1031,7 @@ not_canceled %>%
 #> # ... with 4,031 more rows
 ```
 
-Alternatively, we could have used `group_by` followed by `tally()`,
+Alternatively, we could have used `group_by()` followed by `tally()`,
 since `count()` itself is a shortcut for calling `group_by()` then `tally()`,
 
 ```r
@@ -1182,8 +1182,8 @@ What does the sort argument to `count()` do. When might you use it?
 
 <div class="answer">
 
-The sort argument to `count` sorts the results in order of `n`.
-You could use this anytime you would do `count` followed by `arrange`.
+The sort argument to `count()` sorts the results in order of `n`.
+You could use this anytime you would run `count()` followed by `arrange()`.
 
 </div>
 
@@ -1210,8 +1210,8 @@ Which plane (`tailnum`) has the worst on-time record?
 <div class="answer">
 
 The question does not define the on-time record. I will use the proportion of
-flights not delayed or canceled. 
-This metric does not differentiate between the amount of delay, but has the 
+flights not delayed or canceled.
+This metric does not differentiate between the amount of delay, but has the
 benefit of easily incorporating canceled flights.
 
 ```r
@@ -1389,7 +1389,7 @@ flights_with_zscore <- flights %>%
   mutate(z_score = (air_time - air_time_mean) / air_time_sd)
 ```
 
-Possible unusual flights are the 
+Possible unusual flights are the
 Lets print out the 10 flights with the largest
 
 ```r
@@ -1400,30 +1400,30 @@ flights_with_zscore %>%
 #> # A tibble: 327,346 x 0
 ```
 
-Now that we've identified potentially bad observations, we would to distinguish between the real problems and 
+Now that we've identified potentially bad observations, we would to distinguish between the real problems and
 
-<!-- 
+<!--
 One idea would be to compare actual air time with the scheduled air time.
 However, this requires the scheduled air time - which is not easily available
 without the taxi time data, which is not included in the flights datasets
 -->
 
-One potential issue with the way that we calculated z-scores is that the mean and standard deviation used to calculate it include the unusual observations that we are looking for. 
+One potential issue with the way that we calculated z-scores is that the mean and standard deviation used to calculate it include the unusual observations that we are looking for.
 Since the mean and standard deviation are sensitive to outliers,
-that means that an outlier could affect the mean and standard deviation calculations enough that it does not look like one. 
-We would want to calculate the z-score of each observation using the mean and standard deviation based on all other 
+that means that an outlier could affect the mean and standard deviation calculations enough that it does not look like one.
+We would want to calculate the z-score of each observation using the mean and standard deviation based on all other
 flights to that origin and destination.
 This will be more of an issue if the number of of observations is small.
 Thankfully, there are easy methods to update the mean and variance by [removing an observation](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance), but for now, we won't use them.[^methods]
 
 Another way to improve this calculation is to use the same method
 used in box plots (see `geom_boxplot()`) to screen outliers.
-That method uses the median and inter-quartile range, and thus is less sensitive to outliers. 
+That method uses the median and inter-quartile range, and thus is less sensitive to outliers.
 Adjust the previous code and see if it makes a difference.
 
 All of these answers have relied on the distribution of comparable observations (flights from the same origin to the same destination) to flag unusual observations.
 Apart from our knowledge that flights from the same origin to the same destination should have similar air times, we have not used any domain specific knowledge.
-But actually know much more about this problem. 
+But actually know much more about this problem.
 We know that aircraft have maximum speeds.
 So could use the time and distance of each flight to calculate the average speed of each flight and find any clearly impossibly fast flights.
 

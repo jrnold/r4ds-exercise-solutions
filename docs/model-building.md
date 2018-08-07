@@ -175,7 +175,7 @@ Create a new variable that splits the `wday` variable into terms, but only for S
 
 <div class="answer">
 
-I'll use the function `case_when` to do this, though there are other ways which it could be solved.
+I'll use the function `case_when()` to do this, though there are other ways which it could be solved.
 
 ```r
 daily <- daily %>%
@@ -202,7 +202,7 @@ daily %>%
 
 I think the overlapping plot is hard to understand.
 If we are interested in the differences, it is better to plot the differences directly.
-In this code I use `spread_residuals` to add one *column* per model, rather than `gather_residuals` which creates a new row for each model.
+In this code, I use `spread_residuals()` to add one *column* per model, rather than `gather_residuals()` which creates a new row for each model.
 
 ```r
 daily %>%
@@ -362,8 +362,8 @@ It’s a little frustrating that Sunday and Saturday are on separate ends of the
 
 <div class="answer">
 
-See the chapter [Factors](http://r4ds.had.co.nz/factors.html) for the function `fct_relevel`.
-I use `fct_relevel` to put all levels in-front of the first level ("Sunday").
+See the chapter [Factors](http://r4ds.had.co.nz/factors.html) for the function `fct_relevel()`.
+Use `fct_relevel()` to put all levels in-front of the first level ("Sunday").
 
 
 ```r

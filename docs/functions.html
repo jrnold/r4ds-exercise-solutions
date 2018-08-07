@@ -774,7 +774,7 @@ Rewrite <code>rescale01()</code> so that <code>-Inf</code> is mapped to 0, and <
 <div class="answer">
 <p>This code calculates the proportion of <code>NA</code> values in a vector.</p>
 <div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" data-line-number="1"><span class="kw">mean</span>(<span class="kw">is.na</span>(x))</a></code></pre></div>
-<p>I will write it as a function named <code>prop_na</code> that takes a single argument <code>x</code>,
+<p>I will write it as a function named <code>prop_na()</code> that takes a single argument <code>x</code>,
 and returns a single numeric value between 0 and 1.</p>
 <div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" data-line-number="1">prop_na &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
 <a class="sourceLine" id="cb408-2" data-line-number="2">  <span class="kw">mean</span>(<span class="kw">is.na</span>(x))</a>
@@ -885,8 +885,8 @@ The corresponding function is:</p>
 <div class="answer">
 <div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" data-line-number="1">is_directory &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">file.info</span>(x)<span class="op">$</span>isdir</a>
 <a class="sourceLine" id="cb417-2" data-line-number="2">is_readable &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">file.access</span>(x, <span class="dv">4</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span></a></code></pre></div>
-<p>The function <code>is_directory</code> checks whether the path in <code>x</code> is a directory.
-The function <code>is_readable</code> checks whether the path in <code>x</code> is readable, meaning that the file exists and the user has permission to open it.
+<p>The function <code>is_directory()</code> checks whether the path in <code>x</code> is a directory.
+The function <code>is_readable()</code> checks whether the path in <code>x</code> is readable, meaning that the file exists and the user has permission to open it.
 These functions are useful even though they are short because their names make it much clearer what the code is doing.</p>
 </div>
 </div>
@@ -987,7 +987,7 @@ And the moral of this story is: <em>hare today, goon tomorrow.</em></p>
 <p>The function <code>f3</code> repeats <code>y</code> once for each element of <code>x</code>.</p>
 <div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" data-line-number="1"><span class="kw">f3</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb422-2" data-line-number="2"><span class="co">#&gt; [1] 4 4 4</span></a></code></pre></div>
-<p>This is a harder one to name. I would say something like <code>recycle</code> (R’s name for this behavior), or <code>epxand</code>.</p>
+<p>Good names would include <code>recycle()</code> (R’s name for this behavior), or <code>expand()</code>.</p>
 </div>
 </div>
 <div id="exercise-19.3.2" class="section level3 unnumbered exercise">
@@ -1005,12 +1005,12 @@ And the moral of this story is: <em>hare today, goon tomorrow.</em></p>
 <p>Compare and contrast <code>rnorm()</code> and <code>MASS::mvrnorm()</code>. How could you make them more consistent?</p>
 </div>
 <div class="answer">
-<p><code>rnorm</code> samples from the univariate normal distribution, while <code>MASS::mvrnorm</code>
+<p><code>rnorm()</code> samples from the univariate normal distribution, while <code>MASS::mvrnorm</code>
 samples from the multivariate normal distribution. The main arguments in
-<code>rnorm</code> are <code>n</code>, <code>mean</code>, <code>sd</code>. The main arguments is <code>MASS::mvrnorm</code> are <code>n</code>,
+<code>rnorm()</code> are <code>n</code>, <code>mean</code>, <code>sd</code>. The main arguments is <code>MASS::mvrnorm</code> are <code>n</code>,
 <code>mu</code>, <code>Sigma</code>. To be consistent they should have the same names. However, this
 is difficult. In general, it is better to be consistent with more widely used
-functions, e.g. <code>rmvnorm</code> should follow the conventions of <code>rnorm</code>. However,
+functions, e.g. <code>rmvnorm()</code> should follow the conventions of <code>rnorm()</code>. However,
 while <code>mean</code> is correct in the multivariate case, <code>sd</code> does not make sense in
 the multivariate case. However, both functions are internally consistent.
 It would not be good practice to have <code>mu</code> and <code>sd</code> as arguments or <code>mean</code> and <code>Sigma</code> as arguments.</p>
@@ -1022,12 +1022,15 @@ It would not be good practice to have <code>mu</code> and <code>sd</code> as arg
 <p>Make a case for why <code>norm_r()</code>, <code>norm_d()</code> etc would be better than <code>rnorm()</code>, <code>dnorm()</code>. Make a case for the opposite.</p>
 </div>
 <div class="answer">
-<p>If named <code>norm_r</code> and <code>norm_d</code>, it groups the family of functions related to
-the normal distribution. If named <code>rnorm</code>, and <code>dnorm</code>, functions related to
-are grouped into families by the action they perform. <code>r*</code> functions always
-sample from distributions: <code>rnorm</code>, <code>rbinom</code>, <code>runif</code>, <code>rexp</code>. <code>d*</code> functions
-calculate the probability density or mass of a distribution: <code>dnorm</code>, <code>dbinom</code>,
-<code>dunif</code>, <code>dexp</code>.</p>
+<p>If named <code>norm_r()</code> and <code>norm_d()</code>, the naming convention groups functions by their
+distribution.</p>
+<p>If named <code>rnorm()</code>, and <code>dnorm()</code>, the naming convention groups functions
+by the action they perform.</p>
+<ul>
+<li><code>r*</code> functions always sample from distributions: <code>rnorm()</code>, <code>rbinom()</code>, <code>runif()</code>, <code>rexp()</code></li>
+<li><code>d*</code> functions calculate the probability density or mass of a distribution: <code>dnorm()</code>, <code>dbinom()</code>,
+<code>dunif()</code>, <code>dexp()</code>.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1039,7 +1042,7 @@ calculate the probability density or mass of a distribution: <code>dnorm</code>,
 <p>What’s the difference between <code>if</code> and <code>ifelse()</code>? &gt; Carefully read the help and construct three examples that illustrate the key differences.</p>
 </div>
 <div class="answer">
-<p>The keyword <code>if</code> tests a single condition, while <code>ifelse</code> tests each element.</p>
+<p>The keyword <code>if</code> tests a single condition, while <code>ifelse()</code> tests each element.</p>
 </div>
 </div>
 <div id="exercise-19.4.2" class="section level3 unnumbered exercise">
@@ -1073,7 +1076,7 @@ calculate the probability density or mass of a distribution: <code>dnorm</code>,
 <div id="exercise-19.4.3" class="section level3 unnumbered exercise">
 <h3>Exercise <span class="exercise-number">19.4.3</span></h3>
 <div class="question">
-<p>Implement a <code>fizzbuzz</code> function. It takes a single number as input. If the
+<p>Implement a <code>fizzbuzz()</code> function. It takes a single number as input. If the
 number is divisible by three, it returns “fizz”. If it’s divisible by five it
 returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”.
 Otherwise, it returns the number. Make sure you first write working code before
@@ -1227,19 +1230,19 @@ and no other unnamed default value is present, this code will return <code>NULL<
 <p>What does <code>commas(letters, collapse = &quot;-&quot;)</code> do? Why?</p>
 </div>
 <div class="answer">
-<p>The <code>commas</code> function in the chapter is defined as</p>
+<p>The <code>commas()</code> function in the chapter is defined as</p>
 <div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" data-line-number="1">commas &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
 <a class="sourceLine" id="cb433-2" data-line-number="2">  stringr<span class="op">::</span><span class="kw">str_c</span>(..., <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</a>
 <a class="sourceLine" id="cb433-3" data-line-number="3">}</a></code></pre></div>
 <p>When <code>commas()</code> is given a collapse argument, it throws an error.</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" data-line-number="1"><span class="kw">commas</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>)</a>
 <a class="sourceLine" id="cb434-2" data-line-number="2"><span class="co">#&gt; Error in stringr::str_c(..., collapse = &quot;, &quot;): formal argument &quot;collapse&quot; matched by multiple actual arguments</span></a></code></pre></div>
-<p>This is because when the argument <code>collapse</code> is given to <code>commas</code>, it
-is passed to <code>str_c</code> as part of <code>...</code>.
+<p>This is because when the argument <code>collapse</code> is given to <code>commas()</code>, it
+is passed to <code>str_c()</code> as part of <code>...</code>.
 In other words, the previous code is equivalent to</p>
 <div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" data-line-number="1"><span class="kw">str_c</span>(letters, <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</a></code></pre></div>
 <p>However, it is an error to give the same named argument to a function twice.</p>
-<p>One way to allow the user to override the separator in <code>commas</code> is to add a <code>collapse</code>
+<p>One way to allow the user to override the separator in <code>commas()</code> is to add a <code>collapse</code>
 argument to the function.</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" data-line-number="1">commas &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>) {</a>
 <a class="sourceLine" id="cb436-2" data-line-number="2">  stringr<span class="op">::</span><span class="kw">str_c</span>(..., <span class="dt">collapse =</span> collapse)</a>
@@ -1262,7 +1265,7 @@ Why doesn’t this currently work? How could you fix it?</p>
 <div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" data-line-number="1"><span class="kw">rule</span>(<span class="st">&quot;Important output&quot;</span>)</a>
 <a class="sourceLine" id="cb438-2" data-line-number="2"><span class="co">#&gt; Important output ------------------------------------------------------</span></a></code></pre></div>
 <p>You can currently supply multiple characters to the <code>pad</code> argument, but the output is
-will not be the desired width. The <code>rule()</code> duplicates <code>pad</code> a number of times
+will not be the desired width. The <code>rule()</code> function duplicates <code>pad</code> a number of times
 equal to the desired width minus the length of the title and five extra characters.
 This implicitly assumes that <code>pad</code> is only one character. If <code>pad</code> were two character,
 the output will be almost twice as long.</p>
@@ -1273,7 +1276,7 @@ and <code>stringr::str_length()</code> to calculate the number of characters in 
 <div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" data-line-number="1">rule &lt;-<span class="st"> </span><span class="cf">function</span>(..., <span class="dt">pad =</span> <span class="st">&quot;-&quot;</span>) {</a>
 <a class="sourceLine" id="cb440-2" data-line-number="2">  title &lt;-<span class="st"> </span><span class="kw">paste0</span>(...)</a>
 <a class="sourceLine" id="cb440-3" data-line-number="3">  width &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;width&quot;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">nchar</span>(title) <span class="op">-</span><span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb440-4" data-line-number="4">  padding &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_dup</span>(pad, </a>
+<a class="sourceLine" id="cb440-4" data-line-number="4">  padding &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_dup</span>(pad,</a>
 <a class="sourceLine" id="cb440-5" data-line-number="5">                              <span class="kw">ceiling</span>(width <span class="op">/</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_length</span>(title))) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb440-6" data-line-number="6"><span class="st">    </span>stringr<span class="op">::</span><span class="kw">str_trunc</span>(width)</a>
 <a class="sourceLine" id="cb440-7" data-line-number="7">  <span class="kw">cat</span>(title, <span class="st">&quot; &quot;</span>, padding, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</a>

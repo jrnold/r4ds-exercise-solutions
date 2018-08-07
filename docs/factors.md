@@ -399,7 +399,7 @@ How could you collapse `rincome` into a small set of categories?
 
 <div class="answer">
 
-Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we wouldn't want to use something like `fct_lump`.
+Group all the non-responses into one category, and then group other categories into a smaller number. Since there is a clear ordering, we would not use `fct_lump()`.`
 
 ```r
 levels(gss_cat$rincome)

@@ -865,7 +865,7 @@ How can you see this information when you run <code>mpg</code>?</p>
 <a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; 5 audi         a4      2.8  1999     6 auto… f        16    26 p     comp…</span></a>
 <a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; 6 audi         a4      2.8  1999     6 manu… f        18    26 p     comp…</span></a>
 <a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; # ... with 228 more rows</span></a></code></pre></div>
-<p>Alternatively, the <code>glimpse</code> function displays the type of each column:</p>
+<p>Alternatively, <code>glimpse()</code> displays the type of each column:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">glimpse</span>(mpg)</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; Observations: 234</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; Variables: 11</span></a>
@@ -1059,8 +1059,8 @@ visually distinct.</p>
 </div>
 <div class="answer">
 <p>The arguments <code>nrow</code> (<code>ncol</code>) determines the number of rows (columns) to use when laying out the facets.
-It is necessary since <code>facet_wrap</code> only facets on one variable.
-These arguments are unnecessary for <code>facet_grid</code> since the number of rows and columns are determined by the number of unique values of the variables specified.</p>
+It is necessary since <code>facet_wrap()</code> only facets on one variable.
+These arguments are unnecessary for <code>facet_grid()</code> since the number of rows and columns are determined by the number of unique values of the variables specified.</p>
 </div>
 </div>
 <div id="exercise-3.5.6" class="section level3 unnumbered exercise">
@@ -1179,7 +1179,7 @@ In that example, the legend isn’t necessary since looking up the values associ
 <p>Will these two graphs look different? Why/why not?</p>
 </div>
 <div class="answer">
-<p>No. Because both <code>geom_point</code> and <code>geom_smooth</code> use the same data and mappings. They will inherit those options from the <code>ggplot</code> object, and thus don’t need to specified again (or twice).</p>
+<p>No. Because both <code>geom_point()</code> and <code>geom_smooth()</code> use the same data and mappings. They will inherit those options from the <code>ggplot()</code> object, and thus don’t need to specified again (or twice).</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb33-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb33-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a>
@@ -1238,8 +1238,8 @@ In that example, the legend isn’t necessary since looking up the values associ
 <p>What is the default geom associated with <code>stat_summary()</code>? How could you rewrite the previous plot to use that geom function instead of the stat function?</p>
 </div>
 <div class="answer">
-<p>The default geom for <a href="http://docs.ggplot2.org/current/stat_summary.html"><code>stat_summary</code></a> is <code>geom_pointrange</code> (see the <code>stat</code>) argument.</p>
-<p>But, the default <code>stat</code> for <a href="http://docs.ggplot2.org/current/geom_linerange.html"><code>geom_pointrange</code></a> is <code>identity</code>, so use <code>geom_pointrange(stat = &quot;summary&quot;)</code>.</p>
+<p>The default geom for <a href="http://docs.ggplot2.org/current/stat_summary.html"><code>stat_summary()</code></a> is <code>geom_pointrange()</code> (see the <code>stat</code>) argument.</p>
+<p>But, the default <code>stat</code> for <a href="http://docs.ggplot2.org/current/geom_linerange.html"><code>geom_pointrange()</code></a> is <code>identity()</code>, so use <code>geom_pointrange(stat = &quot;summary&quot;)</code>.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
 <a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_pointrange</span>(</a>
 <a class="sourceLine" id="cb41-3" data-line-number="3">    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> depth),</a>
@@ -1247,7 +1247,7 @@ In that example, the legend isn’t necessary since looking up the values associ
 <a class="sourceLine" id="cb41-5" data-line-number="5">  )</a>
 <a class="sourceLine" id="cb41-6" data-line-number="6"><span class="co">#&gt; No summary function supplied, defaulting to `mean_se()</span></a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>The default message says that <code>stat_summary</code> uses the <code>mean</code> and <code>sd</code> to calculate the point, and range of the line. So lets use the previous values of <code>fun.ymin</code>, <code>fun.ymax</code>, and <code>fun.y</code>:</p>
+<p>The default message says that <code>stat_summary()</code> uses the <code>mean</code> and <code>sd</code> to calculate the point, and range of the line. So lets use the previous values of <code>fun.ymin</code>, <code>fun.ymax</code>, and <code>fun.y</code>:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
 <a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_pointrange</span>(</a>
 <a class="sourceLine" id="cb42-3" data-line-number="3">    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> depth),</a>
@@ -1265,8 +1265,8 @@ In that example, the legend isn’t necessary since looking up the values associ
 <p>What does <code>geom_col()</code> do? How is it different to <code>geom_bar()</code>?</p>
 </div>
 <div class="answer">
-<p><code>geom_col</code> differs from <code>geom_bar</code> in its default stat. <code>geom_col</code> has uses the <code>identity</code> stat. So it expects that a variable already exists for the height of the bars.
-<code>geom_bar</code> uses the <code>count</code> stat, and so will count observations in groups in order to generate the variable to use for the height of the bars.</p>
+<p>The <code>geom_col()</code> function has different default than <code>geom_bar()</code>.
+The default stat of <code>geom_col() is</code>identity()<code>stat. This means that</code>geom_col()<code>expects that the data is already preprocessed into</code>x<code>values and</code>y<code>values representing the bar height. The defult stat of</code>geom_bar()<code>is</code>count()<code>. This means that</code>geom_bar()<code>expects the</code>x<code>variable to contain multiple observations for each values, and it will handle counting the number of observations for each value of</code>x` in order to create the bar heights.ß</p>
 </div>
 </div>
 <div id="exercise-3.7.3." class="section level3 unnumbered exercise">
@@ -1286,7 +1286,7 @@ What do they have in common?</p>
 <p>What variables does <code>stat_smooth()</code> compute? What parameters control its behavior?</p>
 </div>
 <div class="answer">
-<p><code>stat_smooth</code> calculates</p>
+<p>The function <code>stat_smooth()</code> calculates the following statistics:</p>
 <ul>
 <li><code>y</code>: predicted value</li>
 <li><code>ymin</code>: lower value of the confidence interval</li>
@@ -1304,7 +1304,7 @@ In other words what is the problem with these two graphs?</p>
 </div>
 <div class="answer">
 <p>If <code>group</code> is not set to 1, then all the bars have <code>prop == 1</code>.
-The function <code>geom_bar</code> assumes that the groups are equal to the <code>x</code> values, since the stat computes the counts within the group.</p>
+The function <code>geom_bar()</code> assumes that the groups are equal to the <code>x</code> values, since the stat computes the counts within the group.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span></a>
 <a class="sourceLine" id="cb43-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> ..prop..))</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
@@ -1410,8 +1410,8 @@ of the data scientist.</p>
 <p>What’s the default position adjustment for <code>geom_boxplot()</code>? Create a visualization of the mpg dataset that demonstrates it.</p>
 </div>
 <div class="answer">
-<p>The default position for <code>geom_boxplot</code> is <code>position_dodge</code> (see its <a href="http://docs.ggplot2.org/current/geom_boxplot.html">docs</a>).</p>
-<p>When we add <code>colour = class</code> to the box plot, the different classes within <code>drv</code> are placed side by side, i.e. dodged. If it was <code>position_identity</code>, they would be overlapping.</p>
+<p>The default position for <code>geom_boxplot()</code> is <code>position_dodge()</code> (see its <a href="http://docs.ggplot2.org/current/geom_boxplot.html">docs</a>).</p>
+<p>When we add <code>colour = class</code> to the box plot, the different classes within <code>drv</code> are placed side by side, i.e. dodged. If it was <code>position_identity()</code>, they would be overlapping.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="kw">aes</span>(<span class="dt">x =</span> drv, <span class="dt">y =</span> hwy, <span class="dt">colour =</span> class)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb56-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="visualize_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" /></p>
