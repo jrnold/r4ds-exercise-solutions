@@ -9,49 +9,10 @@ The R packages used in this book can be installed via
 devtools::install_github("jrnold/r4ds-exercise-solutions")
 ```
 
+## Contributing
+
+Please note that the 'R4DSSolutions' project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+
 ## Build
 
-The site is built using the [bookdown](https://bookdown.org/yihui/bookdown/) package.
-pandoc
-
-For development and testing, this project uses several scripts and Node packages installed.
-
-To install necessary Node packages,
-```console
-$ npm install
-```
-
-To check spelling
-```console
-$ Rscript ./bin/check-spelling.R
-```
-
-To lint R code (broken for most pages with the latest version of the **lintr** package) run
-```console
-$ Rscript ./bin/check-r.R
-```
-
-To check the markdown for style and issues (using `remark`) run
-```console
-$ ./bin/check-markdown.sh
-```
-
-To check for broken links. Serve the site locally and then run
-```console
-$ ./bin/check-links.sh $URL
-```
-
-To check the generated HTML files for any problems run
-```console
-$ ./bin/check-html.sh
-```
-
-To render both PDF and HTML versions of the book,
-```console
-$ ./bin/render.R
-```
-
-To locally serve the book
-```console
-$ ./bin/serve.R
-```
+The site is built using the [bookdown](https://bookdown.org/yihui/bookdown/) package and pandoc.
