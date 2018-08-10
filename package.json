@@ -4,9 +4,9 @@
   "description": "Node dev dependencies for R for Data Science Solutions",
   "scripts": {
     "test-html": "htmlhint docs/**/*.html",
-    "test-links": "bin/test-links",
+    "test-links": "blc -ro --exclude \"*jstor*\"",
     "test-markdown": "remark --frail *.Rmd rmarkdown/*.Rmd NEWS.md README.md",
-    "test": "concurrently \"npm:test-*\""
+    "test": "concurrently npm:test-html \"npm:test-links https://jrnold.github.io/r4ds-exercise-solutions\" npm:test-markdown"
   },
   "repository": {
     "type": "git",
