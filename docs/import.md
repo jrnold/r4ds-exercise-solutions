@@ -399,7 +399,7 @@ For more information on character encodings see the following sources.
 
 -   The Wikipedia page [Character encoding](https://en.wikipedia.org/wiki/Character_encoding), has a good list of encodings.
 -   Unicode [CLDR](http://cldr.unicode.org/) project
--   [What is the most common encoding of each language](http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language) (Stack Overflow)
+-   [What is the most common encoding of each language](https://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language) (Stack Overflow)
 -   "What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text", <http://kunststube.net/encoding/>.
 
 Programs that identify the encoding of text include
@@ -466,3 +466,5 @@ No exercises
 ## Other Types of Data
 
 No code
+
+</div><!-- close unclosed div -->
