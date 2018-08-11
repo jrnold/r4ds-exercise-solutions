@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/jrnold/r4ds-exercise-solutions.svg?branch=master)](https://travis-ci.org/jrnold/r4ds-exercise-solutions)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 # Exercise Solutions to R for Data Science
 

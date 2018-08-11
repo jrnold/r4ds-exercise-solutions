@@ -135,9 +135,14 @@ title: "Hadley Wickham"
 ## Education
 
 -   Ph.D. in Statistics, Iowa State University, Ames, IA,  **2008**
+
 -   M.Sc. in Statistics, University of Auckland, New Zealand, **2004**
--   B.Sc. in Statistics and Computer Science, First Class Honours, The University of Auckland, New Zealand, **2002**.
--   Bachelor of Human Biology, First Class Honours, The University of Auckland, Auckland, New Zealand, **1999**.
+
+-   B.Sc. in Statistics and Computer Science, First Class Honours, The 
+    University of Auckland, New Zealand, **2002**.
+
+-   Bachelor of Human Biology, First Class Honours, The University of Auckland, 
+    Auckland, New Zealand, **1999**.
 ```
 
 Your own example could be much more detailed.
@@ -226,31 +231,41 @@ comma <- function(x) {
 
 ## Size and Cut, Color, and Clarity
 
-Diamonds with lower quality cuts (cuts are ranked from "Ideal" to "Fair") tend to be be larger.
+Diamonds with lower quality cuts (cuts are ranked from "Ideal" to "Fair") tend 
+to be be larger.
 ```{r}
 ggplot(diamonds, aes(y = carat, x = cut)) +
   geom_boxplot()
 ```
-Likewise, diamonds with worse color (diamond colors are ranked from J (worst) to D (best)) tend to be larger:
+Likewise, diamonds with worse color (diamond colors are ranked from J (worst)
+to D (best)) tend to be larger:
+
 ```{r}
 ggplot(diamonds, aes(y = carat, x = color)) +
   geom_boxplot()
 ```
-The pattern present in cut and color is also present in clarity.
-Diamonds with worse clarity  (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best)) tend to be larger:
+
+The pattern present in cut and color is also present in clarity. Diamonds with 
+worse clarity  (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best)) tend to
+be larger:
+
 ```{r}
 ggplot(diamonds, aes(y = carat, x = clarity)) +
   geom_boxplot()
 ```
-These patterns are consistent with there being a profitability threshold for retail diamonds that is a function of carat, clarity, color, cut and other characteristics.
-A diamond may be profitable to sell if a poor value of one feature, for example, poor clarity, color, or cut, is be offset by a good value of another feature, such as a large size.
+
+These patterns are consistent with there being a profitability threshold for 
+retail diamonds that is a function of carat, clarity, color, cut and other 
+characteristics. A diamond may be profitable to sell if a poor value of one
+feature, for example, poor clarity, color, or cut, is be offset by a good value
+of another feature, such as a large size. This can be considered an example
+of [Berkson's paradox](https://en.wikipedia.org/wiki/Berkson%27s_paradox).
 
 ## Largest Diamonds
 
 We have data about `r comma(nrow(diamonds))` diamonds. Only
-`r n_larger` (`r round(nrow(smaller) / nrow(smaller) * 100, 1)`%) are larger than
-2.5 carats. The distribution of the remainder is shown
-below:
+`r n_larger` (`r round(pct_larger, 1)`%) are larger
+than 2.5 carats. The distribution of the remainder is shown below:
 
 ```{r}
 smaller %>%
@@ -259,7 +274,8 @@ smaller %>%
 ```
 
 The frequency distribution of diamond sizes is marked by spikes at
-whole-number and half-carat values, as well as several other carat values corresponding to fractions.
+whole-number and half-carat values, as well as several other carat values
+corresponding to fractions.
 
 The largest twenty diamonds (by carat) in the datasets are,
 
@@ -273,9 +289,12 @@ diamonds %>%
   )
 ```
 
-Most of the twenty largest datasets are in the lowest clarity category ("I1"), with one being in the second best category ("VVS2")
-The top twenty diamonds have colors ranging from the worst, "J", to best, "D", categories, though most are in the lower categories "J" and "I".
-The top twenty diamonds are more evenly distributed among the cut categories, from "Fair" to "Ideal", although the worst category (Fair) is the most common.
+Most of the twenty largest datasets are in the lowest clarity category ("I1"),
+with one being in the second best category ("VVS2") The top twenty diamonds 
+have colors ranging from the worst, "J", to best, "D",categories, though most
+are in the lower categories "J" and "I". The top twenty diamonds are more evenly
+distributed among the cut categories, from "Fair" to "Ideal", although the worst
+category (Fair) is the most common.
 ````
 
 </div>
@@ -373,8 +392,9 @@ print(lubridate::now())
 w <- y + z
 ```
 
-If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
-and the same as the first time the document was run with caching.
+If this document is knit repeatedly, the value  printed by `lubridate::now()` 
+will be the same for all chunks, and the same as the first time the document
+was run with caching.
 ````
 
 </div>

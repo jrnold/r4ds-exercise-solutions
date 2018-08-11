@@ -46,10 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
-<script src="libs/viz-0.3/viz.js"></script>
-<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.0/grViz.js"></script>
 
 
 <style type="text/css">
@@ -873,11 +869,15 @@ In this code, I use <code>spread_residuals()</code> to add one <em>column</em> p
 <p>Using overall model comparison terms, <code>mod4</code> has a lower <span class="math inline">\(R^2\)</span> and regression standard error, <span class="math inline">\(\hat\sigma\)</span>, despite using fewer variables.
 More importantly for prediction purposes, it has a higher AIC - which is an estimate of the out of sample error.</p>
 <div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb608-1" data-line-number="1"><span class="kw">glance</span>(mod4) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(r.squared, sigma, AIC, df)</a>
-<a class="sourceLine" id="cb608-2" data-line-number="2"><span class="co">#&gt;   r.squared sigma  AIC df</span></a>
-<a class="sourceLine" id="cb608-3" data-line-number="3"><span class="co">#&gt; 1     0.736  47.4 3863  9</span></a></code></pre></div>
+<a class="sourceLine" id="cb608-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 4</span></a>
+<a class="sourceLine" id="cb608-3" data-line-number="3"><span class="co">#&gt;   r.squared sigma   AIC    df</span></a>
+<a class="sourceLine" id="cb608-4" data-line-number="4"><span class="co">#&gt; *     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb608-5" data-line-number="5"><span class="co">#&gt; 1     0.736  47.4 3863.     9</span></a></code></pre></div>
 <div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb609-1" data-line-number="1"><span class="kw">glance</span>(mod2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(r.squared, sigma, AIC, df)</a>
-<a class="sourceLine" id="cb609-2" data-line-number="2"><span class="co">#&gt;   r.squared sigma  AIC df</span></a>
-<a class="sourceLine" id="cb609-3" data-line-number="3"><span class="co">#&gt; 1     0.757  46.2 3856 21</span></a></code></pre></div>
+<a class="sourceLine" id="cb609-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 4</span></a>
+<a class="sourceLine" id="cb609-3" data-line-number="3"><span class="co">#&gt;   r.squared sigma   AIC    df</span></a>
+<a class="sourceLine" id="cb609-4" data-line-number="4"><span class="co">#&gt; *     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb609-5" data-line-number="5"><span class="co">#&gt; 1     0.757  46.2 3856.    21</span></a></code></pre></div>
 </div>
 </div>
 <div id="exercise-24.3.4" class="section level3 unnumbered exercise">

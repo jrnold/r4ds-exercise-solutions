@@ -46,10 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
-<script src="libs/viz-0.3/viz.js"></script>
-<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.0/grViz.js"></script>
 
 
 <style type="text/css">
@@ -1012,24 +1008,20 @@ How does this compare to using <code>coord_flip()</code>?</p>
 One approach to remedy this problem is the letter value plot.
 Install the <strong>lvplot</strong> package, and try using <code>geom_lv()</code> to display the distribution of price vs cut.
 What do you learn?</p>
+<p>How do you interpret the plots?</p>
 </div>
 <div class="answer">
-<p>How do you interpret the plots?</p>
-<p>The boxes of the letter-value plot correspond to many more quantiles.
-They are useful for larger datasets because</p>
+<p>Like box-plots, the boxes of the letter-value plot correspond to quantiles. However, they incorporate
+far more quantiles than box-plots. They are useful for larger datasets because,</p>
 <ol style="list-style-type: decimal">
 <li>larger datasets can give precise estimates of quantiles beyond the quartiles, and</li>
 <li>in expectation, larger datasets should have more outliers (in absolute numbers).</li>
 </ol>
-<p>The letter-value plot is described in:</p>
-<blockquote>
-<p>Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011.
-“Letter-value plots: Boxplots for large data” <a href="http://vita.had.co.nz/papers/letter-value-plot.pdf" class="uri">http://vita.had.co.nz/papers/letter-value-plot.pdf</a></p>
-</blockquote>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;lvplot&quot;</span>)</a>
 <a class="sourceLine" id="cb162-2" data-line-number="2"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> price)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb162-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_lv</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The letter-value plot is described in <span class="citation">Hofmann, Wickham, and Kafadar (<a href="#ref-HofmannWickhamKafadar2017">2017</a>)</span>.</p>
 </div>
 </div>
 <div id="exercise-7.5.1.5" class="section level4 unnumbered exercise">
@@ -1062,10 +1054,7 @@ smoothness of the distribution.</p>
 <a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb165-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>The violin plot was first described in</p>
-<blockquote>
-<p>Hintze JL, Nelson RD (1998). “Violin Plots: A Box Plot-Density Trace Synergism.” The American Statistician, 52(2), 181–184</p>
-</blockquote>
+<p>The violin plot was first described in <span class="citation">Hintze and Nelson (<a href="#ref-HintzeNelson1998">1998</a>)</span>.</p>
 </div>
 </div>
 <div id="exercise-7.5.1.6" class="section level4 unnumbered exercise">
@@ -1285,7 +1274,26 @@ Here are a few options that I tried.</p>
 <div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb181-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_hex</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb181-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb181-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_viridis</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb181-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_viridis</span>()</a>
+<a class="sourceLine" id="cb181-5" data-line-number="5"><span class="co">#&gt; Warning: Computation failed in `stat_binhex()`:</span></a>
+<a class="sourceLine" id="cb181-6" data-line-number="6"><span class="co">#&gt; Package `hexbin` required for `stat_binhex`.</span></a>
+<a class="sourceLine" id="cb181-7" data-line-number="7"><span class="co">#&gt; Please install and try again.</span></a>
+<a class="sourceLine" id="cb181-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb181-9" data-line-number="9"><span class="co">#&gt; Warning: Computation failed in `stat_binhex()`:</span></a>
+<a class="sourceLine" id="cb181-10" data-line-number="10"><span class="co">#&gt; Package `hexbin` required for `stat_binhex`.</span></a>
+<a class="sourceLine" id="cb181-11" data-line-number="11"><span class="co">#&gt; Please install and try again.</span></a>
+<a class="sourceLine" id="cb181-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb181-13" data-line-number="13"><span class="co">#&gt; Warning: Computation failed in `stat_binhex()`:</span></a>
+<a class="sourceLine" id="cb181-14" data-line-number="14"><span class="co">#&gt; Package `hexbin` required for `stat_binhex`.</span></a>
+<a class="sourceLine" id="cb181-15" data-line-number="15"><span class="co">#&gt; Please install and try again.</span></a>
+<a class="sourceLine" id="cb181-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb181-17" data-line-number="17"><span class="co">#&gt; Warning: Computation failed in `stat_binhex()`:</span></a>
+<a class="sourceLine" id="cb181-18" data-line-number="18"><span class="co">#&gt; Package `hexbin` required for `stat_binhex`.</span></a>
+<a class="sourceLine" id="cb181-19" data-line-number="19"><span class="co">#&gt; Please install and try again.</span></a>
+<a class="sourceLine" id="cb181-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb181-21" data-line-number="21"><span class="co">#&gt; Warning: Computation failed in `stat_binhex()`:</span></a>
+<a class="sourceLine" id="cb181-22" data-line-number="22"><span class="co">#&gt; Package `hexbin` required for `stat_binhex`.</span></a>
+<a class="sourceLine" id="cb181-23" data-line-number="23"><span class="co">#&gt; Please install and try again.</span></a></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">cut_number</span>(carat, <span class="dv">5</span>), <span class="dt">y =</span> price, <span class="dt">colour =</span> cut)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb182-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
@@ -1326,6 +1334,15 @@ A binned plot would not reveal these outliers, and may lead us to conclude that 
 <h2><span class="header-section-number">7.8</span> Learning more</h2>
 <p>No exercises.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-HofmannWickhamKafadar2017">
+<p>Hofmann, Heike, Hadley Wickham, and Karen Kafadar. 2017. “Letter-Value Plots: Boxplots for Large Data.” <em>Journal of Computational and Graphical Statistics</em> 26 (3). Taylor &amp; Francis: 469–77. <a href="https://doi.org/10.1080/10618600.2017.1305277" class="uri">https://doi.org/10.1080/10618600.2017.1305277</a>.</p>
+</div>
+<div id="ref-HintzeNelson1998">
+<p>Hintze, Jerry L., and Ray D. Nelson. 1998. “Violin Plots: A Box Plot-Density Trace Synergism.” <em>The American Statistician</em> 52 (2). Taylor &amp; Francis: 181–84. <a href="https://doi.org/10.1080/00031305.1998.10480559" class="uri">https://doi.org/10.1080/00031305.1998.10480559</a>.</p>
 </div>
 </div>
             </section>

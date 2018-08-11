@@ -65,7 +65,7 @@ dplyr::near
 #> {
 #>     abs(x - y) < tol
 #> }
-#> <bytecode: 0x7fdc4f3e9d68>
+#> <bytecode: 0x564e2380e908>
 #> <environment: namespace:dplyr>
 ```
 
@@ -761,7 +761,6 @@ For these examples, I generated these diagrams programmatically using the
 
 
     
-    \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_1-1} 
 
 1.  The nested set diagram for
     `list(list(list(list(list(list(a))))))1`
@@ -770,7 +769,6 @@ For these examples, I generated these diagrams programmatically using the
 
 
     
-    \begin{center}\includegraphics[width=0.7\linewidth]{vectors_files/figure-latex/nested_set_2-1} 
 
 </div>
 

@@ -223,14 +223,18 @@ More importantly for prediction purposes, it has a higher AIC - which is an esti
 
 ```r
 glance(mod4) %>% select(r.squared, sigma, AIC, df)
-#>   r.squared sigma  AIC df
-#> 1     0.736  47.4 3863  9
+#> # A tibble: 1 x 4
+#>   r.squared sigma   AIC    df
+#> *     <dbl> <dbl> <dbl> <int>
+#> 1     0.736  47.4 3863.     9
 ```
 
 ```r
 glance(mod2) %>% select(r.squared, sigma, AIC, df)
-#>   r.squared sigma  AIC df
-#> 1     0.757  46.2 3856 21
+#> # A tibble: 1 x 4
+#>   r.squared sigma   AIC    df
+#> *     <dbl> <dbl> <dbl> <int>
+#> 1     0.757  46.2 3856.    21
 ```
 
 </div>
