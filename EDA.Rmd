@@ -346,27 +346,25 @@ One approach to remedy this problem is the letter value plot.
 Install the **lvplot** package, and try using `geom_lv()` to display the distribution of price vs cut.
 What do you learn?
 
+How do you interpret the plots?
 </div>
 
 <div class="answer">
-How do you interpret the plots?
 
-The boxes of the letter-value plot correspond to many more quantiles.
-They are useful for larger datasets because
+Like box-plots, the boxes of the letter-value plot correspond to quantiles. However, they incorporate 
+far more quantiles than box-plots. They are useful for larger datasets because,
 
 1.  larger datasets can give precise estimates of quantiles beyond the quartiles, and
 1.  in expectation, larger datasets should have more outliers (in absolute numbers).
-
-The letter-value plot is described in:
-
-> Heike Hofmann, Karen Kafadar, and Hadley Wickham. 2011.
-> "Letter-value plots: Boxplots for large data" <http://vita.had.co.nz/papers/letter-value-plot.pdf>
 
 ```{r}
 library("lvplot")
 ggplot(diamonds, aes(x = cut, y = price)) +
   geom_lv()
 ```
+
+The letter-value plot is described in @HofmanKafadarWickham2017.
+
 </div>
 
 #### Exercise <span class="exercise-number">7.5.1.5</span> {.unnumbered .exercise}
@@ -407,9 +405,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
   coord_flip()
 ```
 
-The violin plot was first described in
-
-> Hintze JL, Nelson RD (1998). "Violin Plots: A Box Plot-Density Trace Synergism." The American Statistician, 52(2), 181–184
+The violin plot was first described in @HintzeNelson1998.
 
 </div>
 
