@@ -46,10 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
-<script src="libs/viz-0.3/viz.js"></script>
-<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.0/grViz.js"></script>
 
 
 <style type="text/css">
@@ -337,12 +333,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="data-import.html#exercise-11.3.3">Exercise <span class="exercise-number">11.3.3</span></a></li>
 <li><a href="data-import.html#exercise-11.3.4">Exercise <span class="exercise-number">11.3.4</span></a></li>
 <li><a href="data-import.html#exercise-11.3.5">Exercise <span class="exercise-number">11.3.5</span></a></li>
-<li><a href="data-import.html#exercise-11.3.6">Exercise <span class="exercise-number">11.3.6</span></a></li>
-<li><a href="data-import.html#exercise-11.3.7">Exercise <span class="exercise-number">11.3.7</span></a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="data-import.html"><a href="data-import.html#parsing-a-file"><i class="fa fa-check"></i><b>11.4</b> Parsing a file</a></li>
-<li class="chapter" data-level="11.5" data-path="data-import.html"><a href="data-import.html#writing-to-a-file"><i class="fa fa-check"></i><b>11.5</b> Writing to a file</a></li>
-<li class="chapter" data-level="11.6" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>11.6</b> Other Types of Data</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>12</b> Tidy Data</a><ul>
 <li class="chapter" data-level="12.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-7"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
@@ -812,9 +803,14 @@ title: &quot;Hadley Wickham&quot;
 ## Education
 
 -   Ph.D. in Statistics, Iowa State University, Ames, IA,  **2008**
+
 -   M.Sc. in Statistics, University of Auckland, New Zealand, **2004**
--   B.Sc. in Statistics and Computer Science, First Class Honours, The University of Auckland, New Zealand, **2002**.
--   Bachelor of Human Biology, First Class Honours, The University of Auckland, Auckland, New Zealand, **1999**.</code></pre>
+
+-   B.Sc. in Statistics and Computer Science, First Class Honours, The 
+    University of Auckland, New Zealand, **2002**.
+
+-   Bachelor of Human Biology, First Class Honours, The University of Auckland, 
+    Auckland, New Zealand, **1999**.</code></pre>
 <p>Your own example could be much more detailed.</p>
 </div>
 </div>
@@ -888,31 +884,41 @@ comma &lt;- function(x) {
 
 ## Size and Cut, Color, and Clarity
 
-Diamonds with lower quality cuts (cuts are ranked from &quot;Ideal&quot; to &quot;Fair&quot;) tend to be be larger.
+Diamonds with lower quality cuts (cuts are ranked from &quot;Ideal&quot; to &quot;Fair&quot;) tend 
+to be be larger.
 ```{r}
 ggplot(diamonds, aes(y = carat, x = cut)) +
   geom_boxplot()
 ```
-Likewise, diamonds with worse color (diamond colors are ranked from J (worst) to D (best)) tend to be larger:
+Likewise, diamonds with worse color (diamond colors are ranked from J (worst)
+to D (best)) tend to be larger:
+
 ```{r}
 ggplot(diamonds, aes(y = carat, x = color)) +
   geom_boxplot()
 ```
-The pattern present in cut and color is also present in clarity.
-Diamonds with worse clarity  (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best)) tend to be larger:
+
+The pattern present in cut and color is also present in clarity. Diamonds with 
+worse clarity  (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best)) tend to
+be larger:
+
 ```{r}
 ggplot(diamonds, aes(y = carat, x = clarity)) +
   geom_boxplot()
 ```
-These patterns are consistent with there being a profitability threshold for retail diamonds that is a function of carat, clarity, color, cut and other characteristics.
-A diamond may be profitable to sell if a poor value of one feature, for example, poor clarity, color, or cut, is be offset by a good value of another feature, such as a large size.
+
+These patterns are consistent with there being a profitability threshold for 
+retail diamonds that is a function of carat, clarity, color, cut and other 
+characteristics. A diamond may be profitable to sell if a poor value of one
+feature, for example, poor clarity, color, or cut, is be offset by a good value
+of another feature, such as a large size. This can be considered an example
+of [Berkson&#39;s paradox](https://en.wikipedia.org/wiki/Berkson%27s_paradox).
 
 ## Largest Diamonds
 
 We have data about `r comma(nrow(diamonds))` diamonds. Only
-`r n_larger` (`r round(nrow(smaller) / nrow(smaller) * 100, 1)`%) are larger than
-2.5 carats. The distribution of the remainder is shown
-below:
+`r n_larger` (`r round(pct_larger, 1)`%) are larger
+than 2.5 carats. The distribution of the remainder is shown below:
 
 ```{r}
 smaller %&gt;%
@@ -921,7 +927,8 @@ smaller %&gt;%
 ```
 
 The frequency distribution of diamond sizes is marked by spikes at
-whole-number and half-carat values, as well as several other carat values corresponding to fractions.
+whole-number and half-carat values, as well as several other carat values
+corresponding to fractions.
 
 The largest twenty diamonds (by carat) in the datasets are,
 
@@ -935,9 +942,12 @@ diamonds %&gt;%
   )
 ```
 
-Most of the twenty largest datasets are in the lowest clarity category (&quot;I1&quot;), with one being in the second best category (&quot;VVS2&quot;)
-The top twenty diamonds have colors ranging from the worst, &quot;J&quot;, to best, &quot;D&quot;, categories, though most are in the lower categories &quot;J&quot; and &quot;I&quot;.
-The top twenty diamonds are more evenly distributed among the cut categories, from &quot;Fair&quot; to &quot;Ideal&quot;, although the worst category (Fair) is the most common.</code></pre>
+Most of the twenty largest datasets are in the lowest clarity category (&quot;I1&quot;),
+with one being in the second best category (&quot;VVS2&quot;) The top twenty diamonds 
+have colors ranging from the worst, &quot;J&quot;, to best, &quot;D&quot;,categories, though most
+are in the lower categories &quot;J&quot; and &quot;I&quot;. The top twenty diamonds are more evenly
+distributed among the cut categories, from &quot;Fair&quot; to &quot;Ideal&quot;, although the worst
+category (Fair) is the most common.</code></pre>
 </div>
 </div>
 </div>
@@ -1020,8 +1030,9 @@ print(lubridate::now())
 w &lt;- y + z
 ```
 
-If this document is knit repeatedly, the value  printed by `lubridate::now()` will be the same for all chunks,
-and the same as the first time the document was run with caching.</code></pre>
+If this document is knit repeatedly, the value  printed by `lubridate::now()` 
+will be the same for all chunks, and the same as the first time the document
+was run with caching.</code></pre>
 </div>
 </div>
 </div>

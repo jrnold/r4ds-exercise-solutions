@@ -478,7 +478,7 @@ greet <- function(time = lubridate::now()) {
   }
 }
 greet()
-#> [1] "good afternoon"
+#> [1] "good morning"
 greet(ymd_h("2017-01-08:05"))
 #> [1] "good morning"
 greet(ymd_h("2017-01-08:13"))

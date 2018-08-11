@@ -46,10 +46,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
-<script src="libs/viz-0.3/viz.js"></script>
-<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.0/grViz.js"></script>
 
 
 <style type="text/css">
@@ -337,12 +333,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="data-import.html#exercise-11.3.3">Exercise <span class="exercise-number">11.3.3</span></a></li>
 <li><a href="data-import.html#exercise-11.3.4">Exercise <span class="exercise-number">11.3.4</span></a></li>
 <li><a href="data-import.html#exercise-11.3.5">Exercise <span class="exercise-number">11.3.5</span></a></li>
-<li><a href="data-import.html#exercise-11.3.6">Exercise <span class="exercise-number">11.3.6</span></a></li>
-<li><a href="data-import.html#exercise-11.3.7">Exercise <span class="exercise-number">11.3.7</span></a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="data-import.html"><a href="data-import.html#parsing-a-file"><i class="fa fa-check"></i><b>11.4</b> Parsing a file</a></li>
-<li class="chapter" data-level="11.5" data-path="data-import.html"><a href="data-import.html#writing-to-a-file"><i class="fa fa-check"></i><b>11.5</b> Writing to a file</a></li>
-<li class="chapter" data-level="11.6" data-path="data-import.html"><a href="data-import.html#other-types-of-data"><i class="fa fa-check"></i><b>11.6</b> Other Types of Data</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>12</b> Tidy Data</a><ul>
 <li class="chapter" data-level="12.1" data-path="tidy-data.html"><a href="tidy-data.html#introduction-7"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
@@ -1132,7 +1123,7 @@ The <code>microbenchmark()</code> function will run an R expression a number of 
 <a class="sourceLine" id="cb517-8" data-line-number="8"><span class="kw">microbenchmark</span>(<span class="kw">add_to_vector</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb517-9" data-line-number="9"><span class="co">#&gt; Unit: milliseconds</span></a>
 <a class="sourceLine" id="cb517-10" data-line-number="10"><span class="co">#&gt;                  expr min  lq mean median  uq max neval</span></a>
-<a class="sourceLine" id="cb517-11" data-line-number="11"><span class="co">#&gt;  add_to_vector(10000) 163 163  169    164 173 181     3</span></a></code></pre></div>
+<a class="sourceLine" id="cb517-11" data-line-number="11"><span class="co">#&gt;  add_to_vector(10000) 133 135  153    136 163 189     3</span></a></code></pre></div>
 <p>And one that pre-allocates it.</p>
 <div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb518-1" data-line-number="1">add_to_vector_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
 <a class="sourceLine" id="cb518-2" data-line-number="2">  output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;integer&quot;</span>, n)</a>
@@ -1142,9 +1133,9 @@ The <code>microbenchmark()</code> function will run an R expression a number of 
 <a class="sourceLine" id="cb518-6" data-line-number="6">  output</a>
 <a class="sourceLine" id="cb518-7" data-line-number="7">}</a>
 <a class="sourceLine" id="cb518-8" data-line-number="8"><span class="kw">microbenchmark</span>(<span class="kw">add_to_vector_2</span>(<span class="dv">10000</span>), <span class="dt">times =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb518-9" data-line-number="9"><span class="co">#&gt; Unit: microseconds</span></a>
-<a class="sourceLine" id="cb518-10" data-line-number="10"><span class="co">#&gt;                    expr min  lq mean median   uq  max neval</span></a>
-<a class="sourceLine" id="cb518-11" data-line-number="11"><span class="co">#&gt;  add_to_vector_2(10000) 645 650 2041    655 2740 4825     3</span></a></code></pre></div>
+<a class="sourceLine" id="cb518-9" data-line-number="9"><span class="co">#&gt; Unit: milliseconds</span></a>
+<a class="sourceLine" id="cb518-10" data-line-number="10"><span class="co">#&gt;                    expr  min   lq mean median   uq  max neval</span></a>
+<a class="sourceLine" id="cb518-11" data-line-number="11"><span class="co">#&gt;  add_to_vector_2(10000) 1.04 1.22 2.13   1.41 2.68 3.95     3</span></a></code></pre></div>
 <p>The pre-allocated vector is about <strong>10</strong> times faster!
 You may get different answers, but the longer the vector and the bigger the objects, the more that pre-allocation will outperform appending.</p>
 </div>
