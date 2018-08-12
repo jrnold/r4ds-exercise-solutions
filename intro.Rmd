@@ -5,27 +5,57 @@
 All the credit should go to Garrett Grolemund and Hadley Wickham for writing the truly fantastic *R for Data Science* book,
 without which these solutions would not exist---literally.
 
-This book was written in the open, with some people contributed pull requests to fix problems.
-Thank you to all who contributed via [GitHub](https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors).
-
+These solutions have benefitted from those who fixed problems and contributed 
+solutions. Thank you to all of those who contributed on
+[GitHub](https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors) 
+(in alphabetical order):
 ```{r contributions,echo=FALSE,cache=FALSE,message=FALSE,results='asis'}
-library("dplyr")
-clean_author <- function(x) {
-  if_else(stringr::str_detect(x, "@users\\.noreply\\.github\\.com"),
-          stringr::str_replace(x, "(.*?)@users\\.noreply\\.github\\.com", 
-                               "\\\\@\\1"),
-          stringr::str_c("<", x, ">"))
+# adapted from usethis:::github_repo_spec
+github_repo_spec <- function(path = here::here()) {
+  stringr::str_c(gh::gh_tree_remote(path), collapse = "/")
 }
 
-excluded_authors <- c("jeffrey.arnold@gmail.com")
-contribs <- git2r::contributions(by = "author") %>%
-  filter(!author %in% excluded_authors) %>%
-  mutate(author = clean_author(author)) %>%
-  arrange(author) 
+# copied from usethis:::parse_repo_spec
+parse_repo_spec <- function (repo_spec) {
+    repo_split <- str_split(repo_spec, "/")[[1]]
+    if (length(repo_split) != 2) {
+        stop("`repo_spec` must be of the form 'owner/repo'")
+    }
+    list(owner = repo_split[[1]], repo = repo_split[[2]])
+}
 
-cat("Thanks go to all contributers in alphabetical order: ")
-cat(paste0(contribs$author, collapse = ", "))
-cat(".\n")
+# copied from usethis:::spec_owner
+spec_owner <- function(repo_spec) {
+  parse_repo_spec(repo_spec)$owner
+}
+
+# copied from usethis:::spec_repo
+spec_repo <- function(repo_spec) {
+  parse_repo_spec(repo_spec)$repo
+}
+
+# adapted from from usethis:::use_tidy_thanks
+create_thanks <- function(repo_spec = github_repo_spec(), 
+                          excluded = NULL) {
+  excluded <- excluded %||% spec_owner(repo_spec)
+    res <- gh::gh("/repos/:owner/:repo/issues", 
+                  owner = spec_owner(repo_spec), 
+                  repo = spec_repo(repo_spec), state = "all", 
+                  filter = "all", .limit = Inf)
+    if (identical(res[[1]], "")) {
+        message("No matching issues/PRs found.")
+        return(invisible())
+    }
+    contributors <- purrr::map_chr(res, c("user", "login")) %>%
+      discard(~ .x %in% excluded) %>%
+      unique() %>%
+      sort()
+    contributors <- 
+      glue::glue("[@{contributors}](https://github.com/{contributors})") %>%
+      glue::glue_collapse(sep = ", ", width = Inf, last = ", and")
+    glue::glue("(in alphabetical order) {contributors}.")
+}
+create_thanks()
 ```
 
 ## Organization {-}
