@@ -1,6 +1,8 @@
 #!/usr/bin/env Rscript
 # Script to render book
-
+suppressPackageStartupMessages({
+  library("optparse")
+})
 # From devtools:::git_uncommitted
 git_uncommitted <- function (path = ".") {
   r <- git2r::repository(path, discover = TRUE)
@@ -17,23 +19,33 @@ check_uncommitted <- function(path = ".") {
   }
 }
 
-render <- function(path = here::here(), output_format = "all") {
+render <- function(path = here::here("index.Rmd"),
+                   output_format = "all", force = FALSE) {
   if (rmarkdown::pandoc_version() < 2) {
     stop("This book requires pandoc > 2")
   }
-  check_uncommitted(path)
+  if (!force) {
+    check_uncommitted(path)
+  }
   bookdown::render_book(path, output_format = output_format)
 }
 
 main <- function(args = NULL) {
+  option_list <- list(
+    make_option(c("-f", "--force"), action = "store_true",
+                help = "Render even if there are uncomitted changes.")
+  )
+
   if (is.null(args)) {
     args <- commandArgs(TRUE)
   }
-  output_format <- if (!length(args)) {
+  opts <- parse_args(OptionParser(option_list), args = args)
+  output_format <- if (!length(opts$args)) {
     "all"
   } else {
     args[[1]]
   }
+  print(output_format)
   render(output_format = output_format)
 }
 
