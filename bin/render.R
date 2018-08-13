@@ -3,6 +3,7 @@
 suppressPackageStartupMessages({
   library("optparse")
 })
+
 # From devtools:::git_uncommitted
 git_uncommitted <- function (path = ".") {
   r <- git2r::repository(path, discover = TRUE)
@@ -15,7 +16,8 @@ check_uncommitted <- function(path = ".") {
   if (git_uncommitted(path)) {
     stop(stringr::str_c("Uncommitted files.",
                         "All files should be committed before release.",
-                        "Please add and commit.", sep = " "))
+                        "Please add and commit.", sep = " "),
+         call. = FALSE)
   }
 }
 
