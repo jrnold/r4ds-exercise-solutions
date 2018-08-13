@@ -12,7 +12,7 @@ git_uncommitted <- function (path = ".") {
 
 # Adapted from devtools:::git_uncommitted
 check_uncommitted <- function(path = ".") {
-  if (!git_uncommitted(path)) {
+  if (git_uncommitted(path)) {
     stop(stringr::str_c("Uncommitted files.",
                         "All files should be committed before release.",
                         "Please add and commit.", sep = " "))
@@ -45,7 +45,6 @@ main <- function(args = NULL) {
   } else {
     args[[1]]
   }
-  print(output_format)
   render(output_format = output_format)
 }
 
