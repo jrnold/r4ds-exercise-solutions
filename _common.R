@@ -1,7 +1,10 @@
 set.seed(1014)
 options(digits = 3)
 
-.nojekyll <- here::here("docs", ".nojekyll")
+# create nojekyll if it doesn't exist
+output_dir <- yaml::read_yaml(here::here("_bookdown.yml"))[["output_dir"]]
+dir.create(here::here(output_dir), recursive = TRUE, showWarnings = FALSE)
+.nojekyll <- here::here(output_dir, ".nojekyll")
 if (!file.exists(.nojekyll)) {
   close(open(file(.nojekyll, "w")))
 }
