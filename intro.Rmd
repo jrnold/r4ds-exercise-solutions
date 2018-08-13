@@ -89,23 +89,24 @@ or think the solution could be improved, I would love your contributions.
 Please open an issue at <https://github.com/jrnold/r4ds-exercise-solutions/issues> or a pull request at
 <https://github.com/jrnold/r4ds-exercise-solutions/pulls>.
 
-## Updates {-}
+## Colophon {-}
 
-```{r updates,results='asis',echo=FALSE,cache.extras=tools::md5sum(here::here("NEWS.md"))}
-readr::read_file(here::here("NEWS.md")) %>%
-  stringr::str_replace_all(stringr::regex("^## (.*)$", multiline = TRUE), 
-                           "### \\1 {-}") %>%
-  cat()
+```{r include=FALSE}
+r_head <- git2r::repository_head()
+r_branch <- r_head$name
+r_sha <- git2r::sha(r_head)
+r_sha_short <- stringr::str_sub(r_sha, 1, 7)
 ```
 
-## Colophon {-}
+The source of this book is available at <https://github.com/jrnold/r4ds-exercise-solutions>.
+This book was built from commit [`r r_sha_short`](https://github.com/jrnold/r4ds-exercise-solutions/tree/`r r_sha`).
 
 HTML and PDF versions of this book are available at <https://jrnold.github.io/r4ds-exercise-solutions>.
 The book is powered by [bookdown](https://bookdown.org) which makes it easy to turn R markdown files into HTML, PDF, and EPUB.
 
 This book was built with:
 ```{r colonophon}
-devtools::session_info()
+devtools::session_info("R4DSSolutions")
 ```
 
 <!-- match unopened div --><div>
