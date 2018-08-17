@@ -39,7 +39,7 @@ is_markdown <- function(fmt) {
 # slightly adapted from knitr:::parse_params
 # changed to avoid dependcies on the state
 parse_params <- function(header, fmt, pat) {
-  params <- str_match(x$text[[1L]], pat$chunk.begin)[1L, 2L]
+  params <- str_match(header, pat$chunk.begin)[1L, 2L]
   engine = "r"
   if (is_markdown(fmt)) {
     engine = sub("^([a-zA-Z0-9_]+).*$", "\\1", params)
@@ -60,9 +60,10 @@ parse_params <- function(header, fmt, pat) {
       res[[i]] = NULL
     }
   }
+  browser()
   # apply header
   spaces <- gsub("^([\t >]*).*", "\\1", header)
-  params$indent <- spaces
+  res$indent <- spaces
   res
 }
 
@@ -118,7 +119,7 @@ parse_chunk <- function(x) {
   # code chunk
   if (x$chunk_begin[[1]]) {
     # extract parameters
-    params <- x[[1]]
+    params <- x$text[[1]]
     line_start <- min(x$line_number)
     line_end <- max(x$line_number)
     # remove chunk start and end

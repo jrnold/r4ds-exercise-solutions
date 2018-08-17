@@ -96,19 +96,14 @@ r_head <- git2r::repository_head()
 r_branch <- r_head$name
 r_sha <- git2r::sha(r_head)
 r_sha_short <- stringr::str_sub(r_sha, 1, 7)
-github_full_url <- stringr::str_c("https:/",
-                                   "github.com",
-                                   "jrnold",
-                                   "r4ds-exercise-solutions",
-                                   "tree",
-                                   r_sha, sep = "/")
+github_full_url <- stringr::str_c(SOURCE_URL, "tree", r_sha, sep = "/")
 ```
 
-The source of this book is available at <https://github.com/jrnold/r4ds-exercise-solutions>.
-This book was built from commit [`r r_sha_short`](`r github_full_url`).
-
-HTML and PDF versions of this book are available at <https://jrnold.github.io/r4ds-exercise-solutions>.
+HTML and PDF versions of this book are available at <`r PUB_URL`>.
 The book is powered by [bookdown](https://bookdown.org) which makes it easy to turn R markdown files into HTML, PDF, and EPUB.
+
+The source of this book is available at <`r SOURCE_URL`>
+This book was built from commit [`r r_sha_short`](`r github_full_url`).
 
 This book was built with:
 ```{r colonophon}

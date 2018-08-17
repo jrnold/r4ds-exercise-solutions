@@ -20,9 +20,22 @@ knitr::opts_chunk$set(
   fig.align = 'center',
   fig.width = 6,
   fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"
+  fig.show = "hold",
+  tidy = "styler"
 )
 
 options(dplyr.print_min = 6, dplyr.print_max = 6)
 
 is_html <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
+
+# Info and useful links
+SOURCE_URL <- stringr::str_c("https:/", "github.com", "jrnold",
+                             "r4ds-exercise-solutions", sep = "/")
+PUB_URL <- stringr::str_c("http:/", "jrnold.github.io",
+                          "r4ds-exercise-solutions")
+
+R4DS_URL <- "http://r4ds.had.co.nz"
+
+r4ds_url <- function(...) {
+  stringr::str_c(R4DS_URL, ..., sep = "/")
+}
