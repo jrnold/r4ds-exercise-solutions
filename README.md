@@ -12,8 +12,7 @@ devtools::install_github("jrnold/r4ds-exercise-solutions")
 
 ## Contributing
 
-Contributions welcome! Notice a wrong answre, typo, bug, an alternative or better
-solution, open a new [issue](https://github.com/jrnold/r4ds-exercise-solutions/issues ) or [pull request](https://github.com/jrnold/r4ds-exercise-solutions/pulls).
+Contributions welcome! Notice a wrong answer, typo, bug, or have an alternative/better solution, open a new [issue](https://github.com/jrnold/r4ds-exercise-solutions/issues ) or [pull request](https://github.com/jrnold/r4ds-exercise-solutions/pulls).
 
 Please note that the 'R4DSSolutions' project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
