@@ -761,31 +761,31 @@ With `width = 0` there is no horizontal jitter.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point(position = position_jitter(width = 0))
+  geom_jitter(width = 0)
 ```
 
 With `width = 20`, there is too much horizontal jitter.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point(position = position_jitter(width = 20))
+  geom_jitter(width = 20)
 ```
 
 With `height = 0`, there is no vertical  horizontal jitter:
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point(position = position_jitter(height = 0))
+  geom_jitter(height = 0)
 ```
 
 With `height = 15`, there is too much vertical jitter.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point(position = position_jitter(height = 15))
+  geom_point(height = 15)
 ```
 
-Note that the `height` and `width` parameters are in the units of the data.
+Note that the `height` and `width` arguments are in the units of the data.
 Thus `height = 1` corresponds to different relative amounts of jittering depending on the scale of the `y` variable.
 The default values of `height` and `width` are defined to be 80% of the 
 `resolution()` of the data, which is the smallest non-zero distance between adjacent values of a variable. 
