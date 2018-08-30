@@ -1,3 +1,4 @@
+language: c
 sudo: required
 
 services:
@@ -11,6 +12,9 @@ cache:
 before_install:
 - docker --version
 - docker-compose build
+
+install:
+- docker-compose run --do-deps r Rscript ./bin/render.R
 
 after_install:
 - docker-compose run --no-deps r Rscript ./bin/check-spelling.R
