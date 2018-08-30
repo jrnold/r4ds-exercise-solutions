@@ -1,10 +1,17 @@
-language: node_js
-node_js:
-- "node"
+sudo: required
+
+services:
+- docker
 
 cache:
   directories:
   - "node_modules"
+  - "_book"
 
-script:
-  - npm test
+before_install:
+- docker --version
+- docker-compose build
+
+after_install:
+- docker-compose run --no-deps r Rscript ./bin/check-spelling.R
+- docker-compose run --no-deps nodejs npm test
