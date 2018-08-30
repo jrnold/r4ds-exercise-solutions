@@ -742,31 +742,55 @@ What parameters to `geom_jitter()` control the amount of jittering?
 
 <div class="answer">
 
-From the [position_jitter](http://docs.ggplot2.org/current/position_jitter.html) documentation, there are two arguments to jitter: `width` and `height`, which control the amount of vertical and horizontal jitter.
+From the [`geom_jitter()`](https://ggplot2.tidyverse.org/reference/geom_jitter.html) documentation, there are two arguments to jitter:
 
-No horizontal jitter
+- `width` controls the amount of vertical displacement, and
+- `height` controls the amount of horizontal displacement.
+
+The defaults values of `width` and `height` will introduce noise in both directions.
+Here is what the plot looks like with the default values of `height` and `width`.
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0))
 ```
 
-Way too much vertical jitter
+However, we can adjust them. Here are few examples to understand how adjusting
+these parameters affects the look of the plot.
+
+With `width = 0` there is no horizontal jitter.
+
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point(position = position_jitter(width = 0, height = 15))
+  geom_point(position = position_jitter(width = 0))
 ```
 
-Only horizontal jitter:
+With `width = 20`, there is too much horizontal jitter.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point(position = position_jitter(width = 20))
+```
+
+With `height = 0`, there is no vertical  horizontal jitter:
+
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(height = 0))
 ```
 
-Way too much horizontal jitter:
+With `height = 15`, there is too much vertical jitter.
+
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point(position = position_jitter(height = 0, width = 20))
+  geom_point(position = position_jitter(height = 15))
 ```
+
+Note that the `height` and `width` parameters are in the units of the data.
+Thus `height = 1` corresponds to different relative amounts of jittering depending on the scale of the `y` variable.
+The default values of `height` and `width` are defined to be 80% of the 
+`resolution()` of the data, which is the smallest non-zero distance between adjacent values of a variable. 
+This means that if `x` and `y` are discrete variables, their resolutions are both
+equal to 1, and `height = 0.8` and `width = 0.8`.
 
 </div>
 
