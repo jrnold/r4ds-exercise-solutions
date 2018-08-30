@@ -1,3 +1,8 @@
+## 2018-08-30
+
+-   Change answer to 3.8.2 to use `geom_jitter` instead of `geom_position` 
+    (#96, thanks \@carajoos).
+
 ## 2018-08-06
 
 -   Add sections on how to install dependencies, how the book is organized (#61, thanks dongzhuoer), contributing, and a colonophon.
