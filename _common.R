@@ -31,7 +31,7 @@ is_html <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
 SOURCE_URL <- stringr::str_c("https:/", "github.com", "jrnold",
                              "r4ds-exercise-solutions", sep = "/")
 PUB_URL <- stringr::str_c("http:/", "jrnold.github.io",
-                          "r4ds-exercise-solutions")
+                          "r4ds-exercise-solutions", sep = "/")
 
 R4DS_URL <- "http://r4ds.had.co.nz"
 
