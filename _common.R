@@ -38,3 +38,7 @@ R4DS_URL <- "http://r4ds.had.co.nz"
 r4ds_url <- function(...) {
   stringr::str_c(R4DS_URL, ..., sep = "/")
 }
+
+comma_int <- function(x) {
+  prettyNum(x, big.interval = 3, big.mark = ",")
+}
