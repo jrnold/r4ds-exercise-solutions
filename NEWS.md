@@ -1,7 +1,8 @@
 ## 2018-09-08
 
--  Correct solutions to 5.5.1 and 5.5.2 (#96, thanks \@carajoos)
--  Edit miscellaneous questions in Chapter 5.
+-   Correct solutions to 5.5.1 and 5.5.2 (#96, thanks \@carajoos)
+-   Update solution to 12.3.4 (#96, thanks \@carajoos)
+-   Edit miscellaneous questions in Chapter 5.
 
 ## 2018-08-30
 
