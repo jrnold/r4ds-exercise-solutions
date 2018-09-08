@@ -18,6 +18,8 @@ misspelled_words <- spell_check_files(sort(files), ignore = wordlist)
 any_mispelled <- as.logical(nrow(misspelled_words))
 
 if (any_mispelled) {
-  cat(print(misspelled_words), file = stderr())
+  sink(file = stderr())
+  print(misspelled_words)
+  sink()
   quit(1)
 }
