@@ -249,9 +249,6 @@ spread(people, key, value)
 
 <div class="question">
 Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
-</div>
-
-<div class="answer">
 
 ```{r}
 preg <- tribble(
@@ -261,19 +258,60 @@ preg <- tribble(
 )
 ```
 
-You need to gather it. The variables are:
+</div>
 
--   pregnant: logical ("yes", "no")
--   female: logical
--   count: integer
+<div class="answer">
+
+To tidy `preg`, we need to use `gather()`. The variables in this data are
+
+-   `sex` ("female", "male")
+-   `pregnant` ("yes", "no")
+-   `count`, which is a non-negative integer representing the number of observations.
+
+The observations in this data are unique combinations of sex and pregnancy status.
 
 ```{r}
-gather(preg, sex, count, male, female) %>%
-  mutate(pregnant = pregnant == "yes",
-         female = sex == "female") %>%
-  select(-sex)
+preg_tidy <- gather(preg, sex, count, -pregnant)
+preg_tidy
 ```
-Converting `pregnant` and `female` from character vectors to logical was not necessary to tidy it, but it makes it easier to work with.
+
+However, we should consider the missing value in the male, non-pregnant row.
+Is it missing due to missing data, or missing due to structural reasons? 
+See the discussion about missing values in Section 12.5.
+Supposing that these data represent observations from a species in which it is
+impossible for males to get pregnant (not seahorses), then that missing value
+is structural. In the non-tidy data frame we had to include that structural missing value explicitly with an `NA` entry.
+However, in the tidy version we can drop that row since it is an impossible 
+combination.
+We can do that by adding the argument `na.rm = TRUE` to `gather()`.
+```{r}
+preg_tidy2 <- gather(preg, sex, count, -pregnant, na.rm = TRUE)
+preg_tidy2
+```
+
+Though not necessary, there is one more way in which we can improve this data.
+If a variable takes two values, like `pregnant` and `sex` do, it is often
+preferrable to store them as logical vectors.
+I will 
+```{r}
+preg_tidy3 <- preg_tidy2 %>%
+  mutate(female = sex == "female",
+         pregnant = pregnant == "yes") %>%
+  select(female, pregnant, count)
+preg_tidy3
+```
+Note that I named the logical variable representing the sex `female`, not `sex`.
+This makes the meaning of the variable self-documenting.
+If the variable were named `sex` with values `TRUE` and `FALSE`, without reading the documentation, we wouldn't know whether `TRUE` means male or female.
+
+Apart from some minor memory savings, representing these variables as logical
+vectors results in more clear and concise code.
+Compare the `filter()` calls to select non-pregnant females from `preg_tidy2`
+and `preg_tidy`.
+```{r}
+filter(preg_tidy2, sex == "female", pregnant == "no")
+filter(preg_tidy3, female, !pregnant)
+```
 
 </div>
 
