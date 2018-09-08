@@ -101,20 +101,22 @@ The answer to each part follows.
 1.  Finding flights that departed between midnight and 6 am is complicated by 
     the way in which times are represented in the data. 
     In `dep_time`, midnight is represented by `2400`, not `0`.
-    Thus we cannot simply check that `dep_time < 600`. Instead, we have to do this.
+    This means we cannot simply check that `dep_time < 600`, because we also have
+    to consider the special case of midnight.
+    
     ```{r}
     filter(flights, dep_time <= 600 | dep_time == 2400)
     ```
 
     Alternativley, we could use the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation), `%%`. 
     The modulo operator returns the remainder of division.
-    What happens if we calculate `dep_time` mod `2400`?
-
+    Let's see how how this affects our times.
     ```{r}
-    c(2400, 600) %% 2400
+    c(600, 1200, 2400) %% 2400
     ```
 
-    Since `2400 %% 2400 == 0` and all other times are left unchanged, we will only need to compare the result of the modulo operation to `600`,
+    Since `2400 %% 2400 == 0` and all other times are left unchanged, 
+    we can compare the result of the modulo operation to `600`,
 
     ```{r}
     filter(flights, dep_time %% 2400 <= 600)
@@ -237,6 +239,7 @@ Sort flights to find the most delayed flights. Find the flights that left earlie
 </div>
 
 <div class="answer">
+
 ```{r include=FALSE}
 most_delayed <- filter(flights, dep_delay == max(dep_delay, na.rm = TRUE)) %>%
   mutate(date = lubridate::make_datetime(year, month, day, 
@@ -288,8 +291,9 @@ where the 60 is to convert the expression to miles per hour since `air_time` is 
 ```{r}
 arrange(flights, distance / air_time * 60)
 ```
-This shows that we can sort by the results of arbitrary expressions, not just
-existing columns.
+This shows that we are not limited to sorting by columns in `arrange()`, but 
+can sort by the results of arbitrary expressions, something which we had 
+earlier seen with `desc()`.
 
 </div>
 
@@ -420,9 +424,7 @@ What happens if you include the name of a variable multiple times in a `select()
 
 <div class="answer">
 
-The call ignores the duplication. The variable is only included once, in the first location
-it appears (or matches and expression in `select()`). No error, warning, or message is raised
-by `select()`.
+The `select()` call ignores the duplication. Any duplicated variables are only included once, in the first location they appear. The `select()` function does not raise an error or warning or print any message if there are duplicated variables.
 ```{r}
 select(flights, year, month, day, year, year)
 ```
@@ -466,9 +468,11 @@ Does the result of running the following code surprise you? How do the select he
 select(flights, contains("TIME"))
 ```
 
-The default behavior for contains is to ignore case.
-It may or may not surprise you.
-One reason for this behavior is that most users expect searching to be case insensitive by default, so it is a useful default.
+The default behavior for `contains()` is to ignore case.
+This may or may not surprise you.
+If this behavior does not surprise you, that could be why it is the default.
+Users searching for variable names probably have a better sense of the letters
+in the variable than their capitalization.
 A second, technical, reason is that dplyr works with more than R data frames.
 It can also work with a variety of [databases](https://db.rstudio.com/dplyr/).
 Some of these database engines have case insensitive column names, so making functions that match variable names
@@ -481,8 +485,6 @@ To change the behavior add the argument `ignore.case = FALSE`.
 ```{r}
 select(flights, contains("TIME", ignore.case = FALSE))
 ```
-
-Now this expression selects not variables from the table.
 
 </div>
 
@@ -497,33 +499,67 @@ Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to
 <div class="answer">
 
 To get the departure times in the number of minutes, divide `dep_time` by 100 to get the hours since midnight and multiply by 60 and add the remainder of `dep_time` divided by 100.
+For example, `1504` represents 15:04 (or 3:04 PM), which is 
 ```{r}
-mutate(flights,
-       dep_time_mins = dep_time %/% 100 * 60 + dep_time %% 100,
-       sched_dep_time_mins = sched_dep_time %/% 100 * 60 + sched_dep_time %% 100) %>%
-  select(dep_time, dep_time_mins, sched_dep_time, sched_dep_time_mins)
+15 * 9 + 4
 ```
-Note the use of integer division operator, `%/%`, which discards the remainder.
-For example,
+minutes after midnight.
+In order to generalize this approach, we need a way to split out the hour digits from the minutes digits.
+Dividing by 100 and discarding the remainder using the integer division operator, `%/%` gives us the 
 ```{r}
-3 / 4
-3 %/% 4
+1504 %/% 100
+```
+Instead of `%/%` could also use `/` along with `trunc()` or `floor()`, but `round()` would not work.
+To get the minutes, instead of discarding the remainder of the division by `100`,
+we only want the remainder.
+So we use the modulo operator, `%%`, discussed in the [Other Useful Functions](http://r4ds.had.co.nz/transform.html#select) section.
+```{r}
+1504 %% 100
+```
+Now, we can combine the hours (multiplied by 60 to convert them to minutes) and
+minutes to get the number of minutes after midnight.
+```{r}
+1504 %/% 100 * 60 + 1504 %% 100
 ```
 
-In the previous example reused the expression same expression multiple times.
-Instead of copying and pasting, we can reuse that code by writing a function, 
-which is discussed in a later
-chapter, [Functions](http://r4ds.had.co.nz/functions.html).
+There is one remaining issue. Midnight is represented by `2400`, which would 
+correspond to `1440` minutes since midnight, but it should correspond to `0`.
+After converting all the times to minutes after midnight, `x %% 1440` will convert
+`1440` to zero, while keeping all the other times the same.
+
+Putting it all together, the following code creates a new data frame `flights_times`
+with the new columns, `dep_time_mins` and `sched_dep_time_mins` which convert
+`dep_time` and `sched_dep_time`, respectively, to minutes since midnight.
+```{r}
+flights_times <- mutate(flights,
+    dep_time_mins = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
+    sched_dep_time_mins = (sched_dep_time %/% 100 * 60 + 
+                             sched_dep_time %% 100) %% 1440
+  )
+# view only relevant columns
+select(flights_times, dep_time, dep_time_mins, sched_dep_time, 
+       sched_dep_time_mins)
+```
+
+Looking ahead to the [Functions](http://r4ds.had.co.nz/functions.html) chapter,
+this is precisely the sort of situation in which it would make sense to write 
+a function to avoid copying and pasting code.
+We could define a function `time2mins()`, which converts a vector of times in
+from the format used in `flights` to minutes since midnight.
 ```{r}
 time2mins <- function(x) {
-  x %/% 100 * 60 + x %% 100
+  (x %/% 100 * 60 + x %% 100) %% 1440
 }
-mutate(flights,
-       dep_time_mins = time2mins(dep_time),
-       sched_dep_time_mins = time2mins(sched_dep_time)) %>%
-  select(dep_time, dep_time_mins, sched_dep_time, sched_dep_time_mins)
 ```
-
+Using `time2mins`, the previous code simplifies to the following.
+```{r}
+flights_times <- mutate(flights,
+       dep_time_mins = time2mins(dep_time),
+       sched_dep_time_mins = time2mins(sched_dep_time))
+# show only the relevant columns
+select(flights_new, dep_time, dep_time_mins, sched_dep_time, 
+       sched_dep_time_mins)
+```
 
 </div>
 
@@ -535,21 +571,69 @@ Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What d
 
 <div class="answer">
 
-As with the previous question, we will need to
-Since `arr_time` and `dep_time` may be in different time zones, the `air_time` 
-does not equal the differences.
+I would expect that the air time is the difference between the arrival and departure times, `air_time =  arr_time - dep_time`.
 
+To check this, I need to first convert the times to a form more ammenable to arithmetic
+using the same calculations as in the previous exercise.
 ```{r}
-air_times <- mutate(flights,
-       arr_time_min = arr_time %/% 100 * 60 + arr_time %% 100,
-       dep_time_min = dep_time %/% 100 * 60 + dep_time %% 100,
-       air_time_2 = (arr_time_min - dep_time_min + 1440) %% 1440,
-       air_time_diff = air_time_2 - air_time)
-
-air_times %>%
-  arrange(desc(abs(air_time_diff))) %>%
-  select(air_time_diff)
+flights_airtime <- 
+  mutate(flights,
+         dep_time_min = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
+         arr_time_min = (arr_time %/% 100 * 60 + arr_time %% 100) %% 1440,
+         air_time_diff = air_time - arr_time + dep_time)
 ```
+
+Is my expectation correct? Does `air_time = arr_time - dep_time`?
+```{r}
+filter(flights_airtime, air_time_diff != 0)
+```
+
+No. So why not? Apart from data error, I can think of two reasons why `air_time` may 
+not equal `arr_time - dep_time`.
+
+1.  The flight passes midnight, so `arr_time < dep_time`. This will result in times that are off by 24 hours (1,440 minutes).
+    incorrect negative flight times.
+1.  The flight crosses time zones, and the total air time will be off by hours (multiples of 60). Additionally, all these discrepencies should be positive.
+    All the flights in the **nycflights13** data departed from New York City and are domestic (within the US), meaning that flights will all be to the same or more
+    westerly time zones.
+
+Both of these explanations have clear patterns that I would expect to see if they 
+were true. 
+In particular, in both cases all differences should be divisible by 60.
+However, there are many flights in which the difference between `arr_time` and `dest_time` is not divisble by 60.
+```{r}
+filter(flights_airtime, air_time_diff %% 60 == 0)
+```
+
+I'll try plotting the data to see if that is more informative.
+```{r}
+ggplot(flights_airtime, aes(x = air_time_diff)) +
+  geom_histogram(binwidth = 1)
+```
+The distribution is bimodal, which with one mode comprising discrepencies up to several hours, suggesting the time-zone problem, and a second node around 24 hours, suggesting the overnight flights.
+However, in both cases, the discrepencies are not all at values divisible by 60.
+
+I can also confirm my guess about time zones by looking at discrepencies from
+flights to a destinations in another air zone (or even all flights to different time zones using the time zone of the airport from the `airports` data frame).
+In this case, I'll look at the distribution of the discrepencies for flights
+to Los Angeles (LAX).
+```{r}
+ggplot(filter(flights_airtime, dest == "LAX"), aes(x = air_time_diff)) +
+  geom_histogram(binwidth = 1)
+```
+
+So what else might be going on? There seem to be too many "problems" for this to 
+be a data issue, so I'm probably missing something. So I'll reread the documentation
+to make sure that I understand the definitions of `arr_time`, `dep_time`, and
+`air_time`. The documenation contains a link to the source of the `flights` data, <https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236>.
+Reading the page at that link, I see that there are some other variables: 
+`TaxiIn`, `TaxiOff`, `WheelsIn`, `WheelsOff` that are not included in `flights`.
+The `air_time` variable refers to flight time, which must be defined as the time between wheels off (take-off) and wheels in (landing).
+Thus `air_time` does not include the time spent on the runway taxiing to and from
+gates.
+With this new understanding of the data, I now know that the relationship
+between `air_time`, `arr_time`, and `dep_time` is `air_time <= arr_time - dep_time`
+once `arr_time` and `dep_time` are corrected for differing time zones and dates.
 
 </div>
 
@@ -561,19 +645,38 @@ Compare `dep_time`, `sched_dep_time`, and `dep_delay`. How would you expect thos
 
 <div class="answer">
 
-I would expect `dep_time`, `sched_dep_time`, and `dep_delay` to be related by the
-equation `dep_time - sched_dep_time = dep_delay`.
-```{r}
-mutate(flights,
-       dep_delay2 = time2mins(dep_time) - time2mins(sched_dep_time)) %>%
-  filter(dep_delay2 != dep_delay) %>%
-  select(dep_time, sched_dep_time, dep_delay, dep_delay2)
-```
-This uses the `time2mins()` function from a previous exercise.
+I would expect the departure delay (`dep_time`) to be equal to the difference between  scheduled departure time (`sched_dep_time`), and actual departure time (`dep_time`),
+`dep_time - sched_dep_time = dep_delay`.
 
-That solved most discrepancies, but there are still some non matches because we
-have not accounted for the cases in which the departure time is the next day
-from the scheduled departure time.
+As with the previous question, the first step is to convert all times to the 
+number of minutes since midnight.
+The column, `dep_delay_diff` will the difference between `dep_delay` and 
+departure delay calculated from the scheduled and actual departure times.
+```{r}
+flights_deptime <- 
+  mutate(flights,
+         dep_time_min = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
+         sched_dep_time_min = (sched_dep_time %/% 100 * 60 +
+                               sched_dep_time %% 100) %% 1440,
+         dep_delay_diff = dep_delay - dep_time_min + sched_dep_time_min)
+```
+Does `dep_delay_diff` equal zero for all rows? 
+```{r}
+filter(flights_deptime, dep_delay_diff != 0)
+```
+No. Unlike the last question, time zones are not an issue since we are only 
+considering departure times.[^daylight]
+However, the discprencies could be because a flight was scheduled to depart 
+before midnight, but was delayed after midnight.
+All of these discrepencies are exactly equal to 1440 (24 hours), and the flights with these discrepencies were scheduled to depart later in the day.
+```{r}
+ggplot(filter(flights_deptime, dep_delay_diff > 0), 
+       aes(y = sched_dep_time_min, x = dep_delay_diff)) +
+  geom_point()
+```
+Thus the only cases in which the departure delay is not equal to the difference
+in scheduled departure and actual departure times is due to a quirk in how these
+columns were stored.
 
 </div>
 
@@ -589,10 +692,9 @@ I'd want to handle ties by taking the minimum of tied values. If three flights
 have the same value and are the most delayed, we would say they are tied for
 first, not tied for third or second.
 ```{r}
-mutate(flights,
-       dep_delay_rank = min_rank(-dep_delay)) %>%
-  arrange(dep_delay_rank) %>%
-  filter(dep_delay_rank <= 10)
+flights_delayed <- mutate(flights, dep_delay_rank = min_rank(-dep_delay))
+flights_delayed <- filter(flights_delayed, dep_delay_rank <= 20)
+arrange(flights_delayed, dep_delay_rank)
 ```
 
 </div>
@@ -1084,3 +1186,9 @@ flights %>%
 [^methods]: In most interesting data analysis questions, no answer ever "right". With infinite time and money, an analysis could almost always improve their answer with more data or better methods.
     The difficulty in real life is finding the quickest, simplest method
     that works "good enough".
+
+[^daylight]: Except for flights  daylight savings started (March 10) or
+    ended (November 3). But since daylight savings goes into effect at 02:00,
+    and generally flights are not scheduled to depart between midnight and 2 am,
+    the only flights which would be scheduled to depart in Eastern Daylight Savings Time (Eastern Standard Time) time but departed in Eastern Standard Time (Daylight Savings Time), would have been scheduled before midnight, meaning they were delayed across days.
+    
