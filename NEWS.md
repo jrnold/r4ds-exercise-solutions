@@ -1,3 +1,8 @@
+## 2018-09-08
+
+-  Correct solutions to 5.5.1 and 5.5.2 (#96, thanks \@carajoos)
+-  Edit miscellaneous questions in Chapter 5.
+
 ## 2018-08-30
 
 -   Change answer to 3.8.2 to use `geom_jitter` instead of `geom_position` 
