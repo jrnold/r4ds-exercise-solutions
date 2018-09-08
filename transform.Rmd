@@ -360,12 +360,12 @@ A few ways include:
     ```{r}
     select(flights, dep_time, dep_delay, arr_time, arr_delay)
     ```
-    
+
 -   Specifying all the variables as strings.
     ```{r}
     select(flights, "dep_time", "dep_delay", "arr_time", "arr_delay")
     ```
-    
+
 -   Specifying the column numbers of the variables.
     ```{r}
     select(flights, 4, 5, 6, 9)
@@ -376,7 +376,7 @@ A few ways include:
     Second code is obfuscated, since it is not clear from the code which 
     variables are being selected. What variable does column 5 correspond to? 
     I just wrote the code, and I've already forgotten.
-    
+
 -   Specifying the names of the variables with character vector and `one_of()`.
     ```{r}
     select(flights, one_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))
@@ -393,7 +393,7 @@ A few ways include:
     ```{r}
     select(flights, starts_with("dep_"), starts_with("arr_"))
     ```
-    
+
 -   Selecting the variables using `matches()` and regular expressions, which are 
     discussed in the [Strings](http://r4ds.had.co.nz/strings.html) chapter.
     ```{r}
@@ -407,7 +407,7 @@ Some things that **don't** work are
     ```{r}
     select(flights, ends_with("arr_time"), ends_with("dep_time"))
     ```
-    
+
 -   Matching the names using `contains()` since there is not a pattern that can
     include all these variables without incorrectly including others.
     ```{r}
@@ -593,6 +593,7 @@ not equal `arr_time - dep_time`.
 
 1.  The flight passes midnight, so `arr_time < dep_time`. This will result in times that are off by 24 hours (1,440 minutes).
     incorrect negative flight times.
+
 1.  The flight crosses time zones, and the total air time will be off by hours (multiples of 60). Additionally, all these discrepencies should be positive.
     All the flights in the **nycflights13** data departed from New York City and are domestic (within the US), meaning that flights will all be to the same or more
     westerly time zones.
@@ -1191,4 +1192,3 @@ flights %>%
     ended (November 3). But since daylight savings goes into effect at 02:00,
     and generally flights are not scheduled to depart between midnight and 2 am,
     the only flights which would be scheduled to depart in Eastern Daylight Savings Time (Eastern Standard Time) time but departed in Eastern Standard Time (Daylight Savings Time), would have been scheduled before midnight, meaning they were delayed across days.
-    
