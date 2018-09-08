@@ -150,9 +150,6 @@ tidy4b <- table4b %>%
 <div class="question">
 Why are `gather()` and `spread()` not perfectly symmetrical?
 Carefully consider the following example:
-</div>
-
-<div class="answer">
 
 ```{r}
 stocks <- tibble(
@@ -162,20 +159,32 @@ stocks <- tibble(
 )
 stocks %>%
   spread(year, return) %>%
-  gather("year", "return", `2015`:`2016`)
+  gather(`2015`:`2016` key = "year", value = "return")
 ```
+
+</div>
+
+<div class="answer">
+
 
 The functions `spread()` and `gather()` are not perfectly symmetrical because column type information is not transferred between them.
-In the original table the column `year` was numeric, but after running `spread()` and `gather()` it is a character vector.
-This is because variable names are always converted to a character vector by `gather()`.
+When we use `gather()` on a data frame, it throws away all the information about the original column types. 
+Additionally, it has to coerce all the varaibles that are being gathered into 
+a single type, since they are going into a single vector.
+Later if we `spread()` that data frame, the `spread()` function has no way to 
+know what the original data types of the columns that were earlier gathered.
 
-The `convert` argument tries to convert character vectors to the appropriate type.
-In the background this uses the `type.convert()` function.
+In this example, in the original table, the column `year` was numeric.
+After running `spread()` and `gather()` it is a character vector.
+Variable names are always converted to a character vector by `gather()`.
+
+The functions `spread()` and `gather()` can be closer to symmetrical if we use the `convert` argument. It will try to convert character vectors to the appropriate type using `type.convert()`.
 ```{r}
 stocks %>%
-  spread(year, return) %>%
-  gather("year", "return", `2015`:`2016`, convert = TRUE)
+  spread(key = "year", value = "return") %>%
+  gather(`2015`:`2016`, key = "year", value = "return", convert = TRUE)
 ```
+However, since `convert = TRUE` is guessing the appropriate type it still may not work.
 
 </div>
 
@@ -183,14 +192,14 @@ stocks %>%
 
 <div class="question">
 Why does this code fail?
-</div>
-
-<div class="answer">
 
 ```{r error=TRUE}
 table4a %>%
   gather(1999, 2000, key = "year", value = "cases")
 ```
+</div>
+
+<div class="answer">
 
 The code fails because the column names `1999` and `2000` are not standard and thus needs to be quoted.
 The tidyverse functions will interpret `1999` and `2000` without quotes as looking for the 1999th and 2000th column of the data frame.
@@ -206,9 +215,6 @@ table4a %>%
 
 <div class="question">
 Why does spreading this tibble fail? How could you add a new column to fix the problem?
-</div>
-
-<div class="answer">
 
 ```{r}
 people <- tribble(
@@ -227,8 +233,13 @@ glimpse(people)
 spread(people, key, value)
 ```
 
+</div>
+
+<div class="answer">
+
 Spreading the data frame fails because there are two rows with "age" for "Phillip Woods".
-We would need to add another column with an indicator for the number observation it is,
+If we added another column with an indicator for the number observation it is,
+the code will work.
 
 ```{r}
 people <- tribble(
@@ -271,7 +282,8 @@ To tidy `preg`, we need to use `gather()`. The variables in this data are
 The observations in this data are unique combinations of sex and pregnancy status.
 
 ```{r}
-preg_tidy <- gather(preg, sex, count, -pregnant)
+preg_tidy <- preg %>%
+  gather(male, female, key = "sex", value = "count", na.rm = TRUE)
 preg_tidy
 ```
 
@@ -285,7 +297,8 @@ However, in the tidy version we can drop that row since it is an impossible
 combination.
 We can do that by adding the argument `na.rm = TRUE` to `gather()`.
 ```{r}
-preg_tidy2 <- gather(preg, sex, count, -pregnant, na.rm = TRUE)
+preg_tidy2 <- preg %>%
+  gather(male, female, key = "sex", value = "count", na.rm = TRUE)
 preg_tidy2
 ```
 
