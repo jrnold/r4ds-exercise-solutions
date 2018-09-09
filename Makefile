@@ -18,3 +18,11 @@ test:
 .PHONY: deploy
 deploy:
 	./bin/deploy.sh
+
+.PHONY: docker-build
+docker-build: Dockerfile
+	docker build -t r4ds-exercise-solutions .
+
+.PHONY: docker-run
+docker-render:
+	docker --rm -v $(PWD):/r4ds-exercise-solutions
