@@ -2,7 +2,6 @@
 
 -   HTML fix (#98)
 
-
 ## 2018-09-08
 
 -   Correct solutions to 5.5.1 and 5.5.2 (#96, thanks \@carajoos)
