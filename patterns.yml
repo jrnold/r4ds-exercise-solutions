@@ -1,0 +1,55 @@
+rnw:
+  chunk.begin: ^\s*<<(.*)>>=.*$
+  chunk.end: ^\s*@\s*(%+.*|)$
+  inline.code: \\Sexpr\{([^}]+)\}
+  inline.comment: ^\s*%.*
+  ref.chunk: ^\s*<<(.+)>>\s*$
+  header.begin: |-
+    (^|
+    )\s*\\documentclass[^}]+\}
+  document.begin: \s*\\begin\{document\}
+brew:
+  inline.code: <%[=]{0,1}\s+([^%]+)\s+[-]*%>
+tex:
+  chunk.begin: ^\s*%+\s*begin.rcode\s*(.*)
+  chunk.end: ^\s*%+\s*end.rcode
+  chunk.code: ^\s*%+
+  ref.chunk: ^%+\s*<<(.+)>>\s*$
+  inline.comment: ^\s*%.*
+  inline.code: \\rinline\{([^}]+)\}
+  header.begin: |-
+    (^|
+    )\s*\\documentclass[^}]+\}
+  document.begin: \s*\\begin\{document\}
+html:
+  chunk.begin: ^\s*<!--\s*begin.rcode\s*(.*)
+  chunk.end: ^\s*end.rcode\s*-->
+  ref.chunk: ^\s*<<(.+)>>\s*$
+  inline.code: <!--\s*rinline(.+?)-->
+  header.begin: \s*<head>
+md:
+  chunk.begin: "^[\t >]*```+\\s*\\{([a-zA-Z0-9_]+.*)\\}\\s*$"
+  chunk.end: "^[\t >]*```+\\s*$"
+  ref.chunk: ^\s*<<(.+)>>\s*$
+  inline.code: |-
+    (?<!(^|
+    )``)`r[ #]([^`]+)\s*`
+rst:
+  chunk.begin: ^\s*[.][.]\s+\{r(.*)\}\s*$
+  chunk.end: ^\s*[.][.]\s+[.][.]\s*$
+  chunk.code: ^\s*[.][.]
+  ref.chunk: ^\.*\s*<<(.+)>>\s*$
+  inline.code: :r:`([^`]+)`
+asciidoc:
+  chunk.begin: ^//\s*begin[.]rcode(.*)$
+  chunk.end: ^//\s*end[.]rcode\s*$
+  chunk.code: ^//+
+  ref.chunk: ^\s*<<(.+)>>\s*$
+  inline.code: '`r +([^`]+)\s*`|[+]r +([^+]+)\s*[+]'
+  inline.comment: ^//.*
+textile:
+  chunk.begin: ^###[.]\s+begin[.]rcode(.*)$
+  chunk.end: ^###[.]\s+end[.]rcode\s*$
+  ref.chunk: ^\s*<<(.+)>>\s*$
+  inline.code: '@r +([^@]+)\s*@'
+  inline.comment: ^###[.].*

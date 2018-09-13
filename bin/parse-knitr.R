@@ -8,7 +8,7 @@ fmt <- "md"
 if (is.null(fmt)) {
   stop("Invalid format found")
 }
-pat <- knitr::all_patterns[[fmt]]
+pat <- yaml::yaml.load_file("patterns.yml")[[fmt]]
 
 # copy of knitr:::parse_only
 parse_only <- function(code) {
@@ -21,12 +21,12 @@ parse_only <- function(code) {
 
 # copy of knitr:::quote_label
 quote_label <- function(x) {
-  x = gsub("^\\s*,?", "", x)
-  if (grepl("^\\s*[^'\"](,|\\s*$)", x)) {
-    x = gsub("^\\s*([^'\"])(,|\\s*$)", "'\\1'\\2", x)
+  x = str_replace(x, "^\\s*,?", "")
+  if (str_detect(x, "^\\s*[^'\"](,|\\s*$)")) {
+    x <- str_replace(x, "^\\s*([^'\"])(,|\\s*$)", "'\\1'\\2")
   }
-  else if (grepl("^\\s*[^'\"](,|[^=]*(,|\\s*$))", x)) {
-    x = gsub("^\\s*([^'\"][^=]*)(,|\\s*$)", "'\\1'\\2", x)
+  else if (str_detect(x, "^\\s*[^'\"](,|[^=]*(,|\\s*$))")) {
+    x <- str_replace(x, "^\\s*([^'\"][^=]*)(,|\\s*$)", "'\\1'\\2")
   }
   x
 }
@@ -36,19 +36,24 @@ is_markdown <- function(fmt) {
   fmt %in% c("md")
 }
 
+knitr_chunk_params <- function(x, filename = NULL) {
+  structure(x, class = "knitr_chunk_params", "knitr_parsed")
+}
+
+
 # slightly adapted from knitr:::parse_params
 # changed to avoid dependcies on the state
 parse_params <- function(header, fmt, pat) {
   params <- str_match(header, pat$chunk.begin)[1L, 2L]
   engine = "r"
   if (is_markdown(fmt)) {
-    engine = sub("^([a-zA-Z0-9_]+).*$", "\\1", params)
-    params = sub("^([a-zA-Z0-9_]+)", "", params)
+    engine = str_replace(params, "^([a-zA-Z0-9_]+).*$", "\\1")
+    params = str_replace(params, "^([a-zA-Z0-9_]+)", "")
   }
-  params = gsub("^\\s*,*|,*\\s*$", "", params)
-  if (tolower(engine) != "r") {
+  params = str_replace(params, "^\\s*,*|,*\\s*$", "")
+  if (str_to_lower(engine) != "r") {
     params = sprintf("%s, engine=\"%s\"", params, engine)
-    params = gsub("^\\s*,\\s*", "", params)
+    params = str_replace(params, "^\\s*,\\s*", "")
   }
   if (params == "") {
     return(list())
@@ -60,15 +65,15 @@ parse_params <- function(header, fmt, pat) {
       res[[i]] = NULL
     }
   }
-  browser()
   # apply header
-  spaces <- gsub("^([\t >]*).*", "\\1", header)
+  spaces <- str_replace(params, "^([\t >]*).*", "\\1")
   res$indent <- spaces
   res
 }
 
 lines <- tibble(
   text = readLines(path),
+  header = FALSE,
   chunk_begin = str_detect(text, pat$chunk.begin),
   chunk_end = str_detect(text, pat$chunk.end),
   ref_chunk = str_detect(text, pat$ref.chunk),
@@ -77,9 +82,25 @@ lines <- tibble(
 )
 
 in_code <- FALSE
+first_non_blank <- FALSE
+in_header <- FALSE
 id <- 1L
 for (i in seq_len(nrow(lines))) {
-  if (!in_code) {
+  if (!first_non_blank && str_detect(lines$text[[i]], "^[\\s\\n]$")) {
+    next
+  }
+  if (!first_non_blank && str_detect(lines$text[[i]], "^-{3}\\s*$")) {
+    in_header <- TRUE
+    lines[i, "header"] <- TRUE
+    lines[i, "id"] <- 0L
+  } else if (in_header) {
+    lines$header <- TRUE
+    lines[i, "header"] <- TRUE
+    lines[i, "id"] <- 0L
+    if (str_detect(lines$text[[i]], "^-{3}\\s*$")) {
+      in_header <- FALSE
+    }
+  } else if (!in_code) {
     if (lines$chunk_begin[[i]]) {
       if (i > 1L) {
         id <- id + 1L
