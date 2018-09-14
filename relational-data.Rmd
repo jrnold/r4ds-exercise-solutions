@@ -41,7 +41,7 @@ The variable `origin` in `weather` is matched with `faa` in `airports`.
 ### Exercise <span class="exercise-number">13.1.3</span> {.unnumbered .exercise}
 
 <div class="question">
-weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
+Weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
 </div>
 
 <div class="answer">
@@ -59,8 +59,21 @@ We know that some days of the year are “special”, and fewer people than usua
 <div class="answer">
 
 I would add a table of special dates.
-The primary key would be date.
-It would match to the `year`, `month`, `day` columns of `flights.
+Its primary key would be  `date`.
+This would match to the `year`, `month`, 
+and `day` columns of `flights.
+
+The table would resemble the following:
+```{r}
+special_days <- tribble(
+  ~year, ~month, ~day, ~holiday,
+  2013, 01, 01, "New Years Day",
+  2013, 07, 04, "Independence Day",
+  2013, 11, 29, "Thanksgiving Day",
+  2013, 12, 25, "Christmas Day"
+)
+```
+
 
 </div>
 
