@@ -1,6 +1,6 @@
 ## 2018-09-13
 
--   HTML fix (#98)
+-   Miscellaneous typo fixes (#98)
 
 ## 2018-09-08
 
