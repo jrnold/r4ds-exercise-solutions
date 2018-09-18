@@ -13,26 +13,43 @@ library("lubridate")
 
 <div class="question">
 
-Why is TRUE not a parameter to `rescale01()`?
+Why is `TRUE` not a parameter to `rescale01()`?
 What would happen if `x` contained a single missing value, and `na.rm` was `FALSE`?
 
 </div>
 
 <div class="answer">
 
-First, note that by a a single missing value, this means that the vector `x` has at least one element equal to `NA`.
-
-If there were any `NA` values, and `na.rm = FALSE`, then the function would
-return `NA`.
-
-I can confirm this by testing a function that allows for `na.rm` as an argument,
+The code for `rescale01()` is reproduced below.
 ```{r}
-rescale01_alt <- function(x, finite = TRUE) {
-  rng <- range(x, na.rm = finite, finite = finite)
+rescale01 <- function(x) {
+  rng <- range(x, na.rm = TRUE, finite = TRUE)
   (x - rng[1]) / (rng[2] - rng[1])
 }
-rescale01_alt(c(NA, 1:5), finite = FALSE)
-rescale01_alt(c(NA, 1:5), finite = TRUE)
+```
+
+If `x` contains a single missing value, and both `na.rm = FALSE`, then this function
+will still return a non-missing value.
+```{r}
+rescale01_alt <- function(x, na.rm = FALSE, ) {
+  rng <- range(x, na.rm = na.rm, finite = TRUE)
+  (x - rng[1]) / (rng[2] - rng[1])
+}
+rescale01_alt(c(NA, 1:5), na.rm = FALSE)
+rescale01_alt(c(NA, 1:5), na.rm = TRUE)
+```
+This is because the option `finite = TRUE` to `range()` will drop all non-finite
+elements, and `NA` is a non-finite element.
+
+However, if both `finite = FALSE` and `na.rm = FALSE`, then this function will
+return a vector of `NA` values.
+Recall, artithmetic operations involving `NA` values will return `NA`.
+```{r}
+rescale01_alt2 <- function(x, na.rm = FALSE, finite = FALSE) {
+  rng <- range(x, na.rm = na.rm, finite = finite)
+  (x - rng[1]) / (rng[2] - rng[1])
+}
+rescale01_alt2(c(NA, 1:5), na.rm = FALSE, finite = FALSE)
 ```
 
 </div>
