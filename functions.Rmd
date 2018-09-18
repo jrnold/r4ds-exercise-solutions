@@ -303,9 +303,6 @@ turn_into_goon(Good_Fairy, foo_foo)
 
 <div class="question">
 Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
-</div>
-
-<div class="answer">
 
 ```{r}
 f1 <- function(string, prefix) {
@@ -322,13 +319,18 @@ f3 <- function(x, y) {
 }
 ```
 
-The function `f1` returns whether a function has a common prefix.
+</div>
+
+<div class="answer">
+
+The function `f1` tests whether each element of the character vector `nchar`
+starts with the string `prefix`. For example,
 ```{r}
-f1(c("str_c", "str_foo", "abc"), "str_")
+f1(c("abc", "abcde", "ad"), "ab")
 ```
 A better name for `f1` is `has_prefix()`
 
-The function `f2` drops the last element
+The function `f2` drops the last element of the vector `x`.
 ```{r}
 f2(1:3)
 f2(1:2)
@@ -340,7 +342,7 @@ The function `f3` repeats `y` once for each element of `x`.
 ```{r}
 f3(1:3, 4)
 ```
-Good names would include `recycle()` (R's name for this behavior), or `expand()`.
+Good names would include `recycle()` (R's name for this behavior) or `expand()`.
 
 </div>
 

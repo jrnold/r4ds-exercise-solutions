@@ -1,6 +1,10 @@
+## 2018-09-17
+
+-   Fix typos (#105, thanks \@gvwilson)
+
 ## 2018-09-13
 
--   Miscellaneous typo fixes (#98)
+-   Miscellaneous typo fixes (#98, thanks \@gvwilson)
 
 ## 2018-09-08
 
