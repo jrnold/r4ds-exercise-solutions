@@ -257,16 +257,25 @@ What does `mean(is.na(x))` tell you about a vector `x`? What about `sum(!is.fini
 
 <div class="answer">
 
-The expression `mean(is.na(x))` calculates the proportion of missing values in a vector
+I'll use the numeric vector `x` to compare the behaviors of `is.na()`
+and `is.finite()`. It contains numbers (`-1`, `0`, `1`) as 
+well as all the special numeric values: infinity (`Inf`), 
+missing (`NA`), and not-a-number (`NaN`). 
 ```{r}
-x <- c(1:10, NA, NaN, Inf, -Inf)
+x <- c(-Inf, -1, 0, 1, Inf, NA, NaN)
+```
+
+The expression `mean(is.na(x))` calculates the proportion of missing values (values equal to `NA`) in a vector.
+```{r}
 mean(is.na(x))
 ```
 
-The expression `mean(!is.finite(x))` calculates the proportion of values that are `NA`, `NaN`, or infinite.
+The expression `sum(!is.finite(x))` calculates the number of elements in the vector that are equal to missing (`NA`), not-a-number (`NaN`), or inifinity (`Inf`). 
 ```{r}
-mean(!is.finite(x))
+sum(!is.finite(x))
 ```
+
+Review the [Numeric](http://r4ds.had.co.nz/vectors.html#numeric) section for the differences between `is.na()` and `is.finite()`.
 
 </div>
 

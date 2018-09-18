@@ -1,3 +1,8 @@
+## 2018-09-20
+
+-   Fix solution so 20.4.6.1. It incorrectly used `mean()` instead of `sum()`
+    (#106, thanks \@gvwilson)
+
 ## 2018-09-17
 
 -   Fix typos (#105, thanks \@gvwilson)
