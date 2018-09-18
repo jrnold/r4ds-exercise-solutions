@@ -441,26 +441,28 @@ The answers to the parts follow.
     ```
     In both these cases, `not_last()` correctly returns an empty vector.
 
-1.  This function returns a the elements of a vector that are even numbers.
+1.  This function returns the elements of a vector that are even numbers.
 
     ```{r even_numbers}
     even_numbers <- function(x) {
       x[x %% 2 == 0]
     }
-    even_numbers(-10:10)
+    even_numbers(-4:4)
     ```
 
-    We could improve this function by handling the cases of the special values:
+    We could improve this function by handling special numeric values:
     `NA`, `NaN`, `Inf`. However, first we need to decide how to handle them.
-    Neither `NaN` nor `Inf` are considered even numbers. What about `NA`?
-    Well, we don't know. The value of `NA` could be even or odd, but it is missing.
-    So we will follow the convention of many R functions and keep the `NA` values.
-    The revised function now handles these cases.
+    Neither `NaN` nor `Inf` are not numbers, and so they aren't even numbers. 
+    What about `NA`? Well, we don't know. `NA` is a number, but we don't know its
+    value. The missing number could be even or odd, but we don't know its value.
+    When writing functions it is good practice to try to follow the behavior
+    of existing functions so as not to surprise users. The behavior of many
+    R functions is to return `NA` values instead of dropping them.
     ```{r even_numbers2}
-    even_numbers <- function(x) {
+    even_numbers2 <- function(x) {
       x[!is.infinite(x) & !is.nan(x) & (x %% 2 == 0)]
     }
-    even_numbers(c(0:4, NA, NaN, Inf))
+    even_numbers2(c(0:4, NA, NaN, Inf))
     ```
 
 </div>
