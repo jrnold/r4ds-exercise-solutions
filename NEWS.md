@@ -1,11 +1,13 @@
-## 2018-09-20
+## 2018-09-19
 
 -   Fix solution so 20.4.6.1. It incorrectly used `mean()` instead of `sum()`
     (#106, thanks \@gvwilson)
+-   Fix diagrams not rendering in Ex 20.5.4.1 (#109, thanks \@gvwilson)
+-   Fix typos (#107,#108,#110 thanks \@gvwilson)
 
 ## 2018-09-17
 
--   Fix typos (#105, thanks \@gvwilson)
+-   Fix typos (#104,105, thanks \@gvwilson)
 
 ## 2018-09-13
 
