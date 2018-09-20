@@ -317,16 +317,18 @@ You may get different answers, but the longer the vector and the bigger the obje
 <div class="question">
 Imagine you have a directory full of CSV files that you want to read in.
 You have their paths in a vector,
-</div>
 
-<div class="answer">
 `files <- dir("data/", pattern = "\\.csv$", full.names = TRUE)`, and now
 want to read each one with `read_csv()`. Write the for loop that will
 load them into a single data frame.
 
-I will pre-allocate a list, read each file as data frame into an element in that list.
-This creates a list of data frames.
-I then use `bind_rows()` to create a single data frame from the list of data frames.
+</div>
+
+<div class="answer">
+
+First, I pre-allocate a list. Then, I read each file into a data frame, and assign it to an element in that list.
+The result is a list of data frames.
+I then use `bind_rows()` to combine the list of data frames into a single data frame.
 ```{r eval = FALSE}
 df <- vector("list", length(files))
 for (fname in seq_along(files)) {
