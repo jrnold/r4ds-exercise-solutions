@@ -556,30 +556,50 @@ Write code that uses one of the map functions to:
 
 <div class="answer">
 
-To calculate the mean of every column in `mtcars`:
-```{r}
-map_dbl(mtcars, mean)
-```
+1.  To calculate the mean of every column in `mtcars`, apply the function
+    `mean()` to each column, and use `map_dbl`, since the results are numeric.
+    ```{r}
+    map_dbl(mtcars, mean)
+    ```
 
-To calculate the type of every column in `nycflights13::flights`.
-```{r}
-map(nycflights13::flights, class)
-```
-I had to use `map` rather than `map_chr` since the class
-Though if by type, `typeof` is meant:
-```{r}
-map_chr(nycflights13::flights, typeof)
-```
+1.  To calculate the type of every column in `nycflights13::flights` apply
+    the function `typeof()`, discussed in the section on [Vector basics](http://r4ds.had.co.nz/vectors.html#vector-basics), 
+    and use `map_chr()`, since the results are character.
+    ```{r}
+    map_chr(nycflights13::flights, typeof)
+    ```
+    
 
-To calculate the number of unique values in each column of `iris`:
-```{r}
-map_int(iris, ~ length(unique(.)))
-```
+1.  There is no function that directly calculates the number of unique values 
+    in a vector. For a single column, the number of unique values of a vector
+    can be calculated like so,
+    ```{r}
+    length(unique(iris$Species))
+    ```
+    To apply this to all columns, we can provide the map funtion anonymous function.
+    We can write anonymous function using the standard R syntax, like this,
+    ```{r}
+    map_int(iris, function(x) length(unique(x)))
+    ```
+    or using the more compact, one-sided formula shortcut that **purrr** provides,
+    ```{r}
+    map_int(iris, ~ length(unique(.)))
+    ```
+    The `map_int` function is used since `length()` returns an integer.
+    However, `map_dbl` will also work,
+    ```{r results='hide'}
+    map_dbl(iris, ~ length(unique(.)))    
+    ```
 
-To generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$:
-```{r}
-map(c(-10, 0, 10, 100), rnorm, n = 10)
-```
+1.  To generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$:
+    The result is a list of numeric vectors.
+    ```{r}
+    map(c(-10, 0, 10, 100), ~ rnorm(n = 10, mean = .))
+    ```
+    Since a single call of `rnorm()` returns a numeric vector with a length greater
+    than one we cannot use `map_dbl`, which requires the function to return a numeric
+    vector that is only length one (see [Exercise 21.5.3.4](#exercise-21.5.3.4)
+    The map functions pass any additional arguments to the function being called.
 
 </div>
 
@@ -591,9 +611,15 @@ How can you create a single vector that for each column in a data frame indicate
 
 <div class="answer">
 
-Use `map_lgl` with the function `is.factor`,
+The function `is.factor` indicates whether a vector is a factor. For example,
 ```{r}
-map_lgl(mtcars, is.factor)
+is.factor(iris$Species)
+is.factor(iris$Sepal.Length)
+```
+To apply this to all columns in a data frame, use `map_lgl` since the result
+of `is.factor` is logical. For example,
+```{r}
+map_lgl(iris, is.factor)
 ```
 
 </div>
@@ -608,27 +634,35 @@ Why?
 
 <div class="answer">
 
-The function `map` applies the function to each element of the vector.
+Map functions work with any vectors, not just lists. 
+As with lists, the map functions will apply the function to each element of the vector.
+
+The expression `map(1:5, runif)` is equivalent to running `runif(1)`, `runif(2)`,
+..., `runif(5)`, and collecting the results in a list.
+The result is a length five list with numeric vectors of sizes one through five.
 ```{r}
 map(1:5, runif)
 ```
+
 
 </div>
 
 ### Exercise <span class="exercise-number">21.5.3.4</span> {.unnumbered .exercise}
 
 <div class="question">
-What does `map(-2:2, rnorm, n = 5)` do? Why? >
-What does `map_dbl(-2:2, rnorm, n = 5)` do?
-Why?
+What does `map(-2:2, rnorm, n = 5)` do? Why?
+
+What does `map_dbl(-2:2, rnorm, n = 5)` do? Why?
 </div>
 
 <div class="answer">
 
-This takes samples of `n = 5` from normal distributions of means -2, -1, 0, 1, and 2, and returns a list with each element a numeric vectors of length 5.
+Consider the first expression.
 ```{r}
 map(-2:2, rnorm, n = 5)
 ```
+This takes samples size five from five normal distributions, each with a different mean of (-2, -1, 0, 1, and 2) but all have the same standard deviation (1). It returns a list with each element a numeric vectors of length 5.
+
 
 However, if we use `map_dbl` it throws an error. `map_dbl` expects the function
 to return a numeric vector of length one.
@@ -636,9 +670,7 @@ to return a numeric vector of length one.
 map_dbl(-2:2, rnorm, n = 5)
 ```
 
-If we wanted a numeric vector, we could use `map()` followed by `flatten_dbl(
-  
-  )`,
+If we wanted a numeric vector, we could use `map()` followed by `flatten_dbl()`,
 ```{r}
 flatten_dbl(map(-2:2, rnorm, n = 5))
 ```

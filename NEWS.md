@@ -1,3 +1,7 @@
+## 2018-09-22
+
+-   Update answers to section 21.5.3 (#112, thanks \@gvwilson)
+
 ## 2018-09-20
 
 -   Fix typos (#111, thanks \@gvwilson)
