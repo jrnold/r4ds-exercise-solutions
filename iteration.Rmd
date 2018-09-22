@@ -662,12 +662,12 @@ map(-2:2, rnorm, n = 5)
 ```
 This takes samples size five from five normal distributions, each with a different mean of (-2, -1, 0, 1, and 2) but all have the same standard deviation (1). It returns a list with each element a numeric vectors of length 5.
 
-
-However, if we use `map_dbl` it throws an error. `map_dbl` expects the function
-to return a numeric vector of length one.
+However, if we use `map_dbl` it throws an error. 
 ```{r error = TRUE}
 map_dbl(-2:2, rnorm, n = 5)
 ```
+This is because `map_dbl` expects the function it applies to each element to 
+return a numeric vector of length one.
 
 If we wanted a numeric vector, we could use `map()` followed by `flatten_dbl()`,
 ```{r}
