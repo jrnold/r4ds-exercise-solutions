@@ -420,18 +420,9 @@ This is more flexible than `separate()` because it does not require a common
 separator or specific column positions.
 
 ```{r}
-# example with separators
-tibble(x = c("X_1", "X_2", "AA_1", "AA_2")) %>%
-  extract(x, c("variable", "id"), regex = "([A-Z])_([0-9])")
-
-# example with position
-tibble(x = c("X1", "X2", "Y1", "Y2")) %>%
-  extract(x, c("variable", "id"), regex = "([A-Z])([0-9])")
-
 # example that separate could not parse
 tibble(x = c("X1", "X20", "AA11", "AA2")) %>%
   extract(x, c("variable", "id"), regex = "([A-Z]+)([0-9]+)")  
-
 ```
 
 Both `separate()` and `extract()` convert a single column to many columns.
