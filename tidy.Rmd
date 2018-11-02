@@ -363,7 +363,7 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
 In this, the extra values are not split, so `"f,g"` appears in column three.
 
 In this, one of the entries for column, `"d,e"`, has too few elements.
-The default for `fill` is similar to those in separate `separate()`; it fills with missing values but emits a warning. In this, row 2 of column "three", is `NA`.
+The default for `fill` is similar to those in separate `separate()`; it fills with missing values but emits a warning. In this, row 2 of column `three` is `NA`.
 ```{r}
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
@@ -375,7 +375,7 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "right")
 ```
 The option `fill = "left"` also fills with missing values without a warning, but this time from the left side.
-Now, column "one" of row 2 will be missing, and the other values in that row are shifted over.
+Now, row 2 of column `one` will be missing, and the other values in that row are shifted over.
 ```{r}
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "left")
