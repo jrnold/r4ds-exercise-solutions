@@ -1,3 +1,7 @@
+## 2018-11-01
+
+-   Fix typos (\@dongzhouer, #116, #117, #118, #119, #120, #120, #121, #123)
+
 ## 2018-09-22
 
 -   Update answers to section 21.5.3 (#112, thanks \@gvwilson)
@@ -34,20 +38,20 @@
 
 ## 2018-08-06
 
--   Add sections on how to install dependencies, how the book is organized (#61, thanks dongzhuoer), contributing, and a colonophon.
--   Add answer 20.3.3 (#66, thanks dongzhuoer)
--   Correct chapter numbering, again. (dongzhuoer #93)
--   Fix Typos (dongzhuoer #92)
+-   Add sections on how to install dependencies, how the book is organized (#61, thanks \@dongzhuoer), contributing, and a colonophon.
+-   Add answer 20.3.3 (#66, thanks \@dongzhuoer)
+-   Correct chapter numbering, again. (\@dongzhuoer #93)
+-   Fix Typos (\@dongzhuoer #92)
 
 ## 2018-08-05
 
 -   Edit 20.4.4 so that `even_numbers()` handles special values correctly.
     Expand discussion and add testing of special cases for `not_last()`.
-    (#74,#75 dongzhuoer)
+    (#74,#75 \@dongzhuoer)
 
--   Edit 20.4.5 to expand the discussion of the answer. (#75, thanks dongzhuoer)
+-   Edit 20.4.5 to expand the discussion of the answer. (#75, thanks \@dongzhuoer)
 
--   Fix section and exercise numbers. (dongzhuoer #91)
+-   Fix section and exercise numbers. (\@dongzhuoer #91)
 
 ## 2018-08-04
 
@@ -59,32 +63,32 @@
 
 -   Edit Ex 20.3.4. Fix function, expand and clarify function. (#70)
 
--   Correct 19.4.3. Return values instead of printing them. (dongzhuoer #72)
+-   Correct 19.4.3. Return values instead of printing them. (\@dongzhuoer #72)
 
--   Edit Ex. 21.2.4. Incorrect exercise number. Pre-allocated vector is only 10 times faster. (dongzhuoer #80)
+-   Edit Ex. 21.2.4. Incorrect exercise number. Pre-allocated vector is only 10 times faster. (\@dongzhuoer #80)
 
--   Edit Ex. 20.5.1. Keep order of elements in the the graphics the same as in the code. (dongzhuoer #79)
+-   Edit Ex. 20.5.1. Keep order of elements in the the graphics the same as in the code. (\@dongzhuoer #79)
 
 -   Edit Ex. 20.3.1 for clarity.
 
--   Fix Ex. 14.2.6. It was incorrect for a list of length two. (dongzhuoer #90)
+-   Fix Ex. 14.2.6. It was incorrect for a list of length two. (\@dongzhuoer #90)
 
--   Fix typos. (dongzhuoer #76, #77, #81, #82, #87, #88, #89)
+-   Fix typos. (\@dongzhuoer #76, #77, #81, #82, #87, #88, #89)
 
 ## 2018-08-03
 
--   Updated 11.2.4. `read_csv()` now supports a `quote` argument. (dongzhuoer #53)
+-   Updated 11.2.4. `read_csv()` now supports a `quote` argument. (\@dongzhuoer #53)
 -   Edited 21.2.3. Added lyrics for all songs.
 -   Edited 19.2.6
 -   Edited 19.2.4. Used different definition of sample skewness. (#55)
--   Edited 19.5.2 (dongzhuoer #62)
--   Edited 19.4.6 (dongzhuoer #59)
--   Edited 19.4.5 (dongzhuoer #60)
--   Fix typos (dongzhuoer #51, #52, #54, #64, #63)
+-   Edited 19.5.2 (\@dongzhuoer #62)
+-   Edited 19.4.6 (\@dongzhuoer #59)
+-   Edited 19.4.5 (\@dongzhuoer #60)
+-   Fix typos (\@dongzhuoer #51, #52, #54, #64, #63)
 
 ## 2018-08-01
 
--   Edit answer to 20.4.6 (nzxwang, #50)
+-   Edit answer to 20.4.6 (\@nzxwang, #50)
 
 ## 2018-07-31
 
@@ -101,37 +105,37 @@
 -   Add answer to Ex 3.5.4 (#32)
 -   Move exercise 6 of 5.6 to exercise 8 of 5.7 (#43)
 -   Update code for Ex 5.7.7 to be cleaner (#41)
--   Fix various typos (dongzhuoer #39, #40, #43, #45, #46, #47, #48)
+-   Fix various typos (\@dongzhuoer #39, #40, #43, #45, #46, #47, #48)
 
 ## 2018-07-28
 
--   Fix miscellaneous typos (dongzhuoer, #31, #33, #34, #35, #36, #37)
+-   Fix miscellaneous typos (\@dongzhuoer, #31, #33, #34, #35, #36, #37)
 
 ## 2018-07-24
 
--   Fix bugs and typos in Ex. 5.2.4. Change a `>=` to `>` in part 1. Remove `!is.na()` conditions from `filter()` statements. (Thanks to JamesCuster, #28, #29)
--   Typo fixes (JamesCuster, #30)
+-   Fix bugs and typos in Ex. 5.2.4. Change a `>=` to `>` in part 1. Remove `!is.na()` conditions from `filter()` statements. (Thanks to \@JamesCuster, #28, #29)
+-   Typo fixes (\@JamesCuster, #30)
 
 ## 2018-07-23
 
--   Fix bug and edit solution to Ex. 3.9.4 (Thanks to JamesCuster, #27)
--   Fix typo in Ex. 3.9.1 (Thanks to JamesCuster, #26)
+-   Fix bug and edit solution to Ex. 3.9.4 (Thanks to \@JamesCuster, #27)
+-   Fix typo in Ex. 3.9.1 (Thanks to \@JamesCuster, #26)
 
 ## 2018-07-22
 
--   Edit plot in Ex. 12.2.3 (KleinGeard, #25)
--   Add examples to Ex. 12.4.2 (KleinGeard, #25)
--   Fix typo in Ex. 13.2.2 (KleinGeard, #25)
--   Correct exercise number in Ex. 13.2.3 (KleinGeard, #25)
--   Extended discussion of Ex. 13.3.2 (KleinGeard, #25)
--   New answer to Ex. 14.3.5.1.2 (KleinGeard)
--   Added answer to Ex. 14.4.2.1.d (KleinGeard, #25)
+-   Edit plot in Ex. 12.2.3 (\@KleinGeard, #25)
+-   Add examples to Ex. 12.4.2 (\@KleinGeard, #25)
+-   Fix typo in Ex. 13.2.2 (\@KleinGeard, #25)
+-   Correct exercise number in Ex. 13.2.3 (\@KleinGeard, #25)
+-   Extended discussion of Ex. 13.3.2 (\@KleinGeard, #25)
+-   New answer to Ex. 14.3.5.1.2 (\@KleinGeard)
+-   Added answer to Ex. 14.4.2.1.d (\@KleinGeard, #25)
 -   Miscellaneous minor typo fixes.
 
 ## 2018-07-21
 
--   Added answer to Ex. 11.3.4 (KleinGeard, #25)
--   Correct and edit Ex. 12.2.2. (KleinGeard, #25): Missing multiplication by 10,000, typo in code, and did not store results in the appropriate format.
+-   Added answer to Ex. 11.3.4 (\@KleinGeard, #25)
+-   Correct and edit Ex. 12.2.2. (\@KleinGeard, #25): Missing multiplication by 10,000, typo in code, and did not store results in the appropriate format.
 
 ## 2018-07-15
 
@@ -142,8 +146,8 @@
 ## 2018-07-14
 
 -   Added answer to Ex. 20.5.1
--   Added answer to Ex. 3.8.3 (KleinGeard, #23)
--   Edited answer to Ex. 5.2.1 to use modulo operator (KleinGeard, #23)
+-   Added answer to Ex. 3.8.3 (\@KleinGeard, #23)
+-   Edited answer to Ex. 5.2.1 to use modulo operator (\@KleinGeard, #23)
 -   Corrected answer to Ex 3.3.5 (Ronald Gould, #24)
 -   Corrected typos, URLs, HTML, markdown issues.
 
