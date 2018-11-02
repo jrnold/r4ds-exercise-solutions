@@ -282,7 +282,7 @@ The observations in this data are unique combinations of sex and pregnancy statu
 
 ```{r}
 preg_tidy <- preg %>%
-  gather(male, female, key = "sex", value = "count", na.rm = TRUE)
+  gather(male, female, key = "sex", value = "count")
 preg_tidy
 ```
 
@@ -363,9 +363,9 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "merge")
 ```
 
+In this, one of the entries for column, `"d,e"`, has too few elements.
+The default for `fill` is similar to those in separate `separate()`; it fills with missing values but emits a warning. In this, row 2 of column `three` is `NA`.
 
-In the second example, one of the entries for column, `"d,e"`, has too few elements.
-The default for `fill` is similar to those in separate `separate()`; it fills with missing values but emits a warning. In this, row 2 of column "three", is `NA`.
 ```{r}
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
@@ -377,7 +377,7 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "right")
 ```
 The option `fill = "left"` also fills with missing values without a warning, but this time from the left side.
-Now, column "one" of row 2 will be missing, and the other values in that row are shifted over.
+Now, row 2 of column `one` will be missing, and the other values in that row are shifted over.
 ```{r}
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "left")
@@ -388,12 +388,12 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 ### Exercise <span class="exercise-number">12.4.3.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Both `unite()` and `separate()` have a remove argument. What does it do? Why would you set it to `FALSE`?
+Both `unite()` and `separate()` have a `remove` argument. What does it do? Why would you set it to `FALSE`?
 </div>
 
 <div class="answer">
 
-You would set it to `FALSE` if you want to create a new variable, but keep the old one.
+The `remove` argument discards input columns in the result data frame. You would set it to `FALSE` if you want to create a new variable, but keep the old one.
 
 </div>
 
