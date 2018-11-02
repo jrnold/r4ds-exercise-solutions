@@ -345,25 +345,27 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 
 The `extra` argument tells `separate()` what to do if there are too many pieces,
 and the `fill` argument if there aren't enough.
-
+By default, `separate()` drops the extra values with a warning.
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"))
 ```
-By default, `separate()` drops the extra values with a warning.
+
+`extra = "drop"` produces the same result as above, dropping extra values, but without the warning.
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "drop")
 ```
-This produces the same result as above, dropping extra values, but without the warning.
+
+Another option for `extra` is `"merge"`, then the extra values are not split, so `"f,g"` appears in column three.
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "merge")
 ```
-In this, the extra values are not split, so `"f,g"` appears in column three.
 
 In this, one of the entries for column, `"d,e"`, has too few elements.
 The default for `fill` is similar to those in separate `separate()`; it fills with missing values but emits a warning. In this, row 2 of column `three` is `NA`.
+
 ```{r}
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
