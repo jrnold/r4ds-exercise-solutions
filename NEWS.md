@@ -2,6 +2,7 @@
 
 -  Fix bug in answer to 5.4.1.1 (#125, thanks \@JamesCuster)
 -  Expand answer to 13.2.3 (#124)
+-  Fix typos (\@JamesCuster, #126)
 
 ## 2018-11-01
 

@@ -1079,8 +1079,7 @@ flights_with_zscore <- flights %>%
   mutate(z_score = (air_time - air_time_mean) / air_time_sd)
 ```
 
-Possible unusual flights are the
-Lets print out the 10 flights with the largest
+Possible unusual flights are those flights with the largest absolute values of z-scores.
 ```{r}
 flights_with_zscore %>%
   arrange(desc(abs(z_score))) %>%
