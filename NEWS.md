@@ -1,6 +1,7 @@
 ## 2018-11-09
 
 -  Fix typos (#130, \@dongzhuoer)
+-  Update code in 13.3.1.2 to more closely match the book (#129, \@dongzhuoer)
 
 ## 2018-11-04
 
