@@ -1,13 +1,13 @@
 ## 2018-11-09
 
--  Fix typos (#130, \@dongzhuoer)
--  Update code in 13.3.1.2 to more closely match the book (#129, \@dongzhuoer)
+-   Fix typos (#130, \@dongzhuoer)
+-   Update code in 13.3.1.2 to more closely match the book (#129, \@dongzhuoer)
 
 ## 2018-11-04
 
--  Fix bug in answer to 5.4.1.1 (#125, thanks \@JamesCuster)
--  Expand answer to 13.2.3 (#124)
--  Fix typos (\@JamesCuster, #126)
+-   Fix bug in answer to 5.4.1.1 (#125, thanks \@JamesCuster)
+-   Expand answer to 13.2.3 (#124)
+-   Fix typos (\@JamesCuster, #126)
 
 ## 2018-11-01
 
@@ -25,7 +25,9 @@
 
 -   Fix solution so 20.4.6.1. It incorrectly used `mean()` instead of `sum()`
     (#106, thanks \@gvwilson)
+
 -   Fix diagrams not rendering in Ex 20.5.4.1 (#109, thanks \@gvwilson)
+
 -   Fix typos (#107,#108,#110 thanks \@gvwilson)
 
 ## 2018-09-17
