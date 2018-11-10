@@ -1,3 +1,7 @@
+## 2018-11-09
+
+-  Fix typos (#130, \@dongzhuoer)
+
 ## 2018-11-04
 
 -  Fix bug in answer to 5.4.1.1 (#125, thanks \@JamesCuster)
