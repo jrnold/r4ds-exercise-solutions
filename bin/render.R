@@ -32,21 +32,23 @@ render <- function(path = here::here("index.Rmd"),
 
 main <- function(args = NULL) {
   option_list <- list(
-    make_option(c("-f", "--force"), action = "store_true",
+    make_option(c("-f", "--force"), action = "store_true", default = FALSE,
                 help = "Render even if there are uncomitted changes.")
   )
+  # option_list <- list()
 
   if (is.null(args)) {
     args <- commandArgs(TRUE)
   }
-  opts <- parse_args(OptionParser(option_list), args = args)
+  opts <- parse_args(OptionParser(usage = "%prog [options] [output_format|all]",
+                                  option_list = option_list),
+                     args = args)
   output_format <- if (!length(opts$args)) {
     "all"
   } else {
     args[[1]]
   }
-  print(output_format)
-  render(output_format = output_format)
+  render(output_format = output_format, force = opts$force)
 }
 
 main()
