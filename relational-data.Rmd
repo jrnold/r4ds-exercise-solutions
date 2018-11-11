@@ -558,9 +558,9 @@ Let's check:
 multi_carrier_planes <-
   flights %>%
   filter(!is.na(tailnum)) %>%
-  count(tailnum, carrier) %>%
+  distinct(tailnum, carrier) %>%
   count(tailnum) %>%
-  filter(nn > 1)
+  filter(n > 1)
 multi_carrier_planes
 ```
 There are `r nrow(multi_carrier_planes)` airplanes in this dataset that have had more than one carrier.
