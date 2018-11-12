@@ -805,8 +805,7 @@ Find all contractions. Separate out the pieces before and after the apostrophe.
 
 ```{r}
 contraction <- "([A-Za-z]+)'([A-Za-z]+)"
-sentences %>%
-  `[`(str_detect(sentences, contraction)) %>%
+sentences[str_detect(sentences, contraction)] %>%
   str_extract(contraction)
 ```
 
