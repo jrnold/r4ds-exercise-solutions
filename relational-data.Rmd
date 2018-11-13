@@ -284,7 +284,6 @@ flights2 <- flights %>%
 Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
 </div>
 
-<div class="answer">
 
 ```{r}
 airports %>%
@@ -296,6 +295,10 @@ airports %>%
 ```
 
 (Don’t worry if you don’t understand what `semi_join()` does — you’ll learn about it next.)
+
+You might want to use the size or color of the points to display the average delay for each airport.
+
+<div class="answer">
 
 ```{r}
 avg_dest_delays <-
@@ -311,8 +314,6 @@ avg_dest_delays %>%
     geom_point() +
     coord_quickmap()
 ```
-
-You might want to use the size or color of the points to display the average delay for each airport.
 
 </div>
 
@@ -557,9 +558,9 @@ Let's check:
 multi_carrier_planes <-
   flights %>%
   filter(!is.na(tailnum)) %>%
-  count(tailnum, carrier) %>%
+  distinct(tailnum, carrier) %>%
   count(tailnum) %>%
-  filter(nn > 1)
+  filter(n > 1)
 multi_carrier_planes
 ```
 There are `r nrow(multi_carrier_planes)` airplanes in this dataset that have had more than one carrier.
@@ -577,7 +578,7 @@ multi_carrier_planes
 
 The names of airlines are easier to understand than the two-letter carrier codes.
 Join the multi-airline table with the associated airline in `airlines` using the `carrier` column.
-The spread the data so it has columns `carrier_1`, `carrier_2`, and so on.
+We spread the data so it has columns `carrier_1`, `carrier_2`, and so on.
 This is not tidy, but it is more easier to display.
 ```{r carrier_transfer_tbl}
 carrier_transfer_tbl <-

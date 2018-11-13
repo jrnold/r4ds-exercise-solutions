@@ -535,7 +535,7 @@ Describe, in words, what these expressions will match:
 
 1.  `(.)\1\1` :
 1.  `"(.)(.)\\2\\1"`:
-1.  `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
+1.  `(..)\1`: 
 1.  `"(.).\\1.\\1"`:
 1.  `"(.)(.)(.).*\\3\\2\\1"`
 
@@ -805,8 +805,7 @@ Find all contractions. Separate out the pieces before and after the apostrophe.
 
 ```{r}
 contraction <- "([A-Za-z]+)'([A-Za-z]+)"
-sentences %>%
-  `[`(str_detect(sentences, contraction)) %>%
+sentences[str_detect(sentences, contraction)] %>%
   str_extract(contraction)
 ```
 
@@ -823,7 +822,7 @@ Replace all forward slashes in a string with backslashes.
 <div class="answer">
 
 ```{r}
-backslashed <- str_replace_all("past/present/future", "\\/", "\\\\")
+backslashed <- str_replace_all("past/present/future", "/", "\\\\")
 writeLines(backslashed)
 ```
 
