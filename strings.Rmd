@@ -620,7 +620,6 @@ For each of the following challenges, try solving it by using both a single regu
 1.  Find all words that start or end with x.
 1.  Find all words that start with a vowel and end with a consonant.
 1.  Are there any words that contain at least one of each different vowel?
-1.  What word has the higher number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
 
 </div>
 
@@ -685,17 +684,30 @@ The answer to each part follows.
 
     There appear to be none.
 
-1.  The word with the highest number of vowels is
-    ```{r}
-    vowels <- str_count(words, "[aeiou]")
-    words[which(vowels == max(vowels))]
-    ```
+</div>
 
-    The word with the highest proportion of vowels is
-    ```{r}
-    prop_vowels <- str_count(words, "[aeiou]") / str_length(words)
-    words[which(prop_vowels == max(prop_vowels))]
-    ```
+#### Exercise <span class="exercise-number">14.4.2.2</span> {.unnumbered .exercise}
+
+<div class="question">
+  
+What word has the higher number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
+
+</div>
+
+<div class="answer">
+  
+The word with the highest number of vowels is
+    
+```{r}
+vowels <- str_count(words, "[aeiou]")
+words[which(vowels == max(vowels))]
+```
+
+The word with the highest proportion of vowels is
+```{r}
+prop_vowels <- str_count(words, "[aeiou]") / str_length(words)
+words[which(prop_vowels == max(prop_vowels))]
+```
 
 </div>
 
