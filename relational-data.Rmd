@@ -371,24 +371,38 @@ Is there a relationship between the age of a plane and its delays?
 
 <div class="answer">
 
-Surprisingly not. If anything (departure) delay seems to decrease slightly with the age of the plane.
-This could be due to choices about how airlines allocate planes to airports.
-```{r}
-plane_ages <-
-  planes %>%
-  mutate(age = 2013 - year) %>%
-  select(tailnum, age)
+Surprisingly not. If anything, departure delay decreases slightly with the age of the plane.
 
-flights %>%
-  inner_join(plane_ages, by = "tailnum") %>%
+```{r}
+plane_cohorts <- inner_join(flights,
+           select(planes, tailnum, plane_year=year), 
+           by = "tailnum") %>%
+  mutate(age = year - plane_year) %>%
+  filter(!is.na(age)) %>%
   group_by(age) %>%
-  filter(!is.na(dep_delay)) %>%
-  summarise(delay = mean(dep_delay)) %>%
-  ggplot(aes(x = age, y = delay)) +
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE),
+            arr_delay = mean(arr_delay, na.rm = TRUE))
+```
+
+Plot departure delay by age.
+```{r}
+ggplot(plane_cohorts, aes(x = age, y = dep_delay)) +
   geom_point() +
   geom_line()
-
 ```
+
+Plot arrival delay by age.
+```{r}
+ggplot(plane_cohorts, aes(x = age, y = arr_delay)) +
+  geom_point() +
+  geom_line()
+```
+
+Additional questions: 
+
+-   What about arrival delays? 
+-   What would cause departure and arrival delays? 
+    Which of these would you expect to be more related to a plane's age.
 
 </div>
 
@@ -422,7 +436,7 @@ flight_weather %>%
 ### Exercise <span class="exercise-number">13.4.6.5</span> {.unnumbered .exercise}
 
 <div class="question">
-What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+What happened on June 13, 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
 </div>
 
 <div class="answer">
