@@ -140,10 +140,8 @@ flights_dt %>%
 There exist discrepancies. It looks like there are mistakes in the dates. These
 are flights in which the actual departure time is on the *next* day relative to
 the scheduled departure time. We forgot to account for this when creating the
-date-times. The code would have had to check if the departure time is less than
-the scheduled departure time. Alternatively, simply adding the delay time is
-more robust because it will automatically account for crossing into the next
-day.
+date-times using `make_datetime_100()` function in [16.2.2 From individual components](https://r4ds.had.co.nz/dates-and-times.html#from-individual-components). The code would have had to check if the departure time is less than
+the scheduled departure time plus departure delay (in minutes). Alternatively, simply adding the departure delay to the scheduled departure time is a more robust way to construct the departure time because it will automatically account for crossing into the next day.
 
 ### Exercise <span class="exercise-number">16.3.4.3</span> {.unnumbered .exercise}
 
