@@ -21,7 +21,7 @@ Create one plot on the fuel economy data with customized `title`,
 
 ```{r}
 ggplot(data = mpg,
-       mapping = aes(x = reorder(class, hwy, median), y = hwy)) +
+       mapping = aes(x = forcats::fct_reorder(class, hwy), y = hwy)) +
   geom_boxplot() +
   coord_flip() +
   labs(
