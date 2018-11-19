@@ -231,7 +231,7 @@ Given the corpus of common words in `stringr::words`, create regular expressions
 1.  Are exactly three letters long. (Don’t cheat by using `str_length()`!)
 1.  Have seven letters or more.
 
-Since this list is long, you might want to use the match argument to `str_view()` to show only the matching or non-matching words.
+Since this list is long, you might want to use the `match` argument to `str_view()` to show only the matching or non-matching words.
 
 </div>
 
@@ -535,7 +535,7 @@ Describe, in words, what these expressions will match:
 
 1.  `(.)\1\1` :
 1.  `"(.)(.)\\2\\1"`:
-1.  `(..)\1`: Any two characters repeated. E.g. `"a1a1"`.
+1.  `(..)\1`: 
 1.  `"(.).\\1.\\1"`:
 1.  `"(.)(.)(.).*\\3\\2\\1"`
 
@@ -620,7 +620,6 @@ For each of the following challenges, try solving it by using both a single regu
 1.  Find all words that start or end with x.
 1.  Find all words that start with a vowel and end with a consonant.
 1.  Are there any words that contain at least one of each different vowel?
-1.  What word has the higher number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
 
 </div>
 
@@ -685,17 +684,30 @@ The answer to each part follows.
 
     There appear to be none.
 
-1.  The word with the highest number of vowels is
-    ```{r}
-    vowels <- str_count(words, "[aeiou]")
-    words[which(vowels == max(vowels))]
-    ```
+</div>
 
-    The word with the highest proportion of vowels is
-    ```{r}
-    prop_vowels <- str_count(words, "[aeiou]") / str_length(words)
-    words[which(prop_vowels == max(prop_vowels))]
-    ```
+#### Exercise <span class="exercise-number">14.4.2.2</span> {.unnumbered .exercise}
+
+<div class="question">
+  
+What word has the higher number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
+
+</div>
+
+<div class="answer">
+  
+The word with the highest number of vowels is
+    
+```{r}
+vowels <- str_count(words, "[aeiou]")
+words[which(vowels == max(vowels))]
+```
+
+The word with the highest proportion of vowels is
+```{r}
+prop_vowels <- str_count(words, "[aeiou]") / str_length(words)
+words[which(prop_vowels == max(prop_vowels))]
+```
 
 </div>
 
@@ -805,8 +817,7 @@ Find all contractions. Separate out the pieces before and after the apostrophe.
 
 ```{r}
 contraction <- "([A-Za-z]+)'([A-Za-z]+)"
-sentences %>%
-  `[`(str_detect(sentences, contraction)) %>%
+sentences[str_detect(sentences, contraction)] %>%
   str_extract(contraction)
 ```
 
@@ -823,7 +834,7 @@ Replace all forward slashes in a string with backslashes.
 <div class="answer">
 
 ```{r}
-backslashed <- str_replace_all("past/present/future", "\\/", "\\\\")
+backslashed <- str_replace_all("past/present/future", "/", "\\\\")
 writeLines(backslashed)
 ```
 
