@@ -184,7 +184,7 @@ How would you match the sequence `"'\` ?
 <div class="answer">
 
 ```{r eval=is_html}
-str_view("\"'\\", "\"'\\\\")
+str_view("\"'\\", "\"'\\\\", match = TRUE)
 ```
 
 </div>
@@ -200,7 +200,7 @@ What patterns will the regular expression `\..\..\..` match? How would you repre
 It will match any patterns that are a dot followed by any character, repeated three times.
 
 ```{r eval=is_html}
-str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."))
+str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."), match = TRUE)
 ```
 
 </div>
@@ -216,7 +216,7 @@ How would you match the literal string `"$^$"`?
 <div class="answer">
 
 ```{r eval=is_html}
-str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$")
+str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$", match = TRUE)
 ```
 
 </div>
@@ -495,19 +495,19 @@ The answer to each part follows.
 1.  This regex finds all words starting with three consonants.
 
     ```{r eval=is_html}
-    str_view(words, "^[^aeiou]{3}")
+    str_view(words, "^[^aeiou]{3}", match = TRUE)
     ```
 
 1.  This regex finds three or more vowels in a row:
 
     ```{r eval=is_html}
-    str_view(words, "[aeiou]{3,}")
+    str_view(words, "[aeiou]{3,}", match = TRUE)
     ```
 
 1.  This regex finds two or more vowel-consonant pairs in a row.
 
     ```{r eval=is_html}
-    str_view(words, "([aeiou][^aeiou]){2,}")
+    str_view(words, "([aeiou][^aeiou]){2,}", match = TRUE)
     ```
 
 </div>
@@ -574,28 +574,25 @@ The answer to each part follows.
     str_view(stringr::words, "^(.)((.*\\1$)|\\1?$)", match = TRUE)
     ```
 
-1.  This regex matches words that contain a repeated pair of letters.
-
+1.  Either of these patterns checks for any pair of repeated letters, where
+    *letters* is defined to the ASCII letters A-Z.
+    
     ```{r eval=is_html}
-    str_view(words, "(..).*\\1")
-    ```
-
-    These patterns checks for any pair of repeated "letters".
-
-    ```{r eval=is_html}
-    str_view(words, "([A-Za-z][A-Za-z]).*\\1")
+    str_view(words, "([A-Za-z][A-Za-z]).*\\1", match = TRUE)
     ```
 
     ```{r eval=is_html}
-    str_view(words, "([[:letter:]]).*\\1")
+    str_view(words, "([[:letter:]]).*\\1", match = TRUE)
     ```
+
+    The `\\1` pattern is called a backreference. It matches whatever the first group
+    matched. This allows the pattern to match a repeating pair of letters without having
+    to specify exactly what pair letters is being repeated.
 
     Note that these patterns are case sensitive. Use the
     case insensitive flag if you want to check for repeated pairs
     of letters with different capitalization.
-
-    The `\\1` is used to refer back to the first group (`(.)`) so that whatever letter is matched by `[A-Za-z]` is again matched.
-
+ 
 1.  This regex matches words that contain one letter repeated in at least three places.
 
     ```{r}
