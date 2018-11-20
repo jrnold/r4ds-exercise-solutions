@@ -101,23 +101,23 @@ within a day change over the course of the year?
 
 Let's try plotting this by month:
 ```{r}
-flights_dt %>%
-  mutate(time = hour(dep_time) * 100 + minute(dep_time),
-         mon = as.factor(month
-                         (dep_time))) %>%
-  ggplot(aes(x = time, group = mon, colour = mon)) +
-  geom_freqpoly(binwidth = 100)
+flights_dt %>% 
+  filter(!is.na(dep_time)) %>% 
+    mutate(dep_hour = update(dep_time, yday = 1)) %>% 
+    mutate(month = factor(month(dep_time))) %>%
+  ggplot(aes(dep_hour, color = month)) +
+    geom_freqpoly(binwidth = 60*60)
 ```
 
 This will look better if everything is normalized within groups. The reason
 that February is lower is that there are fewer days and thus fewer flights.
 ```{r}
-flights_dt %>%
-  mutate(time = hour(dep_time) * 100 + minute(dep_time),
-         mon = as.factor(month
-                         (dep_time))) %>%
-  ggplot(aes(x = time, y = ..density.., group = mon, colour = mon)) +
-  geom_freqpoly(binwidth = 100)
+flights_dt %>% 
+  filter(!is.na(dep_time)) %>% 
+    mutate(dep_hour = update(dep_time, yday = 1)) %>% 
+    mutate(month = factor(month(dep_time))) %>%
+  ggplot(aes(dep_hour, color = month)) +
+    geom_freqpoly(aes(y = ..density..), binwidth = 60*60)
 ```
 
 At least to me there doesn't appear to much difference in within-day distribution over the year, but I maybe thinking about it incorrectly.
