@@ -304,20 +304,16 @@ Change the display of the presidential terms by:
 <div class="answer">
 
 ```{r}
-years <- lubridate::make_date(seq(year(min(presidential$start)),
-             year(max(presidential$end)),
-             by = 4), 1, 1)
-
 presidential %>%
-  mutate(id = 33 + row_number(),
-         name_id = stringr::str_c(name, " (", id, ")"),
-         name_id = factor(name_id, levels = name_id)) %>%
-  ggplot(aes(start, name_id, colour = party)) +
+  mutate(id = 33 + row_number()) %>%
+  mutate(name_id = stringr::str_c(name, " (", id, ")")) %>%
+  mutate(name_id = name_id %>% forcats::fct_inorder()) %>%
+ggplot(aes(start, name_id, colour = party)) +
     geom_point() +
     geom_segment(aes(xend = end, yend = name_id)) +
     scale_colour_manual(values = c(Republican = "red", Democratic = "blue")) +
     scale_y_discrete(NULL) +
-    scale_x_date(NULL, breaks = years, date_labels = "'%y") +
+   scale_x_date(NULL, breaks = presidential$start, date_labels = "'%y") +
     theme(panel.grid.minor = element_blank())
 ```
 
