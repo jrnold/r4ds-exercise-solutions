@@ -21,7 +21,7 @@ Create one plot on the fuel economy data with customized `title`,
 
 ```{r}
 ggplot(data = mpg,
-       mapping = aes(x = reorder(class, hwy, median), y = hwy)) +
+       mapping = aes(x = forcats::fct_reorder(class, hwy), y = hwy)) +
   geom_boxplot() +
   coord_flip() +
   labs(
@@ -47,7 +47,7 @@ a better model.
 
 ```{r}
 ggplot(mpg, aes(displ, hwy, colour = class)) +
-  geom_point(aes(colour = class)) +
+  geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   labs(
     title = "Fuel efficiency generally decreases with engine size",
