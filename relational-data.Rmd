@@ -545,16 +545,33 @@ Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the recor
 
 <div class="answer">
 
-The table `fueleconomy::common` identifies vehicles by `make` and `model`:
-```{r}
-glimpse(fueleconomy::vehicles)
-glimpse(fueleconomy::common)
-```
-
+The columns `make` and `model` are the primary key for `fueleconomy::common`.
 ```{r}
 fueleconomy::vehicles %>%
   semi_join(fueleconomy::common, by = c("make", "model"))
 ```
+
+Why is `model` alone not a primary key? It is possible for two car brands
+(`make`) to produce a car with the same name (`make`). In both the `vehicles`
+and `common` data we can find examples.
+```{r}
+fueleconomy::vehicles %>% 
+  distinct(model, make) %>% 
+  group_by(model) %>%
+  filter(n() > 1) %>%
+  arrange(model) %>%
+  head()
+```
+```{r}
+fueleconomy::common %>% 
+  distinct(model, make) %>% 
+  group_by(model) %>%
+  filter(n() > 1) %>%
+  arrange(model) %>%
+  head()
+```
+If we were to merge these data `model` alone, there would be incorrect matches.
+For example, see "Limousine".
 
 </div>
 

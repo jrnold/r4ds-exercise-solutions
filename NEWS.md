@@ -3,6 +3,7 @@
 -   Correct Ex. 16.4.5.5. (#116, \@dongzhuoer)
 -   Edit Ex. 13.2.1.3 (#124, \@dongzhuoer)
 -   Edit Ex. 13.4.6.3 (#132, \@dongzhuoer)
+-   Edit Ex. 13.5.1.3 (#134, \@dongzhuoer)
 
 ## 2018-11-09
 
