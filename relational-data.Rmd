@@ -52,6 +52,15 @@ If the weather was included for all airports in the US, then it would provide th
 The `weather` data frame columns (`year`, `month`, `day`, `hour`, `origin`) are a foreign key for the `flights` data frame columns (`year`, `month`, `day`, `hour`, `dest`).
 This would provide information about the weather at the distination airport at the time of the flight take off, unless the arrival date-time were calculated.
 
+So why was this not a relationship prior to adding additional rows to the `weather` table?
+In a foreign key relationship, the collection columns of columns in the child table 
+must refer to a unique collection of columns in the parent table. 
+When the `weather` table only contained New York airports,
+there were many values of  (`year`, `month`, `day`, `hour`, `dest`) in `flights` that
+did not appear in the `weather` table. Therefore, it was not a foreign key. It was only after
+all combinations of year, month, day, hour, and airports that are defined in `flights`
+were added to the `weather` table that there existed this relation between these tables.
+
 </div>
 
 ### Exercise <span class="exercise-number">13.2.1.4</span> {.unnumbered .exercise}
