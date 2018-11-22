@@ -315,11 +315,37 @@ Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
 
 <div class="answer">
 
-It appears to work. Today is a date. Today + 1 year is a valid endpoint for an interval. And months is period that is defined in this period.
+The code in the question is missing a parentheses.
+So, I will assume that that the correct code is,
 ```{r}
-(today() %--% (today() + years(1))) %/% months(1)
 (today() %--% (today() + years(1))) / months(1)
 ```
+
+While this code will not display a warning or message, it does not work exactly as
+expected. The problem is discussed in the [Intervals](https://r4ds.had.co.nz/dates-and-times.html#intervals) section.
+
+The numerator of the expression, `(today() %--% (today() + years(1))`, is an *interval*, which 
+as a duration of time along with a starting point. The interval has an exact number of
+seconds.
+The denominator of the expression, `months(1)`, is a period, which is meaningful to humans but not defined in terms of an exact number of seconds.
+Months can be 28, 29, 30, or 31 days, so it is not clear what `months(1)` divide by?
+The code does not produce a warning message, but it will not always produce the correct result.
+
+To find the number of months within an interval use `%/%` instead of `/`,
+```{r}
+(today() %--% (today() + years(1))) %/% months(1)
+```
+
+Alternatively, you could define a "month" as 30 days, and run
+```{r}
+(today() %--% (today() + years(1))) / days(30)
+```
+
+There's one other minor  way in which this will not work is that `today() + years(1)` is not defined for February 29th on leap years:
+```{r}
+as.Date("2016-02-29") + years(1)
+```
+
 
 </div>
 
