@@ -1,7 +1,8 @@
 ## 2018-11-21
 
--   Fix answer to Ex. 16.4.5.5. (#116, \@dongzhuoer)
--   Update answer to Ex. 13.2.1.3 (#124, \@dongzhuoer)
+-   Correct Ex. 16.4.5.5. (#116, \@dongzhuoer)
+-   Edit Ex. 13.2.1.3 (#124, \@dongzhuoer)
+-   Edit Ex. 13.4.6.3 (#132, \@dongzhuoer)
 
 ## 2018-11-09
 
