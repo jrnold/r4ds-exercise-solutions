@@ -229,7 +229,7 @@ daily <- daily %>%
 mod5 <- lm(n ~ wday3, data = daily)
 
 daily %>%
-  spread_residuals(mod5) %>%
+  add_residuals(mod5) %>%
   arrange(desc(abs(resid))) %>%
   slice(1:20) %>% select(date, wday, resid)
 
