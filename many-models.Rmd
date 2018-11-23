@@ -115,9 +115,6 @@ fivenum(mtcars$mpg)
 
 <div class="question">
 What’s missing in the following data frame? How does `quantile()` return that missing piece? Why isn’t that helpful here?
-</div>
-
-<div class="answer">
 
 ```{r}
 mtcars %>%
@@ -125,6 +122,9 @@ mtcars %>%
   summarise(q = list(quantile(mpg))) %>%
   unnest()
 ```
+</div>
+
+<div class="answer">
 
 The particular quantiles of the values are missing, e.g. `0%`, `25%`, `50%`, `75%`, `100%`. `quantile()` returns these in the names of the vector.
 ```{r}
