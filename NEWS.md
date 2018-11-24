@@ -2,6 +2,7 @@
 
 -   Update Ex. 15.3.1.1 (#146, \@dongzhuoer), Ex. 28.2.1.2 (#149, \@dongzhuoer)
 -   Fix section numbering in Section 14.4 (#144, \@dongzhuoer)
+-   Fix typo in Ex 5.5.2.1 (#152, \@mvhone)
 
 ## 2018-11-21
 
