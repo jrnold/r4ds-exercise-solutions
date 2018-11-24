@@ -24,7 +24,7 @@ library("nycflights13")
 ### Exercise <span class="exercise-number">7.3.4.1</span> {.unnumbered .exercise}
 
 <div class="question">
-Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.
+Explore the distribution of each of the `x`, `y`, and `z` variables in `diamonds`. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.
 </div>
 
 <div class="answer">
@@ -45,12 +45,27 @@ diamonds %>%
 There several noticeable features of the distributions
 
 1.  They are right skewed, with most diamonds small, but a few very large ones.
-1.  There is an outlier in `y`, and `z` (see the rug)
-1.  All three distributions have a bimodality (perhaps due to some sort of threshold)
+1.  There is an outlier in `y` and `z`. This is visible in the z-axis and y-axis reugs.
+1.  All three distributions are bimodal.
+    This could be due to some threshold in diamond classification,
+    or popular values used for certain cuts.
 
-According to the documentation for `diamonds`:
-`x` is length, `y` is width, and `z` is depth.
-I don't know if I would have figured that out before; maybe if there was data on the type of cuts.
+According to the documentation for `diamonds`, `x` is length,
+`y` is width, and `z` is depth.
+
+If documentation were unavailable, two reasonable assumptions are
+
+1.  length is less than width, otherwise the width would be called the length
+1.  depth is usually less than length or width, but not necessarily.
+
+```{r}
+summarise(diamonds, mean(x >= y), mean(x > z), mean(y > z))
+```
+
+Surprisingly, it appears that depth (`z`) is always smaller than
+length (`x`) or width (`y`).  Length is less than width in more than half the observations, the opposite of expectations.
+I don't know what's going on. If this was not a widely used dataset
+I would think that `x`, `y`, and `z` were mislabeled.
 
 </div>
 
