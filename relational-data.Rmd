@@ -50,7 +50,7 @@ Weather only contains information for the origin (NYC) airports. If it contained
 
 If the weather was included for all airports in the US, then it would provide the weather for the destination of each flight.
 The `weather` data frame columns (`year`, `month`, `day`, `hour`, `origin`) are a foreign key for the `flights` data frame columns (`year`, `month`, `day`, `hour`, `dest`).
-This would provide information about the weather at the distination airport at the time of the flight take off, unless the arrival date-time were calculated.
+This would provide information about the weather at the destination airport at the time of the flight take off, unless the arrival date-time were calculated.
 
 So why was this not a relationship prior to adding additional rows to the `weather` table?
 In a foreign key relationship, the collection columns of columns in the child table 
@@ -153,7 +153,7 @@ The answer to each part follows.
     because the `babynames` data frame already contains a column named `n`.
     
     This behavior requires knowing the names of the columns which `count()` 
-    is being called on. The following code usese `group_by()` and `n()` to 
+    is being called on. The following code uses `group_by()` and `n()` to 
     produces the same result.
     ```{r}
     babynames::babynames %>%

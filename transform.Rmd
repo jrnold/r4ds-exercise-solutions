@@ -1070,7 +1070,7 @@ When calculating this answer we should only compare flights within the same (ori
 A common approach to finding unusual observations would be to [standardize](https://en.wikipedia.org/wiki/Standard_score) the
 observations each flight by subtracting the mean and dividing by the standard deviation,
 $$
-\mathsf{standarized}(x) = \frac{x - \mathsf{mean}(x)}{\mathsf{sd}(x)} .
+\mathsf{standardized}(x) = \frac{x - \mathsf{mean}(x)}{\mathsf{sd}(x)} .
 $$
 This is often called a $z$-score.
 The units of the standardized variable are standard deviations from the mean. 
@@ -1112,7 +1112,10 @@ standardized_flights %>%
   print(width = 100)
 ```
 
-However, this does not necessarily imply that there was a data entry error. We should check these flights to see whether there was some reason for the difference, e.g. an emergency or other unusual occurence, or whether there is an error in our understanding of the data.
+However, this does not necessarily imply that there was a data entry error. 
+We should check these flights to see whether there was some reason for the difference.
+For example, was there an emergency or another unusual occurrence?
+It may be that we are missing some piece of information that explains these unusual times.
 
 A potential issue with the way that we standardized the flights is that the mean and standard deviation used to calculate it include the unusual observations that we are looking for.
 Since the mean and standard deviation are sensitive to outliers,
@@ -1131,7 +1134,7 @@ Apart from our knowledge that flights from the same origin to the same destinati
 But we know much more about this problem.
 We know that aircraft have maximum speeds.
 So could also use the time and distance of each flight to calculate the average speed of each flight and find any clearly impossibly fast flights.
-This complicated by the way in which winds, especially the jetstream influence the ground-speed of flights.
+This complicated by the way in which winds, especially the influence of wind, especially jet streams, on the ground-speed of flights.
 A strong tailwind can increase ground-speed of the aircraft by [200 mph](https://www.wired.com/story/norwegian-air-transatlantic-speed-record/).
 
 </div>
