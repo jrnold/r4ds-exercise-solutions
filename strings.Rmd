@@ -959,14 +959,13 @@ What are the five most common words in sentences?
 
 <div class="answer">
 
+Using `str_extract_all()` with the argument `boundary("word")` will extract all words.
+The rest of the code uses **dplyr** functions to count words and find the most
+common words.
 ```{r}
-str_extract_all(sentences, boundary("word")) %>%
-  unlist() %>%
-  str_to_lower() %>%
-  tibble() %>%
-  set_names("word") %>%
-  group_by(word) %>%
-  count(sort = TRUE) %>%
+tibble(word = unlist(str_extract_all(sentences, boundary("word")))) %>%
+  mutate(word = str_to_lower(word)) %>%
+  count(word, sort = TRUE) %>%
   head(5)
 ```
 
