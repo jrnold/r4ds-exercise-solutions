@@ -429,19 +429,40 @@ Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
 | `+`     | `{1,}`  | Match 1 or more   |
 | `*`     | `{0,}`  | Match 0 or more   |
 
-For example, let's repeat the let's rewrite the `?`, `+`, and `*` examples using `{,}`.
+For example, let's repeat the examples in the chapter, replacing `?` with `{0,1}`, 
+`+` with `{1,}`, and `*` with `{*,}`.
 ```{r eval=is_html}
 x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
+```
+```{r}
 str_view(x, "CC?")
 ```
 ```{r eval=is_html}
 str_view(x, "CC{0,1}")
 ```
+
 ```{r eval=is_html}
 str_view(x, "CC+")
 ```
 ```{r eval=is_html}
 str_view(x, "CC{1,}")
+```
+
+```{r eval=is_html}
+str_view_all(x, "C[LX]+")
+```
+```{r eval=is_html}
+str_view_all(x, "C[LX]{0,1}")
+```
+
+The chapter does not contain an example of `*`.
+This pattern looks for a "C" optionally followed by
+any number of "L" or "X" characters.
+```{r eval=is_html}
+str_view_all(x, "C[LX]*")
+```
+```{r eval=is_html}
+str_view_all(x, "C[LX]{0,}")
 ```
 
 </div>
