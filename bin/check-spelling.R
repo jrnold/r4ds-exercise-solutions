@@ -21,5 +21,5 @@ if (any_mispelled) {
   sink(file = stderr())
   print(misspelled_words)
   sink()
-  quit(1)
+  quit(save = "no", status = 1)
 }
