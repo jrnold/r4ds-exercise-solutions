@@ -1,4 +1,6 @@
-## 2018-11-23
+## 2018-11-24
+
+-   Fix section numbering in Section 14.4 (#144, \@donghuoer)
 
 ## 2018-11-21
 
