@@ -1,3 +1,49 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+# create nojekyll if it doesn't exist
+output_dir <- yaml::read_yaml(here::here("_bookdown.yml"))[["output_dir"]]
+dir.create(here::here(output_dir), recursive = TRUE, showWarnings = FALSE)
+.nojekyll <- here::here(output_dir, ".nojekyll")
+if (!file.exists(.nojekyll)) {
+  close(open(file(.nojekyll, "w")))
+}
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  autodep = TRUE,
+  # need to save cache
+  cache.extra = knitr::rand_seed,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+options(dplyr.print_min = 6, dplyr.print_max = 6)
+
+is_html <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
+
+# Info and useful links
+SOURCE_URL <- stringr::str_c("https:/", "github.com", "jrnold",
+                             "r4ds-exercise-solutions", sep = "/")
+PUB_URL <- stringr::str_c("http:/", "jrnold.github.io",
+                          "r4ds-exercise-solutions", sep = "/")
+
+R4DS_URL <- "http://r4ds.had.co.nz"
+
+r4ds_url <- function(...) {
+  stringr::str_c(R4DS_URL, ..., sep = "/")
+}
+
+comma_int <- function(x) {
+  prettyNum(x, big.interval = 3, big.mark = ",")
+}
+```
 ---
 output: html_document
 editor_options:
@@ -30,30 +76,72 @@ How could you improve the plot?
 
 <div class="answer">
 
+My first attempt is to use `geom_bar()` with the default settings.
 ```{r}
 rincome_plot <-
   gss_cat %>%
-  ggplot(aes(rincome)) +
+  ggplot(aes(x = rincome)) +
   geom_bar()
 rincome_plot
 ```
 
-The default bar chart labels are too squished to read.
-One solution is to change the angle of the labels,
+The problem with default bar chart settings, are that the labels overlapping and impossible to read.
+I'll try changing the angle of the x-axis labels to vertical so that they will not overlap.
 ```{r}
 rincome_plot +
-  theme(axis.text.x = element_text(angle = 90))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-But that's not natural either, because text is vertical, and we read horizontally.
-So with long labels, it is better to flip it.
+This is better because the labels are not overlapping, but also difficult to read because the labels are vertical.
+I could try angling the labels so that they are easier to read, but not overlapping.
+```{r}
+rincome_plot +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+But the solution I prefer for bar charts with long labels is to flip the axes, so that the bars are horizontal. 
+Then the category labels are also horizontal, and easy to read.
 ```{r}
 rincome_plot +
   coord_flip()
 ```
 
-This is better, but it unintuitively goes from low to high. It would help if the
-scale is reversed. Also, if all the missing factors were differentiated.
+Though more than asked for in this question, I could further improve this plot by 
+
+1.  removing the "Not applicable" responses, 
+1.  renaming "Lt \$1000" to "Less than \$1000",
+1.  using color to distinguish non-response catgories ("Refused", "Don't know", and "No answer") from income levels ("Lt $1000", ...), 
+1.  adding meaningful y- and x-axis titles, and
+1.  formatting the counts axis labels to use commas.
+
+```{r}
+gss_cat %>%
+  filter(!rincome %in% c("Not applicable")) %>%
+  mutate(rincome = fct_recode(rincome, 
+                              "Less than $1000" = "Lt $1000")) %>%
+  mutate(rincome_na = rincome %in% c("Refused", "Don't know", "No answer"))  %>%
+  ggplot(aes(x = rincome, fill = rincome_na)) +
+  geom_bar() +
+  coord_flip() +
+  scale_y_continuous("Number of Respondents", labels = scales::comma) +
+  scale_x_discrete("Respondent's Income") +
+  scale_fill_manual(values = c("FALSE" = "black", "TRUE" = "gray")) +
+  theme(legend.position = "None")
+```
+
+If I wer only interested in non-missing responses, then
+I could drop all respondents who answered "Not applicable", "Refused", "Don't know", or "No answer".
+```{r}
+gss_cat %>%
+  filter(!rincome %in% c("Not applicable", "Don't know", "No answer", "Refused")) %>%
+  mutate(rincome = fct_recode(rincome, 
+                              "Less than $1000" = "Lt $1000")) %>%
+  ggplot(aes(x = rincome)) +
+  geom_bar() +
+  coord_flip() +
+  scale_y_continuous("Number of Respondents", labels = scales::comma) +
+  scale_x_discrete("Respondent's Income")
+```
 
 </div>
 

@@ -1,6 +1,7 @@
 ## 2018-11-24
 
--   Fix section numbering in Section 14.4 (#144, \@donghuoer)
+-   Update Ex. 15.3.1.1 (#146, \@dongzhuoer)
+-   Fix section numbering in Section 14.4 (#144, \@dongzhuoer)
 
 ## 2018-11-21
 
