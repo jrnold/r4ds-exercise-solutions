@@ -495,7 +495,7 @@ You might want to start with an `is_numeric()` function that returns a logical v
 
 <div class="answer">
 
-The original `col_summary()` function is,
+The original `col_summary()` function is
 ```{r}
 col_summary <- function(df, fun) {
   out <- vector("double", length(df))
@@ -506,35 +506,48 @@ col_summary <- function(df, fun) {
 }
 ```
 
-The adapted version is,
+The adapted version adds extra logic to only apply the function to numeric
+columns.
 ```{r}
 col_summary2 <- function(df, fun) {
-  # test whether each colum is numeric
+  # create an empty vector which will store whether each 
+  # column is numeric
   numeric_cols <- vector("logical", length(df))
+  # test whether each column is numeric
   for (i in seq_along(df)) {
     numeric_cols[[i]] <- is.numeric(df[[i]])
   }
-  # indexes of numeric columns
-  idxs <- seq_along(df)[numeric_cols]
-  # number of numeric columns
+  # find the indexes of the numeric columns
+  idxs <- which(numeric_cols)
+  # find the number of numeric columns
   n <- sum(numeric_cols)
+  # create a vector to hold the results
   out <- vector("double", n)
-  for (i in idxs) {
-    out[i] <- fun(df[[i]])
+  # apply the function only to numeric vectors
+  for (i in seq_along(idxs)) {
+    out[[i]] <- fun(df[[idxs[[i]]]])
   }
+  # name the vector 
+  names(out) <- names(df)[idxs]
   out
 }
 ```
 
-Let's test that it works,
+Let's test that `col_summary2()` works by creating a small data frame with 
+some numeric and non-numeric columns.
 ```{r}
 df <- tibble(
-  a = rnorm(10),
-  b = rnorm(10),
-  c = letters[1:10],
-  d = rnorm(10)
+  X1 = c(1, 2, 3),
+  X2 = c("A", "B", "C"),
+  X3 = c(0, -1, 5),
+  X4 = c(TRUE, FALSE, TRUE)
 )
 col_summary2(df, mean)
+```
+As expected, it only calculates the mean of the numeric columns, `X1` and `X3`.
+Let's test that it works with another function.
+```{r}
+col_summary2(df, median)
 ```
 
 </div>
