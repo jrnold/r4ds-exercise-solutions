@@ -1072,10 +1072,13 @@ observations each flight by subtracting the mean and dividing by the standard de
 $$
 \mathsf{standardized}(x) = \frac{x - \mathsf{mean}(x)}{\mathsf{sd}(x)} .
 $$
-This is often called a $z$-score.
-The units of the standardized variable are standard deviations from the mean. 
-This is essential, because it will put the flight times from different routes all on the same scale.
-The larger the absolute value of standardized variable for an observation, the more unusual the observation is.
+A standardized variable is often called a $z$-score.
+The units of the standardized variable are standard deviations from the mean.
+This will put the flight times from different routes on the same scale.
+The larger the magnitude of standardized variable for an observation, the more unusual the observation is.
+Flights with negative values of the standardized variable are faster than the 
+mean flight for that route, while those with positive values are slower than
+the mean flight for that route.
 
 ```{r}
 standardized_flights <- flights %>%
@@ -1088,54 +1091,229 @@ standardized_flights <- flights %>%
   mutate(air_time_standard = (air_time - air_time_mean) / air_time_sd)
 ```
 
-The distribution of the standardized air flights shows them to have a long right tail.
+The distribution of the standardized air flights has long right tail.
 ```{r}
 ggplot(standardized_flights, aes(x = air_time_standard)) +
   geom_density()
 ```
 
-What about the distribution compared to the length of the flight? 
-We might be concerned that short flights may have too many unusual events.
-```{r}
-ggplot(standardized_flights, aes(x = air_time_mean, y = air_time_standard)) +
-  geom_point()
-```
-
-Unusually fast flights are those flights that are the  number of standard deviations from the mean 
+Unusually fast flights are those flights with the smallest standardized values.
 ```{r}
 standardized_flights %>%
   arrange(air_time_standard) %>%
-  mutate(date = str_c(year, "-", month, "-", day, " ", dep_time), 
-         flightnum = str_c(carrier, flight)) %>%
-  select(date, flightnum, origin, dest, distance, air_time, air_time_mean, air_time_standard) %>%
+  select(carrier, flight, origin, dest, month, day,
+         air_time, air_time_mean, air_time_standard) %>%
   head(10) %>%
-  print(width = 100)
+  print(width = 120)
 ```
 
-However, this does not necessarily imply that there was a data entry error. 
+```{r include=FALSE}
+format_ymd <- function(y, m, d) {
+  format(lubridate::make_date(y, m, d), "%Y-%m-%d")
+}
+format_time <- function(x) {
+  format(lubridate::make_datetime(hour = x %/% 100, min = x %% 100),
+         "%H:%M")
+}
+fastest_flight <- standardized_flights %>%
+  arrange(air_time_standard) %>%
+  slice(1L) %>%
+  mutate(date = format_ymd(year, month, day),
+         time = format_time(dep_time),
+         flightnum = str_c(carrier, flight))
+```
+The fastest flight was `r fastest_flight$flightnum` from `r fastest_flight$origin` to
+`r fastest_flight$dest` which departed on 
+`r fastest_flight$date` at `r fastest_flight$time`.
+It had an air time of `r round(fastest_flight$air_time)` minutes, compared to an average
+flight time of `r round(fastest_flight$air_time_mean)` minutes for its route.
+This was `r round(abs(fastest_flight$air_time_standard), 1)` standard deviations below
+than the average flight on its route.
+
+It is important to note that this does not necessarily imply that there was a data entry error. 
 We should check these flights to see whether there was some reason for the difference.
-For example, was there an emergency or another unusual occurrence?
 It may be that we are missing some piece of information that explains these unusual times.
 
-A potential issue with the way that we standardized the flights is that the mean and standard deviation used to calculate it include the unusual observations that we are looking for.
-Since the mean and standard deviation are sensitive to outliers,
-that means that an outlier could affect the mean and standard deviation calculations enough that it does not look like one.
-We would want to calculate the standardize each observation using the mean and standard deviation based on all other
-flights to that origin and destination.
-This will be more of an issue if the number of of observations is small.[^methods]
-
-Another way to improve this calculation is to use the same method
-used in box plots (see `geom_boxplot()`) to screen outliers.
+A potential issue with the way that we standardized the flights is that the mean and standard deviation used to calculate are sensitive to outliers, which is precisely what we are 
+looking for.
+Instead of standardizing variables with the mean and variance, we could use the median
+as a measure of central tendency and the interquartile range (IQR) as a measure of spread.
+The median and IQR are more [resistant to outliers](https://en.wikipedia.org/wiki/Robust_statistics) than the mean an standard deviation.
 That method uses the median and inter-quartile range, and thus is less sensitive to outliers. 
-Adjust the previous code and see if it makes a difference.
 
-All of these answers have relied on the distribution of comparable observations, flights from the same origin to the same destination,  to flag unusual observations.
-Apart from our knowledge that flights from the same origin to the same destination should have similar air times, we have not used any domain specific knowledge.
+```{r}
+standardized_flights2 <- flights %>%
+  filter(!is.na(air_time)) %>%
+  group_by(dest, origin) %>%
+  mutate(air_time_median = median(air_time),
+         air_time_iqr = IQR(air_time),
+         n = n()) %>%
+  ungroup() %>%
+  mutate(air_time_standard = (air_time - air_time_median) / air_time_iqr)
+```
+
+The distribution of the standardized air flights using this new definition
+also has long right tail of slow flights.
+```{r}
+ggplot(standardized_flights2, aes(x = air_time_standard)) +
+  geom_density()
+```
+
+Unusually fast flights are those flights with the smallest standardized values.
+```{r}
+standardized_flights2 %>%
+  arrange(air_time_standard) %>%
+  select(carrier, flight, origin, dest, month, day, air_time, 
+         air_time_median, air_time_standard) %>%
+  head(10) %>%
+  print(width = 120)
+```
+
+All of these answers have relied only on using a distribution of comparable observations to findn ununusal observations. 
+In this case, the comparable obserservations were flights from the same origin to the same destination.
+Apart from our knowledge that flights from the same origin to the same destination should have similar air times, we have not used any other domain-specific knowledge.
 But we know much more about this problem.
-We know that aircraft have maximum speeds.
-So could also use the time and distance of each flight to calculate the average speed of each flight and find any clearly impossibly fast flights.
-This complicated by the way in which winds, especially the influence of wind, especially jet streams, on the ground-speed of flights.
+The most obvious piece of knowledge we have is that we know that flights cannot travel back in time, so there should never be a flight with a negative air time.
+But we also know that aircraft have maximum speeds.
+While different aircraft have different [cruising speeds](https://en.wikipedia.org/wiki/Cruise_(aeronautics)), commercial airliners
+typically cruise at air speeds around 547–575 mph.
+Calculating the ground speed of aircraft is complicated by the way in which winds, especially the influence of wind, especially jet streams, on the ground-speed of flights.
 A strong tailwind can increase ground-speed of the aircraft by [200 mph](https://www.wired.com/story/norwegian-air-transatlantic-speed-record/).
+Apart from the retired [Concorde](https://en.wikipedia.org/wiki/Concorde).
+For example, in 2018, [a transatlantic flight](https://www.wired.com/story/norwegian-air-transatlantic-speed-record/) 
+travelled at 770 mph due to a strong jet stream tailwind.
+This means that any flight traveling at speeds greater than 800 mph is implausible, 
+and it may be worth checking flights traveling at greater than 600 or 700 mph.
+Ground speed could also be used to identify aircraft flying implausibly slow.
+Joining flights data with the air craft type in the `planes` table and getting
+information about typical or top speeds of those aircraft could provide a more 
+detailed way to identify implausibly fast or slow flights.
+Additional data on high altitude wind speeds at the time of the flight would further help.
+
+Knowing the substance of the data analysis at hand is one of the most important 
+tools of a data scientist. The tools of statistics are a complement, not a 
+substitute, for that knowledge.
+
+With that in mind, Let's plot the distribution of the ground speed of flights. 
+The modal flight in this data has ground speed between 400 and 500 mph.
+The distribution of ground speeds has a large left tail of slower flights below
+400 mph constituting the majority.
+There are very few flights with a ground speed over 500 mph.
+
+```{r}
+flights %>%
+  mutate(mph = distance / (air_time / 60)) %>%
+  ggplot(aes(x = mph)) +
+  geom_histogram(binwidth = 10)
+```
+
+```{r include=FALSE}
+flights_mph <- flights %>%
+  mutate(mph = distance / (air_time / 60)) 
+fastest_flight_mph <- arrange(ungroup(flights_mph), desc(mph)) %>%
+  slice(1L)
+over_600mph <- filter(flights_mph, mph > 600) %>% nrow()
+```
+
+The fastest flight is the same one identified as the largest outlier earlier.
+Its ground speed was `r round(fastest_flight_mph$mph)` mph. 
+This is fast for a commercial jet, but not impossible. 
+
+```{r}
+flights %>%
+  mutate(mph = distance / (air_time / 60)) %>%
+  arrange(desc(mph)) %>%
+  select(mph, flight, carrier, flight, month, day, dep_time) %>%
+  head(5)
+```
+
+One explantion for unusually fast flights is that they are "making up time" in the
+air. Commercial aircraft fly at a speed that is optimal for fuel consumption,
+not one to maximize speed. If a flight is delayed on the ground, it may fly 
+faster than usual in order to avoid being delayed on arrival. I would expect
+that some of the unusually fast flights were delayed on departure.
+
+```{r}
+flights %>%
+  mutate(mph = distance / (air_time / 60)) %>%
+  arrange(desc(mph)) %>%
+  select(origin, dest, mph, year, month, day, dep_time, flight, carrier,
+         dep_delay, arr_delay)
+  head(5)
+```
+
+Five of the top ten flights were had departure delays, and three of those were
+able to make up that time in the air and arrive ahead of schedule.
+
+Overall, there were a few flights that seemed unusually fast, but they all 
+fall into the realm of plausibility and likely are not data entry problems.
+[Ed. Please correct me if I am missing something]
+
+<!--
+Similarly, the longest [regularly scheduled flight](https://en.wikipedia.org/wiki/Longest_flights#Record_flights) is Newark
+to Signapore with a duration of 18 hours 30--45 minutes.
+Thus, we should never observe any commercial flight longer than 19 hours in our
+data.
+-->
+
+The second part of the question asks us to compare flights to the fastest flight
+on a route to find the flights most delayed in the air. I will calculate the 
+amount a flight is delayed in air in two ways. The first is an absolute delay, `air_time - min(air_time)`. The second is a percentage increase in air time relative to the 
+minimal air time, `(air_time - min(air_time)) / min(air_time) * 100`.
+
+```{r}
+air_time_delayed <- 
+flights %>%
+  group_by(origin, dest) %>%
+  mutate(air_time_min = min(air_time),
+         air_time_delay = air_time - air_time_min,
+         air_time_delay_pct = air_time_delay / air_time_min * 100)
+```
+```{r include=FALSE}
+most_delayed <- arrange(air_time_delayed,
+                        desc(air_time_delay)) %>%
+  mutate(date = format_ymd(year, month, day),
+         time = format_time(dep_time),
+         carrier_flight = str_c(carrier, flight)) %>%
+  head(1L)
+most_delayed_pct <- arrange(air_time_delayed, desc(air_time_delay_pct)) %>%
+  mutate(date = format_ymd(year, month, day),
+         time = format_time(dep_time),
+         carrier_flight = str_c(carrier, flight)) %>%
+  head(1L)
+```
+
+The most delayed flights in air in minutes were the following.
+```{r}
+air_time_delayed %>%
+  arrange(desc(air_time_delay)) %>%
+  select(air_time_delay, carrier, flight, 
+         origin, dest, year, month, day, dep_time,
+         air_time, air_time_min) %>%
+  head() %>%
+  print(width = 100)
+```
+The most delayed flight in air in minutes was `r most_delayed$carrier_flight` 
+from `r most_delayed$origin` to `r most_delayed$dest` which departed on 
+`r most_delayed$date` at `r most_delayed$time`. It took
+`r most_delayed$air_time_delay` minutes longer than the flight with the shortest
+air time on its route.
+
+The most delayed flight in terms of percentage of the fastest flight along that
+route was  `r most_delayed_pct$carrier_flight` 
+from `r most_delayed_pct$origin` to `r most_delayed_pct$dest` departing on `r most_delayed_pct$date` at `r most_delayed_pct$time`.
+It took `r round(most_delayed_pct$air_time_delay_pct)`% longer than the 
+flight with the shortest air time on its route.
+
+```{r}
+air_time_delayed %>%
+  arrange(desc(air_time_delay)) %>%
+  select(air_time_delay_pct, carrier, flight, 
+         origin, dest, year, month, day, dep_time,
+         air_time, air_time_min) %>%
+  head() %>%
+  print(width = 100)
+```
 
 </div>
 
@@ -1205,14 +1383,6 @@ flights %>%
 ```
 
 </div>
-
-[^methods]: There are easy methods to update the mean and variance by [removing an observation](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance),
-    but I don't pursue that option here. 
-    In most interesting data analysis questions, no answer ever "right".
-    With infinite time and money, an analysis could almost always improve 
-    their answer with more data or better methods.
-    The difficulty in real life is finding the quickest, simplest method
-    that works "good enough".
 
 [^daylight]: Except for flights  daylight savings started (March 10) or
     ended (November 3). But since daylight savings goes into effect at 02:00,
