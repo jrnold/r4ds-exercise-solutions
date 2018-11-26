@@ -4,7 +4,7 @@ suppressPackageStartupMessages({
   library("optparse")
 })
 # From devtools:::git_uncommitted
-git_uncommitted <- function (path = ".") {
+git_uncommitted <- function(path = ".") {
   r <- git2r::repository(path, discover = TRUE)
   st <- vapply(git2r::status(r), length, integer(1))
   any(st != 0)
@@ -19,15 +19,18 @@ check_uncommitted <- function(path = ".") {
   }
 }
 
-render <- function(path = here::here("index.Rmd"),
+render <- function(path = NULL,
                    output_format = "all", force = FALSE) {
   if (rmarkdown::pandoc_version() < 2) {
     stop("This book requires pandoc > 2")
   }
+  if (is.null(path)) {
+    path <- here::here("index.Rmd")
+  }
   if (!force) {
     check_uncommitted(path)
   }
-  bookdown::render_book(path, output_format = output_format)
+  bookdown::render_book(input = "index.Rmd", output_format = output_format)
 }
 
 main <- function(args = NULL) {
@@ -42,13 +45,16 @@ main <- function(args = NULL) {
   }
   opts <- parse_args(OptionParser(usage = "%prog [options] [output_format|all]",
                                   option_list = option_list),
-                     args = args)
+                     args = args,
+                     positional_arguments = TRUE,
+                     convert_hyphens_to_underscores = TRUE)
   output_format <- if (!length(opts$args)) {
     "all"
   } else {
-    args[[1]]
+    opts$args[[1]]
   }
-  render(output_format = output_format, force = opts$force)
+  print(output_format)
+  render(output_format = output_format, force = opts$options$force)
 }
 
 main()
