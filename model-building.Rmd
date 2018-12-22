@@ -17,9 +17,13 @@ library(lubridate)
 ```{r}
 diamonds2 <- diamonds %>%
   filter(carat <= 2.5) %>%
-  mutate(lprice = log2(price), lcarat = log2(carat))
+  mutate(lprice = log2(price), 
+         lcarat = log2(carat))
 
 mod_diamond2 <- lm(lprice ~ lcarat + color + cut + clarity, data = diamonds2)
+
+diamonds2 <- add_residuals(diamonds2, mod_diamond2, "lresid2")
+
 ```
 
 ### Exercise <span class="exercise-number">24.2.3.1</span> {.unnumbered .exercise}
@@ -54,7 +58,18 @@ Extract the diamonds that have very high and very low residuals. Is there anythi
 
 <div class="answer">
 
-This was already discussed in the text. I don't see anything either.
+This was discussed in section [24.2.2](https://r4ds.had.co.nz/model-building.html#a-more-complicated-model).
+
+```{r}
+diamonds2 %>% 
+  filter(abs(lresid2) > 1) %>% 
+  add_predictions(mod_diamond2) %>% 
+  mutate(pred = round(2 ^ pred)) %>% 
+  select(price, pred, carat:table, x:z) %>% 
+  arrange(price)
+```
+
+I did not see anything too unusual. Do you?
 
 </div>
 
@@ -66,16 +81,39 @@ Does the final model, `mod_diamonds2`, do a good job of predicting diamond price
 
 <div class="answer">
 
-```{r}
-diamonds2 %>%
-  add_predictions(mod_diamond2) %>%
-  add_residuals(mod_diamond2) %>%
-  summarise(sq_err = sqrt(mean(resid ^ 2)),
-            abs_err = mean(abs(resid)),
-            p975_err = quantile(resid, 0.975),
-            p025_err = quantile(resid, 0.025))
+This was partially discussed in section [24.2.2](https://r4ds.had.co.nz/model-building.html#a-more-complicated-model).
 
+We can plot the residuals of the model. There are some large outliers for
+small carat sizes there are some large errors. In this model, a residual of 2
+means that the true value was four times lower.
+```{r}
+ggplot(diamonds2, aes(lcarat, lresid2)) + 
+  geom_hex(bins = 50)
 ```
+
+```{r}
+lresid2_summary <- summarise(diamonds2,
+          rmse = sqrt(mean(lresid2 ^ 2)),
+          mae = mean(abs(lresid2)),
+          p025 = quantile(lresid2, 0.025),
+          p975 = quantile(lresid2, 0.975))
+lresid2_summary
+```
+
+While in some cases the model can be very wrong, overall the model seems to perform well. 
+The root mean squared error is `r round(lresid2_summary$rmse, 2)` meaning that the 
+average error is about `r round(100 * (1 - (2 ^ lresid2_summary$rmse)))`%.
+Another summary statistics of errors is the mean absolute error (MAE), which is the 
+mean of the absolute values of the errors.
+The MAE is `r round(lresid2_summary$mae, 2)`, which is `r round(100 * (1 - (2 ^ lresid2_summary$mae)))`%.
+Finally, 95% of the residuals are between `r round(lresid2_summary$p025, 2)` and
+`r round(lresid2_summary$p975, 2)`, which correspond to  `r round(100 * (1 - (2 ^ lresid2_summary$p025)))`--`r round(100 * (1 - 2 ^ lresid2_summary$p975_err))`.
+
+Whether you think that this is a good model depends on factors outside the statistical model itself.
+It will depend on what it is being used for.
+I have no idea how to price diamonds, so this would be useful to me in 
+order to understand a reasonable price range for a diamond. If I were buying
+and sellind diamonds as a business, I may require a better model.
 
 </div>
 
