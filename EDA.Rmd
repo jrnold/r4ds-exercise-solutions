@@ -613,28 +613,37 @@ How does that impact a visualization of the 2d distribution of `carat` and `pric
 <div class="answer">
 
 Both `cut_width()` and `cut_number()` split a variable into groups.
-When using `cut_width()`, we need to choose the width.
-When using `cut_number()`, we only need to specify the number of groups, and the width will be calculated.
+When using `cut_width()`, we need to choose the width, and the number of 
+bins will be calculated automatically.
+When using `cut_number()`, we need to specify the number of bins, and
+the widths will be calculated automatically.
 
-In either case, we need to choose the number or width of bins to be large enough to aggregate observations enough to remove noise
-but not so much as to remove all patterns.
+In either case, we want to choose the bin widths and number to be large enough
+to aggregate observations to remove noise, but not so large as to remove all the signal.
 
-The number of bins in the frequency plots will generally
-need to be less than those in the box plots in order to be
-interpretable.
+If categorical colors are used, no more than eight colors should be used 
+in order to keep them distinct. Using `cut_number`, I will split carats into
+quntiles (five groups).
 
 ```{r message=FALSE}
 ggplot(data = diamonds,
        mapping = aes(color = cut_number(carat, 5), x = price)) +
   geom_freqpoly() +
-  ylab("Carat")
+  labs(x = "Price", y = "Count", color = "Carat")
+
 ```
+
+Alternatively, I could use `cut_width` to specify widths at which to cut.
+I will choose 1-carat widths. Since there are very few diamonds larger than
+2-carats, this is not as informative. However, using a width of 0.5 carats 
+creates too many groups, and splitting at non-whole numbers is unappealing.
 
 ```{r message=FALSE}
 ggplot(data = diamonds,
-       mapping = aes(color = cut_width(carat, 0.5, boundary = 0), x = price)) +
+       mapping = aes(color = cut_width(carat, 1, boundary = 0), x = price)) +
   geom_freqpoly() +
-  ylab("Carat")
+  labs(x = "Price", y = "Count", color = "Carat")  
+
 ```
 
 </div>

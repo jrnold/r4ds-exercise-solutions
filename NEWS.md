@@ -1,3 +1,7 @@
+## 2018-12-21
+
+-  Fix plots in Ex. 7.5.3.11 (#180, \@JamesCuster)
+
 ## 2018-11-24
 
 -   Update Ex. 15.3.1.1 (#146, \@dongzhuoer), Ex. 28.2.1.2 (#149, \@dongzhuoer)
