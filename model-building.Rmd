@@ -309,14 +309,15 @@ What happens if you fit a day of week effect that varies by month (i.e. `n ~ wda
 <div class="answer">
 
 ```{r}
-daily <- mutate(daily, month = lubridate::month(date))
-
+daily <- mutate(daily, month = factor(lubridate::month(date)))
 mod6 <- lm(n ~ wday * month, data = daily)
+print(summary(mod6))
 ```
 
-There model has only 4--5 observations to estimate each (month, weekday)
-combination parameter since only there only 4--5 weekdays in given month. Any
-estimates will be very uncertain.
+If we fit a day of week effect that varies by month, there will be `12 * 7 = 84` parameters in the model.
+Since each month has only four to five weeks, each of these day of week $\times$ month effects is the average of only four or five observations.
+Since each of these estimates is based on only a few observations, they will be be uncertain, having large standard errors.
+These estimates will likely not generalize well beyond the sample data.
 
 </div>
 
@@ -355,12 +356,14 @@ flights %>%
   labs(x = "Day of Week", y = "Average Distance")
 ```
 
-To address the second hypothesis, that business travel 
+To address the second hypothesis, that business travel means that long-distance flights
+leave later in the day on Sunday, I plot the average distance by hour of departure
+for Sunday flights.
 ```{r}
 flights %>%
   mutate(date = make_date(year, month, day),
          wday = wday(date, label = TRUE)) %>%
-  filter(wday == "Sat",
+  filter(wday == "Sun",
          hour >= 5, hour <= 21) %>%
   group_by(hour) %>%
   summarise(dist_mean =  mean(distance)) %>%
