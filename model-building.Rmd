@@ -339,34 +339,66 @@ We hypothesized that people leaving on Sundays are more likely to be business tr
 
 <div class="answer">
 
-Looking at only day of the week, we see that Sunday flights are on average longer than the rest of the day of the week flights, but not as long as Saturday flights (perhaps vacation flights?).
+Comparing the average distances of flights by day of week, Sunday flights are the 
+second longest. Saturday flights are the longest on average. This is speculation, but
+this may be because there are fewer regularly scheduled short business/commuter flights
+on the weekends.
+
 ```{r}
 flights %>%
   mutate(date = make_date(year, month, day),
          wday = wday(date, label = TRUE)) %>%
   group_by(wday) %>%
-  summarise(dist_mean =  mean(distance),
-            dist_median = median(distance)) %>%
+  summarise(dist_mean =  mean(distance)) %>%
   ggplot(aes(y = dist_mean, x = wday)) +
-  geom_point()
+  geom_point() +
+  labs(x = "Day of Week", y = "Average Distance")
 ```
 
-However, breaking it down by hour, I don't see much evidence at first.
-Conditional on hour, the distance of Sunday flights seems similar to that of other days (excluding Saturday):
-
+To address the second hypothesis, that business travel 
 ```{r}
 flights %>%
   mutate(date = make_date(year, month, day),
          wday = wday(date, label = TRUE)) %>%
-  group_by(wday, hour) %>%
-  summarise(dist_mean =  mean(distance),
-            dist_median = median(distance)) %>%
-  ggplot(aes(y = dist_mean, x = hour, colour = wday)) +
+  filter(wday == "Sat",
+         hour >= 5, hour <= 21) %>%
+  group_by(hour) %>%
+  summarise(dist_mean =  mean(distance)) %>%
+  ggplot(aes(y = dist_mean, x = hour)) +
   geom_point() +
   geom_line()
 ```
 
-Can someone think of a better way to check this?
+| Early morning | 12 am | 5 am  |
+| Morning       | 5 am  | 12 pm |
+| Afternoon     | 12 pm | 6 pm  |
+| Evening       | 6 pm  | 12 pm |
+
+```{r}
+flights %>%
+  mutate(date = make_date(year, month, day),
+         wday = wday(date, label = TRUE),
+         time = factor(case_when(
+           hour < 5 ~ "Early morning",
+           hour < 12 ~ "Morning",
+           hour < 18 ~ "Afternoon",
+           TRUE ~ "Evening"
+         ),
+         levels = c("Early morning", "Morning",
+                    "Afternoon", "Evening"))) %>%
+  group_by(wday, time) %>%
+  filter(time != "Early morning") %>%
+  summarise(distance = mean(distance)) %>%
+  ggplot(aes(color = wday, y = distance, x = time)) +
+  geom_point()
+
+```
+
+
+
+
+
+
 
 </div>
 
