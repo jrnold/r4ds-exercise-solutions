@@ -46,7 +46,58 @@ If `log(price) = a_0 + a_1 * log(carat)`, what does that say about the relations
 
 <div class="answer">
 
-A 1% increase in carat is associated with an $a_1$% increase in price.
+A one log unit change in `carat` is associated with a `a_1` unit change in `price`.
+But what does that mean on the linear scale?
+
+$$
+\begin{aligned}
+\Delta \log_b (\mathtt{price}) & = a_0 + a_1 \log_b (k \times  \mathtt{carat}) - a_0 + a_1 \log_b (\mathtt{carat})  \\
+&= a_1 \left( \log_b(\mathtt{carat}) - \log_b (k\times  \mathtt{carat}) \right) \\
+&= a_1 \log_b \left( \frac{ k \times \mathtt{carat} }{\mathtt{carat}} \right) \\
+&= a_1 \log_b k
+\end{aligned}
+$$
+
+A multiplicative increase of $k$ in `carat` is associated with a $a_1 \log_b k$ 
+multiplicative increase in `price`. 
+
+For small changes in the covariate, there are some useful approximations.
+$$
+\frac{d}{dx} \log(y) =  \frac{d}{dx} \left( a_0 + a_1 \log(x) \right)  \\
+= a_1 \frac{dx}{x}
+$$
+$$
+\frac{d y}{dx} =  \frac{d}{dx} e^{a_0} x^{a_1} = e^{a_0} a_1 x^{a_1 - 1} dx = (e^{a_0} x^{a_1}) (dx / x) = \frac{y dx}{x}
+$$
+
+Some useful approximations that come from Taylor expansions:
+$$
+\begin{aligned}[t]
+\log (x) &\approx 1 - x && \text{when } x \approx 1 \\
+\log (x + 1) &\approx x && \text{when } x \approx 0
+\end{aligned}
+$$
+
+
+$$
+\Delta \log y = \alpha_1 (\log(x + \Delta x) - \log(x)) \\
+= \alpha_1 \log \left( \frac{x + \Delta x}{x} \right) \\
+= \alpha_1 \log \left( \frac{\Delta x}{x} + 1 \right) \\
+\approx \alpha_1 \Delta x / x = \%\Delta \\
+$$
+
+$$
+\begin{aligned}
+y &= e^{a_0} x^{a_1} \\
+\log y &= a_0 + a_1 \log x
+\end{aligned}
+$$
+$$
+\begin{aligned}
+y &= 2^{a_0} x^{a_1} \\
+\log_2 y &= a_0 + a_1 \log_2 x
+\end{aligned}
+$$
 
 </div>
 
@@ -339,7 +390,8 @@ We hypothesized that people leaving on Sundays are more likely to be business tr
 
 <div class="answer">
 
-Looking at only day of the week, we see that Sunday flights are on average longer than the rest of the day of the week flights, but not as long as Saturday flights (perhaps vacation flights?).
+Looking at only day of the week, we see that Sunday flights are on average longer than the rest of the day of the week flights, but not as long as Saturday flights.
+Perhaps Saturday flights are vacation flights.
 ```{r}
 flights %>%
   mutate(date = make_date(year, month, day),
