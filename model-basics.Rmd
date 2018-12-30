@@ -433,41 +433,51 @@ mod2 <- lm(y ~ x1 * x2, data = sim3)
 
 <div class="answer">
 
+The problem is to convert the formulas in the the models into functions. 
+I will assume that the function is only handling the conversion of the right hand side of the formula into a model matrix.
+The functions will take one argument, a data frame with `x1` and `x2` columns,
+and it will return a data frame.
+In other words, the functions will be special cases of the `model_matrix()` function.
+
+Consider the right hand side of the first formula, `~ x1 + x2`.
+In the `sim3` data frame, the column `x1` is an integer, and the variable `x2` is a factor with four levels.
+```{r}
+levels(sim3$x2)
+```
+
+Since `x1` is numeric it is unchanged.
+Since `x2` is a factor it is replaced with columns of indicator variables for all but one of its levels.
+I will first consider the special case in which `x2` only takes the levels of `x2` in `sim3`.
+In this case, "a" is considered the reference level and omitted, and new columns are made for "b", "c", and "d".
 ```{r}
 model_matrix_mod1 <- function(.data) {
   mutate(.data,
          `x2b` = as.numeric(x2 == "b"),
          `x2c` = as.numeric(x2 == "c"),
-         `x2d` = as.numeric(x2 == "d"),
-         `x1:x2b` = x1 * x2b,
-         `x1:x2c` = x1 * x2c,
-         `x1:x2d` = x1 * x2d) %>%
-    select(x1, x2b, x2c, x2d, `x1:x2b`, `x1:x2c`, `x1:x2d`)
+         `x2d` = as.numeric(x2 == "d")) %>%
+    select(x1, x2b, x2c, x2d)
 }
 ```
 ```{r}
 model_matrix_mod1(sim3)
 ```
 
-```{r}
-model_matrix_mod2 <- function(.data) {
-  mutate(.data, `x1:x2` = x1 * x2) %>%
-    select(x1, x2, `x1:x2`)
-}
-model_matrix_mod2(sim4)
-```
+A more general function for `~ x1 + x2` would not hard-code the 
+
 
 A more general function for model `mod1` is:
 ```{r}
-model_matrix_mod1 <- function(x1, x2) {
-  out <- tibble(x1 = x1)  
-  # find levels of x2
-  x2 <- as.factor(x2)
-  x2lvls <- levels(x2)
-  # create an indicator variable for each level
-  for (lvl in x2lvls[2:nlevels(x2)]) {
-    out[[str_c("x2", lvl)]] <- as.numeric(x2 == lvl)
+model_matrix_mod1b <- function(.data) {
+  # find the levels of x2
+  x2_lvls <- levels(.data$x2)
+  # create an indicator variable for each level of x2
+  for (lvl in x2_lvls[2:nlevels(.data$x2)]) {
+      # new column name
+      varname <- str_c("x2", lvl)
+      out[[str_c("x2", lvl)]] <- as.numeric(x2 == lvl)
   }
+  # drop the first 
+  out[[]]
   # create interactions for each level
   for (lvl in x2lvls[2:nlevels(x2)]) {
     out[[str_c("x1:x2", lvl)]] <- (x2 == lvl) * x1
@@ -475,6 +485,7 @@ model_matrix_mod1 <- function(x1, x2) {
   out
 }
 ```
+
 ```{r}
 model_matrix_mod2 <- function(x1, x2) {
   out <- tibble(x1 = x1,
