@@ -452,47 +452,89 @@ In this case, "a" is considered the reference level and omitted, and new columns
 ```{r}
 model_matrix_mod1 <- function(.data) {
   mutate(.data,
-         `x2b` = as.numeric(x2 == "b"),
-         `x2c` = as.numeric(x2 == "c"),
-         `x2d` = as.numeric(x2 == "d")) %>%
-    select(x1, x2b, x2c, x2d)
+         x2b = as.numeric(x2 == "b"),
+         x2c = as.numeric(x2 == "c"),
+         x2d = as.numeric(x2 == "d"),
+         `(Intercept)` = 1) %>%
+    select(`(Intercept)`, x1, x2b, x2c, x2d)
 }
 ```
 ```{r}
 model_matrix_mod1(sim3)
 ```
 
-A more general function for `~ x1 + x2` would not hard-code the 
-
-
-A more general function for model `mod1` is:
+A more general function for `~ x1 + x2` would not hardcode the specific levels in `x2`.
 ```{r}
 model_matrix_mod1b <- function(.data) {
-  # find the levels of x2
-  x2_lvls <- levels(.data$x2)
+  # the levels of x2
+  lvls <- levels(.data$x2)
+  # drop the first level
+  # this assumes that there are at least two levels
+  lvls <- lvls[2:length(lvls)]
   # create an indicator variable for each level of x2
-  for (lvl in x2_lvls[2:nlevels(.data$x2)]) {
-      # new column name
+  for (lvl in lvls) {
+      # new column name x2 + level name
       varname <- str_c("x2", lvl)
-      out[[str_c("x2", lvl)]] <- as.numeric(x2 == lvl)
+      # add indicator variable for lvl
+      .data[[varname]] <- as.numeric(.data$x2 == lvl)
   }
-  # drop the first 
-  out[[]]
-  # create interactions for each level
-  for (lvl in x2lvls[2:nlevels(x2)]) {
-    out[[str_c("x1:x2", lvl)]] <- (x2 == lvl) * x1
+  # generate the list of variables to keep
+  x2_variables <- str_c("x2", lvls)
+  # Add an intercept
+  .data[["(Intercept)"]] <- 1
+  # keep x1 and x2 indicator variables
+  select(.data, `(Intercept)`, x1, one_of(x2_variables))
+}
+```
+```{r}
+model_matrix_mod1b(sim3)
+```
+
+Consider the right hand side of the first formula, `~ x1 * x2`.
+The output data frame will consist of `x1`, columns with indicator variables for each level (except the reference level) of `x2`,
+and columns with the `x2` indicator variables multiplied by `x1`.
+
+As with the previous formula, first I'll write a function that hardcodes the levels of `x2`.
+```{r}
+model_matrix_mod2 <- function(.data) {
+  mutate(.data,
+         `(Intercept)` = 1,
+         x2b = as.numeric(x2 == "b"),
+         x2c = as.numeric(x2 == "c"),
+         x2d = as.numeric(x2 == "d"),
+         `x1:x2b` = x1 * x2b,
+         `x1:x2c` = x1 * x2c,
+         `x1:x2d` = x1 * x2d) %>%
+    select(`(Intercept)`, x1, x2b, x2c, x2d, `x1:x2b`, `x1:x2c`, `x1:x2d`)
+}
+```
+```{r}
+model_matrix_mod2(sim3)
+```
+
+For a more general function which will handle arbitrary levels in `x2`, I will 
+extend the `model_matrix_mod1b()` function that I wrote earlier.
+```{r}
+model_matrix_mod2b <- function(.data) {
+  # get dataset with x1 and x2 indicator variables
+  out <- model_matrix_mod1b(.data)
+  # get names of the x2 indicator columns
+  x2cols <- str_subset(colnames(out), "^x2")
+  # create interactions between x1 and the x2 indicator columns
+  for (varname in x2cols) {
+    # name of the interaction variable
+    newvar <- str_c("x1:", varname)
+    out[[newvar]] <- out$x1 * out[[varname]]
   }
   out
 }
 ```
-
 ```{r}
-model_matrix_mod2 <- function(x1, x2) {
-  out <- tibble(x1 = x1,
-                x2 = x2,
-                `x1:x2` = x1 * x2)
-}
+model_matrix_mod2b(sim3)
 ```
+
+These functions could be further generalized to allow for `x1` and `x2` to
+be either numeric or factors.
 
 </div>
 
