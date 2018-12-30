@@ -6,10 +6,13 @@
 library(tidyverse)
 library(modelr)
 options(na.action = na.warn)
-library("broom")
-
+library(broom)
 library(nycflights13)
-library(lubridate)
+```
+
+The splines package is needed for the `ns()` function.
+```{r}
+library(splines)
 ```
 
 ## Why are low quality diamonds more expensive?
@@ -324,12 +327,32 @@ These estimates will likely not generalize well beyond the sample data.
 ### Exercise <span class="exercise-number">24.3.5.6</span> {.unnumbered .exercise}
 
 <div class="question">
-What would you expect the model `n ~ wday + ns(date, 5)` to look like? Knowing what you know about the data, why would you expect it to be not particularly effective?
+What would you expect the model `n ~ wday + ns(date, 5)` to look like?
+Knowing what you know about the data, why would you expect it to be not particularlyeffective?
 </div>
 
 <div class="answer">
-It will estimate a smooth seasonal trend (`ns(date, 5)`) with a day of the week cyclicality, (`wday`).
-It probably will not be effective since
+
+Previous models fit in the chapter and exercises show that the effects of days of the week vary across different times of the year. 
+The model `wday + ns(date, 5)` does not interact the day of week effect (`wday`) with the time of year effects (`ns(date, 5)`).
+
+I will estimate a model which does not interact the day of week effects (`mod7`) with the spline to that which does (`mod8`).
+I need to load the **splines** package to use the `ns()` function.
+```{r}
+library("splines")
+mod7 <- lm(n ~ wday + ns(date, 5), data = daily)
+mod8 <- lm(n ~ wday * ns(date, 5), data = daily)
+```
+
+The residuals of the model that does not interact day of week with time of year (`mod7`) are larger than those of the model that does (`mod8`). 
+The model `mod7` underestimates weekends during the summer and overestimates weekends during the autumn.
+```{r}
+daily %>%
+  gather_residuals(mod7, mod8) %>%
+  ggplot(aes(x = date, y = resid, color = model)) +
+    geom_line(alpha = 0.75)
+```
+
 </div>
 
 ### Exercise <span class="exercise-number">24.3.5.7</span> {.unnumbered .exercise}
