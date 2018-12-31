@@ -585,108 +585,74 @@ Cross-reference it with the weather data. Can you see any patterns?
 
 <div class="answer">
 
-**Ed. I'm unsure about the answer to this question.**
+I will start with clarifying the scope of the question. 
+The question asks us to find the 48 hours over the course of the entire year.
+I interpret that as meaning 48 not-necessarily contiguous hours, as opposed a single contiguous period of 48-hours.
+The question does not specify what is meant by "worst delays".
+Since the `weather` data only contains data for the New York City airports, I will use departure delays, which would seem to be more sensitive to New York City weather conditions than arrival delays.
 
-To find the 48 hours with the worst delays, I will group by `year`, `month`,
-and `day`, sum arrival delays for all flights, and then add the arrival delays
-from the previous day to it.
+For hour, use the scheduled departure time rather than the actual departure time.
+If planes are delayed due to weather conditions, the weather conditions during
+the scheduled time are more important than the actual departure time, at which
+point, the weather should be better.
+
 ```{r}
-delays_48 <- flights %>%
-  group_by(year, month, day) %>%
-  summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
-  arrange(year, month, day) %>%
-  mutate(dep_delay_48 = 0.5 * (dep_delay + dep_delay)) %>%
-  filter(!is.na(dep_delay_48))
-delays_48 
+dep_delays_hour <- flights %>%
+  mutate(hour = sched_dep_time %/% 100) %>%
+  group_by(year, month, day, hour) %>%
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE))
+
 ```
 
-The question does not define exactly what is meant by "worst delays". It could
-be arrival delays or departure delays. I could ignore early departures or arrivals
-of include them. It could sum all flights for the total delay, or consider the 
-average delay. There are many reasonable ways to define "worst delays". I chose
-the sum of arrival delays.
-
 ```{r}
-delays_48 %>%
-  arrange(desc(dep_delay_48)) %>%
-  select(year, month, day, dep_delay_48) %>%
-  head()
+dep_delays_hour %>%
+  arrange(desc(dep_delay)) %>%
+  print(n = 48)
 ```
 
-I need to create a dataset which summarizes weather data for each 48 hours in order 
-to cross-reference it with the delay data. The primary key in the `weather` data 
-is (`year`, `month`, `day`, `hour`, `origin`). The desired output will have 
-(`year`, `month`, `day`) as a primary key. I will first calculate daily summaries
-for each `origin` of temperature, wind speed, and precipitation (the variable in `weather` that I
-think are most likely to be associated with delays). Then I will use the average
-of of `origin` daily values as the overall daily value of the weather.
-This is not the only reasonable way to generate daily weather summaries, but the
-final daily dataset should have (`year`, `month`, `day`) as its primary key.
+The primary key of the `weather` dataset is `year`, `month`, `day`, `hour`, 
+`origin`. 
+However, the primary key of `dep_delays_hour` is (`year`, `month`, `day`, `hour`), since it combines flights from all airports.
+I will create a data fram `weather_hourly` with the averages of temperature, wind speed, and precipitation measurements from the airports.
 ```{r}
-weather_daily <- weather %>%
+weather_hourly <- weather %>%
   # daily values for each airport
-  group_by(year, month, day, origin) %>%
-  summarise(temp_max = max(temp), 
-            temp_min = min(temp),
-            wind_speed_mean = mean(wind_speed),
-            wind_speed_max = max(wind_speed),
-            precip = sum(precip)) %>%
-  # average over all airports for daily values
-  group_by(year, month, day) %>%
-  summarise(temp_max = mean(temp_max),
-            temp_min = mean(temp_min),
-            wind_speed_mean = mean(wind_speed_mean),
-            wind_speed_max = mean(wind_speed_max),
-            precip = mean(precip)) %>%
-  ungroup()
-```
-From `weather_daily`, I will create 48-hour summaries of the weather variables.
-```{r}
-weather_48 <- weather_daily %>%
-  arrange(year, month, day) %>%
-  mutate(temp_max = pmax(temp_max, lag(temp_max)),
-         temp_min = pmin(temp_min, lag(temp_min)),
-         wind_speed_mean = 0.5 * (wind_speed_mean + lag(wind_speed_mean)),
-         wind_speed_max = pmax(wind_speed_max, lag(wind_speed_max)),
-         precip = precip + lag(precip))
+  group_by(year, month, day, hour) %>%
+  summarise(temp = mean(temp),
+            wind_speed = mean(wind_speed),
+            precip = mean(precip))
 
 ```
-Merge the 48-hour delay data with the 48-hour weather data.
-```{r}
-delays_48 <- left_join(delays_48, weather_48, by = c("year", "month", "day"))
-```
 
-However, I don't see much relationship between weather and 48-hour delays.
+Merge the hourly weather data with hourly departure delays.
 ```{r}
-ggplot(delays_48, aes(x = precip, y = wind_speed_mean, size = dep_delay_48,
-                      color = temp_max)) +
-  geom_point()
+dep_delays_hour <- dep_delays_hour %>%
+  left_join(weather_hourly, by = c("year", "month", "day", "hour"))
 
 ```
 
 ```{r}
-ggplot(delays_48, aes(x = wind_speed_mean, y = dep_delay_48)) +
-  geom_point()
-
+dep_delays_hour %>%
+  arrange(desc(dep_delay)) %>%
+  print(n = 48)
 ```
 
 ```{r}
-ggplot(filter(delays_48, wind_speed_max < 100),
-       aes(x = wind_speed_max, y = dep_delay_48)) +
-  geom_point()
-
+ggplot(dep_delays_hour, aes(x = wind_speed, y = dep_delay)) +
+  geom_point() +
+  geom_smooth()
 ```
 
 ```{r}
-ggplot(delays_48, aes(x = temp_min, y = dep_delay_48)) +
-  geom_point()
-
+ggplot(dep_delays_hour, aes(x = precip, y = dep_delay)) +
+  geom_point() +
+  geom_smooth()
 ```
 
 ```{r}
-ggplot(delays_48, aes(x = temp_max, y = dep_delay_48)) +
-  geom_point()
-
+ggplot(dep_delays_hour, aes(x = wind_speed, y = dep_delay)) +
+  geom_point() +
+  geom_smooth()
 ```
 
 </div>
@@ -713,24 +679,25 @@ You might expect that there’s an implicit relationship between plane and airli
 
 <div class="answer">
 
-There isn't such a relationship over the lifetime of an airplane since planes can be sold or leased and airlines can merge.
-However, even though that's a possibility, it doesn't necessarily mean that plane associated with more than one  appear in this data.
-Let's check:
+At each point in time, each plane is flown by a single airline.
+However, a plane can be sold and fly for multiple airlines.
+Logically, it is possible that a plane can fly for multiple airlines over the course of its lifetime.
+But, it is not necessarily the case that a plane will fly for more than one airline in this  data, especially since it comprises only a year of data.
+So let's check to see if there are any planes in the data flew for multiple airlines.
+
+First, find all 
 ```{r mulit_carrier_planes}
-multi_carrier_planes <-
+planes_carriers <-
   flights %>%
   filter(!is.na(tailnum)) %>%
-  distinct(tailnum, carrier) %>%
-  count(tailnum) %>%
-  filter(n > 1)
-multi_carrier_planes
-```
-There are `r nrow(multi_carrier_planes)` airplanes in this dataset that have had more than one carrier.
+  distinct(tailnum, carrier)
 
-To see which carriers these planes have been associated, filter the `flights` by `tailnum` in `multi_carrier_planes`, and extract the unique combinations of `tailnum` and `carrier`.
+```
+There are `r nrow(multi_carrier_planes)` planes in this dataset that have flown for more than one airline.
+
+To find the airlines for these multi-airline planes:
 ```{r multi_carrier_planes_with_carrier}
-multi_carrier_planes <-
-  flights %>%
+multi_carrier_planes <- flights %>%
   semi_join(multi_carrier_planes, by = "tailnum") %>%
   select(tailnum, carrier) %>%
   distinct() %>%
@@ -739,20 +706,14 @@ multi_carrier_planes
 ```
 
 The names of airlines are easier to understand than the two-letter carrier codes.
-Join the multi-airline table with the associated airline in `airlines` using the `carrier` column.
-We spread the data so it has columns `carrier_1`, `carrier_2`, and so on.
-This is not tidy, but it is more easier to display.
+The `airlines` data frame contains the names of the airlines.
+
 ```{r carrier_transfer_tbl}
-carrier_transfer_tbl <-
-  multi_carrier_planes %>%
-  group_by(tailnum) %>%
-  mutate(
-    carrier_num = seq_along(tailnum),
-    carrier_num = paste0("carrier_", carrier_num)
-  ) %>%
+carrier_transfer_tbl <- multi_carrier_planes %>%
   left_join(airlines, by = "carrier") %>%
-  select(-carrier) %>%
-  spread(carrier_num, name)
+  distinct() %>%
+  arrange(tailnum, carrier)
+
 carrier_transfer_tbl
 ```
 
