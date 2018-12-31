@@ -194,10 +194,16 @@ The answer to each part follows.
 
 ### Exercise <span class="exercise-number">13.3.1.3</span> {.unnumbered .exercise}
 
+<div class="question">
 Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
 
+How would you characterize the relationship between the `Batting`, `Pitching`, and `Fielding` tables?
+</div>
+
+<div class="answer">
+
 Most flowchart or diagramming software can be used used to create database schema diagrams.
-For example, the diagrams in *R for Data Science* were created with [Gliffy](https://www.gliffy.com/).
+For example, the diagrams in *R for Data Science* were created with [OmniGraffle](https://www.gliffy.com/), and their sources can be found in its [GitHub repository](https://github.com/hadley/r4ds/tree/master/diagrams).
 
 You can use anything to create these diagrams, but I'll use the R package [datamodelr](https://github.com/bergant/datamodelr) to programmatically create data models from R.
 
@@ -205,21 +211,21 @@ For the `Batting`, `Master`, and `Salaries` tables:
 
 -   `Master`
 
-    -   Primary keys: `playerID`
+    -   Primary key: `playerID`
 
 -   `Batting`
 
-    -   Primary keys: `playerID`, `yearID`, `stint`
+    -   Primary key: `playerID`, `yearID`, `stint`
 
-    -   Foreign Keys:
+    -   Foreign keys:
 
         -   `playerID` = `Master$playerID` (many-to-1)
 
 -   `Salaries`
 
-    -   Primary keys: `yearID`, `teamID`, `playerID`
+    -   Primary key: `yearID`, `teamID`, `playerID`
 
-    -   Foreign Keys
+    -   Foreign keys
 
         -   `playerID` = `Master$playerID` (many-to-1)
 
@@ -272,13 +278,13 @@ dm2 <- dm_from_data_frames(list(Master = Lahman::Master,
 dm_create_graph(dm2, rankdir = "LR", columnArrows = TRUE)
 ```
 
-In the previous diagrams, I do not consider `teamID` and `lgID` as foreign keys even though they appear in multiple tables (and have the same meaning) because they are not primary keys in the tables considered in this exercise.
+In the previous diagrams, I do not consider `teamID` and `lgID` as foreign keys even though they appear in multiple tables (and have the same meaning) because they are not primary keys for any of the tables considered in this exercise.
 The `teamID` variable references `Teams$teamID`, and `lgID` does not have its own table.
 
-How would you characterize the relationship between the `Batting`, `Pitching`, and `Fielding` tables?
+The `Batting`, `Pitching`, and `Fielding` tables all have a primary key consisting of the `playerID`, `yearID`, and `stint` columns.
+They all have a 1-1 relationship to each other. 
 
-The `Batting`, `Pitching`, and `Fielding` tables all have a primary key consisting of the `playerID`, `yearID`, and `stint` variables.
-They all have a 1-1 relationship to each other.
+</div>
 
 ## Mutating Joins
 
@@ -317,7 +323,8 @@ avg_dest_delays <-
   # arrival delay NA's are cancelled flights
   summarise(delay = mean(arr_delay, na.rm = TRUE)) %>%
   inner_join(airports, by = c(dest = "faa"))
-
+```
+```{r}
 avg_dest_delays %>%
   ggplot(aes(lon, lat, colour = delay)) +
     borders("state") +
