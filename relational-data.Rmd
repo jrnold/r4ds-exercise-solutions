@@ -291,7 +291,7 @@ flights2 <- flights %>%
 
 <div class="question">
 Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
-</div>
+
 
 ```{r}
 airports %>%
@@ -305,6 +305,8 @@ airports %>%
 (Don’t worry if you don’t understand what `semi_join()` does — you’ll learn about it next.)
 
 You might want to use the size or color of the points to display the average delay for each airport.
+
+</div>
 
 <div class="answer">
 
@@ -665,9 +667,12 @@ What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What 
 
 <div class="answer">
 
-`anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in FAA list of destinations, likely foreign airports.
+`anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in the FAA list of destinations. Since the FAA list only contains
+domestic airports, these are likely foreign flights.
 
-`anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that don't have a flight in the data, meaning that there were no flights to that airport **from** New York in 2013.
+`anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that were not a destination of any any flight in the data. 
+Since the data contains all flights from New York City airpots, this is the list of
+US airports that did not have a direct flight from New York City in 2013.
 
 </div>
 
@@ -685,33 +690,33 @@ Logically, it is possible that a plane can fly for multiple airlines over the co
 But, it is not necessarily the case that a plane will fly for more than one airline in this  data, especially since it comprises only a year of data.
 So let's check to see if there are any planes in the data flew for multiple airlines.
 
-First, find all 
-```{r mulit_carrier_planes}
+First, find all distinct airline, plane combinations.
+```{r planes_carriers}
 planes_carriers <-
   flights %>%
   filter(!is.na(tailnum)) %>%
   distinct(tailnum, carrier)
 
 ```
-There are `r nrow(multi_carrier_planes)` planes in this dataset that have flown for more than one airline.
 
-To find the airlines for these multi-airline planes:
-```{r multi_carrier_planes_with_carrier}
-multi_carrier_planes <- flights %>%
-  semi_join(multi_carrier_planes, by = "tailnum") %>%
-  select(tailnum, carrier) %>%
-  distinct() %>%
-  arrange(tailnum)
-multi_carrier_planes
+The number of planes that have flown for more than one airline are `tailnum` that appear more than once in the `planes_carriers` data.
+```{r}
+planes_carriers %>%
+  count(tailnum) %>%
+  filter(n > 1) %>%
+  nrow()
 ```
 
 The names of airlines are easier to understand than the two-letter carrier codes.
 The `airlines` data frame contains the names of the airlines.
 
 ```{r carrier_transfer_tbl}
-carrier_transfer_tbl <- multi_carrier_planes %>%
+carrier_transfer_tbl <- planes_carriers %>%
+  # keep only planes which have flown for more than one airline
+  group_by(tailnum) %>%
+  filter(n() > 1) %>%
+  # join with airlines to get airline names
   left_join(airlines, by = "carrier") %>%
-  distinct() %>%
   arrange(tailnum, carrier)
 
 carrier_transfer_tbl
