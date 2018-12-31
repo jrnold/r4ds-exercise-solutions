@@ -22,9 +22,35 @@ Imagine you wanted to draw (approximately) the route each plane flies from its o
 
 <div class="answer">
 
--   `flights` table: `origin` and `dest`
--   `airports` table: longitude and latitude variables
--   join `flights` with `airports` twice. The first join adds the location of the origin airport (`origin`). The second join adds the location of destination airport (`dest`).
+Drawing the approximate flight paths requires the latitude and longitude of the both 
+the origin and desination airports of each flights.
+This would require the `flights` and `airports` tables.
+The `flights` table has the origin (`origin`) and destination (`dest`) airport of each flight.
+The `airports` table has the longitude (`lon`) and latitude (`lat`) of each airport.
+To get the latitude and longitude for the origin and destination of each flight,
+requires two joins for `flights` to `airports`,
+once for the latitude and longitude of the origin airport,
+and once for the latitude and longitude of the destination airport.
+I use an inner join in order to drop any flights with missing airports since they will not have a longitude or latitude.
+```{r}
+flights_latlon <- flights %>%
+  inner_join(select(airports, origin = faa, origin_lat = lat, origin_lon = lon),
+            by = "origin") %>%
+  inner_join(select(airports, dest = faa, dest_lat = lat, dest_lon = lon),
+            by = "dest")
+```
+
+This plots the approximate flightpaths of the first 100 flights in the `flights` dataset.
+```{r}
+flights_latlon %>%
+  slice(1:100) %>%
+  ggplot(aes(x = origin_lon, xend = dest_lon,
+             y = origin_lat, yend = dest_lat)) +
+    borders("state") +
+    geom_segment(arrow = arrow(length = unit(0.1,"cm"))) +
+    coord_quickmap() +
+    labs(y = "Latitude", x = "Longitude")
+```
 
 </div>
 
