@@ -406,11 +406,13 @@ all observed combinations of values of these columns appearing in `Pitching`
 also appear in `Batting`. To do this I use an anti-join, which is discussed
 in the section [Filtering Joins](https://r4ds.had.co.nz/relational-data.html#filtering-joins).
 ```{r}
-nrow(anti_join(Pitching, Batting, by = c("playerID", "yearID", "stint")))
+nrow(anti_join(Lahman::Pitching, Lahman::Batting, 
+               by = c("playerID", "yearID", "stint")))
 ```
 Similarly, the columns (`playerID`, `yearID`, `stint`) in `Fielding` are a foreign key which references the same columns in `Batting`.
 ```{r}
-nrow(anti_join(Fielding, Batting, by = c("playerID", "yearID", "stint")))
+nrow(anti_join(Lahman::Fielding, Lahman::Batting,
+               by = c("playerID", "yearID", "stint")))
 ```
 
 The following diagram shows the relations between the `Batting`, `Pitching`, and
