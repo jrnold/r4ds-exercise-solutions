@@ -1,3 +1,49 @@
+```{r include=FALSE, cache=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+# create nojekyll if it doesn't exist
+output_dir <- yaml::read_yaml(here::here("_bookdown.yml"))[["output_dir"]]
+dir.create(here::here(output_dir), recursive = TRUE, showWarnings = FALSE)
+.nojekyll <- here::here(output_dir, ".nojekyll")
+if (!file.exists(.nojekyll)) {
+  close(open(file(.nojekyll, "w")))
+}
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  autodep = TRUE,
+  # need to save cache
+  cache.extra = knitr::rand_seed,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+
+options(dplyr.print_min = 6, dplyr.print_max = 6)
+
+is_html <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
+
+# Info and useful links
+SOURCE_URL <- stringr::str_c("https:/", "github.com", "jrnold",
+                             "r4ds-exercise-solutions", sep = "/")
+PUB_URL <- stringr::str_c("http:/", "jrnold.github.io",
+                          "r4ds-exercise-solutions", sep = "/")
+
+R4DS_URL <- "http://r4ds.had.co.nz"
+
+r4ds_url <- function(...) {
+  stringr::str_c(R4DS_URL, ..., sep = "/")
+}
+
+comma_int <- function(x) {
+  prettyNum(x, big.interval = 3, big.mark = ",")
+}
+```
 # Relational data
 
 ## Introduction
@@ -57,13 +103,17 @@ flights_latlon %>%
 ### Exercise <span class="exercise-number">13.2.1.2</span> {.unnumbered .exercise}
 
 <div class="question">
-I forgot to draw the relationship between weather and airports. 
+I forgot to draw the relationship between `weather` and `airports`. 
 What is the relationship and how should it appear in the diagram?
 </div>
 
 <div class="answer">
 
 The column `faa$airports` is a foreign key of `weather$origin`.
+
+The following drawing updates the one in [Section 13.2](https://r4ds.had.co.nz/relational-data.html#nycflights13-relational).
+The line representing the new relation between `weather` and `airports` is colored black.
+The lines representing the old relations are gray and thinner.
 
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("diagrams/nycflights.png")
@@ -256,9 +306,13 @@ For the `Batting`, `Master`, and `Salaries` tables:
 
     -   Primary key: `yearID`, `teamID`, `playerID`
 
-    -   Foreign keys
+    -   Foreign keys:
 
         -   `playerID` = `Master$playerID` (many-to-1)
+
+```{r, echo = FALSE, out.width = NULL}
+knitr::include_graphics("diagrams/Lahman1.png")
+```
 
 ```{r}
 dm1 <- dm_from_data_frames(list(Batting = Lahman::Batting,
@@ -272,7 +326,8 @@ dm1 <- dm_from_data_frames(list(Batting = Lahman::Batting,
     Salaries$playerID == Master$playerID
   )
 
-dm_create_graph(dm1, rankdir = "LR", columnArrows = TRUE)
+dm_create_graph(dm1, rankdir = "LR", columnArrows = TRUE) %>%
+  dm_render_graph()
 ```
 
 For the `Master`, `Manager`, and `AwardsManagers` tables:
@@ -294,6 +349,10 @@ For the `Master`, `Manager`, and `AwardsManagers` tables:
     -   Primary keys: `playerID`, `awardID`, `yearID`
     -   `playerID` = `Master$playerID` (many-to-1)
 
+```{r, echo = FALSE, out.width = NULL}
+knitr::include_graphics("diagrams/Lahman2.png")
+```
+
 ```{r}
 dm2 <- dm_from_data_frames(list(Master = Lahman::Master,
                                 Managers = Lahman::Managers,
@@ -306,14 +365,25 @@ dm2 <- dm_from_data_frames(list(Master = Lahman::Master,
     AwardsManagers$playerID == Master$playerID
   )
 
-dm_create_graph(dm2, rankdir = "LR", columnArrows = TRUE)
+dm_create_graph(dm2, rankdir = "LR", columnArrows = TRUE) %>%
+  dm_render_graph()
 ```
+
+For `AwardsManagers`, the columns (`awardID`, `yearID`, `lgID`) are not a primary
+key because there can be, and have been ties, as indicated by the `tie` variable.
 
 In the previous diagrams, I do not consider `teamID` and `lgID` as foreign keys even though they appear in multiple tables (and have the same meaning) because they are not primary keys for any of the tables considered in this exercise.
 The `teamID` variable references `Teams$teamID`, and `lgID` does not have its own table.
 
 The `Batting`, `Pitching`, and `Fielding` tables all have a primary key consisting of the `playerID`, `yearID`, and `stint` columns.
-They all have a 1-1 relationship to each other. 
+However, there are no foreign key relations between them. 
+Logically the `playerID`, `yearID`, and `stint` columns refer to the same concepts.
+When a (`playerID`, `yearID`, `stint`) tuple exists in two tables, it will be a 1-1 relationship.
+
+-  `Batting`: (`playerID`, `yearID`, `stint`)
+-  `Fielding`: (`playerID`, `yearID`, `stint`, `POS`).
+   There are separate rows for a player who played different positions within a stint.
+
 
 </div>
 
@@ -328,7 +398,6 @@ flights2 <- flights %>%
 
 <div class="question">
 Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
-
 
 ```{r}
 airports %>%
@@ -389,7 +458,10 @@ flights %>%
     by = c("dest" = "faa")
   )
 ```
-This default can be over-ridden using the `suffix` argument.
+This however, this default can be over-ridden using the `suffix` argument.
+It is always good practice to have clear variable names, so I will use the 
+suffixes `"_dest"` and `"_origin`" to specify whether the column refers to 
+the destination or origin airport.
 ```{r}
 airport_locations <- airports %>%
   select(faa, lat, lon)
@@ -408,7 +480,7 @@ flights %>%
     # new lat and lon variables are given _dest suffix
   )
 ```
-It's always good practice to have clear variable names.
+
 
 </div>
 
@@ -475,7 +547,7 @@ ggplot(plane_cohorts, aes(x = age, y = arr_delay_mean)) +
               alpha = 0.3) +
   geom_point() +
   scale_x_continuous("Age of Plane (years)", breaks = seq(0, 50, by = 10)) +
-  scale_y_continuous("Mean Departure Delay (minutes)")
+  scale_y_continuous("Mean Arrival Delay (minutes)")
 ```
 
 </div>
@@ -488,7 +560,7 @@ What weather conditions make it more likely to see a delay?
 
 <div class="answer">
 
-Almost any amount or precipitation is associated with a delay.
+Almost any amount of precipitation is associated with a delay.
 However, there is not a strong a trend above 0.02 in. of precipitation.
 ```{r}
 flight_weather <-

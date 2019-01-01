@@ -43,7 +43,7 @@ main <- function(args = NULL) {
   if (is.null(args)) {
     args <- commandArgs(TRUE)
   }
-  opts <- parse_args(OptionParser(usage = "%prog [options] [output_format|all]",
+  opts <- parse_args(OptionParser(usage = "%prog [options] [output_format|all|html|pdf]",
                                   option_list = option_list),
                      args = args,
                      positional_arguments = TRUE,
@@ -53,7 +53,11 @@ main <- function(args = NULL) {
   } else {
     opts$args[[1]]
   }
-  print(output_format)
+  if (output_format == "html") {
+    output_format <- "bookdown::gitbook"
+  } else if (output_format == "pdf") {
+    output_format <- "bookdown::pdf_book"
+  }
   render(output_format = output_format, force = opts$options$force)
 }
 
