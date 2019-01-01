@@ -283,10 +283,6 @@ How would you characterize the relationship between the `Batting`, `Pitching`, a
 
 <div class="answer">
 
-Most flowchart or diagramming software can be used used to create database schema diagrams.
-For example, the diagrams in *R for Data Science* were created with [OmniGraffle](https://www.gliffy.com/), and their sources can be found in its [GitHub repository](https://github.com/hadley/r4ds/tree/master/diagrams).
-
-You can use anything to create these diagrams, but I'll use the R package [datamodelr](https://github.com/bergant/datamodelr) to programmatically create data models from R.
 
 For the `Batting`, `Master`, and `Salaries` tables:
 
@@ -310,9 +306,24 @@ For the `Batting`, `Master`, and `Salaries` tables:
 
         -   `playerID` = `Master$playerID` (many-to-1)
 
+The columns `teamID` and `lgID` are not foreign keys even though they appear in multiple tables (with the same meaning) because they are not primary keys for any of the tables considered in this exercise.
+The `teamID` variable references `Teams$teamID`, and `lgID` does not have its own table.
+
+*R for Data Science* uses database schema diagrams to illustrate relations between the tables
+Most flowchart or diagramming software can be used used to create database schema diagrams, as well as some specialized database software.
+The diagrams in *R for Data Science* were created with [OmniGraffle](https://www.gliffy.com/), and their sources can be found in its [GitHub repository](https://github.com/hadley/r4ds/tree/master/diagrams).
+
+The following diagram was created with OmniGraffle in the same style as those 
+in *R for Data Science* . 
+It shows the relations between the `Master`, `Batting` and `Salaries` tables.
+
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("diagrams/Lahman1.png")
 ```
+
+Another option to draw database schema diagrams is the R package [datamodelr](https://github.com/bergant/datamodelr), which can programmatically create database schema digrams.
+The following code uses **datamodelr** to create a diagram of the 
+relations between the `Batting`, `Master`, and `Salaries` tables.
 
 ```{r}
 dm1 <- dm_from_data_frames(list(Batting = Lahman::Batting,
@@ -334,20 +345,29 @@ For the `Master`, `Manager`, and `AwardsManagers` tables:
 
 -   `Master`
 
-    -   Primary keys: `playerID`
+    -   Primary key: `playerID`
 
 -   `Managers`
 
-    -   Primary keys: `yearID`, `teamID`, `inseason`
+    -   Primary key: `yearID`, `teamID`, `inseason`
 
-    -   Foreign Keys:
+    -   Foreign keys:
 
-        -   `playerID` = `Master$playerID` (many-to-1)
+        -   `playerID` references `Master$playerID` (many-to-1)
 
 -   `AwardsManagers`:
 
-    -   Primary keys: `playerID`, `awardID`, `yearID`
-    -   `playerID` = `Master$playerID` (many-to-1)
+    -   Primary key: `playerID`, `awardID`, `yearID`
+    -   Foreign keys:
+        
+        -   `playerID` references `Master$playerID` (many-to-1)
+
+For `AwardsManagers`, the columns (`awardID`, `yearID`, `lgID`) are not a primary
+key because there can be, and have been ties, as indicated by the `tie` variable.
+
+The relations between the `Master`, `Managers`, and `AwardsManagers` tables
+are shown in the following two diagrams: the first created manually with OmniGraffle,
+and the second programmatically in R with the **datamodelr** package.
 
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("diagrams/Lahman2.png")
@@ -369,21 +389,36 @@ dm_create_graph(dm2, rankdir = "LR", columnArrows = TRUE) %>%
   dm_render_graph()
 ```
 
-For `AwardsManagers`, the columns (`awardID`, `yearID`, `lgID`) are not a primary
-key because there can be, and have been ties, as indicated by the `tie` variable.
-
-In the previous diagrams, I do not consider `teamID` and `lgID` as foreign keys even though they appear in multiple tables (and have the same meaning) because they are not primary keys for any of the tables considered in this exercise.
-The `teamID` variable references `Teams$teamID`, and `lgID` does not have its own table.
-
-The `Batting`, `Pitching`, and `Fielding` tables all have a primary key consisting of the `playerID`, `yearID`, and `stint` columns.
-However, there are no foreign key relations between them. 
-Logically the `playerID`, `yearID`, and `stint` columns refer to the same concepts.
-When a (`playerID`, `yearID`, `stint`) tuple exists in two tables, it will be a 1-1 relationship.
+The primary keys of `Batting`, `Pitching`, and `Fielding` are the following:
 
 -  `Batting`: (`playerID`, `yearID`, `stint`)
+-  `Pitching`: (`playerID`, `yearID`, `stint`)
 -  `Fielding`: (`playerID`, `yearID`, `stint`, `POS`).
-   There are separate rows for a player who played different positions within a stint.
 
+While `Batting` and `Pitching` has one row per player, year, stint, the `Fielding`
+table has additional rows for each position (`POS`) a player played within a stint.
+
+Since `Batting`, `Pitching`, and `Fielding` all share the `playerID`, `yearID`, and `stint`
+we would expect some foreign key relations between these tables.
+The columns (`playerID`, `yearID`, `stint`) in `Pitching` are a foreign key which
+references the same columns in `Batting`. We can check this by checking that
+all observed combinations of values of these columns appearing in `Pitching`
+also appear in `Batting`. To do this I use an anti-join, which is discussed
+in the section [Filtering Joins](https://r4ds.had.co.nz/relational-data.html#filtering-joins).
+```{r}
+nrow(anti_join(Pitching, Batting, by = c("playerID", "yearID", "stint")))
+```
+Similarly, the columns (`playerID`, `yearID`, `stint`) in `Fielding` are a foreign key which references the same columns in `Batting`.
+```{r}
+nrow(anti_join(Fielding, Batting, by = c("playerID", "yearID", "stint")))
+```
+
+The following diagram shows the relations between the `Batting`, `Pitching`, and
+`Fielding` tables.
+
+```{r, echo = FALSE, out.width = NULL}
+knitr::include_graphics("diagrams/Lahman3.png")
+```
 
 </div>
 
