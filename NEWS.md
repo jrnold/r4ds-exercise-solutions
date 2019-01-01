@@ -1,7 +1,7 @@
 ## 2018-12-21
 
--  Fix plots in Ex. 7.5.3.11 (#180, \@JamesCuster)
--  Edit Ex 24.2.3.4 (#171, \@dongzhuoer)
+-   Fix plots in Ex. 7.5.3.11 (#180, \@JamesCuster)
+-   Edit Ex 24.2.3.4 (#171, \@dongzhuoer)
 
 ## 2018-11-24
 
