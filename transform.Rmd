@@ -917,11 +917,38 @@ What airline corresponds to the `"F9"` carrier code?
 filter(airlines, carrier == "F9")
 ```
 
-You can get part of the way to disentangling the effects of airports vs. carriers by
-comparing each flight's delay to the average delay of destination airport.
-However, you'd really want to compare it to the average delay of the destination airport, *after* removing other flights from the same airline.
+You can get part of the way to disentangling the effects of airports versus bad carriers by comparing the average delay of each carrier to the average delay of flights within a route (flights from the same origin to the same destination).
+Comparing delays between carriers and within each route disentagles
+A better analysis would compare the average delay of a carrier's flights to the average delay of *all other* carrier's flights within a route.
 
-FiveThirtyEight conducted a [similar analysis](http://fivethirtyeight.com/features/the-best-and-worst-airlines-airports-and-flights-summer-2015-update/).
+```{r}
+flights %>%
+  filter(!is.na(arr_delay)) %>%
+  # Total delay by carrier within each origin, dest
+  group_by(origin, dest, carrier) %>%
+  summarise(arr_delay = sum(arr_delay),
+            flights = n()) %>%
+  # Total delay within each origin dest
+  group_by(origin, dest) %>%
+  mutate(arr_delay_total = sum(arr_delay),
+         flights_total = sum(flights)) %>%
+  # average delay of each carrier - average delay of other carriers
+  ungroup() %>%
+  mutate(arr_delay_others = (arr_delay_total - arr_delay) / 
+           (flights_total - flights),
+         arr_delay_mean = arr_delay / flights,
+         arr_delay_diff = arr_delay_mean - arr_delay_others) %>%
+  # remove NaN values (when there is only one carrier)
+  filter(is.finite(arr_delay_diff)) %>%
+  # average over all airports it flies to
+  group_by(carrier) %>%
+  summarise(arr_delay_diff = mean(arr_delay_diff)) %>%
+  arrange(desc(arr_delay_diff))
+
+```
+
+There are more sophisticated ways to do this analysis, however comparing the delay of flights within each route goes a long ways toward disentangling airport and carrier effects.
+To see a more complete example of this analysis, see this FiveThirtyEight [piece](http://fivethirtyeight.com/features/the-best-and-worst-airlines-airports-and-flights-summer-2015-update/).
 
 </div>
 
@@ -1263,8 +1290,11 @@ data.
 
 The second part of the question asks us to compare flights to the fastest flight
 on a route to find the flights most delayed in the air. I will calculate the 
-amount a flight is delayed in air in two ways. The first is an absolute delay, `air_time - min(air_time)`. The second is a percentage increase in air time relative to the 
-minimal air time, `(air_time - min(air_time)) / min(air_time) * 100`.
+amount a flight is delayed in air in two ways. 
+The first is the absolute delay, defined as the number of minutes longer than the fastest flight on 
+that route,`air_time - min(air_time)`. 
+The second is the relative delay, which is percentage increase in air time relative to the time of the fastest flight
+along that route, `(air_time - min(air_time)) / min(air_time) * 100`.
 
 ```{r}
 air_time_delayed <- 
@@ -1288,7 +1318,12 @@ most_delayed_pct <- arrange(air_time_delayed, desc(air_time_delay_pct)) %>%
   head(1L)
 ```
 
-The most delayed flights in air in minutes were the following.
+The most delayed flight in air in minutes was `r most_delayed$carrier_flight` 
+from `r most_delayed$origin` to `r most_delayed$dest` which departed on 
+`r most_delayed$date` at `r most_delayed$time`. It took
+`r most_delayed$air_time_delay` minutes longer than the flight with the shortest
+air time on its route.
+
 ```{r}
 air_time_delayed %>%
   arrange(desc(air_time_delay)) %>%
@@ -1298,14 +1333,9 @@ air_time_delayed %>%
   head() %>%
   print(width = 100)
 ```
-The most delayed flight in air in minutes was `r most_delayed$carrier_flight` 
-from `r most_delayed$origin` to `r most_delayed$dest` which departed on 
-`r most_delayed$date` at `r most_delayed$time`. It took
-`r most_delayed$air_time_delay` minutes longer than the flight with the shortest
-air time on its route.
 
-The most delayed flight in terms of percentage of the fastest flight along that
-route was  `r most_delayed_pct$carrier_flight` 
+The most delayed flight in air as a percentage of the fastest flight along that
+route was `r most_delayed_pct$carrier_flight` 
 from `r most_delayed_pct$origin` to `r most_delayed_pct$dest` departing on `r most_delayed_pct$date` at `r most_delayed_pct$time`.
 It took `r round(most_delayed_pct$air_time_delay_pct)`% longer than the 
 flight with the shortest air time on its route.
