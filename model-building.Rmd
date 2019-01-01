@@ -49,7 +49,77 @@ If `log(price) = a_0 + a_1 * log(carat)`, what does that say about the relations
 
 <div class="answer">
 
-A 1% increase in carat is associated with an $a_1$% increase in price.
+First, let's estimate the regression in the question using the `diamonds` data.
+Following the examples in the chapter, I will use the a base of 2 for the logarithm.
+```{r}
+mod_log <- lm(log2(price) ~ log2(carat), data = diamonds)
+mod_log
+```
+
+The estimated relationship between `carat` and `price` looks like this.
+```{r}
+tibble(carat = seq(0.25, 5, by = 0.25)) %>%
+  add_predictions(mod_log) %>%
+  ggplot(aes(x = carat, y = 2 ^ pred)) +
+  geom_line() +
+  labs(x = "carat", y = "price")
+```
+
+What is the relationship between `carat` and `price`? It is not linear.
+I claim that the relationship is that a $r$ times increase in $x$ is associated 
+with a $b^{a_1} r$ increase in $y$.
+
+So a 2 times increase in `carat` should be associated with the following increase
+in `price`:
+```{r}
+2 ^ coef(mod_log)[2]
+```
+
+Let's confirm this with a few values.
+Increase `carat` from 1 to 2.
+```{r}
+2 ^ (predict(mod_log, newdata = tibble(carat = 2)) -
+  predict(mod_log, newdata = tibble(carat = 1)))
+```
+Since `predict()` predicts `log2(carat)`, the difference is exponentiated by 2 in order to get the ratio of predicted `carat`.
+Increase `carat` from 4 to 2.
+```{r}
+2 ^ (predict(mod_log, newdata = tibble(carat = 4)) -
+  predict(mod_log, newdata = tibble(carat = 2)))
+```
+Increase `carat` from 0.5 to 1.
+```{r}
+2 ^ (predict(mod_log, newdata = tibble(carat = 1)) -
+  predict(mod_log, newdata = tibble(carat = 0.5)))
+```
+In all cases they return the same value, `2 ^ a_1`. 
+
+So why is this?
+Let's ignore the names of the variables in this case and consider the equation:
+$$
+\log_b y = a_0 + a_1 \log x
+$$
+We want to understand how the difference in $y$ is related to the difference in $x$.
+Consider this equation at two different values $x_1$ and $x_0$,
+$$
+\log_b y_0 = a_0 + \log_b x_0 \\
+\log_b y_1 = a_0 + \log_b y_1
+$$
+What is value of the difference, $\log y_1 - \log y_0$? 
+$$
+\begin{aligned}[t]
+\log_b(y_1) - \log_b(y_0) &= (a_0 + a_1 \log_b x_1) - (a_0 + a_1 \log x_0) ,\\
+&= a_1 (\log_b x_1 - \log x_0) , \\
+\log_b \left(\frac{y_1}{y_0} \right) &= \log_b \left(\frac{x_1}{x_0} \right)^{a_1} , \\
+\frac{y_1}{y_0} &=  \left( \frac{x_1}{x_0} \right)^{a_1} .
+\end{aligned}
+$$
+Let $s = y_1 / y_0$ and $r = x_1 / x_0$. Then,
+$$
+s =  r^{a_1} \text{.}
+$$
+In other words, an $r$ times increase in $x$, is associated with a $r^{a_1}$ times  increase in $y$. 
+Note that this relationship does not depend on $b$, the base of the logarithm.
 
 </div>
 
