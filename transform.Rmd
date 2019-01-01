@@ -918,7 +918,7 @@ filter(airlines, carrier == "F9")
 ```
 
 You can get part of the way to disentangling the effects of airports versus bad carriers by comparing the average delay of each carrier to the average delay of flights within a route (flights from the same origin to the same destination).
-Comparing delays between carriers and within each route disentagles
+Comparing delays between carriers and within each route disentangles the effect of carriers and airports.
 A better analysis would compare the average delay of a carrier's flights to the average delay of *all other* carrier's flights within a route.
 
 ```{r}
@@ -1201,8 +1201,8 @@ standardized_flights2 %>%
   print(width = 120)
 ```
 
-All of these answers have relied only on using a distribution of comparable observations to findn ununusal observations. 
-In this case, the comparable obserservations were flights from the same origin to the same destination.
+All of these answers have relied only on using a distribution of comparable observations to find unusual observations. 
+In this case, the comparable observations were flights from the same origin to the same destination.
 Apart from our knowledge that flights from the same origin to the same destination should have similar air times, we have not used any other domain-specific knowledge.
 But we know much more about this problem.
 The most obvious piece of knowledge we have is that we know that flights cannot travel back in time, so there should never be a flight with a negative air time.
@@ -1213,7 +1213,7 @@ Calculating the ground speed of aircraft is complicated by the way in which wind
 A strong tailwind can increase ground-speed of the aircraft by [200 mph](https://www.wired.com/story/norwegian-air-transatlantic-speed-record/).
 Apart from the retired [Concorde](https://en.wikipedia.org/wiki/Concorde).
 For example, in 2018, [a transatlantic flight](https://www.wired.com/story/norwegian-air-transatlantic-speed-record/) 
-travelled at 770 mph due to a strong jet stream tailwind.
+traveled at 770 mph due to a strong jet stream tailwind.
 This means that any flight traveling at speeds greater than 800 mph is implausible, 
 and it may be worth checking flights traveling at greater than 600 or 700 mph.
 Ground speed could also be used to identify aircraft flying implausibly slow.
@@ -1259,11 +1259,10 @@ flights %>%
   head(5)
 ```
 
-One explantion for unusually fast flights is that they are "making up time" in the
-air. Commercial aircraft fly at a speed that is optimal for fuel consumption,
-not one to maximize speed. If a flight is delayed on the ground, it may fly 
-faster than usual in order to avoid being delayed on arrival. I would expect
-that some of the unusually fast flights were delayed on departure.
+One explanation for unusually fast flights is that they are "making up time" in the air by flying faster.
+Commercial aircraft do not fly at their top speed since the airlines are also concerned about fuel consumption.
+But, if a flight is delayed on the ground, it may fly faster than usual in order to avoid a late arrival.
+So, I would expect that some of the unusually fast flights were delayed on departure.
 
 ```{r}
 flights %>%

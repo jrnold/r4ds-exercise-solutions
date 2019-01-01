@@ -68,9 +68,8 @@ Imagine you wanted to draw (approximately) the route each plane flies from its o
 
 <div class="answer">
 
-Drawing the approximate flight paths requires the latitude and longitude of the both 
-the origin and desination airports of each flights.
-This would require the `flights` and `airports` tables.
+Drawing the approximate flight paths requires the latitude and longitude of the both the origin and destination airports of each flights.
+This requires the `flights` and `airports` tables.
 The `flights` table has the origin (`origin`) and destination (`dest`) airport of each flight.
 The `airports` table has the longitude (`lon`) and latitude (`lat`) of each airport.
 To get the latitude and longitude for the origin and destination of each flight,
@@ -86,7 +85,7 @@ flights_latlon <- flights %>%
             by = "dest")
 ```
 
-This plots the approximate flightpaths of the first 100 flights in the `flights` dataset.
+This plots the approximate flight paths of the first 100 flights in the `flights` dataset.
 ```{r}
 flights_latlon %>%
   slice(1:100) %>%
@@ -320,9 +319,8 @@ It shows the relations between the `Master`, `Batting` and `Salaries` tables.
 knitr::include_graphics("diagrams/Lahman1.png")
 ```
 
-Another option to draw database schema diagrams is the R package [datamodelr](https://github.com/bergant/datamodelr), which can programmatically create database schema digrams.
-The following code uses **datamodelr** to create a diagram of the 
-relations between the `Batting`, `Master`, and `Salaries` tables.
+Another option to draw database schema diagrams is the R package [datamodelr](https://github.com/bergant/datamodelr), which can programmatically create database schema diagrams.
+The following code uses **datamodelr** to draw a diagram of the relations between the `Batting`, `Master`, and `Salaries` tables.
 
 ```{r}
 dm1 <- dm_from_data_frames(list(Batting = Lahman::Batting,
@@ -757,7 +755,7 @@ To cross reference the flight delay data with weather data, I will need to join 
 The primary key of the `weather` dataset is `year`, `month`, `day`, `hour`, 
 `origin`. 
 However, the primary key of `dep_delays_hour` is (`year`, `month`, `day`, `hour`), since it combines flights from all airports.
-I will create a data fram `weather_hourly` with the averages of temperature, wind speed, and precipitation measurements from the airports.
+I will create a data frame `weather_hourly` with the averages of temperature, wind speed, and precipitation measurements from the airports.
 ```{r}
 weather_hourly <- weather %>%
   # daily values for each airport
@@ -800,7 +798,7 @@ What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What 
 domestic airports, these are likely foreign flights.
 
 `anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that were not a destination of any any flight in the data. 
-Since the data contains all flights from New York City airpots, this is the list of
+Since the data contains all flights from New York City airports, this is the list of
 US airports that did not have a direct flight from New York City in 2013.
 
 </div>
