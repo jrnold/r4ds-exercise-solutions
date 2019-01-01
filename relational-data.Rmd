@@ -732,16 +732,17 @@ Cross-reference it with the weather data. Can you see any patterns?
 
 <div class="answer">
 
+Ed. I am uncertain about the answer. If you have any suggestions, add a comment to
+this [issue](https://github.com/jrnold/r4ds-exercise-solutions/issues/135).
+
 I will start with clarifying the scope of the question. 
 The question asks us to find the 48 hours over the course of the entire year.
-I interpret that as meaning 48 not-necessarily contiguous hours, as opposed a single contiguous period of 48-hours.
+I interpret that as meaning 48 not necessarily contiguous hours, as opposed a single contiguous period of 48-hours.
 The question does not specify what is meant by "worst delays".
 Since the `weather` data only contains data for the New York City airports, I will use departure delays, which would seem to be more sensitive to New York City weather conditions than arrival delays.
 
-For hour, use the scheduled departure time rather than the actual departure time.
-If planes are delayed due to weather conditions, the weather conditions during
-the scheduled time are more important than the actual departure time, at which
-point, the weather should be better.
+For hour, I will use the scheduled departure time rather than the actual departure time.
+If planes are delayed due to weather conditions, the weather conditions during the scheduled time are more important than the actual departure time, at which point, the weather should be better.
 
 ```{r}
 dep_delays_hour <- flights %>%
@@ -751,12 +752,7 @@ dep_delays_hour <- flights %>%
 
 ```
 
-```{r}
-dep_delays_hour %>%
-  arrange(desc(dep_delay)) %>%
-  print(n = 48)
-```
-
+To cross reference the flight delay data with weather data, I will need to join it with the `weather` dataset.
 The primary key of the `weather` dataset is `year`, `month`, `day`, `hour`, 
 `origin`. 
 However, the primary key of `dep_delays_hour` is (`year`, `month`, `day`, `hour`), since it combines flights from all airports.
@@ -770,37 +766,24 @@ weather_hourly <- weather %>%
             precip = mean(precip))
 
 ```
-
-Merge the hourly weather data with hourly departure delays.
+I join the hourly weather data with hourly departure delays.
 ```{r}
 dep_delays_hour <- dep_delays_hour %>%
   left_join(weather_hourly, by = c("year", "month", "day", "hour"))
 
 ```
 
+The 48 individual hours with the worst delays and the associated weather conditions were the following.
 ```{r}
 dep_delays_hour %>%
   arrange(desc(dep_delay)) %>%
   print(n = 48)
 ```
 
-```{r}
-ggplot(dep_delays_hour, aes(x = wind_speed, y = dep_delay)) +
-  geom_point() +
-  geom_smooth()
-```
-
-```{r}
-ggplot(dep_delays_hour, aes(x = precip, y = dep_delay)) +
-  geom_point() +
-  geom_smooth()
-```
-
-```{r}
-ggplot(dep_delays_hour, aes(x = wind_speed, y = dep_delay)) +
-  geom_point() +
-  geom_smooth()
-```
+A few hours are below freezing (32 degrees Fahrenheit), but most are above freezing.
+It seems that most of the hours either have some precipitation or higher wind speeds.
+I'll leave it to the reader to use the methods in the [Exploratory Data Analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html#covariation) section
+to look for covariation between weather and flight delays.
 
 </div>
 
