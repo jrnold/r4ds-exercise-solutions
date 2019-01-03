@@ -12,10 +12,7 @@ addons:
       - libxml2-dev
 
 script:
-  - Rscript -e 'bookdown::render_book("index.rmd")'
-
-notifications:
-  email: false
+  - Rscript bin/render.R --force all
 
 deploy:
   provider: pages
@@ -25,3 +22,7 @@ deploy:
   keep-history: false
   on:
     branch: master
+
+notifications:
+  email: false
+
