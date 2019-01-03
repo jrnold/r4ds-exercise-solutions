@@ -31,8 +31,7 @@ create_outdir <- function() {
   }
 }
 
-render <- function(path = NULL,
-                   output_format = "all", force = FALSE) {
+render <- function(path = NULL, output_format = "all", force = FALSE, ...) {
   if (rmarkdown::pandoc_version() < 2) {
     stop("This book requires pandoc > 2")
   }
@@ -44,13 +43,15 @@ render <- function(path = NULL,
     check_uncommitted(dirname(path))
   }
   create_outdir()
-  bookdown::render_book(input = "index.Rmd", output_format = output_format)
+  bookdown::render_book(input = "index.Rmd", ...)
 }
 
 main <- function(args = NULL) {
   option_list <- list(
     make_option(c("-f", "--force"), action = "store_true", default = FALSE,
-                help = "Render even if there are uncomitted changes.")
+                help = "Render even if there are uncomitted changes."),
+    make_option(c("-q", "--quiet"), action = "store_true", default = FALSE,
+                help = "Do not use verbose output")
   )
   # option_list <- list()
 
@@ -72,7 +73,9 @@ main <- function(args = NULL) {
   } else if (output_format == "pdf") {
     output_format <- "bookdown::pdf_book"
   }
-  render(output_format = output_format, force = opts$options$force)
+  render(output_format = output_format,
+         force = opts$options$force,
+         quiet = opts$options$quiet)
 }
 
 main()
