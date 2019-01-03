@@ -1,11 +1,18 @@
-language: node_js
-
-node_js:
-- "node"
+language: R
+pandoc: 2.5
 
 cache:
+  packages: true
   directories:
-  - "node_modules"
+  - "_build"
+
+addons:
+  apt:
+    packages:
+      - libxml2-dev
+
+script:
+  - Rscript -e 'bookdown::render_book("index.rmd")'
 
 notifications:
   email: false
