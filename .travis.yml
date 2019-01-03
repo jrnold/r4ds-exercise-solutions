@@ -12,8 +12,15 @@ addons:
     packages:
       - libxml2-dev
 
+
+before_script:
+  - npm install
+
 script:
-  - Rscript ./bin/render.R --force all
+  - Rscript ./bin/render.R --force --quiet all
+
+after_script:
+  - npm test
 
 deploy:
   provider: pages
