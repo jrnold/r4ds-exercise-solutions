@@ -19,17 +19,31 @@ check_uncommitted <- function(path = ".") {
   }
 }
 
+create_outdir <- function() {
+  # create nojekyll if it doesn't exist
+  output_dir <- yaml::read_yaml(here::here("_bookdown.yml"))[["output_dir"]]
+  dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+  nojekyll <- file.path(output_dir, ".nojekyll")
+  if (!file.exists(nojekyll)) {
+    cat("Creating ", nojeykll, "\n")
+    con <- file(nojekyll, "w")
+    close(con)
+  }
+}
+
 render <- function(path = NULL,
                    output_format = "all", force = FALSE) {
   if (rmarkdown::pandoc_version() < 2) {
     stop("This book requires pandoc > 2")
   }
+
   if (is.null(path)) {
     path <- here::here("index.Rmd")
   }
   if (!force) {
-    check_uncommitted(path)
+    check_uncommitted(dirname(path))
   }
+  create_outdir()
   bookdown::render_book(input = "index.Rmd", output_format = output_format)
 }
 
