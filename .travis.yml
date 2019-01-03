@@ -16,7 +16,6 @@ addons:
     packages:
       - libxml2-dev
 
-
 before_script:
   - npm install
 
@@ -25,6 +24,7 @@ script:
 
 after_success:
   - npm test
+  - Rscript ./bin/check-spelling.R
 
 deploy:
   provider: pages
