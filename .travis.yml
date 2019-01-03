@@ -1,6 +1,10 @@
 language: R
 pandoc: 2.5
 
+git:
+  depth: false
+  quiet: true
+
 cache:
   packages: true
   directories:
@@ -19,7 +23,7 @@ before_script:
 script:
   - Rscript ./bin/render.R --force --quiet all
 
-after_script:
+after_success:
   - npm test
 
 deploy:
@@ -34,3 +38,6 @@ deploy:
 notifications:
   email: false
 
+branches:
+  except:
+  - gh-pages
