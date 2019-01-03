@@ -1,11 +1,11 @@
 FROM rocker/verse:latest
 
 ENV PROJ_DIR /home/rstudio/r4ds-exercise-solutions
-ENV PANDOC_VERSION 2.2.3.2
+ENV PANDOC_VERSION 2.5
 ENV PANDOC_FILENAME pandoc-${PANDOC_VERSION}-1-amd64.deb
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE 1
 
-# Install pnandoc and nodejs
+# Install pandoc and nodejs
 RUN apt-get update && apt-get install -y \
   gnupg \
   curl
