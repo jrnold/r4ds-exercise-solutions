@@ -20,10 +20,10 @@ github_repo_spec <- function(path = here::here()) {
 }
 
 # copied from usethis:::parse_repo_spec
-parse_repo_spec <- function (repo_spec) {
+parse_repo_spec <- function(repo_spec) {
   repo_split <- stringr::str_split(repo_spec, "/")[[1]]
   if (length(repo_split) != 2) {
-      stop("`repo_spec` must be of the form 'owner/repo'")
+    stop("`repo_spec` must be of the form 'owner/repo'")
   }
   list(owner = repo_split[[1]], repo = repo_split[[2]])
 }
@@ -38,28 +38,29 @@ spec_repo <- function(repo_spec) {
   parse_repo_spec(repo_spec)$repo
 }
 
-# Need to use the github API because this info isn't included in the 
+# Need to use the github API because this info isn't included in the
 # commits for GitHub pulls: Github <noreply@github.com>
 
 # adapted from from usethis:::use_tidy_thanks
-create_thanks <- function(repo_spec = github_repo_spec(), 
+create_thanks <- function(repo_spec = github_repo_spec(),
                           excluded = NULL) {
   if (is.null(excluded)) {
     excluded <- spec_owner(repo_spec)
   }
-  res <- gh::gh("/repos/:owner/:repo/issues", 
-                owner = spec_owner(repo_spec), 
-                repo = spec_repo(repo_spec), state = "all", 
-                filter = "all", .limit = Inf)
+  res <- gh::gh("/repos/:owner/:repo/issues",
+    owner = spec_owner(repo_spec),
+    repo = spec_repo(repo_spec), state = "all",
+    filter = "all", .limit = Inf
+  )
   if (identical(res[[1]], "")) {
-      message("No matching issues/PRs found.")
-      return(invisible())
+    message("No matching issues/PRs found.")
+    return(invisible())
   }
   contributors <- purrr:::map_chr(res, c("user", "login")) %>%
-    purrr::discard(~ .x %in% excluded) %>%
+    purrr::discard(~.x %in% excluded) %>%
     unique() %>%
     sort()
-  contributors <- 
+  contributors <-
     glue::glue("[\\@{contributors}](https://github.com/{contributors})") %>%
     glue::glue_collapse(sep = ", ", width = Inf, last = ", and")
   glue::glue("(in alphabetical order) {contributors}.")

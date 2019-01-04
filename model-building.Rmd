@@ -21,13 +21,14 @@ library(splines)
 ```{r}
 diamonds2 <- diamonds %>%
   filter(carat <= 2.5) %>%
-  mutate(lprice = log2(price), 
-         lcarat = log2(carat))
+  mutate(
+    lprice = log2(price),
+    lcarat = log2(carat)
+  )
 
 mod_diamond2 <- lm(lprice ~ lcarat + color + cut + clarity, data = diamonds2)
 
 diamonds2 <- add_residuals(diamonds2, mod_diamond2, "lresid2")
-
 ```
 
 ### Exercise <span class="exercise-number">24.2.3.1</span> {.unnumbered .exercise}
@@ -61,7 +62,7 @@ The estimated relationship between `carat` and `price` looks like this.
 ```{r}
 tibble(carat = seq(0.25, 5, by = 0.25)) %>%
   add_predictions(mod_log) %>%
-  ggplot(aes(x = carat, y = 2 ^ pred)) +
+  ggplot(aes(x = carat, y = 2^pred)) +
   geom_line() +
   labs(x = "carat", y = "price")
 ```
@@ -73,24 +74,24 @@ with a $b^{a_1} r$ increase in $y$.
 So a 2 times increase in `carat` should be associated with the following increase
 in `price`:
 ```{r}
-2 ^ coef(mod_log)[2]
+2^coef(mod_log)[2]
 ```
 
 Let's confirm this with a few values.
 Increase `carat` from 1 to 2.
 ```{r}
-2 ^ (predict(mod_log, newdata = tibble(carat = 2)) -
+2^(predict(mod_log, newdata = tibble(carat = 2)) -
   predict(mod_log, newdata = tibble(carat = 1)))
 ```
 Since `predict()` predicts `log2(carat)`, the difference is exponentiated by 2 in order to get the ratio of predicted `carat`.
 Increase `carat` from 4 to 2.
 ```{r}
-2 ^ (predict(mod_log, newdata = tibble(carat = 4)) -
+2^(predict(mod_log, newdata = tibble(carat = 4)) -
   predict(mod_log, newdata = tibble(carat = 2)))
 ```
 Increase `carat` from 0.5 to 1.
 ```{r}
-2 ^ (predict(mod_log, newdata = tibble(carat = 1)) -
+2^(predict(mod_log, newdata = tibble(carat = 1)) -
   predict(mod_log, newdata = tibble(carat = 0.5)))
 ```
 In all cases they return the same value, `2 ^ a_1`. 
@@ -135,11 +136,11 @@ Extract the diamonds that have very high and very low residuals. Is there anythi
 This was discussed in section [24.2.2](https://r4ds.had.co.nz/model-building.html#a-more-complicated-model).
 
 ```{r}
-diamonds2 %>% 
-  filter(abs(lresid2) > 1) %>% 
-  add_predictions(mod_diamond2) %>% 
-  mutate(pred = round(2 ^ pred)) %>% 
-  select(price, pred, carat:table, x:z) %>% 
+diamonds2 %>%
+  filter(abs(lresid2) > 1) %>%
+  add_predictions(mod_diamond2) %>%
+  mutate(pred = round(2^pred)) %>%
+  select(price, pred, carat:table, x:z) %>%
   arrange(price)
 ```
 
@@ -161,16 +162,17 @@ We can plot the residuals of the model. There are some large outliers for
 small carat sizes there are some large errors. In this model, a residual of 2
 means that the true value was four times lower.
 ```{r}
-ggplot(diamonds2, aes(lcarat, lresid2)) + 
+ggplot(diamonds2, aes(lcarat, lresid2)) +
   geom_hex(bins = 50)
 ```
 
 ```{r}
 lresid2_summary <- summarise(diamonds2,
-          rmse = sqrt(mean(lresid2 ^ 2)),
-          mae = mean(abs(lresid2)),
-          p025 = quantile(lresid2, 0.025),
-          p975 = quantile(lresid2, 0.975))
+  rmse = sqrt(mean(lresid2^2)),
+  mae = mean(abs(lresid2)),
+  p025 = quantile(lresid2, 0.025),
+  p975 = quantile(lresid2, 0.975)
+)
 lresid2_summary
 ```
 
@@ -222,7 +224,6 @@ daily <- daily %>%
 
 mod1 <- lm(n ~ wday, data = daily)
 mod2 <- lm(n ~ wday * term, data = daily)
-
 ```
 
 ### Exercise <span class="exercise-number">24.3.5.1</span> {.unnumbered .exercise}
@@ -270,11 +271,15 @@ Create a new variable that splits the `wday` variable into terms, but only for S
 I'll use the function `case_when()` to do this, though there are other ways which it could be solved.
 ```{r}
 daily <- daily %>%
-  mutate(wday2 =
-         case_when(wday == "Sat" & term == "summer" ~ "Sat-summer",
-                   wday == "Sat" & term == "fall" ~ "Sat-fall",
-                   wday == "Sat" & term == "spring" ~ "Sat-spring",
-                   TRUE ~ as.character(wday)))
+  mutate(
+    wday2 =
+      case_when(
+        wday == "Sat" & term == "summer" ~ "Sat-summer",
+        wday == "Sat" & term == "fall" ~ "Sat-fall",
+        wday == "Sat" & term == "spring" ~ "Sat-spring",
+        TRUE ~ as.character(wday)
+      )
+  )
 ```
 
 ```{r}
@@ -283,7 +288,7 @@ mod3 <- lm(n ~ wday2, data = daily)
 daily %>%
   gather_residuals(sat_term = mod3, all_interact = mod2) %>%
   ggplot(aes(date, resid, colour = model)) +
-    geom_line(alpha = 0.75)
+  geom_line(alpha = 0.75)
 ```
 
 I think the overlapping plot is hard to understand.
@@ -294,7 +299,7 @@ daily %>%
   spread_residuals(sat_term = mod3, all_interact = mod2) %>%
   mutate(resid_diff = sat_term - all_interact) %>%
   ggplot(aes(date, resid_diff)) +
-    geom_line(alpha = 0.75)
+  geom_line(alpha = 0.75)
 ```
 
 The model with terms × Saturday has higher residuals in the fall, and lower residuals in the spring than the model with all interactions.
@@ -326,17 +331,17 @@ and Patriots' Day, which is a holiday in several states, and other state holiday
 ```{r}
 holidays_2013 <-
   tribble(
-    ~ holiday,                    ~ date,
-    "New Year's Day",             20130101,
+    ~holiday, ~date,
+    "New Year's Day", 20130101,
     "Martin Luther King Jr. Day", 20130121,
-    "Washington's Birthday",      20130218,
-    "Memorial Day",               20130527,
-    "Independence Day",           20130704,
-    "Labor Day",                  20130902,
-    "Columbus Day",               20131028,
-    "Veteran's Day",              20131111,
-    "Thanksgiving",               20131128,
-    "Christmas",                  20131225
+    "Washington's Birthday", 20130218,
+    "Memorial Day", 20130527,
+    "Independence Day", 20130704,
+    "Labor Day", 20130902,
+    "Columbus Day", 20131028,
+    "Veteran's Day", 20131111,
+    "Thanksgiving", 20131128,
+    "Christmas", 20131225
   ) %>%
   mutate(date = lubridate::ymd(date))
 ```
@@ -351,15 +356,18 @@ but heavier before and after.
 
 ```{r}
 daily <- daily %>%
-  mutate(wday3 =
-         case_when(
-           (date - 1L) %in% holidays_2013$date ~ "day before holiday",
-           (date + 1L) %in% holidays_2013$date ~ "day after holiday",           
-           date %in% holidays_2013$date ~ "holiday",           
-           .$wday == "Sat" & .$term == "summer" ~ "Sat-summer",
-           .$wday == "Sat" & .$term == "fall" ~ "Sat-fall",
-           .$wday == "Sat" & .$term == "spring" ~ "Sat-spring",
-           TRUE ~ as.character(.$wday)))
+  mutate(
+    wday3 =
+      case_when(
+        (date - 1L) %in% holidays_2013$date ~ "day before holiday",
+        (date + 1L) %in% holidays_2013$date ~ "day after holiday",
+        date %in% holidays_2013$date ~ "holiday",
+        .$wday == "Sat" & .$term == "summer" ~ "Sat-summer",
+        .$wday == "Sat" & .$term == "fall" ~ "Sat-fall",
+        .$wday == "Sat" & .$term == "spring" ~ "Sat-spring",
+        TRUE ~ as.character(.$wday)
+      )
+  )
 
 mod4 <- lm(n ~ wday3, data = daily)
 
@@ -367,8 +375,7 @@ daily %>%
   spread_residuals(resid_sat_terms = mod3, resid_holidays = mod4) %>%
   mutate(resid_diff = resid_holidays - resid_sat_terms) %>%
   ggplot(aes(date, resid_diff)) +
-    geom_line(alpha = 0.75)
-
+  geom_line(alpha = 0.75)
 ```
 
 </div>
@@ -420,7 +427,7 @@ The model `mod7` underestimates weekends during the summer and overestimates wee
 daily %>%
   gather_residuals(mod7, mod8) %>%
   ggplot(aes(x = date, y = resid, color = model)) +
-    geom_line(alpha = 0.75)
+  geom_line(alpha = 0.75)
 ```
 
 </div>
@@ -440,10 +447,12 @@ on the weekends.
 
 ```{r}
 flights %>%
-  mutate(date = make_date(year, month, day),
-         wday = wday(date, label = TRUE)) %>%
+  mutate(
+    date = make_date(year, month, day),
+    wday = wday(date, label = TRUE)
+  ) %>%
   group_by(wday) %>%
-  summarise(dist_mean =  mean(distance)) %>%
+  summarise(dist_mean = mean(distance)) %>%
   ggplot(aes(y = dist_mean, x = wday)) +
   geom_point() +
   labs(x = "Day of Week", y = "Average Distance")
@@ -454,12 +463,16 @@ leave later in the day on Sunday, I plot the average distance by hour of departu
 for Sunday flights.
 ```{r}
 flights %>%
-  mutate(date = make_date(year, month, day),
-         wday = wday(date, label = TRUE)) %>%
-  filter(wday == "Sun",
-         hour >= 5, hour <= 21) %>%
+  mutate(
+    date = make_date(year, month, day),
+    wday = wday(date, label = TRUE)
+  ) %>%
+  filter(
+    wday == "Sun",
+    hour >= 5, hour <= 21
+  ) %>%
   group_by(hour) %>%
-  summarise(dist_mean =  mean(distance)) %>%
+  summarise(dist_mean = mean(distance)) %>%
   ggplot(aes(y = dist_mean, x = hour)) +
   geom_point() +
   geom_line()
@@ -472,22 +485,26 @@ flights %>%
 
 ```{r}
 flights %>%
-  mutate(date = make_date(year, month, day),
-         wday = wday(date, label = TRUE),
-         time = factor(case_when(
-           hour < 5 ~ "Early morning",
-           hour < 12 ~ "Morning",
-           hour < 18 ~ "Afternoon",
-           TRUE ~ "Evening"
-         ),
-         levels = c("Early morning", "Morning",
-                    "Afternoon", "Evening"))) %>%
+  mutate(
+    date = make_date(year, month, day),
+    wday = wday(date, label = TRUE),
+    time = factor(case_when(
+      hour < 5 ~ "Early morning",
+      hour < 12 ~ "Morning",
+      hour < 18 ~ "Afternoon",
+      TRUE ~ "Evening"
+    ),
+    levels = c(
+      "Early morning", "Morning",
+      "Afternoon", "Evening"
+    )
+    )
+  ) %>%
   group_by(wday, time) %>%
   filter(time != "Early morning") %>%
   summarise(distance = mean(distance)) %>%
   ggplot(aes(color = wday, y = distance, x = time)) +
   geom_point()
-
 ```
 
 </div>
@@ -505,7 +522,7 @@ Use `fct_relevel()` to put all levels in-front of the first level ("Sunday").
 
 ```{r}
 monday_first <- function(x) {
-  forcats::fct_relevel(x, levels(x)[-1])  
+  forcats::fct_relevel(x, levels(x)[-1])
 }
 ```
 

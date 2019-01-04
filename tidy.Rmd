@@ -73,8 +73,10 @@ t2_population <- filter(table2, type == "population") %>%
 Calculate the cases per capita in a separate data frame.
 ```{r}
 t2_cases_per_cap <- t2_cases %>%
-  mutate(population = t2_population$population,
-         cases_per_cap = (cases / population) * 10000) %>%
+  mutate(
+    population = t2_population$population,
+    cases_per_cap = (cases / population) * 10000
+  ) %>%
   select(country, year, cases_per_cap)
 ```
 Since the question asks us to store it back in the appropriate location, we will add new rows with
@@ -95,9 +97,11 @@ the type of `count` is coerced to `numeric` (double) because `cases_per_cap` is 
 For `table4a` and `table4b`, we will create a separate table for cases per capita (`table4c`), with country rows and year columns.
 ```{r}
 table4c <-
-  tibble(country = table4a$country,
-         `1999` = table4a[["1999"]] / table4b[["1999"]] * 10000,
-       `2000` = table4a[["2000"]] / table4b[["2000"]] * 10000)
+  tibble(
+    country = table4a$country,
+    `1999` = table4a[["1999"]] / table4b[["1999"]] * 10000,
+    `2000` = table4a[["2000"]] / table4b[["2000"]] * 10000
+  )
 table4c
 ```
 
@@ -130,7 +134,6 @@ table2 %>%
   geom_point(aes(colour = country)) +
   scale_x_continuous(breaks = unique(table2$year)) +
   ylab("cases")
-
 ```
 
 </div>
@@ -153,8 +156,8 @@ Carefully consider the following example:
 
 ```{r}
 stocks <- tibble(
-  year   = c(2015, 2015, 2016, 2016),
-  half  = c(   1,    2,     1,    2),
+  year = c(2015, 2015, 2016, 2016),
+  half = c(1, 2, 1, 2),
   return = c(1.88, 0.59, 0.92, 0.17)
 )
 stocks %>%
@@ -217,13 +220,13 @@ Why does spreading this tibble fail? How could you add a new column to fix the p
 
 ```{r}
 people <- tribble(
-  ~name,             ~key,    ~value,
+  ~name, ~key, ~value,
   #-----------------|--------|------
-  "Phillip Woods",   "age",       45,
-  "Phillip Woods",   "height",   186,
-  "Phillip Woods",   "age",       50,
-  "Jessica Cordero", "age",       37,
-  "Jessica Cordero", "height",   156
+  "Phillip Woods", "age", 45,
+  "Phillip Woods", "height", 186,
+  "Phillip Woods", "age", 50,
+  "Jessica Cordero", "age", 37,
+  "Jessica Cordero", "height", 156
 )
 glimpse(people)
 ```
@@ -242,13 +245,13 @@ the code will work.
 
 ```{r}
 people <- tribble(
-  ~name,             ~key,    ~value, ~obs,
+  ~name, ~key, ~value, ~obs,
   #-----------------|--------|------|------
-  "Phillip Woods",   "age",       45, 1,
-  "Phillip Woods",   "height",   186, 1,
-  "Phillip Woods",   "age",       50, 2,
-  "Jessica Cordero", "age",       37, 1,
-  "Jessica Cordero", "height",   156, 1
+  "Phillip Woods", "age", 45, 1,
+  "Phillip Woods", "height", 186, 1,
+  "Phillip Woods", "age", 50, 2,
+  "Jessica Cordero", "age", 37, 1,
+  "Jessica Cordero", "height", 156, 1
 )
 spread(people, key, value)
 ```
@@ -263,8 +266,8 @@ Tidy the simple tibble below. Do you need to spread or gather it? What are the v
 ```{r}
 preg <- tribble(
   ~pregnant, ~male, ~female,
-  "yes",     NA,    10,
-  "no",      20,    12
+  "yes", NA, 10,
+  "no", 20, 12
 )
 ```
 
@@ -306,8 +309,10 @@ If a variable takes two values, like `pregnant` and `sex` do, it is often prefer
 The following vector uses logical vectors to represent pregnancy and sex.
 ```{r}
 preg_tidy3 <- preg_tidy2 %>%
-  mutate(female = sex == "female",
-         pregnant = pregnant == "yes") %>%
+  mutate(
+    female = sex == "female",
+    pregnant = pregnant == "yes"
+  ) %>%
   select(female, pregnant, count)
 preg_tidy3
 ```
@@ -431,8 +436,7 @@ tibble(x = c("X1", "X2", "Y1", "Y2")) %>%
 
 # example that separate could not parse
 tibble(x = c("X1", "X20", "AA11", "AA2")) %>%
-  extract(x, c("variable", "id"), regex = "([A-Z]+)([0-9]+)")  
-
+  extract(x, c("variable", "id"), regex = "([A-Z]+)([0-9]+)")
 ```
 
 Both `separate()` and `extract()` convert a single column to many columns.
@@ -441,7 +445,6 @@ However, `unite()` converts many columns to one, with a choice of a separator to
 ```{r}
 tibble(variable = c("X", "X", "Y", "Y"), id = c(1, 2, 1, 2)) %>%
   unite(x, variable, id, sep = "_")
-
 ```
 
 In other words, with `extract()` and `separate()` only one column can be chosen,
@@ -491,8 +494,7 @@ glimpse(who1)
 
 ```{r}
 who2 <- who1 %>%
- mutate(key = stringr::str_replace(key, "newrel", "new_rel"))
-
+  mutate(key = stringr::str_replace(key, "newrel", "new_rel"))
 ```
 
 ```{r}
@@ -537,13 +539,12 @@ So it appears that either a country has all its values in a year as non-missing 
 So it is okay to treat explicitly and implicitly missing values the same, and we don't lose any information by dropping them.
 ```{r}
 gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
-  group_by(country, year)  %>%
+  group_by(country, year) %>%
   mutate(missing = is.na(cases)) %>%
   select(country, year, missing) %>%
   distinct() %>%
   group_by(country, year) %>%
   filter(n() > 1)
-
 ```
 
 </div>
@@ -582,7 +583,6 @@ select(who3, country, iso2, iso3) %>%
   distinct() %>%
   group_by(country) %>%
   filter(n() > 1)
-
 ```
 
 </div>
@@ -603,7 +603,6 @@ who5 %>%
   unite(country_sex, country, sex, remove = FALSE) %>%
   ggplot(aes(x = year, y = cases, group = country_sex, colour = sex)) +
   geom_line()
-
 ```
 
 A small multiples plot faceting by country is difficult given the number of countries.

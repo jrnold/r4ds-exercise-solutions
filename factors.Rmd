@@ -66,9 +66,10 @@ Though more than asked for in this question, I could further improve this plot b
 ```{r}
 gss_cat %>%
   filter(!rincome %in% c("Not applicable")) %>%
-  mutate(rincome = fct_recode(rincome, 
-                              "Less than $1000" = "Lt $1000")) %>%
-  mutate(rincome_na = rincome %in% c("Refused", "Don't know", "No answer"))  %>%
+  mutate(rincome = fct_recode(rincome,
+    "Less than $1000" = "Lt $1000"
+  )) %>%
+  mutate(rincome_na = rincome %in% c("Refused", "Don't know", "No answer")) %>%
   ggplot(aes(x = rincome, fill = rincome_na)) +
   geom_bar() +
   coord_flip() +
@@ -82,8 +83,9 @@ If I were only interested in non-missing responses, then I could drop all respon
 ```{r}
 gss_cat %>%
   filter(!rincome %in% c("Not applicable", "Don't know", "No answer", "Refused")) %>%
-  mutate(rincome = fct_recode(rincome, 
-                              "Less than $1000" = "Lt $1000")) %>%
+  mutate(rincome = fct_recode(rincome,
+    "Less than $1000" = "Lt $1000"
+  )) %>%
   ggplot(aes(x = rincome)) +
   geom_bar() +
   coord_flip() +
@@ -140,10 +142,11 @@ no denomination, to leave only answers to denominations.
 After doing that, the only remaining responses are "Protestant".
 ```{r}
 gss_cat %>%
-  filter(!denom %in% c("No answer", "Other", "Don't know", "Not applicable",
-                       "No denomination")) %>%
+  filter(!denom %in% c(
+    "No answer", "Other", "Don't know", "Not applicable",
+    "No denomination"
+  )) %>%
   count(relig)
-
 ```
 
 This is also clear in a scatter plot of `relig` vs. `denom` where the points are
@@ -249,7 +252,6 @@ gss_cat %>%
   ggplot(aes(relig)) +
   geom_bar() +
   coord_flip()
-
 ```
 
 The same goes for `denom`.
@@ -293,21 +295,25 @@ levels(gss_cat$partyid)
 
 ```{r}
 gss_cat %>%
-  mutate(partyid =
-           fct_collapse(partyid,
-                        other = c("No answer", "Don't know", "Other party"),
-                        rep = c("Strong republican", "Not str republican"),
-                        ind = c("Ind,near rep", "Independent", "Ind,near dem"),
-                        dem = c("Not str democrat", "Strong democrat"))) %>%
-  count(year, partyid)  %>%
+  mutate(
+    partyid =
+      fct_collapse(partyid,
+        other = c("No answer", "Don't know", "Other party"),
+        rep = c("Strong republican", "Not str republican"),
+        ind = c("Ind,near rep", "Independent", "Ind,near dem"),
+        dem = c("Not str democrat", "Strong democrat")
+      )
+  ) %>%
+  count(year, partyid) %>%
   group_by(year) %>%
   mutate(p = n / sum(n)) %>%
-  ggplot(aes(x = year, y = p,
-             colour = fct_reorder2(partyid, year, p))) +
+  ggplot(aes(
+    x = year, y = p,
+    colour = fct_reorder2(partyid, year, p)
+  )) +
   geom_point() +
   geom_line() +
   labs(colour = "Party ID.")
-
 ```
 
 </div>
@@ -328,15 +334,21 @@ levels(gss_cat$rincome)
 ```{r}
 library("stringr")
 gss_cat %>%
-  mutate(rincome =
-           fct_collapse(
-             rincome,
-             `Unknown` = c("No answer", "Don't know", "Refused", "Not applicable"),
-             `Lt $5000` = c("Lt $1000", str_c("$", c("1000", "3000", "4000"),
-                                              " to ", c("2999", "3999", "4999"))),
-             `$5000 to 10000` = str_c("$", c("5000", "6000", "7000", "8000"),
-                                      " to ", c("5999", "6999", "7999", "9999"))
-           )) %>%
+  mutate(
+    rincome =
+      fct_collapse(
+        rincome,
+        `Unknown` = c("No answer", "Don't know", "Refused", "Not applicable"),
+        `Lt $5000` = c("Lt $1000", str_c(
+          "$", c("1000", "3000", "4000"),
+          " to ", c("2999", "3999", "4999")
+        )),
+        `$5000 to 10000` = str_c(
+          "$", c("5000", "6000", "7000", "8000"),
+          " to ", c("5999", "6999", "7999", "9999")
+        )
+      )
+  ) %>%
   ggplot(aes(x = rincome)) +
   geom_bar() +
   coord_flip()

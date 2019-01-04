@@ -6,11 +6,14 @@ wordlist_file <- "WORDLIST"
 
 wordlist <- stringr::str_trim(readLines(wordlist_file))
 
-files <- c(list.files(here::here("."), pattern = "\\.(Rnw|Rmd)$", full.names = TRUE),
-           list.files(here::here("rmarkdown"),
-                      pattern = "\\.(Rmd)$", full.names = TRUE),
-           here::here("NEWS.md"),
-           here::here("README.md")) %>%
+files <- c(
+  list.files(here::here("."), pattern = "\\.(Rnw|Rmd)$", full.names = TRUE),
+  list.files(here::here("rmarkdown"),
+    pattern = "\\.(Rmd)$", full.names = TRUE
+  ),
+  here::here("NEWS.md"),
+  here::here("README.md")
+) %>%
   normalizePath() %>%
   unique()
 

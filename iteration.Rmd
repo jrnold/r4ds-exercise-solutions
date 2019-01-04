@@ -31,48 +31,48 @@ The answers for each part are below.
 
 1.  To compute the mean of every column in `mtcars`.
     ```{r}
-    output <- vector("double", ncol(mtcars))
-    names(output) <- names(mtcars)
-    for (i in names(mtcars)) {
-      output[i] <- mean(mtcars[[i]])
-    }
-    output
+output <- vector("double", ncol(mtcars))
+names(output) <- names(mtcars)
+for (i in names(mtcars)) {
+  output[i] <- mean(mtcars[[i]])
+}
+output
     ```
 
 1.  Determine the type of each column in `nycflights13::flights`.
     Note that we need to use a `list`, not a character vector, since the class can have multiple values.
     ```{r}
-    data("flights", package = "nycflights13")
-    output <- vector("list", ncol(flights))
-    names(output) <- names(flights)
-    for (i in names(flights)) {
-      output[[i]] <- class(flights[[i]])
-    }
-    output
+data("flights", package = "nycflights13")
+output <- vector("list", ncol(flights))
+names(output) <- names(flights)
+for (i in names(flights)) {
+  output[[i]] <- class(flights[[i]])
+}
+output
     ```
 
 1.  To compute the number of unique values in each column of the `iris` dataset.
     ```{r}
-    data("iris")
-    iris_uniq <- vector("double", ncol(iris))
-    names(iris_uniq) <- names(iris)
-    for (i in names(iris)) {
-      iris_uniq[i] <- length(unique(iris[[i]]))
-    }
-    iris_uniq
+data("iris")
+iris_uniq <- vector("double", ncol(iris))
+names(iris_uniq) <- names(iris)
+for (i in names(iris)) {
+  iris_uniq[i] <- length(unique(iris[[i]]))
+}
+iris_uniq
     ```
 
 1.  To generate 10 random normals for each of $\mu = -10$, 0, 10, and 100.
     ```{r}
-    # number to draw
-    n <- 10
-    # values of the mean
-    mu <- c(-10, 0, 10, 100)
-    normals <- vector("list", length(mu))
-    for (i in seq_along(normals)) {
-      normals[[i]] <- rnorm(n, mean = mu[i])
-    }
-    normals
+# number to draw
+n <- 10
+# values of the mean
+mu <- c(-10, 0, 10, 100)
+normals <- vector("list", length(mu))
+for (i in seq_along(normals)) {
+  normals[[i]] <- rnorm(n, mean = mu[i])
+}
+normals
     ```
 
 However, we don't need a for loop for this since `rnorm()` recycle the `mean` argument.
@@ -108,7 +108,7 @@ For this I'm going to rename the variable `sd` to something different because `s
 x <- sample(100)
 sd. <- 0
 for (i in seq_along(x)) {
-  sd. <- sd. + (x[i] - mean(x)) ^ 2
+  sd. <- sd. + (x[i] - mean(x))^2
 }
 sd. <- sqrt(sd. / (length(x) - 1))
 sd.
@@ -121,7 +121,7 @@ sd(x)
 Or if there was a need to use the equation (e.g. for pedagogical reasons), then
 the functions `mean()` and `sum()` already work with vectors:
 ```{r}
-sqrt(sum((x - mean(x)) ^ 2) / (length(x) - 1))
+sqrt(sum((x - mean(x))^2) / (length(x) - 1))
 ```
 
 ```{r}
@@ -136,7 +136,7 @@ out
 
 The code above is calculating a cumulative sum. Use the function `cumsum()`
 ```{r}
-all.equal(cumsum(x),out)
+all.equal(cumsum(x), out)
 ```
 
 </div>
@@ -178,17 +178,18 @@ The answers to each part follow.
 
     We'll iterate from five to no humps, and print out a different last line if there are no humps.
     ```{r}
-    humps <- c("five", "four", "three", "two", "one", "no")
-    for (i in humps) {
-      cat(str_c("Alice the camel has ", rep(i, 3), " humps.",
-                 collapse = "\n"), "\n")
-      if (i == "no") {
-        cat("Now Alice is a horse.\n")
-      } else {
-        cat("So go, Alice, go.\n")
-      }
-      cat("\n")
-    }
+humps <- c("five", "four", "three", "two", "one", "no")
+for (i in humps) {
+  cat(str_c("Alice the camel has ", rep(i, 3), " humps.",
+    collapse = "\n"
+  ), "\n")
+  if (i == "no") {
+    cat("Now Alice is a horse.\n")
+  } else {
+    cat("So go, Alice, go.\n")
+  }
+  cat("\n")
+}
     ```
 
 1.  The lyrics for [Ten in the Bed](https://www.kididdles.com/lyrics/t003.html) are:
@@ -207,19 +208,21 @@ The answers to each part follow.
     > “I’m lonely...”
 
     ```{r}
-    numbers <- c("ten", "nine", "eight", "seven", "six", "five",
-                 "four", "three", "two", "one")
-    for (i in numbers) {
-      cat(str_c("There were ", i, " in the bed\n"))
-      cat("and the little one said\n")
-      if (i == "one") {
-        cat("I'm lonely...")
-      } else {
-        cat("Roll over, roll over\n")
-        cat("So they all rolled over and one fell out.\n")
-      }
-      cat("\n")
-    }
+numbers <- c(
+  "ten", "nine", "eight", "seven", "six", "five",
+  "four", "three", "two", "one"
+)
+for (i in numbers) {
+  cat(str_c("There were ", i, " in the bed\n"))
+  cat("and the little one said\n")
+  if (i == "one") {
+    cat("I'm lonely...")
+  } else {
+    cat("Roll over, roll over\n")
+    cat("So they all rolled over and one fell out.\n")
+  }
+  cat("\n")
+}
     ```
 
 1.  The lyrics of [Ninety-Nine Bottles of Beer on the Wall](https://en.wikipedia.org/wiki/99_Bottles_of_Beer) are
@@ -236,28 +239,30 @@ The answers to each part follow.
     For the bottles of beer, I define a helper function to correctly print the number of bottles.
 
     ```{r}
-    bottles <- function(i) {
-      if (i > 2) {
-       bottles <- str_c(i - 1, " bottles")
-      } else if (i == 2) {
-       bottles <- "1 bottle"
-      } else {
-       bottles <- "no more bottles"
-      }
-      bottles
-    }
+bottles <- function(i) {
+  if (i > 2) {
+    bottles <- str_c(i - 1, " bottles")
+  } else if (i == 2) {
+    bottles <- "1 bottle"
+  } else {
+    bottles <- "no more bottles"
+  }
+  bottles
+}
 
-    beer_bottles <- function(n) {
-      # should test whether n >= 1.
-      for (i in seq(n, 1)) {
-         cat(str_c(bottles(i), " of beer on the wall, ", bottles(i), " of beer.\n"))
-         cat(str_c("Take one down and pass it around, ", bottles(i - 1),
-                    " of beer on the wall.\n\n"))
-      }
-      cat("No more bottles of beer on the wall, no more bottles of beer.\n")
-      cat(str_c("Go to the store and buy some more, ", bottles(n), " of beer on the wall.\n"))
-    }
-    beer_bottles(3)
+beer_bottles <- function(n) {
+  # should test whether n >= 1.
+  for (i in seq(n, 1)) {
+    cat(str_c(bottles(i), " of beer on the wall, ", bottles(i), " of beer.\n"))
+    cat(str_c(
+      "Take one down and pass it around, ", bottles(i - 1),
+      " of beer on the wall.\n\n"
+    ))
+  }
+  cat("No more bottles of beer on the wall, no more bottles of beer.\n")
+  cat(str_c("Go to the store and buy some more, ", bottles(n), " of beer on the wall.\n"))
+}
+beer_bottles(3)
     ```
 
 </div>
@@ -288,7 +293,7 @@ add_to_vector <- function(n) {
   for (i in seq_len(n)) {
     output <- c(output, i)
   }
-  output  
+  output
 }
 microbenchmark(add_to_vector(10000), times = 3)
 ```
@@ -403,10 +408,10 @@ For example, `show_mean(iris)` would print:
 
 ```{r, eval = FALSE}
 show_mean(iris)
-#> Sepal.Length: 5.84
-#> Sepal.Width:  3.06
-#> Petal.Length: 3.76
-#> Petal.Width:  1.20
+# > Sepal.Length: 5.84
+# > Sepal.Width:  3.06
+# > Petal.Length: 3.76
+# > Petal.Width:  1.20
 ```
 
 > (Extra challenge: what function did I use to make sure that the numbers lined up nicely, even though the variable names had different lengths?)
@@ -419,10 +424,13 @@ show_mean <- function(df, digits = 2) {
   maxstr <- max(str_length(names(df)))
   for (nm in names(df)) {
     if (is.numeric(df[[nm]])) {
-      cat(str_c(str_pad(str_c(nm, ":"), maxstr + 1L, side = "right"),
-                format(mean(df[[nm]]), digits = digits, nsmall = digits),
-                sep = " "),
-          "\n")
+      cat(
+        str_c(str_pad(str_c(nm, ":"), maxstr + 1L, side = "right"),
+          format(mean(df[[nm]]), digits = digits, nsmall = digits),
+          sep = " "
+        ),
+        "\n"
+      )
     }
   }
 }
@@ -510,7 +518,7 @@ The adapted version adds extra logic to only apply the function to numeric
 columns.
 ```{r}
 col_summary2 <- function(df, fun) {
-  # create an empty vector which will store whether each 
+  # create an empty vector which will store whether each
   # column is numeric
   numeric_cols <- vector("logical", length(df))
   # test whether each column is numeric
@@ -527,7 +535,7 @@ col_summary2 <- function(df, fun) {
   for (i in seq_along(idxs)) {
     out[[i]] <- fun(df[[idxs[[i]]]])
   }
-  # name the vector 
+  # name the vector
   names(out) <- names(df)[idxs]
   out
 }
@@ -571,14 +579,14 @@ Write code that uses one of the map functions to:
 1.  To calculate the mean of every column in `mtcars`, apply the function
     `mean()` to each column, and use `map_dbl`, since the results are numeric.
     ```{r}
-    map_dbl(mtcars, mean)
+map_dbl(mtcars, mean)
     ```
 
 1.  To calculate the type of every column in `nycflights13::flights` apply
     the function `typeof()`, discussed in the section on [Vector basics](http://r4ds.had.co.nz/vectors.html#vector-basics), 
     and use `map_chr()`, since the results are character.
     ```{r}
-    map_chr(nycflights13::flights, typeof)
+map_chr(nycflights13::flights, typeof)
     ```
     
 
@@ -586,27 +594,27 @@ Write code that uses one of the map functions to:
     in a vector. For a single column, the number of unique values of a vector
     can be calculated like so,
     ```{r}
-    length(unique(iris$Species))
+length(unique(iris$Species))
     ```
     To apply this to all columns, we can provide the map an anonymous function.
     We can write anonymous function using the standard R syntax, like this,
     ```{r}
-    map_int(iris, function(x) length(unique(x)))
+map_int(iris, function(x) length(unique(x)))
     ```
     or using the more compact, one-sided formula shortcut that **purrr** provides,
     ```{r}
-    map_int(iris, ~ length(unique(.)))
+map_int(iris, ~length(unique(.)))
     ```
     The `map_int` function is used since `length()` returns an integer.
     However, `map_dbl` will also work,
     ```{r results='hide'}
-    map_dbl(iris, ~ length(unique(.)))    
+map_dbl(iris, ~length(unique(.)))
     ```
 
 1.  To generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$:
     The result is a list of numeric vectors.
     ```{r}
-    map(c(-10, 0, 10, 100), ~ rnorm(n = 10, mean = .))
+map(c(-10, 0, 10, 100), ~rnorm(n = 10, mean = .))
     ```
     Since a single call of `rnorm()` returns a numeric vector with a length greater
     than one we cannot use `map_dbl`, which requires the function to return a numeric
@@ -697,7 +705,7 @@ Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymou
 <div class="answer">
 
 ```{r}
-map(list(mtcars), ~ lm(mpg ~ wt, data = .))
+map(list(mtcars), ~lm(mpg ~ wt, data = .))
 ```
 
 </div>
@@ -736,11 +744,15 @@ every2 <- function(.x, .p, ...) {
     }
   }
   # if nothing was FALSE, then it is TRUE
-  TRUE  
+  TRUE
 }
 
-every2(1:3, function(x) {x > 1})
-every2(1:3, function(x) {x > 0})
+every2(1:3, function(x) {
+  x > 1
+})
+every2(1:3, function(x) {
+  x > 0
+})
 ```
 
 The function `purrr::every()` does fancy things with `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.

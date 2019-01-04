@@ -242,25 +242,25 @@ The answer to each part follows.
 1.  The words that start with  “y” are:
 
     ```{r eval=is_html}
-    str_view(stringr::words, "^y", match =TRUE)
+str_view(stringr::words, "^y", match = TRUE)
     ```
 
 1.  End with “x”
 
     ```{r eval=is_html}
-    str_view(stringr::words, "x$", match = TRUE)
+str_view(stringr::words, "x$", match = TRUE)
     ```
 
 1.  Are exactly three letters long are
 
     ```{r eval=is_html}
-    str_view(stringr::words, "^...$", match = TRUE)
+str_view(stringr::words, "^...$", match = TRUE)
     ```
 
 1.  The words that have seven letters or more are
 
     ```{r eval=is_html}
-    str_view(stringr::words, ".......", match = TRUE)
+str_view(stringr::words, ".......", match = TRUE)
     ```
 
 </div>
@@ -287,13 +287,13 @@ The answer to each part follows.
 1.  Words starting with vowels
 
     ```{r eval=is_html}
-    str_view(stringr::words, "^[aeiou]", match = TRUE)
+str_view(stringr::words, "^[aeiou]", match = TRUE)
     ```
 
 1.  Words that contain only consonants
 
     ```{r eval=is_html}
-    str_view(stringr::words, "^[^aeiou]+$", match=TRUE)
+str_view(stringr::words, "^[^aeiou]+$", match = TRUE)
     ```
 
     This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
@@ -301,13 +301,13 @@ The answer to each part follows.
 1.  Words that end with "-ed" but not ending in "-eed". This handles the special case of "-ed", as well as words with a length great than two.
 
     ```{r eval=is_html}
-    str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
+str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
     ```
 
 1.  Words ending in `ing` or `ise`:
 
     ```{r eval=is_html}
-    str_view(stringr::words, "i(ng|se)$", match = TRUE)
+str_view(stringr::words, "i(ng|se)$", match = TRUE)
     ```
 
 </div>
@@ -516,19 +516,19 @@ The answer to each part follows.
 1.  This regex finds all words starting with three consonants.
 
     ```{r eval=is_html}
-    str_view(words, "^[^aeiou]{3}", match = TRUE)
+str_view(words, "^[^aeiou]{3}", match = TRUE)
     ```
 
 1.  This regex finds three or more vowels in a row:
 
     ```{r eval=is_html}
-    str_view(words, "[aeiou]{3,}", match = TRUE)
+str_view(words, "[aeiou]{3,}", match = TRUE)
     ```
 
 1.  This regex finds two or more vowel-consonant pairs in a row.
 
     ```{r eval=is_html}
-    str_view(words, "([aeiou][^aeiou]){2,}", match = TRUE)
+str_view(words, "([aeiou][^aeiou]){2,}", match = TRUE)
     ```
 
 </div>
@@ -592,18 +592,18 @@ The answer to each part follows.
 1.  This regular expression matches words that and end with the same character.
 
     ```{r eval=is_html}
-    str_view(stringr::words, "^(.)((.*\\1$)|\\1?$)", match = TRUE)
+str_view(stringr::words, "^(.)((.*\\1$)|\\1?$)", match = TRUE)
     ```
 
 1.  Either of these patterns checks for any pair of repeated letters, where
     *letters* is defined to the ASCII letters A-Z.
     
     ```{r eval=is_html}
-    str_view(words, "([A-Za-z][A-Za-z]).*\\1", match = TRUE)
+str_view(words, "([A-Za-z][A-Za-z]).*\\1", match = TRUE)
     ```
 
     ```{r eval=is_html}
-    str_view(words, "([[:letter:]]).*\\1", match = TRUE)
+str_view(words, "([[:letter:]]).*\\1", match = TRUE)
     ```
 
     The `\\1` pattern is called a backreference. It matches whatever the first group
@@ -617,7 +617,7 @@ The answer to each part follows.
 1.  This regex matches words that contain one letter repeated in at least three places.
 
     ```{r}
-    str_subset(str_to_lower(words), "([a-z]).*\\1.*\\1")
+str_subset(str_to_lower(words), "([a-z]).*\\1.*\\1")
     ```
 
 </div>
@@ -644,21 +644,21 @@ The answer to each part follows.
 1.  Words that start or end with `x`?
 
     ```{r}
-    # one regex
-    words[str_detect(words, "^x|x$")]
-    # split regex into parts
-    start_with_x <- str_detect(words, "^x")
-    end_with_x <- str_detect(words, "x$")
-    words[start_with_x | end_with_x]
+# one regex
+words[str_detect(words, "^x|x$")]
+# split regex into parts
+start_with_x <- str_detect(words, "^x")
+end_with_x <- str_detect(words, "x$")
+words[start_with_x | end_with_x]
     ```
 
 1.  Words starting with vowel and ending with consonant.
 
     ```{r}
-    str_subset(words, "^[aeiou].*[^aeiou]$") %>% head()
-    start_with_vowel <- str_detect(words, "^[aeiou]")
-    end_with_consonant <- str_detect(words, "[^aeiou]$")
-    words[start_with_vowel & end_with_consonant] %>% head()
+str_subset(words, "^[aeiou].*[^aeiou]$") %>% head()
+start_with_vowel <- str_detect(words, "^[aeiou]")
+end_with_consonant <- str_detect(words, "[^aeiou]$")
+words[start_with_vowel & end_with_consonant] %>% head()
     ```
 
 1.  There is not a simple regular expression to match words that
@@ -667,33 +667,34 @@ The answer to each part follows.
     could occur.
 
     ```{r}
-    pattern <-
-      cross(rerun(5, c("a", "e", "i", "o", "u")),
-            .filter = function(...) {
-              x <- as.character(unlist(list(...)))
-              length(x) != length(unique(x))
-            }) %>%
-      map_chr(~ str_c(unlist(.x), collapse = ".*")) %>%
-      str_c(collapse = "|")
+pattern <-
+  cross(rerun(5, c("a", "e", "i", "o", "u")),
+    .filter = function(...) {
+      x <- as.character(unlist(list(...)))
+      length(x) != length(unique(x))
+    }
+  ) %>%
+  map_chr(~str_c(unlist(.x), collapse = ".*")) %>%
+  str_c(collapse = "|")
     ```
 
     To check that this pattern works, test it on a pattern that
     should match
     ```{r}
-    str_subset("aseiouds", pattern)
+str_subset("aseiouds", pattern)
     ```
 
     Using multiple `str_detect()` calls, one pattern for each vowel,
     produces a much simpler and readable answer.
 
     ```{r}
-    str_subset(words, pattern)
+str_subset(words, pattern)
 
-    words[str_detect(words, "a") &
-          str_detect(words, "e") &
-          str_detect(words, "i") &
-          str_detect(words, "o") &
-          str_detect(words, "u")]
+words[str_detect(words, "a") &
+  str_detect(words, "e") &
+  str_detect(words, "i") &
+  str_detect(words, "o") &
+  str_detect(words, "u")]
     ```
 
     There appear to be none.
@@ -777,16 +778,16 @@ The answer to each part follows.
     I'll consider a word any contiguous set of letters.
 
     ```{r}
-    str_extract(sentences, "[a-zA-Z]+") %>% head()
+str_extract(sentences, "[a-zA-Z]+") %>% head()
     ```
 
 1.  This pattern finds all words ending in `ing`.
 
     ```{r}
-    pattern <- "\\b[A-Za-z]+ing\\b"
-    sentences_with_ing <- str_detect(sentences, pattern)
-    unique(unlist(str_extract_all(sentences[sentences_with_ing], pattern))) %>%
-      head()
+pattern <- "\\b[A-Za-z]+ing\\b"
+sentences_with_ing <- str_detect(sentences, pattern)
+unique(unlist(str_extract_all(sentences[sentences_with_ing], pattern))) %>%
+  head()
     ```
 
 1.  Finding all plurals cannot be correctly accomplished with regular expressions alone.
@@ -796,8 +797,8 @@ The answer to each part follows.
     a reasonable heuristic.
 
     ```{r}
-    unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b"))) %>%
-      head()
+unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b"))) %>%
+  head()
     ```
 
 </div>
@@ -861,7 +862,7 @@ Implement a simple version of `str_to_lower()` using `replace_all()`.
 
 <div class="answer">
 ```{r}
-lower <- str_replace_all(words, c("A"="a", "B"="b", "C"="c", "D"="d", "E"="e", "F"="f", "G"="g", "H"="h", "I"="i", "J"="j", "K"="k", "L"="l", "M"="m", "N"="n", "O"="o", "P"="p", "Q"="q", "R"="r", "S"="s", "T"="t", "U"="u", "V"="v", "W"="w", "X"="x", "Y"="y", "Z"="z"))
+lower <- str_replace_all(words, c("A" = "a", "B" = "b", "C" = "c", "D" = "d", "E" = "e", "F" = "f", "G" = "g", "H" = "h", "I" = "i", "J" = "j", "K" = "k", "L" = "l", "M" = "m", "N" = "n", "O" = "o", "P" = "p", "Q" = "q", "R" = "r", "S" = "s", "T" = "t", "U" = "u", "V" = "v", "W" = "w", "X" = "x", "Y" = "y", "Z" = "z"))
 ```
 
 </div>
@@ -880,7 +881,7 @@ swapped <- str_replace_all(words, "^([A-Za-z])(.*)([a-z])$", "\\3\\2\\1")
 ```
 Next, find what of "swapped" is also in the original list using the function `intersect()`,
 ```{r}
-intersect(swapped,words)
+intersect(swapped, words)
 ```
 
 </div>

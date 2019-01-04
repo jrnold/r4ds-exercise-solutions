@@ -34,12 +34,11 @@ In order to make it easier to plot them, I'll reshape the dataset so that I can 
 diamonds %>%
   mutate(id = row_number()) %>%
   select(x, y, z, id) %>%
-  gather(variable, value, -id)  %>%
+  gather(variable, value, -id) %>%
   ggplot(aes(x = value)) +
   geom_density() +
   geom_rug() +
   facet_grid(variable ~ .)
-
 ```
 
 There several noticeable features of the distributions
@@ -113,7 +112,7 @@ diamonds %>%
 ```{r}
 diamonds %>%
   mutate(ending = price %% 1000) %>%
-  filter(ending >= 500, ending <= 800)  %>%
+  filter(ending >= 500, ending <= 800) %>%
   ggplot(aes(x = ending)) +
   geom_histogram(binwidth = 1) +
   geom_bar()
@@ -142,9 +141,9 @@ To check this intuition, we'd want to look at the number of diamonds in each car
 
 ```{r}
 diamonds %>%
-   filter(carat >= 0.9, carat <= 1.1) %>%
-   count(carat) %>%
-   print(n = 30)
+  filter(carat >= 0.9, carat <= 1.1) %>%
+  count(carat) %>%
+  print(n = 30)
 ```
 
 </div>
@@ -254,7 +253,7 @@ nycflights13::flights %>%
     sched_dep_time = sched_hour + sched_min / 60
   ) %>%
   ggplot() +
-    geom_boxplot(mapping = aes(y = sched_dep_time, x = canceled))
+  geom_boxplot(mapping = aes(y = sched_dep_time, x = canceled))
 ```
 
 </div>
@@ -349,7 +348,6 @@ library("ggstance")
 
 ggplot(data = mpg) +
   geom_boxploth(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
-
 ```
 
 </div>
@@ -413,7 +411,7 @@ ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) +
 ```{r}
 ggplot(data = diamonds, mapping = aes(x = price)) +
   geom_histogram() +
-  facet_wrap(~ cut, ncol = 1, scales = "free_y")
+  facet_wrap(~cut, ncol = 1, scales = "free_y")
 ```
 
 ```{r}
@@ -446,44 +444,62 @@ I'll use the `mpg`  box plot example since these methods display individual poin
 ```{r}
 library("ggbeeswarm")
 ggplot(data = mpg) +
-  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
-                                 y = hwy))
-
+  geom_quasirandom(mapping = aes(
+    x = reorder(class, hwy, FUN = median),
+    y = hwy
+  ))
 ```
 
 ```{r}
 ggplot(data = mpg) +
-  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
-                                 y = hwy),
-                   method = "tukey")
+  geom_quasirandom(
+    mapping = aes(
+      x = reorder(class, hwy, FUN = median),
+      y = hwy
+    ),
+    method = "tukey"
+  )
 ```
 
 ```{r}
 ggplot(data = mpg) +
-  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
-                                 y = hwy),
-                   method = "tukeyDense")
+  geom_quasirandom(
+    mapping = aes(
+      x = reorder(class, hwy, FUN = median),
+      y = hwy
+    ),
+    method = "tukeyDense"
+  )
 ```
 
 ```{r}
 ggplot(data = mpg) +
-  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
-                                 y = hwy),
-                   method = "frowney")
+  geom_quasirandom(
+    mapping = aes(
+      x = reorder(class, hwy, FUN = median),
+      y = hwy
+    ),
+    method = "frowney"
+  )
 ```
 
 ```{r}
 ggplot(data = mpg) +
-  geom_quasirandom(mapping = aes(x = reorder(class, hwy, FUN = median),
-                                 y = hwy),
-                   method = "smiley")
+  geom_quasirandom(
+    mapping = aes(
+      x = reorder(class, hwy, FUN = median),
+      y = hwy
+    ),
+    method = "smiley"
+  )
 ```
 
 ```{r}
 ggplot(data = mpg) +
-  geom_beeswarm(mapping = aes(x = reorder(class, hwy, FUN = median),
-                                 y = hwy))
-
+  geom_beeswarm(mapping = aes(
+    x = reorder(class, hwy, FUN = median),
+    y = hwy
+  ))
 ```
 
 </div>
@@ -509,7 +525,7 @@ diamonds %>%
   mutate(prop = n / sum(n)) %>%
   ggplot(mapping = aes(x = color, y = cut)) +
   geom_tile(mapping = aes(fill = prop)) +
-  scale_fill_viridis(limits = c(0, 1)) #from the viridis colour palette library
+  scale_fill_viridis(limits = c(0, 1)) # from the viridis colour palette library
 ```
 
 Similarly, to scale by the distribution of `color` within `cut`,
@@ -591,9 +607,9 @@ If at all possible, labels should be horizontal because that is easier to read.
 However, switching the order doesn't result in overlapping labels.
 ```{r}
 diamonds %>%
-  count(color, cut) %>%  
+  count(color, cut) %>%
   ggplot(mapping = aes(y = color, x = cut)) +
-    geom_tile(mapping = aes(fill = n))
+  geom_tile(mapping = aes(fill = n))
 ```
 
 Another justification, for switching the order is that the larger numbers are at the top when `x = color` and `y = cut`, and that lowers the cognitive burden of interpreting the plot.
@@ -626,11 +642,12 @@ in order to keep them distinct. Using `cut_number`, I will split carats into
 quantiles (five groups).
 
 ```{r message=FALSE}
-ggplot(data = diamonds,
-       mapping = aes(color = cut_number(carat, 5), x = price)) +
+ggplot(
+  data = diamonds,
+  mapping = aes(color = cut_number(carat, 5), x = price)
+) +
   geom_freqpoly() +
   labs(x = "Price", y = "Count", color = "Carat")
-
 ```
 
 Alternatively, I could use `cut_width` to specify widths at which to cut.
@@ -639,11 +656,12 @@ I will choose 1-carat widths. Since there are very few diamonds larger than
 creates too many groups, and splitting at non-whole numbers is unappealing.
 
 ```{r message=FALSE}
-ggplot(data = diamonds,
-       mapping = aes(color = cut_width(carat, 1, boundary = 0), x = price)) +
+ggplot(
+  data = diamonds,
+  mapping = aes(color = cut_width(carat, 1, boundary = 0), x = price)
+) +
   geom_freqpoly() +
-  labs(x = "Price", y = "Count", color = "Carat")  
-
+  labs(x = "Price", y = "Count", color = "Carat")
 ```
 
 </div>
@@ -707,7 +725,7 @@ Here are a few options that I tried.
 ```{r}
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_hex() +
-  facet_wrap(~ cut, ncol = 1) +
+  facet_wrap(~cut, ncol = 1) +
   scale_fill_viridis()
 ```
 

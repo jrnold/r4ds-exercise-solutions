@@ -37,18 +37,18 @@ The answer to each part follows.
     flights whose arrival was delayed 120 or more minutes.
 
     ```{r, indent = 4}
-    filter(flights, arr_delay >= 120)
+filter(flights, arr_delay >= 120)
     ```
 
 1.  The flights that flew to Houston were are those flights where the 
     destination (`dest`) is either "IAH" or "HOU".
     ```{r}
-    filter(flights, dest == "IAH" | dest == "HOU")
+filter(flights, dest == "IAH" | dest == "HOU")
     ```
     However, using `%in%` is more compact and would scale to cases where 
     there were more than two airports we were interested in.
     ```{r}
-    filter(flights, dest %in% c("IAH", "HOU"))
+filter(flights, dest %in% c("IAH", "HOU"))
     ```
     
 
@@ -59,32 +59,32 @@ The answer to each part follows.
     it is easiest to manually look up their carrier codes in that data.
 
     ```{r}
-    airlines
+airlines
     ```
 
     The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`.
     Using these carriers codes, we check whether `carrier` is one of those.
 
     ```{r}
-    filter(flights, carrier %in% c("AA", "DL", "UA"))
+filter(flights, carrier %in% c("AA", "DL", "UA"))
     ```
 
 1.  The variable `month` has the month, and it is numeric.
     So, the summer flights are those that departed in months 7 (July), 8 (August), and 9 (September).
     ```{r}
-    filter(flights, month >= 7, month <= 9)
+filter(flights, month >= 7, month <= 9)
     ```
     The `%in%` and `|` operators would also work, but using relational operators
     like `>=` and `<=` is preferred for numeric data. 
     ```{r}
-    filter(flights, month %in%  c(7, 8, 9))
+filter(flights, month %in% c(7, 8, 9))
     ```
 
 1.  Flights that arrived more than two hours late, but didn’t leave late will 
     have an arrival delay of more than 120 minutes (`dep_delay > 120`) and 
     a non-positive departure delay (`dep_delay <= 0`).
     ```{r}
-    filter(flights, dep_delay <= 0, arr_delay > 120)
+filter(flights, dep_delay <= 0, arr_delay > 120)
     ```
 
 1.  Were delayed by at least an hour, but made up over 30 minutes in flight.
@@ -95,7 +95,7 @@ The answer to each part follows.
     the arrival delay must be at least 30 minutes less than the departure delay, which
     is stated as `dep_delay - arr_delay > 30`.
     ```{r}
-    filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)
+filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)
     ```
 
 1.  Finding flights that departed between midnight and 6 am is complicated by 
@@ -105,21 +105,21 @@ The answer to each part follows.
     to consider the special case of midnight.
     
     ```{r}
-    filter(flights, dep_time <= 600 | dep_time == 2400)
+filter(flights, dep_time <= 600 | dep_time == 2400)
     ```
 
     Alternatively, we could use the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation), `%%`. 
     The modulo operator returns the remainder of division.
     Let's see how how this affects our times.
     ```{r}
-    c(600, 1200, 2400) %% 2400
+c(600, 1200, 2400) %% 2400
     ```
 
     Since `2400 %% 2400 == 0` and all other times are left unchanged, 
     we can compare the result of the modulo operation to `600`,
 
     ```{r}
-    filter(flights, dep_time %% 2400 <= 600)
+filter(flights, dep_time %% 2400 <= 600)
     ```
 
     This filter expression is more compact, but its readability will depends on the 
@@ -174,7 +174,7 @@ Why is `FALSE & NA` not missing? Can you figure out the general rule?
 
 `NA ^ 0 == 1` since for all numeric values $x ^ 0 = 1$.
 ```{r}
-NA ^ 0
+NA^0
 ```
 
 `NA | TRUE` is `TRUE` because the value of the missing  `TRUE` or `FALSE`,
@@ -242,13 +242,17 @@ Sort flights to find the most delayed flights. Find the flights that left earlie
 
 ```{r include=FALSE}
 most_delayed <- filter(flights, dep_delay == max(dep_delay, na.rm = TRUE)) %>%
-  mutate(date = lubridate::make_datetime(year, month, day, 
-                                         sched_dep_time %/% 100,
-                                         sched_dep_time %% 100))
+  mutate(date = lubridate::make_datetime(
+    year, month, day,
+    sched_dep_time %/% 100,
+    sched_dep_time %% 100
+  ))
 left_earliest <- filter(flights, dep_delay == min(dep_delay, na.rm = TRUE)) %>%
-  mutate(date = lubridate::make_datetime(year, month, day, 
-                                         sched_dep_time %/% 100,
-                                         sched_dep_time %% 100))
+  mutate(date = lubridate::make_datetime(
+    year, month, day,
+    sched_dep_time %/% 100,
+    sched_dep_time %% 100
+  ))
 ```
 
 Find the most delayed flights by sorting the table by departure delay, `dep_delay`, in descending order.
@@ -282,7 +286,7 @@ By "fastest" flights, I assume that the question refers to the flights with the
 shortest time in the air. 
 Find these by sorting by `air_time`
 ```{r}
-arrange(flights, air_time) 
+arrange(flights, air_time)
 ```
 
 However, "fastest" could also be interpreted as referring to the average air speed.
@@ -358,17 +362,17 @@ A few ways include:
 
 -   Specifying all the variables with unquoted variable names.
     ```{r}
-    select(flights, dep_time, dep_delay, arr_time, arr_delay)
+select(flights, dep_time, dep_delay, arr_time, arr_delay)
     ```
 
 -   Specifying all the variables as strings.
     ```{r}
-    select(flights, "dep_time", "dep_delay", "arr_time", "arr_delay")
+select(flights, "dep_time", "dep_delay", "arr_time", "arr_delay")
     ```
 
 -   Specifying the column numbers of the variables.
     ```{r}
-    select(flights, 4, 6, 7, 9)
+select(flights, 4, 6, 7, 9)
     ```
     This works, but is not good practice for two reasons.
     First, the column location of variables may change, resulting in code that 
@@ -379,25 +383,25 @@ A few ways include:
 
 -   Specifying the names of the variables with character vector and `one_of()`.
     ```{r}
-    select(flights, one_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))
+select(flights, one_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))
     ```
     This is useful because the names of the variables can be stored in a 
     variable and passed to `one_of()`.
     ```{r}
-    variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
-    select(flights, one_of(variables))
+variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
+select(flights, one_of(variables))
     ```
 
 -   Selecting the variables by matching the start of their names using 
     `starts_with()`.
     ```{r}
-    select(flights, starts_with("dep_"), starts_with("arr_"))
+select(flights, starts_with("dep_"), starts_with("arr_"))
     ```
 
 -   Selecting the variables using `matches()` and regular expressions, which are 
     discussed in the [Strings](http://r4ds.had.co.nz/strings.html) chapter.
     ```{r}
-    select(flights, matches("^(dep|arr)_(time|delay)$"))
+select(flights, matches("^(dep|arr)_(time|delay)$"))
     ```
 
 Some things that **don't** work are
@@ -405,13 +409,13 @@ Some things that **don't** work are
 -   Matching the ends of their names using `ends_with()` since this will incorrectly
     include other variables. For example,
     ```{r}
-    select(flights, ends_with("arr_time"), ends_with("dep_time"))
+select(flights, ends_with("arr_time"), ends_with("dep_time"))
     ```
 
 -   Matching the names using `contains()` since there is not a pattern that can
     include all these variables without incorrectly including others.
     ```{r}
-    select(flights, contains("_time"), contains("arr_"))
+select(flights, contains("_time"), contains("arr_"))
     ```
 
 </div>
@@ -532,13 +536,15 @@ with the new columns, `dep_time_mins` and `sched_dep_time_mins` which convert
 `dep_time` and `sched_dep_time`, respectively, to minutes since midnight.
 ```{r}
 flights_times <- mutate(flights,
-    dep_time_mins = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
-    sched_dep_time_mins = (sched_dep_time %/% 100 * 60 + 
-                             sched_dep_time %% 100) %% 1440
-  )
+  dep_time_mins = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
+  sched_dep_time_mins = (sched_dep_time %/% 100 * 60 +
+    sched_dep_time %% 100) %% 1440
+)
 # view only relevant columns
-select(flights_times, dep_time, dep_time_mins, sched_dep_time, 
-       sched_dep_time_mins)
+select(
+  flights_times, dep_time, dep_time_mins, sched_dep_time,
+  sched_dep_time_mins
+)
 ```
 
 Looking ahead to the [Functions](http://r4ds.had.co.nz/functions.html) chapter,
@@ -554,11 +560,14 @@ time2mins <- function(x) {
 Using `time2mins`, the previous code simplifies to the following.
 ```{r}
 flights_times <- mutate(flights,
-       dep_time_mins = time2mins(dep_time),
-       sched_dep_time_mins = time2mins(sched_dep_time))
+  dep_time_mins = time2mins(dep_time),
+  sched_dep_time_mins = time2mins(sched_dep_time)
+)
 # show only the relevant columns
-select(flights_times, dep_time, dep_time_mins, sched_dep_time, 
-       sched_dep_time_mins)
+select(
+  flights_times, dep_time, dep_time_mins, sched_dep_time,
+  sched_dep_time_mins
+)
 ```
 
 </div>
@@ -576,11 +585,12 @@ I would expect that the air time is the difference between the arrival and depar
 To check this, I need to first convert the times to a form more amenable to arithmetic
 using the same calculations as in the previous exercise.
 ```{r}
-flights_airtime <- 
+flights_airtime <-
   mutate(flights,
-         dep_time_min = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
-         arr_time_min = (arr_time %/% 100 * 60 + arr_time %% 100) %% 1440,
-         air_time_diff = air_time - arr_time + dep_time)
+    dep_time_min = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
+    arr_time_min = (arr_time %/% 100 * 60 + arr_time %% 100) %% 1440,
+    air_time_diff = air_time - arr_time + dep_time
+  )
 ```
 
 Is my expectation correct? Does `air_time = arr_time - dep_time`?
@@ -654,12 +664,13 @@ number of minutes since midnight.
 The column, `dep_delay_diff` will the difference between `dep_delay` and 
 departure delay calculated from the scheduled and actual departure times.
 ```{r}
-flights_deptime <- 
+flights_deptime <-
   mutate(flights,
-         dep_time_min = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
-         sched_dep_time_min = (sched_dep_time %/% 100 * 60 +
-                               sched_dep_time %% 100) %% 1440,
-         dep_delay_diff = dep_delay - dep_time_min + sched_dep_time_min)
+    dep_time_min = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
+    sched_dep_time_min = (sched_dep_time %/% 100 * 60 +
+      sched_dep_time %% 100) %% 1440,
+    dep_delay_diff = dep_delay - dep_time_min + sched_dep_time_min
+  )
 ```
 Does `dep_delay_diff` equal zero for all rows? 
 ```{r}
@@ -671,8 +682,10 @@ However, the discrepancies could be because a flight was scheduled to depart
 before midnight, but was delayed after midnight.
 All of these discrepancies are exactly equal to 1440 (24 hours), and the flights with these discrepancies were scheduled to depart later in the day.
 ```{r}
-ggplot(filter(flights_deptime, dep_delay_diff > 0), 
-       aes(y = sched_dep_time_min, x = dep_delay_diff)) +
+ggplot(
+  filter(flights_deptime, dep_delay_diff > 0),
+  aes(y = sched_dep_time_min, x = dep_delay_diff)
+) +
   geom_point()
 ```
 Thus the only cases in which the departure delay is not equal to the difference
@@ -887,8 +900,10 @@ canceled_delayed <-
   flights %>%
   mutate(canceled = (is.na(arr_delay) | is.na(dep_delay))) %>%
   group_by(year, month, day) %>%
-  summarise(prop_canceled = mean(canceled),
-            avg_dep_delay = mean(dep_delay, na.rm = TRUE))
+  summarise(
+    prop_canceled = mean(canceled),
+    avg_dep_delay = mean(dep_delay, na.rm = TRUE)
+  )
 
 ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
   geom_point() +
@@ -926,25 +941,30 @@ flights %>%
   filter(!is.na(arr_delay)) %>%
   # Total delay by carrier within each origin, dest
   group_by(origin, dest, carrier) %>%
-  summarise(arr_delay = sum(arr_delay),
-            flights = n()) %>%
+  summarise(
+    arr_delay = sum(arr_delay),
+    flights = n()
+  ) %>%
   # Total delay within each origin dest
   group_by(origin, dest) %>%
-  mutate(arr_delay_total = sum(arr_delay),
-         flights_total = sum(flights)) %>%
+  mutate(
+    arr_delay_total = sum(arr_delay),
+    flights_total = sum(flights)
+  ) %>%
   # average delay of each carrier - average delay of other carriers
   ungroup() %>%
-  mutate(arr_delay_others = (arr_delay_total - arr_delay) / 
-           (flights_total - flights),
-         arr_delay_mean = arr_delay / flights,
-         arr_delay_diff = arr_delay_mean - arr_delay_others) %>%
+  mutate(
+    arr_delay_others = (arr_delay_total - arr_delay) /
+      (flights_total - flights),
+    arr_delay_mean = arr_delay / flights,
+    arr_delay_diff = arr_delay_mean - arr_delay_others
+  ) %>%
   # remove NaN values (when there is only one carrier)
   filter(is.finite(arr_delay_diff)) %>%
   # average over all airports it flies to
   group_by(carrier) %>%
   summarise(arr_delay_diff = mean(arr_delay_diff)) %>%
   arrange(desc(arr_delay_diff))
-
 ```
 
 There are more sophisticated ways to do this analysis, however comparing the delay of flights within each route goes a long ways toward disentangling airport and carrier effects.
@@ -995,9 +1015,11 @@ benefit of easily incorporating canceled flights.
 flights %>%
   # unknown why flights have sched_arr_time, arr_time but missing arr_delay.
   filter(!is.na(arr_delay)) %>%
-  mutate(canceled = is.na(arr_time),
-         late = !canceled & arr_delay > 0) %>%
-  group_by(tailnum) %>%  
+  mutate(
+    canceled = is.na(arr_time),
+    late = !canceled & arr_delay > 0
+  ) %>%
+  group_by(tailnum) %>%
   summarise(on_time = mean(!late)) %>%
   filter(min_rank(on_time) <= 1)
 ```
@@ -1027,7 +1049,6 @@ flights %>%
   group_by(hour) %>%
   summarise(arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
   arrange(arr_delay)
-
 ```
 
 </div>
@@ -1042,10 +1063,12 @@ For each destination, compute the total minutes of delay. For each flight, compu
 
 ```{r}
 flights %>%
-  filter(!is.na(arr_delay), arr_delay > 0) %>%  
+  filter(!is.na(arr_delay), arr_delay > 0) %>%
   group_by(dest) %>%
-  mutate(arr_delay_total = sum(arr_delay),
-         arr_delay_prop = arr_delay / arr_delay_total)
+  mutate(
+    arr_delay_total = sum(arr_delay),
+    arr_delay_prop = arr_delay / arr_delay_total
+  )
 ```
 
 The key to answering this question is when calculating the total delay and proportion of delay
@@ -1116,9 +1139,11 @@ the mean flight for that route.
 standardized_flights <- flights %>%
   filter(!is.na(air_time)) %>%
   group_by(dest, origin) %>%
-  mutate(air_time_mean = mean(air_time),
-         air_time_sd = sd(air_time),
-         n = n()) %>%
+  mutate(
+    air_time_mean = mean(air_time),
+    air_time_sd = sd(air_time),
+    n = n()
+  ) %>%
   ungroup() %>%
   mutate(air_time_standard = (air_time - air_time_mean) / air_time_sd)
 ```
@@ -1133,8 +1158,10 @@ Unusually fast flights are those flights with the smallest standardized values.
 ```{r}
 standardized_flights %>%
   arrange(air_time_standard) %>%
-  select(carrier, flight, origin, dest, month, day,
-         air_time, air_time_mean, air_time_standard) %>%
+  select(
+    carrier, flight, origin, dest, month, day,
+    air_time, air_time_mean, air_time_standard
+  ) %>%
   head(10) %>%
   print(width = 120)
 ```
@@ -1144,15 +1171,19 @@ format_ymd <- function(y, m, d) {
   format(lubridate::make_date(y, m, d), "%Y-%m-%d")
 }
 format_time <- function(x) {
-  format(lubridate::make_datetime(hour = x %/% 100, min = x %% 100),
-         "%H:%M")
+  format(
+    lubridate::make_datetime(hour = x %/% 100, min = x %% 100),
+    "%H:%M"
+  )
 }
 fastest_flight <- standardized_flights %>%
   arrange(air_time_standard) %>%
   slice(1L) %>%
-  mutate(date = format_ymd(year, month, day),
-         time = format_time(dep_time),
-         flightnum = str_c(carrier, flight))
+  mutate(
+    date = format_ymd(year, month, day),
+    time = format_time(dep_time),
+    flightnum = str_c(carrier, flight)
+  )
 ```
 The fastest flight was `r fastest_flight$flightnum` from `r fastest_flight$origin` to
 `r fastest_flight$dest` which departed on 
@@ -1177,9 +1208,11 @@ That method uses the median and inter-quartile range, and thus is less sensitive
 standardized_flights2 <- flights %>%
   filter(!is.na(air_time)) %>%
   group_by(dest, origin) %>%
-  mutate(air_time_median = median(air_time),
-         air_time_iqr = IQR(air_time),
-         n = n()) %>%
+  mutate(
+    air_time_median = median(air_time),
+    air_time_iqr = IQR(air_time),
+    n = n()
+  ) %>%
   ungroup() %>%
   mutate(air_time_standard = (air_time - air_time_median) / air_time_iqr)
 ```
@@ -1195,8 +1228,10 @@ Unusually fast flights are those flights with the smallest standardized values.
 ```{r}
 standardized_flights2 %>%
   arrange(air_time_standard) %>%
-  select(carrier, flight, origin, dest, month, day, air_time, 
-         air_time_median, air_time_standard) %>%
+  select(
+    carrier, flight, origin, dest, month, day, air_time,
+    air_time_median, air_time_standard
+  ) %>%
   head(10) %>%
   print(width = 120)
 ```
@@ -1241,7 +1276,7 @@ flights %>%
 
 ```{r include=FALSE}
 flights_mph <- flights %>%
-  mutate(mph = distance / (air_time / 60)) 
+  mutate(mph = distance / (air_time / 60))
 fastest_flight_mph <- arrange(ungroup(flights_mph), desc(mph)) %>%
   slice(1L)
 over_600mph <- filter(flights_mph, mph > 600) %>% nrow()
@@ -1268,9 +1303,11 @@ So, I would expect that some of the unusually fast flights were delayed on depar
 flights %>%
   mutate(mph = distance / (air_time / 60)) %>%
   arrange(desc(mph)) %>%
-  select(origin, dest, mph, year, month, day, dep_time, flight, carrier,
-         dep_delay, arr_delay)
-  head(5)
+  select(
+    origin, dest, mph, year, month, day, dep_time, flight, carrier,
+    dep_delay, arr_delay
+  )
+head(5)
 ```
 
 Five of the top ten flights were had departure delays, and three of those were
@@ -1296,24 +1333,32 @@ The second is the relative delay, which is percentage increase in air time relat
 along that route, `(air_time - min(air_time)) / min(air_time) * 100`.
 
 ```{r}
-air_time_delayed <- 
-flights %>%
+air_time_delayed <-
+  flights %>%
   group_by(origin, dest) %>%
-  mutate(air_time_min = min(air_time),
-         air_time_delay = air_time - air_time_min,
-         air_time_delay_pct = air_time_delay / air_time_min * 100)
+  mutate(
+    air_time_min = min(air_time),
+    air_time_delay = air_time - air_time_min,
+    air_time_delay_pct = air_time_delay / air_time_min * 100
+  )
 ```
 ```{r include=FALSE}
-most_delayed <- arrange(air_time_delayed,
-                        desc(air_time_delay)) %>%
-  mutate(date = format_ymd(year, month, day),
-         time = format_time(dep_time),
-         carrier_flight = str_c(carrier, flight)) %>%
+most_delayed <- arrange(
+  air_time_delayed,
+  desc(air_time_delay)
+) %>%
+  mutate(
+    date = format_ymd(year, month, day),
+    time = format_time(dep_time),
+    carrier_flight = str_c(carrier, flight)
+  ) %>%
   head(1L)
 most_delayed_pct <- arrange(air_time_delayed, desc(air_time_delay_pct)) %>%
-  mutate(date = format_ymd(year, month, day),
-         time = format_time(dep_time),
-         carrier_flight = str_c(carrier, flight)) %>%
+  mutate(
+    date = format_ymd(year, month, day),
+    time = format_time(dep_time),
+    carrier_flight = str_c(carrier, flight)
+  ) %>%
   head(1L)
 ```
 
@@ -1326,9 +1371,11 @@ air time on its route.
 ```{r}
 air_time_delayed %>%
   arrange(desc(air_time_delay)) %>%
-  select(air_time_delay, carrier, flight, 
-         origin, dest, year, month, day, dep_time,
-         air_time, air_time_min) %>%
+  select(
+    air_time_delay, carrier, flight,
+    origin, dest, year, month, day, dep_time,
+    air_time, air_time_min
+  ) %>%
   head() %>%
   print(width = 100)
 ```
@@ -1342,9 +1389,11 @@ flight with the shortest air time on its route.
 ```{r}
 air_time_delayed %>%
   arrange(desc(air_time_delay)) %>%
-  select(air_time_delay_pct, carrier, flight, 
-         origin, dest, year, month, day, dep_time,
-         air_time, air_time_min) %>%
+  select(
+    air_time_delay_pct, carrier, flight,
+    origin, dest, year, month, day, dep_time,
+    air_time, air_time_min
+  ) %>%
   head() %>%
   print(width = 100)
 ```

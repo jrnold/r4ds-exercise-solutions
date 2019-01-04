@@ -20,8 +20,10 @@ Create one plot on the fuel economy data with customized `title`,
 <div class="answer">
 
 ```{r}
-ggplot(data = mpg,
-       mapping = aes(x = forcats::fct_reorder(class, hwy), y = hwy)) +
+ggplot(
+  data = mpg,
+  mapping = aes(x = forcats::fct_reorder(class, hwy), y = hwy)
+) +
   geom_boxplot() +
   coord_flip() +
   labs(
@@ -138,10 +140,10 @@ But, `geom_text()` takes `hjust` and `vjust` as aesthetics, I can add them to th
 ```{r}
 label <- tribble(
   ~displ, ~hwy, ~label, ~vjust, ~hjust,
-     Inf,  Inf,    "Top right", "top", "right",
-     Inf, -Inf,    "Bottom right", "bottom", "right",
-    -Inf,  Inf,    "Top left", "top", "left",
-    -Inf, -Inf,    "Bottom left", "bottom", "left"
+  Inf, Inf, "Top right", "top", "right",
+  Inf, -Inf, "Bottom right", "bottom", "right",
+  -Inf, Inf, "Top left", "top", "left",
+  -Inf, -Inf, "Bottom left", "bottom", "left"
 )
 
 ggplot(mpg, aes(displ, hwy)) +
@@ -163,8 +165,10 @@ With annotate you use what would be aesthetic mappings directly as arguments:
 ```{r}
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  annotate("text", x = Inf, y = Inf,
-           label = "Increasing engine size is \nrelated to decreasing fuel economy.", vjust = "top", hjust = "right")
+  annotate("text",
+    x = Inf, y = Inf,
+    label = "Increasing engine size is \nrelated to decreasing fuel economy.", vjust = "top", hjust = "right"
+  )
 ```
 
 </div>
@@ -190,9 +194,11 @@ label <- tibble(
 
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  geom_text(aes(label = label), data = label, vjust = "top", hjust = "right",
-            size = 2) +
-  facet_wrap(~ class)
+  geom_text(aes(label = label),
+    data = label, vjust = "top", hjust = "right",
+    size = 2
+  ) +
+  facet_wrap(~class)
 ```
 
 To draw the label in only one facet, add a column to the label data frame with the value of the faceting variable(s) in which to draw it.
@@ -206,9 +212,11 @@ label <- tibble(
 
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  geom_text(aes(label = label), data = label, vjust = "top", hjust = "right",
-            size = 2) +
-  facet_wrap(~ class)
+  geom_text(aes(label = label),
+    data = label, vjust = "top", hjust = "right",
+    size = 2
+  ) +
+  facet_wrap(~class)
 ```
 
 To draw labels in different plots, simply have the facetting variable(s):
@@ -222,9 +230,11 @@ label <- tibble(
 
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  geom_text(aes(label = label), data = label, vjust = "top", hjust = "right",
-            size = 3) +
-  facet_wrap(~ class)
+  geom_text(aes(label = label),
+    data = label, vjust = "top", hjust = "right",
+    size = 3
+  ) +
+  facet_wrap(~class)
 ```
 
 </div>
@@ -341,23 +351,31 @@ Change the display of the presidential terms by:
 
 ```{r}
 fouryears <- lubridate::make_date(seq(year(min(presidential$start)),
-                                      year(max(presidential$end)),
-                                      by = 4), 1, 1)
+  year(max(presidential$end)),
+  by = 4
+), 1, 1)
 
 presidential %>%
-  mutate(id = 33 + row_number(),
-         name_id = forcats::fct_inorder(stringr::str_c(name, " (", id, ")"))) %>%
+  mutate(
+    id = 33 + row_number(),
+    name_id = forcats::fct_inorder(stringr::str_c(name, " (", id, ")"))
+  ) %>%
   ggplot(aes(start, name_id, colour = party)) +
-    geom_point() +
-    geom_segment(aes(xend = end, yend = name_id)) +
-    scale_colour_manual("Party", values = c(Republican = "red", Democratic = "blue")) +
-    scale_y_discrete(NULL) +
-    scale_x_date(NULL, breaks = presidential$start, date_labels = "'%y",
-                 minor_breaks = fouryears) +
-    ggtitle("Terms of US Presdients", 
-            subtitle = "Roosevelth (34th) to Obama (44th)") +
-    theme(panel.grid.minor = element_blank(),
-          axis.ticks.y = element_blank())
+  geom_point() +
+  geom_segment(aes(xend = end, yend = name_id)) +
+  scale_colour_manual("Party", values = c(Republican = "red", Democratic = "blue")) +
+  scale_y_discrete(NULL) +
+  scale_x_date(NULL,
+    breaks = presidential$start, date_labels = "'%y",
+    minor_breaks = fouryears
+  ) +
+  ggtitle("Terms of US Presdients",
+    subtitle = "Roosevelth (34th) to Obama (44th)"
+  ) +
+  theme(
+    panel.grid.minor = element_blank(),
+    axis.ticks.y = element_blank()
+  )
 ```
 
 To include both the start dates of presidential terms and every
@@ -377,15 +395,15 @@ Use `override.aes` to make the legend on the following plot easier to see.
 
 ```{r}
 ggplot(diamonds, aes(carat, price)) +
-  geom_point(aes(colour = cut), alpha = 1/20)
+  geom_point(aes(colour = cut), alpha = 1 / 20)
 ```
 
 The problem with the legend is that the `alpha` value make the colors hard to see. So I'll override the alpha value to make the points solid in the legend.
 ```{r}
 ggplot(diamonds, aes(carat, price)) +
-  geom_point(aes(colour = cut), alpha = 1/20)  +
+  geom_point(aes(colour = cut), alpha = 1 / 20) +
   theme(legend.position = "bottom") +
-  guides(colour = guide_legend(nrow = 1, override.aes = list(alpha = 1)))  
+  guides(colour = guide_legend(nrow = 1, override.aes = list(alpha = 1)))
 ```
 
 </div>

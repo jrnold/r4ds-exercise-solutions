@@ -14,8 +14,10 @@ git_uncommitted <- function(path = ".") {
 check_uncommitted <- function(path = ".") {
   if (git_uncommitted(path)) {
     stop(paste("Uncommitted files.",
-               "All files should be committed before release.",
-               "Please add and commit.", sep = " "))
+      "All files should be committed before release.",
+      "Please add and commit.",
+      sep = " "
+    ))
   }
 }
 
@@ -48,21 +50,28 @@ render <- function(path = NULL, output_format = "all", force = FALSE, ...) {
 
 main <- function(args = NULL) {
   option_list <- list(
-    make_option(c("-f", "--force"), action = "store_true", default = FALSE,
-                help = "Render even if there are uncomitted changes."),
-    make_option(c("-q", "--quiet"), action = "store_true", default = FALSE,
-                help = "Do not use verbose output")
+    make_option(c("-f", "--force"),
+      action = "store_true", default = FALSE,
+      help = "Render even if there are uncomitted changes."
+    ),
+    make_option(c("-q", "--quiet"),
+      action = "store_true", default = FALSE,
+      help = "Do not use verbose output"
+    )
   )
   # option_list <- list()
 
   if (is.null(args)) {
     args <- commandArgs(TRUE)
   }
-  opts <- parse_args(OptionParser(usage = "%prog [options] [output_format|all|html|pdf]",
-                                  option_list = option_list),
-                     args = args,
-                     positional_arguments = TRUE,
-                     convert_hyphens_to_underscores = TRUE)
+  opts <- parse_args(OptionParser(
+    usage = "%prog [options] [output_format|all|html|pdf]",
+    option_list = option_list
+  ),
+  args = args,
+  positional_arguments = TRUE,
+  convert_hyphens_to_underscores = TRUE
+  )
   output_format <- if (!length(opts$args)) {
     "all"
   } else {
@@ -73,9 +82,11 @@ main <- function(args = NULL) {
   } else if (output_format == "pdf") {
     output_format <- "bookdown::pdf_book"
   }
-  render(output_format = output_format,
-         force = opts$options$force,
-         quiet = opts$options$quiet)
+  render(
+    output_format = output_format,
+    force = opts$options$force,
+    quiet = opts$options$quiet
+  )
 }
 
 main()

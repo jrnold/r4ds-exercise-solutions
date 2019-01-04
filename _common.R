@@ -9,9 +9,9 @@ knitr::opts_chunk$set(
   # need to save cache
   cache.extra = knitr::rand_seed,
   out.width = "70%",
-  fig.align = 'center',
+  fig.align = "center",
   fig.width = 6,
-  fig.asp = 0.618,  # 1 / phi
+  fig.asp = 0.618, # 1 / phi
   fig.show = "hold"
 )
 
@@ -21,9 +21,13 @@ is_html <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
 
 # Info and useful links
 SOURCE_URL <- stringr::str_c("https:/", "github.com", "jrnold",
-                             "r4ds-exercise-solutions", sep = "/")
+  "r4ds-exercise-solutions",
+  sep = "/"
+)
 PUB_URL <- stringr::str_c("http:/", "jrnold.github.io",
-                          "r4ds-exercise-solutions", sep = "/")
+  "r4ds-exercise-solutions",
+  sep = "/"
+)
 
 R4DS_URL <- "http://r4ds.had.co.nz"
 
