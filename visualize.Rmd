@@ -877,14 +877,16 @@ What’s the default position adjustment for `geom_boxplot()`? Create a visualiz
 
 <div class="answer">
 
-The default position for `geom_boxplot()` is `position_dodge()` (see its [docs](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)).
+The default position for `geom_boxplot()` is `"dodge2"`, which is a shortcut for `position_dodge2`.
+This does not change the vertical position of a geom, but moves a geom horizontally in order to avoid overlapping another geom.
+See the documentation for [`position_dodge2()`](https://ggplot2.tidyverse.org/reference/position_dodge.html) for additional discussion on how it works.
 
-When we add `colour = class` to the box plot, the different classes within `drv` are placed side by side, i.e. dodged. If it was `position_identity()`, they would be overlapping.
+When we add `colour = class` to the box plot, the different classes within `drv` are placed side by side, i.e. dodged. 
 ```{r}
 ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
   geom_boxplot()
 ```
-
+If `position_identity()` is used the boxplots overlap.
 ```{r}
 ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
   geom_boxplot(position = "identity")
