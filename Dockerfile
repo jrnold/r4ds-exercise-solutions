@@ -19,8 +19,10 @@ RUN curl -sL -o ${PANDOC_FILENAME} https://github.com/jgm/pandoc/releases/downlo
   rm /usr/local/bin/pandoc /usr/local/bin/pandoc-citeproc
 
 # Install dependencies needed to run code and build package
+RUN mkdir install
+COPY DESCRIPTION install
+RUN Rscript -e "devtools::install('install', dependencies=TRUE)"
+RUN rm -rf install
+
 RUN mkdir ${PROJ_DIR}
 WORKDIR ${PROJ_DIR}
-COPY DESCRIPTION .
-RUN Rscript -e "devtools::install(\"${PROJ_DIR}\", dependencies=TRUE)"
-RUN rm DESCRIPTION
