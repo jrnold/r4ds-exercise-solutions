@@ -102,8 +102,36 @@ A scatter plot is not a useful way to plot these variables, since both `drv` and
 ```{r}
 count(mpg, drv, class)
 ```
-The scatter plot cannot show which are overlapping or not.
-Later chapters discuss means to deal with this, including alternative plots and jittering the points so they don't overlap.
+The scatter plot cannot show which points are overlapping.
+
+This is covered in a later section, but may be of interest. Section [7.5.2](https://r4ds.had.co.nz/exploratory-data-analysis.html#two-categorical-variables) discusses other methods for plotting two categorical variables.
+The first is `geom_count()` which uses the size of the points to show the number of observations at that point.
+```{r}
+ggplot(mpg, aes(x = class, y = drv)) +
+  geom_count()
+```
+The second is `geom_tile()` which uses the color aesthetic to show the number o observations at each point.
+```{r}
+mpg %>%
+  count(class, drv) %>%
+  ggplot(aes(x = class, y = drv)) +
+    geom_tile(mapping = aes(fill = n))
+```
+Since there are many combinations of `class` and `drv` that have zero observations,
+they are shown as missing.
+The `complete()` function in **tidyr** adds new rows to a data frame for missing combinations of columns.
+The following code add rows for missing combiantions of `class` and `drv` and uses 
+the `fill` argument to set `n = 0` for those new rows.
+
+```{r}
+mpg %>%
+  count(class, drv) %>%
+  complete(class, drv, fill = list(n = 0L)) %>%
+  ggplot(aes(x = class, y = drv)) +
+    geom_tile(mapping = aes(fill = n))
+```
+
+
 </div>
 
 ## Aesthetic mappings
