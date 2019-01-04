@@ -385,17 +385,17 @@ The answers to the parts follow.
 1.  This function find the last value in a vector.
 
     ```{r}
-last_value <- function(x) {
-  # check for case with no length
-  if (length(x)) {
-    x[[length(x)]]
-  } else {
-    x
-  }
-}
-last_value(numeric())
-last_value(1)
-last_value(1:10)
+    last_value <- function(x) {
+      # check for case with no length
+      if (length(x)) {
+        x[[length(x)]]
+      } else {
+        x
+      }
+    }
+    last_value(numeric())
+    last_value(1)
+    last_value(1:10)
     ```
 
     The function uses `[[` in order to extract a single element.
@@ -403,51 +403,51 @@ last_value(1:10)
 1.  This function returns the elements at even number positions.
 
     ```{r}
-even_indices <- function(x) {
-  if (length(x)) {
-    x[seq_along(x) %% 2 == 0]
-  } else {
-    x
-  }
-}
-even_indices(numeric())
-even_indices(1)
-even_indices(1:10)
-# test using case to ensure that values not indices
-# are being returned
-even_indices(letters)
+    even_indices <- function(x) {
+      if (length(x)) {
+        x[seq_along(x) %% 2 == 0]
+      } else {
+        x
+      }
+    }
+    even_indices(numeric())
+    even_indices(1)
+    even_indices(1:10)
+    # test using case to ensure that values not indices
+    # are being returned
+    even_indices(letters)
     ```
 
 1.  This function returns a vector with every element except the last.
 
     ```{r not_last}
-not_last <- function(x) {
-  n <- length(x)
-  if (n) {
-    x[-n]
-  } else {
-    # n == 0
-    x
-  }
-}
-not_last(1:3)
+    not_last <- function(x) {
+      n <- length(x)
+      if (n) {
+        x[-n]
+      } else {
+        # n == 0
+        x
+      }
+    }
+    not_last(1:3)
     ```
 
     We should also confirm that the function works with some edge cases, like
     a vector with one element, and a vector with zero elements.
     ```{r}
-not_last(1)
-not_last(numeric())
+    not_last(1)
+    not_last(numeric())
     ```
     In both these cases, `not_last()` correctly returns an empty vector.
 
 1.  This function returns the elements of a vector that are even numbers.
 
     ```{r even_numbers}
-even_numbers <- function(x) {
-  x[x %% 2 == 0]
-}
-even_numbers(-4:4)
+    even_numbers <- function(x) {
+      x[x %% 2 == 0]
+    }
+    even_numbers(-4:4)
     ```
 
     We could improve this function by handling special numeric values:
@@ -459,10 +459,10 @@ even_numbers(-4:4)
     of existing functions so as not to surprise users. The behavior of many
     R functions is to return `NA` values instead of dropping them.
     ```{r even_numbers2}
-even_numbers2 <- function(x) {
-  x[!is.infinite(x) & !is.nan(x) & (x %% 2 == 0)]
-}
-even_numbers2(c(0:4, NA, NaN, Inf))
+    even_numbers2 <- function(x) {
+      x[!is.infinite(x) & !is.nan(x) & (x %% 2 == 0)]
+    }
+    even_numbers2(c(0:4, NA, NaN, Inf))
     ```
 
 </div>
@@ -620,11 +620,11 @@ For these examples, I generated these diagrams programmatically using the
     is
 
     ```{r include=FALSE}
-file_nested_set_1 <- here::here("diagrams", "nested_set_1.dot")
+   file_nested_set_1 <- here::here("diagrams", "nested_set_1.dot")
     ```
 
     ```{r nested_set_1,echo=FALSE,eval=is_html,cache.extra=tools::md5sum(file_nested_set_1),echo=FALSE}
-DiagrammeR::grViz(file_nested_set_1)
+    DiagrammeR::grViz(file_nested_set_1)
     ```
 
 1.  The nested set diagram for
@@ -636,7 +636,7 @@ file_nested_set_2 <- here::here("diagrams", "nested_set_2.dot")
     ```
 
     ```{r nested_set_2,echo=FALSE,eval=is_html,cache.extra=tools::md5sum(file_nested_set_2),echo=FALSE}
-DiagrammeR::grViz(file_nested_set_2)
+    DiagrammeR::grViz(file_nested_set_2)
     ```
 
 </div>

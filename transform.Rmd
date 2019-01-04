@@ -37,18 +37,18 @@ The answer to each part follows.
     flights whose arrival was delayed 120 or more minutes.
 
     ```{r, indent = 4}
-filter(flights, arr_delay >= 120)
+    filter(flights, arr_delay >= 120)
     ```
 
 1.  The flights that flew to Houston were are those flights where the 
     destination (`dest`) is either "IAH" or "HOU".
     ```{r}
-filter(flights, dest == "IAH" | dest == "HOU")
+    filter(flights, dest == "IAH" | dest == "HOU")
     ```
     However, using `%in%` is more compact and would scale to cases where 
     there were more than two airports we were interested in.
     ```{r}
-filter(flights, dest %in% c("IAH", "HOU"))
+    filter(flights, dest %in% c("IAH", "HOU"))
     ```
     
 
@@ -59,32 +59,32 @@ filter(flights, dest %in% c("IAH", "HOU"))
     it is easiest to manually look up their carrier codes in that data.
 
     ```{r}
-airlines
+    airlines
     ```
 
     The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`.
     Using these carriers codes, we check whether `carrier` is one of those.
 
     ```{r}
-filter(flights, carrier %in% c("AA", "DL", "UA"))
+    filter(flights, carrier %in% c("AA", "DL", "UA"))
     ```
 
 1.  The variable `month` has the month, and it is numeric.
     So, the summer flights are those that departed in months 7 (July), 8 (August), and 9 (September).
     ```{r}
-filter(flights, month >= 7, month <= 9)
+    filter(flights, month >= 7, month <= 9)
     ```
     The `%in%` and `|` operators would also work, but using relational operators
     like `>=` and `<=` is preferred for numeric data. 
     ```{r}
-filter(flights, month %in% c(7, 8, 9))
+    filter(flights, month %in% c(7, 8, 9))
     ```
 
 1.  Flights that arrived more than two hours late, but didn’t leave late will 
     have an arrival delay of more than 120 minutes (`dep_delay > 120`) and 
     a non-positive departure delay (`dep_delay <= 0`).
     ```{r}
-filter(flights, dep_delay <= 0, arr_delay > 120)
+    filter(flights, dep_delay <= 0, arr_delay > 120)
     ```
 
 1.  Were delayed by at least an hour, but made up over 30 minutes in flight.
@@ -95,7 +95,7 @@ filter(flights, dep_delay <= 0, arr_delay > 120)
     the arrival delay must be at least 30 minutes less than the departure delay, which
     is stated as `dep_delay - arr_delay > 30`.
     ```{r}
-filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)
+    filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)
     ```
 
 1.  Finding flights that departed between midnight and 6 am is complicated by 
@@ -105,21 +105,21 @@ filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)
     to consider the special case of midnight.
     
     ```{r}
-filter(flights, dep_time <= 600 | dep_time == 2400)
+    filter(flights, dep_time <= 600 | dep_time == 2400)
     ```
 
     Alternatively, we could use the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation), `%%`. 
     The modulo operator returns the remainder of division.
     Let's see how how this affects our times.
     ```{r}
-c(600, 1200, 2400) %% 2400
+    c(600, 1200, 2400) %% 2400
     ```
 
     Since `2400 %% 2400 == 0` and all other times are left unchanged, 
     we can compare the result of the modulo operation to `600`,
 
     ```{r}
-filter(flights, dep_time %% 2400 <= 600)
+    filter(flights, dep_time %% 2400 <= 600)
     ```
 
     This filter expression is more compact, but its readability will depends on the 
@@ -358,21 +358,21 @@ Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time
 
 <div class="answer">
 
-A few ways include:
+These are a few ways to select columns.
 
--   Specifying all the variables with unquoted variable names.
+-   Specify columns names as unquoted variable names.
     ```{r}
-select(flights, dep_time, dep_delay, arr_time, arr_delay)
+    select(flights, dep_time, dep_delay, arr_time, arr_delay)
     ```
 
--   Specifying all the variables as strings.
+-   Specify column names as strings.
     ```{r}
-select(flights, "dep_time", "dep_delay", "arr_time", "arr_delay")
+    select(flights, "dep_time", "dep_delay", "arr_time", "arr_delay")
     ```
 
--   Specifying the column numbers of the variables.
+-   Specify the column numbers of the variables.
     ```{r}
-select(flights, 4, 6, 7, 9)
+    select(flights, 4, 6, 7, 9)
     ```
     This works, but is not good practice for two reasons.
     First, the column location of variables may change, resulting in code that 
@@ -381,27 +381,26 @@ select(flights, 4, 6, 7, 9)
     variables are being selected. What variable does column 6 correspond to? 
     I just wrote the code, and I've already forgotten.
 
--   Specifying the names of the variables with character vector and `one_of()`.
+-   Specify the names of the variables with character vector and `one_of()`.
     ```{r}
-select(flights, one_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))
+    select(flights, one_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))
     ```
     This is useful because the names of the variables can be stored in a 
     variable and passed to `one_of()`.
     ```{r}
-variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
-select(flights, one_of(variables))
+    variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
+    select(flights, one_of(variables))
     ```
 
--   Selecting the variables by matching the start of their names using 
-    `starts_with()`.
+-   Selecting the variables by matching the start of their names using `starts_with()`.
     ```{r}
-select(flights, starts_with("dep_"), starts_with("arr_"))
+    select(flights, starts_with("dep_"), starts_with("arr_"))
     ```
 
 -   Selecting the variables using `matches()` and regular expressions, which are 
     discussed in the [Strings](http://r4ds.had.co.nz/strings.html) chapter.
     ```{r}
-select(flights, matches("^(dep|arr)_(time|delay)$"))
+    select(flights, matches("^(dep|arr)_(time|delay)$"))
     ```
 
 Some things that **don't** work are
@@ -409,13 +408,13 @@ Some things that **don't** work are
 -   Matching the ends of their names using `ends_with()` since this will incorrectly
     include other variables. For example,
     ```{r}
-select(flights, ends_with("arr_time"), ends_with("dep_time"))
+    select(flights, ends_with("arr_time"), ends_with("dep_time"))
     ```
 
 -   Matching the names using `contains()` since there is not a pattern that can
     include all these variables without incorrectly including others.
     ```{r}
-select(flights, contains("_time"), contains("arr_"))
+    select(flights, contains("_time"), contains("arr_"))
     ```
 
 </div>
@@ -915,7 +914,10 @@ ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
 ### Exercise <span class="exercise-number">5.6.7.5</span> {.unnumbered .exercise}
 
 <div class="question">
-Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarise(n())`)
+Which carrier has the worst delays? 
+Challenge: can you disentangle the effects of bad airports vs. bad carriers? 
+Why/why not? 
+(Hint: think about `flights %>% group_by(carrier, dest) %>% summarise(n())`)
 </div>
 
 <div class="answer">

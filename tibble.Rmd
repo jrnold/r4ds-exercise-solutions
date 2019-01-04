@@ -143,35 +143,41 @@ annoying <- tibble(
 )
 ```
 
-1.  To extract the variable called 1 run
+1.  To extract the variable named `1`:
 
     ```{r}
-annoying[["1"]]
+    annoying[["1"]]
     ```
 
     or
 
     ```{r}
-annoying$`1`
+    annoying$`1`
     ```
 
-1.  To create a scatter plot of `1` vs. `2` run
+1.  To create a scatter plot of `1` vs. `2`:
 
     ```{r}
-ggplot(annoying, aes(x = `1`, y = `2`)) +
-  geom_point()
+    ggplot(annoying, aes(x = `1`, y = `2`)) +
+      geom_point()
     ```
 
-1.  To add a new column `3` which is `2` divided by `1` run
+1.  To add a new column `3` which is `2` divided by `1`:
 
     ```{r}
-annoying[["3"]] <- annoying$`2` / annoying$`1`
+    mutate(annoying, `3` = `2` / `1`)
+    ```
+    
+    or 
+    
+    ```{r}
+    annoying[["3"]] <- annoying$`2` / annoying$`1`
     ```
 
     or
 
     ```{r}
-annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
+    annoying[["3"]] <- annoying[["2"]] / annoying[["1"]]
     ```
 
 1.  To rename the columns to `one`, `two`, and `three`, run
