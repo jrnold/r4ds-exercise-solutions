@@ -947,14 +947,31 @@ What does `labs()` do? Read the documentation.
 
 <div class="answer">
 
-The `labs` function adds labels for different scales and the title of the plot.
+The `labs` function allows for adding axes titles, plot titles, and a caption to the plot.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
   geom_boxplot() +
   coord_flip() +
-  labs(y = "Highway MPG", x = "", title = "Highway MPG by car class")
+  labs(y = "Highway MPG", 
+       x = "Year", 
+       title = "Highway MPG by car class",
+       subtitle = "1999-2008",
+       caption = "Source: http://fueleconomy.gov")
 ```
+
+The arguments to `labs()` are optional, so you can add as many or as few of these as are needed.
+```{r}
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  coord_flip() +
+  labs(y = "Highway MPG", 
+       x = "Year", 
+       title = "Highway MPG by car class")
+```
+
+This is not the only function you can use for adding titles.
+You can also add axis labels with `xlab()`, `ylab()`, and the scale fuctions, and titles with `ggtitle()`.
 
 </div>
 
