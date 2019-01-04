@@ -11,7 +11,6 @@ files <- c(
   list.files(here::here("rmarkdown"),
     pattern = "\\.(Rmd)$", full.names = TRUE
   ),
-  here::here("NEWS.md"),
   here::here("README.md")
 ) %>%
   normalizePath() %>%
