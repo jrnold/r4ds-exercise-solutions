@@ -802,18 +802,16 @@ Compare and contrast `geom_jitter()` with `geom_count()`.
 
 <div class="answer">
 
-`geom_jitter()` adds random noise to the locations points of the graph.
-In other words, it "jitters" the points.
-This method reduces overplotting since no two points
-are likely to have the same location after the random noise is added to their locations.
+`geom_jitter()` adds random variation to the locations points of the graph.
+In other words, it "jitters" the locations of points slightly.
+This method reduces overplotting since no two points are likely to have the same location after this random variation is added to their locations.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter()
 ```
 
-However, the reduction in overlapping comes at the cost of changing the `x` and `y`
-values of the points.
+However, the reduction in overlapping comes at the cost of slightly changing the `x` and `y` values of the points.
 
 `geom_count()` resizes the points relative to the number of observations at each location.
 In other words, points with more observations will be larger than those with fewer observations.
@@ -838,9 +836,8 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_count()
 ```
 
-Unfortunately, there is no universal solution to overplotting. The costs and
-benefits of different approaches will depend on the structure of the data and the goal
-of the data scientist.
+Unfortunately, there is no universal solution to overplotting. 
+The costs and benefits of different approaches will depend on the structure of the data and the goal of the data scientist.
 
 </div>
 
