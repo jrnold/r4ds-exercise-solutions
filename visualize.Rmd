@@ -520,7 +520,7 @@ An area chart?
 Run this code in your head and predict what the output will look like. 
 Then, run the code in R and check your predictions.
 
-```{r eval=FALSE}
+```{r ex-3-6-2,results='hide'}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
   geom_point() +
   geom_smooth(se = FALSE)
@@ -534,10 +534,7 @@ This will produce a scatter plot with `displ` on the x-axis, `hwy` on the y-axis
 The points will be colored by `drv`.
 There will be a smooth line, without standard errors, fit through each `drv` group.
 
-```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
-  geom_point() +
-  geom_smooth(se = FALSE)
+```{r ex-6-2,echo=TRUE}
 ```
 
 </div>
@@ -554,14 +551,10 @@ Why do you think I used it earlier in the chapter?
 
 <div class="answer">
 
-Show legend hides the legend box. In this code, without show legend, there is a legend.
-```{r}
-ggplot(data = mpg) +
-  geom_smooth(
-    mapping = aes(x = displ, y = hwy, colour = drv),
-  )
-```
-But there is no legend in this code:
+The theme option `show.legend = FALSE` hides the legend box. 
+
+
+Consider this example earlier in the chapter.
 ```{r}
 ggplot(data = mpg) +
   geom_smooth(
@@ -570,22 +563,18 @@ ggplot(data = mpg) +
   )
 ```
 
-In the example earlier in the chapter,
+In that plot, there is no legend.
+Removing the `show.legend` argument or setting `show.legend = TRUE` will result in the plot having  a legend displaying the mapping between colors and `drv`.
+
 ```{r}
 ggplot(data = mpg) +
-  geom_smooth(mapping = aes(x = displ, y = hwy))
-
-ggplot(data = mpg) +
-  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
-
-ggplot(data = mpg) +
-  geom_smooth(
-    mapping = aes(x = displ, y = hwy, colour = drv),
-    show.legend = FALSE
-  )
+  geom_smooth(mapping = aes(x = displ, y = hwy, colour = drv))
 ```
-the legend is suppressed because there are three plots, and adding a legend that only appears in the last one would make the presentation asymmetric.
-Additionally, the purpose of this plot is to illustrate the difference between not grouping, using a `group` aesthetic, and using a `color` aesthetic (with implicit grouping).
+
+In the chapter, the legend is suppressed because with three plots,
+adding a legend to only the last plot would make the sizes of plots different.
+Different sized plots would make it more difficult to see how arguments change the appearance of the plots.
+The purpose of those plots is to show the difference between no groups, using a `group` aesthetic, and using a `color` aesthetic, which creates implicit groups.
 In that example, the legend isn't necessary since looking up the values associated with each color isn't necessary to make that point.
 
 </div>
@@ -652,6 +641,13 @@ ggplot() +
 <div class="question">
 
 Recreate the R code necessary to generate the following graphs.
+
+```{r echo=FALSE, fig.width = 3, out.width = "50%", fig.align = "default"}
+for (i in 1:6) {
+   imgname <- stringr::str_c("img/visualize/unnamed-chunk-29-", i, ".png")
+   knitr::include_graphics(imgname)
+}
+```
 
 </div>
 
