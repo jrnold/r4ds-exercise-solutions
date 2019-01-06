@@ -534,7 +534,10 @@ This will produce a scatter plot with `displ` on the x-axis, `hwy` on the y-axis
 The points will be colored by `drv`.
 There will be a smooth line, without standard errors, fit through each `drv` group.
 
-```{r ex-6-2,echo=TRUE}
+```{r echo=TRUE}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
+  geom_point() +
+  geom_smooth(se = FALSE)
 ```
 
 </div>
@@ -614,6 +617,16 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 Will these two graphs look different?
 Why/why not?
 
+```{r eval=FALSE}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+
+ggplot() + 
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
+```
+
 </div>
 
 <div class="answer">
@@ -642,36 +655,49 @@ ggplot() +
 
 Recreate the R code necessary to generate the following graphs.
 
-```{r echo=FALSE, fig.width = 3, out.width = "50%", fig.align = "default"}
-for (i in 1:6) {
-   imgname <- stringr::str_c("img/visualize/unnamed-chunk-29-", i, ".png")
-   knitr::include_graphics(imgname)
-}
+```{r echo=FALSE, fig.width = 3, out.width = "40%", fig.align = "default"}
+knitr::include_graphics("img/visualize/unnamed-chunk-29-1.png")
 ```
+```{r echo=FALSE, fig.width = 3, out.width = "40%", fig.align = "default"}
+knitr::include_graphics("img/visualize/unnamed-chunk-29-2.png")
+```
+```{r echo=FALSE, fig.width = 3, out.width = "40%", fig.align = "default"}
+knitr::include_graphics("img/visualize/unnamed-chunk-29-3.png")
+```
+```{r echo=FALSE, fig.width = 3, out.width = "40%", fig.align = "default"}
+knitr::include_graphics("img/visualize/unnamed-chunk-29-4.png")
+```
+```{r echo=FALSE, fig.width = 3, out.width = "40%", fig.align = "default"}
+knitr::include_graphics("img/visualize/unnamed-chunk-29-5.png")
+```
+```{r echo=FALSE, fig.width = 3, out.width = "40%", fig.align = "default"}
+knitr::include_graphics("img/visualize/unnamed-chunk-29-6.png")
+```
+
 
 </div>
 
 <div class="answer">
 
-```{r}
+```{r message=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   geom_smooth(se = FALSE)
 ```
 
-```{r}
+```{r message=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth(mapping = aes(group = drv), se = FALSE) +
   geom_point()
 ```
 
-```{r}
+```{r message=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy, colour = drv)) +
   geom_point() +
   geom_smooth(se = FALSE)
 ```
 
-```{r}
+```{r message=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(colour = drv)) +
   geom_smooth(se = FALSE)
