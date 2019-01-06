@@ -11,11 +11,6 @@ library(broom)
 library(nycflights13)
 ```
 
-The splines package is needed for the `ns()` function.
-```{r}
-library(splines)
-```
-
 ## Why are low quality diamonds more expensive?
 
 This code is appears in the section and is necessary for the exercises.
@@ -52,14 +47,15 @@ If `log(price) = a_0 + a_1 * log(carat)`, what does that say about the relations
 
 <div class="answer">
 
-First, let's estimate the regression in the question using the `diamonds` data.
-Following the examples in the chapter, I will use the a base of 2 for the logarithm.
+I'll answer this question by first showing an empirical estimating the regression.
+Following the examples in the chapter, I will use a base of 2 for the logarithm.
 ```{r}
 mod_log <- lm(log2(price) ~ log2(carat), data = diamonds)
 mod_log
 ```
 
 The estimated relationship between `carat` and `price` looks like this.
+
 ```{r}
 tibble(carat = seq(0.25, 5, by = 0.25)) %>%
   add_predictions(mod_log) %>%
@@ -68,34 +64,31 @@ tibble(carat = seq(0.25, 5, by = 0.25)) %>%
   labs(x = "carat", y = "price")
 ```
 
-What is the relationship between `carat` and `price`? It is not linear.
-I claim that the relationship is that a $r$ times increase in $x$ is associated 
-with a $b^{a_1} r$ increase in $y$.
-
-So a 2 times increase in `carat` should be associated with the following increase
-in `price`:
+The plot shows that the estimated relationship between `carat` and `price` is not linear.
+The exact relationship in this model, is if $x$ increases $r$ times, then $y$ increases $r^{a_1}$ times.
+For example, a two times increase in `carat` is associated with the following increase in `price`:
 ```{r}
 2^coef(mod_log)[2]
 ```
 
-Let's confirm this with a few values.
-Increase `carat` from 1 to 2.
+Let's confirm this relationship by checking it for a few values of `carat`.
+Let's Increase `carat` from 1 to 2.
 ```{r}
 2^(predict(mod_log, newdata = tibble(carat = 2)) -
   predict(mod_log, newdata = tibble(carat = 1)))
 ```
-Since `predict()` predicts `log2(carat)`, the difference is exponentiated by 2 in order to get the ratio of predicted `carat`.
-Increase `carat` from 4 to 2.
+Note that, since `predict()` predicts `log2(carat)` rather than `carat`, the prediction is exponentiated by 2.
+Now let's increase `carat` from 4 to 2.
 ```{r}
 2^(predict(mod_log, newdata = tibble(carat = 4)) -
   predict(mod_log, newdata = tibble(carat = 2)))
 ```
-Increase `carat` from 0.5 to 1.
+Finally, let's increase `carat` from 0.5 to 1.
 ```{r}
 2^(predict(mod_log, newdata = tibble(carat = 1)) -
   predict(mod_log, newdata = tibble(carat = 0.5)))
 ```
-In all cases they return the same value, `2 ^ a_1`. 
+All of these examples return the same value, $2 ^ {a_1} = `r round(2^coef(mod_log)[2], 2)`$.
 
 So why is this?
 Let's ignore the names of the variables in this case and consider the equation:
@@ -103,7 +96,7 @@ $$
 \log_b y = a_0 + a_1 \log x
 $$
 We want to understand how the difference in $y$ is related to the difference in $x$.
-Consider this equation at two different values $x_1$ and $x_0$,
+Now, consider this equation at two different values $x_1$ and $x_0$,
 $$
 \log_b y_0 = a_0 + \log_b x_0 \\
 \log_b y_1 = a_0 + \log_b y_1
@@ -122,9 +115,9 @@ $$
 s =  r^{a_1} \text{.}
 $$
 In other words, an $r$ times increase in $x$, is associated with a $r^{a_1}$ times  increase in $y$. 
-Note that this relationship does not depend on $b$, the base of the logarithm.
+Note that this relationship does not depend on the base of the logarithm, $b$.
 
-There is another approximation that is commonly used when logarithms appear in 
+There is another approximation that is commonly used when logarithms appear in regressions.
 
 The first way to show this is using the approximation that $x$ is small, meaning that $x \approx 0$,
 $$
@@ -185,7 +178,10 @@ I did not see anything too unusual. Do you?
 ### Exercise <span class="exercise-number">24.2.4</span> {.unnumbered .exercise}
 
 <div class="question">
-Does the final model, `mod_diamonds2`, do a good job of predicting diamond prices? Would you trust it to tell you how much to spend if you were buying a diamond?
+
+Does the final model, `mod_diamonds2`, do a good job of predicting diamond prices? 
+Would you trust it to tell you how much to spend if you were buying a diamond?
+
 </div>
 
 <div class="answer">
@@ -263,7 +259,9 @@ mod2 <- lm(n ~ wday * term, data = daily)
 ### Exercise <span class="exercise-number">24.3.1</span> {.unnumbered .exercise}
 
 <div class="question">
-Use your Google sleuthing skills to brainstorm why there were fewer than expected flights on Jan 20, May 26, and Sep 1. (Hint: they all have the same explanation.) How would these days generalize to another year?
+Use your Google sleuthing skills to brainstorm why there were fewer than expected flights on Jan 20, May 26, and Sep 1. 
+(Hint: they all have the same explanation.) 
+How would these days generalize to another year?
 </div>
 
 <div class="answer">
@@ -279,7 +277,10 @@ Labor Day.
 ### Exercise <span class="exercise-number">24.3.2</span> {.unnumbered .exercise}
 
 <div class="question">
-What do the three days with high positive residuals represent? How would these days generalize to another year?
+
+What do the three days with high positive residuals represent?
+How would these days generalize to another year?
+
 </div>
 
 <div class="answer">
@@ -297,7 +298,10 @@ years.
 ### Exercise <span class="exercise-number">24.3.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Create a new variable that splits the `wday` variable into terms, but only for Saturdays, i.e. it should have `Thurs`, `Fri`, but `Sat-summer`, `Sat-spring`, `Sat-fall` How does this model compare with the model with every combination of `wday` and `term`?
+
+Create a new variable that splits the `wday` variable into terms, but only for Saturdays, i.e. it should have `Thurs`, `Fri`, but `Sat-summer`, `Sat-spring`, `Sat-fall` 
+How does this model compare with the model with every combination of `wday` and `term`?
+
 </div>
 
 <div class="answer">
@@ -352,7 +356,10 @@ glance(mod2) %>% select(r.squared, sigma, AIC, df)
 ### Exercise <span class="exercise-number">24.3.4</span> {.unnumbered .exercise}
 
 <div class="question">
-Create a new `wday` variable that combines the day of week, term (for Saturdays), and public holidays. What do the residuals of that model look like?
+
+Create a new `wday` variable that combines the day of week, term (for Saturdays), and public holidays. 
+What do the residuals of that model look like?
+
 </div>
 
 <div class="answer">
@@ -512,10 +519,12 @@ flights %>%
   geom_line()
 ```
 
-| Early morning | 12 am | 5 am  |
-| Morning       | 5 am  | 12 pm |
-| Afternoon     | 12 pm | 6 pm  |
-| Evening       | 6 pm  | 12 pm |
+|time of day    | start time | end time |
+|:--------------|:-----------|:---------|
+| Early morning | 12 am      |    5 am  |
+| Morning       | 5 am       |    12 pm |
+| Afternoon     | 12 pm      |    6 pm  |
+| Evening       | 6 pm       |    12 pm |
 
 ```{r}
 flights %>%
