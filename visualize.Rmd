@@ -128,7 +128,7 @@ The first is `geom_count()` which is similar to a scatterplot but uses the size 
 ggplot(mpg, aes(x = class, y = drv)) +
   geom_count()
 ```
-The second is `geom_tile()` which uses a color scale show the number of observations with each (`x`, `y`) vablue.
+The second is `geom_tile()` which uses a color scale show the number of observations with each (`x`, `y`) value.
 ```{r}
 mpg %>%
   count(class, drv) %>%
@@ -556,7 +556,6 @@ Why do you think I used it earlier in the chapter?
 
 The theme option `show.legend = FALSE` hides the legend box. 
 
-
 Consider this example earlier in the chapter.
 ```{r}
 ggplot(data = mpg) +
@@ -764,7 +763,7 @@ The `geom_col()` function has different default stat than `geom_bar()`.
 The default stat of `geom_col()` is `stat_identity()`, which leaves the data as is.
 This means that `geom_col()` expects that the data is already preprocessed into `x` values and `y` values which represent the bar height.
 
-The defult stat of `geom_bar()` is `stat_bin()`.
+The default stat of `geom_bar()` is `stat_bin()`.
 This means that `geom_bar()` only expects an `x` variable. 
 The stat `stat_bin()` will first preprocess the data by count the number of observations for each value of `x`. 
 These counts will be used for `y`.
