@@ -18,6 +18,7 @@ library(splines)
 
 ## Why are low quality diamonds more expensive?
 
+This code is appears in the section and is necessary for the exercises.
 ```{r}
 diamonds2 <- diamonds %>%
   filter(carat <= 2.5) %>%
@@ -122,6 +123,39 @@ s =  r^{a_1} \text{.}
 $$
 In other words, an $r$ times increase in $x$, is associated with a $r^{a_1}$ times  increase in $y$. 
 Note that this relationship does not depend on $b$, the base of the logarithm.
+
+There is another approximation that is commonly used when logarithms appear in 
+
+The first way to show this is using the approximation that $x$ is small, meaning that $x \approx 0$,
+$$
+\log (1 + x) \approx x
+$$
+This approximation is the first order Taylor expansion of the function at $x = 0$.
+Now consider the relationship between the percent change in $x$ and the percent change in $y$,
+$$
+\begin{aligned}[t]
+\log (y + \Delta y) - \log y &= (\alpha + \beta \log (x + \Delta x)) - (\alpha + \beta x) \\
+\log \left(\frac{y + \Delta y}{y} \right) &=  \beta \log\left( \frac{x + \Delta x}{x} \right) \\
+\log \left(1 + \frac{\Delta y}{y} \right) &= \beta  \log\left( 1 + \frac{\Delta x}{x} \right) \\
+\frac{\Delta y}{y} &\approx \beta \left(\frac{\Delta x}{x} \right)
+\end{aligned} 
+$$
+Thus a 1% percentage change in $x$ is associated with a $\beta$ percent change in $y$.
+
+This relationship can also be derived by taking the derivative of $\log y$ with respect to $x$.
+First rewrite the equation in terms of $y$,
+$$
+y = \exp(a_0 + a_1 \log(x))
+$$
+Then differentiate $y$ with respect to $x$,
+$$
+\begin{aligned}[t]
+dy &= \exp(a_0 + a_1 \log x) \left(\frac{a_1}{x}\right) dx \\
+&= a_1 y \left(\frac{dx}{x} \right) \\
+(dy / y) &= a_1 (dx / x) \\
+\%\Delta y &= a_1\%\Delta x
+\end{aligned}
+$$
 
 </div>
 
