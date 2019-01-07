@@ -755,7 +755,7 @@ ggplot(data = diamonds) +
   )
 ```
 
-The default message says that `stat_summary()` uses the `mean` and `sd` to calculate the point, and range of the line. So let's use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
+The default message says that `stat_summary()` uses the `mean` and `sd` to calculate the middle point and endpoints of the line. So let's use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
 ```{r}
 ggplot(data = diamonds) +
   geom_pointrange(
@@ -779,12 +779,12 @@ What does `geom_col()` do? How is it different to `geom_bar()`?
 
 The `geom_col()` function has different default stat than `geom_bar()`.
 The default stat of `geom_col()` is `stat_identity()`, which leaves the data as is.
-This means that `geom_col()` expects that the data is already preprocessed into `x` values and `y` values which represent the bar height.
+The `geom_col()` function expects that the data contains `x` values and `y` values which represent the bar height.
 
 The default stat of `geom_bar()` is `stat_bin()`.
-This means that `geom_bar()` only expects an `x` variable. 
-The stat `stat_bin()` will first preprocess the data by count the number of observations for each value of `x`. 
-These counts will be used for `y`.
+The `geom_bar()` function only expects an `x` variable.
+The stat, `stat_bin()`,  preprocess input data by counting the number of observations for each value of `x`. 
+The `y` aesthetic uses the values of these counts.
 
 </div>
 
@@ -942,14 +942,14 @@ The parameters that control the behavior of `stat_smooth()` include
 <div class="question">
 
 In our proportion bar chart, we need to set `group = 1` Why?
-In other words what is the problem with these two graphs?
+In other words, what is the problem with these two graphs?
 
 </div>
 
 <div class="answer">
 
 If `group = 1` is not included, then all the bars in the plot will have the same height, a height of 1.
-The function `geom_bar()` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group.
+The function `geom_bar()` assumes that the groups are equal to the `x` values since the stat computes the counts within the group.
 
 ```{r}
 ggplot(data = diamonds) +
@@ -1030,9 +1030,8 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0))
 ```
 
-However, we can adjust them. Here are few a examples to understand how adjusting
-these parameters affects the look of the plot.
-
+However, we can adjust them. Here are few a examples to understand how these
+parameters affects jittering.
 When`width = 0` there is no horizontal jitter.
 
 ```{r}
@@ -1065,8 +1064,7 @@ Note that the `height` and `width` arguments are in the units of the data.
 Thus `height = 1` (`width = 1`) corresponds to different relative amounts of jittering depending on the scale of the `y` (`x`) variable.
 The default values of `height` and `width` are defined to be 80% of the `resolution()` of the data, which is the smallest non-zero distance between adjacent values of a variable. 
 When `x` and `y` are discrete variables, 
-their resolutions are both equal to 1, and `height = 0.4` and `width = 0.4`,
-since the jitter moves points in both positive and negative directions.
+their resolutions are both equal to 1, and `height = 0.4` and `width = 0.4` since the jitter moves points in both positive and negative directions.
 
 </div>
 
@@ -1099,10 +1097,10 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_count()
 ```
 
-This method does not change the `x` and `y` coordinates of the points.
+The `geom_count()` geom does not change `x` and `y` coordinates of the points.
 However, if the points are close together and counts are large, the size of some
 points can itself create overplotting.
-For example, in the following example a third variable mapped to color is added to the plot. In this case, `geom_count()` is less readable than `geom_jitter()` when adding a third variable as a color aesthetic.
+For example, in the following example, a third variable mapped to color is added to the plot. In this case, `geom_count()` is less readable than `geom_jitter()` when adding a third variable as a color aesthetic.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
@@ -1114,7 +1112,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_count()
 ```
 
-As that example shows, unfortunately there is no universal solution to overplotting. 
+As that example shows, unfortunately, there is no universal solution to overplotting. 
 The costs and benefits of different approaches will depend on the structure of the data and the goal of the data scientist.
 
 </div>
@@ -1131,10 +1129,10 @@ Create a visualization of the `mpg` dataset that demonstrates it.
 <div class="answer">
 
 The default position for `geom_boxplot()` is `"dodge2"`, which is a shortcut for `position_dodge2`.
-This does not change the vertical position of a geom, but moves a geom horizontally in order to avoid overlapping another geom.
+This position adjustment does not change the vertical position of a geom but moves the geom horizontally to avoid overlapping other geoms.
 See the documentation for [`position_dodge2()`](https://ggplot2.tidyverse.org/reference/position_dodge.html) for additional discussion on how it works.
 
-When we add `colour = class` to the box plot, the different classes within `drv` are placed side by side, i.e. dodged. 
+When we add `colour = class` to the box plot, the different levels of the `drv` variable are placed side by side, i.e., dodged.
 ```{r}
 ggplot(data = mpg, aes(x = drv, y = hwy, colour = class)) +
   geom_boxplot()
@@ -1159,14 +1157,15 @@ Turn a stacked bar chart into a pie chart using `coord_polar()`.
 
 <div class="answer">
 
-This is a stacked bar chart with a single category.
+A pie chart is a stacked bar chart with the addition of polar coordinates.
+Take this stacked bar chart with a single category.
 
 ```{r}
 ggplot(mpg, aes(x = factor(1), fill = drv)) +
   geom_bar()
 ```
 
-A pie chart is a stacked bar chart with the addition of polar coordinates.
+Now add `coord_polar(theta="y")` to create pie chart.
 
 ```{r}
 ggplot(mpg, aes(x = factor(1), fill = drv)) +
@@ -1175,7 +1174,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
 ```
 
 The argument `theta = "y"` maps `y` to the angle of each section. 
-If `coord_polar()` is specified without `theta = "y"`, then the resulting plot is called a bull’s-eye chart.
+If `coord_polar()` is specified without `theta = "y"`, then the resulting plot is called a bulls-eye chart.
 
 ```{r}
 ggplot(mpg, aes(x = factor(1), fill = drv)) +
@@ -1219,8 +1218,9 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
        title = "Highway MPG by car class")
 ```
 
-This is not the only function you can use for adding titles.
-You can also add axis labels with `xlab()`, `ylab()`, and the scale functions, and titles with `ggtitle()`.
+The `labs()` function is not the only function that adds titles to plots.
+The `xlab()`, `ylab()`, and x- and y-scale functions can add axis titles.
+The `ggtitle()` function adds plot titles.
 
 </div>
 
@@ -1234,15 +1234,14 @@ What’s the difference between `coord_quickmap()` and `coord_map()`?
 
 <div class="answer">
 
-`coord_map()` uses map projection to project 3-dimensional Earth onto a 2-dimensional plane.
+The `coord_map()` function uses map projections to project the three-dimensional Earth onto a two-dimensional plane.
 By default, `coord_map()` uses the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection).
-However, this projection must be applied to all geoms in the plot.
-`coord_quickmap()` uses a faster, but approximate map projection.
+This projection is applied to all the geoms in the plot.
+The `coord_quickmap()` function uses an approximate but faster map projection.
 This approximation ignores the curvature of Earth and adjusts the map for the  latitude/longitude ratio.
-This transformation is quicker than `coord_map()` because the coordinates of the individual geoms do not need to be transformed.
+The `coord_quickmap()` project is faster than `coord_map()` both because the projection is computationally easier, and unlike `coord_map()`, the coordinates of the individual geoms do not need to be transformed.
 
-The **ggplot2** [documentation](https://ggplot2.tidyverse.org/reference/coord_map.html)
-contains more information on and examples for these two functions.
+See the [coord_map()](https://ggplot2.tidyverse.org/reference/coord_map.html) documentation for more information on these functions and some examples.
 
 </div>
 
@@ -1258,8 +1257,8 @@ What does `geom_abline()` do?
 
 <div class="answer">
 
-The function `coord_fixed()` ensures that the line produced by `geom_abline()` is at a 45 degree angle.
-The 45 degree line makes it easy to compare the highway and city mileage to the case in which city and highway MPG were equal.
+The function `coord_fixed()` ensures that the line produced by `geom_abline()` is at a 45-degree angle.
+A 45-degree line makes it easy to compare the highway and city mileage to the case in which city and highway MPG were equal.
 
 ```{r}
 p <- ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
