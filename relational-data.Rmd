@@ -1,53 +1,3 @@
-```{r include=FALSE, cache=FALSE}
-set.seed(1014)
-options(digits = 3)
-
-# create nojekyll if it doesn't exist
-output_dir <- yaml::read_yaml(here::here("_bookdown.yml"))[["output_dir"]]
-dir.create(here::here(output_dir), recursive = TRUE, showWarnings = FALSE)
-.nojekyll <- here::here(output_dir, ".nojekyll")
-if (!file.exists(.nojekyll)) {
-  close(open(file(.nojekyll, "w")))
-}
-
-knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
-  cache = TRUE,
-  autodep = TRUE,
-  # need to save cache
-  cache.extra = knitr::rand_seed,
-  out.width = "70%",
-  fig.align = "center",
-  fig.width = 6,
-  fig.asp = 0.618, # 1 / phi
-  fig.show = "hold"
-)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-
-is_html <- knitr::opts_knit$get("rmarkdown.pandoc.to") == "html"
-
-# Info and useful links
-SOURCE_URL <- stringr::str_c("https:/", "github.com", "jrnold",
-  "r4ds-exercise-solutions",
-  sep = "/"
-)
-PUB_URL <- stringr::str_c("http:/", "jrnold.github.io",
-  "r4ds-exercise-solutions",
-  sep = "/"
-)
-
-R4DS_URL <- "http://r4ds.had.co.nz"
-
-r4ds_url <- function(...) {
-  stringr::str_c(R4DS_URL, ..., sep = "/")
-}
-
-comma_int <- function(x) {
-  prettyNum(x, big.interval = 3, big.mark = ",")
-}
-```
 # Relational data
 
 ## Introduction
@@ -57,7 +7,7 @@ library("tidyverse")
 library("nycflights13")
 ```
 
-The package datamodelr is used to draw database schema:
+The package **datamodelr** is used to draw database schema.
 ```{r}
 library("datamodelr")
 ```
@@ -67,7 +17,11 @@ library("datamodelr")
 ### Exercise <span class="exercise-number">13.2.1</span> {.unnumbered .exercise}
 
 <div class="question">
-Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
+
+Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination.
+What variables would you need? 
+What tables would you need to combine?
+
 </div>
 
 <div class="answer">
@@ -110,15 +64,16 @@ flights_latlon %>%
 ### Exercise <span class="exercise-number">13.2.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 I forgot to draw the relationship between `weather` and `airports`. 
 What is the relationship and how should it appear in the diagram?
+
 </div>
 
 <div class="answer">
 
 The column `faa$airports` is a foreign key of `weather$origin`.
-
-The following drawing updates the one in [Section 13.2](https://r4ds.had.co.nz/relational-data.html#nycflights13-relational).
+The following drawing updates the one in [Section 13.2](https://r4ds.had.co.nz/relational-data.html#nycflights13-relational) to include this relation.
 The line representing the new relation between `weather` and `airports` is colored black.
 The lines representing the old relations are gray and thinner.
 
@@ -131,7 +86,10 @@ knitr::include_graphics("diagrams/nycflights.png")
 ### Exercise <span class="exercise-number">13.2.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
+
+Weather only contains information for the origin (NYC) airports. 
+If it contained weather records for all airports in the USA, what additional relation would it define with `flights`?
+
 </div>
 
 <div class="answer">
@@ -145,7 +103,8 @@ In a foreign key relationship, the collection columns of columns in the child ta
 must refer to a unique collection of columns in the parent table. 
 When the `weather` table only contained New York airports,
 there were many values of  (`year`, `month`, `day`, `hour`, `dest`) in `flights` that
-did not appear in the `weather` table. Therefore, it was not a foreign key. It was only after
+did not appear in the `weather` table. 
+Therefore, it was not a foreign key. It was only after
 all combinations of year, month, day, hour, and airports that are defined in `flights`
 were added to the `weather` table that there existed this relation between these tables.
 
@@ -154,17 +113,15 @@ were added to the `weather` table that there existed this relation between these
 ### Exercise <span class="exercise-number">13.2.4</span> {.unnumbered .exercise}
 
 <div class="question">
-We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
+We know that some days of the year are “special”, and fewer people than usual fly on them. 
+How might you represent that data as a data frame? 
+What would be the primary keys of that table? 
+How would it connect to the existing tables?
 </div>
 
 <div class="answer">
 
-I would add a table of special dates.
-Its primary key would be  `date`.
-This would match to the `year`, `month`,
-and `day` columns of `flights`.
-
-The table would resemble the following:
+I would add a table of special dates, similar to the following table.
 ```{r}
 special_days <- tribble(
   ~year, ~month, ~day, ~holiday,
@@ -174,6 +131,9 @@ special_days <- tribble(
   2013, 12, 25, "Christmas Day"
 )
 ```
+
+The primary key of the table would be the (`year`, `month`, `day`) columns.
+The (`year`, `month`, `day`) columns could be used to join `special_days` with other tables.
 
 </div>
 
@@ -217,8 +177,8 @@ Identify the keys in the following datasets
 
 The answer to each part follows.
 
-1.  The primary key for `Lahman::Batting` is `playerID`, `yearID`, `stint`.
-    It is not simply `playerID`, `yearID` because players can have different stints in different leagues within the same year.
+1.  The primary key for `Lahman::Batting` is (`playerID`, `yearID`, `stint`).
+    The columns (`playerID`, `yearID`) are not a primary key because players can play on different teams within the same year.
 
     ```{r}
     Lahman::Batting %>%
@@ -227,8 +187,8 @@ The answer to each part follows.
       nrow()
     ```
 
-1.  The primary key for `babynames::babynames` is `year`, `sex`, `name`.
-    It is not simply `year`, `name` since names can appear for both sexes with different counts.
+1.  The primary key for `babynames::babynames` is (`year`, `sex`, `name`).
+    The columns (`year`, `name`) are not a primary key since there are separate counts for each name for each sex, and the same names can be used by more 
 
     ```{r}
     babynames::babynames %>%
@@ -250,7 +210,8 @@ The answer to each part follows.
       nrow()
     ```    
 
-1.  The primary key for `nasaweather::atmos` is the location and time of the measurement: `lat`, `long`, `year`, `month`.
+1.  The primary key for `nasaweather::atmos` is (`lat`, `long`, `year`, `month`).
+    The primary key represents the location and time that the measurement was taken.
 
     ```{r}
     nasaweather::atmos %>%
@@ -259,7 +220,7 @@ The answer to each part follows.
       nrow()
     ```
 
-1.  The column `id` (unique EPA identifier) is the primary key for `fueleconomy::vehicles`:
+1.  The column `id`, the unique EPA identifier of the vehicle, is the primary key for `fueleconomy::vehicles`.
 
     ```{r}
     fueleconomy::vehicles %>%
@@ -268,8 +229,8 @@ The answer to each part follows.
       nrow()
     ```
 
-1.  There is no primary key for `ggplot2::diamonds`.
-    The number of distinct rows in the dataset is less than the total number of rows, which implies that there is no combination of variables uniquely identifies the observations.
+1.  There is no primary key for `ggplot2::diamonds` since there is no combination of variables that uniquely identifies each observation.
+    This is implied by the fact that the number of distinct rows in the dataset is less than the total number of rows, meaning that there are some duplicate rows.
 
     ```{r}
     ggplot2::diamonds %>%
@@ -277,15 +238,25 @@ The answer to each part follows.
       nrow()
     nrow(ggplot2::diamonds)
     ```
+    
+    Implicitly the row number is the primary key for `ggplot2::diamonds`.
+    So we could create an arbritrary identifier for observations in the `diamonds` data set to use as a primary key.
+    
+    ```{r}
+    diamonds <- mutate(ggplot2::diamonds, id = row_number())
+    ```
 
 </div>
 
 ### Exercise <span class="exercise-number">13.3.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
+
+Draw a diagram illustrating the connections between the `Batting`, `Master`, and `Salaries` tables in the **Lahman** package. 
+Draw another diagram that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
 
 How would you characterize the relationship between the `Batting`, `Pitching`, and `Fielding` tables?
+
 </div>
 
 <div class="answer">
@@ -535,19 +506,20 @@ flights %>%
 ### Exercise <span class="exercise-number">13.4.3</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Is there a relationship between the age of a plane and its delays?
+
 </div>
 
 <div class="answer">
 
 The question does not specify whether the relationship is with departure delay
-or arrival delay. I will look at both.
+or arrival delay. 
+I will look at both.
 
-To compare the age of the plane to flights delay, I merge `flights` with
-the `planes`, which contains a variable `plane_year`, with the year in which the 
-plane was built. To look at the relationship between plane age and departure
-delay, I will calculate the average arrival and departure delay for each age 
-of a flight.
+To compare the age of the plane to flights delay, I merge `flights` with the `planes`, which contains a variable `plane_year`, with the year in which the plane was built.
+To look at the relationship between plane age and departure delay, I will calculate the average arrival and departure delay for each age of a flight.
+
 ```{r}
 plane_cohorts <- inner_join(flights,
   select(planes, tailnum, plane_year = year),
@@ -565,12 +537,9 @@ plane_cohorts <- inner_join(flights,
   )
 ```
 
-I will look for a relationship between departure delay and age by plotting 
-age against the average departure delay. The average departure delay is increasing
-for planes with ages up until 10 years. After that the departure delay decreases 
-or levels off. The decrease in departure delay could be because older planes
-with many mechanical issues are removed from service or because air lines schedule
-these planes with enough time so that mechanical issues do not delay them.
+I will look for a relationship between departure delay and age by plotting age against the average departure delay. 
+The average departure delay is increasing for planes with ages up until 10 years. After that the departure delay decreases or levels off. 
+The decrease in departure delay could be because older planes with many mechanical issues are removed from service or because air lines schedule these planes with enough time so that mechanical issues do not delay them.
 There are few planes older than 30 years, so the relationship is mostly noise
 after that.
 
@@ -590,8 +559,8 @@ ggplot(plane_cohorts, aes(x = age, y = dep_delay_mean)) +
   scale_y_continuous("Mean Departure Delay (minutes)")
 ```
 
-There is a similar relationship in arrival delays. Delays increase with the age 
-of the plane until ten years, then it declines and flattens out.
+There is a similar relationship in arrival delays. 
+Delays increase with the age of the plane until ten years, then it declines and flattens out.
 ```{r}
 ggplot(plane_cohorts, aes(x = age, y = arr_delay_mean)) +
   geom_ribbon(
@@ -613,7 +582,9 @@ ggplot(plane_cohorts, aes(x = age, y = arr_delay_mean)) +
 ### Exercise <span class="exercise-number">13.4.4</span> {.unnumbered .exercise}
 
 <div class="question">
+
 What weather conditions make it more likely to see a delay?
+
 </div>
 
 <div class="answer">
@@ -643,14 +614,17 @@ flight_weather %>%
 ### Exercise <span class="exercise-number">13.4.5</span> {.unnumbered .exercise}
 
 <div class="question">
-What happened on June 13, 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+
+What happened on June 13, 2013? 
+Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+
 </div>
 
 <div class="answer">
 
-There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series))
+There was a large series of storms (derechos) in the southeastern US (see [June 12-13, 2013 derecho series](https://en.wikipedia.org/wiki/June_12%E2%80%9313,_2013_derecho_series)).
+The following plot show that the largest delays were in Tennessee (Nashville), the Southeast, and the Midwest, which were the locations of the derechos.
 
-The largest delays are in Tennessee (Nashville), the Southeast, and the Midwest, which were the locations of the derechos:
 ```{r}
 library(viridis)
 flights %>%
@@ -672,12 +646,17 @@ flights %>%
 ### Exercise <span class="exercise-number">13.5.1</span> {.unnumbered .exercise}
 
 <div class="question">
-What does it mean for a flight to have a missing `tailnum`? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+
+What does it mean for a flight to have a missing `tailnum`? 
+What do the tail numbers that don’t have a matching record in planes have in common? 
+(Hint: one variable explains ~90% of the problems.)
+
 </div>
 
 <div class="answer">
 
 American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
+
 ```{r}
 flights %>%
   anti_join(planes, by = "tailnum") %>%
@@ -689,7 +668,9 @@ flights %>%
 ### Exercise <span class="exercise-number">13.5.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Filter flights to only show flights with planes that have flown at least 100 flights.
+
 </div>
 
 <div class="answer">
@@ -710,7 +691,9 @@ flights %>%
 ### Exercise <span class="exercise-number">13.5.3</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Combine `fueleconomy::vehicles` and `fueleconomy::common` to find only the records for the most common models.
+
 </div>
 
 <div class="answer">
@@ -748,8 +731,11 @@ For example, see "Limousine".
 ### Exercise <span class="exercise-number">13.5.4</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Find the 48 hours (over the course of the whole year) that have the worst delays.
-Cross-reference it with the weather data. Can you see any patterns?
+Cross-reference it with the weather data. 
+Can you see any patterns?
+
 </div>
 
 <div class="answer">
@@ -757,7 +743,7 @@ Cross-reference it with the weather data. Can you see any patterns?
 Ed. I am uncertain about the answer. If you have any suggestions, add a comment to
 this [issue](https://github.com/jrnold/r4ds-exercise-solutions/issues/135).
 
-I will start with clarifying the scope of the question. 
+I will start with clarifying the question. 
 The question asks us to find the 48 hours over the course of the entire year.
 I interpret that as meaning 48 not necessarily contiguous hours, as opposed a single contiguous period of 48-hours.
 The question does not specify what is meant by "worst delays".
@@ -811,7 +797,10 @@ to look for covariation between weather and flight delays.
 ### Exercise <span class="exercise-number">13.5.5</span> {.unnumbered .exercise}
 
 <div class="question">
-What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
+
+What does `anti_join(flights, airports, by = c("dest" = "faa"))` tell you? 
+What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
+
 </div>
 
 <div class="answer">
@@ -828,7 +817,10 @@ US airports that did not have a direct flight from New York City in 2013.
 ### Exercise <span class="exercise-number">13.5.6</span> {.unnumbered .exercise}
 
 <div class="question">
-You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
+
+You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. 
+Confirm or reject this hypothesis using the tools you’ve learned above.
+
 </div>
 
 <div class="answer">
@@ -847,7 +839,7 @@ planes_carriers <-
   distinct(tailnum, carrier)
 ```
 
-The number of planes that have flown for more than one airline are `tailnum` that appear more than once in the `planes_carriers` data.
+The number of planes that have flown for more than one airline are those `tailnum` that appear more than once in the `planes_carriers` data.
 ```{r}
 planes_carriers %>%
   count(tailnum) %>%
