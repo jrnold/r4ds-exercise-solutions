@@ -23,13 +23,13 @@ Run `ggplot(data = mpg)` what do you see?
 
 <div class="answer">
 
-An empty plot. 
-The background of the plot is created by the `ggplot()` function, 
-but no geoms were specified, so there is nothing to display.
-
 ```{r}
 ggplot(data = mpg)
 ```
+
+This code creates an empty plot. 
+The `gggplot()` function creates the background of the plot, 
+but since nothing else was specified, nothing else is drawn.
 
 </div>
 
@@ -68,7 +68,7 @@ Read the help for `?mpg` to find out.
 
 <div class="answer">
 
-The `drv` variable is categorical variable which categorizes cars into front-wheels, rear-wheels, or four-wheel drive.[^layout]
+The `drv` variable is a categorical variable which categorizes cars into front-wheels, rear-wheels, or four-wheel drive.[^layout]
 
 | Value      | Description                                                                                   |
 |------------|-----------------------------------------------------------------------------------------------|
@@ -83,7 +83,7 @@ The `drv` variable is categorical variable which categorizes cars into front-whe
 ### Exercise <span class="exercise-number">3.2.4</span>. {.unnumbered .exercise}
 
 <div class="question">
-Make a scatter plot of `hwy` vs `cyl`.
+Make a scatter plot of `hwy` vs. `cyl`.
 </div>
 
 <div class="answer">
@@ -106,29 +106,43 @@ Why is the plot not useful?
 
 <div class="answer">
 
-The resulting scatterplot only has a few points and looks like grid.
+The resulting scatterplot has only a few points.
 ```{r}
 ggplot(mpg, aes(x = class, y = drv)) +
   geom_point()
 ```
+```{r include=FALSE}
+n_drv <- length(unique(mpg$drv))
+n_class <- length(unique(mpg$class))
+n_comb <- n_drv * n_class
+n_comb_actual <- nrow(distinct(mpg, drv, class))
+```
 
-A scatter plot is not a useful way to plot these variables, since both `drv` and `class` are categorical variables which take limited number of unique combinations of `drv` and `class`.
+A scatter plot is not a useful display of these variables since both `drv` and `class` are categorical variables.
+Since categorical variables typically take a small number of values, 
+there are a limited number of unique combinations of (`x`, `y`) values that can be displayed.
+In this data, `mpg` takes `r n_drv` values and `class` takes `r n_class` values,
+meaning that there are only `r n_comb` values that could be plotted on a scatterplot of `mpg` vs. `class`.
+In this data, there `r n_comb_actual` values of (`mpg`, `class`) are observed.
 
 ```{r}
 count(mpg, drv, class)
 ```
 
 A simple scatter plot does not show how many observations there are for each (`x`, `y`) value.
-Scatterplots work best for plotting a continuous x and a continuous y variable,  and when all (`x`, `y`) values are unique.
+As such, scatterplots work best for plotting a continuous x and a continuous y variable, and when all (`x`, `y`) values are unique.
 
-This uses material covered in a later section, but may be of interest. 
+The following code uses functions introduced in a later section, but may be of interest. 
 Section [7.5.2](https://r4ds.had.co.nz/exploratory-data-analysis.html#two-categorical-variables) discusses methods for plotting two categorical variables.
 The first is `geom_count()` which is similar to a scatterplot but uses the size of the points to show the number of observations at an (`x`, `y`) point.
+
 ```{r}
 ggplot(mpg, aes(x = class, y = drv)) +
   geom_count()
 ```
-The second is `geom_tile()` which uses a color scale show the number of observations with each (`x`, `y`) value.
+
+The second is `geom_tile()` which uses a color scale to show the number of observations with each (`x`, `y`) value.
+
 ```{r}
 mpg %>%
   count(class, drv) %>%
@@ -136,9 +150,11 @@ mpg %>%
     geom_tile(mapping = aes(fill = n))
 ```
 
-In the previous plot, the are many missing tiles, which are associated with unobserved combinations of`class` and `drv` values.
+In the previous plot, the are many missing tiles.
+This missing tiles represent unobserved combinations of`class` and `drv` values.
+These missing values are not unknown, but represent values of (`class`, `drv`) where `n = 0`.
 The `complete()` function in **tidyr** adds new rows to a data frame for missing combinations of columns.
-The following code add rows for missing combinations of `class` and `drv` and uses the `fill` argument to set `n = 0` for those new rows.
+The following code adds rows for missing combinations of `class` and `drv` and uses the `fill` argument to set `n = 0` for those new rows.
 
 ```{r}
 mpg %>%
@@ -168,11 +184,11 @@ ggplot(data = mpg) +
 
 <div class="answer">
 
-The argument`colour = "blue"` is included within the `mapping` argument, and as such it is treated as an aesthetic, which is a mapping between a variable and a value.
+The argument`colour = "blue"` is included within the `mapping` argument, and as such, it is treated as an aesthetic, which is a mapping between a variable and a value.
 In the expression, `color="blue"`, `"blue"` is interpreted not as a variable name, but as a variable that takes a single value `"blue"`.
 If this is confusing, consider how `colour = 1:234` and `colour = 1` are interpreted by `aes()`.
 
-The following code does what was expected.
+The following code does produces the expected result.
 
 ```{r}
 ggplot(data = mpg) +
@@ -194,11 +210,18 @@ How can you see this information when you run `mpg`?
 
 <div class="answer">
 
+The following list contains the categorical variables in `mpg`:
+
+-   `trans`
+-   `drv`
+-   `fl`
+-   `class`
+
 ```{r eval=FALSE}
 ?mpg
 ```
 
-When printing the data frame, this information is given at the top of each column within angled brackets.
+In the printed data frame, angled brackets at the top of each column provide type of each variable.
 Categorical variables have a class of "character" (`<chr>`).
 ```{r}
 mpg
@@ -235,7 +258,7 @@ ggplot(mpg, aes(x = displ, y = hwy, size = cty)) +
   geom_point()
 ```
 
-When mapped to size, the sizes of the points vary continuously with respect to the size.
+When mapped to size, the sizes of the points vary continuously as a function of their size.
 
 ```{r error=TRUE}
 ggplot(mpg, aes(x = displ, y = hwy, shape = cty)) +
@@ -244,7 +267,7 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = cty)) +
 
 When a continuous value is mapped to shape, it gives an error.
 Though we could split a continuous variable into discrete categories and use a shape aesthetic, this would conceptually not make sense.
-A continuous numeric variable is ordered, but shapes have no natural order.
+A numeric variable has an order, but shapes do not.
 It is clear that smaller points correspond to smaller values, or once the color scale is given, which colors correspond to larger or smaller values. But it is not clear whether a square is greater or less than a circle.
 
 </div>
@@ -309,10 +332,10 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = displ < 5)) +
   geom_point()
 ```
 
-Aesthetics can also be mapped to expressions (code like `displ < 5`).
-It will create a temporary variable which takes values from  the result of the expression.
-In this case, it is logical variable which is `TRUE` or `FALSE`.
-This also explains exercise 1, `colour = "blue"` created a categorical variable that only had one category: "blue".
+Aesthetics can also be mapped to expressions like `displ < 5`.
+It will create a temporary variable which takes values from the result of the expression.
+In this case, the result of `displ < 5` is a logical variable which takes values of `TRUE` or `FALSE`.
+This also explains why, in exercise 1, the expression `colour = "blue"` created a categorical variable with only one category: "blue".
 
 </div>
 
@@ -414,37 +437,35 @@ How might the balance change if you had a larger dataset?
 
 <div class="answer">
 
-This is what the plot looks like when `class` is represented by the color aesthetic.
+In the following plot the `class` variable is mapped to color.
 
 ```{r}
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-Advantages of encoding `class` with facets instead of color include ability to encode more distinct categories.
+Advantages of encoding `class` with facets instead of color include the ability to encode more distinct categories.
 For me, it is difficult to distinguish between the colors of `"midsize"` and `"minivan"`.
 
 Given human visual perception, the max number of colors to use when encoding
 unordered categorical (qualitative) data is nine, and in practice, often much less than that.
-Placing points in different categories in different scales makes it difficult to directly compare values of individual points in different categories.
-However, it can make it easier to compare the overall patterns and trends between categories.
+Displaying observations from different categories on different scales makes it difficult to directly compare values of observations across categories.
+However, it can make it easier to compare the shape of the relationship between the x and y variables across categories.
 
-Disadvantages of encoding the `class` variable with facets instead of color are that different
-the different class is that the points for each category are on different plots,
-making it more difficult to directly compare the locations of individual points.
-Using the same x- and y-scales for all facets lessens this disadvantage.
+Disadvantages of encoding the `class` variable with facets instead of the color aesthetic include the difficulty of comparing the values of observations between categories since the observations for each category are on different plots.
+Using the same x- and y-scales for all facets makes it easier to compare values of observations across categories, but it is still more difficult than if they had been displayed on the same plot.
 Since encoding class within color also places all points on the same plot,
 it visualizes the unconditional relationship between the x and y variables;
 with facets, the unconditional relationship is no longer visualized since the
 points are spread across multiple plots.
 
 The benefits encoding a variable through facetting over color become more advantageous as either the number of points or the number of categories increase.
-In the former, as the number of points increase, there is likely to be more
+In the former, as the number of points increases, there is likely to be more
 overlap.
 
 It is difficult to handle overlapping points with color.
 Jittering will still work with color.
-But jittering will only work well if there are few points and the classes do not overlap much, otherwise the colors of areas will no longer be distinct and it will be hard to visually pick out the patterns of different categories.
+But jittering will only work well if there are few points and the classes do not overlap much, otherwise, the colors of areas will no longer be distinct, and it will be hard to pick out the patterns of different categories visually.
 Transparency (`alpha`) does not work well with colors since the mixing of overlapping transparent colors will no longer represent the colors of the categories.
 Binning methods use already color to encode density, so color cannot be used to encode categories.
 
@@ -470,7 +491,7 @@ Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
 The arguments `nrow` (`ncol`) determines the number of rows (columns) to use when laying out the facets.
 It is necessary since `facet_wrap()` only facets on one variable.
 
-These arguments are unnecessary for `facet_grid()` since the number of rows and columns are determined by the number of unique values of the variables specified in the function.
+The `nrow` and `ncol` arguments are unnecessary for `facet_grid()` since the number of unique values of the variables specified in the function determines the number of rows and columns.
 
 </div>
 
@@ -485,9 +506,7 @@ Why?
 
 <div class="answer">
 
-IF the plot is laid out horizontally, there will be more space for columns.
-You should put the variable with more unique levels in the columns if the plot is laid out landscape.
-It is easier to compare relative levels of y by scanning horizontally, so it may be easier to visually compare these levels.
+There will be more space for columns if the plot is laid out horizontally (landscape).
 
 </div>
 
@@ -530,8 +549,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) +
 
 <div class="answer">
 
-This will produce a scatter plot with `displ` on the x-axis, `hwy` on the y-axis.
-The points will be colored by `drv`.
+This code produces a scatter plot with `displ` on the x-axis, `hwy` on the y-axis, and the points colored by `drv`.
 There will be a smooth line, without standard errors, fit through each `drv` group.
 
 ```{r echo=TRUE}
@@ -737,7 +755,7 @@ ggplot(data = diamonds) +
   )
 ```
 
-The default message says that `stat_summary()` uses the `mean` and `sd` to calculate the point, and range of the line. So lets use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
+The default message says that `stat_summary()` uses the `mean` and `sd` to calculate the point, and range of the line. So let's use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
 ```{r}
 ggplot(data = diamonds) +
   geom_pointrange(
@@ -782,7 +800,7 @@ What do they have in common?
 
 <div class="answer">
 
-The pairs of geoms and stats that are used in concert are listed in the following table.
+The following tables lists the pairs of geoms and stats that are almost always used in concert.
 
 | geom                | stat                |
 |---------------------|---------------------|
@@ -909,7 +927,13 @@ The function `stat_smooth()` calculates the following variables:
 -   `ymax`: upper value of the confidence interval
 -   `se`: standard error
 
-There's parameters such as `method` which determines which method is used to calculate the predictions and confidence interval, and some other arguments that are passed to that.
+The "Computed Variables" section of the `stat_smooth()` documentation contains these variables.
+
+The parameters that control the behavior of `stat_smooth()` include 
+
+-   `method`: the method used to 
+-   `formula`: the formula are parameters such as `method` which determines which method is used to calculate the predictions and confidence interval, and some other arguments that are passed to that.
+-   `na.rm`: 
 
 </div>
 
@@ -924,7 +948,7 @@ In other words what is the problem with these two graphs?
 
 <div class="answer">
 
-If `group` is not set to 1, then all the bars have `prop == 1`.
+If `group = 1` is not included, then all the bars in the plot will have the same height, a height of 1.
 The function `geom_bar()` assumes that the groups are equal to the `x` values, since the stat computes the counts within the group.
 
 ```{r}
@@ -941,7 +965,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
 ```
 
-This is more likely what was intended.
+The following code will produce the intended stacked bar charts.
 ```{r}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
@@ -979,7 +1003,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = "jitter")
 ```
 
-Jittering the points removes the overplotting and allows for us to see the relationship between the `cty` and `hwy` variables.
+With jittering, the plot more clearly shows the relationship between `cty` and `hwy`.
 
 </div>
 
@@ -1006,31 +1030,31 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = position_jitter(width = 0))
 ```
 
-However, we can adjust them. Here are few examples to understand how adjusting
+However, we can adjust them. Here are few a examples to understand how adjusting
 these parameters affects the look of the plot.
 
-With `width = 0` there is no horizontal jitter.
+When`width = 0` there is no horizontal jitter.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter(width = 0)
 ```
 
-With `width = 20`, there is too much horizontal jitter.
+When `width = 20`, there is too much horizontal jitter.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter(width = 20)
 ```
 
-With `height = 0`, there is no vertical or horizontal jitter:
+When `height = 0`, there is no vertical or horizontal jitter.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter(height = 0)
 ```
 
-With `height = 15`, there is too much vertical jitter.
+When `height = 15`, there is too much vertical jitter.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
@@ -1078,7 +1102,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 This method does not change the `x` and `y` coordinates of the points.
 However, if the points are close together and counts are large, the size of some
 points can itself create overplotting.
-For example, in the following example a third variable mapped to color is added to the plot. In this case, `geom_count()` is less readable than `geom_jitter()` when adding a third variable as color aesthetic.
+For example, in the following example a third variable mapped to color is added to the plot. In this case, `geom_count()` is less readable than `geom_jitter()` when adding a third variable as a color aesthetic.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
@@ -1142,8 +1166,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   geom_bar()
 ```
 
-See the documentation for [coord_polar](https://ggplot2.tidyverse.org/reference/coord_polar.html) for an example of making a pie chart. 
-In particular, `theta = "y"`, meaning that the angle of the chart is the `y` variable which has to be specified.
+A pie chart is a stacked bar chart with the addition of polar coordinates.
 
 ```{r}
 ggplot(mpg, aes(x = factor(1), fill = drv)) +
@@ -1151,27 +1174,13 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   coord_polar(theta = "y")
 ```
 
-If `theta = "y"` is not specified, then you get a bull’s-eye chart.
+The argument `theta = "y"` maps `y` to the angle of each section. 
+If `coord_polar()` is specified without `theta = "y"`, then the resulting plot is called a bull’s-eye chart.
 
 ```{r}
 ggplot(mpg, aes(x = factor(1), fill = drv)) +
   geom_bar(width = 1) +
   coord_polar()
-```
-
-If you had a multiple stacked bar chart, like this,
-
-```{r}
-ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
-```
-
-and apply polar coordinates to it, you end up with a multi-doughnut chart,
-
-```{r}
-ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill") +
-  coord_polar(theta = "y")
 ```
 
 </div>
