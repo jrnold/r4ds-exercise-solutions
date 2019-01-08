@@ -27,7 +27,7 @@ create_outdir <- function() {
   dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
   nojekyll <- file.path(output_dir, ".nojekyll")
   if (!file.exists(nojekyll)) {
-    cat("Creating ", nojeykll, "\n")
+    cat("Creating ", nojekyll, "\n")
     con <- file(nojekyll, "w")
     close(con)
   }
