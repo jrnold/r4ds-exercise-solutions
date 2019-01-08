@@ -25,7 +25,7 @@ Find all flights that
 1.  Departed in summer (July, August, and September)
 1.  Arrived more than two hours late, but didn’t leave late
 1.  Were delayed by at least an hour, but made up over 30 minutes in flight
-1.  Departed between midnight and 6am (inclusive)
+1.  Departed between midnight and 6 am (inclusive)
 
 </div>
 
@@ -33,8 +33,8 @@ Find all flights that
 
 The answer to each part follows.
 
-1.  Since delay is in minutes, find
-    flights whose arrival was delayed 120 or more minutes.
+1.  Since the `arr_delay` variable is measured in minutes, find
+    flights with an arrival delay of 120 or more minutes.
 
     ```{r, indent = 4}
     filter(flights, arr_delay >= 120)
@@ -88,12 +88,9 @@ The answer to each part follows.
     ```
 
 1.  Were delayed by at least an hour, but made up over 30 minutes in flight.
-    If a flight was delayed by at least an hour, then `dep_delay >= 60`. If the flight
-    didn't make up any time in the air, then its arrival would be delayed by
-    the same amount as its departure, meaning `dep_delay == arr_delay`, or alternatively,
-    `dep_delay - arr_delay == 0`. If it makes up over 30 minutes in the air, then
-    the arrival delay must be at least 30 minutes less than the departure delay, which
-    is stated as `dep_delay - arr_delay > 30`.
+    If a flight was delayed by at least an hour, then `dep_delay >= 60`. 
+    If the flight didn't make up any time in the air, then its arrival would be delayed by the same amount as its departure, meaning `dep_delay == arr_delay`, or alternatively, `dep_delay - arr_delay == 0`. 
+    If it makes up over 30 minutes in the air, then the arrival delay must be at least 30 minutes less than the departure delay, which is stated as `dep_delay - arr_delay > 30`.
     ```{r}
     filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)
     ```
@@ -137,7 +134,7 @@ Another useful **dplyr** filtering helper is `between()`. What does it do? Can y
 
 The expression `between(x, left, right)` is equivalent to `x >= left & x <= right`.
 
-Of the answers in the previous question, we could simplify the statement of *departed in summer* (`month >= 7 & month <= 9`) using `between()` as the following
+Of the answers in the previous question, we could simplify the statement of *departed in summer* (`month >= 7 & month <= 9`) using the `between()` function.
 ```{r}
 filter(flights, between(month, 7, 9))
 ```
@@ -449,7 +446,7 @@ What does the `one_of()` function do? Why might it be helpful in conjunction wit
 
 <div class="answer">
 
-The `one_of()` function select variables using a character vector rather than as unquoted variable names.
+The `one_of()` function selects variables with a character vector rather than unquoted variable name arguments.
 This function is useful because it is easier to programmatically generate character vectors with variable names than to generate unquoted variable names, which are easier to type.
 
 ```{r}
@@ -502,13 +499,9 @@ Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to
 <div class="answer">
 
 To get the departure times in the number of minutes, divide `dep_time` by 100 to get the hours since midnight and multiply by 60 and add the remainder of `dep_time` divided by 100.
-For example, `1504` represents 15:04 (or 3:04 PM), which is 
-```{r}
-15 * 60 + 4
-```
-minutes after midnight.
-In order to generalize this approach, we need a way to split out the hour digits from the minutes digits.
-Dividing by 100 and discarding the remainder using the integer division operator, `%/%` gives us the 
+For example, `1504` represents 15:04 (or 3:04 PM), which is `r 15 * 60 + 4` minutes after midnight.
+To generalize this approach, we need a way to split out the hour-digits from the minute-digits.
+Dividing by 100 and discarding the remainder using the integer division operator, `%/%` gives us the following.
 ```{r}
 1504 %/% 100
 ```
@@ -528,11 +521,11 @@ minutes to get the number of minutes after midnight.
 There is one remaining issue. Midnight is represented by `2400`, which would 
 correspond to `1440` minutes since midnight, but it should correspond to `0`.
 After converting all the times to minutes after midnight, `x %% 1440` will convert
-`1440` to zero, while keeping all the other times the same.
+`1440` to zero while keeping all the other times the same.
 
-Putting it all together, the following code creates a new data frame `flights_times`
-with the new columns, `dep_time_mins` and `sched_dep_time_mins` which convert
-`dep_time` and `sched_dep_time`, respectively, to minutes since midnight.
+Now we will put it all together.
+The following code creates a new data frame `flights_times` with columns `dep_time_mins` and `sched_dep_time_mins`.
+These columns convert `dep_time` and `sched_dep_time`, respectively, to minutes since midnight.
 ```{r}
 flights_times <- mutate(flights,
   dep_time_mins = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
@@ -579,7 +572,7 @@ Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What d
 
 <div class="answer">
 
-I would expect that the air time is the difference between the arrival and departure times, `air_time =  arr_time - dep_time`.
+I would expect that the airtime is the difference between the arrival and departure times, `air_time =  arr_time - dep_time`.
 
 To check this, I need to first convert the times to a form more amenable to arithmetic
 using the same calculations as in the previous exercise.
@@ -600,8 +593,8 @@ filter(flights_airtime, air_time_diff != 0)
 No. So why not? Apart from data error, I can think of two reasons why `air_time` may 
 not equal `arr_time - dep_time`.
 
-1.  The flight passes midnight, so `arr_time < dep_time`. This will result in times that are off by 24 hours (1,440 minutes).
-    incorrect negative flight times.
+1.  The flight passes midnight, so `arr_time < dep_time`. 
+    In these cases, the airtime will be off by 24 hours (1,440 minutes).
 
 1.  The flight crosses time zones, and the total air time will be off by hours (multiples of 60). Additionally, all these discrepancies should be positive.
     All the flights in the **nycflights13** data departed from New York City and are domestic (within the US), meaning that flights will all be to the same or more
@@ -609,7 +602,7 @@ not equal `arr_time - dep_time`.
 
 Both of these explanations have clear patterns that I would expect to see if they 
 were true. 
-In particular, in both cases all differences should be divisible by 60.
+In particular, in both cases, all differences should be divisible by 60.
 However, there are many flights in which the difference between `arr_time` and `dest_time` is not divisible by 60.
 ```{r}
 filter(flights_airtime, air_time_diff %% 60 == 0)
@@ -620,11 +613,12 @@ I'll try plotting the data to see if that is more informative.
 ggplot(flights_airtime, aes(x = air_time_diff)) +
   geom_histogram(binwidth = 1)
 ```
-The distribution is bimodal, which with one mode comprising discrepancies up to several hours, suggesting the time-zone problem, and a second node around 24 hours, suggesting the overnight flights.
-However, in both cases, the discrepancies are not all at values divisible by 60.
+The distribution is bimodal, which with one mode comprising discrepancies up to several hours and a second node around 24 hours.
+These nodes correspond to changing time-zones and overnight flights.
+However, in both cases, the discrepancies are not all divisible by 60.
 
 I can also confirm my guess about time zones by looking at discrepancies from
-flights to a destinations in another air zone (or even all flights to different time zones using the time zone of the airport from the `airports` data frame).
+flights to destinations in another air zone (or even all flights to different time zones using the time zone of the airport from the `airports` data frame).
 In this case, I'll look at the distribution of the discrepancies for flights
 to Los Angeles (LAX).
 ```{r}
@@ -635,15 +629,14 @@ ggplot(filter(flights_airtime, dest == "LAX"), aes(x = air_time_diff)) +
 So what else might be going on? There seem to be too many "problems" for this to 
 be a data issue, so I'm probably missing something. So I'll reread the documentation
 to make sure that I understand the definitions of `arr_time`, `dep_time`, and
-`air_time`. The documentation contains a link to the source of the `flights` data, <https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236>.
-Reading the page at that link, I see that there are some other variables: 
-`TaxiIn`, `TaxiOff`, `WheelsIn`, `WheelsOff` that are not included in `flights`.
-The `air_time` variable refers to flight time, which must be defined as the time between wheels off (take-off) and wheels in (landing).
-Thus `air_time` does not include the time spent on the runway taxiing to and from
+`air_time`. 
+The documentation contains a link to the source of the `flights` data, <https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236>.
+The `flights` data does not contain the variables `TaxiIn`, `TaxiOff`, `WheelsIn`, and `WheelsOff`.
+The `air_time` variable refers to flight time, which is defined as the time between wheels-off (take-off) and wheels-in (landing).
+So the `air_time` variable does not include the time spent on the runway taxiing to and from
 gates.
-With this new understanding of the data, I now know that the relationship
-between `air_time`, `arr_time`, and `dep_time` is `air_time <= arr_time - dep_time`
-once `arr_time` and `dep_time` are corrected for differing time zones and dates.
+With this new understanding of the data, I now know that the relationship between `air_time`, `arr_time`, and `dep_time` is `air_time <= arr_time - dep_time` 
+once the time zones of `arr_time` and `dep_time` are corrected.
 
 </div>
 
@@ -806,8 +799,9 @@ If the departure is delayed without affecting the arrival time and the passenger
 The delay could be a positive, if less time is spent on the airplane itself, or a negative, if that extra time is spent on the plane in the runway.
 
 Variation in arrival time is worse than consistency.
-If a flight is always 30 minutes late and that delay is know, then it is as if the arrival time is that delayed time.
-The traveler could easily plan for this. If the delay of the flight is more variable, then it is harder for the traveler to plan for it.
+If a flight is always 30 minutes late and that delay is known, then it is as if the arrival time is that delayed time.
+The traveler could easily plan for this. 
+But higher variation in flight times makes it harder to plan.
 
 <!-- 
 **TODO** (Add a better explanation and some examples)
@@ -823,43 +817,63 @@ Come up with another approach that will give you the same output as `not_cancele
 
 <div class="answer">
 
-The data frame `not_canceled` is defined in the chapter as,
 ```{r not_canceled}
 not_canceled <- flights %>%
   filter(!is.na(dep_delay), !is.na(arr_delay))
 ```
 
-The `count()` function groups dataset on the given variables and then counts the number of instances within each group.
-This can be done by by first grouping by the given variable, and then finding the number of observations in each group.
-The number of observations in each group can be found by calling the `length()` function on any variable.
-To make the result match `count()`, the value should go in a new column `n`.
+The first expression is the following.
+
+```{r}
+not_canceled %>% 
+  count(dest)
+```
+
+The `count()` function counts the number of instances within each group of variables.
+Instead of using the `count()` function,we can combine the `group_by()` and `summarise()` verbs.
+
 ```{r}
 not_canceled %>%
   group_by(dest) %>%
   summarise(n = length(dest))
 ```
-A more concise way to get the number of observations in a data frame, or a group, is the function `n()`,
+
+An alternative method for getting the number of observations in a data frame is the function `n()`.
+
 ```{r}
 not_canceled %>%
   group_by(dest) %>%
   summarise(n = n())
 ```
 
-For a weighted count, take the sum of the weight variable in each group.
+Another alternative to `count()` is to use the combination of the `group_by()` and `tally()` verbs.
+In fact, `count()` is effectively a short-cut for `group_by()` followed by `tally()`.
+
+```{r}
+not_canceled %>%
+  group_by(tailnum) %>%
+  tally()
+```
+
+The second expression also uses the `count()` function, but adds a `wt` argument.
+
+```{r}
+not_canceled %>% 
+  count(tailnum, wt = distance)
+```
+
+As before, we can replicate `count()` by combining the `group_by()` and `summarise()` verbs.
+But this time instead of using `length()`, we will use `sum()` with the weighting variable.
+
 ```{r}
 not_canceled %>%
   group_by(tailnum) %>%
   summarise(n = sum(distance))
 ```
 
-Alternatively, we could have used `group_by()` followed by `tally()`,
-since `count()` itself is a shortcut for calling `group_by()` then `tally()`,
-```{r}
-not_canceled %>%
-  group_by(tailnum) %>%
-  tally()
-```
-and
+Like the previous example, we can also use the combination `group_by()` and `tally()`.
+Any arguments to `tally()` are summed.
+
 ```{r}
 not_canceled %>%
   group_by(tailnum) %>%
@@ -880,8 +894,7 @@ Which is the most important column?
 
 If a flight never departs, then it won't arrive.
 A flight could also depart and not arrive if it crashes, or if it is redirected and lands in an airport other than its intended destination.
-
-The more important column is `arr_delay`, which indicates the amount of delay in arrival.
+So the most important column is `arr_delay`, which indicates the amount of delay in arrival.
 ```{r}
 filter(flights, !is.na(dep_delay), is.na(arr_delay)) %>%
   select(dep_time, arr_time, sched_arr_time, dep_delay, arr_delay)
@@ -982,7 +995,10 @@ To see a more complete example of this analysis, see this FiveThirtyEight [piece
 ### Exercise <span class="exercise-number">5.6.6</span> {.unnumbered .exercise}
 
 <div class="question">
-What does the sort argument to `count()` do. When might you use it?
+
+What does the sort argument to `count()` do?
+When might you use it?
+
 </div>
 
 <div class="answer">
@@ -997,12 +1013,16 @@ You could use this anytime you would run `count()` followed by `arrange()`.
 ### Exercise <span class="exercise-number">5.7.1</span> {.unnumbered .exercise}
 
 <div class="question">
-Refer back to the table of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
+
+Refer back to the table of useful mutate and filtering functions. 
+Describe how each operation changes when you combine it with grouping.
+
 </div>
 
 <div class="answer">
 
-They operate within each group rather than over the entire data frame. E.g. `mean` will calculate the mean within each group.
+They operate within each group rather than over the entire data frame.
+For example, `mean()` will calculate the mean within each group.
 
 </div>
 
@@ -1016,7 +1036,7 @@ Which plane (`tailnum`) has the worst on-time record?
 
 The question does not define the on-time record. I will use the proportion of
 flights not delayed or canceled.
-This metric does not differentiate between the amount of delay, but has the
+This metric does not differentiate between the amount of delay but has the
 benefit of easily incorporating canceled flights.
 ```{r}
 flights %>%
@@ -1050,7 +1070,11 @@ What time of day should you fly if you want to avoid delays as much as possible?
 
 <div class="answer">
 
-Let's group by hour. The earlier the better to fly. This is intuitive as delays early in the morning are likely to propagate throughout the day.
+Let's group by the hour of the flight.
+The earlier the flight is scheduled, the lower its expected delay.
+This is intuitive as delays will affect later flights. 
+Morning flights have fewer (if any) previous flights that can delay them.
+
 ```{r}
 flights %>%
   group_by(hour) %>%
@@ -1063,7 +1087,10 @@ flights %>%
 ### Exercise <span class="exercise-number">5.7.4</span> {.unnumbered .exercise}
 
 <div class="question">
-For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
+
+For each destination, compute the total minutes of delay. 
+For each flight, compute the proportion of the total delay for its destination.
+
 </div>
 
 <div class="answer">
@@ -1137,7 +1164,7 @@ $$
 A standardized variable is often called a $z$-score.
 The units of the standardized variable are standard deviations from the mean.
 This will put the flight times from different routes on the same scale.
-The larger the magnitude of standardized variable for an observation, the more unusual the observation is.
+The larger the magnitude of the standardized variable for an observation, the more unusual the observation is.
 Flights with negative values of the standardized variable are faster than the 
 mean flight for that route, while those with positive values are slower than
 the mean flight for that route.
@@ -1204,8 +1231,7 @@ It is important to note that this does not necessarily imply that there was a da
 We should check these flights to see whether there was some reason for the difference.
 It may be that we are missing some piece of information that explains these unusual times.
 
-A potential issue with the way that we standardized the flights is that the mean and standard deviation used to calculate are sensitive to outliers, which is precisely what we are 
-looking for.
+A potential issue with the way that we standardized the flights is that the mean and standard deviation used to calculate are sensitive to outliers and outliers is what we are looking for.
 Instead of standardizing variables with the mean and variance, we could use the median
 as a measure of central tendency and the interquartile range (IQR) as a measure of spread.
 The median and IQR are more [resistant to outliers](https://en.wikipedia.org/wiki/Robust_statistics) than the mean an standard deviation.
@@ -1247,7 +1273,7 @@ All of these answers have relied only on using a distribution of comparable obse
 In this case, the comparable observations were flights from the same origin to the same destination.
 Apart from our knowledge that flights from the same origin to the same destination should have similar air times, we have not used any other domain-specific knowledge.
 But we know much more about this problem.
-The most obvious piece of knowledge we have is that we know that flights cannot travel back in time, so there should never be a flight with a negative air time.
+The most obvious piece of knowledge we have is that we know that flights cannot travel back in time, so there should never be a flight with a negative airtime.
 But we also know that aircraft have maximum speeds.
 While different aircraft have different [cruising speeds](https://en.wikipedia.org/wiki/Cruise_(aeronautics)), commercial airliners
 typically cruise at air speeds around 547–575 mph.
@@ -1269,7 +1295,7 @@ tools of a data scientist. The tools of statistics are a complement, not a
 substitute, for that knowledge.
 
 With that in mind, Let's plot the distribution of the ground speed of flights. 
-The modal flight in this data has ground speed between 400 and 500 mph.
+The modal flight in this data has a ground speed of between 400 and 500 mph.
 The distribution of ground speeds has a large left tail of slower flights below
 400 mph constituting the majority.
 There are very few flights with a ground speed over 500 mph.
@@ -1334,9 +1360,8 @@ data.
 The second part of the question asks us to compare flights to the fastest flight
 on a route to find the flights most delayed in the air. I will calculate the 
 amount a flight is delayed in air in two ways. 
-The first is the absolute delay, defined as the number of minutes longer than the fastest flight on 
-that route,`air_time - min(air_time)`. 
-The second is the relative delay, which is percentage increase in air time relative to the time of the fastest flight
+The first is the absolute delay, defined as the number of minutes longer than the fastest flight on that route,`air_time - min(air_time)`. 
+The second is the relative delay, which is the percentage increase in air time relative to the time of the fastest flight
 along that route, `(air_time - min(air_time)) / min(air_time) * 100`.
 
 ```{r}
