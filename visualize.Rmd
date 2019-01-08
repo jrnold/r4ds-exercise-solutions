@@ -148,7 +148,7 @@ mpg %>%
     geom_tile(mapping = aes(fill = n))
 ```
 
-In the previous plot, the are many missing tiles.
+In the previous plot, there are many missing tiles.
 This missing tiles represent unobserved combinations of`class` and `drv` values.
 These missing values are not unknown, but represent values of (`class`, `drv`) where `n = 0`.
 The `complete()` function in **tidyr** adds new rows to a data frame for missing combinations of columns.
@@ -371,6 +371,12 @@ It converts the continuous variable to a factor and creates facets for **all** u
 What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean?
 How do they relate to this plot?
 
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
+
+```
+
 </div>
 
 <div class="answer">
@@ -378,11 +384,17 @@ How do they relate to this plot?
 They are cells in which there are no values of the combination of `drv` and `cyl`.
 
 ```{r}
-ggplot(data = mpg) +
+ggplot(data = mpg) + 
   geom_point(mapping = aes(x = drv, y = cyl))
 ```
 
-The locations in the above plot without points are the same cells in `facet_grid(drv ~ cyl)` that have no points.
+The locations in the scatter plot of `drv` and `cyl` without points are the same cells in `facet_grid(drv ~ cyl)` that are empty.
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = hwy, y = cty)) +
+  facet_grid(drv ~ cyl)
+```
 
 </div>
 
@@ -693,6 +705,8 @@ knitr::include_graphics("img/visualize/unnamed-chunk-29-6.png")
 
 <div class="answer">
 
+The following code will generate those plots.
+
 ```{r message=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -736,23 +750,38 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ### Exercise <span class="exercise-number">3.1</span> {.unnumbered .exercise}
 
 <div class="question">
-What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
+
+What is the default geom associated with `stat_summary()`? 
+How could you rewrite the previous plot to use that geom function instead of the stat function?
+
 </div>
 
 <div class="answer">
 
-The default geom for [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) is `geom_pointrange()` (see the `stat`) argument.
+The "previous plot" referred to in the question is the following.
+```{r}
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.ymin = min,
+    fun.ymax = max,
+    fun.y = median
+  )
+```
 
-But, the default `stat` for [`geom_pointrange()`](https://ggplot2.tidyverse.org/reference/geom_linerange.html) is `identity()`, so use `geom_pointrange(stat = "summary")`.
+The default geom for [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) is `geom_pointrange()`.
+The default stat for [`geom_pointrange()`](https://ggplot2.tidyverse.org/reference/geom_linerange.html) is `identity()` but we can add the argument `stat = "summary"` to use `stat_summary()` instead of `stat_identity()`.
 ```{r}
 ggplot(data = diamonds) +
   geom_pointrange(
     mapping = aes(x = cut, y = depth),
-    stat = "summary",
+    stat = "summary"
   )
 ```
 
-The default message says that `stat_summary()` uses the `mean` and `sd` to calculate the middle point and endpoints of the line. So let's use the previous values of `fun.ymin`, `fun.ymax`, and `fun.y`:
+The resulting message says that `stat_summary()` uses the `mean` and `sd` to calculate the middle point and endpoints of the line.
+However, in the original plot the min and max values were used for the endpoints.
+To recreate the original plot we need to specify values for `fun.ymin`, `fun.ymax`, and `fun.y`.
 ```{r}
 ggplot(data = diamonds) +
   geom_pointrange(
@@ -982,16 +1011,16 @@ ggplot(data = diamonds) +
 What is the problem with this plot?
 How could you improve it?
 
-</div>
-
-<div class="answer">
-
-There is overplotting because there are multiple observations for each combination of `cty` and `hwy`.
-
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point()
 ```
+
+</div>
+
+<div class="answer">
+
+There is overplotting because there are multiple observations for each combination of `cty` and `hwy` values.
 
 I would improve the plot by using a jitter position adjustment to decrease overplotting.
 
@@ -1000,7 +1029,8 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = "jitter")
 ```
 
-With jittering, the plot more clearly shows the relationship between `cty` and `hwy`.
+The relationship between `cty` and `hwy` is clear even without jittering the points 
+but jittering shows the locations where there are more oberservations.
 
 </div>
 
@@ -1024,7 +1054,7 @@ Here is what the plot looks like with the default values of `height` and `width`
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
-  geom_point(position = position_jitter(width = 0))
+  geom_point(position = position_jitter())
 ```
 
 However, we can adjust them. Here are few a examples to understand how these
@@ -1043,7 +1073,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter(width = 20)
 ```
 
-When `height = 0`, there is no vertical or horizontal jitter.
+When `height = 0`, there is no horizontal jitter.
 
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
@@ -1055,6 +1085,14 @@ When `height = 15`, there is too much vertical jitter.
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter(height = 15)
+```
+
+When `width = 0` and `height = 0`, there is neither horizontal or vertical jitter,
+and the plot produced is identical to the one produced with `geom_point()`.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_jitter(height = 0, width = 0)
 ```
 
 Note that the `height` and `width` arguments are in the units of the data.
