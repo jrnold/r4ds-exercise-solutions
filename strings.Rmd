@@ -956,7 +956,7 @@ It splits the string into individual characters.
 
 ### Find matches
 
-No exercises
+`r no_exercises()`
 
 ## Other types of patterns
 
@@ -997,9 +997,13 @@ tibble(word = unlist(str_extract_all(sentences, boundary("word")))) %>%
 
 ## Other uses of regular expressions
 
-No exercises
+`r no_exercises()`
 
 ## stringi
+
+```{r}
+library("stringi")
+```
 
 ### Exercise <span class="exercise-number">14.7.1</span> {.unnumbered .exercise}
 
@@ -1017,26 +1021,68 @@ Find the **stringi** functions that:
 
 The answer to each part follows.
 
-1.  To count the number of words use `stri_count_words()`.
+1.  To count the number of words use `stringi::stri_count_words()`.
+    This code counts the words in the first five sentences of `sentences`.
+    ```{r}
+    stri_count_words(head(sentences))
+    ```
 
-1.  To find duplicated strings use `stri_duplicated()`.
+1.  The `stringi::stri_duplicated()` function finds duplicate strings.
+    ```{r}
+    stri_duplicated(c("the", "brown", "cow", "jumped", "over",
+                               "the", "lazy", "fox"))
+    ```
 
-1.  To generate random text the *stringi* package contains several functions beginning with `stri_rand_*`:
-
-    -   `stri_rand_lipsum()` generates lorem ipsum text
-    -   `stri_rand_strings()` generates random strings
-    -   `stri_rand_shuffle()` randomly shuffles the code points (characters) in the text.
+1.  The *stringi* package contains several functions beginning with `stri_rand_*` that generate random text.
+    The function `stringi::stri_rand_strings()` generates random strings.
+    The following code generates four random strings each of length five.
+    ```{r}
+    stri_rand_strings(4, 5)
+    ```
+    
+    The function `stringi::stri_rand_shuffle()` randomly shuffles the characters in the text.
+    ```{r}
+    stri_rand_shuffle("The brown fox jumped over the lazy cow.")
+    ```
+    
+    The function `stringi::stri_rand_lipsum()` generates [lorem ipsum](https://en.wikipedia.org/wiki/Lorem_ipsum) text.
+    Lorem ipsum text is nonsence placeholder text often used in publishing.
+    The following code generates one paragraph of placeholder text.
+    ```{r}
+    stri_rand_lipsum(1)
+    ```    
 
 </div>
 
 ### Exercise <span class="exercise-number">14.7.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 How do you control the language that `stri_sort()` uses for sorting?
+
 </div>
 
 <div class="answer">
 
 You can set a locale to use when sorting with either `stri_sort(..., opts_collator=stri_opts_collator(locale = ...))` or `stri_sort(..., locale = ...)`.
+In this example from the `stri_sort()` documention, the sorted order of the character vector depends on the locale.
+```{r}
+string1 <- c("hladny", "chladny")
+stri_sort(string1, locale = "pl_PL")
+stri_sort(string1, locale = "sk_SK")
+```
+
+The output of `stri_opts_collator()` can also be used for the `locale` argument of `str_sort`.
+```{r}
+stri_sort(string1, opts_collator = stri_opts_collator(locale = "pl_PL"))
+stri_sort(string1, opts_collator = stri_opts_collator(locale = "sk_SK"))
+```
+The `stri_opts_collator()` provides finer grained control over how strings are sorted.
+In addition to setting the locale, it has options to customize how cases, unicode, accents, and numeric values are handled when comparing strings.
+```{r}
+string2 <- c("number100", "number2")
+stri_sort(string2)
+stri_sort(string2, opts_collator = stri_opts_collator(numeric = TRUE))
+```
 
 </div>

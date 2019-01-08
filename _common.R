@@ -40,3 +40,20 @@ r4ds_url <- function(...) {
 comma_int <- function(x) {
   prettyNum(x, big.interval = 3, big.mark = ",")
 }
+
+no_exercises <- function() {
+  tags <- htmltools::tags
+  tags$div(
+    class = 'alert alert-warning hints-alert',
+    tags$div(
+      class = "hints-icon",
+      tags$i(
+        class = "fa fa-exclamation-circle"
+      )
+    ),
+    tags$div(
+      class = "hints-container",
+      "No exercises"
+    )
+  )
+}
