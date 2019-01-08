@@ -1,19 +1,14 @@
 # Introduction
 
+```{r include=FALSE,cache=FALSE}
+# don't cache anything on this page
+knitr::opts_chunk$set(cache = FALSE)
+library("magrittr")
+```
+
 ## Acknowledgments {-}
 
-All the credit should go to Garrett Grolemund and Hadley Wickham for writing the truly fantastic *R for Data Science* book,
-without which these solutions would not exist---literally.
-
-Special thanks to [\@dongzhuoer](https://github.com/dongzhuoer) for a careful reading of the book
-and noticing numerous issues and proposing fixes.
-
-These solutions have benefited from those who fixed problems and contributed 
-solutions. Thank you to all of those who contributed on
-[GitHub](https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors) 
-(in alphabetical order):
-```{r contributions,echo=FALSE,cache=FALSE,message=FALSE,results='asis'}
-library("magrittr")
+```{r include=FALSE}
 # adapted from usethis:::github_repo_spec
 github_repo_spec <- function(path = here::here()) {
   stringr::str_c(gh::gh_tree_remote(path), collapse = "/")
@@ -42,7 +37,7 @@ spec_repo <- function(repo_spec) {
 # commits for GitHub pulls: Github <noreply@github.com>
 
 # adapted from from usethis:::use_tidy_thanks
-create_thanks <- function(repo_spec = github_repo_spec(),
+github_contribs <- function(repo_spec = github_repo_spec(),
                           excluded = NULL) {
   if (is.null(excluded)) {
     excluded <- spec_owner(repo_spec)
@@ -60,13 +55,47 @@ create_thanks <- function(repo_spec = github_repo_spec(),
     purrr::discard(~.x %in% excluded) %>%
     unique() %>%
     sort()
-  contributors <-
-    glue::glue("[\\@{contributors}](https://github.com/{contributors})") %>%
+  glue::glue("[\\@{contributors}](https://github.com/{contributors})") %>%
     glue::glue_collapse(sep = ", ", width = Inf, last = ", and")
-  glue::glue("(in alphabetical order) {contributors}.")
 }
-create_thanks()
+
+hypothesis_contribs <- function() {
+  hypothesis_user_url <- function(x) {
+    username <- stringr::str_match(x, "acct:(.*)@")[1, 2]
+    url <- stringr::str_c("https://hypothes.is/users/", username)
+    stringr::str_c("[\\@", username, "](", url, ")")
+  }
+
+  hypothesis_url <- "https://hypothes.is/api/search"
+  url_pattern <- "https://jrnold.github.io/r4ds-exercise-solutions/*"
+  annotations <- httr::GET(hypothesis_url,
+                           query = list(wildcard_uri = url_pattern)) %>%
+    httr::content()
+
+  annotations %>%
+    purrr::pluck("rows") %>%
+    purrr::keep(~ !.x$flagged) %>%
+    purrr::map_chr("user") %>%
+    unique() %>%
+    purrr::discard(~ .x == "acct:jrnold@hypothes.is") %>%
+    purrr::map_chr(hypothesis_user_url) %>%
+    sort() %>%
+    glue::glue_collapse(sep = ", ", width = Inf, last = ", and")
+}
 ```
+
+All the credit should go to Garrett Grolemund and Hadley Wickham for writing the truly fantastic *R for Data Science* book,
+without which these solutions would not exist---literally.
+
+Special thanks to [\@dongzhuoer](https://github.com/dongzhuoer) for a careful reading of the book
+and noticing numerous issues and proposing fixes.
+
+These solutions have benefited from those who fixed problems and contributed 
+solutions. 
+Thank you to all of those who contributed issues or pull-requests on
+[GitHub](https://github.com/jrnold/r4ds-exercise-solutions/graphs/contributors) 
+(in alphabetical order): `r github_contribs()`
+Thank you to all of you who contributed annotations on [hypothes.is](https://hypothes.is/search?q=url%3Ajrnold.github.io%2Fr4ds-exercise-solutions%2F*) (in alphabetical order): `r hypothesis_contribs()`.
 
 ## How this book is organized {-}
 
