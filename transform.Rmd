@@ -262,7 +262,7 @@ But the departure was delayed `r comma_int(most_delayed$dep_delay)` minutes, whi
 The departure time is the day after the scheduled departure time.
 Be happy that you weren't on that flight, and if you happened to have been on that flight and are reading this, I'm sorry for you.
 
-Similarly, the earliest departing flight can can be found by sorting `dep_delay` in ascending order.
+Similarly, the earliest departing flight can be found by sorting `dep_delay` in ascending order.
 ```{r}
 arrange(flights, dep_delay)
 ```
@@ -301,12 +301,13 @@ earlier seen with `desc()`.
 ### Exercise <span class="exercise-number">5.3.4</span> {.unnumbered .exercise}
 
 <div class="question">
-Which flights traveled the longest? Which traveled the shortest?
+
+Which flights traveled the longest?
+Which traveled the shortest?
+
 </div>
 
 <div class="answer">
-
-By longest (shortest), I assume that the question is asking about the distance traveled, which is given in the variable `distance`, rather than air-time.
 
 ```{r include=FALSE}
 longest <- filter(flights, distance == max(distance)) %>%
@@ -318,13 +319,13 @@ shortest <- filter(flights, distance == min(distance)) %>%
   distinct() %>%
   slice(1)
 ```
-To find the longest flight, sort `distance` in descending order using `desc()`.
+To find the longest flight, sort the flights by the `distance` column in descending order.
 ```{r}
 arrange(flights, desc(distance))
 ```
 The longest flight is `r longest$carrier` `r longest$flight`, `r longest$origin` to `r longest$dest`, which is `r comma_int(max(flights$distance))` miles.
 
-To find the shortest flight, sort `distance` in ascending order, which is the default sort order, so we don't need to use `desc()`.
+To find the shortest flight, sort the flights by the `distance` in ascending order, which is the default sort order.
 ```{r}
 arrange(flights, distance)
 ```
@@ -332,13 +333,13 @@ The shortest flight is `r shortest$carrier` `r shortest$flight`, `r shortest$ori
 This is a flight between two of the New York area airports.
 However, since this flight is missing a departure time so it either did not actually fly or there is a problem with the data.
 
-However, another reasonable interpretation of "longest" and "shortest" is in terms of 
-time, which could similarly be found by sorting by `air_time`.
-The shortest flights in terms of air time are
+The terms "longest" and "shortest" could also refer to the time of the flight instead of the distance.
+Now the longest and shortest flights by can be found by sorting by the `air_time` column.
+The longest flights by airtime are the following.
 ```{r}
 arrange(flights, desc(air_time))
 ```
-and the longest are
+The shortest flights by airtime are the following.
 ```{r}
 arrange(flights, air_time)
 ```
@@ -795,7 +796,7 @@ But it is worth thinking carefully about how it is costly and use that informati
 
 In many scenarios, arrival delay is more important.
 Presumably being late on arriving is more costly to the passenger since it could disrupt the next stages of their travel, such as connecting flights or meetings.  
-If the departure is delayed without affecting the arrival time and the passenger arrived at the same time, this delay will not affect future plans nor does it affect the total time spent traveling.
+If the departure is delayed without affecting the arrival time and the passenger arrived at the same time, this delay will not affect plans nor does it affect the total time spent traveling.
 The delay could be a positive, if less time is spent on the airplane itself, or a negative, if that extra time is spent on the plane in the runway.
 
 Variation in arrival time is worse than consistency.
@@ -1474,7 +1475,7 @@ filter(airlines, carrier == "EV")
 ```
 Unless you know the airplane industry, it is likely that you don't recognize [ExpressJet](https://en.wikipedia.org/wiki/ExpressJet); I certainly didn't.
 It is a regional airline that partners with major airlines to fly from hubs (larger airports) to smaller airports.
-This means that many of the shorter flights of major carriers are actually operated by ExpressJet.
+This means that many of the shorter flights of major carriers are operated by ExpressJet.
 This business model explains why ExpressJet services the most destinations.
 
 </div>
