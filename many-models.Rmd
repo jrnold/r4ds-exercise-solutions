@@ -2,7 +2,7 @@
 
 ## Introduction
 
-```{r}
+```{r message=FALSE}
 library("modelr")
 library("tidyverse")
 library("gapminder")
@@ -13,11 +13,17 @@ library("gapminder")
 ### Exercise <span class="exercise-number">25.2.1</span> {.unnumbered .exercise}
 
 <div class="question">
-A linear trend seems to be slightly too simple for the overall trend. Can you do better with a quadratic polynomial? How can you interpret the coefficients of the quadratic? (Hint you might want to transform year so that it has mean zero.)
+
+A linear trend seems to be slightly too simple for the overall trend. 
+Can you do better with a quadratic polynomial? 
+How can you interpret the coefficients of the quadratic? 
+Hint you might want to transform year so that it has mean zero.)
+
 </div>
 
 <div class="answer">
-The following code replicates the analysis in the chapter but the function `country_model()` is replaced with a regression that includes the year squared.
+
+The following code replicates the analysis in the chapter but replaces the function `country_model()` with a regression that includes the year squared.
 ```{r, eval = FALSE}
 lifeExp ~ poly(year, 2)
 ```
@@ -57,12 +63,15 @@ by_country %>%
   ggplot(aes(continent, r.squared)) +
   geom_jitter(width = 0.5)
 ```
+
 </div>
 
 ### Exercise <span class="exercise-number">25.2.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Explore other methods for visualizing the distribution of $R^2$ per continent. You might want to try the **ggbeeswarm** package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.
+Explore other methods for visualizing the distribution of $R^2$ per continent. 
+You might want to try the **ggbeeswarm** package, which provides similar methods for avoiding overlaps as jitter, but uses deterministic methods.
+
 </div>
 
 <div class="answer">
@@ -85,9 +94,11 @@ by_country %>%
 <div class="question">
 
 To create the last plot (showing the data for the countries with the worst model fits),
-we needed two steps: we created a data frame with one row per country and
-then semi-joined it to the original dataset. 
-It’s possible to avoid this join if we use `unnest()` instead of `unnest(.drop = TRUE)`. How?
+we needed two steps:
+we created a data frame with one row per country 
+and then semi-joined it to the original dataset. 
+It’s possible to avoid this join if we use `unnest()` instead of `unnest(.drop = TRUE)`.
+How?
 
 </div>
 
@@ -117,7 +128,9 @@ gapminder %>%
 ### Exercise <span class="exercise-number">25.4.1</span> {.unnumbered .exercise}
 
 <div class="question">
+
 List all the functions that you can think of that take a atomic vector and return a list.
+
 </div>
 
 <div class="answer">
@@ -129,16 +142,18 @@ E.g. Many of the **stringr** functions.
 ### Exercise <span class="exercise-number">25.4.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Brainstorm useful summary functions that, like `quantile()`, return multiple values.
+
 </div>
 
 <div class="answer">
 
-Some examples of summary functions that return multiple values are `range()` and `fivenum()`.
-
+Some examples of summary functions that return multiple values are the following.
 ```{r}
 range(mtcars$mpg)
 fivenum(mtcars$mpg)
+boxplot.stats(mtcars$mpg)
 ```
 
 </div>
@@ -146,7 +161,10 @@ fivenum(mtcars$mpg)
 ### Exercise <span class="exercise-number">25.4.3</span> {.unnumbered .exercise}
 
 <div class="question">
-What’s missing in the following data frame? How does `quantile()` return that missing piece? Why isn’t that helpful here?
+
+What’s missing in the following data frame? 
+How does `quantile()` return that missing piece? 
+Why isn’t that helpful here?
 
 ```{r}
 mtcars %>%
@@ -154,6 +172,7 @@ mtcars %>%
   summarise(q = list(quantile(mpg))) %>%
   unnest()
 ```
+
 </div>
 
 <div class="answer">
@@ -170,6 +189,7 @@ Since the `unnest` function drops the names of the vector, they aren't useful he
 ### Exercise <span class="exercise-number">25.4.4</span> {.unnumbered .exercise}
 
 <div class="question">
+
 What does this code do?
 Why might might it be useful?
 
@@ -178,6 +198,7 @@ mtcars %>%
   group_by(cyl) %>%
   summarise_each(funs(list))
 ```
+
 </div>
 
 <div class="answer">
@@ -200,12 +221,14 @@ But, it seems that it may do many things that `dplyr::do` does.
 ### Exercise <span class="exercise-number">25.5.1</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Why might the `lengths()` function be useful for creating atomic vector columns from list-columns?
+
 </div>
 
 <div class="answer">
 
-The `lengths()` function gets the lengths of each element in a list.
+The `lengths()` function returns the lengths of each element in a list.
 It could be useful for testing whether all elements in a list-column are the same length.
 You could get the maximum length to determine how many atomic vector columns to create.
 It is also a replacement for something like `map_int(x, length)` or `sapply(x, length)`.
@@ -215,8 +238,10 @@ It is also a replacement for something like `map_int(x, length)` or `sapply(x, l
 ### Exercise <span class="exercise-number">25.5.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 List the most common types of vector found in a data frame.
 What makes lists different?
+
 </div>
 
 <div class="answer">
@@ -229,7 +254,8 @@ The common types of vectors in data frames are:
 -   `character`
 -   `factor`
 
-All of the common types of vectors in data frames are atomic. Lists are not atomic (they can contain other lists and other vectors).
+All of the common types of vectors in data frames are atomic. 
+Lists are not atomic since they can contain other lists and other vectors.
 
 </div>
 
