@@ -673,13 +673,33 @@ Why?
 
 Map functions work with any vectors, not just lists. 
 As with lists, the map functions will apply the function to each element of the vector.
+In the following examples, the inputs to `map()` are atomic vectors (logical, character, integer, double).
+```{r}
+map(c(TRUE, FALSE, TRUE), ~ !.)
+map(c("Hello", "World"), str_to_upper)
+map(1:5, ~ rnorm(.))
+map(c(-0.5, 0, 1), ~ rnorm(1, mean = .))
+```
 
-The expression `map(1:5, runif)` is equivalent to running `runif(1)`, `runif(2)`,
-..., `runif(5)`, and collecting the results in a list.
-The result is a length five list with numeric vectors of sizes one through five.
+It is important to be aware that while the input of `map()` can be any vector, the output is always a list.
+
 ```{r}
 map(1:5, runif)
 ```
+This expression is equivalent to running the following.
+```{r}
+list(
+  runif(1),
+  runif(2),
+  runif(3),
+  runif(4),
+  runif(5)
+)
+```
+The `map()` function loops through the numbers 1 to 5.
+For each value, it calls the `runif()` with that number as the first argument, which is the number of sample to draw.
+The result is a length five list with numeric vectors of sizes one through five, each with random samples from a uniform distribution.
+Note that although input to `map()` was an integer vector, the return value was a list.
 
 </div>
 
