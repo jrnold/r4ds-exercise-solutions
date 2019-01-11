@@ -40,7 +40,6 @@ The answers for each part are below.
     ```
 
 1.  Determine the type of each column in `nycflights13::flights`.
-    Note that we need to use a `list`, not a character vector, since the class can have multiple values.
     ```{r}
     data("flights", package = "nycflights13")
     output <- vector("list", ncol(flights))
@@ -50,6 +49,10 @@ The answers for each part are below.
     }
     output
     ```
+    
+    I used a `list`, not a character vector, since the class of an object can have multiple values.
+    For example, the class of `time_hour` is `r class(time_hour)`.
+    
 
 1.  To compute the number of unique values in each column of the `iris` dataset.
     ```{r}
@@ -62,7 +65,7 @@ The answers for each part are below.
     iris_uniq
     ```
 
-1.  To generate 10 random normals for each of $\mu = -10$, 0, 10, and 100.
+1.  To generate 10 random normals for each of $\mu$ = -10, 0, 10, and 100.
     ```{r}
     # number to draw
     n <- 10
@@ -75,16 +78,19 @@ The answers for each part are below.
     normals
     ```
 
-However, we don't need a for loop for this since `rnorm()` recycle the `mean` argument.
-```{r}
-matrix(rnorm(n * length(mu), mean = mu), ncol = n)
-```
+    However, we don't need a for loop for this since `rnorm()` recycle the `mean` argument.
+    ```{r}
+    matrix(rnorm(n * length(mu), mean = mu), ncol = n)
+    ```
+
 </div>
 
 ### Exercise <span class="exercise-number">21.2.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Eliminate the for loop in each of the following examples by taking advantage of an existing function that works with vectors:
+
 </div>
 
 <div class="answer">
@@ -147,12 +153,13 @@ all.equal(cumsum(x), out)
 
 Combine your function writing and for loop skills:
 
-1.  Write a for loop that `prints()` the lyrics to the children's song  "Alice the camel".
+1.  Write a for loop that `prints()` the lyrics to the children's song "Alice the camel".
 
-1.  Convert the nursery rhyme "ten in the bed" to a function. Generalize it to any number of people in any sleeping structure.
+1.  Convert the nursery rhyme "ten in the bed" to a function. 
+    Generalize it to any number of people in any sleeping structure.
 
 1.  Convert the song "99 bottles of beer on the wall" to a function.
-Generalize to any number of any vessel containing any liquid on  surface.
+    Generalize to any number of any vessel containing any liquid on  surface.
 
 </div>
 
@@ -200,7 +207,8 @@ The answers to each part follow.
     > “Roll over, roll over.” \
     > So they all rolled over and one fell out.
 
-    This verse is repeated, each time with one fewer in the bed, until there is one left. That last verse is:
+    This verse is repeated, each time with one fewer in the bed, until there is one left. 
+    That last verse is:
 
     > One!
     > There was one in the bed \
@@ -279,10 +287,13 @@ for (i in seq_along(x)) {
 }
 output
 ```
-How does this affect performance? Design and execute an experiment.
+How does this affect performance? 
+Design and execute an experiment.
+
 </div>
 
 <div class="answer">
+
 I'll use the package **microbenchmark** to time this.
 The `microbenchmark()` function will run an R expression a number of times and time it.
 
@@ -400,13 +411,10 @@ for (nm in names(x)) {
 ### Exercise <span class="exercise-number">21.3.3</span> {.unnumbered .exercise}  
 
 <div class="question">
-Write a function that prints the mean of each numeric column in a data  frame, along with its name.
+Write a function that prints the mean of each numeric column in a data frame, along with its name.
 For example, `show_mean(iris)` would print:
-</div>
 
-<div class="answer">
-
-```{r, eval = FALSE}
+```{r}
 show_mean(iris)
 # > Sepal.Length: 5.84
 # > Sepal.Width:  3.06
@@ -414,10 +422,14 @@ show_mean(iris)
 # > Petal.Width:  1.20
 ```
 
-> (Extra challenge: what function did I use to make sure that the numbers lined up nicely, even though the variable names had different lengths?)
+Extra challenge: what function did I use to make sure that the numbers lined up nicely, even though the variable names had different lengths?
+
+</div>
+
+<div class="answer">
 
 There may be other functions to do this, but I'll use `str_pad()`, and `str_length()` to ensure that the space given to the variable names is the same.
-I messed around with the options to `format()` until I got two digits .
+I messed around with the options to `format()` until I got two digits.
 ```{r}
 show_mean <- function(df, digits = 2) {
   # Get max length of all variable names in the dataset
@@ -442,10 +454,9 @@ show_mean(iris)
 ### Exercise <span class="exercise-number">21.3.4</span> {.unnumbered .exercise}
 
 <div class="question">
-What does this code do? How does it work?
-</div>
 
-<div class="answer">
+What does this code do?
+How does it work?
 
 ```{r}
 trans <- list(
@@ -461,6 +472,10 @@ for (var in names(trans)) {
 }
 ```
 
+</div>
+
+<div class="answer">
+
 This code mutates the `disp` and `am` columns:
 
 -   `disp` is  multiplied by 0.0163871
@@ -469,7 +484,7 @@ This code mutates the `disp` and `am` columns:
 The code works by looping over a named list of functions.
 It calls the named function in the list on the column of `mtcars` with the same name, and replaces the values of that column.
 
-E.g. this is a function:
+This is a function.
 ```{r eval=FALSE}
 trans[["disp"]]
 ```
@@ -485,7 +500,10 @@ trans[["disp"]](mtcars[["disp"]])
 ### Exercise <span class="exercise-number">21.4.1</span> {.unnumbered .exercise}
 
 <div class="question">
-Read the documentation for `apply()`. In the 2d case, what two for loops does it generalize.
+
+Read the documentation for `apply()`. 
+In the 2nd case, what two for loops does it generalize.
+
 </div>
 
 <div class="answer">
@@ -514,8 +532,7 @@ col_summary <- function(df, fun) {
 }
 ```
 
-The adapted version adds extra logic to only apply the function to numeric
-columns.
+The adapted version adds extra logic to only apply the function to numeric columns.
 ```{r}
 col_summary2 <- function(df, fun) {
   # create an empty vector which will store whether each
@@ -669,9 +686,11 @@ map(1:5, runif)
 ### Exercise <span class="exercise-number">21.5.4</span> {.unnumbered .exercise}
 
 <div class="question">
-What does `map(-2:2, rnorm, n = 5)` do? Why?
+What does `map(-2:2, rnorm, n = 5)` do? 
+Why?
 
-What does `map_dbl(-2:2, rnorm, n = 5)` do? Why?
+What does `map_dbl(-2:2, rnorm, n = 5)` do? 
+Why?
 </div>
 
 <div class="answer">
@@ -680,14 +699,22 @@ Consider the first expression.
 ```{r}
 map(-2:2, rnorm, n = 5)
 ```
-This takes samples size five from five normal distributions, each with a different mean of (-2, -1, 0, 1, and 2) but all have the same standard deviation (1). It returns a list with each element a numeric vectors of length 5.
+This expression takes samples of size five from five normal distributions, with means of (-2, -1, 0, 1, and 2), but the same standard deviation (1). 
+It returns a list with each element a numeric vectors of length 5.
 
-However, if we use `map_dbl` it throws an error. 
+However, if instead, we use `map_dbl()`, the expression raises an error. 
 ```{r error = TRUE}
 map_dbl(-2:2, rnorm, n = 5)
 ```
-This is because `map_dbl` expects the function it applies to each element to 
-return a numeric vector of length one.
+This is because the `map_dbl()` function requires the function it applies to each element to return a numeric vector of length one.
+If the function returns either a non-numeric vector or a numeric vector with a length greater than one, `map_dbl()` will raise an error.
+The reason for this strictness is that `map_dbl()` guarantees that it will return a numeric vector of the *same length* as its input vector.
+
+This concept applies to the other `map_*()` functions.
+The function `map_chr()` requires that the function always return a *character* vector of length one;
+`map_int()` requires that the function always return an *integer* vector of length one;
+`map_lglg()` requires that the function always return an *logical* vector of length one.
+Use the `map()` function if the function will return values of varying types or lengths.
 
 If we wanted a numeric vector, we could use `map()` followed by `flatten_dbl()`,
 ```{r}
@@ -699,13 +726,31 @@ flatten_dbl(map(-2:2, rnorm, n = 5))
 ### Exercise <span class="exercise-number">21.5.5</span> {.unnumbered .exercise}
 
 <div class="question">
-Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
+Rewrite `map(mtcars, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
 </div>
 
 <div class="answer">
 
+Note that there is a bug in the question code.
 ```{r}
-map(list(mtcars), ~lm(mpg ~ wt, data = .))
+map(mtcars, function(df) lm(mpg ~ wt, data = df))
+```
+The reasons for this bug are technical, but the following code will work.
+```{r}
+map(list(mtcars), function(df) lm(mpg ~ wt, data = df))
+```
+
+We can eliminate the use of an anonymous function using the `~` shortcut.
+```{r}
+map(mtcars, ~lm(mpg ~ wt, data = .))
+```
+
+Though not the intent of this question, the other way to eliminate anonymous function is to create a named one.
+```{r}
+run_reg <- function(df) {
+  lm(mpg ~ wt, data = df)
+}
+map(list(mtcars), run_reg)
 ```
 
 </div>
@@ -757,13 +802,16 @@ every2(1:3, function(x) {
 })
 ```
 
-The function `purrr::every()` does fancy things with `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.
+The function `purrr::every()` does fancy things with the predicate function argument `.p`, like taking a logical vector instead of a function, or being able to test part of a string if the elements of `.x` are lists.
+
 </div>
 
 ### Exercise <span class="exercise-number">21.9.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Create an enhanced `col_sum()` that applies a summary function to every numeric column in a data frame.
+
 </div>
 
 <div class="answer">
@@ -786,6 +834,7 @@ col_sum2(iris, mean)
 ### Exercise <span class="exercise-number">21.9.3</span> {.unnumbered .exercise}
 
 <div class="question">
+
 A possible base R equivalent of `col_sum()` is:
 
 ```{r}
