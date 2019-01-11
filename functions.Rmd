@@ -28,8 +28,7 @@ rescale01 <- function(x) {
 }
 ```
 
-If `x` contains a single missing value, and both `na.rm = FALSE`, then this function
-will still return a non-missing value.
+If `x` contains a single missing value and `na.rm = FALSE`, then this function stills return a non-missing value.
 ```{r}
 rescale01_alt <- function(x, na.rm = FALSE) {
   rng <- range(x, na.rm = na.rm, finite = TRUE)
@@ -38,12 +37,10 @@ rescale01_alt <- function(x, na.rm = FALSE) {
 rescale01_alt(c(NA, 1:5), na.rm = FALSE)
 rescale01_alt(c(NA, 1:5), na.rm = TRUE)
 ```
-This is because the option `finite = TRUE` to `range()` will drop all non-finite
-elements, and `NA` is a non-finite element.
+The option `finite = TRUE` to `range()` will drop all non-finite elements, and `NA` is a non-finite element.
 
-However, if both `finite = FALSE` and `na.rm = FALSE`, then this function will
-return a vector of `NA` values.
-Recall, arithmetic operations involving `NA` values will return `NA`.
+However, if both `finite = FALSE` and `na.rm = FALSE`, then this function will return a vector of `NA` values.
+Recall, arithmetic operations involving `NA` values return `NA`.
 ```{r}
 rescale01_alt2 <- function(x, na.rm = FALSE, finite = FALSE) {
   rng <- range(x, na.rm = na.rm, finite = finite)
@@ -59,7 +56,7 @@ rescale01_alt2(c(NA, 1:5), na.rm = FALSE, finite = FALSE)
 <div class="question">
 
 In the second variant of `rescale01()`, infinite values are left unchanged.
-Rewrite `rescale01()` so that `-Inf` is mapped to 0, and `Inf` is mapped to 1.
+Rewrite `rescale01()` so that `-Inf` is mapped to `0`, and `Inf` is mapped to `1`.
 
 </div>
 
@@ -110,7 +107,7 @@ prop_na <- function(x) {
 prop_na(c(0, 1, 2, NA, 4, NA))
 ```
 
-This code standardizes a vector so that it sums to 1.
+This code standardizes a vector so that it sums to one.
 ```{r eval=FALSE}
 x / sum(x, na.rm = TRUE)
 ```
@@ -163,42 +160,42 @@ Follow <http://nicercode.github.io/intro/writing-functions.html> to write your o
 
 <div class="answer">
 
-**Note** The math in <https://nicercode.github.io/intro/writing-functions.html> seems not to be rendering, but I'll write functions for the variance and skewness.
+**Note** The math in <https://nicercode.github.io/intro/writing-functions.html> seems not to be rendering.
 
-The sample variance is defined as
+The sample variance is defined as,
 $$
-Var(x) = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar{x}) ^2
+\mathrm{Var}(x) = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar{x}) ^2 \text{,}
 $$
-where the sample mean is $\bar{x} = (\sum x_i) / n$.
-```{r}
+where $\bar{x} = (\sum_i^n x_i) / n$ is the sample mean.
+The corresponding function is:
+```{r variance}
 variance <- function(x, na.rm = TRUE) {
   n <- length(x)
   m <- mean(x, na.rm = TRUE)
   sq_err <- (x - m)^2
   sum(sq_err) / (n - 1)
 }
+```
+```{r}
 var(1:10)
 variance(1:10)
 ```
 
-There are multiple definitions of [skewness](https://en.wikipedia.org/wiki/Skewness),
-but one of the most commonly used is the following:[@DoaneSeward2011]
+There are multiple definitions for [skewness](https://en.wikipedia.org/wiki/Skewness), but we will use the following one,
 $$
-\mathsf{skewness}(x) = \frac{n}{(n - 1)(n - 2)} \sum_{i = 1}^{n} {\left( \frac{x_i - \bar{x}}{s} \right)}^{3} .
+\mathrm{Skew}(x) = \frac{\frac{1}{n-2} \left(\sum_{i=1}^n(x_i - \bar x)^3\right)}{\mathrm{Var}(x)^{3/2}} \text{.}
 $$
-where $\bar{x}$ is the sample mean and
-$$
-s = \sqrt{\frac{1}{n - 1} \sum_{i = 1}^{n} (x_i - \bar{x})^2}
-$$
-is the sample standard deviation.
+
 The corresponding function is:
-```{r}
+```{r skewness}
 skewness <- function(x, na.rm = FALSE) {
   n <- length(x)
   m <- mean(x, na.rm = na.rm)
-  s <- sd(x, na.rm = na.rm)
-  n * sum(((x - m) / s)^3) / (n - 1) / (n - 2)
+  v <- var(x, na.rm = na.rm)
+  (sum(x - m) ^ 3 / (n - 2)) / v ^ (3 / 2)
 }
+```
+```{r}
 skewness(c(1, 2, 5, 100))
 ```
 
