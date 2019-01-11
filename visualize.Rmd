@@ -26,8 +26,8 @@ ggplot(data = mpg)
 ```
 
 This code creates an empty plot. 
-The `gggplot()` function creates the background of the plot, 
-but since nothing else was specified, nothing else is drawn.
+The `ggplot()` function creates the background of the plot, 
+but since no layers were specified with geom function, nothing is drawn.
 
 </div>
 
@@ -81,7 +81,9 @@ The `drv` variable is a categorical variable which categorizes cars into front-w
 ### Exercise <span class="exercise-number">3.2.4</span>. {.unnumbered .exercise}
 
 <div class="question">
+
 Make a scatter plot of `hwy` vs. `cyl`.
+
 </div>
 
 <div class="answer">
@@ -130,8 +132,9 @@ count(mpg, drv, class)
 A simple scatter plot does not show how many observations there are for each (`x`, `y`) value.
 As such, scatterplots work best for plotting a continuous x and a continuous y variable, and when all (`x`, `y`) values are unique.
 
-The following code uses functions introduced in a later section, but may be of interest. 
-Section [7.5.2](https://r4ds.had.co.nz/exploratory-data-analysis.html#two-categorical-variables) discusses methods for plotting two categorical variables.
+**Warning** The following code uses functions introduced in a later section.
+Come back to this after reading
+section [7.5.2](https://r4ds.had.co.nz/exploratory-data-analysis.html#two-categorical-variables), which introduces methods for plotting two categorical variables.
 The first is `geom_count()` which is similar to a scatterplot but uses the size of the points to show the number of observations at an (`x`, `y`) point.
 
 ```{r}
@@ -149,7 +152,7 @@ mpg %>%
 ```
 
 In the previous plot, there are many missing tiles.
-This missing tiles represent unobserved combinations of`class` and `drv` values.
+These missing tiles represent unobserved combinations of `class` and `drv` values.
 These missing values are not unknown, but represent values of (`class`, `drv`) where `n = 0`.
 The `complete()` function in **tidyr** adds new rows to a data frame for missing combinations of columns.
 The following code adds rows for missing combinations of `class` and `drv` and uses the `fill` argument to set `n = 0` for those new rows.
@@ -183,7 +186,7 @@ ggplot(data = mpg) +
 <div class="answer">
 
 The argument`colour = "blue"` is included within the `mapping` argument, and as such, it is treated as an aesthetic, which is a mapping between a variable and a value.
-In the expression, `color="blue"`, `"blue"` is interpreted not as a variable name, but as a variable that takes a single value `"blue"`.
+In the expression, `color="blue"`, `"blue"` is interpreted as a categorical varaible which only takes a single value `"blue"`.
 If this is confusing, consider how `colour = 1:234` and `colour = 1` are interpreted by `aes()`.
 
 The following code does produces the expected result.
@@ -208,23 +211,32 @@ How can you see this information when you run `mpg`?
 
 <div class="answer">
 
-The following list contains the categorical variables in `mpg`:
+The following list contains the categorical variables in `mpg`.
 
+-   `model`
 -   `trans`
 -   `drv`
 -   `fl`
 -   `class`
 
-```{r eval=FALSE}
-?mpg
-```
+The following list contains the continuous variables in `mpg`.
+
+-   `displ`
+-   `year`
+-   `cyl`
+-   `cty`
+-   `hwy`
 
 In the printed data frame, angled brackets at the top of each column provide type of each variable.
-Categorical variables have a class of "character" (`<chr>`).
+
 ```{r}
 mpg
 ```
-Alternatively, `glimpse()` displays the type of each column:
+
+Those with `<chr>` above their columns are categorical, while those with `<dbl>` or `<int>` are continuous.
+The exact meaning of these types will be discussed in the [Vectors](https://jrnold.github.io/r4ds-exercise-solutions/vectors.html) chapter.
+
+Alternatively, `glimpse()` displays the type of each column.
 ```{r}
 glimpse(mpg)
 ```
@@ -331,9 +343,10 @@ ggplot(mpg, aes(x = displ, y = hwy, colour = displ < 5)) +
 ```
 
 Aesthetics can also be mapped to expressions like `displ < 5`.
-It will create a temporary variable which takes values from the result of the expression.
+The `ggplot()` function behaves as if a temporary variable was added to the data with with values equal to the result of the expression.
 In this case, the result of `displ < 5` is a logical variable which takes values of `TRUE` or `FALSE`.
-This also explains why, in exercise 1, the expression `colour = "blue"` created a categorical variable with only one category: "blue".
+
+This also explains why, in [Exercise 3.3.1](#exercise-3.3.1), the expression `colour = "blue"` created a categorical variable with only one category: "blue".
 
 </div>
 
@@ -360,7 +373,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_grid(. ~ cty)
 ```
 
-It converts the continuous variable to a factor and creates facets for **all** unique values of it.
+The continuous variable is converted to a categorical variable, and the plot contains a facet for each distinct value.
 
 </div>
 
@@ -371,7 +384,7 @@ It converts the continuous variable to a factor and creates facets for **all** u
 What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean?
 How do they relate to this plot?
 
-```{r}
+```{r results='hide'}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = drv, y = cyl))
 
@@ -381,19 +394,18 @@ ggplot(data = mpg) +
 
 <div class="answer">
 
-They are cells in which there are no values of the combination of `drv` and `cyl`.
-
-```{r}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = drv, y = cyl))
-```
-
-The locations in the scatter plot of `drv` and `cyl` without points are the same cells in `facet_grid(drv ~ cyl)` that are empty.
-
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = hwy, y = cty)) +
   facet_grid(drv ~ cyl)
+```
+
+The empty cells (facets) in this plot are combinations of `drv` and `cyl` that have no observations.
+These are the same locations in the scatter plot of `drv` and `cyl` that have no plots.
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
 ```
 
 </div>
@@ -402,14 +414,15 @@ ggplot(data = mpg) +
 
 <div class="question">
 
-What plots does the following code make? What does `.` do?
+What plots does the following code make? 
+What does `.` do?
 
 </div>
 
 <div class="answer">
 
 The symbol `.` ignores that dimension when faceting.
-For example, plot facets by values of `drv` on the y-axis.
+For example, `drv ~ .` facet by values of `drv` on the y-axis.
 
 ```{r ex.3.5.1.4.a}
 ggplot(data = mpg) +
@@ -417,7 +430,7 @@ ggplot(data = mpg) +
   facet_grid(drv ~ .)
 ```
 
-While this plot facets by values of `cyl` on the x-axis.
+While, `drv ~ .` will facet by values of `cyl` on the y-axis.
 
 ```{r ex.3.5.1.4.b}
 ggplot(data = mpg) +
@@ -470,8 +483,7 @@ with facets, the unconditional relationship is no longer visualized since the
 points are spread across multiple plots.
 
 The benefits encoding a variable through facetting over color become more advantageous as either the number of points or the number of categories increase.
-In the former, as the number of points increases, there is likely to be more
-overlap.
+In the former, as the number of points increases, there is likely to be more overlap.
 
 It is difficult to handle overlapping points with color.
 Jittering will still work with color.
