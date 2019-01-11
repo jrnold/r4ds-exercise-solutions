@@ -614,16 +614,16 @@ Write code that uses one of the map functions to:
     length(unique(iris$Species))
     ```
     To apply this to all columns, we can provide the map an anonymous function.
-    We can write anonymous function using the standard R syntax, like this,
+    We can write anonymous function using the standard R syntax.
     ```{r}
     map_int(iris, function(x) length(unique(x)))
     ```
-    or using the more compact, one-sided formula shortcut that **purrr** provides,
+    We could also use the compact, one-sided formula shortcut that purrr provides.
     ```{r}
     map_int(iris, ~length(unique(.)))
     ```
-    The `map_int` function is used since `length()` returns an integer.
-    However, `map_dbl` will also work,
+    In these examples, the `map_int()` function is used since `length()` returns an integer.
+    However, the `map_dbl()` function will also work.
     ```{r results='hide'}
     map_dbl(iris, ~length(unique(.)))
     ```
@@ -726,23 +726,20 @@ flatten_dbl(map(-2:2, rnorm, n = 5))
 ### Exercise <span class="exercise-number">21.5.5</span> {.unnumbered .exercise}
 
 <div class="question">
-Rewrite `map(mtcars, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
+Rewrite `map(x, function(df) lm(mpg ~ wt, data = df))` to eliminate the anonymous function.
 </div>
 
 <div class="answer">
 
-Note that there is a bug in the question code.
+This code in this question is not runnable, so I will use the following code.
 ```{r}
-map(mtcars, function(df) lm(mpg ~ wt, data = df))
-```
-The reasons for this bug are technical, but the following code will work.
-```{r}
-map(list(mtcars), function(df) lm(mpg ~ wt, data = df))
+x <- split(mtcars, mtcars$cyl)
+map(x, function(df) lm(mpg ~ wt, data = df))
 ```
 
 We can eliminate the use of an anonymous function using the `~` shortcut.
 ```{r}
-map(mtcars, ~lm(mpg ~ wt, data = .))
+map(x, ~ lm(mpg ~ wt, data = .))
 ```
 
 Though not the intent of this question, the other way to eliminate anonymous function is to create a named one.
@@ -750,7 +747,7 @@ Though not the intent of this question, the other way to eliminate anonymous fun
 run_reg <- function(df) {
   lm(mpg ~ wt, data = df)
 }
-map(list(mtcars), run_reg)
+map(x, run_reg)
 ```
 
 </div>
