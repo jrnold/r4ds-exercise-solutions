@@ -863,10 +863,13 @@ col_sum3(df[0], mean)
 ```
 
 What causes these bugs?
+
 </div>
 
 <div class="answer">
-The problem is that `sapply` does not always return numeric vectors.
+
+The cause of these bugs is the behavior of `sapply()`.
+The `sapply()` function does not guarantee the type of vector it returns, and will returns different types of vectors depending on its inputs.
 If no columns are selected, instead of returning an empty numeric vector, it returns an empty list.
 This causes an error since we can't use a list with `[`.
 ```{r}
@@ -878,6 +881,9 @@ sapply(df[1], is.numeric)
 ```{r}
 sapply(df[1:2], is.numeric)
 ```
+The `sapply()` function tries to be helpful by simplifying the results, but this behavior can be counterproductive.
+It is okay to use the `sapply()` function interactively, but avoid programming with it.
+
 </div>
 
 <!-- match unopened div --><div>
