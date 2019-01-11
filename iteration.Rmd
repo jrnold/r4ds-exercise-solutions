@@ -41,17 +41,16 @@ The answers for each part are below.
 
 1.  Determine the type of each column in `nycflights13::flights`.
     ```{r}
-    data("flights", package = "nycflights13")
-    output <- vector("list", ncol(flights))
-    names(output) <- names(flights)
-    for (i in names(flights)) {
-      output[[i]] <- class(flights[[i]])
+    output <- vector("list", ncol(nycflights13::flights))
+    names(output) <- names(nycflights13::flights)
+    for (i in names(nycflights13::flights)) {
+      output[[i]] <- class(nycflights13::flights[[i]])
     }
     output
     ```
     
     I used a `list`, not a character vector, since the class of an object can have multiple values.
-    For example, the class of `time_hour` is `r class(time_hour)`.
+    For example, the class of the `time_hour` column is `r class(nycflights13::flights$time_hour)`.
     
 
 1.  To compute the number of unique values in each column of the `iris` dataset.
@@ -414,7 +413,7 @@ for (nm in names(x)) {
 Write a function that prints the mean of each numeric column in a data frame, along with its name.
 For example, `show_mean(iris)` would print:
 
-```{r}
+```{r eval=FALSE}
 show_mean(iris)
 # > Sepal.Length: 5.84
 # > Sepal.Width:  3.06
