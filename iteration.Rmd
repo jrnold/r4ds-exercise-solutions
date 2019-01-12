@@ -501,13 +501,48 @@ trans[["disp"]](mtcars[["disp"]])
 <div class="question">
 
 Read the documentation for `apply()`. 
-In the 2nd case, what two for loops does it generalize.
+In the 2nd case, what two for-loops does it generalize.
 
 </div>
 
 <div class="answer">
 
-It generalizes looping over the rows or columns of a matrix or data-frame.
+For an object with two-dimensions, such as a matrix or data frame, `apply()` replaces looping over the rows or columns of a matrix or data-frame.
+The `apply()` function is used like `apply(X, MARGIN, FUN, ...)`, where `X` is a matrix or array, `FUN` is a function to apply, and `...` are additional arguments passed to `FUN`.
+
+When `MARGIN = 1`, then the function is applied to each row.
+For example, this calculates the row means of `df`.
+```{r}
+X <- matrix(rnorm(15), nrow = 5)
+X
+```
+```{r}
+apply(X, 1, mean)
+```
+That is equivalent to this for-loop.
+```{r}
+X_row_means <- vector("numeric", length = nrow(X))
+for (i in seq_len(nrow(X))) {
+  X_row_means[[i]] <- mean(X[i, ])
+}
+X_row_means
+```
+```{r}
+X <- matrix(rnorm(15), nrow = 5)
+X
+```
+
+When `MARGIN = 2`, `apply()` is equivalent to a for-loop looping over columns.
+```{r}
+apply(X, 2, mean)
+```
+```{r}
+X_col_means <- vector("numeric", length = ncol(X))
+for (i in seq_len(ncol(X))) {
+  X_col_means[[i]] <- mean(X[i, ])
+}
+X_col_means
+```
 
 </div>
 
