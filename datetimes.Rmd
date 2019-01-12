@@ -30,8 +30,10 @@ flights_dt <- flights %>%
 ### Exercise <span class="exercise-number">16.2.1</span> {.unnumbered .exercise}
 
 <div class="question">
+
 What happens if you parse a string that
 contains invalid dates?
+
 </div>
 
 <div class="answer">
@@ -48,29 +50,43 @@ It produces an `NA` and a warning message.
 
 ### Exercise <span class="exercise-number">16.2.2</span> {.unnumbered .exercise}
 
-What does the `tzone` argument to `today()` do? Why is it important?
+<div class="question">
 
-It determines the time-zone of the date. Since different time-zones can have different dates, the value of `today()` can vary depending on the time-zone specified.
+What does the `tzone` argument to `today()` do? 
+Why is it important?
+
+</div>
+
+<div class="answer">
+
+It determines the time-zone of the date. 
+Since different time-zones can have different dates, the value of `today()` can vary depending on the time-zone specified.
+
+</div>
 
 ### Exercise <span class="exercise-number">16.2.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Use the appropriate lubridate function to
-parse each of the following dates:
+
+Use the appropriate lubridate function to parse each of the following dates:
+
+```{r}
+d1 <- "January 1, 2010"
+d2 <- "2015-Mar-07"
+d3 <- "06-Jun-2017"
+d4 <- c("August 19 (2015)", "July 1 (2015)")
+d5 <- "12/30/14"
+```
+
 </div>
 
 <div class="answer">
 
 ```{r}
-d1 <- "January 1, 2010"
 mdy(d1)
-d2 <- "2015-Mar-07"
 ymd(d2)
-d3 <- "06-Jun-2017"
 dmy(d3)
-d4 <- c("August 19 (2015)", "July 1 (2015)")
 mdy(d4)
-d5 <- "12/30/14" # Dec 30, 2014
 mdy(d5)
 ```
 
@@ -94,8 +110,10 @@ In the previous code, the difference between rounded and un-rounded dates provid
 ### Exercise <span class="exercise-number">16.3.1</span> {.unnumbered .exercise}
 
 <div class="question">
+
 How does the distribution of flight times
 within a day change over the course of the year?
+
 </div>
 
 <div class="answer">
@@ -127,7 +145,13 @@ At least to me there doesn't appear to much difference in within-day distributio
 
 ### Exercise <span class="exercise-number">16.3.2</span> {.unnumbered .exercise}
 
+<div class="question">
+
 Compare `dep_time`, `sched_dep_time` and `dep_delay`. Are they consistent? Explain your findings.
+
+</div>
+
+<div class="answer">
 
 If they are consistent, then `dep_time = sched_dep_time + dep_delay`.
 
@@ -144,9 +168,17 @@ the scheduled departure time. We forgot to account for this when creating the
 date-times using `make_datetime_100()` function in [16.2.2 From individual components](https://r4ds.had.co.nz/dates-and-times.html#from-individual-components). The code would have had to check if the departure time is less than
 the scheduled departure time plus departure delay (in minutes). Alternatively, simply adding the departure delay to the scheduled departure time is a more robust way to construct the departure time because it will automatically account for crossing into the next day.
 
+</div>
+
 ### Exercise <span class="exercise-number">16.3.3</span> {.unnumbered .exercise}
 
+<div class="question">
+
 Compare `air_time` with the duration between the departure and arrival. Explain your findings.
+
+</div>
+
+<div class="answer">
 
 ```{r}
 flights_dt %>%
@@ -158,9 +190,17 @@ flights_dt %>%
   select(origin, dest, flight_duration, air_time_mins, diff)
 ```
 
+</div>
+
 ### Exercise <span class="exercise-number">16.3.4</span> {.unnumbered .exercise}
 
+<div class="question">
+
 How does the average delay time change over the course of a day? Should you use `dep_time` or `sched_dep_time`? Why?
+
+</div>
+
+<div class="answer">
 
 Use `sched_dep_time` because that is the relevant metric for someone scheduling a flight. Also, using `dep_time` will always bias delays to later in the day since delays will push flights later.
 
@@ -174,9 +214,17 @@ flights_dt %>%
   geom_smooth()
 ```
 
+</div>
+
 ### Exercise <span class="exercise-number">16.3.5</span> {.unnumbered .exercise}
 
+<div class="question">
+
 On what day of the week should you leave if you want to minimize the chance of a delay?
+
+</div>
+
+<div class="answer">
 
 Sunday has the lowest average departure delay time and the lowest average arrival delay time.
 
@@ -190,9 +238,17 @@ flights_dt %>%
   )
 ```
 
+</div>
+
 ### Exercise <span class="exercise-number">16.3.6</span> {.unnumbered .exercise}
 
+<div class="question">
+
 What makes the distribution of `diamonds$carat` and `flights$sched_dep_time` similar?
+
+</div>
+
+<div class="answer">
 
 ```{r}
 ggplot(diamonds, aes(x = carat)) +
@@ -214,9 +270,18 @@ ggplot(flights_dt, aes(x = minute(sched_dep_time))) +
   geom_histogram(binwidth = 1)
 ```
 
+</div>
+
 ### Exercise <span class="exercise-number">16.3.7</span> {.unnumbered .exercise}
 
-Confirm my hypothesis that the early departures of flights in minutes 20-30 and 50-60 are caused by scheduled flights that leave early. Hint: create a binary variable that tells you whether or not a flight was delayed.
+<div class="question">
+
+Confirm my hypothesis that the early departures of flights in minutes 20-30 and 50-60 are caused by scheduled flights that leave early. 
+Hint: create a binary variable that tells you whether or not a flight was delayed.
+
+</div>
+
+<div class="answer">
 
 At the minute level, there doesn't appear to be anything:
 ```{r}
@@ -245,12 +310,16 @@ flights_dt %>%
   geom_point()
 ```
 
+</div>
+
 ## Time Spans
 
 ### Exercise <span class="exercise-number">16.4.1</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Why is there `months()` but no `dmonths()`?
+
 </div>
 
 <div class="answer">
@@ -268,7 +337,10 @@ The month is not a duration of time defined independently of when it occurs, but
 ### Exercise <span class="exercise-number">16.4.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Explain `days(overnight * 1)` to someone who has just started learning R. How does it work?
+
+Explain `days(overnight * 1)` to someone who has just started learning R. 
+How does it work?
+
 </div>
 
 <div class="answer">
@@ -281,7 +353,10 @@ If it is an overnight flight, this becomes 1 day, and if not, then overnight = 0
 ### Exercise <span class="exercise-number">16.4.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Create a vector of dates giving the first day of every month in 2015. Create a vector of dates giving the first day of every month in the current year.
+
+Create a vector of dates giving the first day of every month in 2015. 
+Create a vector of dates giving the first day of every month in the current year.
+
 </div>
 
 <div class="answer">
@@ -302,7 +377,9 @@ floor_date(today(), unit = "year") + months(0:11)
 ### Exercise <span class="exercise-number">16.4.4</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Write a function that given your birthday (as a date), returns how old you are in years.
+
 </div>
 
 <div class="answer">
@@ -319,7 +396,9 @@ age(ymd("1990-10-12"))
 ### Exercise <span class="exercise-number">16.4.5</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Why can’t `(today() %--% (today() + years(1)) / months(1)` work?
+
 </div>
 
 <div class="answer">
@@ -361,4 +440,4 @@ as.Date("2016-02-29") + years(1)
 
 `r no_exercises()`
 
-<!-- match unopened div --><div>
+<div><!-- open unclosed div -->
