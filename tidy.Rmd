@@ -28,7 +28,7 @@ The column `count` contains the values of variables `cases` and `population` in 
 table2
 ```
 
-In `table3`, each row is represents a (country, year) combination.
+In `table3`, each row represents a (country, year) combination.
 The column `rate` provides the values of both `cases` and `population` in a string formatted like `cases / population`.
 ```{r}
 table3
@@ -49,24 +49,27 @@ table4b
 ### Exercise <span class="exercise-number">12.2.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Compute the `rate` for `table2`, and `table4a` + `table4b`. You will need to perform four operations:
+
+Compute the `rate` for `table2`, and `table4a` + `table4b`. 
+You will need to perform four operations:
 
 1.  Extract the number of TB cases per country per year.
 1.  Extract the matching population per country per year.
 1.  Divide cases by population, and multiply by 10000.
 1.  Store back in the appropriate place.
 
-Which representation is easiest to work with? Which is hardest? Why?
+Which representation is easiest to work with? 
+Which is hardest? 
+Why?
 
 </div>
 
 <div class="answer">
 
-In order to calculate cases per person, we need to divide cases by population for each country, year.
-This is easiest if country and population are two columns in a data frame with country and year rows.
+To calculate cases per person, we need to divide cases by population for each country and year.
+This is easiest if the cases and population variables are two columns in a data frame in which rows represent (country, year) combinations.
 
-For Table 2, we need to first create separate tables
-for cases and population and ensure that they are sorted in the same order.
+Table 2: First, create separate tables for cases and population and ensure that they are sorted in the same order.
 ```{r}
 t2_cases <- filter(table2, type == "cases") %>%
   rename(cases = count) %>%
@@ -75,18 +78,19 @@ t2_population <- filter(table2, type == "population") %>%
   rename(population = count) %>%
   arrange(country, year)
 ```
-Calculate the cases per capita in a separate data frame.
+Then create a new data frame with the population and cases columns, and calculate the cases per capita in a new column.[^ex-12.2.2]
 ```{r}
-t2_cases_per_cap <- t2_cases %>%
-  mutate(
-    population = t2_population$population,
-    cases_per_cap = (cases / population) * 10000
-  ) %>%
+t2_cases_per_cap <- tibble(
+  year = t2_cases$year,
+  country = t2_cases$country,
+  cases = t2_cases$cases,
+  population = t2_population$population
+) %>%
+  mutate(cases_per_cap = (cases / population) * 10000) %>%
   select(country, year, cases_per_cap)
 ```
-Since the question asks us to store it back in the appropriate location, we will add new rows with
-`type = "cases_per_cap"` to `table2` and then
-sort by country, year, and variable type as in the original table.
+
+To store this new variable in the appropriate location, we will add new rows to `table2`.
 ```{r}
 t2_cases_per_cap <- t2_cases_per_cap %>%
   mutate(type = "cases_per_cap") %>%
@@ -96,10 +100,9 @@ t2_cases_per_cap <- t2_cases_per_cap %>%
 bind_rows(table2, t2_cases_per_cap) %>%
   arrange(country, year, type, count)
 ```
-Note that after adding the `cases_per_cap` rows,
-the type of `count` is coerced to `numeric` (double) because `cases_per_cap` is not an integer.
+Note that after adding the `cases_per_cap` rows, the type of `count` is coerced to `numeric` (double) because `cases_per_cap` is not an integer.
 
-For `table4a` and `table4b`, we will create a separate table for cases per capita (`table4c`), with country rows and year columns.
+For `table4a` and `table4b`, create a new table for cases per capita, which we'll name `table4c`, with country rows and year columns.
 ```{r}
 table4c <-
   tibble(
@@ -125,12 +128,15 @@ Then problem could be answered with a single `mutate()` call.
 ### Exercise <span class="exercise-number">12.2.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Recreate the plot showing change in cases over time using `table2` instead of `table1`. What do you need to do first?
+
+Recreate the plot showing change in cases over time using `table2` instead of `table1`. 
+What do you need to do first?
+
 </div>
 
 <div class="answer">
 
-Before creating the plot with change in cases over time, we need to filter the data frame to only include rows representing cases of TB.
+Before creating the plot with change in cases over time, we need to filter `table` to only include rows representing cases of TB.
 ```{r}
 table2 %>%
   filter(type == "cases") %>%
@@ -145,7 +151,7 @@ table2 %>%
 
 ## Spreading and Gathering
 
-This code is reproduced from the chapter because it is needed by the exercises:
+This code is reproduced from the chapter because it is needed by the exercises.
 ```{r}
 tidy4a <- table4a %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
@@ -156,6 +162,7 @@ tidy4b <- table4b %>%
 ### Exercise <span class="exercise-number">12.3.1</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Why are `gather()` and `spread()` not perfectly symmetrical?
 Carefully consider the following example:
 
@@ -174,30 +181,44 @@ stocks %>%
 
 <div class="answer">
 
-The functions `spread()` and `gather()` are not perfectly symmetrical because column type information is not transferred between them.
-When we use `gather()` on a data frame, it throws away all the information about the original column types. 
-Additionally, it has to coerce all the variables that are being gathered into 
-a single type, since they are going into a single vector.
-Later if we `spread()` that data frame, the `spread()` function has no way to 
-know what the original data types of the columns that were earlier gathered.
+The functions `spread()` and `gather()` are not perfectly symmetrical because column type information is lost.
+When we use `gather()` on a data frame, it discards the original column types.
+It has to coerce all the gathered variables into a single vector with a single type.
+Later, if we `spread()` that data frame, the `spread()` function does not know the original data types of the variables.
 
-In this example, in the original table, the column `year` was numeric.
-After running `spread()` and `gather()` it is a character vector.
-Variable names are always converted to a character vector by `gather()`.
+In this example, the column `year` is numeric.
+After running `spread()` and `gather()`, the `year` column is a character vector.
+After `spread()`, the years are column names.
+```{r}
+stocks %>%
+  spread(year, return)
+```
+The following use of `gather()` will create a column, `year`, from the column names.
+However, since column names are used to create the key column, the resulting vector is a character vector.
+Even though we "know" that the all the column names refer to years, which are numbers, the `gather()` function does not know that.
+```{r}
+stocks %>%
+  spread(year, return) %>%
+  gather(`2015`:`2016`, key = "year", value = "return")
+```
 
-The functions `spread()` and `gather()` can be closer to symmetrical if we use the `convert` argument. It will try to convert character vectors to the appropriate type using `type.convert()`.
+The functions `spread()` and `gather()` are almost symmetrical if we use the `convert` argument.
+When `convert = TRUE`, the `gather()` function will attempt to convert vectors to the appropriate type using `type.convert()`.
 ```{r}
 stocks %>%
   spread(key = "year", value = "return") %>%
   gather(`2015`:`2016`, key = "year", value = "return", convert = TRUE)
 ```
-However, since `convert = TRUE` is guessing the appropriate type it still may not work.
+Now, `year` is an integer vector.
+However, this conversion is merely guessing the type of the variables and as such, will not always return the original variable types.
+That information is lost.
 
 </div>
 
 ### Exercise <span class="exercise-number">12.3.2</span> {.unnumbered .exercise}
 
 <div class="question">
+
 Why does this code fail?
 
 ```{r error=TRUE}
@@ -208,12 +229,17 @@ table4a %>%
 
 <div class="answer">
 
-The code fails because the column names `1999` and `2000` are not standard and thus needs to be quoted.
-The tidyverse functions will interpret `1999` and `2000` without quotes as looking for the 1999th and 2000th column of the data frame.
-This will work:
+The code fails because the column names `1999` and `2000` are not non-syntactic variable names.[^non-syntactic]
+When selecting variables from a data frame, tidyverse functions will interpret numbers, like `1999` and `2000`, as column numbers.
+In this case, `gather()` tries to select 1999th and 2000th column of the data frame.
+To select the columns `1999` and `2000`, you can either surround their names in backticks (`\``) or provide them as strings.
 ```{r}
 table4a %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
+```
+```{r}
+table4a %>%
+  gather("1999", "2000", key = "year", value = "cases")
 ```
 
 </div>
@@ -221,13 +247,15 @@ table4a %>%
 ### Exercise <span class="exercise-number">12.3.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Why does spreading this tibble fail? How could you add a new column to fix the problem?
+
+Why does spreading this tibble fail? 
+How could you add a new column to fix the problem?
 
 ```{r}
 people <- tribble(
   ~name, ~key, ~value,
   #-----------------|--------|------
-  "Phillip Woods", "age", 45,
+  "Phillip Woods",  "age", 45,
   "Phillip Woods", "height", 186,
   "Phillip Woods", "age", 50,
   "Jessica Cordero", "age", 37,
@@ -244,12 +272,12 @@ spread(people, key, value)
 
 <div class="answer">
 
-Spreading the data frame fails because there are two rows with "age" for "Phillip Woods".
-If we added another column with an indicator for the number observation it is,
-the code will work.
+Spreading this data frame fails because the `name` and `key` columns do not uniquely identify rows.
+In particular, ther two rows with values for the age of "Phillip Woods".
 
+After adding a column with an observation count 
 ```{r}
-people <- tribble(
+people2 <- tribble(
   ~name, ~key, ~value, ~obs,
   #-----------------|--------|------|------
   "Phillip Woods", "age", 45, 1,
@@ -258,15 +286,27 @@ people <- tribble(
   "Jessica Cordero", "age", 37, 1,
   "Jessica Cordero", "height", 156, 1
 )
-spread(people, key, value)
+spread(people2, key, value)
 ```
+
+Another way to solve this problem is by keeping only distinct rows of the name and key values, and dropping duplicate rows.
+```{r}
+people %>%
+  distinct(name, key) %>%
+  spread(key, value)
+```
+However, before doing this you would want to understand why there are duplicates in the data to begin with.
+This is usually not mereley a nuissance, but indicates deeper problems with the data.
 
 </div>
 
 ### Exercise <span class="exercise-number">12.3.4</span> {.unnumbered .exercise}
 
 <div class="question">
-Tidy the simple tibble below. Do you need to spread or gather it? What are the variables?
+
+Tidy the simple tibble below. 
+Do you need to spread or gather it? 
+What are the variables?
 
 ```{r}
 preg <- tribble(
@@ -280,7 +320,8 @@ preg <- tribble(
 
 <div class="answer">
 
-To tidy `preg`, we need to use `gather()`. The variables in this data are
+To tidy `preg`, we need to use `gather()`. 
+The variables in this data are:
 
 -   `sex` ("female", "male")
 -   `pregnant` ("yes", "no")
@@ -296,12 +337,10 @@ preg_tidy
 
 However, we should consider the missing value in the male, non-pregnant row.
 Is it missing due to missing data, or missing due to structural reasons? 
-This will be discussed in the upcoming section on [Missing Values](http://r4ds.had.co.nz/tidy-data.html#missing-values-3).
-Supposing that these data represent observations from a species in which it is
-impossible for males to get pregnant (not seahorses), then that missing value
-is structural. In the non-tidy data frame we had to include that structural missing value explicitly with an `NA` entry.
-However, in the tidy version we can drop that row since it is an impossible 
-combination.
+This will be discussed in the upcoming  [Missing Values](http://r4ds.had.co.nz/tidy-data.html#missing-values-3) section.
+Supposing that these data represent observations from a species in which it is impossible for males to get pregnant (meaning, not seahorses), then that missing value is structural. 
+In the non-tidy data frame we had to include that structural missing value explicitly with an `NA` entry.
+However, in the tidy version we can drop that row since it is an impossible  combination.
 We can do that by adding the argument `na.rm = TRUE` to `gather()`.
 ```{r}
 preg_tidy2 <- preg %>%
@@ -310,8 +349,7 @@ preg_tidy2
 ```
 
 Though not necessary, there is one more way in which we can improve this data.
-If a variable takes two values, like `pregnant` and `sex` do, it is often preferable to store them as logical vectors.
-The following vector uses logical vectors to represent pregnancy and sex.
+If a variable takes two values, like `pregnant` and `sex`, it is often preferable to store them as logical vectors.
 ```{r}
 preg_tidy3 <- preg_tidy2 %>%
   mutate(
@@ -325,8 +363,7 @@ In the previous data frame, I named the logical variable representing the sex `f
 This makes the meaning of the variable self-documenting.
 If the variable were named `sex` with values `TRUE` and `FALSE`, without reading the documentation, we wouldn't know whether `TRUE` means male or female.
 
-Apart from some minor memory savings, representing these variables as logical
-vectors results in more clear and concise code.
+Apart from some minor memory savings, representing these variables as logical vectors results in more clear and concise code.
 Compare the `filter()` calls to select non-pregnant females from `preg_tidy2` and `preg_tidy`.
 ```{r}
 filter(preg_tidy2, sex == "female", pregnant == "no")
@@ -354,35 +391,36 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
 ```
 
-The `extra` argument tells `separate()` what to do if there are too many pieces,
-and the `fill` argument if there aren't enough.
-By default, `separate()` drops the extra values with a warning.
+The `extra` argument tells `separate()` what to do if there are too many pieces, and the `fill` argument tells it what to do if there aren't enough.
+By default, `separate()` drops extra values with a warning.
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"))
 ```
 
-`extra = "drop"` produces the same result as above, dropping extra values, but without the warning.
+Adding the argument, `extra = "drop"`, produces the same result as above but without the warning.
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "drop")
 ```
 
-Another option for `extra` is `"merge"`, then the extra values are not split, so `"f,g"` appears in column three.
+Setting `extra = "merge"`, then the extra values are not split, so `"f,g"` appears in column three.
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "merge")
 ```
 
-In this, one of the entries for column, `"d,e"`, has too few elements.
-The default for `fill` is similar to those in separate `separate()`; it fills with missing values but emits a warning. In this, row 2 of column `three` is `NA`.
+In this example, one of the entries, `"d,e"`, has too few elements.
+The default for `fill` is similar to those in `separate()`; 
+it fills columns with missing values but emits a warning. 
+In this example, the 2nd row of column `three` is `NA`.
 
 ```{r}
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
 ```
 
-Alternative options for `fill` are `"right"`, to fill with missing values from the right, but without a warning
+Alternative options for the `fill` are `"right"`, to fill with missing values from the right, but without a warning
 ```{r}
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "right")
@@ -399,7 +437,11 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
 ### Exercise <span class="exercise-number">12.4.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Both `unite()` and `separate()` have a `remove` argument. What does it do? Why would you set it to `FALSE`?
+
+Both `unite()` and `separate()` have a `remove` argument. 
+What does it do?
+Why would you set it to `FALSE`?
+
 </div>
 
 <div class="answer">
@@ -623,3 +665,8 @@ Focusing on those countries with the largest changes or absolute magnitudes afte
 ## Non-Tidy Data
 
 `r no_exercises()`
+
+[ex-12.2.2]: It would be better to join these tables usin the methods covered in the [Relational Data](https://r4ds.had.co.nz/relational-data.html). 
+             We could use `inner_join(t2_cases, t2_population, by = c("country", "year"))`.
+
+[non-syntactic]: See the [Creating Tibbles](https://r4ds.had.co.nz/tibbles.html#tibbles) section.
