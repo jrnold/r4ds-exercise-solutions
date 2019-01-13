@@ -381,7 +381,6 @@ filter(preg_tidy3, female, !pregnant)
 What do the extra and fill arguments do in `separate()`?
 Experiment with the various options for the following two toy datasets.
 
-
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"))
@@ -572,7 +571,6 @@ who5 <- who4 %>%
 who5
 ```
 
-
 ### Exercise <span class="exercise-number">12.6.1</span> {.unnumbered .exercise}
 
 <div class="question">
@@ -591,7 +589,8 @@ The reasonableness of using `na.rm = TRUE` depends on how missing values are rep
 The main concern is whether a missing value means that there were no cases of TB or whether it means that the WHO does not have data on the number of TB cases.
 Here are some things we should look for to help distinguish between these cases.
 
--   If there are no 0 values in the data, then missing values may be used to indicate no cases
+-   If there are no 0 values in the data, then missing values may be used to indicate no cases.
+
 -   If there are both explicit and implicit missing values, then it suggests that missing values
     are being used differently. In that case, it is likely that explicit missing values would
     mean no cases, and implicit missing values would mean no data on the number of cases.
@@ -687,7 +686,6 @@ select(who3, country, iso2, iso3) %>%
   group_by(country) %>%
   filter(n() > 1)
 ```
-
 
 This makes sense, since `iso2` and `iso3` contain the 2- and 3-letter country abbreviations for the country.
 The `iso2` variable contains each country's [ISO 3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), and the `iso3` variable contains the each country's [ISO 3166 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) abbreviation.
