@@ -587,25 +587,60 @@ What’s the difference between an `NA` and zero?
 
 <div class="answer">
 
-Perhaps? I would need to know more about the data generation process.
-There are zero's in the data, which means they may explicitly be indicating no cases.
+The reasonableness of using `na.rm = TRUE` depends on how missing values are represented in this dataset.
+The main concern is whether a missing value means that there were no cases of TB or whether it means that the WHO does not have data on the number of TB cases.
+Here are some things we should look for to help distinguish between these cases.
+
+-   If there are no 0 values in the data, then missing values may be used to indicate no cases
+-   If there are both explicit and implicit missing values, then it suggests that missing values
+    are being used differently. In that case, it is likely that explicit missing values would
+    mean no cases, and implicit missing values would mean no data on the number of cases.
+
+First, I'll check for the presence of zeros in the data. 
 ```{r}
 who1 %>%
   filter(cases == 0) %>%
   nrow()
 ```
+There are zeros in the data, so it appears that cases of zero TB cases are explicitly indicated, and `NA` is used to indicate missing data.
 
-So it appears that either a country has all its values in a year as non-missing if the WHO collected data for that country, or all its values are non-missing.
-So it is okay to treat explicitly and implicitly missing values the same, and we don't lose any information by dropping them.
+Second, I should check whether all values for a (country, year) are missing or whether it is possible for only some values to be missing.
 ```{r}
 gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
   group_by(country, year) %>%
-  mutate(missing = is.na(cases)) %>%
-  select(country, year, missing) %>%
-  distinct() %>%
-  group_by(country, year) %>%
-  filter(n() > 1)
+  mutate(prop_missing = sum(is.na(cases)) / n()) %>%
+  filter(prop_missing > 0, prop_missing < 1)
+
 ```
+It looks like it is possible for certain variables to missing for (country, years).
+
+Finally, I will check for implicit missing values. 
+Implicit missing values are (`year`, `country`) combinations that do not appear in the data.
+```{r}
+nrow(who)
+
+who %>% 
+  complete(country, year) %>%
+  nrow()
+```
+Since the number of complete cases of (`country`, `year`) is greater than the number of rows in `who`, there are some implicit values.
+But that doesn't tell us what those implicit missing values are.
+To do this, I will use the `anti_join()` function introduced in the later [Relational Data](https://r4ds.had.co.nz/relational-data.html#filtering-joins) chapter.
+```{r}
+anti_join(complete(who, country, year), who, by = c("country", "year")) %>% 
+  select(country, year) %>% 
+  group_by(country) %>% 
+  # so I can make better sense of the years
+  summarise(min_year = min(year), max_year = max(year))
+```
+All of these refer to (`country`, `year`) combinations for years prior to the existence of the country.
+For example, Timor-Leste achieved independence in 2002, so years prior to that are not included in the data.
+
+To summarize:
+
+-   `0` is used to represent no cases of TB.
+-   Explicit missing values (`NA`s) are used to represent missing data for (`country`, `year`) combinations in which the country existed in that year.
+-   Implicit missing values are used to represent missing data because a country did not exist in that year.
 
 </div>
 
