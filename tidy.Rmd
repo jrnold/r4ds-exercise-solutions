@@ -292,7 +292,7 @@ spread(people2, key, value)
 Another way to solve this problem is by keeping only distinct rows of the name and key values, and dropping duplicate rows.
 ```{r}
 people %>%
-  distinct(name, key) %>%
+  distinct(name, key, .keep_all = TRUE) %>%
   spread(key, value)
 ```
 However, before doing this you would want to understand why there are duplicates in the data to begin with.
