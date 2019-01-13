@@ -320,7 +320,7 @@ preg <- tribble(
 
 <div class="answer">
 
-To tidy `preg`, we need to use `gather()`. 
+To tidy the `preg` preg tibble, we need to use `gather()`. 
 The variables in this data are:
 
 -   `sex` ("female", "male")
@@ -335,20 +335,20 @@ preg_tidy <- preg %>%
 preg_tidy
 ```
 
-However, we should consider the missing value in the male, non-pregnant row.
-Is it missing due to missing data, or missing due to structural reasons? 
-This will be discussed in the upcoming  [Missing Values](http://r4ds.had.co.nz/tidy-data.html#missing-values-3) section.
-Supposing that these data represent observations from a species in which it is impossible for males to get pregnant (meaning, not seahorses), then that missing value is structural. 
-In the non-tidy data frame we had to include that structural missing value explicitly with an `NA` entry.
-However, in the tidy version we can drop that row since it is an impossible  combination.
-We can do that by adding the argument `na.rm = TRUE` to `gather()`.
+We can simplify the tidied data frame by removing the (male, pregnant) row with the missing value of `NA`.
+
 ```{r}
 preg_tidy2 <- preg %>%
   gather(male, female, key = "sex", value = "count", na.rm = TRUE)
 preg_tidy2
 ```
 
-Though not necessary, there is one more way in which we can improve this data.
+This an example of turning an explicit missing value into an implicit missing value, which is discussed in the upcoming [Missing Values](http://r4ds.had.co.nz/tidy-data.html#missing-values-3) section.
+The missing (male, pregnant) row represents is an implicit missing value because the missing value of `count` can be inferred from its absence.
+In the tidy data, we can represent rows with missing values of `count` either explicitly with an `NA` (as in `preg_tidy`) or implicitly by the absence of a row (as in `preg_tidy2`). 
+But in the wide data, the missing values can only be represented explicitly.
+
+Though we have already done enough to make the data tidy, there's some other changes that can be made to clean this data.
 If a variable takes two values, like `pregnant` and `sex`, it is often preferable to store them as logical vectors.
 ```{r}
 preg_tidy3 <- preg_tidy2 %>%
@@ -377,11 +377,10 @@ filter(preg_tidy3, female, !pregnant)
 ### Exercise <span class="exercise-number">12.4.1</span> {.unnumbered .exercise}
 
 <div class="question">
+
 What do the extra and fill arguments do in `separate()`?
 Experiment with the various options for the following two toy datasets.
-</div>
 
-<div class="answer">
 
 ```{r}
 tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
@@ -390,6 +389,10 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"))
 ```
+
+</div>
+
+<div class="answer">
 
 The `extra` argument tells `separate()` what to do if there are too many pieces, and the `fill` argument tells it what to do if there aren't enough.
 By default, `separate()` drops extra values with a warning.
@@ -410,7 +413,7 @@ tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
   separate(x, c("one", "two", "three"), extra = "merge")
 ```
 
-In this example, one of the entries, `"d,e"`, has too few elements.
+In this example, one of the values, `"d,e"`, has too few elements.
 The default for `fill` is similar to those in `separate()`; 
 it fills columns with missing values but emits a warning. 
 In this example, the 2nd row of column `three` is `NA`.
@@ -425,8 +428,8 @@ Alternative options for the `fill` are `"right"`, to fill with missing values fr
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "right")
 ```
-The option `fill = "left"` also fills with missing values without a warning, but this time from the left side.
-Now, row 2 of column `one` will be missing, and the other values in that row are shifted over.
+The option `fill = "left"` also fills with missing values without emitting a warning, but this time from the left side.
+Now, the 2nd row of column `one` will be missing, and the other values in that row are shifted right.
 ```{r}
 tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   separate(x, c("one", "two", "three"), fill = "left")
@@ -521,12 +524,14 @@ Also, both cases replace both implicit and explicit missing values.
 ### Exercise <span class="exercise-number">12.5.2</span> {.unnumbered .exercise}
 
 <div class="question">
-What does the direction argument to `fill()` do?
+
+What does the `direction` argument to `fill()` do?
+
 </div>
 
 <div class="answer">
 
-With `fill`, it determines whether `NA` values should be replaced by the previous non-missing value (`"down"`) or the next non-missing value (`"up"`).
+With `fill`, the `direction` determines whether `NA` values should be replaced by the previous non-missing value (`"down"`) or the next non-missing value (`"up"`).
 
 </div>
 
@@ -567,12 +572,15 @@ who5 <- who4 %>%
 who5
 ```
 
+
 ### Exercise <span class="exercise-number">12.6.1</span> {.unnumbered .exercise}
 
 <div class="question">
 
-In this case study I set `na.rm = TRUE` just to make it easier to check that we had the correct values. Is this reasonable? 
-Think about how missing values are represented in this dataset. Are there implicit missing values? 
+In this case study, I set `na.rm = TRUE` just to make it easier to check that we had the correct values. 
+Is this reasonable? 
+Think about how missing values are represented in this dataset. 
+Are there implicit missing values? 
 What’s the difference between an `NA` and zero?
 
 </div>
@@ -604,7 +612,10 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
 ### Exercise <span class="exercise-number">12.6.2</span> {.unnumbered .exercise}
 
 <div class="question">
-What happens if you neglect the `mutate()` step? (`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+
+What happens if you neglect the `mutate()` step? 
+(`mutate(key = stringr::str_replace(key, "newrel", "new_rel")`)
+
 </div>
 
 <div class="answer">
@@ -625,11 +636,16 @@ filter(who3a, new == "newrel") %>% head()
 ### Exercise <span class="exercise-number">12.6.3</span> {.unnumbered .exercise}
 
 <div class="question">
-I claimed that `iso2` and `iso3` were redundant with country. Confirm this claim.
+
+I claimed that `iso2` and `iso3` were redundant with country. 
+Confirm this claim.
+
 </div>
 
 <div class="answer">
 
+If `iso2` and `iso3` are redundant with `country`, then, within each country, 
+there should only be one distinct combination of `iso2` and `iso3` values, which is the case.
 ```{r}
 select(who3, country, iso2, iso3) %>%
   distinct() %>%
@@ -637,12 +653,20 @@ select(who3, country, iso2, iso3) %>%
   filter(n() > 1)
 ```
 
+
+This makes sense, since `iso2` and `iso3` contain the 2- and 3-letter country abbreviations for the country.
+The `iso2` variable contains each country's [ISO 3166 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), and the `iso3` variable contains the each country's [ISO 3166 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) abbreviation.
+You may recognize the ISO 3166-2 abbreviations, since they are almost identical to internet [country-code top level domains](https://en.wikipedia.org/wiki/Country_code_top-level_domain), such as `.uk`.
+
 </div>
 
 ### Exercise <span class="exercise-number">12.6.4</span> {.unnumbered .exercise}
 
 <div class="question">
-For each country, year, and sex compute the total number of cases of TB. Make an informative visualization of the data.
+
+For each country, year, and sex compute the total number of cases of TB.
+Make an informative visualization of the data.
+
 </div>
 
 <div class="answer">
