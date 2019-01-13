@@ -2,7 +2,11 @@
 # Script to render book
 suppressPackageStartupMessages({
   library("optparse")
+  library("xml2")
 })
+
+BASE_URL <- "https://jrnold.github.io/r4ds-exercise-solutions/"
+
 # From devtools:::git_uncommitted
 git_uncommitted <- function(path = ".") {
   r <- git2r::repository(path, discover = TRUE)
@@ -21,9 +25,37 @@ check_uncommitted <- function(path = ".") {
   }
 }
 
-create_outdir <- function() {
+create_url_info <- function(path, base_url, priority = 0.5,
+                            changefreq = "daily") {
+  lastmod <- format(file.info(path)$mtime, format = "%Y-%m-%d",
+                    tz = "UTC")
+  loc <- paste0(base_url, basename(path))
+  list(lastmod = lastmod, loc = loc, priority = priority,
+       changefreq = changefreq)
+}
+
+create_sitemap <- function(output_dir, base_url,
+                           pattern = "^.\\.html$",
+                           excludes = c(),
+                           changfreq = "daily", priority = 0.5) {
+  SITEMAP_XMLNS <- "http://www.sitemaps.org/schemas/sitemap/0.9"
+  html_files <- file.path(output_dir,
+                          setdiff(dir(output_dir, pattern = pattern), excludes))
+  sitemap <- xml_new_root("urlset", xmlns = SITEMAP_XMLNS)
+  for (file in html_files) {
+    info <- create_url_info(file, base_url = base_url)
+    url <- xml_add_child(sitemap, "url")
+    xml_add_child(url, "loc", info$loc)
+    xml_add_child(url, "lastmod", info$lastmod)
+    xml_add_child(url, "priority", info$priority)
+    xml_add_child(url, "changefreq", info$changefreq)
+  }
+  sitemap_loc <- file.path(output_dir, "sitemap.xml")
+  write_xml(sitemap, sitemap_loc)
+}
+
+create_outdir <- function(output_dir) {
   # create nojekyll if it doesn't exist
-  output_dir <- yaml::read_yaml(here::here("_bookdown.yml"))[["output_dir"]]
   dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
   nojekyll <- file.path(output_dir, ".nojekyll")
   if (!file.exists(nojekyll)) {
@@ -33,19 +65,17 @@ create_outdir <- function() {
   }
 }
 
-render <- function(path = NULL, output_format = "all", force = FALSE, ...) {
+render <- function(input, output_format = "all", force = FALSE, ...) {
   if (rmarkdown::pandoc_version() < 2) {
     stop("This book requires pandoc > 2")
   }
-
-  if (is.null(path)) {
-    path <- here::here("index.Rmd")
-  }
   if (!force) {
-    check_uncommitted(dirname(path))
+    check_uncommitted(dirname(input[[1]]))
   }
-  create_outdir()
+  output_dir <- bookdown:::load_config()$output_dir
+  create_outdir(output_dir)
   bookdown::render_book(input = "index.Rmd", ...)
+  # create_sitemap(output_dir, BASE_URL)
 }
 
 main <- function(args = NULL) {
@@ -57,32 +87,35 @@ main <- function(args = NULL) {
     make_option(c("-q", "--quiet"),
       action = "store_true", default = FALSE,
       help = "Do not use verbose output"
-    )
+    ),
+    make_option("--to", default = "all",
+                help = "Bookdown output format to use")
   )
-  # option_list <- list()
 
   if (is.null(args)) {
     args <- commandArgs(TRUE)
   }
   opts <- parse_args(OptionParser(
-    usage = "%prog [options] [output_format|all|html|pdf]",
-    option_list = option_list
-  ),
-  args = args,
-  positional_arguments = TRUE,
-  convert_hyphens_to_underscores = TRUE
+      usage = "%prog [options] [output_format|all|html|pdf]",
+      option_list = option_list
+    ),
+    args = args,
+    positional_arguments = TRUE,
+    convert_hyphens_to_underscores = TRUE
   )
-  output_format <- if (!length(opts$args)) {
-    "all"
-  } else {
-    opts$args[[1]]
-  }
+  output_format <- opts$options$to
   if (output_format == "html") {
     output_format <- "bookdown::gitbook"
   } else if (output_format == "pdf") {
     output_format <- "bookdown::pdf_book"
   }
+  input <- if (!length(opts$args)) {
+    "index.Rmd"
+  } else {
+    opts$args
+  }
   render(
+    input,
     output_format = output_format,
     force = opts$options$force,
     quiet = opts$options$quiet
