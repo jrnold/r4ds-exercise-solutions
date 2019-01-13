@@ -243,23 +243,24 @@ sum(c(0, 1, 2, NA), na.rm = TRUE)
 #### Exercise <span class="exercise-number">7.5.1.1</span> {.unnumbered .exercise}
 
 <div class="question">
-Use what you've learned to improve the visualization of the departure times
+
+Use what you've learned to improve the visualization of the departure times of cancelled vs. non-cancelled flights.
+
 </div>
 
 <div class="answer">
-of canceled vs. non-canceled flights.
 
 Instead of a `freqplot` use a box-plot
 ```{r}
 nycflights13::flights %>%
   mutate(
-    canceled = is.na(dep_time),
+    cancelled = is.na(dep_time),
     sched_hour = sched_dep_time %/% 100,
     sched_min = sched_dep_time %% 100,
     sched_dep_time = sched_hour + sched_min / 60
   ) %>%
   ggplot() +
-  geom_boxplot(mapping = aes(y = sched_dep_time, x = canceled))
+  geom_boxplot(mapping = aes(y = sched_dep_time, x = cancelled))
 ```
 
 </div>

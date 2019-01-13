@@ -154,8 +154,7 @@ Find the rows of flights with a missing departure time (`dep_time`) using the `i
 filter(flights, is.na(dep_time))
 ```
 
-Notably, the arrival time (`arr_time`) is also missing for these rows. These
-seem to be canceled flights.
+Notably, the arrival time (`arr_time`) is also missing for these rows. These seem to be cancelled flights.
 
 </div>
 
@@ -812,20 +811,21 @@ But higher variation in flight times makes it harder to plan.
 ### Exercise <span class="exercise-number">5.6.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Come up with another approach that will give you the same output as `not_canceled %>% count(dest)` and `not_canceled %>% count(tailnum, wt = distance)` (without using `count()`).
+
+Come up with another approach that will give you the same output as `not_cancelled %>% count(dest)` and `not_cancelled %>% count(tailnum, wt = distance)` (without using `count()`).
 </div>
 
 <div class="answer">
 
-```{r not_canceled}
-not_canceled <- flights %>%
+```{r not_cancelled}
+not_cancelled <- flights %>%
   filter(!is.na(dep_delay), !is.na(arr_delay))
 ```
 
 The first expression is the following.
 
 ```{r}
-not_canceled %>% 
+not_cancelled %>% 
   count(dest)
 ```
 
@@ -833,7 +833,7 @@ The `count()` function counts the number of instances within each group of varia
 Instead of using the `count()` function,we can combine the `group_by()` and `summarise()` verbs.
 
 ```{r}
-not_canceled %>%
+not_cancelled %>%
   group_by(dest) %>%
   summarise(n = length(dest))
 ```
@@ -841,7 +841,7 @@ not_canceled %>%
 An alternative method for getting the number of observations in a data frame is the function `n()`.
 
 ```{r}
-not_canceled %>%
+not_cancelled %>%
   group_by(dest) %>%
   summarise(n = n())
 ```
@@ -850,7 +850,7 @@ Another alternative to `count()` is to use the combination of the `group_by()` a
 In fact, `count()` is effectively a short-cut for `group_by()` followed by `tally()`.
 
 ```{r}
-not_canceled %>%
+not_cancelled %>%
   group_by(tailnum) %>%
   tally()
 ```
@@ -858,7 +858,7 @@ not_canceled %>%
 The second expression also uses the `count()` function, but adds a `wt` argument.
 
 ```{r}
-not_canceled %>% 
+not_cancelled %>% 
   count(tailnum, wt = distance)
 ```
 
@@ -866,7 +866,7 @@ As before, we can replicate `count()` by combining the `group_by()` and `summari
 But this time instead of using `length()`, we will use `sum()` with the weighting variable.
 
 ```{r}
-not_canceled %>%
+not_cancelled %>%
   group_by(tailnum) %>%
   summarise(n = sum(distance))
 ```
@@ -875,7 +875,7 @@ Like the previous example, we can also use the combination `group_by()` and `tal
 Any arguments to `tally()` are summed.
 
 ```{r}
-not_canceled %>%
+not_cancelled %>%
   group_by(tailnum) %>%
   tally(distance)
 ```
@@ -885,7 +885,7 @@ not_canceled %>%
 ### Exercise <span class="exercise-number">5.6.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Our definition of canceled flights `(is.na(dep_delay) | is.na(arr_delay))` is slightly suboptimal. 
+Our definition of cancelled flights `(is.na(dep_delay) | is.na(arr_delay))` is slightly suboptimal. 
 Why? 
 Which is the most important column?
 </div>
@@ -907,22 +907,22 @@ They may be combining different flights?
 ### Exercise <span class="exercise-number">5.6.4</span> {.unnumbered .exercise}
 
 <div class="question">
-Look at the number of canceled flights per day. Is there a pattern? Is the proportion of canceled flights related to the average delay?
+Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
 </div>
 
 <div class="answer">
 
 ```{r}
-canceled_delayed <-
+cancelled_delayed <-
   flights %>%
-  mutate(canceled = (is.na(arr_delay) | is.na(dep_delay))) %>%
+  mutate(cancelled = (is.na(arr_delay) | is.na(dep_delay))) %>%
   group_by(year, month, day) %>%
   summarise(
-    prop_canceled = mean(canceled),
+    prop_cancelled = mean(cancelled),
     avg_dep_delay = mean(dep_delay, na.rm = TRUE)
   )
 
-ggplot(canceled_delayed, aes(x = avg_dep_delay, prop_canceled)) +
+ggplot(cancelled_delayed, aes(x = avg_dep_delay, prop_cancelled)) +
   geom_point() +
   geom_smooth()
 ```
@@ -1035,16 +1035,16 @@ Which plane (`tailnum`) has the worst on-time record?
 <div class="answer">
 
 The question does not define the on-time record. I will use the proportion of
-flights not delayed or canceled.
+flights not delayed or cancelled.
 This metric does not differentiate between the amount of delay but has the
-benefit of easily incorporating canceled flights.
+benefit of easily incorporating cancelled flights.
 ```{r}
 flights %>%
   # unknown why flights have sched_arr_time, arr_time but missing arr_delay.
   filter(!is.na(arr_delay)) %>%
   mutate(
-    canceled = is.na(arr_time),
-    late = !canceled & arr_delay > 0
+    cancelled = is.na(arr_time),
+    late = !cancelled & arr_delay > 0
   ) %>%
   group_by(tailnum) %>%
   summarise(on_time = mean(!late)) %>%
