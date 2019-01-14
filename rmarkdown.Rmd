@@ -27,7 +27,11 @@ This exercise is left to the reader.
 ### Exercise <span class="exercise-number">27.2.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Create a new R Markdown document with *File > New File > R Markdown ...* Knit it by clicking the appropriate button. Knit it by using the appropriate keyboard short cut. Verify that you can modify the input and see the output update.
+Create a new R Markdown document with *File > New File > R Markdown ...*.
+Knit it by clicking the appropriate button. 
+Knit it by using the appropriate keyboard short cut. 
+Verify that you can modify the input and see the output update.
+
 </div>
 
 <div class="answer">
@@ -40,14 +44,34 @@ Recall that the keyboard shortcut to knit a file is `Cmd/Ctrl + Alt + K`.
 ### Exercise <span class="exercise-number">27.2.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Compare and contrast the R notebook and R markdown files you created above. How are the outputs similar? How are they different? How are the inputs similar? How are they different? What happens if you copy the YAML header from one to the other?
+Compare and contrast the R notebook and R markdown files you created above. 
+How are the outputs similar? How are they different? 
+How are the inputs similar? How are they different? 
+What happens if you copy the YAML header from one to the other?
 </div>
 
 <div class="answer">
 
-R notebook files show the output inside the editor, while hiding the console. R markdown files shows the output inside the console, and does not show output inside the editor.
-They differ in the value of `output` in their YAML headers.
+R notebook files show the output of code chunks inside the editor, while hiding the console, when they are edited in RStudio.
+This contrasts with R markdown files, which show their output inside the console, and do not show output inside the editor.
+This makes R notebook documents appealing for interactive exploration.
+In this R markdown file, the plot is displayed in the "Plot" tab, while the output of `summary()` is displayed in the tab.
+```{r echo=FALSE}
+knitr::include_graphics("img/rmarkdown-file.png")
+```
+However, when this same file is converted to a R notebook, the plot and `summary()` output are displayed in the "Editor" below the chunk of code which created them.
+```{r}
+knitr::include_graphics("img/rmarkdown-notebook.png")
+```
 
+Both R markdown files and can be knit R markdown documents can be knit. 
+R markdown files can be knit to a variety of formats including HTML, PDF, and DOCX.
+R notebooks can only be knit to HTML, with the extension `.nb.html`.
+The output of an R notebook keeps a copy of the original `.Rmd` source.
+If a `.nb.html` file is opened in RStudio, the source of the `.Rmd` file can be extracted and edited.
+In contrast, there is no way to recover the original source of an R markdown file from its output, except through the parts that are displayed in the output itself.
+
+R markdown files and R notebooks differ in the value of `output` in their YAML headers.
 The YAML header for the R notebook will have the line,
 ```
 ---
@@ -85,6 +109,11 @@ More specifically, an `.Rmd` file can be changed to R markdown file or R noteboo
 
 The RStudio IDE and the rmarkdown package both use the YAML header of an `.Rmd` file to determine the document-type of the file.
 
+For more information on R markdown notebooks see the following sources:
+
+-   [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) section), Chapter [Notebook](https://bookdown.org/yihui/rmarkdown/notebook.html)
+-   [Difference between R MarkDown and R NoteBook](https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r-notebook/43898504#43898504) StackOverflow thread.
+
 </div>
 
 ### Exercise <span class="exercise-number">27.2.4</span> {.unnumbered .exercise}
@@ -92,8 +121,11 @@ The RStudio IDE and the rmarkdown package both use the YAML header of an `.Rmd` 
 <div class="question">
 
 Create one new R Markdown document for each of the three built-in formats:
-HTML, PDF and Word. Knit each of the three documents. How does the output
-differ? How does the input differ? (You may need to install LaTeX in order to
+HTML, PDF and Word. 
+Knit each of the three documents. 
+How does the output
+differ? How does the input differ? 
+(You may need to install LaTeX in order to
 build the PDF output — RStudio will prompt you if this is necessary.)
 
 </div>
@@ -102,9 +134,61 @@ build the PDF output — RStudio will prompt you if this is necessary.)
 
 They produce different outputs, both in the final documents and intermediate
 files (notably the type of plots produced). The only difference in the inputs
-is the value of `output` in the YAML header: `word_document` for Word
-documents, `pdf_document` for PDF documents, and `html_document` for HTML
-documents.
+is the value of `output` in the YAML header.
+The following `.Rmd` would be knit to HTML.
+```
+---
+title: "Diamond sizes"
+date: 2016-08-25
+output: html_document
+---
+
+Text of the document.
+```
+If the value of the `output` key is changed to `word_document`, knitting the file will create a Word document (DOCX).
+```
+---
+title: "Diamond sizes"
+date: 2016-08-25
+output: word_document
+---
+
+Text of the document.
+```
+Similarly, if the value of the `output` key is changed to `pdf_document`, knitting the file will create a PDF.
+```
+---
+title: "Diamond sizes"
+date: 2016-08-25
+output: pdf_document
+---
+
+Text of the document.
+```
+
+If you click on the *Knit* menu button and then on one of *Knit to HTML*, *Knit to PDF*, or *Knit to Word*,
+you will see that the value of the `output` key will change to `html_document`, `pdf_document`, or `word_document`, respectively.
+
+```{r echo=FALSE}
+knitr::include_graphics("img/rmarkdown-knit-button.png")
+```
+
+You will see that the value of `output` will look a little different than the previous examples.
+It will add a new line with a value like, `pdf_document: default`.
+
+```yaml
+---
+title: "Diamond sizes"
+date: 2016-08-25
+output: 
+  pdf_document: default
+---
+
+Text of the document.
+```
+
+This format is more general, allows the document have multiple output formats as well as configuration settings that allow more fine-grained control over the look of the output format.
+The chapter [R Markdown Formats](https://r4ds.had.co.nz/r-markdown-formats.html) discusses output formats for R markdown files in more detail.
 
 </div>
 
@@ -113,7 +197,10 @@ documents.
 ### Exercise <span class="exercise-number">27.3.1</span> {.unnumbered .exercise}
 
 <div class="question">
-Practice what you’ve learned by creating a brief CV. The title should be your name, and you should include headings for (at least) education or employment. Each of the sections should include a bulleted list of jobs/degrees. Highlight the year in bold.
+Practice what you’ve learned by creating a brief CV. 
+The title should be your name, and you should include headings for (at least) education or employment. 
+Each of the sections should include a bulleted list of jobs/degrees. 
+Highlight the year in bold.
 </div>
 
 <div class="answer">
@@ -150,7 +237,9 @@ cat(readr::read_file(here::here("rmarkdown", "example.Rmd")))
 ### Exercise <span class="exercise-number">27.3.3</span> {.unnumbered .exercise}
 
 <div class="question">
-Copy and paste the contents of `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown> in to a local R markdown document. Check that you can run it, then add text after the frequency polygon that describes its most striking features.
+
+Copy and paste the contents of `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown> in to a local R markdown document. 
+Check that you can run it, then add text after the frequency polygon that describes its most striking features.
 </div>
 
 <div class="answer">
@@ -169,23 +258,24 @@ cat(readr::read_file(here::here("rmarkdown", "diamond-sizes.Rmd")))
 
 <div class="question">
 Add a section that explores how diamond sizes vary by cut, color, and clarity. 
-Assume you’re writing a report for someone who doesn’t know R, and instead of 
-setting `echo = FALSE` on each chunk, set a global option.
+Assume you’re writing a report for someone who doesn’t know R, and instead of setting `echo = FALSE` on each chunk, set a global option.
 </div>
 
 <div class="answer">
-See the answer to [exercise-27.3.3].
+
+See the answer to [Exercise 27.3.3].
 </div>
 
 ### Exercise <span class="exercise-number">27.4.2</span> {.unnumbered .exercise}
 
 <div class="question">
-Download `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown>. Add a section that describes the largest 20 diamonds, including a table that displays their most important attributes.
+Download `diamond-sizes.Rmd` from <https://github.com/hadley/r4ds/tree/master/rmarkdown>.
+Add a section that describes the largest 20 diamonds, including a table that displays their most important attributes.
 </div>
 
 <div class="answer">
 
-See the answer to [exercise-27.3.3].
+See the answer to [Exercise 27.3.3].
 I use `arrange()` and `slice()` to select the largest twenty diamonds, and 
 `knitr::kable()` to produce a formatted table.
 
@@ -209,7 +299,8 @@ Calculating those objects in a code chunk with the `include = FALSE` option (as 
 
 </div>
 
-### Exercise <span class="exercise-number">27.4.4</span> {.unnumbered .exercise}
+### Exercise <span
+class="exercise-number">27.4.4</span> {.unnumbered .exercise}
 
 <div class="question">
 
