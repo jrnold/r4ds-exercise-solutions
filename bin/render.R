@@ -5,8 +5,6 @@ suppressPackageStartupMessages({
   library("xml2")
 })
 
-BASE_URL <- "https://jrnold.github.io/r4ds-exercise-solutions/"
-
 # From devtools:::git_uncommitted
 git_uncommitted <- function(path = ".") {
   r <- git2r::repository(path, discover = TRUE)
@@ -65,17 +63,19 @@ create_outdir <- function(output_dir) {
   }
 }
 
-render <- function(input, output_format = "all", force = FALSE, ...) {
+render <- function(input, output_format = "all", force = FALSE,
+                   config = "_config.yml", ...) {
   if (rmarkdown::pandoc_version() < 2) {
     stop("This book requires pandoc > 2")
   }
   if (!force) {
     check_uncommitted(dirname(input[[1]]))
   }
+  config <- yaml::read_yaml(config)
   output_dir <- bookdown:::load_config()$output_dir
   create_outdir(output_dir)
   bookdown::render_book(input = "index.Rmd", ...)
-  # create_sitemap(output_dir, BASE_URL)
+  create_sitemap(output_dir, config$url)
 }
 
 main <- function(args = NULL) {
@@ -89,9 +89,10 @@ main <- function(args = NULL) {
       help = "Do not use verbose output"
     ),
     make_option("--to", default = "all",
-                help = "Bookdown output format to use")
+                help = "Bookdown output format to use"),
+    make_option("--config", default = "_config.yml",
+                help = "Path to project config file. Needed for output URL.")
   )
-
   if (is.null(args)) {
     args <- commandArgs(TRUE)
   }
@@ -118,7 +119,8 @@ main <- function(args = NULL) {
     input,
     output_format = output_format,
     force = opts$options$force,
-    quiet = opts$options$quiet
+    quiet = opts$options$quiet,
+    config = opts$options$config,
   )
 }
 
