@@ -3,7 +3,7 @@
 # Functions for Primary and Foreign Keys {-}
 
 The chapter [Relational data](#relational-data) describes primary key and foreign key relations.
-However, the dplyr package does not provide functions to check for 
+However, the dplyr package does not provide functions to check for these.
 
 The `any_missing()` function is a helper function that will be used later. 
 ```{r}
@@ -34,19 +34,6 @@ is_primary_key <- function(tbl, ...) {
   }
   nrow(distinct(tbl, !!!variables)) == nrow(tbl)
 }
-```
-
-The `is_foreign_key()` function checks whether 
-```{r is_foreign_key}
-# check that columns in y are are foreign key of x
-is_foreign_key <- function(x, y, by = NULL) {
-  # check that y is a primary key
-  if (!rlang::eval_tidy(quo(is_primary_key(y, !!!by)))) {
-    return(FALSE)
-  }
-  # check that all x are found in y
-  !nrow(anti_join(x, y, by = by))
-}
 
 foo <- tribble(
   ~a, ~b, ~c,
@@ -62,4 +49,16 @@ is_key(foo, c)
 is_key(foo, 1:3)
 ```
 
-# References {-}
+The `is_foreign_key()` function checks whether 
+```{r is_foreign_key}
+# check that columns in y are are foreign key of x
+is_foreign_key <- function(x, y, by = NULL) {
+  # check that y is a primary key
+  if (!rlang::eval_tidy(quo(is_primary_key(y, !!!by)))) {
+    return(FALSE)
+  }
+  # check that all x are found in y
+  !nrow(anti_join(x, y, by = by))
+}
+
+```
