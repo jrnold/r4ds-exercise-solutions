@@ -3,7 +3,7 @@ output: html_document
 editor_options:
   chunk_output_type: console
 ---
-# Data transformation
+# Data transformation {#transform}
 
 ## Introduction
 
@@ -236,7 +236,7 @@ Sort flights to find the most delayed flights. Find the flights that left earlie
 
 <div class="answer">
 
-```{r include=FALSE}
+```{r include=FALSE,purl=FALSE}
 most_delayed <- filter(flights, dep_delay == max(dep_delay, na.rm = TRUE)) %>%
   mutate(date = lubridate::make_datetime(
     year, month, day,
@@ -308,7 +308,7 @@ Which traveled the shortest?
 
 <div class="answer">
 
-```{r include=FALSE}
+```{r include=FALSE,purl=FALSE}
 longest <- filter(flights, distance == max(distance)) %>%
   select(carrier, flight, origin, dest) %>%
   distinct() %>%
@@ -1200,7 +1200,7 @@ standardized_flights %>%
   print(width = 120)
 ```
 
-```{r include=FALSE}
+```{r include=FALSE,purl=FALSE}
 format_ymd <- function(y, m, d) {
   format(lubridate::make_date(y, m, d), "%Y-%m-%d")
 }
@@ -1307,7 +1307,7 @@ flights %>%
   geom_histogram(binwidth = 10)
 ```
 
-```{r include=FALSE}
+```{r include=FALSE,purl=FALSE}
 flights_mph <- flights %>%
   mutate(mph = distance / (air_time / 60))
 fastest_flight_mph <- arrange(ungroup(flights_mph), desc(mph)) %>%
@@ -1374,7 +1374,7 @@ air_time_delayed <-
     air_time_delay_pct = air_time_delay / air_time_min * 100
   )
 ```
-```{r include=FALSE}
+```{r include=FALSE,purl=FALSE}
 most_delayed <- arrange(
   air_time_delayed,
   desc(air_time_delay)

@@ -4,15 +4,6 @@ library("purrr")
 library("stringr")
 library("jsonlite")
 
-R4DS_INDEX <- "https://r4ds.had.co.nz/"
-
-process_chapter <- function(x) {
-  list(number = html_attr(x, "data-level"),
-       path =  html_attr(html_node(x, "a"), "href"),
-       name = str_replace(html_text(html_node(x, "a"),
-                                    trim = TRUE), "^\\d+(\\.\\d+)*\\s+", ""))
-}
-
 r4ds_chapters <- function() {
   index <- read_html(R4DS_INDEX)
   book_summary <- html_nodes(index, "div.book-summary")
