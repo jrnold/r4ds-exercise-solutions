@@ -26,8 +26,8 @@ Run `ggplot(data = mpg)` what do you see?
 ggplot(data = mpg)
 ```
 
-This code creates an empty plot. 
-The `ggplot()` function creates the background of the plot, 
+This code creates an empty plot.
+The `ggplot()` function creates the background of the plot,
 but since no layers were specified with geom function, nothing is drawn.
 
 </div>
@@ -36,7 +36,7 @@ but since no layers were specified with geom function, nothing is drawn.
 
 <div class="question">
 
-How many rows are in `mtcars`? 
+How many rows are in `mtcars`?
 How many columns?
 
 </div>
@@ -60,7 +60,7 @@ glimpse(mtcars)
 
 <div class="question">
 
-What does the `drv` variable describe? 
+What does the `drv` variable describe?
 Read the help for `?mpg` to find out.
 
 </div>
@@ -120,7 +120,7 @@ n_comb_actual <- nrow(distinct(mpg, drv, class))
 ```
 
 A scatter plot is not a useful display of these variables since both `drv` and `class` are categorical variables.
-Since categorical variables typically take a small number of values, 
+Since categorical variables typically take a small number of values,
 there are a limited number of unique combinations of (`x`, `y`) values that can be displayed.
 In this data, `mpg` takes `r n_drv` values and `class` takes `r n_class` values,
 meaning that there are only `r n_comb` values that could be plotted on a scatterplot of `mpg` vs. `class`.
@@ -174,7 +174,7 @@ mpg %>%
 
 <div class="question">
 
-What’s gone wrong with this code? 
+What’s gone wrong with this code?
 Why are the points not blue?
 
 ```{r}
@@ -195,7 +195,7 @@ The following code does produces the expected result.
 ```{r}
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), colour = "blue")
-``` 
+```
 
 </div>
 
@@ -309,8 +309,8 @@ Because it is redundant information, in most cases avoid mapping a single variab
 
 <div class="question">
 
-What does the stroke aesthetic do? 
-What shapes does it work with? 
+What does the stroke aesthetic do?
+What shapes does it work with?
 (Hint: use `?geom_point`)
 
 </div>
@@ -347,7 +347,7 @@ Aesthetics can also be mapped to expressions like `displ < 5`.
 The `ggplot()` function behaves as if a temporary variable was added to the data with with values equal to the result of the expression.
 In this case, the result of `displ < 5` is a logical variable which takes values of `TRUE` or `FALSE`.
 
-This also explains why, in [Exercise 3.3.1], the expression `colour = "blue"` created a categorical variable with only one category: "blue".
+This also explains why, in [Exercise 3.3.1](exercise-3.3.1), the expression `colour = "blue"` created a categorical variable with only one category: "blue".
 
 </div>
 
@@ -386,7 +386,7 @@ What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean?
 How do they relate to this plot?
 
 ```{r results='hide'}
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = drv, y = cyl))
 
 ```
@@ -396,7 +396,7 @@ ggplot(data = mpg) +
 <div class="answer">
 
 ```{r}
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = hwy, y = cty)) +
   facet_grid(drv ~ cyl)
 ```
@@ -405,7 +405,7 @@ The empty cells (facets) in this plot are combinations of `drv` and `cyl` that h
 These are the same locations in the scatter plot of `drv` and `cyl` that have no plots.
 
 ```{r}
-ggplot(data = mpg) + 
+ggplot(data = mpg) +
   geom_point(mapping = aes(x = drv, y = cyl))
 ```
 
@@ -415,7 +415,7 @@ ggplot(data = mpg) +
 
 <div class="question">
 
-What plots does the following code make? 
+What plots does the following code make?
 What does `.` do?
 
 </div>
@@ -503,8 +503,8 @@ visually distinct.
 <div class="question">
 
 Read `?facet_wrap`.
-What does `nrow` do? What does `ncol` do? 
-What other options control the layout of the individual panels? 
+What does `nrow` do? What does `ncol` do?
+What other options control the layout of the individual panels?
 Why doesn’t `facet_grid()` have `nrow` and `ncol` variables?
 
 </div>
@@ -539,9 +539,9 @@ There will be more space for columns if the plot is laid out horizontally (lands
 
 <div class="question">
 
-What geom would you use to draw a line chart? 
-A boxplot? 
-A histogram? 
+What geom would you use to draw a line chart?
+A boxplot?
+A histogram?
 An area chart?
 
 </div>
@@ -559,7 +559,7 @@ An area chart?
 
 <div class="question">
 
-Run this code in your head and predict what the output will look like. 
+Run this code in your head and predict what the output will look like.
 Then, run the code in R and check your predictions.
 
 ```{r ex-3-6-2,results='hide'}
@@ -595,7 +595,7 @@ Why do you think I used it earlier in the chapter?
 
 <div class="answer">
 
-The theme option `show.legend = FALSE` hides the legend box. 
+The theme option `show.legend = FALSE` hides the legend box.
 
 Consider this example earlier in the chapter.
 ```{r}
@@ -658,12 +658,12 @@ Will these two graphs look different?
 Why/why not?
 
 ```{r eval=FALSE}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point() + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
   geom_smooth()
 
-ggplot() + 
-  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+ggplot() +
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
 ```
 
@@ -671,7 +671,7 @@ ggplot() +
 
 <div class="answer">
 
-No. 
+No.
 Because both `geom_point()` and `geom_smooth()` will use the same data and mappings.
 They will inherit those options from the `ggplot()` object, so the mappings don't need to specified again.
 
@@ -764,7 +764,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 <div class="question">
 
-What is the default geom associated with `stat_summary()`? 
+What is the default geom associated with `stat_summary()`?
 How could you rewrite the previous plot to use that geom function instead of the stat function?
 
 </div>
@@ -773,7 +773,7 @@ How could you rewrite the previous plot to use that geom function instead of the
 
 The "previous plot" referred to in the question is the following.
 ```{r}
-ggplot(data = diamonds) + 
+ggplot(data = diamonds) +
   stat_summary(
     mapping = aes(x = cut, y = depth),
     fun.ymin = min,
@@ -822,7 +822,7 @@ The `geom_col()` function expects that the data contains `x` values and `y` valu
 
 The default stat of `geom_bar()` is `stat_bin()`.
 The `geom_bar()` function only expects an `x` variable.
-The stat, `stat_bin()`,  preprocess input data by counting the number of observations for each value of `x`. 
+The stat, `stat_bin()`,  preprocess input data by counting the number of observations for each value of `x`.
 The `y` aesthetic uses the values of these counts.
 
 </div>
@@ -882,7 +882,7 @@ The following tables contain the geoms and stats in [ggplot2](https://ggplot2.ti
 | `geom_count()`      | `stat_sum()`        | x           |
 | `geom_density()`    | `stat_density()`    | x           |
 | `geom_density_2d()` | `stat_density_2d()` | x           |
-| `geom_dotplot()`    |                     |             | 
+| `geom_dotplot()`    |                     |             |
 | `geom_errorbarh()`  |                     |             |
 | `geom_hex()`        | `stat_hex()`        | x           |
 | `geom_freqpoly()`   | `stat_bin()`        | x           |
@@ -915,7 +915,7 @@ The following tables contain the geoms and stats in [ggplot2](https://ggplot2.ti
 | `geom_violin()`     | `stat_ydensity()`   | x           |
 | `geom_sf()`         | `stat_sf()`         | x           |
 
-Table: ggplot2 geom layers and their default stats. 
+Table: ggplot2 geom layers and their default stats.
 
 | stat                 | default geom        | shared docs |
 |:---------------------|:--------------------|-------------|
@@ -927,7 +927,7 @@ Table: ggplot2 geom layers and their default stats.
 | `stat_summary_hex()` | `geom_hex()`        |             |
 | `stat_summary_bin()` | `geom_pointrange()` |             |
 | `stat_summary()`     | `geom_pointrange()` |             |
-| `stat_unique()`      | `geom_point()`      |             | 
+| `stat_unique()`      | `geom_point()`      |             |
 | `stat_count()`       | `geom_bar()`        | x           |
 | `stat_bin_2d()`      | `geom_tile()`       | x           |
 | `stat_boxplot()`     | `geom_boxplot()`    | x           |
@@ -968,11 +968,11 @@ The function `stat_smooth()` calculates the following variables:
 
 The "Computed Variables" section of the `stat_smooth()` documentation contains these variables.
 
-The parameters that control the behavior of `stat_smooth()` include 
+The parameters that control the behavior of `stat_smooth()` include
 
--   `method`: the method used to 
+-   `method`: the method used to
 -   `formula`: the formula are parameters such as `method` which determines which method is used to calculate the predictions and confidence interval, and some other arguments that are passed to that.
--   `na.rm`: 
+-   `na.rm`:
 
 </div>
 
@@ -1042,7 +1042,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point(position = "jitter")
 ```
 
-The relationship between `cty` and `hwy` is clear even without jittering the points 
+The relationship between `cty` and `hwy` is clear even without jittering the points
 but jittering shows the locations where there are more observations.
 
 </div>
@@ -1110,8 +1110,8 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 Note that the `height` and `width` arguments are in the units of the data.
 Thus `height = 1` (`width = 1`) corresponds to different relative amounts of jittering depending on the scale of the `y` (`x`) variable.
-The default values of `height` and `width` are defined to be 80% of the `resolution()` of the data, which is the smallest non-zero distance between adjacent values of a variable. 
-When `x` and `y` are discrete variables, 
+The default values of `height` and `width` are defined to be 80% of the `resolution()` of the data, which is the smallest non-zero distance between adjacent values of a variable.
+When `x` and `y` are discrete variables,
 their resolutions are both equal to 1, and `height = 0.4` and `width = 0.4` since the jitter moves points in both positive and negative directions.
 
 </div>
@@ -1160,7 +1160,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_count()
 ```
 
-As that example shows, unfortunately, there is no universal solution to overplotting. 
+As that example shows, unfortunately, there is no universal solution to overplotting.
 The costs and benefits of different approaches will depend on the structure of the data and the goal of the data scientist.
 
 </div>
@@ -1169,7 +1169,7 @@ The costs and benefits of different approaches will depend on the structure of t
 
 <div class="question">
 
-What’s the default position adjustment for `geom_boxplot()`? 
+What’s the default position adjustment for `geom_boxplot()`?
 Create a visualization of the `mpg` dataset that demonstrates it.
 
 </div>
@@ -1221,7 +1221,7 @@ ggplot(mpg, aes(x = factor(1), fill = drv)) +
   coord_polar(theta = "y")
 ```
 
-The argument `theta = "y"` maps `y` to the angle of each section. 
+The argument `theta = "y"` maps `y` to the angle of each section.
 If `coord_polar()` is specified without `theta = "y"`, then the resulting plot is called a bulls-eye chart.
 
 ```{r}
@@ -1249,8 +1249,8 @@ The `labs` function adds axis titles, plot titles, and a caption to the plot.
 ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
   geom_boxplot() +
   coord_flip() +
-  labs(y = "Highway MPG", 
-       x = "Year", 
+  labs(y = "Highway MPG",
+       x = "Year",
        title = "Highway MPG by car class",
        subtitle = "1999-2008",
        caption = "Source: http://fueleconomy.gov")
@@ -1261,8 +1261,8 @@ The arguments to `labs()` are optional, so you can add as many or as few of thes
 ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
   geom_boxplot() +
   coord_flip() +
-  labs(y = "Highway MPG", 
-       x = "Year", 
+  labs(y = "Highway MPG",
+       x = "Year",
        title = "Highway MPG by car class")
 ```
 
@@ -1297,7 +1297,7 @@ See the [coord_map()](https://ggplot2.tidyverse.org/reference/coord_map.html) do
 
 <div class="question">
 
-What does the plot below tell you about the relationship between city and highway mpg? 
+What does the plot below tell you about the relationship between city and highway mpg?
 Why is `coord_fixed()` important?
 What does `geom_abline()` do?
 

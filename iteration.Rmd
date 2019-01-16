@@ -48,10 +48,10 @@ The answers for each part are below.
     }
     output
     ```
-    
+
     I used a `list`, not a character vector, since the class of an object can have multiple values.
     For example, the class of the `time_hour` column is `r class(nycflights13::flights$time_hour)`.
-    
+
 
 1.  To compute the number of unique values in each column of the `iris` dataset.
     ```{r}
@@ -154,7 +154,7 @@ Combine your function writing and for loop skills:
 
 1.  Write a for loop that `prints()` the lyrics to the children's song "Alice the camel".
 
-1.  Convert the nursery rhyme "ten in the bed" to a function. 
+1.  Convert the nursery rhyme "ten in the bed" to a function.
     Generalize it to any number of people in any sleeping structure.
 
 1.  Convert the song "99 bottles of beer on the wall" to a function.
@@ -206,7 +206,7 @@ The answers to each part follow.
     > “Roll over, roll over.” \
     > So they all rolled over and one fell out.
 
-    This verse is repeated, each time with one fewer in the bed, until there is one left. 
+    This verse is repeated, each time with one fewer in the bed, until there is one left.
     That last verse is:
 
     > One!
@@ -256,7 +256,7 @@ The answers to each part follow.
       }
       bottles
     }
-    
+
     beer_bottles <- function(n) {
       # should test whether n >= 1.
       for (i in seq(n, 1)) {
@@ -286,7 +286,7 @@ for (i in seq_along(x)) {
 }
 output
 ```
-How does this affect performance? 
+How does this affect performance?
 Design and execute an experiment.
 
 </div>
@@ -500,7 +500,7 @@ trans[["disp"]](mtcars[["disp"]])
 
 <div class="question">
 
-Read the documentation for `apply()`. 
+Read the documentation for `apply()`.
 In the 2nd case, what two for-loops does it generalize.
 
 </div>
@@ -592,7 +592,7 @@ col_summary2 <- function(df, fun) {
 }
 ```
 
-Let's test that `col_summary2()` works by creating a small data frame with 
+Let's test that `col_summary2()` works by creating a small data frame with
 some numeric and non-numeric columns.
 ```{r}
 df <- tibble(
@@ -634,14 +634,14 @@ Write code that uses one of the map functions to:
     ```
 
 1.  To calculate the type of every column in `nycflights13::flights` apply
-    the function `typeof()`, discussed in the section on [Vector basics](http://r4ds.had.co.nz/vectors.html#vector-basics), 
+    the function `typeof()`, discussed in the section on [Vector basics](http://r4ds.had.co.nz/vectors.html#vector-basics),
     and use `map_chr()`, since the results are character.
     ```{r}
     map_chr(nycflights13::flights, typeof)
     ```
-    
 
-1.  There is no function that directly calculates the number of unique values 
+
+1.  There is no function that directly calculates the number of unique values
     in a vector. For a single column, the number of unique values of a vector
     can be calculated like so,
     ```{r}
@@ -669,7 +669,7 @@ Write code that uses one of the map functions to:
     ```
     Since a single call of `rnorm()` returns a numeric vector with a length greater
     than one we cannot use `map_dbl`, which requires the function to return a numeric
-    vector that is only length one (see [Exercise 21.5.4]). 
+    vector that is only length one (see [Exercise 21.5.4](exercise-21.5.4)). 
     The map functions pass any additional arguments to the function being called.
 
 </div>
@@ -705,7 +705,7 @@ Why?
 
 <div class="answer">
 
-Map functions work with any vectors, not just lists. 
+Map functions work with any vectors, not just lists.
 As with lists, the map functions will apply the function to each element of the vector.
 In the following examples, the inputs to `map()` are atomic vectors (logical, character, integer, double).
 ```{r}
@@ -740,10 +740,10 @@ Note that although input to `map()` was an integer vector, the return value was 
 ### Exercise 21.5.4 {.unnumbered .exercise data-number="21.5.4"}
 
 <div class="question">
-What does `map(-2:2, rnorm, n = 5)` do? 
+What does `map(-2:2, rnorm, n = 5)` do?
 Why?
 
-What does `map_dbl(-2:2, rnorm, n = 5)` do? 
+What does `map_dbl(-2:2, rnorm, n = 5)` do?
 Why?
 </div>
 
@@ -753,10 +753,10 @@ Consider the first expression.
 ```{r}
 map(-2:2, rnorm, n = 5)
 ```
-This expression takes samples of size five from five normal distributions, with means of (-2, -1, 0, 1, and 2), but the same standard deviation (1). 
+This expression takes samples of size five from five normal distributions, with means of (-2, -1, 0, 1, and 2), but the same standard deviation (1).
 It returns a list with each element a numeric vectors of length 5.
 
-However, if instead, we use `map_dbl()`, the expression raises an error. 
+However, if instead, we use `map_dbl()`, the expression raises an error.
 ```{r error = TRUE}
 map_dbl(-2:2, rnorm, n = 5)
 ```
