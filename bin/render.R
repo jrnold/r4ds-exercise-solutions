@@ -27,18 +27,18 @@ create_url_info <- function(path, base_url, priority = 0.5,
                             changefreq = "daily") {
   lastmod <- format(file.info(path)$mtime, format = "%Y-%m-%d",
                     tz = "UTC")
-  loc <- paste0(base_url, basename(path))
+  loc <- paste0(stringr::str_replace(base_url, "/$", ""), "/", basename(path))
   list(lastmod = lastmod, loc = loc, priority = priority,
        changefreq = changefreq)
 }
 
 create_sitemap <- function(output_dir, base_url,
-                           pattern = "^.\\.html$",
+                           pattern = "^.*\\.html$",
                            excludes = c(),
                            changfreq = "daily", priority = 0.5) {
   SITEMAP_XMLNS <- "http://www.sitemaps.org/schemas/sitemap/0.9"
-  html_files <- file.path(output_dir,
-                          setdiff(dir(output_dir, pattern = pattern), excludes))
+  html_files <- setdiff(dir(output_dir, pattern = pattern), excludes)
+  html_files <- file.path(output_dir, html_files)
   sitemap <- xml_new_root("urlset", xmlns = SITEMAP_XMLNS)
   for (file in html_files) {
     info <- create_url_info(file, base_url = base_url)
