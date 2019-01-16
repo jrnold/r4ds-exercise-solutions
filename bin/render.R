@@ -34,13 +34,15 @@ create_url_info <- function(path, base_url, priority = 0.5,
 
 create_sitemap <- function(output_dir, base_url,
                            pattern = "^.*\\.html$",
-                           excludes = c(),
+                           excludes = character(),
                            changfreq = "daily", priority = 0.5) {
   SITEMAP_XMLNS <- "http://www.sitemaps.org/schemas/sitemap/0.9"
-  html_files <- setdiff(dir(output_dir, pattern = pattern), excludes)
-  html_files <- file.path(output_dir, html_files)
+  print(output_dir)
+  filenames <- dir(output_dir, pattern = pattern)
+  filenames <- base::setdiff(filenames, excludes)
+  filenames <- file.path(output_dir, filenames)
   sitemap <- xml_new_root("urlset", xmlns = SITEMAP_XMLNS)
-  for (file in html_files) {
+  for (file in filenames) {
     info <- create_url_info(file, base_url = base_url)
     url <- xml_add_child(sitemap, "url")
     xml_add_child(url, "loc", info$loc)
@@ -74,7 +76,7 @@ render <- function(input, output_format = "all", force = FALSE,
   config <- yaml::read_yaml(config)
   output_dir <- bookdown:::load_config()$output_dir
   create_outdir(output_dir)
-  bookdown::render_book(input = "index.Rmd", ...)
+  # bookdown::render_book(input = "index.Rmd", ...)
   create_sitemap(output_dir, config$url)
 }
 
