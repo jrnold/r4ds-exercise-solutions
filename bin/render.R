@@ -76,7 +76,7 @@ render <- function(input, output_format = "all", force = FALSE,
   config <- yaml::read_yaml(config)
   output_dir <- bookdown:::load_config()$output_dir
   create_outdir(output_dir)
-  # bookdown::render_book(input = "index.Rmd", ...)
+  bookdown::render_book(input = "index.Rmd", ...)
   create_sitemap(output_dir, config$url)
 }
 
