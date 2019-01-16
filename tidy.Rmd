@@ -275,17 +275,15 @@ spread(people, key, value)
 Spreading this data frame fails because the `name` and `key` columns do not uniquely identify rows.
 In particular, there are two rows with values for the age of "Phillip Woods".
 
-After adding a column with an observation count 
+We could solve the problem by adding a row with a distinct observation count for each combination of name and key.
 ```{r}
-people2 <- tribble(
-  ~name, ~key, ~value, ~obs,
-  #-----------------|--------|------|------
-  "Phillip Woods", "age", 45, 1,
-  "Phillip Woods", "height", 186, 1,
-  "Phillip Woods", "age", 50, 2,
-  "Jessica Cordero", "age", 37, 1,
-  "Jessica Cordero", "height", 156, 1
-)
+people2 <- people %>%
+  group_by(name, key) %>%
+  mutate(obs = row_number())
+people2
+```
+We can spread `people2` because the combination of `name` and `obs` will uniquely identify the spread rows.
+```{r}
 spread(people2, key, value)
 ```
 
