@@ -77,7 +77,7 @@ render <- function(input, output_format = "all", force = FALSE,
   output_dir <- yaml::read_yaml("_bookdown.yml")$output_dir
   create_outdir(output_dir)
   bookdown::render_book(input = "index.Rmd", envir = new.env(), ...)
-  create_sitemap(output_dir, config$url)
+  create_sitemap(output_dir, config$deploy_url)
 }
 
 main <- function(args = NULL) {
