@@ -187,7 +187,7 @@ How would you match the sequence `"'\` ?
 
 <div class="answer">
 
-```{r eval=is_html}
+```{r }
 str_view("\"'\\", "\"'\\\\", match = TRUE)
 ```
 
@@ -203,7 +203,7 @@ What patterns will the regular expression `\..\..\..` match? How would you repre
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
-```{r eval=is_html}
+```{r }
 str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."), match = TRUE)
 ```
 
@@ -219,7 +219,7 @@ How would you match the literal string `"$^$"`?
 
 <div class="answer">
 
-```{r eval=is_html}
+```{r }
 str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$", match = TRUE)
 ```
 
@@ -245,25 +245,25 @@ The answer to each part follows.
 
 1.  The words that start with  “y” are:
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, "^y", match = TRUE)
     ```
 
 1.  End with “x”
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, "x$", match = TRUE)
     ```
 
 1.  Are exactly three letters long are
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, "^...$", match = TRUE)
     ```
 
 1.  The words that have seven letters or more are
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, ".......", match = TRUE)
     ```
 
@@ -290,13 +290,13 @@ The answer to each part follows.
 
 1.  Words starting with vowels
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, "^[aeiou]", match = TRUE)
     ```
 
 1.  Words that contain only consonants
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, "^[^aeiou]+$", match = TRUE)
     ```
 
@@ -304,13 +304,13 @@ The answer to each part follows.
 
 1.  Words that end with "-ed" but not ending in "-eed". This handles the special case of "-ed", as well as words with a length great than two.
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
     ```
 
 1.  Words ending in `ing` or `ise`:
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, "i(ng|se)$", match = TRUE)
     ```
 
@@ -328,16 +328,16 @@ Empirically verify the rule “i” before e except after “c”.
 
 Using only what has been introduced thus far:
 
-```{r eval=is_html}
+```{r }
 str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
 ```
 
-```{r eval=is_html}
+```{r }
 str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
 ```
 
 Using `str_detect()` count the number of words that follow these rules:
-```{r eval=is_html}
+```{r }
 sum(str_detect(stringr::words, "(cei|[^c]ie)"))
 sum(str_detect(stringr::words, "(cie|[^c]ei)"))
 ```
@@ -353,7 +353,7 @@ Is “q” always followed by a “u”?
 <div class="answer">
 
 In the `stringr::words` dataset, yes. In the full English language, no.
-```{r eval=is_html}
+```{r }
 str_view(stringr::words, "q[^u]", match = TRUE)
 ```
 
@@ -393,17 +393,17 @@ Create a regular expression that will match telephone numbers as commonly writte
 The answer to this will vary by country.
 
 For the United States, phone numbers have a format like `123-456-7890`.
-```{r eval=is_html}
+```{r }
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
 or
-```{r eval=is_html}
+```{r }
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
-```{r eval=is_html}
+```{r }
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 
@@ -435,37 +435,37 @@ Describe the equivalents of `?`, `+`, `*` in `{m,n}` form.
 
 For example, let's repeat the examples in the chapter, replacing `?` with `{0,1}`, 
 `+` with `{1,}`, and `*` with `{*,}`.
-```{r eval=is_html}
+```{r }
 x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
 ```
 ```{r}
 str_view(x, "CC?")
 ```
-```{r eval=is_html}
+```{r }
 str_view(x, "CC{0,1}")
 ```
 
-```{r eval=is_html}
+```{r }
 str_view(x, "CC+")
 ```
-```{r eval=is_html}
+```{r }
 str_view(x, "CC{1,}")
 ```
 
-```{r eval=is_html}
+```{r }
 str_view_all(x, "C[LX]+")
 ```
-```{r eval=is_html}
+```{r }
 str_view_all(x, "C[LX]{0,1}")
 ```
 
 The chapter does not contain an example of `*`.
 This pattern looks for a "C" optionally followed by
 any number of "L" or "X" characters.
-```{r eval=is_html}
+```{r }
 str_view_all(x, "C[LX]*")
 ```
-```{r eval=is_html}
+```{r }
 str_view_all(x, "C[LX]{0,}")
 ```
 
@@ -519,19 +519,19 @@ The answer to each part follows.
 
 1.  This regex finds all words starting with three consonants.
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(words, "^[^aeiou]{3}", match = TRUE)
     ```
 
 1.  This regex finds three or more vowels in a row:
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(words, "[aeiou]{3,}", match = TRUE)
     ```
 
 1.  This regex finds two or more vowel-consonant pairs in a row.
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(words, "([aeiou][^aeiou]){2,}", match = TRUE)
     ```
 
@@ -595,18 +595,18 @@ The answer to each part follows.
 
 1.  This regular expression matches words that and end with the same character.
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(stringr::words, "^(.)((.*\\1$)|\\1?$)", match = TRUE)
     ```
 
 1.  Either of these patterns checks for any pair of repeated letters, where
     *letters* is defined to the ASCII letters A-Z.
     
-    ```{r eval=is_html}
+    ```{r }
     str_view(words, "([A-Za-z][A-Za-z]).*\\1", match = TRUE)
     ```
 
-    ```{r eval=is_html}
+    ```{r }
     str_view(words, "([[:letter:]]).*\\1", match = TRUE)
     ```
 
@@ -760,7 +760,7 @@ colour_match2
 ```{r}
 more2 <- sentences[str_count(sentences, colour_match) > 1]
 ```
-```{r eval=is_html}
+```{r }
 str_view_all(more2, colour_match2, match = TRUE)
 ```
 
