@@ -617,27 +617,23 @@ For these examples, I generated these diagrams programmatically using the
 
 1.  The nested set diagram for
     `list(a, b, list(c, d), list(e, f))`
-    is
+    is:[^diagrammer]
 
-    ```{r include=FALSE,purl=FALSE}
+    ```{r echo=FALSE,include=FALSE,purl=FALSE}
     file_nested_set_1 <- here::here("diagrams", "nested_set_1.dot")
-    ```
-
-    ```{r nested_set_1,echo=FALSE,cache.extra=tools::md5sum(file_nested_set_1),echo=FALSE,purl=FALSE}
     DiagrammeR::grViz(file_nested_set_1)
     ```
 
 1.  The nested set diagram for
     `list(list(list(list(list(list(a))))))`
-    is as follows.
+    is:
 
-    ```{r include=FALSE, purl=FALSE}
-    file_nested_set_2 <- here::here("diagrams", "nested_set_2.dot")
-    ```
-
-    ```{r nested_set_2,echo=FALSE,cache.extra=tools::md5sum(file_nested_set_2),echo=FALSE,purl=FALSE}
+    ```{r echo=FALSE,cache=FALSE,purl=FALSE}
+    file_nested_set_2 <- here::here("diagrams", "nested_set_2.dot")    
     DiagrammeR::grViz(file_nested_set_2)
     ```
+
+
 
 </div>
 
@@ -742,3 +738,5 @@ It works! I even used a list with heterogeneous types and there wasn't an issue.
 In following chapters we'll see that list vectors can be very useful: for example, when processing many different models.
 
 </div>
+
+[^diagrammer]: These diagrams were created with the [DiagrammeR](http://rich-iannone.github.io/DiagrammeR/) package.
