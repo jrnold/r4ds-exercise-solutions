@@ -1,8 +1,13 @@
-#' extract the table of contents from R for Data Science and save to a file
+#' extract the table of contents from "R for Data Science" and save to a csv file
 library("rvest")
 library("purrr")
 library("stringr")
 library("jsonlite")
+library("tibble")
+library("dplyr")
+library("readr")
+
+R4DS_INDEX <- "https://r4ds.had.co.nz/"
 
 r4ds_chapters <- function() {
   index <- read_html(R4DS_INDEX)
