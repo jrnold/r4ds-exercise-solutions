@@ -74,9 +74,9 @@ render <- function(input, output_format = "all", force = FALSE,
     check_uncommitted(dirname(input[[1]]))
   }
   config <- yaml::read_yaml(config)
-  output_dir <- bookdown:::load_config()$output_dir
+  output_dir <- yaml::read_yaml("_bookdown.yml")$output_dir
   create_outdir(output_dir)
-  bookdown::render_book(input = "index.Rmd", ...)
+  bookdown::render_book(input = "index.Rmd", envir = new.env(), ...)
   create_sitemap(output_dir, config$url)
 }
 
