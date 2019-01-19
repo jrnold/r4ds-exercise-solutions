@@ -3,6 +3,7 @@ library("readr")
 library("rlang")
 library("stringr")
 library("CodeDepends")
+library("fs")
 
 CORE_PKGS = c("base", "methods", "stats", "graphics", "grDevices",
               "utils", "datasets")
@@ -21,7 +22,8 @@ libreqhandler <- function(e, collector, ...) {
   libname <- as.character(e[[2]])
   collector$library(libname)
   if (libname == "tidyverse") {
-    for (lib in c("ggplot2", "tibble", "tidyr", "readr", "purrr", "dplyr", "stringr", "forcats")) {
+    for (lib in c("ggplot2", "tibble", "tidyr", "readr", "purrr", "dplyr",
+                  "stringr", "forcats")) {
       collector$library(lib)
     }
   }
@@ -75,16 +77,20 @@ resolveFunctions <- function(x, packages = character()) {
 }
 
 get_function_uses <- function(path) {
+  print(path)
   old_opts <- options(knitr.purl.inline = FALSE)
   on.exit(options(old_opts))
   text <- read_file(path)
   out <- knitr::knit(text = text, tangle = TRUE, quiet = TRUE)
   expres <- parse_expr(str_c("{", out, "}"))
   funcs <- getInputs(expres, collector = collector)
-  map_dfr(resolveFunctions(funcs), as_tibble) %>%
-    print(n = 1000)
+  resolveFunctions(funcs) %>%
+    map_dfr(as_tibble) %>%
+    mutate(path = path)
 }
 
+funcuses <- dir_ls(regexp = "\\.Rmd$") %>%
+  base::setdiff("contributions.Rmd") %>%
+  map_dfr(get_function_uses)
 
-get_function_uses("visualize.Rmd")
 

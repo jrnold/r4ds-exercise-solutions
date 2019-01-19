@@ -1,3 +1,5 @@
+# Get number of words and lines of code for all R4DS sections
+
 ## Library r4ds information
 library("readr")
 library("httr")
@@ -6,7 +8,6 @@ library("xml2")
 library("purrr")
 library("rvest")
 library("stringr")
-
 
 process_chapter <- function(text) {
   doc <- read_html(text)
@@ -27,7 +28,8 @@ process_section <- function(x) {
        code = get_code(x))
 }
 
-get_text <- function(.x) {
+# Extract text from a section
+extract_text <- function(.x) {
   out <- switch(xml_type(.x),
                 element = {
                   if (xml_name(.x) %in% c("pre")) {
@@ -46,6 +48,7 @@ get_text <- function(.x) {
   out
 }
 
+# Extract code comments from a section
 get_code <- function(.x) {
   code <-  map_chr(xml_nodes(.x, "pre.sourceCode.r"), xml_text) %>%
     str_c(collapse = "\n")
@@ -73,8 +76,7 @@ chapters <- filter(r4ds_toc, section_level == 1L) %>%
 
 chapter_summaries <- map(chapters$html, process_chapter) %>%
   flatten() %>%
-  map_dfr(chapter_summaries,
-          ~ tibble(id = .$id,
+  map_dfr(~ tibble(id = .$id,
                    number = .$number,
                    text = stringi::stri_count_words(.$text),
                    lines_of_code = length(.$code)))
