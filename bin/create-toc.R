@@ -66,8 +66,9 @@ get_level <- function(x) {
 #' parse each section
 process_section <- function(x, path = "/") {
   lvl <- get_level(x)
-  current <- list2(id = html_attr(x, "id"), !!!get_section_title(x),
-                   path = path)
+  current <- rlang::list2(id = html_attr(x, "id"),
+                          !!!get_section_title(x),
+                          path = path)
   # find next level of nodes
   sections <- map(html_nodes(x, glue("div.section.level{lvl + 1}")),
                              process_section, path = path)
@@ -94,9 +95,9 @@ process_chapter <- function(x, output_dir) {
   data_level <- html_attr(x, "data-level")
   out <- list(chapter = if_else(data_level == "", NA_integer_,
                          as.integer(data_level)),
-       path = html_attr(x, "data-path"),
-       href = html_attr(a, "href"),
-       name = str_replace(html_text(a), "^[\\d.]+ ", ""))
+               path = html_attr(x, "data-path"),
+               href = html_attr(a, "href"),
+               name = str_replace(html_text(a), "^[\\d.]+ ", ""))
   out$sections <- process_page(out[["path"]])
   out
 }
@@ -115,12 +116,13 @@ main <- function() {
     "Create a JSON table of contents for R4DS containing the sections ",
     "for all HTML files"
   )
-  parser <- OptionParser(description = description) %>%
-  opts <- parse_args(positional_arguments = TRUE)
-  path <- if (!is.na(opts$args[[1]])) {
+  parser <- OptionParser(description = description)
+  opts <- parse_args(parser, positional_arguments = TRUE)
+  if (length(opts$args[[1]]) < 1) {
     cat("Must specify an output file", file = stderr())
     quit(save = "no", status = 1)
   }
+  path <- opts$args[[1]]
   output_dir <- yaml::read_yaml("_bookdown.yml")$output_dir
   write_toc(output_dir, path)
 }
