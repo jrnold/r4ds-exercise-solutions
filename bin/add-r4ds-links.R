@@ -3,6 +3,7 @@ suppressPackageStartupMessages({
   library("rjson")
   library("fs")
   library("rlang")
+  library("jsonlite")
 })
 
 eval_tags <- function(expr) {
@@ -11,10 +12,11 @@ eval_tags <- function(expr) {
 
 handle_section <- function(x, r4ds_url) {
   # first child should be the heading
-  header <- html_children(x)[[1]]
+  header <- html_node(x, "h1,h2,h3,h4")
   href <- httr::modify_url(r4ds_url, frag = xml_attr(x, "id"))
-  div <- xml_add_sibling(header, "div", class = ".r4ds-section")
-  a <- xml_add_child(div, "a", href = href, "Link to R4DS")
+  a <- xml_add_child(header, "a", href = href)
+  icon <- xml_add_child(a, "i", class = "fa fa-external-link r4ds-section-link",
+                        `aria-hidden` = "true")
 }
 
 handle_page <- function(path, r4ds_url, output_dir) {

@@ -1,9 +1,13 @@
+#' Extracting functions used in each chapter.
 library("knitr")
 library("readr")
 library("rlang")
 library("stringr")
 library("CodeDepends")
 library("fs")
+library("purrr")
+library("tibble")
+library("dplyr")
 
 CORE_PKGS = c("base", "methods", "stats", "graphics", "grDevices",
               "utils", "datasets")
@@ -81,6 +85,8 @@ get_function_uses <- function(path) {
   old_opts <- options(knitr.purl.inline = FALSE)
   on.exit(options(old_opts))
   text <- read_file(path)
+  knitr::knit_patterns$set(knitr::all_patterns[["md"]])
+  knitr::opts_knit$set(out.format = "markdown")
   out <- knitr::knit(text = text, tangle = TRUE, quiet = TRUE)
   expres <- parse_expr(str_c("{", out, "}"))
   funcs <- getInputs(expres, collector = collector)
@@ -90,7 +96,5 @@ get_function_uses <- function(path) {
 }
 
 funcuses <- dir_ls(regexp = "\\.Rmd$") %>%
-  base::setdiff("contributions.Rmd") %>%
+  # base::setdiff("contributions.Rmd") %>%
   map_dfr(get_function_uses)
-
-
