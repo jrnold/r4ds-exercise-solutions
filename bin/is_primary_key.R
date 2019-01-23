@@ -38,7 +38,7 @@ is_key(foo, 1:3)
 
 # check that columns in y are are foreign key of x
 is_foreign_key <- function(x, y, by = NULL) {
-  # check that y is a primary key
+  # check that by is a primary key for y
   if (!rlang::eval_tidy(quo(is_primary_key(y, !!!by)))) {
     return(FALSE)
   }
