@@ -15,6 +15,7 @@ suppressPackageStartupMessages({
   library("purrr")
   library("tibble")
   library("dplyr")
+  library("glue")
 })
 
 handle_section <- function(x) {
