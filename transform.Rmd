@@ -574,41 +574,38 @@ Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What d
 <div class="answer">
 
 I would expect that the airtime is the difference between the arrival and departure times, `air_time =  arr_time - dep_time`.
-
-To check this, I need to first convert the times to a form more amenable to arithmetic
-using the same calculations as in the previous exercise.
+First, let's convert the times to a form more amenable to arithmetic operations using the same calculations as in the previous exercise.
 ```{r}
 flights_airtime <-
   mutate(flights,
-    dep_time_min = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
-    arr_time_min = (arr_time %/% 100 * 60 + arr_time %% 100) %% 1440,
-    air_time_diff = air_time - arr_time + dep_time
+    dep_time_minutes = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
+    arr_time_minutes = (arr_time %/% 100 * 60 + arr_time %% 100) %% 1440,
+    air_time_diff = air_time - arr_time_minutes + dep_time_minutes
   )
 ```
 
-Is my expectation correct? Does `air_time = arr_time - dep_time`?
+Was our expectation correct? Does `air_time = arr_time - dep_time`?
+If so, there should be no flights with non-zero values of `air_time_diff`.
+But there are.
 ```{r}
-filter(flights_airtime, air_time_diff != 0)
+nrow(filter(flights_airtime, air_time_diff != 0))
 ```
 
 No. So why not? Apart from data error, I can think of two reasons why `air_time` may 
 not equal `arr_time - dep_time`.
 
-1.  The flight passes midnight, so `arr_time < dep_time`. 
-    In these cases, the airtime will be off by 24 hours (1,440 minutes).
+1.  The flight passes midnight, so `arr_time_minutes < dep_time_minutes`. 
+    In these cases, the difference in airtime should be by 24 hours (1,440 minutes).
 
 1.  The flight crosses time zones, and the total air time will be off by hours (multiples of 60). Additionally, all these discrepancies should be positive.
-    All the flights in `flights` departed from New York City and are domestic (within the US), meaning that flights will all be to the same or more westerly time zones.
+    All flights in `flights` departed from New York City and are domestic flights in the US.
+    This means that flights will all be to the same or more westerly time zones.
 
 Both of these explanations have clear patterns that I would expect to see if they 
 were true. 
 In particular, in both cases, all differences should be divisible by 60.
 However, there are many flights in which the difference between `arr_time` and `dest_time` is not divisible by 60.
-```{r}
-filter(flights_airtime, air_time_diff %% 60 == 0)
-```
-
-I'll try plotting the data to see if that is more informative.
+However, plotting the data shows that is not the case.
 ```{r}
 ggplot(flights_airtime, aes(x = air_time_diff)) +
   geom_histogram(binwidth = 1)
@@ -616,6 +613,7 @@ ggplot(flights_airtime, aes(x = air_time_diff)) +
 The distribution is bimodal, which with one mode comprising discrepancies up to several hours and a second node around 24 hours.
 These nodes correspond to changing time-zones and overnight flights.
 However, in both cases, the discrepancies are not all divisible by 60.
+However, there are spikes at 0, 60 (1 hour), 120 (2 hours), and 180 (3 hours).
 
 I can also confirm my guess about time zones by looking at discrepancies from
 flights to destinations in another air zone (or even all flights to different time zones using the time zone of the airport from the `airports` data frame).
