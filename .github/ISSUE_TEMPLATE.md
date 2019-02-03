@@ -1,11 +1,6 @@
-Please briefly describe your problem and what output you expect. If you have a question, please don't use this form. Instead, ask on <https://stackoverflow.com/> or <https://community.rstudio.com/>.
+Please briefly describe your problem and what output you expect.
 
-Please include a minimal reproducible example (AKA a reprex). If you've never heard of a [reprex](http://reprex.tidyverse.org/) before, start by reading <https://www.tidyverse.org/help/#reprex>.
-
----
-
-Brief description of the problem
-
-```r
-# insert reprex here
-```
+-   Include a link to page, and reference the exercise number (if applicable).
+-   If it is a typo, include the quoted text where it occurs.
+-   If code is producing an error, include both the code and the error message, as well as the 
+    output of `sessionInfo()`.
