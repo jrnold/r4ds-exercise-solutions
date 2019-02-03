@@ -74,11 +74,18 @@ The answer to each part follows.
     ```{r}
     filter(flights, month >= 7, month <= 9)
     ```
-    The `%in%` and `|` operators would also work, but using relational operators
-    like `>=` and `<=` is preferred for numeric data. 
+    The `%in%` operator is an alternative. If the `:` operator is used to specify
+    the integer range, the expression is readable and compact.
     ```{r}
-    filter(flights, month %in% c(7, 8, 9))
+    filter(flights, month %in% 7:9)
     ```
+    We could also use the `|` operator. However, the `|` does not scale to 
+    many choices. 
+    Even with only three choices, it is quite verbose.
+    ```{r}
+    filter(flights, month == 7, month == 8, month == 9)
+    ```
+    We can also use the `between()` function as shown in [Exercise 5.2.2](#exercise-5.2.2).
 
 1.  Flights that arrived more than two hours late, but didn’t leave late will 
     have an arrival delay of more than 120 minutes (`arr_delay > 120`) and 
