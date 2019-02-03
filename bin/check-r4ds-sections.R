@@ -73,12 +73,12 @@ main <- function() {
     }
     if (nrow(different_titles) > 0) {
       cat("These sections have different titles than R4DS:")
-      cat(glue_data(missing_ids, "{path}#{id}: '{title_solutions}' (solutions) '{title_r4ds}' (R4DS)"),
+      cat(glue_data(different_titles, "{path}#{id}: '{title_solutions}' (solutions) '{title_r4ds}' (R4DS)"),
           file = stderr())
     }
     if (nrow(different_headings) > 0) {
       cat("These sections have different heading levels than R4DS:")
-      cat(glue_data(missing_ids, "{path}#{id}: '{tag_solutions}' (solutions) '{tag_r4ds}' (R4DS)"),
+      cat(glue_data(different_headings, "{path}#{id}: '{tag_solutions}' (solutions) '{tag_r4ds}' (R4DS)"),
           file = stderr())
     }
     quit(save = "no", status = 1)
