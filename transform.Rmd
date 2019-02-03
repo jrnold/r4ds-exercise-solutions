@@ -218,20 +218,24 @@ How could you use `arrange()` to sort all missing values to the start? (Hint: us
 
 <div class="answer">
 
-We can put `NA` values first by sorting by both an indicator of whether the column has a missing value, and the column of interest. 
-For example, to sort the data frame by departure time (`dep_time`) in ascending order, but place all missing values, run the following.
+The `arrange()` function puts `NA` values last.
 ```{r}
-arrange(flights, desc(is.na(dep_time)), dep_time)
+arrange(flights, dep_time) %>%
+  tail()
 ```
-
-Otherwise, regardless of whether we use `desc()` or not, missing values will 
-be placed at the end.
-```{r}
-arrange(flights, dep_time)
-```
+Using `desc()` does not change that.
 ```{r}
 arrange(flights, desc(dep_time))
 ```
+
+To put `NA` values first, we can add an indicator of whether the column has a missing value.
+Then we sort by the missing indicator column and the the column of interest. 
+For example, to sort the data frame by departure time (`dep_time`) in ascending order but `NA` values first, run the following.
+```{r}
+arrange(flights, desc(is.na(dep_time)), dep_time)
+```
+The `flights`  will first be sorted by `desc(is.na(dep_time))`.
+Since `desc(is.na(dep_time))` is either `TRUE` when `dep_time` is missing, or `FALSE`, when it is not, the rows with missing values of `dep_time` will come first, since `TRUE > FALSE`.
 
 </div>
 
