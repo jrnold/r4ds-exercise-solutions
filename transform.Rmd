@@ -579,73 +579,81 @@ select(
 ### Exercise 5.5.2 {.unnumbered .exercise data-number="5.5.2"}
 
 <div class="question">
-Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? What do you need to do to fix it?
+
+Compare `air_time` with `arr_time - dep_time`. 
+What do you expect to see? 
+What do you see? 
+What do you need to do to fix it?
+
 </div>
 
 <div class="answer">
 
-I would expect that the airtime is the difference between the arrival and departure times, `air_time =  arr_time - dep_time`.
-First, let's convert the times to a form more amenable to arithmetic operations using the same calculations as in the previous exercise.
+I expect that `air_time` is the difference between the arrival (`arr_time`) and departure times (`dep_time`).
+In other words, `air_time = arr_time - dep_time`.
+
+To check that this relationship, I'll first need to convert the times to a form more amenable to arithmetic operations using the same calculations as the [previous exercise](#exercise-5.5.1).
 ```{r}
 flights_airtime <-
   mutate(flights,
-    dep_time_minutes = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
-    arr_time_minutes = (arr_time %/% 100 * 60 + arr_time %% 100) %% 1440,
+    dep_time = (dep_time %/% 100 * 60 + dep_time %% 100) %% 1440,
+    arr_time = (arr_time %/% 100 * 60 + arr_time %% 100) %% 1440,
     air_time_diff = air_time - arr_time_minutes + dep_time_minutes
   )
 ```
 
-Was our expectation correct? Does `air_time = arr_time - dep_time`?
+So, does `air_time = arr_time - dep_time`?
 If so, there should be no flights with non-zero values of `air_time_diff`.
-But there are.
 ```{r}
 nrow(filter(flights_airtime, air_time_diff != 0))
 ```
 
-No. So why not? Apart from data error, I can think of two reasons why `air_time` may 
-not equal `arr_time - dep_time`.
+It turns out that there are many flights for which `air_time != arr_time - dep_time`.
+Other than data errors, I can think of two reasons why `air_time` woud not equal `arr_time - dep_time`.
 
-1.  The flight passes midnight, so `arr_time_minutes < dep_time_minutes`. 
+1.  The flight passes midnight, so `arr_time < dep_time`.
     In these cases, the difference in airtime should be by 24 hours (1,440 minutes).
 
-1.  The flight crosses time zones, and the total air time will be off by hours (multiples of 60). Additionally, all these discrepancies should be positive.
+1.  The flight crosses time zones, and the total air time will be off by hours (multiples of 60). 
     All flights in `flights` departed from New York City and are domestic flights in the US.
     This means that flights will all be to the same or more westerly time zones.
-
+    Given the time-zones in the US, the differences due to time-zone should be 60 minutes (Central)
+    120 minutes (Mountain), 180 minutes (Pacific), 240 minutes (Alaska), or 300 minutes (Hawaii-Aluetian).
+    
 Both of these explanations have clear patterns that I would expect to see if they 
 were true. 
-In particular, in both cases, all differences should be divisible by 60.
-However, there are many flights in which the difference between `arr_time` and `dest_time` is not divisible by 60.
-However, plotting the data shows that is not the case.
+In particular, in both cases, since time-zones and crossing midnight only affects the hour part of the time,  all values of `air_time_diff` should be divisible by 60.
+I'll visually check this hypothesis by plotting the distribution of `air_time_diff`.
+If those two explanations are correct, distribution of `air_time_diff` should comprise only spikes at multiples of 60.
 ```{r}
 ggplot(flights_airtime, aes(x = air_time_diff)) +
   geom_histogram(binwidth = 1)
 ```
-The distribution is bimodal, which with one mode comprising discrepancies up to several hours and a second node around 24 hours.
-These nodes correspond to changing time-zones and overnight flights.
-However, in both cases, the discrepancies are not all divisible by 60.
-However, there are spikes at 0, 60 (1 hour), 120 (2 hours), and 180 (3 hours).
+This is not the case.
+While, the distribution of `air_time_diff` has modes at multiples of 60 as hypothesized, 
+it shows that there are many flights in which the difference between air time and local arrival and departure times is not divisible by 60.
 
-I can also confirm my guess about time zones by looking at discrepancies from
-flights to destinations in another air zone (or even all flights to different time zones using the time zone of the airport from the `airports` data frame).
-In this case, I'll look at the distribution of the discrepancies for flights
-to Los Angeles (LAX).
+Let's also look at flights with Los Angeles as a destination.
+The discrepency should be 180 minutes.
 ```{r}
 ggplot(filter(flights_airtime, dest == "LAX"), aes(x = air_time_diff)) +
   geom_histogram(binwidth = 1)
 ```
 
-So what else might be going on? There seem to be too many "problems" for this to 
-be a data issue, so I'm probably missing something. So I'll reread the documentation
-to make sure that I understand the definitions of `arr_time`, `dep_time`, and
+To fix these time-zone issues, I would want to convert all the times to a date-time (to handle the midnight issue), and from local time to a common time zone, most likely [UTC](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) (to handle the .
+The `tzone` column of `nycflights13::airports` gives the time-zone of each airport.
+See the ["Dates and Times"](https://r4ds.had.co.nz/dates-and-times.html) for an introduction on working with date and time data.
+
+But that still leaves the other differences unexplained. 
+So what else might be going on? 
+There seem to be too many problems for this to be data entry problems, so I'm probably missing something. 
+So, I'll reread the documentation to make sure that I understand the definitions of `arr_time`, `dep_time`, and
 `air_time`. 
 The documentation contains a link to the source of the `flights` data, <https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236>.
-The `flights` data does not contain the variables `TaxiIn`, `TaxiOff`, `WheelsIn`, and `WheelsOff`.
-The `air_time` variable refers to flight time, which is defined as the time between wheels-off (take-off) and wheels-in (landing).
-So the `air_time` variable does not include the time spent on the runway taxiing to and from
-gates.
-With this new understanding of the data, I now know that the relationship between `air_time`, `arr_time`, and `dep_time` is `air_time <= arr_time - dep_time` 
-once the time zones of `arr_time` and `dep_time` are corrected.
+This documentation shows that the `flights` data does not contain the variables `TaxiIn`, `TaxiOff`, `WheelsIn`, and `WheelsOff`.
+It appears that the `air_time` variable refers to flight time, which is defined as the time between wheels-off (take-off) and wheels-in (landing).
+But the flight time does not include time spent on the runway taxiing to and from gates.
+With this new understanding of the data, I now know that the relationship between `air_time`, `arr_time`, and `dep_time` is `air_time <= arr_time - dep_time`, supposing that the time zones of `arr_time` and `dep_time` are in the same time zone.
 
 </div>
 
