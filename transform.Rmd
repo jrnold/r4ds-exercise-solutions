@@ -609,7 +609,7 @@ nrow(filter(flights_airtime, air_time_diff != 0))
 ```
 
 It turns out that there are many flights for which `air_time != arr_time - dep_time`.
-Other than data errors, I can think of two reasons why `air_time` woud not equal `arr_time - dep_time`.
+Other than data errors, I can think of two reasons why `air_time` would not equal `arr_time - dep_time`.
 
 1.  The flight passes midnight, so `arr_time < dep_time`.
     In these cases, the difference in airtime should be by 24 hours (1,440 minutes).
@@ -618,7 +618,7 @@ Other than data errors, I can think of two reasons why `air_time` woud not equal
     All flights in `flights` departed from New York City and are domestic flights in the US.
     This means that flights will all be to the same or more westerly time zones.
     Given the time-zones in the US, the differences due to time-zone should be 60 minutes (Central)
-    120 minutes (Mountain), 180 minutes (Pacific), 240 minutes (Alaska), or 300 minutes (Hawaii-Aluetian).
+    120 minutes (Mountain), 180 minutes (Pacific), 240 minutes (Alaska), or 300 minutes (Hawaii).
     
 Both of these explanations have clear patterns that I would expect to see if they 
 were true. 
@@ -634,7 +634,7 @@ While, the distribution of `air_time_diff` has modes at multiples of 60 as hypot
 it shows that there are many flights in which the difference between air time and local arrival and departure times is not divisible by 60.
 
 Let's also look at flights with Los Angeles as a destination.
-The discrepency should be 180 minutes.
+The discrepancy should be 180 minutes.
 ```{r}
 ggplot(filter(flights_airtime, dest == "LAX"), aes(x = air_time_diff)) +
   geom_histogram(binwidth = 1)
