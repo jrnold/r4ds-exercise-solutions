@@ -466,6 +466,21 @@ vars <- c("year", "month", "day", "dep_delay", "arr_delay")
 select(flights, one_of(vars))
 ```
 
+In the most recent versions of **dplyr** (after *R4DS* was originally published) you can provide the name of a vector containing the variable names you wish to select.
+```{r}
+select(flights, vars)
+```
+However there is a problem with this. 
+It is not clear whether `vars` refers to a column name or a variable.
+The way the code is evaluated will depend on whether `vars` is column in `flights`.
+If `vars` was a column in `flights`, then that code would select only the `vars` column.
+If `vars` is not a column in `flights`, as is the case, then `select` will replace it with its value, and select those columns.
+If it has the same name or to ensure that it will not conflict with the names of the columns in the data frame, use the `!!!` (bang-bang-bang) operator.
+```{r}
+select(flights, !!!vars)
+```
+This behavior, which is used by many **tidyverse** functions, is an example of what is called non-standard evaluation (NSE) in R. See the **dplyr** vignette, [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html), for more information on this topic.
+
 </div>
 
 ### Exercise 5.4.4 {.unnumbered .exercise data-number="5.4.4"}
