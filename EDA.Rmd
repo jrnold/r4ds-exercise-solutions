@@ -298,23 +298,32 @@ Note that the choice of the binning width is important, as if it were too large 
 
 The variables `color` and `clarity` are ordered categorical variables.
 The chapter suggests visualizing a categorical and continuous variable using frequency polygons or boxplots.
-In this case, I will use a box plot since it will better show a relationship over the variables.
+In this case, I will use a box plot since it will better show a relationship between the variables.
+
+There is a weak negative relationship between `color` and `price`.
+The scale of diamond color goes from D (best) to J (worst).
+Currently, the levels of `diamonds$color` are in the wrong order.
+Before plotting, I will reverse the order of the `color` levels so they will be in increasing order of quality on the x-axis.
+The `color` column is an example of a factor variable, which will is covered in the
+"[Factors](https://r4ds.had.co.nz/factors.html)" chapter of *R4DS*.
 
 ```{r plot_diamond_color_price}
-ggplot(diamonds, aes(x = color, y = price)) +
+diamonds %>%
+  mutate(color = forcats::fct_rev(color)) %>%
+  ggplot(aes(x = color, y = price)) +
   geom_boxplot()
 ```
+
+There is also weak negative relationship between `clarity` and `price`.
+The scale of clarity goes from I1 (worst) to IF (best).
 
 ```{r plot_diamond_clarity_price}
 ggplot(data = diamonds) +
   geom_boxplot(mapping = aes(x = clarity, y = price))
 ```
 
-There is a strong relationship between `carat` and `price`.
-The is a weak positive relationship between `color` and `price`,
-and, surprisingly, a weak negative relationship between `clarity` and `price`.
-For both `clarity` and `color`, there is a large amount of variation within each category, which overwhelms the between category trend.
-Carat is clearly the best predictor of its price.
+For both `clarity` and `color`, there is a much larger amount of variation within each category than between categories.
+Carat is clearly the single best predictor of diamond prices.
 
 Now that we have established that carat appears to be the best predictor of price, what is the relationship between it and cut?
 Since this is an example of a continuous (carat) and categorical (cut) variable, it can be visualized with a box plot.
