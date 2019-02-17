@@ -655,7 +655,7 @@ ggplot(filter(flights_airtime, dest == "LAX"), aes(x = air_time_diff)) +
   geom_histogram(binwidth = 1)
 ```
 
-To fix these time-zone issues, I would want to convert all the times to a date-time (to handle the midnight issue), and from local time to a common time zone, most likely [UTC](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) (to handle the .
+To fix these time-zone issues, I would want to convert all the times to a date-time to handle overnight flights, and from local time to a common time zone, most likely [UTC](https://en.wikipedia.org/wiki/Coordinated_Universal_Time), to handle flights crossing time-zones.
 The `tzone` column of `nycflights13::airports` gives the time-zone of each airport.
 See the ["Dates and Times"](https://r4ds.had.co.nz/dates-and-times.html) for an introduction on working with date and time data.
 
