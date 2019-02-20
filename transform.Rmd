@@ -768,26 +768,54 @@ What trigonometric functions does R provide?
 
 <div class="answer">
 
-These are all described in the same help page,
-```{r eval=FALSE}
-help("Trig")
-```
+All trigonometric functions are all described in a single page, [Trig](`r rdoc_url("Trig", "base")`)
+help page.
+You can open the documenation with `?Trig` or using `?` with any of the following functions,
+for example:`?sin`.
 
-Cosine (`cos()`), sine (`sin()`), tangent (`tan()`) are provided:
+R provides functions for the three primary trigonometric functions: sine (`sin)`), cosine (`sin()`), and tangent (`tan()`).
+The input angles to all these functions are in [radians](https://en.wikipedia.org/wiki/Radian).
 ```{r}
 x <- seq(-3, 7, by = 1 / 2)
-cos(pi * x)
+sin(pi * x)
 cos(pi * x)
 tan(pi * x)
 ```
-The convenience function `cospi(x)` is equivalent to `cos(pi * x)`, with `sinpi()` and `tanpi()` similarly defined,
+
+In the previous code, I used `pi.
+R provide the variable `pi` which is set to the value of the mathematical constant $\pi$.[^pi]
 ```{r}
-cospi(x)
-cos(x)
-tan(x)
+pi
+```
+Although R provides the `pi` variable, there is nothing preventing a user from changing its value
+For example, I could redefine `pi` to [3.14](https://en.wikipedia.org/wiki/Indiana_Pi_Bill) or 
+any other value.
+```{r}
+pi <- 3.14
+pi
+pi <- "Apple"
+pi
+```
+For that reason, if you are using the builtin `pi` variable in computations and paranoid, 
+you may want to reference it as `base::pi`.
+```{r}
+base::pi
+```
+```{r include=FALSE}
+# reset value of pi
+rm(pi)
 ```
 
-The inverse function arc-cosine (`acos()`), arc-sine (`asin()`), and arc-tangent (`atan()`) are provided,
+In the previous code block, since the angles were in radians, I wrote them as $\pi$ times some number.
+Since it is often easier to write radians multiple of $\pi$, R provides some convenience functions that do that. 
+The function `sinpi(x)`, is equivalent to `sin(pi * x)`, and `sinpi()` and `tanpi()` are similarly defined.
+```{r}
+sinpi(x)
+cospi(x)
+tanpi(x)
+```
+
+R provides the function arc-cosine (`acos()`), arc-sine (`asin()`), and arc-tangent (`atan()`).
 ```{r}
 x <- seq(-1, 1, by = 1 / 4)
 acos(x)
@@ -795,7 +823,7 @@ asin(x)
 atan(x)
 ```
 
-The function `atan2()` is the angle between the x-axis and the vector (0,0) to (`x`, `y`).
+Finally, R provides the function `atan2()`, which calculates the angle between the x-axis and the vector (0,0) to (`x`, `y`).
 ```{r}
 atan2(c(1, 0, -1, 0), c(0, 1, 0, -1))
 ```
@@ -1538,3 +1566,6 @@ flights %>%
     the only flights which would be scheduled to depart in Eastern Daylight Savings Time (Eastern Standard Time) time but departed in Eastern Standard Time (Eastern Daylight Savings Time), would have been scheduled before midnight, meaning they were delayed across days.
     If time zones seem annoying, it is not your imagination. They are.  
     I recommend this video, [The Problem with Time & Timezones - Computerphile](https://www.youtube.com/watch?v=-5wpm-gesOY).
+
+[^pi]: Yes, technically, `pi` provides is an approximation of $\pi$.
+       Don't @ me.
