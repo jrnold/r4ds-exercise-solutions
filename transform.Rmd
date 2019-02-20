@@ -102,7 +102,7 @@ The answer to each part follows.
     filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)
     ```
 
-1.  Finding flights that departed between midnight and 6 am is complicated by 
+1.  Finding flights that departed between midnight and 6 a.m. is complicated by 
     the way in which times are represented in the data. 
     In `dep_time`, midnight is represented by `2400`, not `0`.
     This means we cannot simply check that `dep_time < 600`, because we also have
@@ -1533,6 +1533,8 @@ flights %>%
 </div>
 
 [^daylight]: The exception is flights on the days on which daylight savings started (March 10) or
-    ended (November 3). But since daylight savings goes into effect at 2 am,
-    and generally flights are not scheduled to depart between midnight and 2 am,
-    the only flights which would be scheduled to depart in Eastern Daylight Savings Time (Eastern Standard Time) time but departed in Eastern Standard Time (Daylight Savings Time), would have been scheduled before midnight, meaning they were delayed across days.
+    ended (November 3). Since in the US, daylight savings goes into effect at 2 a.m.,
+    and generally flights are not scheduled to depart between midnight and 2 a.m.,
+    the only flights which would be scheduled to depart in Eastern Daylight Savings Time (Eastern Standard Time) time but departed in Eastern Standard Time (Eastern Daylight Savings Time), would have been scheduled before midnight, meaning they were delayed across days.
+    If time zones seem annoying, it is not your imagination. They are.  
+    I recommend this video, [The Problem with Time & Timezones - Computerphile](https://www.youtube.com/watch?v=-5wpm-gesOY).
