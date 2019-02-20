@@ -41,6 +41,10 @@ comma_int <- function(x) {
   prettyNum(x, big.interval = 3, big.mark = ",")
 }
 
+rdoc_url <- function(name, package) {
+  glue::glue("https://www.rdocumentation.org/packages/{package}/topics/{name}")
+}
+
 no_exercises <- function() {
   tags <- htmltools::tags
   tags$div(
