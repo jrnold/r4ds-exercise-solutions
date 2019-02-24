@@ -721,19 +721,56 @@ columns were stored.
 ### Exercise 5.5.4 {.unnumbered .exercise data-number="5.5.4"}
 
 <div class="question">
-Find the 10 most delayed flights using a ranking function. How do you want to handle ties? Carefully read the documentation for `min_rank()`.
+
+Find the 10 most delayed flights using a ranking function.
+How do you want to handle ties? 
+Carefully read the documentation for `min_rank()`.
+
 </div>
 
 <div class="answer">
 
-I'd want to handle ties by taking the minimum of tied values. If three flights
-have the same value and are the most delayed, we would say they are tied for
-first, not tied for third or second.
+The **dplyr** package provides multiple functions for ranking, which differ in how they handle missing values: `row_number()`, `min_rank()`, `dense_rank()`.
+The `row_number()` function is confusingly named.
+It can create ranks for any column.
+To see how they work, let's create a data frame with duplicate values in a vector and see how ranking handles ties.
+```{r}
+rankme <- tibble(
+  x = c(10, 5, 1, 5, 5)
+)
+```
+<!-- don't use 1-3 in order to avoid confusion with the rank function itself,
+     don't have them in order -->
+
+```{r}
+rankme <- mutate(rankme,
+  x_row_number = row_number(x),
+  x_min_rank = min_rank(x),
+  x_dense_rank = dense_rank(x)
+)
+arrange(rankme, x)
+```
+
+The function `row_number()` assigns each element a unique value. 
+It is roughly equivalent to the index number of an element after sorting it.
+
+The`min_rank()` and `dense_rank()` assign tied values the same rank, but differ in how they assign values to the next rank.
+Both of these function assign ties the minimum index value.
+For each set of values, the `min_rank()` function assigns a number equal to a number of elements less than that value plus one.
+The `dense_rank()` assigns each set of values a number equal to the number of distinct *values* less than that value plus one.
+Thus, `dense_rank()` has no gaps in its ranks.
+To see the difference between `dense_rank()` and `min_rank()` compare the value of `rankme$x_min_rank` and `rankme$x_dense_rank` for `x = 10`.
+
+I will use `min_rank()` since its results correspond to the common usage rankings, for example sports or other.
 ```{r}
 flights_delayed <- mutate(flights, dep_delay_rank = min_rank(-dep_delay))
-flights_delayed <- filter(flights_delayed, dep_delay_rank <= 20)
-arrange(flights_delayed, dep_delay_rank)
+flights_delayed <- filter(flights_delayed, dep_delay_rank <= 10)
+flights_delayed <- arrange(flights_delayed, dep_delay_rank)
+select(flights_delayed, month, day, carrier, flight, dep_delay, dep_delay_rank)
 ```
+Since there are no ties in 10 flights in this example, all three ranking functions will produce the same answer.
+
+In addition to the functions covered here, the `rank()` function provides several more ways of ranking elements.
 
 </div>
 
@@ -1566,5 +1603,5 @@ flights %>%
     If time zones seem annoying, it is not your imagination. They are.  
     I recommend this video, [The Problem with Time & Timezones - Computerphile](https://www.youtube.com/watch?v=-5wpm-gesOY).
 
-[^pi]: Yes, technically, `pi` provides is an approximation of $\pi$.
+[^pi]: Yes, technically, `base::pi` is an approximation of $\pi$ to seven digits of precision.
        Don't @ me.
