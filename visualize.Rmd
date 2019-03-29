@@ -1009,8 +1009,13 @@ The following code will produce the intended stacked bar charts.
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
 
-ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = color, y = ..prop.., group = color))
+diamonds %>% 
+  group_by(cut, color) %>% 
+  summarize(cnt = n()) %>% 
+  ungroup() %>% 
+  mutate(prop = cnt/sum(cnt)) %>% 
+  ggplot() +
+  geom_bar(mapping = aes(x = cut, fill = color, y = prop), stat = 'identity')
 ```
 
 </div>
