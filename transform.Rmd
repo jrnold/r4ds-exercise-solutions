@@ -1021,7 +1021,7 @@ Look at the number of cancelled flights per day. Is there a pattern? Is the prop
 cancelled_delayed <-
   flights %>%
   mutate(cancelled = (is.na(arr_delay) | is.na(dep_delay))) %>%
-  group_by(year, month, day) %>%
+  group_by(month, day) %>%
   summarise(
     prop_cancelled = mean(cancelled),
     avg_dep_delay = mean(dep_delay, na.rm = TRUE)
