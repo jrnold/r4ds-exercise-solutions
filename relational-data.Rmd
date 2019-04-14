@@ -662,14 +662,14 @@ Filter flights to only show flights with planes that have flown at least 100 fli
 <div class="answer">
 
 ```{r}
-planes_gt100 <-
+planes_gte100 <-
   filter(flights) %>%
   group_by(tailnum) %>%
   count() %>%
-  filter(n > 100)
+  filter(n >= 100)
 
 flights %>%
-  semi_join(planes_gt100, by = "tailnum")
+  semi_join(planes_gte100, by = "tailnum")
 ```
 
 </div>
