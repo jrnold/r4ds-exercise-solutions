@@ -1148,7 +1148,7 @@ flights %>%
   filter(!is.na(arr_delay)) %>%
   mutate(
     cancelled = is.na(arr_time),
-    late = !cancelled & arr_delay > 0
+    late = !cancelled & (arr_delay > 0)
   ) %>%
   group_by(tailnum) %>%
   summarise(on_time = mean(!late)) %>%
