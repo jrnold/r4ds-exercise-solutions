@@ -763,10 +763,18 @@ To see the difference between `dense_rank()` and `min_rank()` compare the value 
 
 I will use `min_rank()` since its results correspond to the common usage rankings, for example sports or other competitions.
 ```{r}
-flights_delayed <- mutate(flights, dep_delay_rank = min_rank(desc(dep_delay)))
-flights_delayed <- filter(flights_delayed, dep_delay_rank <= 10)
-flights_delayed <- arrange(flights_delayed, dep_delay_rank)
-select(flights_delayed, month, day, carrier, flight, dep_delay, dep_delay_rank)
+flights_delayed <- mutate(flights, 
+                          dep_delay_min_rank = min_rank(desc(dep_delay)),
+                          dep_delay_row_number = row_number(desc(dep_delay)),
+                          dep_delay_dense_rank = dense_rank(desc(dep_delay))
+                          )
+flights_delayed <- filter(flights_delayed, 
+                          !(dep_delay_min_rank > 10 | dep_delay_row_number > 10 |
+                              dep_delay_dense_rank > 10))
+flights_delayed <- arrange(flights_delayed, dep_delay_min_rank)
+print(select(flights_delayed, month, day, carrier, flight, dep_delay, 
+             dep_delay_min_rank, dep_delay_row_number, dep_delay_dense_rank), 
+      n = Inf)
 ```
 In this example, all three ranking functions will produce the same answer since there 
 are no ties in the top 10 flights.
