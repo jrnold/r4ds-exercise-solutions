@@ -1343,10 +1343,8 @@ standardized_flights2 <- flights %>%
   mutate(
     air_time_median = median(air_time),
     air_time_iqr = IQR(air_time),
-    n = n()
-  ) %>%
-  ungroup() %>%
-  mutate(air_time_standard = (air_time - air_time_median) / air_time_iqr)
+    n = n(),
+    air_time_standard = (air_time - air_time_median) / air_time_iqr)
 ```
 
 The distribution of the standardized air flights using this new definition
