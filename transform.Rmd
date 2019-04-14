@@ -1250,13 +1250,13 @@ Delays are typically temporally correlated: even once the problem that caused th
 This calculates the departure delay of the preceding flight from the same airport.
 ```{r}
 lagged_delays <- flights %>%
-  arrange(origin, year, month, day, dep_time) %>%
+  arrange(origin, month, day, dep_time) %>%
   group_by(origin) %>%
   mutate(dep_delay_lag = lag(dep_delay)) %>%
   filter(!is.na(dep_delay), !is.na(dep_delay_lag))
 ```
 
-This plots the relationship between the mean delay of a flight for all values of the  previous flight.
+This plots the relationship between the mean delay of a flight for all values of the previous flight.
 ```{r message=FALSE}
 lagged_delays %>%
   group_by(dep_delay_lag) %>%
