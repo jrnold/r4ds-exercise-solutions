@@ -1004,13 +1004,16 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
 ```
 
-The following code will produce the intended stacked bar charts.
+The following code will produce the intended stacked bar charts for the case with no `fill` aesthetic.
 ```{r}
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
+```
 
+With the `fill` aesthetic, the heights of the bars need to be normalized.
+```{r}
 ggplot(data = diamonds) + 
-  geom_bar(aes(x=cut, y = ..count../sum(..count..), fill = color))
+  geom_bar(aes(x = cut, y = ..count.. / sum(..count..), fill = color))
 ```
 
 </div>
