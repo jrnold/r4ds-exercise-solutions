@@ -1152,7 +1152,7 @@ flights %>%
   ) %>%
   group_by(tailnum) %>%
   summarise(on_time = mean(!late)) %>%
-  filter(min_rank(on_time) <= 1)
+  filter(min_rank(on_time) == 1)
 ```
 However, there are many planes that have *never* flown an on-time flight.
 
@@ -1161,7 +1161,7 @@ Another alternative is to rank planes by the mean of minutes delayed.
 flights %>%
   group_by(tailnum) %>%
   summarise(arr_delay = mean(arr_delay)) %>%
-  filter(min_rank(desc(arr_delay)) <= 1)
+  filter(min_rank(desc(arr_delay)) == 1)
 ```
 
 </div>
