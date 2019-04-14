@@ -1324,6 +1324,12 @@ standardized_flights <- flights %>%
   mutate(air_time_standard = (air_time - air_time_mean) / (air_time_sd + 1))
 ```
 I add 1 to the denominator and numerator to avoid dividing by zero.
+Note that the `ungroup()` here is not necessary. However, I will be using 
+this data frame later. Through experience, I have found that I have fewer bugs
+when I keep a data frame grouped for only those verbs that I need it.
+If I did not `ungroup()` this data frame, the `arrange()` used later would 
+not work as expected.  It is better to err on the side of using `ungroup()`
+when unneccesary.
 
 The distribution of the standardized air flights has long right tail.
 ```{r}
