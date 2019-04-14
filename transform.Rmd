@@ -1232,7 +1232,10 @@ flights %>%
   mutate(
     arr_delay_total = sum(arr_delay),
     arr_delay_prop = arr_delay / arr_delay_total
-  )
+  ) %>%
+  select(dest, month, day, dep_time, carrier, flight,
+         arr_delay, arr_delay_prop) %>%
+  arrange(dest, desc(arr_delay_prop))
 ```
 
 The key to answering this question is when calculating the total delay and proportion of delay
