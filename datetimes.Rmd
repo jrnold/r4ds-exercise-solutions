@@ -284,31 +284,19 @@ Hint: create a binary variable that tells you whether or not a flight was delaye
 
 <div class="answer">
 
-At the minute level, there doesn't appear to be anything:
+Create a binary variable `early` that is 1 if a flight leaves early, and 0 if if does not.
+Grouping flights by the minute of departure shows that the proportion that are early
+departures is hightest between minutes 20-30 and 50-60.
 ```{r}
-flights_dt %>%
-  mutate(
-    early = dep_delay < 0,
-    minute = minute(sched_dep_time)
-  ) %>%
-  group_by(minute) %>%
-  summarise(early = mean(early)) %>%
-  ggplot(aes(x = minute, y = early)) +
-  geom_point()
-```
-
-But if grouped in 10 minute intervals, there is a higher proportion of early flights during those minutes.
-
-```{r}
-flights_dt %>%
-  mutate(
-    early = dep_delay < 0,
-    minute = minute(sched_dep_time) %% 10
-  ) %>%
-  group_by(minute) %>%
-  summarise(early = mean(early)) %>%
-  ggplot(aes(x = minute, y = early)) +
-  geom_point()
+flights_dt %>% 
+  mutate(minute = minute(dep_time),
+         early = dep_delay < 0) %>% 
+  group_by(minute) %>% 
+  summarise(
+    early = mean(early, na.rm = TRUE),
+    n = n()) %>% 
+  ggplot(aes(minute, early)) +
+    geom_line()
 ```
 
 </div>
