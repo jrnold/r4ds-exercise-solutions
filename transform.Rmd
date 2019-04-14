@@ -761,7 +761,10 @@ The `dense_rank()` assigns each set of values a number equal to the number of di
 Thus, `dense_rank()` has no gaps in its ranks.
 To see the difference between `dense_rank()` and `min_rank()` compare the value of `rankme$x_min_rank` and `rankme$x_dense_rank` for `x = 10`.
 
-I will use `min_rank()` since its results correspond to the common usage rankings, for example sports or other competitions.
+If I had to choose one for presenting rankings to someone else, I would use `min_rank()` since its results correspond to the most common usage of rankings in sports or other competitions.
+In the code below, I use all three functions, but since there are no ties in the top 10 flights,
+the results don't differ.
+
 ```{r}
 flights_delayed <- mutate(flights, 
                           dep_delay_min_rank = min_rank(desc(dep_delay)),
@@ -776,8 +779,6 @@ print(select(flights_delayed, month, day, carrier, flight, dep_delay,
              dep_delay_min_rank, dep_delay_row_number, dep_delay_dense_rank), 
       n = Inf)
 ```
-In this example, all three ranking functions will produce the same answer since there 
-are no ties in the top 10 flights.
 
 In addition to the functions covered here, the `rank()` function provides several more ways of ranking elements.
 
