@@ -1257,20 +1257,29 @@ lagged_delays <- flights %>%
 ```
 
 This plots the relationship between the mean delay of a flight for all values of the previous flight.
+For delays less than two hours, the relationship between the delay of the preceeding flight and the current flight is nearly a line.
+After that the relationship becomes more variable, as long-delayed flights are interspersed with flights leaving on-time.
+After about 8-hours, a delayed flight is likely to be followed by a flight leaving on time.
+
 ```{r message=FALSE}
 lagged_delays %>%
   group_by(dep_delay_lag) %>%
   summarise(dep_delay_mean = mean(dep_delay)) %>%
   ggplot(aes(y = dep_delay_mean, x = dep_delay_lag)) +
   geom_point() +
-  geom_smooth() +
+  scale_x_continuous(breaks = seq(0, 1500, by = 120)) +
   labs(y = "Departure Delay", x = "Previous Departure Delay")
 ```
 
-We can summarize this relationship by the average difference in delays:
+The overall relationship looks similar in all three origin airports.
 ```{r}
 lagged_delays %>%
-  summarise(delay_diff = mean(dep_delay - dep_delay_lag))
+  group_by(origin, dep_delay_lag) %>%
+  summarise(dep_delay_mean = mean(dep_delay)) %>%
+  ggplot(aes(y = dep_delay_mean, x = dep_delay_lag)) +
+  geom_point() +
+  facet_wrap(~ origin, ncol=1) +
+  labs(y = "Departure Delay", x = "Previous Departure Delay")
 ```
 
 </div>
