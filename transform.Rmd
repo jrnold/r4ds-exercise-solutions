@@ -730,10 +730,8 @@ Carefully read the documentation for `min_rank()`.
 
 <div class="answer">
 
-The **dplyr** package provides multiple functions for ranking, which differ in how they handle missing values: `row_number()`, `min_rank()`, `dense_rank()`.
-The `row_number()` function is confusingly named.
-It can create ranks for any column.
-To see how they work, let's create a data frame with duplicate values in a vector and see how ranking handles ties.
+The **dplyr** package provides multiple functions for ranking, which differ in how they handle tied values: `row_number()`, `min_rank()`, `dense_rank()`.
+To see how they work, let's create a data frame with duplicate values in a vector and see how ranking functions handle ties.
 ```{r}
 rankme <- tibble(
   x = c(10, 5, 1, 5, 5)
@@ -751,14 +749,12 @@ rankme <- mutate(rankme,
 arrange(rankme, x)
 ```
 
-The function `row_number()` assigns each element a unique value. 
-It is roughly equivalent to the index number of an element after sorting it.
+The function `row_number()` assigns each element a unique value.
+The result is equivalent to the index (or row) number of each element after sorting the vector, hence its name.
 
 The`min_rank()` and `dense_rank()` assign tied values the same rank, but differ in how they assign values to the next rank.
-Both of these function assign ties the minimum index value.
-For each set of values, the `min_rank()` function assigns a number equal to a number of elements less than that value plus one.
-The `dense_rank()` assigns each set of values a number equal to the number of distinct *values* less than that value plus one.
-Thus, `dense_rank()` has no gaps in its ranks.
+For each set of tied values the `min_rank()` function assigns a rank equal to the number of values less than that tied value plus one.
+In contrast, the `dense_rank()` function assigns a rank equal to the number of distinct values less than that tied value plus one.
 To see the difference between `dense_rank()` and `min_rank()` compare the value of `rankme$x_min_rank` and `rankme$x_dense_rank` for `x = 10`.
 
 If I had to choose one for presenting rankings to someone else, I would use `min_rank()` since its results correspond to the most common usage of rankings in sports or other competitions.
