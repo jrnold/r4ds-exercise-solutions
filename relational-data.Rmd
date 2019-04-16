@@ -505,6 +505,7 @@ I will look at both.
 
 To compare the age of the plane to flights delay, I merge `flights` with the `planes`, which contains a variable `plane_year`, with the year in which the plane was built.
 To look at the relationship between plane age and departure delay, I will calculate the average arrival and departure delay for each age of a flight.
+There are few planes older than 30 years, so I combine them into a single category.
 
 ```{r}
 plane_cohorts <- inner_join(flights,
@@ -513,33 +514,24 @@ plane_cohorts <- inner_join(flights,
 ) %>%
   mutate(age = year - plane_year) %>%
   filter(!is.na(age)) %>%
+  mutate(age = pmin(25, age)) %>%
   group_by(age) %>%
   summarise(
     dep_delay_mean = mean(dep_delay, na.rm = TRUE),
     dep_delay_sd = sd(dep_delay, na.rm = TRUE),
     arr_delay_mean = mean(arr_delay, na.rm = TRUE),
     arr_delay_sd = sd(arr_delay, na.rm = TRUE),
-    n = n()
+    n_arr_delay = sum(!is.na(arr_delay)),
+    n_dep_delay = sum(!is.na(arr_delay))
   )
 ```
 
 I will look for a relationship between departure delay and age by plotting age against the average departure delay. 
 The average departure delay is increasing for planes with ages up until 10 years. After that the departure delay decreases or levels off. 
 The decrease in departure delay could be because older planes with many mechanical issues are removed from service or because air lines schedule these planes with enough time so that mechanical issues do not delay them.
-There are few planes older than 30 years, so the relationship is mostly noise
-after that.
 
 ```{r}
 ggplot(plane_cohorts, aes(x = age, y = dep_delay_mean)) +
-  geom_ribbon(
-    mapping = aes(
-      ymin = dep_delay_mean -
-        2 * dep_delay_sd / sqrt(n),
-      ymax = dep_delay_mean +
-        2 * dep_delay_sd / sqrt(n)
-    ),
-    alpha = 0.3
-  ) +
   geom_point() +
   scale_x_continuous("Age of plane (years)", breaks = seq(0, 50, by = 10)) +
   scale_y_continuous("Mean Departure Delay (minutes)")
@@ -549,15 +541,6 @@ There is a similar relationship in arrival delays.
 Delays increase with the age of the plane until ten years, then it declines and flattens out.
 ```{r}
 ggplot(plane_cohorts, aes(x = age, y = arr_delay_mean)) +
-  geom_ribbon(
-    mapping = aes(
-      ymin = arr_delay_mean -
-        2 * arr_delay_sd / sqrt(n),
-      ymax = arr_delay_mean +
-        2 * arr_delay_sd / sqrt(n)
-    ),
-    alpha = 0.3
-  ) +
   geom_point() +
   scale_x_continuous("Age of Plane (years)", breaks = seq(0, 50, by = 10)) +
   scale_y_continuous("Mean Arrival Delay (minutes)")
