@@ -1151,7 +1151,6 @@ Many of these planes have only flown a small number of flights.
 flights %>%
   filter(!is.na(tailnum)) %>%
   mutate(on_time = !is.na(arr_time) & (arr_delay <= 0)) %>%
-  select(tailnum, on_time, arr_time, arr_delay) %>%
   group_by(tailnum) %>%
   summarise(on_time = mean(on_time), n = n()) %>%
   filter(min_rank(on_time) == 1)
@@ -1170,7 +1169,6 @@ The plane which few at least 20 flights with the worst on time record is:
 flights %>%
   filter(!is.na(tailnum)) %>%
   mutate(on_time = !is.na(arr_time) & (arr_delay <= 0)) %>%
-  select(tailnum, on_time, arr_time, arr_delay) %>%
   group_by(tailnum) %>%
   summarise(on_time = mean(on_time), n = n()) %>%
   filter(n >= 20) %>%
