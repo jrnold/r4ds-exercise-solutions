@@ -1222,6 +1222,8 @@ For each flight, compute the proportion of the total delay for its destination.
 
 <div class="answer">
 
+The key to answering this question is to only include delayed flights when calculating the total delay and proportion of delay.
+
 ```{r}
 flights %>%
   filter(arr_delay > 0) %>%
@@ -1235,7 +1237,24 @@ flights %>%
   arrange(dest, desc(arr_delay_prop))
 ```
 
-The key to answering this question is to only include delayed flights when calculating the total delay and proportion of delay.
+There is some ambiguity in the meaning of *flights* in the question.
+The first example defined a flight as a row in the `flights` table, a particular trip by aircraft from a particular 
+However, *flight* coul also refer to the [flight number](https://en.wikipedia.org/wiki/Flight_number), which is the code a carrier uses for an airline service of a route.
+For example, `AA1` is the flight number of the 09:00 American Airlines flight between JFK and LAX.
+The flight number is contained `flights$flight`, though what is called a "flight" combination of the `flights$carrier` and `flights$flight`.
+
+```{r}
+flights %>%
+  filter(arr_delay > 0) %>%
+  group_by(dest, origin, carrier, flight) %>%
+  summarise(arr_delay = sum(arr_delay)) %>%
+  group_by(dest) %>%
+  mutate(
+    arr_delay_prop = arr_delay / sum(arr_delay)
+  ) %>%
+  arrange(dest, desc(arr_delay_prop)) %>%
+  select(carrier, flight, origin, dest, arr_delay_prop)
+```
 
 </div>
 
