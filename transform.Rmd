@@ -1031,6 +1031,26 @@ ggplot(cancelled_delayed, aes(x = avg_dep_delay, prop_cancelled)) +
   geom_smooth()
 ```
 
+If we interpret the question as what day of the year has the highest probability to have flight cancelled, here is the explore:
+
+```{r}
+cancelled_delayed <-
+  flights %>%
+  mutate(cancelled = (is.na(arr_delay) | is.na(dep_delay)), 
+         date = make_date(year, month, day)
+         ) %>%
+  group_by(date) %>%
+  summarise(
+    prop_cancelled = mean(cancelled),
+    avg_dep_delay = mean(dep_delay, na.rm = TRUE)
+  ) 
+
+ggplot(cancelled_delayed) +
+  geom_point(aes(x = date, y = prop_cancelled))
+
+filter(cancelled_delayed, prop_cancelled > 0.18)
+```
+
 </div>
 
 ### Exercise 5.6.5 {.unnumbered .exercise data-number="5.6.5"}
