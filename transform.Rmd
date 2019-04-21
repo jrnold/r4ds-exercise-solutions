@@ -1166,15 +1166,114 @@ You could use this anytime you would run `count()` followed by `arrange()`.
 
 <div class="question">
 
-Refer back to the table of useful mutate and filtering functions. 
+Refer back to the lists of useful mutate and filtering functions.
 Describe how each operation changes when you combine it with grouping.
 
 </div>
 
 <div class="answer">
 
-They operate within each group rather than over the entire data frame.
-For example, `mean()` will calculate the mean within each group.
+Summary functions (`mean()`), offset functions (`lead()`, `lag()`), ranking functions (`min_rank()`, `row_number()`), operate within each group when used with `group_by()` in 
+`mutate()` or `filter()`.
+Arithmetic operators (`+`, `-`), logical operators (`<`, `==`), modular arithmetic operators (`%%`, `%/%`), logarithmic functions (`log`) are not affected by `group_by`.
+
+Summary functions like `mean()`, `median()`, `sum()`, `std()` and others covered
+in the section [Useful Summary Functions](https://r4ds.had.co.nz/transform.html#summarise-funs) 
+calculate their values within each group when used with `mutate()` or `filter()` and `group_by()`.
+```{r}
+tibble(x = 1:9,
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  mutate(x_mean = mean(x)) %>%
+  group_by(group) %>%
+  mutate(x_mean_2 = mean(x))
+```
+
+Arithmetic operators `+`, `-`, `*`, `/`, `^` are not affected by `group_by()`.
+```{r}
+tibble(x = 1:9,
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  mutate(y = x + 2) %>%
+  group_by(group) %>%
+  mutate(z = x + 2)
+```
+
+The modular arithmetic operators `%/%` and `%%` are not affected by `group_by()`
+```{r}
+tibble(x = 1:9,
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  mutate(y = x %% 2) %>%
+  group_by(group) %>%
+  mutate(z = x %% 2)
+```
+
+The logarithmic functions `log()`, `log2()`, and `log10()` are not affected by
+`group_by()`.
+```{r}
+tibble(x = 1:9,
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  mutate(y = log(x)) %>%
+  group_by(group) %>%
+  mutate(z = log(x))
+```
+
+The offset functions `lead()` and `lag()` respect the groupings in `group_by()`.
+The functions `lag()` and `lead()` will only return values within each group.
+```{r}
+tibble(x = 1:9,
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  group_by(group) %>%
+  mutate(lag_x = lag(x),
+         lead_x = lead(x))
+```
+
+The cumulative and rolling aggregate functions `cumsum()`, `cumprod()`, `cummin()`, `cummax()`, and `cummean()` calculate values within each group.
+```{r}
+tibble(x = 1:9,
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  mutate(x_cumsum = cumsum(x)) %>%
+  group_by(group) %>%
+  mutate(x_cumsum_2 = cumsum(x))
+
+```
+
+Logical comparisons, `<`, `<=`, `>`, `>=`, `!=`, and `==` are not affected by `group_by()`.
+```{r}
+tibble(x = 1:9,
+       y = 9:1,
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  mutate(x_lte_y = x <= y) %>%
+  group_by(group) %>%
+  mutate(x_lte_y_2 = x <= y)
+```
+
+Ranking functions like `min_rank()` work within each group when used with `group_by()`.
+```{r}
+tibble(x = 1:9,
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  mutate(rnk = min_rank(x)) %>%
+  group_by(group) %>%
+  mutate(rnk2 = min_rank(x))
+```
+
+Though not asked in the question, note that `arrange()` ignores groups when sorting values.
+```{r}
+tibble(x = runif(9),
+       group = rep(c("a", "b", "c"), each = 3)) %>%
+  group_by(group) %>%
+  arrange(x)
+
+```
+However, the order of values from `arrange()` can interact with groups when 
+used with functions that rely on the ordering of elements, such as `lead()`, `lag()`,
+or `cumsum()`.
+```{r}
+tibble(group = rep(c("a", "b", "c"), each = 3), 
+       x = runif(9)) %>%
+  group_by(group) %>%
+  arrange(x) %>%
+  mutate(lag_x = lag(x))
+
+```
 
 </div>
 
