@@ -1011,44 +1011,72 @@ They may be combining different flights?
 ### Exercise 5.6.4 {.unnumbered .exercise data-number="5.6.4"}
 
 <div class="question">
-Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
+Look at the number of cancelled flights per day. 
+Is there a pattern?
+Is the proportion of cancelled flights related to the average delay?
 </div>
 
 <div class="answer">
 
+One pattern in cancelled flights per day is that the number of cancelled flights increses with the total number of flights per day.
+The proportion of cancelled flights increases with the average delay of flights.
+
+To answer these questions, use definition of cancelled used in the 
+chapter [Section 5.6.3](https://r4ds.had.co.nz/transform.html#counts) and the
+relationship `!(is.na(arr_delay) & is.na(dep_delay))` is equal to 
+`!is.na(arr_delay) | !is.na(dep_delay)` by [De Morgan's law](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
+
+The first part of the question asks for any pattern in the number of cancelled flights per day.
+I'll look at the relationship between the number of cancelled flights per day and the total number of flights in a day.
+There should be an increasing relationship for two reasons.
+First, if all flights are equally likely to be cancelled, then days with more flights should have a higher number of cancellations.
+Second, it is likely that days with more flights would have a higher probability of cancellations because congestion itself can cause delays and any delay would affect more flights, and large delays can lead to cancellations.
 ```{r}
-cancelled_delayed <-
+cancelled_per_day <- 
   flights %>%
   mutate(cancelled = (is.na(arr_delay) | is.na(dep_delay))) %>%
-  group_by(month, day) %>%
+  group_by(year, month, day) %>%
   summarise(
-    prop_cancelled = mean(cancelled),
-    avg_dep_delay = mean(dep_delay, na.rm = TRUE)
+    cancelled_num = sum(cancelled),
+    flights_num = n(),
   )
+```
+Plotting `flights_num` against `cancelled_num` shows that the number of flights
+cancelled increases with the total number of flights.
+```{r}
+ggplot(cancelled_per_day) +
+  geom_point(aes(x = flights_num, y = cancelled_num)) 
 
-ggplot(cancelled_delayed, aes(x = avg_dep_delay, prop_cancelled)) +
-  geom_point() +
-  geom_smooth()
 ```
 
-If we interpret the question as what day of the year has the highest probability to have flight cancelled, here is the explore:
+The second part of the question asks whether there is a relationship between the proportion of flights cancelled and the average departure delay.
+I implied this in my answer to the first part of the question, when I noted that increasing  delays could result in increased cancellations.
+The question does not specify which delay, so I will show the relationship for both.
+```{r}
+cancelled_and_delays <- 
+  flights %>%
+  mutate(cancelled = (is.na(arr_delay) | is.na(dep_delay))) %>%
+  group_by(year, month, day) %>%
+  summarise(
+    cancelled_prop = mean(cancelled),
+    avg_dep_delay = mean(dep_delay, na.rm = TRUE),
+    avg_arr_delay = mean(arr_delay, na.rm = TRUE)
+  ) %>%
+  ungroup()
+```
+
+There is a strong increasing relationship between both average departure delay and  
+and average arrival delay and the proportion of concelled flights.
+```{r}
+ggplot(cancelled_and_delays) +
+  geom_point(aes(x = avg_dep_delay, y = cancelled_prop))
+
+```
 
 ```{r}
-cancelled_delayed <-
-  flights %>%
-  mutate(cancelled = (is.na(arr_delay) | is.na(dep_delay)), 
-         date = make_date(year, month, day)
-         ) %>%
-  group_by(date) %>%
-  summarise(
-    prop_cancelled = mean(cancelled),
-    avg_dep_delay = mean(dep_delay, na.rm = TRUE)
-  ) 
+ggplot(cancelled_and_delays) +
+  geom_point(aes(x = avg_arr_delay, y = cancelled_prop))
 
-ggplot(cancelled_delayed) +
-  geom_point(aes(x = date, y = prop_cancelled))
-
-filter(cancelled_delayed, prop_cancelled > 0.18)
 ```
 
 </div>
