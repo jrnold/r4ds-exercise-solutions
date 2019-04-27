@@ -229,7 +229,7 @@ On what day of the week should you leave if you want to minimize the chance of a
 
 Saturday has the lowest average departure delay time and the lowest average arrival delay time.
 
-```{r}
+```{r 16.3.5.tbl}
 flights_dt %>%
   mutate(dow = wday(sched_dep_time)) %>%
   group_by(dow) %>%
@@ -240,7 +240,7 @@ flights_dt %>%
   print(n = Inf)
 ```
 
-```{r}
+```{r 16.3.5.fig1}
 flights_dt %>%
   mutate(wday = wday(dep_time, label = TRUE)) %>% 
   group_by(wday) %>% 
@@ -249,7 +249,7 @@ flights_dt %>%
   geom_bar(stat = "identity")
 ```
 
-```{r}
+```{r 16.3.5.fig2}
 flights_dt %>% 
   mutate(wday = wday(dep_time, label = TRUE)) %>% 
   group_by(wday) %>% 
@@ -257,9 +257,6 @@ flights_dt %>%
   ggplot(aes(x = wday, y = ave_arr_delay)) + 
   geom_bar(stat = "identity")
 ```
-
-
-
 
 </div>
 
