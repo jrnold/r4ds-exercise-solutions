@@ -57,18 +57,17 @@ There several noticeable features of the distributions
 According to the documentation for `diamonds`, `x` is length,
 `y` is width, and `z` is depth.
 
-If documentation were unavailable, two reasonable assumptions are
-
-1.  length is less than width, otherwise the length would be called the width, and
-1.  depth is usually less than length or width.
+If documentation were unavailable, I would compare the values of the variables to match them to the length, width, and depth.
+I would expect length to always be less than width, otherwise the length would be called the width.
+I would also search for the definitions of length, width, and depth with respect to diamond cuts.
+[Depth](https://en.wikipedia.org/wiki/Diamond_cut) can be expressed as a percentage of the length/width of the diamond, which means it should be less than both the length and the width.
 
 ```{r}
 summarise(diamonds, mean(x > y), mean(x > z), mean(y > z))
 ```
 
-It appears that depth (`z`) is always smaller than length (`x`) or width (`y`),
-perhaps because a shallower depth helps when setting diamonds in jewelry.
-Length is more than width in less than half the observations, the opposite of expectations.
+It appears that depth (`z`) is always smaller than length (`x`) or width (`y`), perhaps because a shallower depth helps when setting diamonds in jewelry and due to how it affect the reflection of light.
+Length is more than width in less than half the observations, the opposite of my expectations.
 
 </div>
 
@@ -76,7 +75,7 @@ Length is more than width in less than half the observations, the opposite of ex
 
 <div class="question">
 Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the `binwidth` and make sure you try a wide range of values.)
-</div>
+</div> 
 
 <div class="answer">
 
