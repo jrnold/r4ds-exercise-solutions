@@ -227,7 +227,7 @@ On what day of the week should you leave if you want to minimize the chance of a
 
 <div class="answer">
 
-Sunday has the lowest average departure delay time and the lowest average arrival delay time.
+Saturday has the lowest average departure delay time and the lowest average arrival delay time.
 
 ```{r}
 flights_dt %>%
@@ -236,8 +236,30 @@ flights_dt %>%
   summarise(
     dep_delay = mean(dep_delay),
     arr_delay = mean(arr_delay, na.rm = TRUE)
-  )
+  ) %>%
+  print(n = Inf)
 ```
+
+```{r}
+flights_dt %>%
+  mutate(wday = wday(dep_time, label = TRUE)) %>% 
+  group_by(wday) %>% 
+  summarize(ave_dep_delay = mean(dep_delay, na.rm = TRUE)) %>% 
+  ggplot(aes(x = wday, y = ave_dep_delay)) + 
+  geom_bar(stat = "identity")
+```
+
+```{r}
+flights_dt %>% 
+  mutate(wday = wday(dep_time, label = TRUE)) %>% 
+  group_by(wday) %>% 
+  summarize(ave_arr_delay = mean(arr_delay, na.rm = TRUE)) %>% 
+  ggplot(aes(x = wday, y = ave_arr_delay)) + 
+  geom_bar(stat = "identity")
+```
+
+
+
 
 </div>
 
