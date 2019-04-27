@@ -59,17 +59,16 @@ According to the documentation for `diamonds`, `x` is length,
 
 If documentation were unavailable, two reasonable assumptions are
 
-1.  length is less than width, otherwise the width would be called the length
-1.  depth is usually less than length or width, but not necessarily.
+1.  length is less than width, otherwise the length would be called the width, and
+1.  depth is usually less than length or width.
 
 ```{r}
-summarise(diamonds, mean(x >= y), mean(x > z), mean(y > z))
+summarise(diamonds, mean(x > y), mean(x > z), mean(y > z))
 ```
 
-Surprisingly, it appears that depth (`z`) is always smaller than
-length (`x`) or width (`y`).  Length is less than width in more than half the observations, the opposite of expectations.
-I don't know what's going on. If this was not a widely used dataset
-I would think that `x`, `y`, and `z` were mislabeled.
+It appears that depth (`z`) is always smaller than length (`x`) or width (`y`),
+perhaps because a shallower depth helps when setting diamonds in jewelry.
+Length is more than width in less than half the observations, the opposite of expectations.
 
 </div>
 
