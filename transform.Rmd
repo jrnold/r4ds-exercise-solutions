@@ -1453,7 +1453,10 @@ lagged_delays %>%
 ### Exercise 5.7.6 {.unnumbered .exercise data-number="5.7.6"}
 
 <div class="question">
-Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+Look at each destination. Can you find flights that are suspiciously fast? 
+(i.e. flights that represent a potential data entry error).
+Compute the air time of a flight relative to the shortest flight to that destination.
+Which flights were most delayed in the air?
 </div>
 
 <div class="answer">
@@ -1678,7 +1681,7 @@ air_time_delayed <-
   flights %>%
   group_by(origin, dest) %>%
   mutate(
-    air_time_min = min(air_time),
+    air_time_min = min(air_time, na.rm = TRUE),
     air_time_delay = air_time - air_time_min,
     air_time_delay_pct = air_time_delay / air_time_min * 100
   )
@@ -1694,6 +1697,7 @@ most_delayed <- arrange(
     carrier_flight = str_c(carrier, flight)
   ) %>%
   head(1L)
+
 most_delayed_pct <- arrange(air_time_delayed, desc(air_time_delay_pct)) %>%
   mutate(
     date = format_ymd(year, month, day),
