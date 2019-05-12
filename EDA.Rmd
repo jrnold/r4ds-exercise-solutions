@@ -10,12 +10,18 @@ editor_options:
 ```{r message=FALSE}
 library("tidyverse")
 library("viridis")
-library("forcats")
 ```
-This will also use data from nycflights13.
-```{r}
+This will also use data from the nycflights13 package.
+```{r message=FALSE}
 library("nycflights13")
 ```
+These additional package provide functions that will be used in answering some questions.
+```{r message=FALSE}
+library("ggbeeswarm")
+library("lvplot")
+library("ggstance")
+```
+
 
 ## Questions {#questions .r4ds-section}
 
@@ -304,7 +310,7 @@ The `color` column is an example of a factor variable, which is covered in the
 
 ```{r plot_diamond_color_price}
 diamonds %>%
-  mutate(color = forcats::fct_rev(color)) %>%
+  mutate(color = fct_rev(color)) %>%
   ggplot(aes(x = color, y = price)) +
   geom_boxplot()
 ```
@@ -384,7 +390,6 @@ far more quantiles than box-plots. They are useful for larger datasets because,
 1.  in expectation, larger datasets should have more outliers (in absolute numbers).
 
 ```{r}
-library("lvplot")
 ggplot(diamonds, aes(x = cut, y = price)) +
   geom_lv()
 ```
@@ -453,7 +458,6 @@ There are two methods:
 I'll use the `mpg`  box plot example since these methods display individual points, they are better suited for smaller datasets.
 
 ```{r}
-library("ggbeeswarm")
 ggplot(data = mpg) +
   geom_quasirandom(mapping = aes(
     x = reorder(class, hwy, FUN = median),
@@ -528,7 +532,6 @@ How could you rescale the count dataset above to more clearly show the distribut
 To clearly show the distribution of `cut` within `color`, calculate a new variable `prop` which is the proportion of each cut within a `color`.
 This is done using a grouped mutate.
 ```{r}
-library(viridis)
 
 diamonds %>%
   count(color, cut) %>%
@@ -588,7 +591,6 @@ In this case, missing values correspond to airports which don't have regular fli
 These are likely smaller airports (with higher variance in their average due to fewer observations).
 
 ```{r}
-library("viridis")
 flights %>%
   group_by(month, dest) %>%
   summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
