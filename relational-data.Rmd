@@ -5,10 +5,11 @@
 ```{r message=FALSE}
 library("tidyverse")
 library("nycflights13")
+library("viridis")
 ```
 
 The package datamodelr is used to draw database schema.
-```{r}
+```{r message=FALSE, cache=FALSE}
 library("datamodelr")
 ```
 
@@ -595,7 +596,6 @@ There was a large series of storms (derechos) in the southeastern US (see [June 
 The following plot show that the largest delays were in Tennessee (Nashville), the Southeast, and the Midwest, which were the locations of the derechos.
 
 ```{r}
-library(viridis)
 flights %>%
   filter(year == 2013, month == 6, day == 13) %>%
   group_by(dest) %>%

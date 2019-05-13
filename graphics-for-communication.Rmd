@@ -2,7 +2,7 @@
 
 ## Introduction {#introduction-19 .r4ds-section}
 
-```{r message=FALSE}
+```{r message=FALSE,cache=FALSE}
 library("tidyverse")
 library("modelr")
 library("lubridate")
@@ -22,7 +22,7 @@ Create one plot on the fuel economy data with customized `title`,
 ```{r}
 ggplot(
   data = mpg,
-  mapping = aes(x = forcats::fct_reorder(class, hwy), y = hwy)
+  mapping = aes(x = fct_reorder(class, hwy), y = hwy)
 ) +
   geom_boxplot() +
   coord_flip() +
@@ -225,7 +225,7 @@ label <- tibble(
   displ = Inf,
   hwy = Inf,
   class = unique(mpg$class),
-  label = stringr::str_c("Label for ", class)
+  label = str_c("Label for ", class)
 )
 
 ggplot(mpg, aes(displ, hwy)) +
@@ -358,7 +358,7 @@ fouryears <- lubridate::make_date(seq(year(min(presidential$start)),
 presidential %>%
   mutate(
     id = 33 + row_number(),
-    name_id = forcats::fct_inorder(stringr::str_c(name, " (", id, ")"))
+    name_id = fct_inorder(str_c(name, " (", id, ")"))
   ) %>%
   ggplot(aes(start, name_id, colour = party)) +
   geom_point() +

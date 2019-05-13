@@ -2,13 +2,22 @@
 
 ## Introduction {#introduction-16 .r4ds-section}
 
-```{r, message=FALSE}
-library(tidyverse)
-library(modelr)
-library(lubridate)
+```{r, message=FALSE,cache=FALSE}
+library("tidyverse")
+library("modelr")
+library("lubridate")
+library("broom")
+library("nycflights13")
+```
+
+The splines package is needed for the `ns()` function used in one of the 
+solutions.
+```{r message=FALSE,cache=FALSE}
+library("splines")
+```
+
+```{r}
 options(na.action = na.warn)
-library(broom)
-library(nycflights13)
 ```
 
 ## Why are low quality diamonds more expensive? {#diamond-prices .r4ds-section}
@@ -461,7 +470,6 @@ The model `wday + ns(date, 5)` does not interact the day of week effect (`wday`)
 I estimate a model which does not interact the day of week effects (`mod7`) with the spline to that which does (`mod8`).
 I need to load the splines package to use the `ns()` function.
 ```{r}
-library("splines")
 mod7 <- lm(n ~ wday + ns(date, 5), data = daily)
 mod8 <- lm(n ~ wday * ns(date, 5), data = daily)
 ```
@@ -640,7 +648,7 @@ Use `fct_relevel()` to put all levels in-front of the first level ("Sunday").
 
 ```{r}
 monday_first <- function(x) {
-  forcats::fct_relevel(x, levels(x)[-1])
+  fct_relevel(x, levels(x)[-1])
 }
 ```
 
