@@ -6,7 +6,8 @@
   "scripts": {
     "test-html": "htmlhint _build/**/*.html",
     "test-markdown": "remark --frail *.Rmd rmarkdown/*.Rmd README.md .github/*.md",
-    "test": "concurrently npm:test-html npm:test-markdown"
+    "test-links": "link-checker _build --http-status-ignore 302 --http-status-ignore 403 --http-status-ignore 301 --http-status-ignore 307 --http-status-ignore 303 --http-timeout 10000",
+    "test": "concurrently npm:test-html npm:test-markdown npm:test-links"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "htmlhint": "^0.10.3",
+    "link-checker": "^1.2.1",
     "remark": "^9.0.0",
     "remark-cli": "^6.0.1",
     "remark-frontmatter": "^1.3.1",
