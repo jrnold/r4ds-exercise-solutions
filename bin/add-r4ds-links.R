@@ -53,7 +53,7 @@ handle_page <- function(path, r4ds_url, output_dir) {
   doc <- read_html(filename)
   add_r4ds_links(doc, path = path, r4ds_url = r4ds_url)
   add_anchors(doc)
-  cat(glue("Adding links to {filename}\n"))
+  cat(glue("Adding links to {filename}"), "\n\n")
   write_html(doc, filename, options = c("as_html", "format"))
 }
 
