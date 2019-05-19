@@ -340,15 +340,42 @@ load them into a single data frame.
 
 <div class="answer">
 
-First, I pre-allocate a list. Then, I read each file into a data frame, and assign it to an element in that list.
+```{r}
+files <- dir("data/", pattern = "\\.csv$", full.names = TRUE)
+files
+```
+
+Since, the number of files is know, pre-allocate a list with a length equal to the number of files.
+```{r}
+df_list <- vector("list", length(files))
+```
+
+Then, read each file into a data frame, and assign it to an element in that list.
 The result is a list of data frames.
-I then use `bind_rows()` to combine the list of data frames into a single data frame.
-```{r eval = FALSE}
-df <- vector("list", length(files))
-for (fname in seq_along(files)) {
-  df[[i]] <- read_csv(files[[i]])
+```{r}
+for (i in seq_along(files)) {
+  df_list[[i]] <- read_csv(files[[i]])
 }
-df <- bind_rows(df)
+```
+```{r}
+print(df_list)
+```
+Finally, use use `bind_rows()` to combine the list of data frames into a single data frame.
+```{r}
+df <- bind_rows(df_list)
+```
+```{r}
+print(df)
+```
+
+Alternatively, I could have pre-allocated a list with the names of the files.
+```{r}
+df2_list <- vector("list", length(files))
+names(df2_list) <- files
+for (fname in files) {
+  df2_list[[fname]] <- read_csv(files[[fname]])
+}
+df2 <- bind_rows(df2_list)
 ```
 
 </div>
@@ -364,10 +391,10 @@ What if the names are not unique?
 <div class="answer">
 
 Let's try it out and see what happens.
-
-When there are no names for the vector, it does not run the code in the loop (it runs zero iterations of the loop):
+When there are no names for the vector, it does not run the code in the loop.
+In other words, it runs zero iterations of the loop.
 ```{r}
-x <- 1:3
+x <- c(11, 12, 13)
 print(names(x))
 for (nm in names(x)) {
   print(nm)
@@ -379,10 +406,9 @@ Note that the length of `NULL` is zero:
 length(NULL)
 ```
 
-If there only some names, then we get an error if we try to access an element without a name.
-However, oddly, `nm == ""` when there is no name.
+If there only some names, then we get an error for trying to access an element without a name.
 ```{r}
-x <- c(a = 1, 2, c = 3)
+x <- c(a = 11, 12, c = 13)
 names(x)
 ```
 ```{r error = TRUE}
@@ -392,10 +418,9 @@ for (nm in names(x)) {
 }
 ```
 
-Finally, if there are duplicate names, then `x[[nm]]` will give the *first* element with that name.
-There is no way to access elements with duplicate names.
+Finally, if the vector contains duplicate names, then `x[[nm]]` returns the *first* element with that name.
 ```{r}
-x <- c(a = 1, a = 2, c = 3)
+x <- c(a = 11, a = 12, c = 13)
 names(x)
 ```
 ```{r}
