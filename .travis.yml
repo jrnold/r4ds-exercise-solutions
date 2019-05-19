@@ -1,9 +1,6 @@
 language: R
 pandoc: 2.5
 
-node_js:
-- "11"
-
 git:
   depth: false
   quiet: true
@@ -19,16 +16,16 @@ addons:
     packages:
       - libxml2-dev
 
-before_script:
-  - npm install
-
 script:
   - ./bin/build.sh
 
 after_success:
-  - npm test
   - Rscript ./bin/check-spelling.R
   - Rscript ./bin/check-r4ds-sections.R
+  - nvm install 10
+  - nvm use 10
+  - npm install
+  - npm test
 
 deploy:
   provider: pages
