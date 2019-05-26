@@ -1799,16 +1799,22 @@ For each plane, count the number of flights before the first delay of greater th
 
 <div class="answer">
 
+The question does not specify arrival or departure delay.
+I consider `dep_delay` in this answer, though similar code could be used for `arr_delay`.
+
 ```{r}
 flights %>%
-  select(tailnum, year, month,day, dep_delay)%>%
+  # sort in increasing order
+  select(tailnum, year, month,day, dep_delay) %>%
   filter(!is.na(dep_delay)) %>%
   arrange(tailnum, year, month, day) %>%
   group_by(tailnum) %>%
-  mutate(delay_gt1hr = dep_delay > 60) %>%
-  mutate(before_delay = cumsum(delay_gt1hr)) %>%
-  filter(before_delay < 1) %>%
-  count(sort = TRUE)
+  # cumulative number of flights delayed over one hour
+  mutate(cumulative_hr_delays = cumsum(dep_delay > 60)) %>%
+  # count the number of flights == 0
+  summarise(total_flights = sum(cumulative_hr_delays < 1)) %>%
+  arrange(total_flights)
+  
 ```
 
 </div>
