@@ -40,9 +40,8 @@ Think about a diamond and how you might decide which dimension is the length, wi
 In order to make it easier to plot them, I'll reshape the dataset so that I can use the variables as facets.
 ```{r}
 diamonds %>%
-  mutate(id = row_number()) %>%
-  select(x, y, z, id) %>%
-  gather(variable, value, -id) %>%
+  select(x, y, z) %>%
+  gather(variable, value) %>%
   ggplot(aes(x = value)) +
   geom_density() +
   geom_rug() +
