@@ -37,30 +37,104 @@ Think about a diamond and how you might decide which dimension is the length, wi
 
 <div class="answer">
 
-In order to make it easier to plot them, I'll reshape the dataset so that I can use the variables as facets.
+First, I'll calculate summary statistics for these variables and plot their distributions.
 ```{r}
-diamonds %>%
-  select(x, y, z) %>%
-  gather(variable, value) %>%
-  ggplot(aes(x = value)) +
-  geom_density() +
-  geom_rug() +
-  facet_grid(variable ~ .)
+summary(select(diamonds, x, y, z))
+```
+```{r}
+ggplot(diamonds) +
+  geom_histogram(mapping = aes(x = x), binwidth = 0.01)
+```
+```{r}
+ggplot(diamonds) +
+  geom_histogram(mapping = aes(x = y), binwidth = 0.01)
+```
+```{r}
+ggplot(diamonds) +
+  geom_histogram(mapping = aes(x = z), binwidth = 0.01)
 ```
 
-There several noticeable features of the distributions
+There several noticeable features of the distributions:
 
-1.  They are right skewed, with most diamonds small, but a few very large ones.
+1. `x` and `y` are larger than `z`,
+1. there are outliers,
+1. they are all right skewed, and
+1. they are multimodal or "spikey".
 
-1.  There is an outlier in `y` and `z`. This is visible in the z-axis and y-axis rugs.
+The typical values of `x` and `y` are larger than `z`, with `x` and `y` having inter-quartile 
+ranges of 4.7-5.7, while `z` has an inter-quartile range of 2.9-4.0.
 
-1.  All three distributions are bimodal.
-    This could be due to some threshold in diamond classification,
-    or popular values used for certain cuts.
+There are two types of outliers in this data.
+Some diamonds have values of zero and some have abnormally large values of `x`, `y`, or `z`.
+```{r}
+summary(select(diamonds, x, y, z))
+```
+These appear to be either data entry errors, or an undocumented convention in the dataset for indicating missing values.  An alternative hypothesis would be that values of zero are the
+result of rounding values like `0.002` down, but since there are no diamonds with values of 0.01, that does not seem to be the case.
+```{r}
+filter(diamonds, x == 0 | y == 0 | z == 0)
+```
+
+There are also some diamonds with values of `y` and `z` that are abnormally large.
+There are diamonds with `y == 58.9` and `y == 31.8`, and one with `z == 31.8`. 
+These are probably data errors since the values do not seem in line with the values of 
+the other variables.
+```{r}
+diamonds %>%
+  arrange(desc(y)) %>%
+  head()
+```
+```{r}
+diamonds %>%
+  arrange(desc(z)) %>%
+  head()
+```
+
+Initially, I only considered univariate outliers. However, to check the plausibility
+of those outliers I would informally consider how consistent their values are with
+the values of the other variables. In this case, scatter plots of each combination
+of `x`, `y`, and `z` shows these outliers much more clearly.
+```{r}
+ggplot(diamonds, aes(x = x, y = y)) +
+  geom_point()
+```
+```{r}
+ggplot(diamonds, aes(x = x, y = z)) +
+  geom_point()
+```
+```{r}
+ggplot(diamonds, aes(x = y, y = z)) +
+  geom_point()
+```
+
+Plotting the distributions of `x`, `y`, and `z` after removing the outliers
+displays the distributions more clearly. The right skewness of the these distributions 
+makes sense; there should be more smaller diamonds than larger ones.
+More notably, there spikes in the distribution at certain values. These are often near integer values, but not exactly on them. Without knowing more about diamond cutting, I can't
+say more about what these spikes represent. But, I would guess that there are some commonly used sizes of diamonds, and these spikes are those. Also, I would guess that a diamond cut and carat value of a diamond imply values of `x`, `y`, and `z`. Since there are spikes in 
+the distribution of carat sizes, and only a few different cuts, that results in these spikes.
+I'll leave it to readers to figure out if that's the case.
+```{r}
+filter(diamonds, x > 0, x < 10) %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = x), binwidth = 0.01) +
+  scale_x_continuous(breaks = 1:10)
+```
+```{r}
+filter(diamonds, y > 0, y < 10) %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = y), binwidth = 0.01) +
+  scale_x_continuous(breaks = 1:10)  
+```
+```{r}
+filter(diamonds, z > 0, z < 10) %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = z), binwidth = 0.01) +
+  scale_x_continuous(breaks = 1:10)    
+```
 
 According to the documentation for `diamonds`, `x` is length,
 `y` is width, and `z` is depth.
-
 If documentation were unavailable, I would compare the values of the variables to match them to the length, width, and depth.
 I would expect length to always be less than width, otherwise the length would be called the width.
 I would also search for the definitions of length, width, and depth with respect to diamond cuts.
