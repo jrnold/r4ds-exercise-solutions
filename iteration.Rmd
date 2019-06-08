@@ -296,10 +296,10 @@ Design and execute an experiment.
 
 <div class="answer">
 
-I'll use the package microbenchmark to time this.
-The `microbenchmark()` function will run an R expression a number of times and time it.
+In order to compare these two approaches, I'll define two functions:
+`add_to_vector` will append to a vector, like the example in the question,
+and `add_to_vector_2` which pre-allocates a vector.
 
-Define a function that appends to an integer vector.
 ```{r}
 add_to_vector <- function(n) {
   output <- vector("integer", 0)
@@ -311,7 +311,6 @@ add_to_vector <- function(n) {
 
 ```
 
-Now, I'll define a vector  one that pre-allocates a vector.
 ```{r}
 add_to_vector_2 <- function(n) {
   output <- vector("integer", n)
@@ -322,11 +321,20 @@ add_to_vector_2 <- function(n) {
 }
 ```
 
+I'll use the package microbenchmark to run these functions several times and compare the time it takes.
+The package microbenchmark contains utilities for benchmarking R expressions.
+In particular, the `microbenchmark()` function will run an R expression a number of times and time it.
 ```{r}
-microbenchmark(add_to_vector(10000), add_to_vector_2(10000), times = 10)
+timings <- microbenchmark(add_to_vector(10000), add_to_vector_2(10000), times = 10)
+timings
 ```
 
-The pre-allocated vector is about **10** times faster!
+```{r include=FALSE}
+timings_summary <- summary(timings)
+d <- round(timings_summary[1, "median"] / timings_summary[2, "median"])
+```
+
+In this example, appending to a vector takes `r round(d)` times longer than pre-allocating the vector.
 You may get different answers, but the longer the vector and the larger the objects, the more that pre-allocation will outperform appending.
 
 </div>
