@@ -411,8 +411,8 @@ daily <- daily %>%
   mutate(
     wday3 =
       case_when(
-        (date - 1L) %in% holidays_2013$date ~ "day before holiday",
-        (date + 1L) %in% holidays_2013$date ~ "day after holiday",
+        date %in% (holidays_2013$date - 1L) ~ "day before holiday",
+        date %in% (holidays_2013$date + 1L) ~ "day after holiday",
         date %in% holidays_2013$date ~ "holiday",
         .$wday == "Sat" & .$term == "summer" ~ "Sat-summer",
         .$wday == "Sat" & .$term == "fall" ~ "Sat-fall",
