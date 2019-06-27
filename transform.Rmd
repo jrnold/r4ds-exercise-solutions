@@ -103,9 +103,14 @@ The answer to each part follows.
     ```
 
 1.  Finding flights that departed between midnight and 6 a.m. is complicated by 
-    the way in which times are represented in the data. 
+    the way in which times are represented in the data.  
     In `dep_time`, midnight is represented by `2400`, not `0`.
-    This means we cannot simply check that `dep_time < 600`, because we also have
+    You can verify this by checking the minimum and maximum of `dep_time`.
+    ```{r}
+    summary(flights$dep_time)
+    ```
+    This is an example of why it is always good to check the summary statistics of your data.
+    Unfortunately, this means we cannot simply check that `dep_time < 600`, because we also have
     to consider the special case of midnight.
     
     ```{r}
