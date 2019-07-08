@@ -294,22 +294,18 @@ Sort flights to find the fastest flights.
 
 <div class="answer">
 
-By "fastest" flights, I assume that the question refers to the flights with the 
-shortest time in the air. 
-Find these by sorting by `air_time`
+The fastest flight is the one with the average [ground speed](https://en.wikipedia.org/wiki/Ground_speed), wich can be calculated from the distance and duration of the flight.
+Since ground speed is not included in the data, first create new column in flights
+containing ground speed in miles per hour.
 ```{r}
-arrange(flights, air_time)
+fastest_flights <- mutate(flights, mph = distance / air_time * 60)
+fastest_flights <- select(fastest_flights, mph, distance, air_time,
+                           flight, origin, dest, year, month, day)
 ```
-
-However, "fastest" could also be interpreted as referring to the average air speed.
-We can find these flights by sorting by the result of `distance / air_time * 60`, 
-where the 60 is to convert the expression to miles per hour since `air_time` is in minutes.
+Now sort the flights by `mph` to find the fastest flights
 ```{r}
-arrange(flights, distance / air_time * 60)
+head(arrange(fastest_flights, desc(mph)))
 ```
-This shows that we are not limited to sorting by columns in `arrange()`, but 
-can sort by the results of arbitrary expressions, something which we had 
-earlier seen with `desc()`.
 
 </div>
 
