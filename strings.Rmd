@@ -592,21 +592,22 @@ Construct regular expressions to match words that:
 
 The answer to each part follows.
 
+<!-- Use str_subset because I just want to pull words out -->
+
 1.  This regular expression matches words that start and end with the same character.
 
     ```{r }
-    str_view(stringr::words, "^(.)((.*\\1$)|\\1?$)", match = TRUE)
+    str_subset(words, "^(.)((.*\\1$)|\\1?$)")
     ```
 
-1.  Either of these patterns checks for any pair of repeated letters, where
-    *letters* is defined to the ASCII letters A-Z.
-    
-    ```{r }
-    str_view(words, "([A-Za-z])\\1", match = TRUE)
+1.  This regular expression will match any pair of repeated letters, where *letters* is defined to be the ASCII letters A-Z.
+    First, check that it works with the example in the problem.
+    ```{r}
+    str_subset("church", "([A-Za-z][A-Za-z]).*\\1")
     ```
-
-    ```{r }
-    str_view(words, "([[:letter:]])\\1", match = TRUE)
+    Now, find all the matching words in `words`.
+    ```{r}
+    str_subset(words, "(\\l).*\\1")
     ```
 
     The `\\1` pattern is called a backreference. It matches whatever the first group
@@ -618,9 +619,13 @@ The answer to each part follows.
     of letters with different capitalization.
 
 1.  This regex matches words that contain one letter repeated in at least three places.
-
+    First, check that it works with th example given in the question.
     ```{r}
-    str_subset(str_to_lower(words), "([a-z]).*\\1.*\\1")
+    str_subset("eleven", "([a-z]).*\\1.*\\1")
+    ```
+    Then retrieve wthe matching words in `words`.
+    ```{r}
+    str_subset(words, "([a-z]).*\\1.*\\1")
     ```
 
 </div>
