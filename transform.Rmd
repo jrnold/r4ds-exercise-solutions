@@ -1293,7 +1293,7 @@ The question does not define a way to measure on-time record, so I will consider
 The first metric is the proportion of not-cancelled and on-time flights.
 I use the presence of an arrival time to mean that a flight was not cancelled.
 However, there are many planes that have never flown an on-time flight.
-Many of these planes have only flown a small number of flights.
+Many of the planes that have the lowest proportion have only flown a small number of flights.
 ```{r}
 flights %>%
   filter(!is.na(tailnum)) %>%
@@ -1304,9 +1304,8 @@ flights %>%
 
 ```
 
-To account for planes that have a small number of flights, I will remove 
-planes hat flew at least 20 flights.
-The choice of 20 for the threshold is somewhat arbitrary; it is a round number near the first quartile of number of flights by plane [^delay]
+So, I wll remove planes that flew at least 20 flights.
+The choice of 20 was chosen because it round number near the first quartile of the number of flights by plane.[^delay][^count]
 ```{r}
 quantile(count(flights, tailnum)$n)
 ```
@@ -1830,4 +1829,9 @@ flights %>%
        Don't @ me.
 
 [^delay]: We could address this issue using a statistical model, but that is outside
-          the scope of this chapter.
+          the scope of this text.
+
+[^count]: The `count()` function is introduced in [Chapter 5.6](https://r4ds.had.co.nz/transform.html#counts). It returns the count of 
+          rows by group. In this case, the number of rows in `flights` for each
+          `tailnum`. The data frame that `count()` returns has columns for the 
+          groups, and a column `n`, which contains that count.
