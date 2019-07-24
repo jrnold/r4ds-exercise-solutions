@@ -599,9 +599,9 @@ who1 %>%
   filter(cases == 0) %>%
   nrow()
 ```
-There are zeros in the data, so it appears that cases of zero TB cases are explicitly indicated, and `NA` is used to indicate missing data.
+There are zeros in the data, so it appears that cases of zero TB are explicitly indicated, and the value of`NA` is used to indicate missing data.
 
-Second, I should check whether all values for a (country, year) are missing or whether it is possible for only some values to be missing.
+Second, I should check whether all values for a (country, year) are missing or whether it is possible for only some columns to be missing.
 ```{r}
 gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
   group_by(country, year) %>%
@@ -609,7 +609,7 @@ gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
   filter(prop_missing > 0, prop_missing < 1)
 
 ```
-It looks like it is possible for certain variables to missing for (country, years).
+From the results above, it looks like it is possible for a (country, year) row to contain some, but not all, missing values in its columns.
 
 Finally, I will check for implicit missing values. 
 Implicit missing values are (`year`, `country`) combinations that do not appear in the data.
