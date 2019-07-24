@@ -72,9 +72,9 @@ tbl[, "xyz"]
 tbl[, c("abc", "xyz")]
 ```
 
-Using `$` a data.frame will partially complete the column. So even though we
-wrote `df$x` it returned `df$xyz`. This saves a few keystrokes, but can result
-in accidentally using a different variable than you thought you were using.
+The `$` operator will match any column name that starts with the name following it.
+Since there is a column named `xyz`, the expression `df$x` will be expanded to `df$xyz`. 
+This behavior of the `$` operator saves a few keystrokes, but it can result in accidentally using a different column than you thought you were using.
 
 With data.frames, with `[` the type of object that is returned differs on the
 number of columns. If it is one column, it won't return a data.frame, but
