@@ -290,13 +290,13 @@ The answer to each part follows.
 1.  Words starting with vowels
 
     ```{r }
-    str_view(stringr::words, "^[aeiou]", match = TRUE)
+    str_subset(stringr::words, "^[aeiou]", match = TRUE)
     ```
 
 1.  Words that contain only consonants
 
-    ```{r }
-    str_view(stringr::words, "^[^aeiou]+$", match = TRUE)
+    ```{r}
+    str_subset(stringr::words, "^[^aeiou]+$")
     ```
 
     This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
@@ -304,13 +304,13 @@ The answer to each part follows.
 1.  Words that end with "-ed" but not ending in "-eed". This handles the special case of "-ed", as well as words with a length great than two.
 
     ```{r }
-    str_view(stringr::words, "^ed$|[^e]ed$", match = TRUE)
+    str_subset(stringr::words, "^ed$|[^e]ed$")
     ```
 
 1.  Words ending in `ing` or `ise`:
 
     ```{r }
-    str_view(stringr::words, "i(ng|se)$", match = TRUE)
+    str_subset(stringr::words, "i(ng|se)$")
     ```
 
 </div>
@@ -325,20 +325,12 @@ Empirically verify the rule “i” before e except after “c”.
 
 <div class="answer">
 
-Using only what has been introduced thus far:
-
 ```{r }
-str_view(stringr::words, "(cei|[^c]ie)", match = TRUE)
+length(str_subset(stringr::words, "(cei|[^c]ie)"))
 ```
 
 ```{r }
-str_view(stringr::words, "(cie|[^c]ei)", match = TRUE)
-```
-
-Using `str_detect()` count the number of words that follow these rules:
-```{r }
-sum(str_detect(stringr::words, "(cei|[^c]ie)"))
-sum(str_detect(stringr::words, "(cie|[^c]ei)"))
+length(str_subset(stringr::words, "(cie|[^c]ei)"))
 ```
 
 </div>
@@ -351,10 +343,14 @@ Is “q” always followed by a “u”?
 
 <div class="answer">
 
-In the `stringr::words` dataset, yes. In the full English language, no.
+In the `stringr::words` dataset, yes.
 ```{r }
 str_view(stringr::words, "q[^u]", match = TRUE)
 ```
+
+In the full English language, [no](https://en.wiktionary.org/wiki/Appendix:English_words_containing_Q_not_followed_by_U) 
+However, the examples are few, and mostly loanwords, such as "burqa" and "cinq".
+Also, "querty".
 
 </div>
 
@@ -605,9 +601,9 @@ The answer to each part follows.
     ```{r}
     str_subset("church", "([A-Za-z][A-Za-z]).*\\1")
     ```
-    Now, find all the matching words in `words`.
+    Now, find all matching words in `words`.
     ```{r}
-    str_subset(words, "(\\l).*\\1")
+    str_subset(words, "([A-Za-z][A-Za-z]).*\\1")
     ```
 
     The `\\1` pattern is called a backreference. It matches whatever the first group
@@ -623,7 +619,7 @@ The answer to each part follows.
     ```{r}
     str_subset("eleven", "([a-z]).*\\1.*\\1")
     ```
-    Then retrieve the matching words in `words`.
+    Now, retrieve the matching words in `words`.
     ```{r}
     str_subset(words, "([a-z]).*\\1.*\\1")
     ```
