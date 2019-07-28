@@ -782,12 +782,11 @@ What does `anti_join(airports, flights, by = c("faa" = "dest"))` tell you?
 
 <div class="answer">
 
-`anti_join(flights, airports, by = c("dest" = "faa"))` are flights that go to an airport that is not in the FAA list of destinations. Since the FAA list only contains
+The expression `anti_join(flights, airports, by = c("dest" = "faa"))` returns the flights that went to an airport that is not in the FAA list of destinations. Since the FAA list only contains
 domestic airports, these are likely foreign flights.
 
-`anti_join(airports, flights, by = c("faa" = "dest"))` are US airports that were not a destination of any any flight in the data. 
-Since the data contains all flights from New York City airports, this is the list of
-US airports that did not have a direct flight from New York City in 2013.
+The expression `anti_join(airports, flights, by = c("faa" = "dest"))` returns the US airports that were not the destination of any flight in the data.
+Since the data contains all flights from New York City airports, this is also the list of US airports that did not have a nonstop flight from New York City in 2013.
 
 </div>
 
