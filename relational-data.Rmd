@@ -515,7 +515,7 @@ plane_cohorts <- inner_join(flights,
 ) %>%
   mutate(age = year - plane_year) %>%
   filter(!is.na(age)) %>%
-  mutate(age = if_else(age > 25, 25, age)) %>%
+  mutate(age = if_else(age > 25, 25L, age)) %>%
   group_by(age) %>%
   summarise(
     dep_delay_mean = mean(dep_delay, na.rm = TRUE),
