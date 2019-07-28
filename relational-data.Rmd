@@ -506,7 +506,7 @@ I will look at both.
 
 To compare the age of the plane to flights delay, I merge `flights` with the `planes`, which contains a variable `plane_year`, with the year in which the plane was built.
 To look at the relationship between plane age and departure delay, I will calculate the average arrival and departure delay for each age of a flight.
-There are few planes older than 30 years, so I combine them into a single category.
+Since there are few planes older than 25 years, so I truncate `age` at 25 years.
 
 ```{r}
 plane_cohorts <- inner_join(flights,
@@ -515,7 +515,7 @@ plane_cohorts <- inner_join(flights,
 ) %>%
   mutate(age = year - plane_year) %>%
   filter(!is.na(age)) %>%
-  mutate(age = pmin(25, age)) %>%
+  mutate(age = if_else(age > 25, 25, age)) %>%
   group_by(age) %>%
   summarise(
     dep_delay_mean = mean(dep_delay, na.rm = TRUE),
@@ -534,7 +534,7 @@ The decrease in departure delay could be because older planes with many mechanic
 ```{r}
 ggplot(plane_cohorts, aes(x = age, y = dep_delay_mean)) +
   geom_point() +
-  scale_x_continuous("Age of plane (years)", breaks = seq(0, 50, by = 10)) +
+  scale_x_continuous("Age of plane (years)", breaks = seq(0, 30, by = 10)) +
   scale_y_continuous("Mean Departure Delay (minutes)")
 ```
 
@@ -543,7 +543,7 @@ Delays increase with the age of the plane until ten years, then it declines and 
 ```{r}
 ggplot(plane_cohorts, aes(x = age, y = arr_delay_mean)) +
   geom_point() +
-  scale_x_continuous("Age of Plane (years)", breaks = seq(0, 50, by = 10)) +
+  scale_x_continuous("Age of Plane (years)", breaks = seq(0, 30, by = 10)) +
   scale_y_continuous("Mean Arrival Delay (minutes)")
 ```
 
