@@ -302,10 +302,16 @@ The answer to each part follows.
 
     This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
 
-1.  Words that end with "-ed" but not ending in "-eed". This handles the special case of "-ed", as well as words with a length great than two.
+1.  Words that end with "-ed" but not ending in "-eed".
 
     ```{r }
-    str_subset(stringr::words, "^ed$|[^e]ed$")
+    str_subset(stringr::words, "[^e]ed$")
+    ```
+    
+    The pattern above will not match the word `"ed"`. If we wanted to include that, we could include it as a special case.
+    
+    ```{r}
+    str_subset(c("ed", stringr::words), "(^|[^e])ed$")
     ```
 
 1.  Words ending in `ing` or `ise`:
