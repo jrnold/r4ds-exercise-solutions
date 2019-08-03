@@ -283,7 +283,7 @@ Create regular expressions to find all words that:
 
 </div>
 
-<div class="answer">
+<xdiv class="answer">
 
 The answer to each part follows.
 
@@ -845,10 +845,13 @@ Separate out the pieces before and after the apostrophe.
 
 <div class="answer">
 
+This is done in two steps. First, identify the contractions. Second, split the string on the contraction.
+
 ```{r}
 contraction <- "([A-Za-z]+)'([A-Za-z]+)"
 sentences[str_detect(sentences, contraction)] %>%
-  str_extract(contraction)
+  str_extract(contraction) %>%
+  str_split("'")
 ```
 
 </div>
