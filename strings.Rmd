@@ -186,7 +186,7 @@ How would you match the sequence `"'\` ?
 
 <div class="answer">
 
-```{r }
+```{r cache=FALSE}
 str_view("\"'\\", "\"'\\\\", match = TRUE)
 ```
 
@@ -202,7 +202,7 @@ What patterns will the regular expression `\..\..\..` match? How would you repre
 
 It will match any patterns that are a dot followed by any character, repeated three times.
 
-```{r }
+```{r cache=FALSE}
 str_view(c(".a.b.c", ".a.b", "....."), c("\\..\\..\\.."), match = TRUE)
 ```
 
@@ -219,7 +219,7 @@ How would you match the literal string `"$^$"`?
 <div class="answer">
 
 To check that the pattern works, I'll include both the string `"$^$"`, and an example where that pattern occurs in the middle of the string which should not be matched.
-```{r }
+```{r cache=FALSE}
 str_view(c("$^$", "ab$^$sfas"), "^\\$\\^\\$$", match = TRUE)
 ```
 
@@ -245,25 +245,25 @@ The answer to each part follows.
 
 1.  The words that start with  “y” are:
 
-    ```{r }
+    ```{r cache=FALSE}
     str_view(stringr::words, "^y", match = TRUE)
     ```
 
 1.  End with “x”
 
-    ```{r }
+    ```{r cache=FALSE}
     str_view(stringr::words, "x$", match = TRUE)
     ```
 
 1.  Are exactly three letters long are
 
-    ```{r }
+    ```{r cache=FALSE}
     str_view(stringr::words, "^...$", match = TRUE)
     ```
 
 1.  The words that have seven letters or more are
 
-    ```{r }
+    ```{r cache=FALSE}
     str_view(stringr::words, ".......", match = TRUE)
     ```
 
@@ -351,7 +351,7 @@ Is “q” always followed by a “u”?
 <div class="answer">
 
 In the `stringr::words` dataset, yes.
-```{r }
+```{r cache=FALSE}
 str_view(stringr::words, "q[^u]", match = TRUE)
 ```
 
@@ -396,17 +396,17 @@ Create a regular expression that will match telephone numbers as commonly writte
 The answer to this will vary by country.
 
 For the United States, phone numbers have a format like `123-456-7890`.
-```{r }
+```{r cache=FALSE}
 x <- c("123-456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
 or
-```{r }
+```{r cache=FALSE}
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
-```{r }
+```{r cache=FALSE}
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
 
@@ -441,34 +441,34 @@ For example, let's repeat the examples in the chapter, replacing `?` with `{0,1}
 ```{r }
 x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
 ```
-```{r}
+```{r cache=FALSE}
 str_view(x, "CC?")
 ```
-```{r }
+```{r cache=FALSE}
 str_view(x, "CC{0,1}")
 ```
 
-```{r }
+```{r cache=FALSE}
 str_view(x, "CC+")
 ```
-```{r }
+```{r cache=FALSE}
 str_view(x, "CC{1,}")
 ```
 
-```{r }
+```{r cache=FALSE}
 str_view_all(x, "C[LX]+")
 ```
-```{r }
+```{r cache=FALSE}
 str_view_all(x, "C[LX]{0,1}")
 ```
 
 The chapter does not contain an example of `*`.
 This pattern looks for a "C" optionally followed by
 any number of "L" or "X" characters.
-```{r }
+```{r cache=FALSE}
 str_view_all(x, "C[LX]*")
 ```
-```{r }
+```{r cache=FALSE}
 str_view_all(x, "C[LX]{0,}")
 ```
 
@@ -522,19 +522,19 @@ The answer to each part follows.
 
 1.  This regex finds all words starting with three consonants.
 
-    ```{r }
+    ```{r cache=FALSE}
     str_view(words, "^[^aeiou]{3}", match = TRUE)
     ```
 
 1.  This regex finds three or more vowels in a row:
 
-    ```{r }
+    ```{r cache=FALSE}
     str_view(words, "[aeiou]{3,}", match = TRUE)
     ```
 
 1.  This regex finds two or more vowel-consonant pairs in a row.
 
-    ```{r }
+    ```{r cache=FALSE}
     str_view(words, "([aeiou][^aeiou]){2,}", match = TRUE)
     ```
 
@@ -768,7 +768,7 @@ colour_match2
 ```{r}
 more2 <- sentences[str_count(sentences, colour_match) > 1]
 ```
-```{r }
+```{r cache=FALSE}
 str_view_all(more2, colour_match2, match = TRUE)
 ```
 
