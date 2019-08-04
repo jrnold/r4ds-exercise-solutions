@@ -624,12 +624,39 @@ What do the tail numbers that don’t have a matching record in planes have in c
 
 <div class="answer">
 
-American Airlines (AA) and Envoy Airlines (MQ) don't report tail numbers.
+Flights that have a missing `tailnum` all have missing values of `arr_time`, meaning that the flight was canceled.
+
+```{r}
+flights %>%
+  filter(is.na(tailnum), !is.na(arr_time)) %>%
+  nrow()
+```
+
+Many of the tail numbers that don't have a matching value in `planes` are 
+registered to American Airlines (AA) or Envoy Airlines (MQ).
+The documentation for `planes` states
+
+> American Airways (AA) and Envoy Air (MQ) report fleet numbers rather than tail numbers so can't be matched.
 
 ```{r}
 flights %>%
   anti_join(planes, by = "tailnum") %>%
-  count(carrier, sort = TRUE)
+  count(carrier, sort = TRUE) %>%
+  mutate(p = n / sum(n))
+```
+
+However, not tail numbers appearing in `flights` from these carriers are missing from `planes`. I don't know how to reconcile the discrepancy.
+
+```{r}
+flights %>%
+  distinct(carrier, tailnum) %>%
+  left_join(planes, by = "tailnum") %>%
+  group_by(carrier) %>%
+  summarise(total_planes = n(),
+            not_in_planes = sum(is.na(model))) %>%
+  mutate(missing_pct = not_in_planes / total_planes) %>%
+  arrange(desc(missing_pct))
+
 ```
 
 </div>
