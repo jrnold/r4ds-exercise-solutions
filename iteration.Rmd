@@ -11,6 +11,36 @@ The package microbenchmark is used for timing code.
 library("microbenchmark")
 ```
 
+<div class="alert alert-warning hints-alert">
+
+The `map()` function appears in both the purrr and maps packages. See the
+"Prerequisites" section of the [Introduction](https://r4ds.had.co.nz/data-visualisation.html#introduction-1).
+If you see errors like the following, you are using the wrong `map()` function.
+
+```rconsole
+> map(c(TRUE, FALSE, TRUE), ~ !.)
+Error: $ operator is invalid for atomic vectors
+> map(-2:2, rnorm, n = 5)
+Error in map(-2:2, rnorm, n = 5) : 
+argument 3 matches multiple formal arguments
+```
+
+You can check the package in which a function is defined using the `environment()` function:
+
+```{r}
+environment(map)
+```
+
+The result should include `namespace:purrr` if `map()` is coming from the purrr package.
+To explicitly reference the package to get a function from, use the colon operator `::`.
+For example,
+
+```{r}
+purrr::map(c(TRUE, FALSE, TRUE), ~ !.)
+```
+
+</div>
+
 ## For loops {#for-loops .r4ds-section}
 
 ### Exercise 21.2.1 {.unnumbered .exercise data-number="21.2.1"}
