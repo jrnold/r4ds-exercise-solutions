@@ -671,15 +671,29 @@ Filter flights to only show flights with planes that have flown at least 100 fli
 
 <div class="answer">
 
+First, I calculate all planes that have flown at least 100 flights.
+I need to filter flights that are missing a tail number otherwise all flights missing a tail number will be treated as a single plane.
 ```{r}
-planes_gte100 <-
-  filter(flights) %>%
+planes_gte100 <- flights %>%
+  filter(!is.na(tailnum)) %>%
   group_by(tailnum) %>%
   count() %>%
   filter(n >= 100)
+```
 
+Now, I will semi join the data frame of lights that have flown at least 100 flights to the data frame of flights to select the flights by those planes.
+```{r}
 flights %>%
   semi_join(planes_gte100, by = "tailnum")
+```
+
+This can also be answered with a grouped mutate.
+```{r}
+flights %>%
+  filter(!is.na(tailnum)) %>%
+  group_by(tailnum) %>%
+  mutate(n = n()) %>%
+  filter(n >= 100)
 ```
 
 </div>
