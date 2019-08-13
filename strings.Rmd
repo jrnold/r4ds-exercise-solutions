@@ -844,9 +844,8 @@ Pull out both the number and the word.
 
 <div class="answer">
 
-I'll use the same following "word" pattern as used above
 ```{r}
-numword <- "(one|two|three|four|five|six|seven|eight|nine|ten) +(\\S+)"
+numword <- "\\b(one|two|three|four|five|six|seven|eight|nine|ten) +(\\w+)"
 sentences[str_detect(sentences, numword)] %>%
   str_extract(numword)
 ```
