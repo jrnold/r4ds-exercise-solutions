@@ -420,9 +420,7 @@ So, I will assume that that the correct code is,
 While this code will not display a warning or message, it does not work exactly as
 expected. The problem is discussed in the [Intervals](https://r4ds.had.co.nz/dates-and-times.html#intervals) section.
 
-The numerator of the expression, `(today() %--% (today() + years(1))`, is an *interval*, which 
-as a duration of time along with a starting point. The interval has an exact number of
-seconds.
+The numerator of the expression, `(today() %--% (today() + years(1))`, is an *interval*, which includes both a duration of time and a starting point. The interval has an exact number of seconds.
 The denominator of the expression, `months(1)`, is a period, which is meaningful to humans but not defined in terms of an exact number of seconds.
 Months can be 28, 29, 30, or 31 days, so it is not clear what `months(1)` divide by?
 The code does not produce a warning message, but it will not always produce the correct result.
