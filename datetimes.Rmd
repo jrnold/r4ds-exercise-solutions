@@ -303,8 +303,8 @@ Hint: create a binary variable that tells you whether or not a flight was delaye
 
 <div class="answer">
 
-First, I create a binary variable `early` that is create 1 if a flight leaves early, and 0 if it does not.
-Then, I grouping flights by the minute of departure.
+First, I create a binary variable `early` that is equal to 1 if a flight leaves early, and 0 if it does not.
+Then, I group flights by the minute of departure.
 This shows that the proportion of flights that are early departures is highest between minutes 20--30 and 50--60.
 ```{r}
 flights_dt %>% 
@@ -430,12 +430,12 @@ To find the number of months within an interval use `%/%` instead of `/`,
 (today() %--% (today() + years(1))) %/% months(1)
 ```
 
-Alternatively, you could define a "month" as 30 days, and run
+Alternatively, we could define a "month" as 30 days, and run
 ```{r}
 (today() %--% (today() + years(1))) / days(30)
 ```
 
-There's one other minor  way in which this will not work is that `today() + years(1)` is not defined for February 29th on leap years:
+Howevever, this approach will not work with `today() + years(1)`, which is not defined for February 29th on leap years:
 ```{r}
 as.Date("2016-02-29") + years(1)
 ```
