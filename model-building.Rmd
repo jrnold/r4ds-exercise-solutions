@@ -61,8 +61,8 @@ If `log(price) = a_0 + a_1 * log(carat)`, what does that say about the relations
 
 <div class="answer">
 
-I'll answer this question by first showing an empirical estimating the regression.
-Following the examples in the chapter, I use a base of 2 for the logarithm.
+Following the examples in the chapter, I use a base-2 logarithm.
+
 ```{r}
 mod_log <- lm(log2(price) ~ log2(carat), data = diamonds)
 mod_log
@@ -81,27 +81,34 @@ tibble(carat = seq(0.25, 5, by = 0.25)) %>%
 The plot shows that the estimated relationship between `carat` and `price` is not linear.
 The exact relationship in this model is if $x$ increases $r$ times, then $y$ increases $r^{a_1}$ times.
 For example, a two times increase in `carat` is associated with the following increase in `price`:
+
 ```{r}
 2^coef(mod_log)[2]
 ```
 
 Let's confirm this relationship by checking it for a few values of the `carat` variable.
-Let's Increase `carat` from 1 to 2.
+Let's increase `carat` from 1 to 2.
+
 ```{r}
 2^(predict(mod_log, newdata = tibble(carat = 2)) -
   predict(mod_log, newdata = tibble(carat = 1)))
 ```
+
 Note that, since `predict()` predicts `log2(carat)` rather than `carat`, the prediction is exponentiated by 2.
 Now let's increase `carat` from 4 to 2.
+
 ```{r}
 2^(predict(mod_log, newdata = tibble(carat = 4)) -
   predict(mod_log, newdata = tibble(carat = 2)))
 ```
+
 Finally, let's increase `carat` from 0.5 to 1.
+
 ```{r}
 2^(predict(mod_log, newdata = tibble(carat = 1)) -
   predict(mod_log, newdata = tibble(carat = 0.5)))
 ```
+
 All of these examples return the same value, $2 ^ {a_1} = `r round(2^coef(mod_log)[2], 2)`$.
 
 So why is this?
@@ -169,12 +176,12 @@ $$
 ### Exercise 24.2.3 {.unnumbered .exercise data-number="24.2.3"}
 
 <div class="question">
-Extract the diamonds that have very high and very low residuals. Is there anything unusual about these diamonds? Are the particularly bad or good, or do you think these are pricing errors?
+Extract the diamonds that have very high and very low residuals. Is there anything unusual about these diamonds? Are they particularly bad or good, or do you think these are pricing errors?
 </div>
 
 <div class="answer">
 
-The answer to this question is given in section [24.2.2](https://r4ds.had.co.nz/model-building.html#a-more-complicated-model).
+The answer to this question is provided in section [24.2.2](https://r4ds.had.co.nz/model-building.html#a-more-complicated-model).
 
 ```{r}
 diamonds2 %>%
@@ -185,7 +192,9 @@ diamonds2 %>%
   arrange(price)
 ```
 
+<div class="alert alert-primary hints-alert">
 I did not see anything too unusual. Do you?
+</div>
 
 </div>
 
@@ -202,9 +211,11 @@ Would you trust it to tell you how much to spend if you were buying a diamond?
 
 Section [24.2.2](https://r4ds.had.co.nz/model-building.html#a-more-complicated-model) already provides part of the answer to this question.
 
-We can plot the residuals of the model. There are some large outliers for
-small carat sizes there are some large errors. In this model, a residual of 2
-means that the true value was four times lower.
+Plotting the residuals of the model shows that there are some large outliers for small carat sizes.
+The largest of these residuals are a little over two, which means that the true value was four times lower; see [Exercise 24.2.2](#exercise-24.2.2).
+Most of the mass of the residuals is between -0.5 and 0.5, which corresponds to about $\pm 40%$.
+There seems to be a slight downward bias in the residuals as carat size increases.
+
 ```{r}
 ggplot(diamonds2, aes(lcarat, lresid2)) +
   geom_hex(bins = 50)
@@ -220,7 +231,7 @@ lresid2_summary <- summarise(diamonds2,
 lresid2_summary
 ```
 
-While in some cases the model can be very wrong, overall the model seems to perform well. 
+While in some cases the model can be wrong, overall the model seems to perform well. 
 The root mean squared error is `r round(lresid2_summary$rmse, 2)` meaning that the 
 average error is about `r round(100 * (1 - (2 ^ lresid2_summary$rmse)))`%.
 Another summary statistics of errors is the mean absolute error (MAE), which is the 
