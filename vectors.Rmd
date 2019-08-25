@@ -160,24 +160,78 @@ Brainstorm at least four functions that allow you to convert a double to an inte
 
 <div class="answer">
 
-Broadly, could convert a double to an integer by truncating or rounding to the nearest integer.
-For truncating or for handling ties (doubles ending in 0.5), there are multiple methods for determining which integer value to go to.
+The difference between to convert a double to an integer differ in how they deal with the fractional part of the double.
+There are are a variety of rules that could be used to do this.
 
-| methods                        | 0.5  | -0.5  | 1.5  | -1.5  |
-| ------------------------------ | ---- | ----- | ---- | ----- |
-| towards zero:                  | 0    | 0     | 1    | 1     |
-| away from zero                 | 1    | -1    | 2    | -2    |
-| largest towards $+\infty$)     | 1    | 0     | 2    | -1    |
-| smallest (towards $-\infty$)   | 0    | -1    | 1    | -2    |
-| even                           | 0    | 0     | 2    | -2    |
-| odd                            | 1    | -1    | 1    | -1    |
+- Round down, towards $-\infty$. This is also called taking the `floor` of a number. This is the method the `floor()` function uses.
+- Round up, towards $+\infty$. This is also called taking the `ceiling`. This is the method the `ceiling()` function uses.
+- Round towards zero. This is the method that the `trunc()` and `as.integer()` functions use.
+- Round away from zero. 
+- Round to the nearest integer. There several different methods for handling ties, which are 
+  numbers with a fractional part of 0.5.
 
-See the Wikipedia article [IEEE floating point](https://en.wikipedia.org/wiki/IEEE_floating_point) for rounding rules.
+  - Round half down, towards $-\infty$.
+  - Round half up, towards $+\infty$.
+  - Round half towards zero
+  - Round half away from zero
+  - Round half towards the even integer. This is the method that the 
+    `round()` function uses.
+  - Round half towards the odd integer.
 
-For rounding, R and many programming languages use the IEEE standard. This is "round to nearest, ties to even".
-This is not the same as what you
-See the value of looking at the value of `.Machine$double.rounding` and its documentation.
+```{r}
+function(x, method) {
+  if (method == "round down") {
+    floor(x)
+  } else if (method == "round up") {
+    ceiling(x)
+  } else if (method == "round towards zero") {
+    trunc(x)
+  } else if (method == "round away from zero") {
+    sign(x) * ceiling(abs(x))
+  } else if (method == "nearest, round half up") {
+    floor(x + 0.5)
+  } else if (method == "nearest, round half down") {
+    ceiling(x - 0.5)
+  } else if (method == "nearest, round half towards zero") {
+    sign(x) * ceiling(abs(x) - 0.5)
+  } else if (method == "nearest, round half away from zero") {
+    sign(x) * floor(abs(x) + 0.5)
+  } else if (method == "nearest, round half to even") {
+    round(x, digits = 0)
+  } else if (method == "nearest, round half to odd") {
+    case_when(
+      # smaller integer is odd - round half down
+      floor(x) %% 2 ~ ceiling(x - 0.5),
+      # otherwise, round half up 
+      TRUE ~ floor(x + 0.5)
+    )
+  } else if (method == "nearest, round half randomly") {
+    round_half_up <- sample(c(TRUE, FALSE), length(x), replace = TRUE)
+    y <- x
+    y[round_half_up] <- ceiling(x[round_half_up] - 0.5)
+    y[!round_half_up] <- floor(x[!round_half_up] + 0.5)
+    y
+  }
+}
+```
 
+```{r}
+tibble(
+  x = c(1.8, 1.5, 1.2, 0.8, 0.5, 0.2, 
+        -0.2, -0.5, -0.8, -1.2, -1.5, -1.8),
+  `Round down` = floor(x),
+  `Round up` = ceiling(x),
+  `Round towards zero` = trunc(x),
+  `Nearest, round half to even` = round(x)
+) 
+```
+
+See the Wikipedia articles, [Rounding](https://en.wikipedia.org/wiki/Rounding) and [IEEE floating point](https://en.wikipedia.org/wiki/IEEE_floating_point) for more discussion of these rounding rules.
+
+For rounding, R and many programming languages use the IEEE standard. This method is called "round to nearest, ties to even".[^rounding]
+This rule rounds ties, numbers with a remainder of  0.5, to the nearest even number.
+In this rule, half the ties are rounded up, and half are rounded down.
+The following function, `round2()`, manually implements the "round to nearest, ties to even" method.
 ```{r}
 x <- seq(-10, 10, by = 0.5)
 
@@ -191,24 +245,29 @@ round(x)
 round2(x, to_even = FALSE)
 ```
 
-The problem with the always rounding 0.5 up rule is that it is biased upwards. Rounding to nearest with ties towards even is
-not.
-Consider the sequence $-100.5, -99.5, \dots, 0, \dots, 99.5, 100.5$.
-Its sum is 0.
-It would be nice if rounding preserved that sum.
+This rounding method  may be different than the one you learned in grade school, which is, at least for me, was to always round ties upwards, or, alternatively away from zero.
+This rule is called the "round half up" rule.
+The problem with the "round half up" rule is that it is biased upwards for positive numbers. 
+Rounding to nearest with ties towards even is not.
+Consider this sequence which sums to zero.
+```{r}
+x <- seq(-100.5, 100.5, by = 1)
+x
+sum(x)
+```
+
+A nice property of  rounding preserved that sum.
 Using the "ties towards even", the sum is still zero.
 However, the "ties towards $+\infty$" produces a non-zero number.
 ```{r}
-x <- seq(-100.5, 100.5, by = 1)
 sum(x)
 sum(round(x))
 sum(round2(x))
 ```
 
-Here's a real-world non-engineering example of rounding going terribly wrong.
-In 1983, the Vancouver stock exchange adjusted its index from 524.811 to 1098.892 to correct for accumulated error due to rounding to three decimal points (see [Vancouver Stock Exchange](https://en.wikipedia.org/wiki/Vancouver_Stock_Exchange)).
-
-Here's a [list](https://web.ma.utexas.edu/users/arbogast/misc/disasters.html) of a few more.
+Rounding rules can have real world impacts.
+One notable example was that in 1983, the Vancouver stock exchange adjusted its index from 524.811 to 1098.892 to correct for accumulated error due to rounding to three decimal points (see [Vancouver Stock Exchange](https://en.wikipedia.org/wiki/Vancouver_Stock_Exchange)).
+This [site](https://web.ma.utexas.edu/users/arbogast/misc/disasters.html) lists several more examples of the dangers of rounding rules.
 
 </div>
 
@@ -738,3 +797,4 @@ In following chapters we'll see that list vectors can be very useful: for exampl
 </div>
 
 [^DiagrammeR]: These diagrams were created with the [DiagrammeR](https://rich-iannone.github.io/DiagrammeR/) package.
+[^rounding]: See the documentation for `.Machine$double.rounding`.
