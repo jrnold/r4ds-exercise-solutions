@@ -559,10 +559,9 @@ Is `NA <= 0`? We don't know because it depends on the unknown value of `NA`, so 
 This same argument applies to `NaN`. Asking whether `NaN <= 0` does not make sense because you can't compare a number to "Not a Number".
 
 Now recall how indexing treats `NA` values.
-Indexing can use a logical vector, and will include those elements where the logical vector is `TRUE`,
-and will not not return those elements where the logical vector is `FALSE`.
-Since a logical vector can include `NA` values, what should it do for them?
-Well, since the value is `NA` it could be `TRUE` or `FALSE`, we don't know.
+Indexing  can take a logical vector as in input, in which case it will include those elements where the logical vector is `TRUE`, and will not return those elements where the logical vector is `FALSE`.
+Logical vectors can also include `NA` values, and it is not clear how they should be treated.
+Well, since the value is `NA`, it could be `TRUE` or `FALSE`, we don't know.
 Keeping elements with `NA` would treat the `NA` as `TRUE`, and dropping them would treat the `NA` as `FALSE`.  
 The way R decides to handle the `NA` values so that they are treated differently than `TRUE` or `FALSE` values is to include elements where the indexing vector is `NA`, but set their values to `NA`.
 
