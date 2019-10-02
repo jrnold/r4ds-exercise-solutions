@@ -204,7 +204,19 @@ Examples from the readr vignette of parsing French dates
 parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
 parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
 ```
-Apparently the time format is not used for anything, but the date format is used for guessing column types.
+
+Both the date format and time format are used for guessing column types.
+Thus if you were often parsing data that had non-standard formats for the date and time, you could specify custom values for `date_format` and `time_format`.
+```{r}
+locale_custom <- locale(date_format = "Day %d Mon %M Year %y",
+                 time_format = "Sec %S Min %M Hour %H")
+date_custom <- c("Day 01 Mon 02 Year 03", "Day 03 Mon 01 Year 01")
+parse_date(date_custom)
+parse_date(date_custom, locale = locale_custom)
+time_custom <- c("Sec 01 Min 02 Hour 03", "Sec 03 Min 02 Hour 01")
+parse_time(time_custom)
+parse_time(time_custom, locale = locale_custom)
+```
 
 </div>
 
