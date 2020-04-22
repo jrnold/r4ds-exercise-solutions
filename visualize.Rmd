@@ -782,6 +782,8 @@ ggplot(data = diamonds) +
   )
 ```
 
+**Note:** `fun.ymin`, `fun.ymax`, and `fun.y` have been deprecated and replaced with `fun.min`, `fun.max`, and `fun` in {ggplot2} v3.3.0. The deprecated functions still work in `stat_summary()`, but not in `geom_pointrange()` (see below). 
+
 The default geom for [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) is `geom_pointrange()`.
 The default stat for [`geom_pointrange()`](https://ggplot2.tidyverse.org/reference/geom_linerange.html) is `identity()` but we can add the argument `stat = "summary"` to use `stat_summary()` instead of `stat_identity()`.
 ```{r}
@@ -794,15 +796,15 @@ ggplot(data = diamonds) +
 
 The resulting message says that `stat_summary()` uses the `mean` and `sd` to calculate the middle point and endpoints of the line.
 However, in the original plot the min and max values were used for the endpoints.
-To recreate the original plot we need to specify values for `fun.ymin`, `fun.ymax`, and `fun.y`.
+To recreate the original plot we need to specify values for `fun.min`, `fun.max`, and `fun`.
 ```{r}
 ggplot(data = diamonds) +
   geom_pointrange(
     mapping = aes(x = cut, y = depth),
     stat = "summary",
-    fun.ymin = min,
-    fun.ymax = max,
-    fun.y = median
+    fun.min = min,
+    fun.max = max,
+    fun = median
   )
 ```
 
