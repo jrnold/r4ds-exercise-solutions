@@ -662,14 +662,14 @@ There are several things that could be done to improve it,
 
 How to treat missing values is difficult.
 In this case, missing values correspond to airports which don't have regular flights (at least one flight each month) from NYC.
-These are likely smaller airports (with higher variance in their average due to fewer observations).
+These are likely smaller airports (with higher variance in their average due to fewer observations). When we group all pairs of (month, dest) again by dest, we should have a total count of 12 (one for each month) per group (dest). This makes it easy to filter.
 
 ```{r}
 flights %>%
-  group_by(month, dest) %>%
+  group_by(month, dest) %>%                                 # This gives us (month, dest) pairs
   summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
-  group_by(dest) %>%
-  filter(n() == 12) %>%
+  group_by(dest) %>%                                        # group all (month, dest) pairs by dest ..
+  filter(n() == 12) %>%                                     # and only select those that have one entry per month 
   ungroup() %>%
   mutate(dest = reorder(dest, dep_delay)) %>%
   ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
