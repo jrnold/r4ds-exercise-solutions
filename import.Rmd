@@ -38,7 +38,7 @@ Apart from `file`, `skip`, and `comment`, what other arguments do `read_csv()` a
 
 They have the following arguments in common:
 ```{r}
-union(names(formals(read_csv)), names(formals(read_tsv)))
+intersect(names(formals(read_csv)), names(formals(read_tsv)))
 ```
 
 -   `col_names` and `col_types` are used to specify the column names and how to parse the columns
@@ -48,6 +48,11 @@ union(names(formals(read_csv)), names(formals(read_tsv)))
 -   `n_max` sets how many rows to read
 -   `guess_max` sets how many rows to use when guessing the column type
 -   `progress` determines whether a progress bar is shown.
+
+In fact, the two functions have the exact same arguments:
+```{r}
+identical(names(formals(read_csv)), names(formals(read_tsv)))
+```
 
 </div>
 
