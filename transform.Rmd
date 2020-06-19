@@ -119,7 +119,7 @@ The answer to each part follows.
 
     Alternatively, we could use the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation), `%%`. 
     The modulo operator returns the remainder of division.
-    Let's see how how this affects our times.
+    Let's see how this affects our times.
     ```{r}
     c(600, 1200, 2400) %% 2400
     ```
@@ -131,7 +131,7 @@ The answer to each part follows.
     filter(flights, dep_time %% 2400 <= 600)
     ```
 
-    This filter expression is more compact, but its readability will depends on the 
+    This filter expression is more compact, but its readability depends on the 
     familiarity of the reader with modular arithmetic.
 
 </div>
@@ -204,7 +204,7 @@ Since $x * 0 = 0$ for all finite, numeric $x$, we might expect `NA * 0 == 0`, bu
 ```{r}
 NA * 0
 ```
-The reason that `NA * 0` is not equal to `0` is that $x \times \infty$ and $x \times -\infty$ is undefined.
+The reason that `NA * 0` is not equal to `0` is that $0 \times \infty$ and $0 \times -\infty$ are undefined.
 R represents undefined results as `NaN`, which is an abbreviation of "[not a number](https://en.wikipedia.org/wiki/NaN)".
 ```{r}
 Inf * 0
@@ -646,7 +646,7 @@ Other than data errors, I can think of two reasons why `air_time` would not equa
     
 Both of these explanations have clear patterns that I would expect to see if they 
 were true. 
-In particular, in both cases, since time-zones and crossing midnight only affects the hour part of the time,  all values of `air_time_diff` should be divisible by 60.
+In particular, in both cases, since time-zones and crossing midnight only affects the hour part of the time, all values of `air_time_diff` should be divisible by 60.
 I'll visually check this hypothesis by plotting the distribution of `air_time_diff`.
 If those two explanations are correct, distribution of `air_time_diff` should comprise only spikes at multiples of 60.
 ```{r}
@@ -823,7 +823,7 @@ What trigonometric functions does R provide?
 All trigonometric functions are all described in a single help page, named `Trig`.
 You can open the documentation for these functions with `?Trig` or by using `?` with any of the following functions, for example:`?sin`.
 
-R provides functions for the three primary trigonometric functions: sine (`sin())`), cosine (`cos()`), and tangent (`tan()`).
+R provides functions for the three primary trigonometric functions: sine (`sin()`), cosine (`cos()`), and tangent (`tan()`).
 The input angles to all these functions are in [radians](https://en.wikipedia.org/wiki/Radian).
 ```{r}
 x <- seq(-3, 7, by = 1 / 2)
@@ -942,7 +942,7 @@ not_cancelled %>%
 ```
 
 The `count()` function counts the number of instances within each group of variables.
-Instead of using the `count()` function,we can combine the `group_by()` and `summarise()` verbs.
+Instead of using the `count()` function, we can combine the `group_by()` and `summarise()` verbs.
 
 ```{r}
 not_cancelled %>%
@@ -1058,7 +1058,7 @@ ggplot(cancelled_per_day) +
 ```
 
 The second part of the question asks whether there is a relationship between the proportion of flights cancelled and the average departure delay.
-I implied this in my answer to the first part of the question, when I noted that increasing  delays could result in increased cancellations.
+I implied this in my answer to the first part of the question, when I noted that increasing delays could result in increased cancellations.
 The question does not specify which delay, so I will show the relationship for both.
 ```{r}
 cancelled_and_delays <- 
@@ -1781,7 +1781,7 @@ flights %>%
    arrange(desc(n_dest))
 ```
 
-The carrier `"EV"` flies to the most destinations, considering only airports flown to by two or more carriers. What is airline does the `"EV"` carrier code correspond to?
+The carrier `"EV"` flies to the most destinations, considering only airports flown to by two or more carriers. What airline does the `"EV"` carrier code correspond to?
 ```{r}
 filter(airlines, carrier == "EV")
 ```
@@ -1821,7 +1821,6 @@ flights %>%
   # count the number of flights == 0
   summarise(total_flights = sum(cumulative_hr_delays < 1)) %>%
   arrange(total_flights)
-  
 ```
 
 </div>
