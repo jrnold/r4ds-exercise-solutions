@@ -27,10 +27,6 @@ by the package.
     apply these styles, but please don't restyle code that has nothing to do with
     your PR.
 
--   For user-facing changes, add a bullet to the top of `NEWS.md` below the
-    current development version header describing the changes made followed by your
-    GitHub username, and links to relevant issue(s)/PR(s).
-
 ## Code of Conduct
 
 Please note that the R4DSSolutions project is released with a
