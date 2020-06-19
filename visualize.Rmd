@@ -161,7 +161,7 @@ The following code adds rows for missing combinations of `class` and `drv` and u
 ```{r}
 mpg %>%
   count(class, drv) %>%
-  complete(class, drv, fill = list(n = 0L)) %>%
+  complete(class, drv, fill = list(n = 0)) %>%
   ggplot(aes(x = class, y = drv)) +
     geom_tile(mapping = aes(fill = n))
 ```
