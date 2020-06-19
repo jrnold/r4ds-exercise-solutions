@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Strings {#strings .r4ds-section}
 
 ## Introduction {#introduction-8 .r4ds-section}
@@ -922,11 +927,17 @@ Switch the first and last letters in `words`. Which of those strings are still w
 
 First, make a vector of all the words with first and last letters swapped,
 ```{r}
-swapped <- str_replace_all(words, "^([A-Za-z])(.*)([a-z])$", "\\3\\2\\1")
+swapped <- str_replace_all(words, "^([A-Za-z])(.*)([A-Za-z])$", "\\3\\2\\1")
 ```
 Next, find what of "swapped" is also in the original list using the function `intersect()`,
 ```{r}
 intersect(swapped, words)
+```
+
+Alternatively, the regex can be written using the POSIX character class for letter (`[[:alpha:]]`):
+```{r}
+swapped2 <- str_replace_all(words, "^([[:alpha:]])(.*)([[:alpha:]])$", "\\3\\2\\1")
+intersect()
 ```
 
 </div>
