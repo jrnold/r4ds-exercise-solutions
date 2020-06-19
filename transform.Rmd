@@ -294,7 +294,15 @@ Sort flights to find the fastest flights.
 
 <div class="answer">
 
-The fastest flight is the one with the average [ground speed](https://en.wikipedia.org/wiki/Ground_speed), which can be calculated from the distance and duration of the flight.
+There are actually two ways to interpret this question: one that can be solved by using `arrange()`, and a more complex interpretation that requires creation of a new variable using `mutate()`, which we haven't seen demonstrated before. 
+
+The colloquial interpretation of "fastest" flight can be understood to mean "the flight with the shortest flight time". We can use arrange to sort our data by the `air_time` variable to find the shortest flights:
+
+```{r}
+head(arrange(flights, air_time))
+```
+
+The more complex interpretation is taking the fastest flight to mean the one with the highest average [ground speed](https://en.wikipedia.org/wiki/Ground_speed), which can be calculated from the distance and duration of the flight.
 Since ground speed is not included in the data, first create new column in flights
 containing ground speed in miles per hour.
 ```{r}
