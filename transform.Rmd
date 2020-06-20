@@ -767,8 +767,7 @@ In contrast, the `dense_rank()` function assigns a rank equal to the number of d
 To see the difference between `dense_rank()` and `min_rank()` compare the value of `rankme$x_min_rank` and `rankme$x_dense_rank` for `x = 10`.
 
 If I had to choose one for presenting rankings to someone else, I would use `min_rank()` since its results correspond to the most common usage of rankings in sports or other competitions.
-In the code below, I use all three functions, but since there are no ties in the top 10 flights,
-the results don't differ.
+In the code below, I use all three functions, but since there are no ties in the top 10 flights, the results don't differ.
 
 ```{r}
 flights_delayed <- mutate(flights, 
@@ -786,6 +785,24 @@ print(select(flights_delayed, month, day, carrier, flight, dep_delay,
 ```
 
 In addition to the functions covered here, the `rank()` function provides several more ways of ranking elements.
+
+There are other ways to solve this problem that do not using ranking functions.
+To select the top 10, sort values with `arrange()` and select the top values with `slice`:
+```{r}
+flights_delayed2 <- arrange(flights, desc(dep_delay))
+flights_delayed2 <- slice(flights_delayed2, 1:10)
+select(flights_delayed2,  month, day, carrier, flight, dep_delay)
+```
+Alternatively, we could use the `min
+```{r}
+flights_delayed3 <- slice_max(flights, dep_delay, n = 10)
+select(flights_delayed3,  month, day, carrier, flight, dep_delay)
+```
+The previous two approaches will always select 10 rows even if there are tied values. 
+Ranking functions provide more control over how tied values are handled.
+Those approaches will provide the 10 rows with the largest values of `dep_delay`, while ranking functions can provide all rows with the 10 largest values of `dep_delay`. 
+If there are no ties, these approaches are equivalent.
+If there are ties, then which is more appropriate depends on the use.
 
 </div>
 
