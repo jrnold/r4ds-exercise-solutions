@@ -441,6 +441,21 @@ ggplot(data = mpg) +
   geom_boxploth(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
 ```
 
+Current versions of ggplot2 (since [version 3.3.0](https://ggplot2.tidyverse.org/news/index.html#new-features)) do not require `coord_flip()`.
+All geoms can choose the direction.
+The direction is be inferred from the aesthetic mapping.
+In this case, switchingn `x` and `y` produces a horizontal boxplot.
+```{r}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
+```
+
+The `orientation` argument is used to explicitly specify the axis orientation of the plot.
+```{r}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy), orientation = "y")
+```
+
 </div>
 
 #### Exercise 7.5.1.4 {.unnumbered .exercise data-number="7.5.1.4"}
