@@ -444,7 +444,7 @@ ggplot(data = mpg) +
 Current versions of ggplot2 (since [version 3.3.0](https://ggplot2.tidyverse.org/news/index.html#new-features)) do not require `coord_flip()`.
 All geoms can choose the direction.
 The direction is be inferred from the aesthetic mapping.
-In this case, switchingn `x` and `y` produces a horizontal boxplot.
+In this case, switching `x` and `y` produces a horizontal boxplot.
 ```{r}
 ggplot(data = mpg) +
   geom_boxplot(mapping = aes(y = reorder(class, hwy, FUN = median), x = hwy))
@@ -677,7 +677,9 @@ There are several things that could be done to improve it,
 
 How to treat missing values is difficult.
 In this case, missing values correspond to airports which don't have regular flights (at least one flight each month) from NYC.
-These are likely smaller airports (with higher variance in their average due to fewer observations). When we group all pairs of (month, dest) again by dest, we should have a total count of 12 (one for each month) per group (dest). This makes it easy to filter.
+These are likely smaller airports (with higher variance in their average due to fewer observations). 
+When we group all pairs of (`month`, `dest`) again by dest, we should have a total count of 12 (one for each month) per group (`dest`). 
+This makes it easy to filter.
 
 ```{r}
 flights %>%
