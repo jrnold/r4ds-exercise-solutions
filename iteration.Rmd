@@ -838,9 +838,10 @@ The function `map_chr()` requires that the function always return a *character* 
 `map_lgl()` requires that the function always return an *logical* vector of length one.
 Use the `map()` function if the function will return values of varying types or lengths.
 
-To return a double vector,  we could use `map()` followed by `flatten_dbl()`,
+To return a numeric vector, use `flatten_dbl()` to coerce the list returned by `map()` to a numeric vector.
 ```{r}
-flatten_dbl(map(-2:2, rnorm, n = 5))
+map(-2:2, rnorm, n = 5) %>%
+  flatten_dbl()
 ```
 
 </div>
