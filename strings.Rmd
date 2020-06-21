@@ -404,28 +404,43 @@ This answer can be improved and expanded.
 
 The answer to this will vary by country.
 
-For the United States, phone numbers have a format like `123-456-7890`.
+<!-- grouping is not covered until 14.3.5 -->
+
+For the United States, phone numbers have a format like `123-456-7890` or `(123)456-7890`).
+These regular expressions will parse the first form
 ```{r cache=FALSE}
-x <- c("123-456-7890", "1235-2351")
+x <- c("123-456-7890", "(123)456-7890", "(123) 456-7890", "1235-2351")
 str_view(x, "\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d")
 ```
-or
 ```{r cache=FALSE}
 str_view(x, "[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]")
+```
+The regular expressions will parse the second form:
+```{r cache=FALSE}
+str_view(x, "\\(\\d\\d\\d\\)\\s*\\d\\d\\d-\\d\\d\\d\\d")
+```
+```{r cache=FALSE}
+str_view(x, "\\([0-9][0-9][0-9]\\)[ ]*[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]")
 ```
 
 This regular expression can be simplified with the `{m,n}` regular expression modifier introduced in the next section,
 ```{r cache=FALSE}
 str_view(x, "\\d{3}-\\d{3}-\\d{4}")
 ```
+```{r cache=FALSE}
+str_view(x, "\\(\\d{3}\\)\\s*\\d{3}-\\d{4}")
+```
 
 Note that this pattern doesn't account for phone numbers that are invalid
-because of unassigned area code, or special numbers like 911, or extensions.
+due to an invalid area code.
+Nor does this pattern account for special numbers like 911.
+It also doesn't  parse a leading country code or an extensions.
 See the Wikipedia page for the [North American Numbering
-Plan](https://en.wikipedia.org/wiki/North_American_Numbering_Plan) for more
-information on the complexities of US phone numbers, and [this Stack Overflow
-question](https://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation)
-for a discussion of using a regex for phone number validation.
+Plan](https://en.wikipedia.org/wiki/North_American_Numbering_Plan) for more information on the complexities of US phone numbers, and [this Stack Overflow
+question](https://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation) for a discussion of using a regex for phone number validation.
+The R package [dialr](https://cran.r-project.org/web/packages/dialr/index.html) implements robust phone number parsing.
+Generally, for patterns like phone numbers or URLs it is better to use a dedicated package.
+It is easy to match the pattern for the most common cases and useful for learning regular expressions, but in real applications there often edge cases that are handled by dedicated packages.
 
 </div>
 
