@@ -162,10 +162,10 @@ table2 %>%
 
 This code is reproduced from the chapter because it is needed by the exercises.
 ```{r}
-tidy4a <- table4a %>%
-  gather(`1999`, `2000`, key = "year", value = "cases")
-tidy4b <- table4b %>%
-  gather(`1999`, `2000`, key = "year", value = "cases")
+tidy4a <- table4a %>% 
+  pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
+tidy4b <- table4b %>% 
+  pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "population")
 ```
 
 ### Exercise 12.3.1 {.unnumbered .exercise data-number="12.3.1"}
@@ -173,6 +173,10 @@ tidy4b <- table4b %>%
 <div class="question">
 
 Why are `gather()` and `spread()` not perfectly symmetrical?
+Carefully consider the following example:
+
+
+**Older question:** Why are `gather()` and `spread()` not perfectly symmetrical?
 Carefully consider the following example:
 
 ```{r}
@@ -242,6 +246,9 @@ The code fails because the column names `1999` and `2000` are not non-syntactic 
 When selecting variables from a data frame, tidyverse functions will interpret numbers, like `1999` and `2000`, as column numbers.
 In this case, `gather()` tries to select 1999th and 2000th column of the data frame.
 To select the columns `1999` and `2000`, you can either surround their names in backticks (`\``) or provide them as strings.
+
+
+
 ```{r}
 table4a %>%
   gather(`1999`, `2000`, key = "year", value = "cases")
