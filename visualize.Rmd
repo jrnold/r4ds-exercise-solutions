@@ -974,12 +974,16 @@ The "Computed Variables" section of the `stat_smooth()` documentation contains t
 The parameters that control the behavior of `stat_smooth()` include:
 
 -   `method`: This is the method used to compute the smoothing line. 
-     If `NULL`, a dfault method is used based on the sample size: `stats::loess()` when there are less than 1,000 observations in a group, and `mgcv::gam()` with `formula = y ~ s(x, bs = "CS)` otherwise.
+     If `NULL`, a default method is used based on the sample size: `stats::loess()` when there are less than 1,000 observations in a group, and `mgcv::gam()` with `formula = y ~ s(x, bs = "CS)` otherwise.
      Alternatively, the user can provide a character vector with a function name, e.g. `"lm"`, `"loess"`, or a function,
      e.g. `MASS::rlm`.
+
 -   `formula`: When providing a custom `method` argument, the formula to use. The default is `y ~ x`. For example, to use the line implied by `lm(y ~ x + I(x ^ 2) + I(x ^ 3))`, use `method = "lm"` or `method = lm` and `formula = y ~ x + I(x ^ 2) + I(x ^ 3)`.
+
 -   `method.arg()`: Arguments other than than the formula, which is already specified in the `formula` argument`, to pass to the function in `method`.
+
 -   `se`: If `TRUE`, display standard error bands, if `FALSE` only display the line.
+
 -   `na.rm`:  If `FALSE`, missing values are removed with a warning, if `TRUE` the are silently removed.
      The default is `FALSE` in order to make debugging easier.
      If missing values are known to be in the data, then can be ignored, but if missing values are not anticipated this warning can help catch errors.
