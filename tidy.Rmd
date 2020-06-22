@@ -4,8 +4,7 @@
 
 This chapter is out of data with the current version of R4DS.
 That chapter has been rewritten to use the functions `pivot_wider()` and `pivot_longer()` which were introduced in [tidyr 1.0.0](https://tidyr.tidyverse.org/news/index.html#pivoting).
-The current answers use the older `pivot()` and `gather()` functions.
-Additionally, the exercises themselves have changed.
+Some of the current answers still use the older `pivot()` and `gather()` functions.
 
 </div>
 
@@ -158,7 +157,7 @@ table2 %>%
 
 </div>
 
-## Spreading and gathering {#spreading-and-gathering .r4ds-section}
+## Pivoting {#pivoting .r4ds-section}
 
 This code is reproduced from the chapter because it is needed by the exercises.
 ```{r}
@@ -351,7 +350,7 @@ preg <- tribble(
 
 <div class="answer">
 
-To tidy the `preg` tibble, we need to use `gather()`. 
+To tidy the `preg` table use `pivot_longer()` to create a long table.
 The variables in this data are:
 
 -   `sex` ("female", "male")
@@ -362,24 +361,24 @@ The observations in this data are unique combinations of sex and pregnancy statu
 
 ```{r}
 preg_tidy <- preg %>%
-  gather(male, female, key = "sex", value = "count")
+  pivot_longer(c(male, female), names_to = "sex", values_to = "count")
 preg_tidy
 ```
 
-We can simplify the tidied data frame by removing the (male, pregnant) row with the missing value of `NA`.
+Remove the (male, pregnant) row with a missing value to simplify the tidied data frame.
 
 ```{r}
 preg_tidy2 <- preg %>%
-  gather(male, female, key = "sex", value = "count", na.rm = TRUE)
+  pivot_longer(c(male, female), names_to = "sex", values_to = "count", values_drop_na = TRUE)
 preg_tidy2
 ```
 
-This an example of turning an explicit missing value into an implicit missing value, which is discussed in the upcoming [Missing Values](https://r4ds.had.co.nz/tidy-data.html#missing-values-3) section.
+This an example of turning an explicit missing value into an implicit missing value, which is discussed in the upcoming section, [Missing Values](https://r4ds.had.co.nz/tidy-data.html#missing-values-3) section.
 The missing (male, pregnant) row represents an implicit missing value because the value of `count` can be inferred from its absence.
 In the tidy data, we can represent rows with missing values of `count` either explicitly with an `NA` (as in `preg_tidy`) or implicitly by the absence of a row (as in `preg_tidy2`). 
 But in the wide data, the missing values can only be represented explicitly.
 
-Though we have already done enough to make the data tidy, there's some other changes that can be made to clean this data.
+Though we have already done enough to make the data tidy, there are some other transformations that can clean the data further.
 If a variable takes two values, like `pregnant` and `sex`, it is often preferable to store them as logical vectors.
 ```{r}
 preg_tidy3 <- preg_tidy2 %>%
