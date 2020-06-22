@@ -281,8 +281,9 @@ table4a %>%
 
 <div class="question">
 
-Why does spreading this tibble fail? 
-How could you add a new column to fix the problem?
+What would happen if you widen this table? 
+Why? 
+How could you add a new column to uniquely identify each value?
 
 ```{r}
 people <- tribble(
@@ -297,16 +298,15 @@ people <- tribble(
 glimpse(people)
 ```
 
-```{r error=TRUE}
-spread(people, key, value)
-```
-
 </div>
 
 <div class="answer">
 
-Spreading this data frame fails because the `name` and `key` columns do not uniquely identify rows.
+Spreading this data frame using `pivot_wider()` produces columns that are lists of numeric vectors because the `name` and `key` columns do not uniquely identify rows.
 In particular, there are two rows with values for the age of "Phillip Woods".
+```{r}
+pivot_wider(people, names_from="name", values_from = "value")
+```
 
 We could solve the problem by adding a row with a distinct observation count for each combination of name and key.
 ```{r}
@@ -317,17 +317,17 @@ people2
 ```
 We can spread `people2` because the combination of `name` and `obs` will uniquely identify the spread rows.
 ```{r}
-spread(people2, key, value)
+pivot_wider(people2, names_from="name", values_from = "value")
 ```
 
 Another way to solve this problem is by keeping only distinct rows of the name and key values, and dropping duplicate rows.
 ```{r}
 people %>%
   distinct(name, key, .keep_all = TRUE) %>%
-  spread(key, value)
+  pivot_wider(names_from="name", values_from = "value")
 ```
-However, before doing this you would want to understand why there are duplicates in the data to begin with.
-This is usually not merely a nuisance, but indicates deeper problems with the data.
+However, before doing this understand why there are duplicates in the data.
+The duplicate values may not be just a nuisance, but may indicate deeper problems with the data.
 
 </div>
 
