@@ -172,59 +172,79 @@ tidy4b <- table4b %>%
 
 <div class="question">
 
-Why are `gather()` and `spread()` not perfectly symmetrical?
+Why are `pivot_longer()` and `pivot_wider()` not perfectly symmetrical?
 Carefully consider the following example:
 
 
-**Older question:** Why are `gather()` and `spread()` not perfectly symmetrical?
 Carefully consider the following example:
 
 ```{r}
 stocks <- tibble(
-  year = c(2015, 2015, 2016, 2016),
-  half = c(1, 2, 1, 2),
+  year   = c(2015, 2015, 2016, 2016),
+  half  = c(   1,    2,     1,    2),
   return = c(1.88, 0.59, 0.92, 0.17)
 )
-stocks %>%
-  spread(year, return) %>%
-  gather(`2015`:`2016`, key = "year", value = "return")
+stocks %>% 
+  pivot_wider(names_from = year, values_from = return) %>% 
+  pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return")
 ```
+
+(Hint: look at the variable types and think about column names.)
+
+`pivot_longer()` has a `names_ptype` argument, e.g. `names_ptype = list(year = double())`. What does it do?
 
 </div>
 
 <div class="answer">
 
-The functions `spread()` and `gather()` are not perfectly symmetrical because column type information is lost.
-When we use `gather()` on a data frame, it discards the original column types.
-It has to coerce all the gathered variables into a single vector with a single type.
-Later, if we `spread()` that data frame, the `spread()` function does not know the original data types of the variables.
+The functions `pivot_longer()` and `pivot_wider()` are not perfectly symmetrical because column type information is when a data frame is converted from wide to long.
+The function `pivot_longer()` stacks multiple columns which may have had multiple data types into a single column with a single data type.
+This transformation throws away the individual data types of the original columns.
+The function `pivot_wider()` creates column names from values in column.
+These column names will always be treated as `character` values by `pivot_longer()` so if the original variable used to create the column names did not have a `character` data type, then the round-trip will not reproduce the same dataset.
 
-In this example, the column `year` is numeric.
-After running `spread()` and `gather()`, the `year` column is a character vector.
-After `spread()`, the years are column names.
+In the provided example, columns have the following data types:
 ```{r}
-stocks %>%
-  spread(year, return)
-```
-The following use of `gather()` will create a column, `year`, from the column names.
-However, since column names are used to create the key column, the resulting vector is a character vector.
-Even though we "know" that the all the column names refer to years, which are numbers, the `gather()` function does not know that.
-```{r}
-stocks %>%
-  spread(year, return) %>%
-  gather(`2015`:`2016`, key = "year", value = "return")
+glimpse(stocks)
 ```
 
-The functions `spread()` and `gather()` are almost symmetrical if we use the `convert` argument.
-When `convert = TRUE`, the `gather()` function will attempt to convert vectors to the appropriate type using `type.convert()`.
+The `pivot_wider()` expression pivots the table to create a data frame with years as column names, and the values in `return` as the column values.
 ```{r}
 stocks %>%
-  spread(key = "year", value = "return") %>%
-  gather(`2015`:`2016`, key = "year", value = "return", convert = TRUE)
+  pivot_wider(names_from = year, values_from = return) 
 ```
-Now, `year` is an integer vector.
-However, this conversion is merely guessing the type of the variables and so will not always return the original variable types.
-That information is lost.
+
+The `pivot_longer()` expression unpivots the table, returning it to a tidy data frame with columns for `half`, `year`, and `return`.
+```{r}
+stocks %>%
+  pivot_wider(names_from = year, values_from = return)%>%
+  pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return")
+```
+There is one difference, in the new data frame, `year` has a data type of `character` rather than `numeric`. 
+The `names_to` column created from column names by `pivot_longer()` will be character by default, which is usually a safe assumption, since syntatically valid-column names can only be character values.
+
+The original data types of column which `pivot_wider()` used to create the column names was not stored, so `pivot_longer()` has no idea that the column names in this case should be numeric values.
+<!--
+The `names_ptype` argument of `pivot_longer()` provide that information. 
+Using `names_ptype = list(year = double())` informs `pivot_longer()` that the column created from column names should be a numeric vector.
+Adding this argument to `pivot_longer()` in the example above will make the output of the experession the same as the original `stocks` data frame.
+--> 
+In the current version of `tidyr`, the `names_ptype` argument does not convert the `year` column to a numeric vector, and it will raise an error.
+```{r error=TRUE}
+stocks %>%
+  pivot_wider(names_from = year, values_from = return)%>%
+  pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return",
+               names_ptype = list(year = double()))
+```
+
+Instead, use the `names_transform` argument to `pivot_longer()`, which provides a function to coerce the column to a different data type.
+```{r}
+stocks %>%
+  pivot_wider(names_from = year, values_from = return)%>%
+  pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return",
+               names_transform = list(year = as.numeric))
+
+```
 
 </div>
 
@@ -246,8 +266,6 @@ The code fails because the column names `1999` and `2000` are not non-syntactic 
 When selecting variables from a data frame, tidyverse functions will interpret numbers, like `1999` and `2000`, as column numbers.
 In this case, `gather()` tries to select 1999th and 2000th column of the data frame.
 To select the columns `1999` and `2000`, you can either surround their names in backticks (`\``) or provide them as strings.
-
-
 
 ```{r}
 table4a %>%
