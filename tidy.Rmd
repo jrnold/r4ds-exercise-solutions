@@ -1,13 +1,5 @@
 # Tidy data {#tidy-data .r4ds-section}
 
-<div class="alert alert-error hints-alert">
-
-This chapter is out of data with the current version of R4DS.
-That chapter has been rewritten to use the functions `pivot_wider()` and `pivot_longer()` which were introduced in [tidyr 1.0.0](https://tidyr.tidyverse.org/news/index.html#pivoting).
-Some of the current answers still use the older `pivot()` and `gather()` functions.
-
-</div>
-
 ## Introduction {#introduction-6 .r4ds-section}
 
 ```{r message=FALSE}
@@ -301,7 +293,7 @@ glimpse(people)
 
 <div class="answer">
 
-Spreading this data frame using `pivot_wider()` produces columns that are lists of numeric vectors because the `name` and `key` columns do not uniquely identify rows.
+Widening this data frame using `pivot_wider()` produces columns that are lists of numeric vectors because the `name` and `key` columns do not uniquely identify rows.
 In particular, there are two rows with values for the age of "Phillip Woods".
 ```{r}
 pivot_wider(people, names_from="name", values_from = "value")
@@ -314,7 +306,7 @@ people2 <- people %>%
   mutate(obs = row_number())
 people2
 ```
-We can spread `people2` because the combination of `name` and `obs` will uniquely identify the spread rows.
+We can make `people2` wider because the combination of `name` and `obs` will uniquely identify the rows in the wide data frame.
 ```{r}
 pivot_wider(people2, names_from="name", values_from = "value")
 ```
@@ -538,14 +530,45 @@ choice as to how to combine their contents into a single vector.
 ### Exercise 12.5.1 {.unnumbered .exercise data-number="12.5.1"}
 
 <div class="question">
-Compare and contrast the `fill` arguments to `spread()` and `complete()`.
+Compare and contrast the `fill` arguments to `pivot_wider()` and `complete()`.
 </div>
 
 <div class="answer">
 
-In `spread()`, the fill argument explicitly sets the value to replace `NA`s.
+The `values_fill` argument in `pivot_wider()` and the `fill` arguemnt to `complete()` both set vales to replace `NA`. 
+Both arguments accept named lists to set set values for each column.
+Additionally, the `values_fill` argument of `pivot_wider()` accepts a single 
 In `complete()`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
 Also, both cases replace both implicit and explicit missing values.
+
+For example, this will fill in the missing values of the long data frame with `0`  `complete()`:
+```{r}
+stocks <- tibble(
+  year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
+  qtr    = c(   1,    2,    3,    4,    2,    3,    4),
+  return = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+stocks %>% 
+  pivot_wider(names_from = year, values_from = return,
+              values_fill = 0)
+```
+```{r}
+stocks <- tibble(
+  year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
+  qtr    = c(   1,    2,    3,    4,    2,    3,    4),
+  return = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+stocks %>% 
+  pivot_wider(names_from = year, values_from = return,
+              values_fill = 0)
+```
+
+
+For example, this will fill in the missing values of the long data frame with `0`  `complete()`:
+```{r}
+stocks %>% 
+ complete(year, qtr, fill=list(return=0))
+```
 
 </div>
 
@@ -568,18 +591,24 @@ With `fill`, the `direction` determines whether `NA` values should be replaced b
 This code is repeated from the chapter because it is needed by the exercises.
 
 ```{r}
-who1 <- who %>%
-  gather(new_sp_m014:newrel_f65, key = "key", value = "cases", na.rm = TRUE)
-glimpse(who1)
+who1 <- who %>% 
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65, 
+    names_to = "key", 
+    values_to = "cases", 
+    values_drop_na = TRUE
+  )
+who1
 ```
 
 ```{r}
-who2 <- who1 %>%
-  mutate(key = str_replace(key, "newrel", "new_rel"))
+who2 <- who1 %>% 
+  mutate(names_from = stringr::str_replace(key, "newrel", "new_rel"))
+who2
 ```
 
 ```{r}
-who3 <- who2 %>%
+who3 <- who2 %>% 
   separate(key, c("new", "type", "sexage"), sep = "_")
 who3
 ```
@@ -634,7 +663,7 @@ There are zeros in the data, so it appears that cases of zero TB are explicitly 
 
 Second, I should check whether all values for a (country, year) are missing or whether it is possible for only some columns to be missing.
 ```{r}
-gather(who, new_sp_m014:newrel_f65, key = "key", value = "cases") %>%
+pivot_longer(who, c(new_sp_m014:newrel_f65), names_to = "key", values_to = "cases") %>%
   group_by(country, year) %>%
   mutate(prop_missing = sum(is.na(cases)) / n()) %>%
   filter(prop_missing > 0, prop_missing < 1)
