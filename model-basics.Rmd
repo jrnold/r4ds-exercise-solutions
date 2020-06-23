@@ -92,7 +92,7 @@ tibble(
   normal = dnorm(x),
   student_t = dt(x, df = 2)
 ) %>%
-  gather(distribution, density, -x) %>%
+  pivot_longer(-x, names_to="distribution", values_to="density") %>%
   ggplot(aes(x = x, y = density, colour = distribution)) +
   geom_line()
 ```
