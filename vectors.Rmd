@@ -297,14 +297,14 @@ currency symbols, commas, and decimals, `parse_integer()` will raise an error.
 parse_integer(c("1000", "$1,000", "10.00"))
 ```
 
-The function `parse_number()` parses integer values.
-```{r}
-parse_number(c("1.0", "3.5", "$1,000.00", "NA"))
-```
-
-Unlike `parse_integer()`, the function `parse_number()` is very forgiving about the format of the numbers.
-It ignores all non-numeric characters, as with `"$1,000.00"` in the example.
+The function `parse_number()` parses numeric values.
+Unlike `parse_integer()`, the function `parse_number()` is more forgiving about the format of the numbers.
+It ignores all non-numeric characters before or after the first number, as with `"$1,000.00"` in the example.
+Within the number, `parse_number()` will only ignore grouping marks such as `","`.
 This allows it to easily parse numeric fields that include currency symbols and comma separators in number strings without any intervention by the user.
+```{r}
+parse_number(c("1.0", "3.5", "$1,000.00", "NA", "ABCD12234.90", "1234ABC", "A123B", "A1B2C"))
+```
 
 </div>
 
