@@ -302,9 +302,8 @@ The colloquial interpretation of "fastest" flight can be understood to mean "the
 head(arrange(flights, air_time))
 ```
 
-The more complex interpretation is taking the fastest flight to mean the one with the highest average [ground speed](https://en.wikipedia.org/wiki/Ground_speed), which can be calculated from the distance and duration of the flight.
-Since ground speed is not included in the data, first create new column in flights
-containing ground speed in miles per hour.
+Another definition of the "fastest flight" is the flight with the highest average [ground speed](https://en.wikipedia.org/wiki/Ground_speed).
+The ground speed is not included in the data, but it can be calculated from the distance and duration of the flight.
 ```{r}
 fastest_flights <- mutate(flights, mph = distance / air_time * 60)
 fastest_flights <- select(fastest_flights, mph, distance, air_time,
