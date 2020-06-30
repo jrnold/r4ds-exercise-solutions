@@ -571,12 +571,25 @@ flight_weather <-
     "day" = "day",
     "hour" = "hour"
   ))
-
+```
+```{r}
 flight_weather %>%
   group_by(precip) %>%
   summarise(delay = mean(dep_delay, na.rm = TRUE)) %>%
   ggplot(aes(x = precip, y = delay)) +
   geom_line() + geom_point()
+```
+
+There seems to be a stronger relationship between visibility and delay.
+Delays are higher when visibility is less than 2 miles.
+```{r}
+flight_weather %>%
+  ungroup() %>%
+  mutate(visib_cat = cut_interval(visib, n = 10)) %>%
+  group_by(visib_cat) %>%
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  ggplot(aes(x = visib_cat, y = dep_delay)) +
+  geom_point()
 ```
 
 </div>
