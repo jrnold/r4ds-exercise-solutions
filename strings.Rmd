@@ -303,13 +303,17 @@ The answer to each part follows.
     str_subset(stringr::words, "^[aeiou]")
     ```
 
-1.  Words that contain only consonants
-
+1.  Words that contain only consonants: Use the `negate`
+    argument of `str_subset`.
     ```{r}
-    str_subset(stringr::words, "^[^aeiou]+$")
+    str_subset(stringr::words, "[aeiou]", negate=TRUE)
+    ```
+    Alternatively, using `str_view()` the consonant-only
+    words are:
+    ```{r}
+    str_view(stringr::words, "[aeiou]", match=FALSE)
     ```
 
-    This seems to require using the `+` pattern introduced later, unless one wants to be very verbose and specify words of certain lengths.
 
 1.  Words that end with "-ed" but not ending in "-eed".
 
