@@ -266,11 +266,15 @@ The answer to each part follows.
     str_view(stringr::words, "^...$", match = TRUE)
     ```
 
-1.  The words that have seven letters or more are
+1.  The words that have seven letters or more:
 
     ```{r cache=FALSE}
     str_view(stringr::words, ".......", match = TRUE)
     ```
+    
+    Since the pattern `.......` is not anchored with either `.` or `$`
+    this will match any word with at last seven letters.
+    The pattern, `^.......$`, matches words with exactly seven characters.
 
 </div>
 
