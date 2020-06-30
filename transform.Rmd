@@ -308,16 +308,13 @@ head(arrange(flights, air_time))
 ```
 
 Another definition of the "fastest flight" is the flight with the highest average [ground speed](https://en.wikipedia.org/wiki/Ground_speed).
-The ground speed is not included in the data, but it can be calculated from the distance and duration of the flight.
+The ground speed is not included in the data, but it can be calculated from the `distance` and `air_time` of the flight.
+
 ```{r}
-fastest_flights <- mutate(flights, mph = distance / air_time * 60)
-fastest_flights <- select(fastest_flights, mph, distance, air_time,
-                           flight, origin, dest, year, month, day)
+head(arrange(flights, desc(distance / air_time)))
 ```
-Now sort the flights by `mph` to find the fastest flights
-```{r}
-head(arrange(fastest_flights, desc(mph)))
-```
+
+<!-- note cannot use select() or mutate() in these answers since they are not introduced yet -->
 
 </div>
 
