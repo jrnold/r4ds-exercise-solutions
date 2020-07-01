@@ -847,9 +847,9 @@ anti_join(flights, airports, by = c("dest" = "faa")) %>%
 
 In this set of four airports three are in Puerto Rico ([BQN](https://en.wikipedia.org/wiki/Rafael_Hern%C3%A1ndez_Airport), [SJU](https://en.wikipedia.org/wiki/Luis_Mu%C3%B1oz_Mar%C3%ADn_International_Airport), and [PSE](https://en.wikipedia.org/wiki/Mercedita_International_Airport)) and one is in the US Virgin Islands ( [STT](https://en.wikipedia.org/wiki/Cyril_E._King_Airport)).
 
-The reason for this discrepency may be that the `nycflights13` package gets the `flights` and `airports` data from different sources.
+The reason for this discrepancy is that the `flights` and `airports` tables are derived from different sources.
 The `flights` data comes from the US Department of Transportation [Bureau of Transportation Statistics](https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236), while the airport metadata comes from [openflights.org](https://openflights.org/data.html).
-The BTS includes Puerto Rico and U.S. Virgin Islands as "domestic" (part of the US), while the [openflights.org](https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat) give use different values of country for airports in the US states (`"United States"`)  Puerto Rico (`"Puerto Rico"`) and US Virigin Islands (`"Virgin Islands"`).
+The BTS includes Puerto Rico and U.S. Virgin Islands as "domestic" (part of the US), while the [openflights.org](https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat) give use different values of country for airports in the US states (`"United States"`)  Puerto Rico (`"Puerto Rico"`) and US Virgin Islands (`"Virgin Islands"`).
 
 The expression `anti_join(airports, flights, by = c("faa" = "dest"))` returns the US airports that were not the destination of any flight in the data.
 Since the data contains all flights from New York City airports, this is also the list of US airports that did not have a nonstop flight from New York City in 2013.
