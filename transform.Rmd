@@ -185,32 +185,49 @@ Why is `FALSE & NA` not missing? Can you figure out the general rule?
 
 <div class="answer">
 
-`NA ^ 0 == 1` since for all numeric values $x ^ 0 = 1$.
 ```{r}
-NA^0
+NA ^ 0
 ```
 
-`NA | TRUE` is `TRUE` because the value of the missing  `TRUE` or `FALSE`,
-$x$ or `TRUE` is `TRUE` for all values of $x$.
+`NA ^ 0 == 1` since for all numeric values $x ^ 0 = 1$.
+
 ```{r}
 NA | TRUE
 ```
-Likewise, anything and `FALSE` is always `FALSE`.
+
+`NA | TRUE` is `TRUE` because *anything* or `TRUE` is `TRUE`. 
+If the missing value were `TRUE`, then `TRUE | TRUE == TRUE`,
+and if the missing value was `FALSE`, then `FALSE | TRUE == TRUE`.
+
+
 ```{r}
 NA & FALSE
 ```
-Because the value of the missing element matters in `NA | FALSE` and `NA & TRUE`, these are missing:
+
+The value of `NA & FALSE` is `FALSE` because anything and `FALSE` is always `FALSE`.
+If the missing value were `TRUE`, then `TRUE & FALSE == TRUE`,
+and if the missing value was `FALSE`, then `FALSE & FALSE == TRUE`.
+
 ```{r}
 NA | FALSE
+```
+
+For `NA | FALSE`, the value is unknown since `TRUE | FALSE == TRUE`, but `FALSE | FALSE == TRUE`.
+
+```{r}
 NA & TRUE
 ```
 
-Since $x * 0 = 0$ for all finite, numeric $x$, we might expect `NA * 0 == 0`, but that's not the case.
+For `NA & TRUE`, the value is unknown since `FALSE & TRUE== FALSE`, but `TRUE & TRUE == TRUE`.
+
 ```{r}
 NA * 0
 ```
-The reason that `NA * 0` is not equal to `0` is that $0 \times \infty$ and $0 \times -\infty$ are undefined.
+
+Since $x * 0 = 0$ for all finite numbers we might expect `NA * 0 == 0`, but that's not the case.
+The reason that `NA * 0 != 0` is that $0 \times \infty$ and $0 \times -\infty$ are undefined.
 R represents undefined results as `NaN`, which is an abbreviation of "[not a number](https://en.wikipedia.org/wiki/NaN)".
+
 ```{r}
 Inf * 0
 -Inf * 0
