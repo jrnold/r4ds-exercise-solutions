@@ -777,13 +777,12 @@ The "previous plot" referred to in the question is the following.
 ggplot(data = diamonds) +
   stat_summary(
     mapping = aes(x = cut, y = depth),
-    fun.ymin = min,
-    fun.ymax = max,
-    fun.y = median
+    fun.min = min,
+    fun.max = max,
+    fun = median
   )
 ```
-
-**Note:** `fun.ymin`, `fun.ymax`, and `fun.y` have been deprecated and replaced with `fun.min`, `fun.max`, and `fun` in {ggplot2} v3.3.0. The deprecated functions still work in `stat_summary()`, but not in `geom_pointrange()` (see below). 
+The arguments `fun.ymin`, `fun.ymax`, and `fun.y` have been deprecated and replaced with `fun.min`, `fun.max`, and `fun` in ggplot2 v 3.3.0.
 
 The default geom for [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) is `geom_pointrange()`.
 The default stat for [`geom_pointrange()`](https://ggplot2.tidyverse.org/reference/geom_linerange.html) is `identity()` but we can add the argument `stat = "summary"` to use `stat_summary()` instead of `stat_identity()`.
