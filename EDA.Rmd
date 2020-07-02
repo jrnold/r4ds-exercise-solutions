@@ -54,6 +54,13 @@ ggplot(diamonds) +
   geom_histogram(mapping = aes(x = z), binwidth = 0.01)
 ```
 
+```{r include=FALSE}
+print_iqr <- function(x, digits=1) {
+  str_c(scales::label_number(accuracy=10 ^ -digits)(quantile(x, c(0.25, 0.75))), collapse = "--")
+}
+print_iqr(diamonds$x)
+```
+
 There several noticeable features of the distributions:
 
 1.  `x` and `y` are larger than `z`,
@@ -62,7 +69,7 @@ There several noticeable features of the distributions:
 1.  they are multimodal or "spiky".
 
 The typical values of `x` and `y` are larger than `z`, with `x` and `y` having inter-quartile 
-ranges of 4.7-5.7, while `z` has an inter-quartile range of 2.9-4.0.
+ranges of `r print_iqr(diamonds$x)`, while `z` has an inter-quartile range of `r print_iqr(diamonds$z)`.
 
 There are two types of outliers in this data.
 Some diamonds have values of zero and some have abnormally large values of `x`, `y`, or `z`.
