@@ -1339,9 +1339,9 @@ The question does not define a way to measure on-time record, so I will consider
 1.  mean arrival delay.
 
 The first metric is the proportion of not-cancelled and on-time flights.
-I use the presence of an arrival time to mean that a flight was not cancelled.
+I use the presence of an arrival time as an indicator that a flight was not cancelled.
 However, there are many planes that have never flown an on-time flight.
-Many of the planes that have the lowest proportion have only flown a small number of flights.
+Additionally, many of the planes that have the lowest proportion of on-time flights have only flown a small number of flights.
 ```{r}
 flights %>%
   filter(!is.na(tailnum)) %>%
@@ -1358,10 +1358,10 @@ The choice of 20 was chosen because it round number near the first quartile of t
 quantile(count(flights, tailnum)$n)
 ```
 
-The plane which few at least 20 flights with the worst on time record is:
+The plane with the worst on time record that flew at least 20 flights is:
 ```{r}
 flights %>%
-  filter(!is.na(tailnum)) %>%
+  filter(!is.na(tailnum), is.na(arr_time) | !is.na(arr_delay)) %>%
   mutate(on_time = !is.na(arr_time) & (arr_delay <= 0)) %>%
   group_by(tailnum) %>%
   summarise(on_time = mean(on_time), n = n()) %>%
@@ -1370,11 +1370,16 @@ flights %>%
 
 ```
 
+There are cases where `arr_delay` is missing but `arr_time` is not missing.
+I have not debuged the cause of this bad data, so these rows are dropped for
+the purposes of this exercise.
+
 The second metric is the mean minutes delayed.
 As with the previous metric, I will only consider planes which flew least 20 flights.
 A different plane has the worst on-time record when measured as average minutes delayed.
 ```{r}
 flights %>%
+  filter(!is.na(arr_delay)) %>%
   group_by(tailnum) %>%
   summarise(arr_delay = mean(arr_delay), n = n()) %>%
   filter(n >= 20) %>%
