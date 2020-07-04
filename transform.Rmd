@@ -1044,8 +1044,14 @@ So the most important column is `arr_delay`, which indicates the amount of delay
 filter(flights, !is.na(dep_delay), is.na(arr_delay)) %>%
   select(dep_time, arr_time, sched_arr_time, dep_delay, arr_delay)
 ```
-Okay, I'm not sure what's going on in this data. `dep_time` can be non-missing and `arr_delay` missing but `arr_time` not missing.
-They may be combining different flights?
+
+In this data `dep_time` can be non-missing and `arr_delay` missing but `arr_time` not missing.
+Some further [research](https://hyp.is/TsdRpofJEeqzs6-vUOfVBg/jrnold.github.io/r4ds-exercise-solutions/transform.html) found that these rows correspond to diverted flights.
+The [BTS](https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236) database that is the source for the `flights` table contains additional information for diverted flights that is not included in the nycflights13 data. 
+The source contains a column `DivArrDelay` with the description:
+
+  > Difference in minutes between scheduled and actual arrival time for a diverted flight reaching scheduled destination. 
+  > The `ArrDelay` column remains `NULL` for all diverted flights.
 
 </div>
 
