@@ -89,7 +89,7 @@ The answers for each part are below.
     iris_uniq <- vector("double", ncol(iris))
     names(iris_uniq) <- names(iris)
     for (i in names(iris)) {
-      iris_uniq[i] <- length(unique(iris[[i]]))
+      iris_uniq[i] <- n_distinct(iris[[i]])
     }
     iris_uniq
     ```
@@ -709,27 +709,28 @@ Write code that uses one of the map functions to:
     map_chr(nycflights13::flights, typeof)
     ```
 
-
-1.  There is no function that directly calculates the number of unique values
-    in a vector. For a single column, the number of unique values of a vector
-    can be calculated like so,
+1.  The function `n_distinct()` calculates the number of unique values
+    in a vector.
     ```{r}
-    length(unique(iris$Species))
+    map_int(iris, n_distinct)
     ```
-    To apply this to all columns, we can provide the map an anonymous function.
-    We can write anonymous function using the standard R syntax.
+    The `map_int()` function is used since `length()` returns an integer.
+    However, the `map_dbl()` function will also work.
+    ```{r results='hide'}
+    map_dbl(iris, n_distinct)
+    ```
+    
+    An alternative to the `n_distinct()` function is the expression, `length(unique(...))`.
+    The `n_distinct()` function is more concise and faster, but `length(unique(...))` provides an example of using anonymous functions with map functions.
+    An anonymous function can be written using the standard R syntax for a function:
     ```{r}
     map_int(iris, function(x) length(unique(x)))
     ```
-    We could also use the compact, one-sided formula shortcut that purrr provides.
+    Additionally, map functions accept one-sided formulas as a more concise alternative to specify an anonymous function:
     ```{r}
-    map_int(iris, ~length(unique(.)))
+    map_int(iris, ~length(unique(.x)))
     ```
-    In these examples, the `map_int()` function is used since `length()` returns an integer.
-    However, the `map_dbl()` function will also work.
-    ```{r results='hide'}
-    map_dbl(iris, ~length(unique(.)))
-    ```
+    In this case, the anonymous function accepts one argument, which is referenced by `.x` in the experession `length(unique(.x))`.
 
 1.  To generate 10 random normals for each of $\mu = -10$, $0$, $10$, and $100$:
     The result is a list of numeric vectors.
