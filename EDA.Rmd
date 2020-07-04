@@ -371,12 +371,29 @@ Since both `price` and `carat` are continuous variables, I use a scatter plot to
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point()
 ```
-However, since there is a large number of points in the data, I will use a boxplot by binning `carat` (as suggested in the chapter).
+However, since there is a large number of points in the data, I will use a boxplot by binning `carat`, as suggested in the chapter:
 ```{r}
 ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
-  geom_boxplot(mapping = aes(group = cut_width(carat, 0.1)))
+  geom_boxplot(mapping = aes(group = cut_width(carat, 0.1)), orientation = "x")
 ```
 Note that the choice of the binning width is important, as if it were too large it would obscure any relationship, and if it were too small, the values in the bins could be too variable to reveal underlying trends.
+
+<div>
+Version 3.3.0 of ggplot2 introduced changes to boxplots that may affect the orientation. 
+
+> This geom treats each axis differently and, thus, can thus have two orientations. 
+> Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. 
+> Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail
+
+If you are getting something different with your code check the version of ggplot2. 
+Use  `orientation = "x"` (vertical boxplots) or `orientation = "y"` (horizontal boxplots) to explicitly specify how the geom should treat these axes.
+</div>
+
+<!--
+cut_width(carat, 0.1) is categoriecal
+ggplot(data = diamonds, mapping = aes(x = cut_width(carat, 0.1), y = price)) +
+  geom_boxplot() 
+-->   
 
 The variables `color` and `clarity` are ordered categorical variables.
 The chapter suggests visualizing a categorical and continuous variable using frequency polygons or boxplots.
