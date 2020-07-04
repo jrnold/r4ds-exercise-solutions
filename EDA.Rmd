@@ -9,7 +9,6 @@ editor_options:
 
 ```{r message=FALSE}
 library("tidyverse")
-library("viridis")
 ```
 This will also use data from the nycflights13 package.
 ```{r message=FALSE}
@@ -652,7 +651,6 @@ diamonds %>%
   mutate(prop = n / sum(n)) %>%
   ggplot(mapping = aes(x = color, y = cut)) +
   geom_tile(mapping = aes(fill = prop)) +
-  scale_fill_viridis(limits = c(0, 1)) # from the viridis colour palette library
 ```
 
 Similarly, to scale by the distribution of `color` within `cut`,
@@ -662,8 +660,7 @@ diamonds %>%
   group_by(cut) %>%
   mutate(prop = n / sum(n)) %>%
   ggplot(mapping = aes(x = color, y = cut)) +
-  geom_tile(mapping = aes(fill = prop)) +
-  scale_fill_viridis(limits = c(0, 1))
+  geom_tile(mapping = aes(fill = prop))
 ```
 
 I add `limit = c(0, 1)` to put the color scale between (0, 1).
@@ -697,7 +694,6 @@ There are several things that could be done to improve it,
 
 -   sort destinations by a meaningful quantity (distance, number of flights, average delay)
 -   remove missing values
--   better color scheme (viridis)
 
 How to treat missing values is difficult.
 In this case, missing values correspond to airports which don't have regular flights (at least one flight each month) from NYC.
@@ -715,7 +711,6 @@ flights %>%
   mutate(dest = reorder(dest, dep_delay)) %>%
   ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
   geom_tile() +
-  scale_fill_viridis() +
   labs(x = "Month", y = "Destination", fill = "Departure Delay")
 ```
 
@@ -853,8 +848,7 @@ Here are a few options that I tried.
 ```{r}
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_hex() +
-  facet_wrap(~cut, ncol = 1) +
-  scale_fill_viridis()
+  facet_wrap(~cut, ncol = 1)
 ```
 
 ```{r}
