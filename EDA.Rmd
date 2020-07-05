@@ -178,7 +178,11 @@ ggplot(filter(diamonds), aes(x = price)) +
   geom_histogram(binwidth = 100, center = 0)
 ```
 
-Distribution of last digit
+The last digits of prices are often not uniformly distributed. 
+They are often round, ending in 0 or 5 (for one-half).
+Another common pattern is ending in 99, as in $1999. 
+If we plot the distribution of the last one and two digits of prices do we observe patterns like that?
+
 ```{r}
 diamonds %>%
   mutate(ending = price %% 10) %>%
