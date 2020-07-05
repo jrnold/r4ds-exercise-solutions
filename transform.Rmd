@@ -492,15 +492,48 @@ vars <- c("year", "month", "day", "dep_delay", "arr_delay")
 select(flights, one_of(vars))
 ```
 
-In the most recent versions of **dplyr** (after *R4DS* was originally published) you can provide the name of a vector containing the variable names you wish to select.
+In the most recent versions of **dplyr**, `one_of` has been deprecated in favor of two functions: `all_of()` and `any_of()`.
+These functions behave similarly if all variables are present in the data frame.
+```{r}
+select(flights, any_of(vars))
+```
+```{r}
+select(flights, all_of(vars))
+```
+
+These functions differ in their strictness. 
+The function `all_of()` will raise an error if one of the variable names is not present, while `any_of()` will ignore it.
+```{r}
+vars2 <- c("year", "month", "day", "variable_not_in_the_dataframe")
+select(flights, all_of(vars2))
+```
+```{r}
+select(flights, any_of(vars2))
+```
+The deprecated function `one_of()` will raise a warning if an unknown column is encountered.
+```{r}
+select(flights, one_of(vars2))
+```
+
+In the most recent versions of **dplyr**, the `one_of()` function is less necessary due to new behavior in the selection functions.
+The `select()` function can now accept the name of a vector containing the variable names you wish to select:
 ```{r}
 select(flights, vars)
 ```
-However there is a problem with this. 
-It is not clear whether `vars` refers to a column name or a variable.
-How the code is evaluated will depend on whether or not `vars` is a column in `flights`.
-If `vars` was a column in `flights`, then that code would select only the `vars` column.
-If `vars` is not a column in `flights`, as is the case, then `select` will replace it with its value, and select those columns.
+However there is a problem with the previous code.
+The name `vars` could refer to a column named `vars` in `flights` or a different variable named `vars`.
+What th code does will depend on whether or not `vars` is a column in `flights`.
+If `vars` was a column in `flights`, then that code would only select the `vars` column. 
+For example:
+```{r}
+flights <- mutate(flight, vars = 1)
+select(flights, vars)
+```
+```{r include=FALSE,cache=FALSE}
+flights <- mutate(flights, -any_of(vars))
+```
+
+However,  `vars` is not a column in `flights`, as is the case, then `select` will use the value the value of the , and select those columns.
 If it has the same name or to ensure that it will not conflict with the names of the columns in the data frame, use the `!!!` (bang-bang-bang) operator.
 ```{r}
 select(flights, !!!vars)
