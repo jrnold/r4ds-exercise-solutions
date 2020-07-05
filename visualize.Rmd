@@ -1206,7 +1206,13 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_count()
 ```
 
-As that example shows, unfortunately, there is no universal solution to overplotting.
+Combining `geom_count()` with jitter, which is specifified with the `position` argument to `geom_count()` rather than its own geom, helps overplotting a little.
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
+  geom_count(position = "jitter")
+```
+
+But as this example shows, unfortunately, there is no universal solution to overplotting.
 The costs and benefits of different approaches will depend on the structure of the data and the goal of the data scientist.
 
 </div>
