@@ -415,17 +415,21 @@ These are a few ways to select columns.
     variables are being selected. What variable does column 6 correspond to? 
     I just wrote the code, and I've already forgotten.
 
--   Specify the names of the variables with character vector and `one_of()`.
+-   Specify the names of the variables with character vector and `any_of()` or `all_of()` 
     ```{r}
-    select(flights, one_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))
+    select(flights, all_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))
+    ```
+    ```{r}
+    select(flights, any_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))
     ```
     This is useful because the names of the variables can be stored in a 
-    variable and passed to `one_of()`.
+    variable and passed to `all_of()` or `any_of()`.
     ```{r}
     variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
-    select(flights, one_of(variables))
+    select(flights, all_of(variables))
     ```
-
+    These two functions replace the deprecated function `one_of()`.
+    
 -   Selecting the variables by matching the start of their names using `starts_with()`.
     ```{r}
     select(flights, starts_with("dep_"), starts_with("arr_"))
@@ -437,6 +441,26 @@ These are a few ways to select columns.
     ```{r}
     select(flights, matches("^(dep|arr)_(time|delay)$"))
     ```
+    
+-   Specify the names of the variables with a character vector and use the bang-bang operator (`!!`). 
+    ```{r}
+    variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
+    select(flights, !!variables)
+    ```
+    This and the following answers use the features of **tidy evaluation** not covered in R4DS but covered in the [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html) vignette.
+
+-   Specify the names of the variables in a character or list vector and use the bang-bang-bang operator.
+    ```{r}
+    variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
+    select(flights, !!!variables)
+    ```  
+    
+-   Specify the unquoted names of the variables in a list using `syms()` and use the bang-bang-bang operator.
+    ```{r}
+    variables <- syms(c("dep_time", "dep_delay", "arr_time", "arr_delay"))
+    select(flights, !!!variables)
+    ```        
+
 
 Some things that **don't** work are
 
