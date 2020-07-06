@@ -36,18 +36,18 @@ The answer to each part follows.
 1.  Since the `arr_delay` variable is measured in minutes, find
     flights with an arrival delay of 120 or more minutes.
 
-    ```{r ex-5.2.1-1 indent = 4}
+    ```{r ex-5.2.1-1, indent = 4}
     filter(flights, arr_delay >= 120)
     ```
 
 1.  The flights that flew to Houston are those flights where the 
     destination (`dest`) is either "IAH" or "HOU".
-    ```{r ex-5.2.1-2}
+    ```{r ex-5.2.1-2, indent=4}
     filter(flights, dest == "IAH" | dest == "HOU")
     ```
     However, using `%in%` is more compact and would scale to cases where 
     there were more than two airports we were interested in.
-    ```{r ex-5.2.1-3}
+    ```{r ex-5.2.1-3, indent=4}
     filter(flights, dest %in% c("IAH", "HOU"))
     ```
     
@@ -58,31 +58,31 @@ The answer to each part follows.
     of the airlines in that dataset are not exactly "United", "American", or "Delta",
     it is easiest to manually look up their carrier codes in that data.
 
-    ```{r ex-5.2.1-4}
+    ```{r ex-5.2.1-4,indent=4}
     airlines
     ```
 
     The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`.
     Using these carriers codes, we check whether `carrier` is one of those.
 
-    ```{r }
+    ```{r, indent=4}
     filter(flights, carrier %in% c("AA", "DL", "UA"))
     ```
 
 1.  The variable `month` has the month, and it is numeric.
     So, the summer flights are those that departed in months 7 (July), 8 (August), and 9 (September).
-    ```{r}
+    ```{r, indent=4}
     filter(flights, month >= 7, month <= 9)
     ```
     The `%in%` operator is an alternative. If the `:` operator is used to specify
     the integer range, the expression is readable and compact.
-    ```{r}
+    ```{r, indent=4}
     filter(flights, month %in% 7:9)
     ```
     We could also use the `|` operator. However, the `|` does not scale to 
     many choices. 
     Even with only three choices, it is quite verbose.
-    ```{r}
+    ```{r, indent=4}
     filter(flights, month == 7 | month == 8 | month == 9)
     ```
     We can also use the `between()` function as shown in [Exercise 5.2.2](#exercise-5.2.2).
@@ -90,7 +90,7 @@ The answer to each part follows.
 1.  Flights that arrived more than two hours late, but didn’t leave late will 
     have an arrival delay of more than 120 minutes (`arr_delay > 120`) and 
     a non-positive departure delay (`dep_delay <= 0`).
-    ```{r}
+    ```{r, indent=4}
     filter(flights, arr_delay > 120, dep_delay <= 0)
     ```
 
