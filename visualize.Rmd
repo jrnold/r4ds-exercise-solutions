@@ -246,22 +246,22 @@ glimpse(mpg)
 For those lists, I considered any variable that was non-numeric was considered categorical and any variable that was numeric was considered continuous.
 This largely corresponds to the heuristics `ggplot()` uses for will interpreting variables as discrete or continuous.
 
-However, the definition of continuous vs. categorical does not   
+However, this definition of continuous vs. categorical misses several important cases.
 Of the numeric variables, `year` and `cyl` (cylinders) clearly take on discrete values.
 The variables `cty` and `hwy` are stored as integers (`int`) so they only take on a discrete values.
 Even though `displ` has 
 In some sense, due to measurement and computational constraints all numeric variables are discrete ().
 But unlike the categorical variables, it is possible to add and subtract these numeric variables in a meaningful way.
-The typology of [levels of measurement](https://en.wikipedia.org/wiki/Level_of_measurement) is one such typology of data typs.
+The typology of [levels of measurement](https://en.wikipedia.org/wiki/Level_of_measurement) is one such typology of data types.
 
-In this case the R data types largely encode the semantics of the variables; e.g. integer varaibles are stored as integers, categorical variables with no order are stored as character vectors and so on.
+In this case the R data types largely encode the semantics of the variables; e.g. integer variables are stored as integers, categorical variables with no order are stored as character vectors and so on.
 However, that is not always the case.
-Instead, the data could have stored the cagtegorical `class` variable as an integer with values 1--7, where the documentation would note that 1 = "compact",  2 = "midsize", and so on.[^factor]
+Instead, the data could have stored the categorical `class` variable as an integer with values 1--7, where the documentation would note that 1 = "compact",  2 = "midsize", and so on.[^factor]
 Even though this integer vector could be added, multiplied, subtracted, and divided, those operations would be meaningless.
 
 Fundamentally, categorizing variables as "discrete", "continuous", "ordinal", "nominal", "categorical", etc. is about specifying what operations can be performed on the variables.
 Discrete variables support counting and calculating the mode.
-Varibles with an ordering support sorting and calculating quantiles.
+Variables with an ordering support sorting and calculating quantiles.
 Variables that have an interval scale support addition and subtraction and operations such as taking the mean that rely on these primitives.
 In this way, the types of data or variables types is an information class system, something that is beyond the scope of R4DS but discussed in [*Advanced R*](http://adv-r.had.co.nz/OO-essentials.html#s3).
 
@@ -864,26 +864,26 @@ What do they have in common?
 
 The following tables lists the pairs of geoms and stats that are almost always used in concert.
 
-| geom                | stat                |
-|---------------------|---------------------|
-| `geom_bar()`        | `stat_count()`      |
-| `geom_bin2d()`      | `stat_bin_2d()`     |
-| `geom_boxplot()`    | `stat_boxplot()`    |
+| geom                       | stat                       |
+|----------------------------|----------------------------|
+| `geom_bar()`               | `stat_count()`             |
+| `geom_bin2d()`             | `stat_bin_2d()`            |
+| `geom_boxplot()`           | `stat_boxplot()`           |
 | `geom_contour_filled()`    | `stat_contour_filled()`    |
-| `geom_contour()`    | `stat_contour()`    |
-| `geom_count()`      | `stat_sum()`        |
-| `geom_density_2d()` | `stat_density_2d()` |
-| `geom_density()`    | `stat_density()`    |
-| `geom_dotplot()`    | `stat_bindot()`     |
-| `geom_function()`   | `stat_function()`   |
-| `geom_hex()`        | `stat_bin_hex()`    |
-| `geom_qq_line()`    | `stat_qq_line()`    |
-| `geom_qq()`         | `stat_qq()`         |
-| `geom_quantile()`   | `stat_quantile()`   |
-| `geom_sf()`         | `stat_sf()`         |
-| `geom_sf()`         | `stat_sf()`         |
-| `geom_smooth()`     | `stat_smooth()`     |
-| `geom_violin()`     | `stat_ydensity()`   |
+| `geom_contour()`           | `stat_contour()`           |
+| `geom_count()`             | `stat_sum()`               |
+| `geom_density_2d()`        | `stat_density_2d()`        |
+| `geom_density()`           | `stat_density()`           |
+| `geom_dotplot()`           | `stat_bindot()`            |
+| `geom_function()`          | `stat_function()`          |
+| `geom_sf()`                | `stat_sf()`                |
+| `geom_sf()`                | `stat_sf()`                |
+| `geom_smooth()`            | `stat_smooth()`            |
+| `geom_violin()`            | `stat_ydensity()`          |
+| `geom_hex()`               | `stat_bin_hex()`           |
+| `geom_qq_line()`           | `stat_qq_line()`           |
+| `geom_qq()`                | `stat_qq()`                |
+| `geom_quantile()`          | `stat_quantile()`          |
 
 Table: Complementary geoms and stats
 
@@ -894,91 +894,91 @@ The following tables contain the geoms and stats in [ggplot2](https://ggplot2.ti
 Many geoms have `stat_identity()` as the default stat.
 
 
-| geom                | default stat        | shared docs |
-|:--------------------|:--------------------|-------------|
-| `geom_abline()`     | `stat_identity()`   |             |
-| `geom_area()`       | `stat_identity()`   |             |
-| `geom_bar()`        | `stat_count()`      | x           |
-| `geom_bin2d()`      | `stat_bin_2d()`     | x           |
-| `geom_blank()`      | None                |             |
-| `geom_boxplot()`    | `stat_boxplot()`    | x           |
-| `geom_col()`        | `stat_identity()`   |             |
-| `geom_count()`      | `stat_sum()`        | x           |
-| `geom_countour_filled()` | `stat_countour_filled()`   | x           |
-| `geom_countour()`   | `stat_countour()`   | x           |
-| `geom_crossbar()`   | `stat_identity()`   |             |
-| `geom_curve()`      | `stat_identity()`   |             |
+| geom                       | default stat               | shared docs |
+|:---------------------------|:---------------------------|-------------|
+| `geom_abline()`            | `stat_identity()`          |             |
+| `geom_area()`              | `stat_identity()`          |             |
+| `geom_bar()`               | `stat_count()`             | x           |
+| `geom_bin2d()`             | `stat_bin_2d()`            | x           |
+| `geom_blank()`             | None                       |             |
+| `geom_boxplot()`           | `stat_boxplot()`           | x           |
+| `geom_col()`               | `stat_identity()`          |             |
+| `geom_count()`             | `stat_sum()`               | x           |
+| `geom_countour_filled()`   | `stat_countour_filled()`   | x           |
+| `geom_countour()`          | `stat_countour()`          | x           |
+| `geom_crossbar()`          | `stat_identity()`          |             |
+| `geom_curve()`             | `stat_identity()`          |             |
 | `geom_density_2d_filled()` | `stat_density_2d_filled()` | x           |
-| `geom_density_2d()` | `stat_density_2d()` | x           |
-| `geom_density()`    | `stat_density()`    | x           |
-| `geom_dotplot()`    | `stat_bindot()`     | x           |
-| `geom_errorbar()`   | `stat_identity()`   |             |
-| `geom_errorbarh()`  | `stat_identity()`   |             |
-| `geom_freqpoly()`   | `stat_bin()`        | x           |
-| `geom_function()`   | `stat_function()`   | x           |
-| `geom_hex()`        | `stat_bin_hex()`    | x           |
-| `geom_histogram()`  | `stat_bin()`        | x           |
-| `geom_hline()`      | `stat_identity()`   |             |
-| `geom_jitter()`     | `stat_identity()`   |             |
-| `geom_label()`      | `stat_identity()`   |             |
-| `geom_line()`       | `stat_identity()`   |             |
-| `geom_linerange()`  | `stat_identity()`   |             |
-| `geom_map()`        | `stat_identity()`   |             |
-| `geom_path()`       | `stat_identity()`   |             |
-| `geom_point()`      | `stat_identity()`   |             |
-| `geom_pointrange()` | `stat_identity()`   |             |
-| `geom_polygon()`    | `stat_identity()`   |             |
-| `geom_qq_line()`    | `stat_qq_line()`    | x           |
-| `geom_qq()`         | `stat_qq()`         | x           |
-| `geom_quantile()`   | `stat_quantile()`   | x           |
-| `geom_raster()`     | `stat_identity()`   |             | 
-| `geom_rect()`       | `stat_identity()`   |             |  
-| `geom_ribbon()`     | `stat_identity()`   |             |
-| `geom_rug()`        | `stat_identity()`   |             |
-| `geom_segment()`    | `stat_identity()`   |             |
-| `geom_sf_label()`   | `stat_sf_coordinates()` | x       |
-| `geom_sf_text()`    | `stat_sf_coordinates()` | x       |
-| `geom_sf()`         | `stat_sf()`         | x           |
-| `geom_smooth()`     | `stat_smooth()`     | x           |
-| `geom_spoke()`      | `stat_identity()`   |             |
-| `geom_step()`       | `stat_identity()`   |             |
-| `geom_text()`       | `stat_identity()`   |             |
-| `geom_tile()`       | `stat_identity()`   |             |  
-| `geom_violin()`     | `stat_ydensity()`   | x           |
-| `geom_vline()`      | `stat_identity()`   |             |
+| `geom_density_2d()`        | `stat_density_2d()`        | x           |
+| `geom_density()`           | `stat_density()`           | x           |
+| `geom_dotplot()`           | `stat_bindot()`            | x           |
+| `geom_errorbar()`          | `stat_identity()`          |             |
+| `geom_errorbarh()`         | `stat_identity()`          |             |
+| `geom_freqpoly()`          | `stat_bin()`               | x           |
+| `geom_function()`          | `stat_function()`          | x           |
+| `geom_hex()`               | `stat_bin_hex()`           | x           |
+| `geom_histogram()`         | `stat_bin()`               | x           |
+| `geom_hline()`             | `stat_identity()`          |             |
+| `geom_jitter()`            | `stat_identity()`          |             |
+| `geom_label()`             | `stat_identity()`          |             |
+| `geom_line()`              | `stat_identity()`          |             |
+| `geom_linerange()`         | `stat_identity()`          |             |
+| `geom_map()`               | `stat_identity()`          |             |
+| `geom_path()`              | `stat_identity()`          |             |
+| `geom_point()`             | `stat_identity()`          |             |
+| `geom_pointrange()`        | `stat_identity()`          |             |
+| `geom_polygon()`           | `stat_identity()`          |             |
+| `geom_qq_line()`           | `stat_qq_line()`           | x           |
+| `geom_qq()`                | `stat_qq()`                | x           |
+| `geom_quantile()`          | `stat_quantile()`          | x           |
+| `geom_raster()`            | `stat_identity()`          |             | 
+| `geom_rect()`              | `stat_identity()`          |             |  
+| `geom_ribbon()`            | `stat_identity()`          |             |
+| `geom_rug()`               | `stat_identity()`          |             |
+| `geom_segment()`           | `stat_identity()`          |             |
+| `geom_sf_label()`          | `stat_sf_coordinates()`    | x           |
+| `geom_sf_text()`           | `stat_sf_coordinates()`    | x           |
+| `geom_sf()`                | `stat_sf()`                | x           |
+| `geom_smooth()`            | `stat_smooth()`            | x           |
+| `geom_spoke()`             | `stat_identity()`          |             |
+| `geom_step()`              | `stat_identity()`          |             |
+| `geom_text()`              | `stat_identity()`          |             |
+| `geom_tile()`              | `stat_identity()`          |             |  
+| `geom_violin()`            | `stat_ydensity()`          | x           |
+| `geom_vline()`             | `stat_identity()`          |             |
 
 Table: ggplot2 geom layers and their default stats.
 
-| stat                 | default geom        | shared docs |
-|:---------------------|:--------------------|-------------|
-| `stat_bin_2d()`      | `geom_tile()`       |             |
-| `stat_bin_hex()`     | `geom_hex()`        | x           |
-| `stat_bin()`         | `geom_bar()`        | x           |
-| `stat_boxplot()`     | `geom_boxplot()`    | x           |
-| `stat_count()`       | `geom_bar()`        | x           |
-| `stat_countour_filled()` | `geom_contour_filled()`    | x           |
-| `stat_countour()`    | `geom_contour()`    | x           |
-| `stat_density_2d_filled()`  | `geom_density_2d()` | x           |
-| `stat_density_2d()`  | `geom_density_2d()` | x           |
-| `stat_density()`     | `geom_area()`       |            |
-| `stat_ecdf()`        | `geom_step()`       |             |
-| `stat_ellipse()`     | `geom_path()`       |             |
-| `stat_function()`    | `geom_function()`   | x           |
-| `stat_function()`    | `geom_path()`       |             |
-| `stat_identity()`    | `geom_point()`      |             |
-| `stat_qq_line()`     | `geom_path()`       |             |
-| `stat_qq()`          | `geom_point()`      |             |
-| `stat_quantile()`    | `geom_quantile()`   | x           |
-| `stat_sf_coordinates()` | `geom_point()`   |             |
-| `stat_sf()`          | `geom_rect()`       |             |
-| `stat_smooth()`      | `geom_smooth()`     | x           |
-| `stat_sum()`         | `geom_point()`      |             |
-| `stat_summary_2d()`  | `geom_tile()`       |             |
-| `stat_summary_bin()` | `geom_pointrange()` |             |
-| `stat_summary_hex()` | `geom_hex()`        |             |
-| `stat_summary()`     | `geom_pointrange()` |             |
-| `stat_unique()`      | `geom_point()`      |             |
-| `stat_ydensity()`    | `geom_violin()`     | x           |
+| stat                        | default geom               | shared docs |
+|:----------------------------|:---------------------------|-------------|
+| `stat_bin_2d()`             | `geom_tile()`              |             |
+| `stat_bin_hex()`            | `geom_hex()`               | x           |
+| `stat_bin()`                | `geom_bar()`               | x           |
+| `stat_boxplot()`            | `geom_boxplot()`           | x           |
+| `stat_count()`              | `geom_bar()`               | x           |
+| `stat_countour_filled()`    | `geom_contour_filled()`    | x           |
+| `stat_countour()`           | `geom_contour()`           | x           |
+| `stat_density_2d_filled()`  | `geom_density_2d()`        | x           |
+| `stat_density_2d()`         | `geom_density_2d()`        | x           |
+| `stat_density()`            | `geom_area()`              |             |
+| `stat_ecdf()`               | `geom_step()`              |             |
+| `stat_ellipse()`            | `geom_path()`              |             |
+| `stat_function()`           | `geom_function()`          | x           |
+| `stat_function()`           | `geom_path()`              |             |
+| `stat_identity()`           | `geom_point()`             |             |
+| `stat_qq_line()`            | `geom_path()`              |             |
+| `stat_qq()`                 | `geom_point()`             |             |
+| `stat_quantile()`           | `geom_quantile()`          | x           |
+| `stat_sf_coordinates()`     | `geom_point()`             |             |
+| `stat_sf()`                 | `geom_rect()`              |             |
+| `stat_smooth()`             | `geom_smooth()`            | x           |
+| `stat_sum()`                | `geom_point()`             |             |
+| `stat_summary_2d()`         | `geom_tile()`              |             |
+| `stat_summary_bin()`        | `geom_pointrange()`        |             |
+| `stat_summary_hex()`        | `geom_hex()`               |             |
+| `stat_summary()`            | `geom_pointrange()`        |             |
+| `stat_unique()`             | `geom_point()`             |             |
+| `stat_ydensity()`           | `geom_violin()`            | x           |
 
 Table: ggplot2 stat layers and their default geoms.
 
@@ -1219,7 +1219,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_count()
 ```
 
-Combining `geom_count()` with jitter, which is specifified with the `position` argument to `geom_count()` rather than its own geom, helps overplotting a little.
+Combining `geom_count()` with jitter, which is specified with the `position` argument to `geom_count()` rather than its own geom, helps overplotting a little.
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy, color = class)) +
   geom_count(position = "jitter")

@@ -429,7 +429,7 @@ These are a few ways to select columns.
     select(flights, all_of(variables))
     ```
     These two functions replace the deprecated function `one_of()`.
-    
+
 -   Selecting the variables by matching the start of their names using `starts_with()`.
     ```{r}
     select(flights, starts_with("dep_"), starts_with("arr_"))
@@ -441,7 +441,7 @@ These are a few ways to select columns.
     ```{r}
     select(flights, matches("^(dep|arr)_(time|delay)$"))
     ```
-    
+
 -   Specify the names of the variables with a character vector and use the bang-bang operator (`!!`). 
     ```{r}
     variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
@@ -454,15 +454,14 @@ These are a few ways to select columns.
     variables <- c("dep_time", "dep_delay", "arr_time", "arr_delay")
     select(flights, !!!variables)
     ```  
-    
+
 -   Specify the unquoted names of the variables in a list using `syms()` and use the bang-bang-bang operator.
     ```{r}
     variables <- syms(c("dep_time", "dep_delay", "arr_time", "arr_delay"))
     select(flights, !!!variables)
     ```        
 
-
-Some things that **don't** work are
+Some things that **don't** work are:
 
 -   Matching the ends of their names using `ends_with()` since this will incorrectly
     include other variables. For example,
@@ -557,7 +556,7 @@ select(flights, vars)
 flights <- select(flights, -vars)
 ```
 
-However,  `vars` is not a column xin `flights`, as is the case, then `select` will use the value the value of the , and select those columns.
+However,  `vars` is not a column in `flights`, as is the case, then `select` will use the value the value of the , and select those columns.
 If it has the same name or to ensure that it will not conflict with the names of the columns in the data frame, use the `!!!` (bang-bang-bang) operator.
 ```{r}
 select(flights, !!!vars)
@@ -1107,8 +1106,8 @@ Some further [research](https://hyp.is/TsdRpofJEeqzs6-vUOfVBg/jrnold.github.io/r
 The [BTS](https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236) database that is the source for the `flights` table contains additional information for diverted flights that is not included in the nycflights13 data. 
 The source contains a column `DivArrDelay` with the description:
 
-  > Difference in minutes between scheduled and actual arrival time for a diverted flight reaching scheduled destination. 
-  > The `ArrDelay` column remains `NULL` for all diverted flights.
+> Difference in minutes between scheduled and actual arrival time for a diverted flight reaching scheduled destination. 
+> The `ArrDelay` column remains `NULL` for all diverted flights.
 
 </div>
 
