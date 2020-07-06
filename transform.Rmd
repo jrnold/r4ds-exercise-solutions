@@ -36,18 +36,18 @@ The answer to each part follows.
 1.  Since the `arr_delay` variable is measured in minutes, find
     flights with an arrival delay of 120 or more minutes.
 
-    ```{r, indent = 4}
+    ```{r ex-5.2.1-1 indent = 4}
     filter(flights, arr_delay >= 120)
     ```
 
 1.  The flights that flew to Houston are those flights where the 
     destination (`dest`) is either "IAH" or "HOU".
-    ```{r}
+    ```{r ex-5.2.1-2}
     filter(flights, dest == "IAH" | dest == "HOU")
     ```
     However, using `%in%` is more compact and would scale to cases where 
     there were more than two airports we were interested in.
-    ```{r}
+    ```{r ex-5.2.1-3}
     filter(flights, dest %in% c("IAH", "HOU"))
     ```
     
@@ -58,14 +58,14 @@ The answer to each part follows.
     of the airlines in that dataset are not exactly "United", "American", or "Delta",
     it is easiest to manually look up their carrier codes in that data.
 
-    ```{r}
+    ```{r ex-5.2.1-4}
     airlines
     ```
 
     The carrier code for Delta is `"DL"`, for American is `"AA"`, and for United is `"UA"`.
     Using these carriers codes, we check whether `carrier` is one of those.
 
-    ```{r}
+    ```{r }
     filter(flights, carrier %in% c("AA", "DL", "UA"))
     ```
 
@@ -553,11 +553,11 @@ For example:
 flights <- mutate(flights, vars = 1)
 select(flights, vars)
 ```
-```{r include=FALSE,cache=FALSE}
+```{r include=FALSE}
 flights <- mutate(flights, -any_of(vars))
 ```
 
-However,  `vars` is not a column in `flights`, as is the case, then `select` will use the value the value of the , and select those columns.
+However,  `vars` is not a column xin `flights`, as is the case, then `select` will use the value the value of the , and select those columns.
 If it has the same name or to ensure that it will not conflict with the names of the columns in the data frame, use the `!!!` (bang-bang-bang) operator.
 ```{r}
 select(flights, !!!vars)
