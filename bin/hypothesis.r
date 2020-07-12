@@ -83,7 +83,7 @@ connect_github <- function() {
 }
 
 main <- function() {
-  search_after <- "2019-09-01T00:00:00"
+  search_after <- "2020-06-25T00:00:00"
   annotations <- get_annotations(search_after = search_after)
   con <- connect_github()
   map(annotations, annotation_to_issue, con)
@@ -109,3 +109,27 @@ annotations <- main()
 # }")
 # (x <- con$exec(qry$queries$getRepoId))
 
+#con <- connect_github()
+# #con$load_schema()
+# qry <- Query$new()
+# qry$query("getRepoIssues", "
+#   query getRepoIssues($owner: String!, $name: String!, $label: String!) {
+# 	  repository(name: $name, owner: $owner) {
+#     	issues (last:1, filterBy: {labels: [$label], createdBy: $owner}) {
+#           pageInfo {
+#             startCursor
+#             endCursor
+#             hasNextPage
+#           }
+#         	nodes {
+#             author {
+#               login
+#             }
+#             title
+#             createdAt
+#           }
+#         	totalCount
+#       }
+#   }
+# }")
+# (x <- con$exec(qry$queries$getRepoIssues, list(owner="jrnold", name = "r4ds-exercise-solutions", label = GITHUB_LABEL_INFO$name)))
