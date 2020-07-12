@@ -866,11 +866,13 @@ flights_delayed2 <- arrange(flights, desc(dep_delay))
 flights_delayed2 <- slice(flights_delayed2, 1:10)
 select(flights_delayed2,  month, day, carrier, flight, dep_delay)
 ```
-Alternatively, we could use the `min
+Alternatively, we could use the `top_n()`.
 ```{r}
-flights_delayed3 <- slice_max(flights, dep_delay, n = 10)
-select(flights_delayed3,  month, day, carrier, flight, dep_delay)
+flights_delayed3 <- top_n(flights, 10, dep_delay)
+flights_delayed3 <- arrange(flights_delayed3, desc(dep_delay))
+select(flights_delayed3, month, day, carrier, flight, dep_delay)
 ```
+ 
 The previous two approaches will always select 10 rows even if there are tied values. 
 Ranking functions provide more control over how tied values are handled.
 Those approaches will provide the 10 rows with the largest values of `dep_delay`, while ranking functions can provide all rows with the 10 largest values of `dep_delay`. 
