@@ -213,29 +213,15 @@ stocks %>%
 There is one difference, in the new data frame, `year` has a data type of `character` rather than `numeric`. 
 The `names_to` column created from column names by `pivot_longer()` will be character by default, which is usually a safe assumption, since syntactically valid-column names can only be character values.
 
-The original data types of column which `pivot_wider()` used to create the column names was not stored, so `pivot_longer()` has no idea that the column names in this case should be numeric values.
-<!--
-The `names_ptype` argument of `pivot_longer()` provide that information. 
+The original data types of column which `pivot_wider()` used to create the column names was not stored, so `pivot_longer()` has no idea that the column names in this case should be numeric values. The `names_ptype` argument of `pivot_longer()` provide that information. 
 Using `names_ptype = list(year = double())` informs `pivot_longer()` that the column created from column names should be a numeric vector.
 Adding this argument to `pivot_longer()` in the example above will make the output of the experession the same as the original `stocks` data frame.
---> 
-In the current version of `tidyr`, the `names_ptype` argument does not convert the `year` column to a numeric vector, and it will raise an error.
-```{r error=TRUE}
+```{r}
 stocks %>%
   pivot_wider(names_from = year, values_from = return)%>%
   pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return",
                names_ptype = list(year = double()))
 ```
-
-Instead, use the `names_transform` argument to `pivot_longer()`, which provides a function to coerce the column to a different data type.
-```{r}
-stocks %>%
-  pivot_wider(names_from = year, values_from = return)%>%
-  pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return",
-               names_transform = list(year = as.numeric))
-
-```
-
 </div>
 
 ### Exercise 12.3.2 {.unnumbered .exercise data-number="12.3.2"}
