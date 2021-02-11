@@ -535,13 +535,13 @@ Compare and contrast the `fill` arguments to `pivot_wider()` and `complete()`.
 
 <div class="answer">
 
-The `values_fill` argument in `pivot_wider()` and the `fill` argument to `complete()` both set vales to replace `NA`. 
+The `values_fill` argument in `pivot_wider()` and the `fill` argument to `complete()` both set values to replace `NA`. 
 Both arguments accept named lists to set values for each column.
 Additionally, the `values_fill` argument of `pivot_wider()` accepts a single value.
-In `complete()`, the fill argument also sets a value to replace `NA`s but it is named list, allowing for different values for different variables.
+In `complete()`, the fill argument also sets a value to replace `NA`s but it is a named list, allowing for different values for different variables.
 Also, both cases replace both implicit and explicit missing values.
 
-For example, this will fill in the missing values of the long data frame with `0`  `complete()`:
+For example, this will fill in the missing values of the long data frame with `0` by the `values_fill` argument of `pivot_wider()`:
 ```{r}
 stocks <- tibble(
   year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
@@ -563,7 +563,7 @@ stocks %>%
               values_fill = 0)
 ```
 
-For example, this will fill in the missing values of the long data frame with `0`  `complete()`:
+For example, this will fill in the missing values of the long data frame with `0` by `complete()`:
 ```{r}
 stocks %>% 
  complete(year, qtr, fill=list(return=0))
