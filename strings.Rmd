@@ -822,20 +822,10 @@ From the Harvard sentences data, extract:
 The answer to each part follows.
 
 1.  Finding the first word in each sentence requires defining what a pattern constitutes a word. For the purposes of this question,
-    I'll consider a word any contiguous set of letters.
-    Since `str_extract()` will extract the first match, if it is provided a 
-    regular expression for words, it will return the first word.
+    I'll consider a word to be anything non-empty and not followed by whitespace.
 
     ```{r}
-    str_extract(sentences, "[A-ZAa-z]+") %>% head()
-    ```
-    
-    However, the third sentence begins with "It's". To catch this, I'll 
-    change the regular expression to require the string to begin with a letter,
-    but allow for a subsequent apostrophe.
-    
-    ```{r}
-    str_extract(sentences, "[A-Za-z][A-Za-z']*") %>% head()
+    str_extract(sentences, "^[^\\s]+") %>% head()
     ```
 
 1.  This pattern finds all words ending in `ing`.
