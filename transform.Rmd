@@ -545,7 +545,7 @@ select(flights, vars)
 ```
 However there is a problem with the previous code.
 The name `vars` could refer to a column named `vars` in `flights` or a different variable named `vars`.
-What th code does will depend on whether or not `vars` is a column in `flights`.
+What the code does will depend on whether or not `vars` is a column in `flights`.
 If `vars` was a column in `flights`, then that code would only select the `vars` column. 
 For example:
 ```{r}
@@ -556,7 +556,7 @@ select(flights, vars)
 flights <- select(flights, -vars)
 ```
 
-However,  `vars` is not a column in `flights`, as is the case, then `select` will use the value the value of the , and select those columns.
+However, if `vars` is not a column in `flights`, as is the case, then `select` will use the values from the character vector `vars` and select those columns.
 If it has the same name or to ensure that it will not conflict with the names of the columns in the data frame, use the `!!!` (bang-bang-bang) operator.
 ```{r}
 select(flights, !!!vars)
