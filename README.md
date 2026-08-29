@@ -2,6 +2,8 @@
 
 # Exercise Solutions to R for Data Science (1st edition)
 
+**Read the solutions at <https://jrnold.github.io/r4ds-exercise-solutions/>**
+
 > [!WARNING]
 > **This repository is archived and no longer maintained.**
 >
