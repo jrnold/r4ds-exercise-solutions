@@ -16,7 +16,7 @@ still serving the stale 2019-era build, Google Analytics included.
 |---|---|
 | 1. Pinned build environment | **Done** — `8e8d485`, `2b09baf` |
 | 2. Baseline render + chunk repair | **Done** — `1260bad`. Nothing needed repair. |
-| 3. Superseded banner | **Done** — `fce4361` |
+| 3. Superseded banner | **Done** — `fce4361`, `675bc75` |
 | 4. Remove trackers, freeze contributor lists | **Done** — `c849aa7` |
 | 5. Retire contribution invitations | **Done** — `e5a5b90` |
 | 6. CI in the pinned container | **Done** — `9df2529` |
@@ -57,6 +57,29 @@ hypothes.is/embed.js
 This also fixes the order of Tasks 7 and 8: archiving disables Actions, so
 archiving before a successful deploy would leave the tracker live and
 unfixable without unarchiving first.
+
+## Verification gate (2026-08-29, against `_build/`)
+
+Checked on the built HTML, not on source. Checking source would have missed
+the part-introduction gap entirely.
+
+```
+render                    exit 0, 0 chunk failures, 33 pages
+banner coverage           32 / 33 pages
+  without banner          contributing.html (deliberate)
+trackers in _build/       none
+edit/history links        none
+r4ds.hadley.nz link       33 / 33 pages
+2e solutions link         33 / 33 pages
+contributing.html         built
+github credits            79
+hypothes.is credits       130
+```
+
+One correction worth recording: the first run of this gate reported the edit
+links as still present. That was a broken test, not a broken build —
+`grep -rl ... | head && echo FAIL` takes the `&&` branch because `head` exits 0
+on empty input. Any gate of the form `grep | head && FAIL` is unsound.
 
 ## Rulings
 
