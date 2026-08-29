@@ -57,3 +57,31 @@ no_exercises <- function() {
     )
   )
 }
+
+# Emitted at the top of every chapter. gitbook renders one HTML document and
+# then splits it, so an `includes: in_header` entry would reach every page but
+# only as injected markup, and a `before_body` include would land on the first
+# page alone. Calling this per chapter is what puts the notice on every page as
+# real HTML.
+deprecation_banner <- function() {
+  tags <- htmltools::tags
+  tags$div(
+    class = "alert alert-warning",
+    tags$p(tags$strong("This book is superseded.")),
+    tags$p(
+      "These are solutions to the ",
+      tags$strong("1st edition"),
+      " of ",
+      tags$em("R for Data Science"),
+      ". A ",
+      tags$a(href = "https://r4ds.hadley.nz/", "2nd edition"),
+      " has since been published, with its own ",
+      tags$a(
+        href = "https://mine-cetinkaya-rundel.github.io/r4ds-solutions/",
+        "solutions to the exercises"
+      ),
+      "."
+    ),
+    tags$p("This site is no longer maintained. It is kept online for reference.")
+  )
+}
