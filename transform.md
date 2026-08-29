@@ -5,12 +5,35 @@ editor_options:
 ---
 # Data transformation {#transform .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-2 .r4ds-section}
 
 
 ```r
 library("nycflights13")
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 ```
 
 ## Filter rows with `filter()` {#filter-rows-with-filter .r4ds-section}
@@ -1808,7 +1831,7 @@ not_cancelled %>%
   count(dest)
 #> # A tibble: 104 x 2
 #>   dest      n
-#>   <chr> <int>
+#> * <chr> <int>
 #> 1 ABQ     254
 #> 2 ACK     264
 #> 3 ALB     418
@@ -1826,10 +1849,9 @@ Instead of using the `count()` function, we can combine the `group_by()` and `su
 not_cancelled %>%
   group_by(dest) %>%
   summarise(n = length(dest))
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 104 x 2
 #>   dest      n
-#>   <chr> <int>
+#> * <chr> <int>
 #> 1 ABQ     254
 #> 2 ACK     264
 #> 3 ALB     418
@@ -1846,10 +1868,9 @@ An alternative method for getting the number of observations in a data frame is 
 not_cancelled %>%
   group_by(dest) %>%
   summarise(n = n())
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 104 x 2
 #>   dest      n
-#>   <chr> <int>
+#> * <chr> <int>
 #> 1 ABQ     254
 #> 2 ACK     264
 #> 3 ALB     418
@@ -1869,7 +1890,7 @@ not_cancelled %>%
   tally()
 #> # A tibble: 4,037 x 2
 #>   tailnum     n
-#>   <chr>   <int>
+#> * <chr>   <int>
 #> 1 D942DN      4
 #> 2 N0EGMQ    352
 #> 3 N10156    145
@@ -1887,7 +1908,7 @@ not_cancelled %>%
   count(tailnum, wt = distance)
 #> # A tibble: 4,037 x 2
 #>   tailnum      n
-#>   <chr>    <dbl>
+#> * <chr>    <dbl>
 #> 1 D942DN    3418
 #> 2 N0EGMQ  239143
 #> 3 N10156  109664
@@ -1905,10 +1926,9 @@ But this time instead of using `length()`, we will use `sum()` with the weightin
 not_cancelled %>%
   group_by(tailnum) %>%
   summarise(n = sum(distance))
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 4,037 x 2
 #>   tailnum      n
-#>   <chr>    <dbl>
+#> * <chr>    <dbl>
 #> 1 D942DN    3418
 #> 2 N0EGMQ  239143
 #> 3 N10156  109664
@@ -1928,7 +1948,7 @@ not_cancelled %>%
   tally(distance)
 #> # A tibble: 4,037 x 2
 #>   tailnum      n
-#>   <chr>    <dbl>
+#> * <chr>    <dbl>
 #> 1 D942DN    3418
 #> 2 N0EGMQ  239143
 #> 3 N10156  109664
@@ -2012,7 +2032,7 @@ cancelled_per_day <-
     cancelled_num = sum(cancelled),
     flights_num = n(),
   )
-#> `summarise()` regrouping output by 'year', 'month' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
 ```
 Plotting `flights_num` against `cancelled_num` shows that the number of flights
 cancelled increases with the total number of flights.
@@ -2039,7 +2059,7 @@ cancelled_and_delays <-
     avg_arr_delay = mean(arr_delay, na.rm = TRUE)
   ) %>%
   ungroup()
-#> `summarise()` regrouping output by 'year', 'month' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
 ```
 
 There is a strong increasing relationship between both average departure delay and  
@@ -2079,7 +2099,6 @@ flights %>%
   group_by(carrier) %>%
   summarise(arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
   arrange(desc(arr_delay))
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 16 x 2
 #>   carrier arr_delay
 #>   <chr>       <dbl>
@@ -2136,8 +2155,7 @@ flights %>%
   group_by(carrier) %>%
   summarise(arr_delay_diff = mean(arr_delay_diff)) %>%
   arrange(desc(arr_delay_diff))
-#> `summarise()` regrouping output by 'origin', 'dest' (override with `.groups` argument)
-#> `summarise()` ungrouping output (override with `.groups` argument)
+#> `summarise()` has grouped output by 'origin', 'dest'. You can override using the `.groups` argument.
 #> # A tibble: 15 x 2
 #>   carrier arr_delay_diff
 #>   <chr>            <dbl>
@@ -2447,7 +2465,6 @@ flights %>%
   group_by(tailnum) %>%
   summarise(on_time = mean(on_time), n = n()) %>%
   filter(min_rank(on_time) == 1)
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 110 x 3
 #>   tailnum on_time     n
 #>   <chr>     <dbl> <int>
@@ -2479,7 +2496,6 @@ flights %>%
   summarise(on_time = mean(on_time), n = n()) %>%
   filter(n >= 20) %>%
   filter(min_rank(on_time) == 1)
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 1 x 3
 #>   tailnum on_time     n
 #>   <chr>     <dbl> <int>
@@ -2501,7 +2517,6 @@ flights %>%
   summarise(arr_delay = mean(arr_delay), n = n()) %>%
   filter(n >= 20) %>%
   filter(min_rank(desc(arr_delay)) == 1)
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 1 x 3
 #>   tailnum arr_delay     n
 #>   <chr>       <dbl> <int>
@@ -2529,7 +2544,6 @@ flights %>%
   group_by(hour) %>%
   summarise(arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
   arrange(arr_delay)
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 20 x 2
 #>    hour arr_delay
 #>   <dbl>     <dbl>
@@ -2600,7 +2614,7 @@ flights %>%
   ) %>%
   arrange(dest, desc(arr_delay_prop)) %>%
   select(carrier, flight, origin, dest, arr_delay_prop)
-#> `summarise()` regrouping output by 'dest', 'origin', 'carrier' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'dest', 'origin', 'carrier'. You can override using the `.groups` argument.
 #> # A tibble: 8,834 x 5
 #> # Groups:   dest [103]
 #>   carrier flight origin dest  arr_delay_prop
@@ -2662,7 +2676,7 @@ lagged_delays %>%
   geom_point() +
   facet_wrap(~ origin, ncol=1) +
   labs(y = "Departure Delay", x = "Previous Departure Delay")
-#> `summarise()` regrouping output by 'origin' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'origin'. You can override using the `.groups` argument.
 ```
 
 <img src="transform_files/figure-html/unnamed-chunk-125-1.png" width="70%" style="display: block; margin: auto;" />
@@ -2958,8 +2972,10 @@ air_time_delayed <-
     air_time_delay = air_time - air_time_min,
     air_time_delay_pct = air_time_delay / air_time_min * 100
   )
-#> Warning in min(air_time, na.rm = TRUE): no non-missing arguments to min;
-#> returning Inf
+#> Warning: Problem with `mutate()` input `air_time_min`.
+#> ℹ no non-missing arguments to min; returning Inf
+#> ℹ Input `air_time_min` is `min(air_time, na.rm = TRUE)`.
+#> ℹ The error occurred in group 41: origin = "EWR", dest = "LGA".
 ```
 
 
@@ -3064,7 +3080,6 @@ flights %>%
    group_by(carrier) %>%
    summarize(n_dest = n_distinct(dest)) %>%
    arrange(desc(n_dest))
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 16 x 2
 #>   carrier n_dest
 #>   <chr>    <int>
@@ -3130,7 +3145,6 @@ flights %>%
   # count the number of flights == 0
   summarise(total_flights = sum(cumulative_hr_delays < 1)) %>%
   arrange(total_flights)
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 4,037 x 2
 #>   tailnum total_flights
 #>   <chr>           <int>

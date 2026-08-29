@@ -5,11 +5,34 @@ editor_options:
 ---
 # Data import {#data-import .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-5 .r4ds-section}
 
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 ```
 
 ## Getting started {#getting-started .r4ds-section}
@@ -199,7 +222,7 @@ The values are separated by ";" rather than ",". Use `read_csv2()` instead:
 
 ```r
 read_csv2("a;b\n1;3")
-#> Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.
+#> ℹ Using ',' as decimal and '.' as grouping mark. Use `read_delim()` for more control.
 #> # A tibble: 1 x 2
 #>       a     b
 #>   <dbl> <dbl>
@@ -499,27 +522,39 @@ parse_time(t2, "%H:%M:%OS %p")
 
 ## Parsing a file {#parsing-a-file .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Writing to a file {#writing-to-a-file .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Other types of data {#other-types-of-data .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+

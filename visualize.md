@@ -6,11 +6,34 @@ editor_options:
 ---
 # Data visualisation {#data-visualisation .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-1 .r4ds-section}
 
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 ```
 
 ## First steps {#first-steps .r4ds-section}
@@ -468,12 +491,16 @@ This also explains why, in [Exercise 3.3.1](#exercise-3.3.1), the expression `co
 
 ## Common problems {#common-problems .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Facets
 
@@ -1644,11 +1671,15 @@ The function `ggthemes::bank_slopes()` will calculate the optimal aspect ratio t
 
 ## The layered grammar of graphics {#the-layered-grammar-of-graphics .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 [^factor]: Internally, this is what the `factor` class, which is covered in [Chapter 15](https://r4ds.had.co.nz/factors.html), does.

@@ -1,10 +1,33 @@
 # Dates and times {#dates-and-times .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-10 .r4ds-section}
 
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 library("lubridate")
 library("nycflights13")
 ```
@@ -118,7 +141,6 @@ sched_dep <- flights_dt %>%
     avg_delay = mean(arr_delay, na.rm = TRUE),
     n = n()
   )
-#> `summarise()` ungrouping output (override with `.groups` argument)
 ```
 In the previous code, the difference between rounded and un-rounded dates provides the within-period time.
 
@@ -257,7 +279,6 @@ flights_dt %>%
   ggplot(aes(y = dep_delay, x = sched_dep_hour)) +
   geom_point() +
   geom_smooth()
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
@@ -287,10 +308,9 @@ flights_dt %>%
     arr_delay = mean(arr_delay, na.rm = TRUE)
   ) %>%
   print(n = Inf)
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 7 x 3
 #>     dow dep_delay arr_delay
-#>   <dbl>     <dbl>     <dbl>
+#> * <dbl>     <dbl>     <dbl>
 #> 1     1     11.5       4.82
 #> 2     2     14.7       9.65
 #> 3     3     10.6       5.39
@@ -308,7 +328,6 @@ flights_dt %>%
   summarize(ave_dep_delay = mean(dep_delay, na.rm = TRUE)) %>% 
   ggplot(aes(x = wday, y = ave_dep_delay)) + 
   geom_bar(stat = "identity")
-#> `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 <img src="datetimes_files/figure-html/16.3.5.fig1-1.png" width="70%" style="display: block; margin: auto;" />
@@ -321,7 +340,6 @@ flights_dt %>%
   summarize(ave_arr_delay = mean(arr_delay, na.rm = TRUE)) %>% 
   ggplot(aes(x = wday, y = ave_arr_delay)) + 
   geom_bar(stat = "identity")
-#> `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 <img src="datetimes_files/figure-html/16.3.5.fig2-1.png" width="70%" style="display: block; margin: auto;" />
@@ -394,7 +412,6 @@ flights_dt %>%
     n = n()) %>% 
   ggplot(aes(minute, early)) +
     geom_line()
-#> `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 <img src="datetimes_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
@@ -464,9 +481,9 @@ I can do that by taking `today()` and truncating it to the year using `floor_dat
 
 ```r
 floor_date(today(), unit = "year") + months(0:11)
-#>  [1] "2020-01-01" "2020-02-01" "2020-03-01" "2020-04-01" "2020-05-01"
-#>  [6] "2020-06-01" "2020-07-01" "2020-08-01" "2020-09-01" "2020-10-01"
-#> [11] "2020-11-01" "2020-12-01"
+#>  [1] "2026-01-01" "2026-02-01" "2026-03-01" "2026-04-01" "2026-05-01"
+#>  [6] "2026-06-01" "2026-07-01" "2026-08-01" "2026-09-01" "2026-10-01"
+#> [11] "2026-11-01" "2026-12-01"
 ```
 
 </div>
@@ -487,7 +504,7 @@ age <- function(bday) {
   (bday %--% today()) %/% years(1)
 }
 age(ymd("1990-10-12"))
-#> [1] 29
+#> [1] 35
 ```
 
 </div>
@@ -543,9 +560,13 @@ as.Date("2016-02-29") + years(1)
 
 ## Time zones {#time-zones .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+

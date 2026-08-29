@@ -1,10 +1,33 @@
 # Functions {#functions .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-12 .r4ds-section}
 
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 library("lubridate")
 ```
 
@@ -954,20 +977,28 @@ The first value, `"pearson"`, is used by default.
 
 ## Return values {#return-values .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Environment {#environment .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 [fizzbuzz]: Read [Why I’m still using “Fizz Buzz” to hire Software-Developers](https://hackernoon.com/why-im-still-using-fizz-buzz-to-hire-software-developers-7e31a89a4bbf) for more discussion on the use of the Fizz-Buzz question in programming interviews.

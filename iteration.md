@@ -1,5 +1,27 @@
 # Iteration {#iteration .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-14 .r4ds-section}
 
 The **microbenchmark** package is used for timing code.
@@ -7,6 +29,7 @@ The **microbenchmark** package is used for timing code.
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 library("stringr")
 library("microbenchmark")
 ```
@@ -501,13 +524,13 @@ The answers to each part follow.
       }
     }
     beer_bottles(3)
-    #> 3 Bottles of beer on the wall, 3 bottles of beer.
+    #> 3 bottles of beer on the wall, 3 bottles of beer.
     #> Take one down and pass it around, 2 bottles of beer on the wall.
     #> 
-    #> 2 Bottles of beer on the wall, 2 bottles of beer.
+    #> 2 bottles of beer on the wall, 2 bottles of beer.
     #> Take one down and pass it around, 1 bottle of beer on the wall.
     #> 
-    #> 1 Bottle of beer on the wall, 1 bottle of beer.
+    #> 1 bottle of beer on the wall, 1 bottle of beer.
     #> Take one down and pass it around, no more bottles of beer on the wall.
     #> 
     #> No more bottles of beer on the wall, no more bottles of beer.
@@ -570,14 +593,14 @@ In particular, the `microbenchmark()` function will run an R expression a number
 timings <- microbenchmark(add_to_vector(10000), add_to_vector_2(10000), times = 10)
 timings
 #> Unit: microseconds
-#>                    expr    min     lq   mean median     uq    max neval
-#>    add_to_vector(10000) 111658 113151 119034 117233 120429 143037    10
-#>  add_to_vector_2(10000)    337    348   1400    360    486   6264    10
+#>                    expr   min    lq  mean median    uq   max neval
+#>    add_to_vector(10000) 76721 77515 79401  78277 80424 87935    10
+#>  add_to_vector_2(10000)   383   390   650    402   425  2871    10
 ```
 
 
 
-In this example, appending to a vector takes 325 times longer than pre-allocating the vector.
+In this example, appending to a vector takes 195 times longer than pre-allocating the vector.
 You may get different answers, but the longer the vector and the larger the objects, the more that pre-allocation will outperform appending.
 
 </div>
@@ -617,17 +640,22 @@ The result is a list of data frames.
 for (i in seq_along(files)) {
   df_list[[i]] <- read_csv(files[[i]])
 }
-#> Parsed with column specification:
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
 #> cols(
 #>   X1 = col_double(),
 #>   X2 = col_character()
 #> )
-#> Parsed with column specification:
+#> 
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
 #> cols(
 #>   X1 = col_double(),
 #>   X2 = col_character()
 #> )
-#> Parsed with column specification:
+#> 
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
 #> cols(
 #>   X1 = col_double(),
 #>   X2 = col_character()
@@ -684,17 +712,22 @@ names(df2_list) <- files
 for (fname in files) {
   df2_list[[fname]] <- read_csv(fname)
 }
-#> Parsed with column specification:
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
 #> cols(
 #>   X1 = col_double(),
 #>   X2 = col_character()
 #> )
-#> Parsed with column specification:
+#> 
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
 #> cols(
 #>   X1 = col_double(),
 #>   X2 = col_character()
 #> )
-#> Parsed with column specification:
+#> 
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
 #> cols(
 #>   X1 = col_double(),
 #>   X2 = col_character()
@@ -895,17 +928,17 @@ For example, the following example calculates the row means of a matrix.
 ```r
 X <- matrix(rnorm(15), nrow = 5)
 X
-#>         [,1]   [,2]   [,3]
-#> [1,] -1.4523  0.124  0.709
-#> [2,]  0.9412 -0.998 -1.529
-#> [3,] -0.3389  1.233  0.237
-#> [4,] -0.0756  0.340 -1.313
-#> [5,]  0.0402 -0.473  0.747
+#>        [,1]     [,2]   [,3]
+#> [1,] -0.903  1.38291 -0.830
+#> [2,]  1.318  0.00313 -0.504
+#> [3,]  1.100 -0.07789 -1.194
+#> [4,]  1.204  0.44143 -0.752
+#> [5,] -1.431  0.12892  1.456
 ```
 
 ```r
 apply(X, 1, mean)
-#> [1] -0.206 -0.529  0.377 -0.349  0.105
+#> [1] -0.1167  0.2724 -0.0571  0.2978  0.0512
 ```
 That is equivalent to this for-loop.
 
@@ -915,25 +948,25 @@ for (i in seq_len(nrow(X))) {
   X_row_means[[i]] <- mean(X[i, ])
 }
 X_row_means
-#> [1] -0.206 -0.529  0.377 -0.349  0.105
+#> [1] -0.1167  0.2724 -0.0571  0.2978  0.0512
 ```
 
 ```r
 X <- matrix(rnorm(15), nrow = 5)
 X
-#>         [,1]   [,2]     [,3]
-#> [1,] -1.5625  1.153  1.20377
-#> [2,]  0.0711 -1.687 -1.43127
-#> [3,] -0.6395 -0.903  1.38291
-#> [4,] -0.8452  1.318  0.00313
-#> [5,]  0.6752  1.100 -0.07789
+#>        [,1]    [,2]   [,3]
+#> [1,] -0.829  0.1497 -2.102
+#> [2,]  0.290 -1.4333  1.893
+#> [3,] -0.480 -0.0103 -0.968
+#> [4,] -0.605 -0.2122 -0.103
+#> [5,]  1.460 -0.9063  0.240
 ```
 
 When `MARGIN = 2`, `apply()` is equivalent to a for-loop looping over columns.
 
 ```r
 apply(X, 2, mean)
-#> [1] -0.460  0.196  0.216
+#> [1] -0.0327 -0.4825 -0.2079
 ```
 
 ```r
@@ -942,7 +975,7 @@ for (i in seq_len(ncol(X))) {
   X_col_means[[i]] <- mean(X[, i])
 }
 X_col_means
-#> [1] -0.460  0.196  0.216
+#> [1] -0.0327 -0.4825 -0.2079
 ```
 
 </div>
@@ -1102,17 +1135,16 @@ Write code that uses one of the map functions to:
     ```r
     map(c(-10, 0, 10, 100), ~rnorm(n = 10, mean = .))
     #> [[1]]
-    #>  [1]  -9.56  -9.87 -10.83 -10.50 -11.19 -10.75  -8.54 -10.83  -9.71 -10.48
+    #>  [1]  -9.94 -12.18 -10.12  -9.89  -9.99  -8.12  -7.84  -9.29  -9.23 -10.31
     #> 
     #> [[2]]
-    #>  [1] -0.6048  1.4601  0.1497 -1.4333 -0.0103 -0.2122 -0.9063 -2.1022  1.8934
-    #> [10] -0.9681
+    #>  [1]  1.012 -0.919  0.563  0.322  0.367  1.130 -0.941  0.218  1.415 -0.384
     #> 
     #> [[3]]
-    #>  [1]  9.90 10.24 10.06  7.82  9.88 10.11 10.01 11.88 12.16 10.71
+    #>  [1]  9.83  9.78  8.99 10.48 11.60  8.48  8.58 10.88 10.62 12.11
     #> 
     #> [[4]]
-    #>  [1] 100.8  99.7 101.0  99.1 100.6 100.3 100.4 101.1  99.1 100.2
+    #>  [1]  99.6  98.9 101.1 101.2 100.2  99.6 100.6 102.0 101.9  98.4
     ```
     Since a single call of `rnorm()` returns a numeric vector with a length greater
     than one we cannot use `map_dbl`, which requires the function to return a numeric
@@ -1178,28 +1210,28 @@ map(c("Hello", "World"), str_to_upper)
 #> [1] "WORLD"
 map(1:5, ~ rnorm(.))
 #> [[1]]
-#> [1] 1.42
+#> [1] -0.54
 #> 
 #> [[2]]
-#> [1] -0.384 -0.174
+#> [1] -1.169  0.559
 #> 
 #> [[3]]
-#> [1] -0.222 -1.010  0.481
+#> [1] -1.8193  0.3933  0.0421
 #> 
 #> [[4]]
-#> [1]  1.604 -1.515 -1.416  0.877
+#> [1]  1.180 -0.257 -1.056  0.199
 #> 
 #> [[5]]
-#> [1]  0.624  2.112 -0.356 -1.064  1.077
+#> [1] 0.651 0.344 1.478 0.072 2.126
 map(c(-0.5, 0, 1), ~ rnorm(1, mean = .))
 #> [[1]]
-#> [1] 0.682
+#> [1] -1.98
 #> 
 #> [[2]]
-#> [1] 0.198
+#> [1] 0.408
 #> 
 #> [[3]]
-#> [1] 0.6
+#> [1] 2.39
 ```
 
 It is important to be aware that while the input of `map()` can be any vector, the output is always a list.
@@ -1208,19 +1240,19 @@ It is important to be aware that while the input of `map()` can be any vector, t
 ```r
 map(1:5, runif)
 #> [[1]]
-#> [1] 0.731
+#> [1] 0.641
 #> 
 #> [[2]]
-#> [1] 0.852 0.976
+#> [1] 0.201 0.744
 #> 
 #> [[3]]
-#> [1] 0.113 0.970 0.648
+#> [1] 0.848 0.854 0.803
 #> 
 #> [[4]]
-#> [1] 0.0561 0.4731 0.2946 0.6103
+#> [1] 0.0239 0.7954 0.8866 0.6000
 #> 
 #> [[5]]
-#> [1] 0.1211 0.6294 0.7120 0.6121 0.0344
+#> [1] 0.433 0.920 0.616 0.436 0.897
 ```
 This expression is equivalent to running the following.
 
@@ -1233,19 +1265,19 @@ list(
   runif(5)
 )
 #> [[1]]
-#> [1] 0.666
+#> [1] 0.769
 #> 
 #> [[2]]
-#> [1] 0.653 0.452
+#> [1] 0.128 0.539
 #> 
 #> [[3]]
-#> [1] 0.517 0.677 0.881
+#> [1] 0.129 0.511 0.544
 #> 
 #> [[4]]
-#> [1] 0.731 0.399 0.431 0.145
+#> [1] 0.242 0.803 0.948 0.407
 #> 
 #> [[5]]
-#> [1] 0.4511 0.5788 0.0704 0.7423 0.5492
+#> [1] 0.515 0.982 0.354 0.456 0.220
 ```
 The `map()` function loops through the numbers 1 to 5.
 For each value, it calls the `runif()` with that number as the first argument, which is the number of sample to draw.
@@ -1271,19 +1303,19 @@ Consider the first expression.
 ```r
 map(-2:2, rnorm, n = 5)
 #> [[1]]
-#> [1] -1.656 -0.522 -1.928  0.126 -3.476
+#> [1] -3.393 -3.142 -0.295 -2.080 -2.437
 #> 
 #> [[2]]
-#> [1] -0.5921  0.3940 -0.6397 -0.3454  0.0522
+#> [1] -1.119 -0.214 -1.579 -1.145 -0.474
 #> 
 #> [[3]]
-#> [1] -1.980  1.208 -0.169  0.295  1.266
+#> [1]  1.734  1.449  1.518 -0.384  1.827
 #> 
 #> [[4]]
-#> [1] -0.135 -0.131  1.110  1.853  0.766
+#> [1] 0.449 0.134 0.656 2.063 1.813
 #> 
 #> [[5]]
-#> [1] 4.087 1.889 0.607 0.858 3.705
+#> [1] 3.803 1.895 2.982 0.287 1.168
 ```
 This expression takes samples of size five from five normal distributions, with means of (-2, -1, 0, 1, and 2), but the same standard deviation (1).
 It returns a list with each element a numeric vectors of length 5.
@@ -1309,9 +1341,10 @@ To return a numeric vector, use `flatten_dbl()` to coerce the list returned by `
 ```r
 map(-2:2, rnorm, n = 5) %>%
   flatten_dbl()
-#>  [1] -2.145 -1.474 -0.266 -0.551 -0.482 -1.384  0.827 -1.551 -1.866 -1.344
-#> [11]  1.063  0.813  1.803 -0.105  0.982 -0.713  0.168  2.100  0.826  1.179
-#> [21]  1.302  1.040  1.025  1.661  3.152
+#>  [1] -2.97542 -2.33858 -0.84765 -1.59490 -2.47092 -1.13325  0.22668 -0.66706
+#>  [9] -1.34709 -1.09855  0.03477  0.38613  0.02083  0.00759  0.93084  0.31525
+#> [17]  1.33740  0.58786  1.93426  2.84032  1.29518  2.00851  4.03419  0.65831
+#> [25]  3.15898
 ```
 
 </div>
@@ -1434,30 +1467,42 @@ map(x, run_reg)
 
 ## Dealing with failure {#dealing-with-failure .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Mapping over multiple arguments {#mapping-over-multiple-arguments .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Walk {#walk .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Other patterns of for loops {#other-patterns-of-for-loops .r4ds-section}
 

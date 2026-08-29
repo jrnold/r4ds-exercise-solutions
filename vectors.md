@@ -1,20 +1,47 @@
 # Vectors {#vectors .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-13 .r4ds-section}
 
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 ```
 
 ## Vector basics {#vector-basics .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Important types of atomic vector {#important-types-of-atomic-vector .r4ds-section}
 
@@ -69,7 +96,7 @@ dplyr::near
 #> {
 #>     abs(x - y) < tol
 #> }
-#> <bytecode: 0x5d8e8a8>
+#> <bytecode: 0x55555a3ff0a8>
 #> <environment: namespace:dplyr>
 ```
 
@@ -287,7 +314,6 @@ function(x, method) {
 #>     y
 #>   }
 #> }
-#> <environment: 0x2b114b8>
 ```
 
 
@@ -417,14 +443,14 @@ parse_integer(c("1000", "$1,000", "10.00"))
 #> Warning: 2 parsing failures.
 #> row col               expected actual
 #>   2  -- an integer             $1,000
-#>   3  -- no trailing characters .00
+#>   3  -- no trailing characters 10.00
 #> [1] 1000   NA   NA
 #> attr(,"problems")
 #> # A tibble: 2 x 4
 #>     row   col expected               actual
 #>   <int> <int> <chr>                  <chr> 
 #> 1     2    NA an integer             $1,000
-#> 2     3    NA no trailing characters .00
+#> 2     3    NA no trailing characters 10.00
 ```
 
 The function `parse_number()` parses numeric values.
@@ -914,8 +940,11 @@ For these examples, I generated these diagrams programmatically using the
     `list(list(list(list(list(list(a))))))`
     is:
 
-    <!--html_preserve--><div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:70%;height:415.296px;" class="grViz html-widget"></div>
-    <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"diagram":"digraph nested_set_2 {\n  node[shape=box]\n  graph[style=rounded]\n  # subgraph for R information\n  subgraph cluster_1 {\n    subgraph cluster_2 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      subgraph cluster_3 {\n        graph[fillcolor=gray80]\n        subgraph cluster_4 {\n          graph[fillcolor=gray70]\n          subgraph cluster_5 {\n            graph[fillcolor=gray60]\n            subgraph cluster_6 {\n              graph[fillcolor=gray50]\n              node[style=filled,fillcolor=gray40]\n              \"a\"\n            }\n          }\n        }\n      }\n    }\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+    
+    ```{=html}
+    <div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:70%;height:415.296px;" class="grViz html-widget"></div>
+    <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"diagram":"digraph nested_set_2 {\n  node[shape=box]\n  graph[style=rounded]\n  # subgraph for R information\n  subgraph cluster_1 {\n    subgraph cluster_2 {\n      graph[fillcolor=gray90,style=\"rounded,filled\"]\n      subgraph cluster_3 {\n        graph[fillcolor=gray80]\n        subgraph cluster_4 {\n          graph[fillcolor=gray70]\n          subgraph cluster_5 {\n            graph[fillcolor=gray60]\n            subgraph cluster_6 {\n              graph[fillcolor=gray50]\n              node[style=filled,fillcolor=gray40]\n              \"a\"\n            }\n          }\n        }\n      }\n    }\n  }\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+    ```
 
 </div>
 
@@ -960,12 +989,16 @@ x[1, ]
 
 ## Attributes {#attributes .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Augmented vectors {#augmented-vectors .r4ds-section}
 

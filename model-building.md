@@ -1,5 +1,27 @@
 # Model building {#model-building .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-16 .r4ds-section}
 
 The splines package is needed for the `ns()` function used in one of the 
@@ -8,6 +30,7 @@ solutions.
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 library("modelr")
 library("lubridate")
 library("broom")
@@ -301,11 +324,10 @@ daily <- flights %>%
   mutate(date = make_date(year, month, day)) %>%
   group_by(date) %>%
   summarise(n = n())
-#> `summarise()` ungrouping output (override with `.groups` argument)
 daily
 #> # A tibble: 365 x 2
 #>   date           n
-#>   <date>     <int>
+#> * <date>     <int>
 #> 1 2013-01-01   842
 #> 2 2013-01-02   943
 #> 3 2013-01-03   914
@@ -440,16 +462,16 @@ More importantly for prediction purposes, this model has a higher AIC, which is 
 glance(mod3) %>% select(r.squared, sigma, AIC, df)
 #> # A tibble: 1 x 4
 #>   r.squared sigma   AIC    df
-#>       <dbl> <dbl> <dbl> <int>
-#> 1     0.736  47.4 3863.     9
+#>       <dbl> <dbl> <dbl> <dbl>
+#> 1     0.736  47.4 3863.     8
 ```
 
 ```r
 glance(mod2) %>% select(r.squared, sigma, AIC, df)
 #> # A tibble: 1 x 4
 #>   r.squared sigma   AIC    df
-#>       <dbl> <dbl> <dbl> <int>
-#> 1     0.757  46.2 3856.    21
+#>       <dbl> <dbl> <dbl> <dbl>
+#> 1     0.757  46.2 3856.    20
 ```
 
 </div>
@@ -792,7 +814,7 @@ flights %>%
   summarise(distance = mean(distance)) %>%
   ggplot(aes(x = hour, color = wday, y = distance)) +
   geom_line()
-#> `summarise()` regrouping output by 'wday' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'wday'. You can override using the `.groups` argument.
 ```
 
 <img src="model-building_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
@@ -815,7 +837,7 @@ flights %>%
   ungroup() %>%
   ggplot(aes(x = hour, color = wday, y = prop_distance)) +
   geom_line()
-#> `summarise()` regrouping output by 'wday' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'wday'. You can override using the `.groups` argument.
 ```
 
 <img src="model-building_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" />
@@ -851,7 +873,7 @@ flights %>%
   summarise(distance = mean(distance)) %>%
   ggplot(aes(color = wday, y = distance, x = time)) +
   geom_point()
-#> `summarise()` regrouping output by 'wday' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'wday'. You can override using the `.groups` argument.
 ```
 
 <img src="model-building_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" />
@@ -896,9 +918,13 @@ ggplot(daily, aes(monday_first(wday), n)) +
 
 ## Learning more about models {#learning-more-about-models .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+

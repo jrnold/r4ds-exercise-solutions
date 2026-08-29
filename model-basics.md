@@ -6,11 +6,34 @@ editor_options:
 
 # Model basics {#model-basics .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-15 .r4ds-section}
 
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 library("modelr")
 ```
 
@@ -774,10 +797,9 @@ This is confirmed by checking the standard deviation of the residuals of these m
 sim4_mods %>%
   group_by(model) %>%
   summarise(resid = sd(resid))
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> # A tibble: 2 x 2
 #>   model resid
-#>   <chr> <dbl>
+#> * <chr> <dbl>
 #> 1 mod1   2.10
 #> 2 mod2   2.07
 ```
@@ -787,18 +809,26 @@ The standard deviation of the residuals of `mod2` is smaller than that of `mod1`
 
 ## Missing values {#missing-values-5 .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Other model families {#other-model-families .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+

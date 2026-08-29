@@ -1,11 +1,34 @@
 # Many models {#many-models .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-17 .r4ds-section}
 
 
 ```r
 library("modelr")
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 library("gapminder")
 ```
 
@@ -153,12 +176,16 @@ gapminder %>%
 
 ## List-columns {#list-columns-1 .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Creating list-columns {#creating-list-columns .r4ds-section}
 
@@ -267,7 +294,6 @@ mtcars %>%
   group_by(cyl) %>%
   summarise(q = list(quantile(mpg))) %>%
   unnest()
-#> `summarise()` ungrouping output (override with `.groups` argument)
 #> Warning: `cols` is now required when using unnest().
 #> Please use `cols = c(q)`
 #> # A tibble: 15 x 2
@@ -339,7 +365,7 @@ mtcars %>%
 #> Call `lifecycle::last_warnings()` to see where this warning was generated.
 #> # A tibble: 3 x 11
 #>     cyl mpg     disp    hp      drat   wt     qsec   vs     am     gear   carb  
-#>   <dbl> <list>  <list>  <list>  <list> <list> <list> <list> <list> <list> <list>
+#> * <dbl> <list>  <list>  <list>  <list> <list> <list> <list> <list> <list> <list>
 #> 1     4 <dbl [… <dbl [… <dbl [… <dbl … <dbl … <dbl … <dbl … <dbl … <dbl … <dbl …
 #> 2     6 <dbl [… <dbl [… <dbl [… <dbl … <dbl … <dbl … <dbl … <dbl … <dbl … <dbl …
 #> 3     8 <dbl [… <dbl [… <dbl [… <dbl … <dbl … <dbl … <dbl … <dbl … <dbl … <dbl …
@@ -397,9 +423,13 @@ Lists are not atomic since they can contain other lists and other vectors.
 
 ## Making tidy data with broom {#making-tidy-data-with-broom .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+

@@ -5,6 +5,28 @@ editor_options:
 ---
 # Exploratory Data Analysis {#exploratory-data-analysis .r4ds-section}
 
+
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
 ## Introduction {#introduction-3 .r4ds-section}
 
 This will also use data from the **nycflights13** package.
@@ -13,6 +35,7 @@ The **ggbeeswarm**, **lvplot**, and **ggstance** packages provide some additiona
 
 ```r
 library("tidyverse")
+#> Warning: package 'purrr' was built under R version 4.0.5
 library("nycflights13")
 library("ggbeeswarm")
 library("lvplot")
@@ -312,7 +335,7 @@ diamonds %>%
   count(carat)
 #> # A tibble: 2 x 2
 #>   carat     n
-#>   <dbl> <int>
+#> * <dbl> <int>
 #> 1  0.99    23
 #> 2  1     1558
 ```
@@ -330,7 +353,7 @@ diamonds %>%
   print(n = Inf)
 #> # A tibble: 21 x 2
 #>    carat     n
-#>    <dbl> <int>
+#>  * <dbl> <int>
 #>  1  0.9   1485
 #>  2  0.91   570
 #>  3  0.92   226
@@ -899,7 +922,7 @@ flights %>%
   ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
   geom_tile() +
   labs(x = "Month", y = "Destination", fill = "Departure Delay")
-#> `summarise()` regrouping output by 'month' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'month'. You can override using the `.groups` argument.
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
@@ -927,7 +950,7 @@ flights %>%
   ggplot(aes(x = factor(month), y = dest, fill = dep_delay)) +
   geom_tile() +
   labs(x = "Month", y = "Destination", fill = "Departure Delay")
-#> `summarise()` regrouping output by 'month' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'month'. You can override using the `.groups` argument.
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
@@ -1134,30 +1157,42 @@ The later chapter [Model Basics](#model-basics) discusses fitting models to biva
 
 ## Patterns and models {#patterns-and-models .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## ggplot2 calls {#ggplot2-calls .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 ## Learning more {#learning-more .r4ds-section}
 
-<!--html_preserve--><div class="alert alert-warning hints-alert">
+
+```{=html}
+<div class="alert alert-warning hints-alert">
 <div class="hints-icon">
 <i class="fa fa-exclamation-circle"></i>
 </div>
 <div class="hints-container">No exercises</div>
-</div><!--/html_preserve-->
+</div>
+```
+
 
 [^diamonds-prices]: Prices for diamonds rise at key weights, such as 0.8, 0.9, and 1 carat. 
     See <https://www.hpdiamonds.com/en-us/extra/136/education-undercarat.htm>.

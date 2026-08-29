@@ -1,6 +1,28 @@
 # Introduction {#introduction .r4ds-section}
 
 
+```{=html}
+<div class="alert alert-warning">
+<p>
+<strong>This book is superseded.</strong>
+</p>
+<p>
+These are solutions to the 
+<strong>1st edition</strong>
+ of 
+<em>R for Data Science</em>
+. A 
+<a href="https://r4ds.hadley.nz/">2nd edition</a>
+ has since been published, with its own 
+<a href="https://mine-cetinkaya-rundel.github.io/r4ds-solutions/">solutions to the exercises</a>
+.
+</p>
+<p>This site is no longer maintained. It is kept online for reference.</p>
+</div>
+```
+
+
+
 
 ## How this book is organized {-}
 
@@ -30,11 +52,13 @@ devtools::install_github("jrnold/r4ds-exercise-solutions")
 
 ## Bugs/Contributing {-}
 
-If you find any typos, errors in the solutions, have an alternative solution,
-or think the solution could be improved, I would love your contributions.
-The best way to contribute is through GitHub.
-Please open an issue at <https://github.com/jrnold/r4ds-exercise-solutions/issues> or a pull request at
-<https://github.com/jrnold/r4ds-exercise-solutions/pulls>.
+These solutions cover the 1st edition and are no longer maintained, so errors
+in them will not be fixed. The repository is archived: issues and pull requests
+are closed.
+
+If you want to help with solutions to the current edition, contribute to
+[R for Data Science (2e) --- Solutions to Exercises](https://mine-cetinkaya-rundel.github.io/r4ds-solutions/)
+instead, at <https://github.com/mine-cetinkaya-rundel/r4ds-solutions>.
 
 ## Colophon {-}
 
@@ -44,7 +68,7 @@ HTML and PDF versions of this book are available at <https://jrnold.github.io/r4
 The book is powered by [bookdown](https://bookdown.org/home) which makes it easy to turn R markdown files into HTML, PDF, and EPUB.
 
 The source of this book is available on GitHub at <https://github.com/jrnold/r4ds-exercise-solutions>.
-This book was built from commit [f0d0f0d](https://github.com/jrnold/r4ds-exercise-solutions/tree/f0d0f0de3c4e3c14bcb01ea700d45838200b95ad).
+This book was built from commit [675bc75](https://github.com/jrnold/r4ds-exercise-solutions/tree/675bc752abc8ff68e54ed010cfc66b7f23a309bc).
 
 This book was built with these R packages.
 
@@ -52,23 +76,22 @@ This book was built with these R packages.
 devtools::session_info("r4ds.exercise.solutions")
 #> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value                       
-#>  version  R version 4.0.0 (2020-04-24)
-#>  os       Ubuntu 16.04.6 LTS          
+#>  version  R version 4.0.3 (2020-10-10)
+#>  os       Ubuntu 20.04.5 LTS          
 #>  system   x86_64, linux-gnu           
 #>  ui       X11                         
-#>  language en_US.UTF-8                 
+#>  language (EN)                        
 #>  collate  en_US.UTF-8                 
 #>  ctype    en_US.UTF-8                 
-#>  tz       UTC                         
-#>  date     2020-07-19                  
+#>  tz       Etc/UTC                     
+#>  date     2026-08-29                  
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  ! package                 * version date lib source
 #>  R r4ds.exercise.solutions   <NA>    <NA> [?] <NA>  
 #> 
-#> [1] /home/travis/R/Library
-#> [2] /usr/local/lib/R/site-library
-#> [3] /home/travis/R-bin/lib/R/library
+#> [1] /usr/local/lib/R/site-library
+#> [2] /usr/local/lib/R/library
 #> 
 #>  R ── Package was removed from disk.
 ```
