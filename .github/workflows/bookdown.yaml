@@ -1,10 +1,12 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# This book is superseded and no longer maintained. The workflow is kept so the
+# archived site can be rebuilt reproducibly if it ever needs to be.
+#
+# The build runs INSIDE the pinned image defined by ./Dockerfile (R 4.0.3,
+# Posit CRAN snapshot 2021-01-31). It deliberately does not use
+# r-lib/actions/setup-r: no hosted runner still ships Ubuntu focal, and the
+# 2021 snapshot only publishes focal binaries. See
+# docs/superpowers/specs/2026-08-28-deprecate-r4ds-1e-design.md
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
   workflow_dispatch:
 
 name: bookdown
@@ -12,36 +14,49 @@ name: bookdown
 jobs:
   bookdown:
     runs-on: ubuntu-latest
-    # Only restrict concurrency for non-PR jobs
     concurrency:
-      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      group: bookdown-${{ github.ref }}
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
-      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: docker/setup-buildx-action@v3
 
-      - uses: r-lib/actions/setup-r@v2
+      # Runners are amd64, so the pinned image builds natively here -- no
+      # emulation, unlike a local build on Apple Silicon.
+      - name: Build the pinned environment
+        uses: docker/build-push-action@v6
         with:
-          use-public-rspm: true
-
-      - uses: r-lib/actions/setup-renv@v2
+          context: .
+          load: true
+          tags: r4ds-solutions:pinned
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Cache bookdown results
         uses: actions/cache@v4
         with:
           path: _bookdown_files
-          key: bookdown-${{ hashFiles('**/*Rmd') }}
+          key: bookdown-${{ hashFiles('**/*.Rmd') }}
           restore-keys: bookdown-
 
       - name: Build site
-        run: bookdown::render_book("index.Rmd", quiet = TRUE)
-        shell: Rscript {0}
+        run: |
+          docker run --rm \
+            -v "$PWD:/home/rstudio/r4ds-exercise-solutions" \
+            -w /home/rstudio/r4ds-exercise-solutions \
+            r4ds-solutions:pinned \
+            Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")'
 
-      - name: Deploy to GitHub pages 🚀
-        if: github.event_name != 'pull_request'
+      # The container writes as root; hand the tree back to the runner user so
+      # the deploy step can read it.
+      - name: Restore ownership
+        run: sudo chown -R "$(id -u):$(id -g)" _build _bookdown_files
+
+      - name: Deploy to GitHub pages
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: gh-pages
-          folder: _book
+          folder: _build
+          force: false
