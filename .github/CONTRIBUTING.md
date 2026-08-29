@@ -1,34 +1,17 @@
-# Contributing to R4DS Exercise Solutions
+# This project is no longer accepting contributions
 
-This outlines how to propose a change to *R for Data Science Exercise Solutions*.
+*R for Data Science Exercise Solutions* covers the **1st edition** of
+*R for Data Science*. A [2nd edition](https://r4ds.hadley.nz/) has since been
+published, and it has its own
+[solutions to the exercises](https://mine-cetinkaya-rundel.github.io/r4ds-solutions/).
 
-## Fixing typos
+This repository is archived and read-only. Issues and pull requests are closed,
+including typo fixes. Nothing here is going to be merged, so please don't spend
+your time on a patch.
 
-Small typos or grammatical errors in the book may be edited directly using
-the GitHub web interface, so long as the changes are made in the _source_ file.
+If you want to help with solutions to the current edition, contribute to
+[r4ds-solutions](https://github.com/mine-cetinkaya-rundel/r4ds-solutions)
+instead.
 
-## Prerequisites
-
-Before you make a substantial pull request, you should always file an issue and
-make sure someone from the team agrees that it’s a problem. If you’ve found a
-bug, create an associated issue and illustrate the bug with a minimal
-[reprex](https://www.tidyverse.org/help/#reprex).
-
-## Pull request process
-
--   We recommend that you create a Git branch for each pull request (PR).  
-
--   Look at the Travis build status before and after making changes.
-    The `README` should contain badges for any continuous integration services used
-by the package.
-
--   New code should follow the tidyverse [style guide](http://style.tidyverse.org).
-    You can use the [styler](https://CRAN.R-project.org/package=styler) package to
-    apply these styles, but please don't restyle code that has nothing to do with
-    your PR.
-
-## Code of Conduct
-
-Please note that the R4DSSolutions project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this
-project you agree to abide by its terms.
+The site remains online for reference. It is built from a pinned, period-correct
+environment — see the Build section of `README.md` if you want to reproduce it.
