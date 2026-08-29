@@ -1,20 +1,9 @@
-version: '3.2'
 services:
-  nodejs:
-    image: "node:latest"
-    command: "npm test"
-    volumes:
-    - type: bind
-      target: /app
-      source: "."
-    working_dir: /app
-
   r:
     build: "."
+    platform: "linux/amd64"
     volumes:
     - type: bind
       target: /home/rstudio/r4ds-exercise-solutions
       source: "."
-    ports:
-    - "8787:8787"
     working_dir: /home/rstudio/r4ds-exercise-solutions
